@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C# Express 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dune 2 Remade", "Dune 2 Remade\Dune 2 Remade.csproj", "{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dune 2 Remade Map Creator", "Dune 2 Remade Map Creator\Dune 2 Remade Map Creator.csproj", "{0C33EF04-E6A5-4830-BFCE-1840E0894C14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Debug|x86.ActiveCfg = Debug|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Debug|x86.Build.0 = Debug|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Release|Any CPU.ActiveCfg = Release|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Release|Mixed Platforms.Build.0 = Release|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Release|x86.ActiveCfg = Release|x86
+		{6446E1FB-08D2-4DCE-BDA5-8806A3B03183}.Release|x86.Build.0 = Release|x86
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0C33EF04-E6A5-4830-BFCE-1840E0894C14}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
