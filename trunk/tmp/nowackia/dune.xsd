@@ -99,9 +99,10 @@
 			<element name="Picture" type="string" />
 			<element name="Size" type="tns:Size" />
 			<element name="EnergyConsumption" type="int" />
+			<element name="RequiredBuildings" type="tns:BuildingsNames" />
 			<element name="RideableFields" type="tns:RideableFields" />
-			<element name="UnitsCanProduce" type="tns:UnitsCanProduce" />
-			<element name="BuildingsCanProduce" type="tns:BuildingsCanProduce" />
+			<element name="UnitsCanProduce" type="tns:UnitsNames" />
+			<element name="BuildingsCanProduce" type="tns:BuildingsNames" />
 			<!--  For buildings with firing capability -->
 			<element name="Power" type="int"  minOccurs="0" maxOccurs="1" />
 			<element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
@@ -126,12 +127,12 @@
 			<element name="int" type="string" />
 		</sequence>
 	</complexType>
-	<complexType name="UnitsCanProduce">
+	<complexType name="UnitsNames">
 		<sequence maxOccurs="unbounded" minOccurs="0">
 			<element name="name" type="string" />
 		</sequence>
 	</complexType>
-	<complexType name="BuildingsCanProduce">
+	<complexType name="BuildingsNames">
 		<sequence maxOccurs="unbounded" minOccurs="0">
 			<element name="name" type="string" />
 		</sequence>
