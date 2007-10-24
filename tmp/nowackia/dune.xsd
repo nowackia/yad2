@@ -1,184 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.example.org/dune"
-	attributeFormDefault="qualified"
-	xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:tns="http://www.example.org/dune"
-	elementFormDefault="qualified">
-
-	<!-- All speed and time values given in turns -->
-	<complexType name="UnitTrooperData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="FireRange" type="int" />
-			<element name="Speed" type="int" /> 
-			<element name="ReloadTime" type="int" />
-			<element name="AmmoType" type="string" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="Power" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
-		</sequence>
-	</complexType>
-		<complexType name="UnitTankData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="FireRange" type="int" />
-			<element name="Speed" type="int" />
-			<element name="ReloadTime" type="int" />
-			<element name="AmmoType" type="string" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="Power" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="TurretRotationSpeed" type="int" />
-			<element name="TurretTexture" type="string" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitHarvesterData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="Capacity" type="int" />
-			<element name="GatheringSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitMCVData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="BuildingCanProduce" type="string" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
-		</sequence>
-	</complexType>
-		<complexType name="UnitSandwormData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="Power" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="Texture" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="BuildingData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="ReloadTime" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
-			<element name="Size" type="tns:Size" />
-			<element name="EnergyConsumption" type="int" />
-			<element name="RideableFields" type="tns:RideableFields" />
-			<element name="UnitsCanProduce" type="tns:UnitsCanProduce" />
-			<element name="BuildingsCanProduce" type="tns:BuildingsCanProduce" />
-			<!--  For buildings with firing capability -->
-			<element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
-			<element name="Power" type="int"  minOccurs="0" maxOccurs="1" />
-		</sequence>
-	</complexType>
-	<complexType name="Size">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="X" type="int" />
-			<element name="Y" type="int" />
-		</sequence>
-	</complexType>
-	<complexType name="RideableFields">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="int" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitsCanProduce">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="name" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="BuildingsCanProduce">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="name" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitTroopersData">
-		<sequence>
-			<element name="UnitTrooperData" type="tns:UnitTrooperData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitTanksData">
-		<sequence>
-			<element name="UnitTankData" type="tns:UnitTankData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-		<complexType name="UnitHarvestersData">
-		<sequence>
-			<element name="UnitHarvesterData" type="tns:UnitHarvesterData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitHarvestersData">
-		<sequence>
-			<element name="UnitHarvesterData" type="tns:UnitHarvesterData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitMCVsData">
-		<sequence>
-			<element name="UnitMCVData" type="tns:UnitMCVData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitSandwormsData">
-		<sequence>
-			<element name="UnitSandwormData" type="tns:UnitSandwormData" minOccurs="0"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="BuildingsData">
-		<sequence>
-			<element name="BuildingData" type="tns:BuildingData"
-				minOccurs="0" maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<element name="GameSettings" type="tns:GameSettings" />
-	<complexType name="GameSettings">
-		<sequence minOccurs="1" maxOccurs="1">
-			<element name="UnitTroopersData" type="tns:UnitTroopersData" />
-			<element name="UnitTanksData" type="tns:UnitTanksData" />
-			<element name="UnitHarvestersData" type="tns:UnitHarvestersData" />
-			<element name="UnitMCVsData" type="tns:UnitMCVsData" />
-			<element name="UnitSandwormsData" type="tns:UnitSandwormsData" />
-			<element name="BuildingsData" type="tns:BuildingsData" />
-		</sequence>
-	</complexType>
+<schema targetNamespace="http://www.example.org/dune" attributeFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/dune" elementFormDefault="qualified">
+  <!-- All speed and time values given in turns -->
+  <include schemaLocation="">
+  </include>
+  <complexType name="UnitTrooperData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="FireRange" type="int" />
+      <element name="Speed" type="int" />
+      <element name="ReloadTime" type="int" />
+      <element name="AmmoType" type="string" />
+      <element name="Health" type="int" />
+      <element name="ViewRange" type="int" />
+      <element name="Power" type="int" />
+      <element name="BuildSpeed" type="int" />
+      <element name="DamageDestroy" type="int" />
+      <element name="RotationSpeed" type="int" />
+      <element name="Texture" type="string" />
+      <element name="Picture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitTankData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="FireRange" type="int" />
+      <element name="Speed" type="int" />
+      <element name="ReloadTime" type="int" />
+      <element name="AmmoType" type="string" />
+      <element name="Health" type="int" />
+      <element name="ViewRange" type="int" />
+      <element name="Power" type="int" />
+      <element name="BuildSpeed" type="int" />
+      <element name="DamageDestroy" type="int" />
+      <element name="RotationSpeed" type="int" />
+      <element name="TurretRotationSpeed" type="int" />
+      <element name="TurretTexture" type="string" />
+      <element name="Texture" type="string" />
+      <element name="Picture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitHarvesterData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="Speed" type="int" />
+      <element name="Health" type="int" />
+      <element name="ViewRange" type="int" />
+      <element name="BuildSpeed" type="int" />
+      <element name="DamageDestroy" type="int" />
+      <element name="RotationSpeed" type="int" />
+      <element name="Capacity" type="int" />
+      <element name="GatheringSpeed" type="int" />
+      <element name="Texture" type="string" />
+      <element name="Picture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitMCVData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="Speed" type="int" />
+      <element name="Health" type="int" />
+      <element name="ViewRange" type="int" />
+      <element name="BuildSpeed" type="int" />
+      <element name="DamageDestroy" type="int" />
+      <element name="RotationSpeed" type="int" />
+      <element name="BuildingCanProduce" type="string" />
+      <element name="Texture" type="string" />
+      <element name="Picture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitSandwormData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="Speed" type="int" />
+      <element name="Health" type="int" />
+      <element name="Power" type="int" />
+      <element name="DamageDestroy" type="int" />
+      <element name="RotationSpeed" type="int" />
+      <element name="Texture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="BuildingData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Cost" type="int" />
+      <element name="ReloadTime" type="int" />
+      <element name="Health" type="int" />
+      <element name="ViewRange" type="int" />
+      <element name="BuildSpeed" type="int" />
+      <element name="Texture" type="string" />
+      <element name="Picture" type="string" />
+      <element name="Size" type="tns:Size" />
+      <element name="EnergyConsumption" type="int" />
+      <element name="RideableFields" type="tns:RideableFields" />
+      <element name="UnitsCanProduce" type="tns:UnitsCanProduce" />
+      <element name="BuildingsCanProduce" type="tns:BuildingsCanProduce" />
+      <!--  For buildings with firing capability -->
+      <element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
+      <element name="Power" type="int" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="AmmoData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="Name" type="string" />
+      <element name="Speed" type="int" />
+      <element name="Texture" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="Size">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="X" type="int" />
+      <element name="Y" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="RideableFields">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element name="int" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitsCanProduce">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element name="name" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="BuildingsCanProduce">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element name="name" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitTroopersData">
+    <sequence>
+      <element name="UnitTrooperData" type="tns:UnitTrooperData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitTanksData">
+    <sequence>
+      <element name="UnitTankData" type="tns:UnitTankData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitHarvestersData">
+    <sequence>
+      <element name="UnitHarvesterData" type="tns:UnitHarvesterData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitMCVsData">
+    <sequence>
+      <element name="UnitMCVData" type="tns:UnitMCVData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitSandwormsData">
+    <sequence>
+      <element name="UnitSandwormData" type="tns:UnitSandwormData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="BuildingsData">
+    <sequence>
+      <element name="BuildingData" type="tns:BuildingData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="AmmosData">
+    <sequence>
+      <element name="AmmoData" type="tns:AmmoData" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <element name="GameSettings" type="tns:GameSettings" />
+  <complexType name="GameSettings">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element name="UnitTroopersData" type="tns:UnitTroopersData" />
+      <element name="UnitTanksData" type="tns:UnitTanksData" />
+      <element name="UnitHarvestersData" type="tns:UnitHarvestersData" />
+      <element name="UnitMCVsData" type="tns:UnitMCVsData" />
+      <element name="UnitSandwormsData" type="tns:UnitSandwormsData" />
+      <element name="BuildingsData" type="tns:BuildingsData" />
+      <element name="AmmosData" type="tns:AmmosData" />
+    </sequence>
+  </complexType>
 </schema>
