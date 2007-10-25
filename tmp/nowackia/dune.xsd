@@ -5,8 +5,7 @@
 	xmlns:tns="http://www.example.org/dune"
 	elementFormDefault="qualified">
 
-	<!-- All speed and time values given in turns -->
-    <include schemaLocation=""></include>
+	<!-- Main types -->
     <complexType name="UnitTrooperData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="Name" type="string" />
@@ -25,7 +24,7 @@
 			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
-		<complexType name="UnitTankData">
+	<complexType name="UnitTankData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="Name" type="string" />
 			<element name="Cost" type="int" />
@@ -76,10 +75,9 @@
 			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
-		<complexType name="UnitSandwormData">
+	<complexType name="UnitSandwormData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
 			<element name="Speed" type="int" />
 			<element name="Health" type="int" />
 			<element name="Power" type="int" />
@@ -99,12 +97,11 @@
 			<element name="Picture" type="string" />
 			<element name="Size" type="tns:Size" />
 			<element name="EnergyConsumption" type="int" />
-			<element name="RequiredBuildings" type="tns:BuildingsNames" />
-			<element name="RideableFields" type="tns:RideableFields" />
-			<element name="UnitsCanProduce" type="tns:UnitsNames" />
-			<element name="BuildingsCanProduce" type="tns:BuildingsNames" />
+			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
+			<element name="UnitsCanProduce" type="tns:UnitsNames" minOccurs="0" maxOccurs="1" />
+			<element name="BuildingsCanProduce" type="tns:BuildingsNames" minOccurs="0" maxOccurs="1"/>
 			<!--  For buildings with firing capability -->
-			<element name="Power" type="int"  minOccurs="0" maxOccurs="1" />
+			<element name="Power" type="int" minOccurs="0" maxOccurs="1" />
 			<element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
 			<element name="ReloadTime" type="int" minOccurs="0" maxOccurs="1" />
 		</sequence>
@@ -113,30 +110,18 @@
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="Name" type="string" />
 			<element name="Speed" type="int" />
-			<element name="Texture" type="string" />
+			<element name="DamageDestroyRange" type="int" />
+			<element name="Texture" type="string" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
-	<complexType name="Size">
+	<complexType name="RaceData">
 		<sequence maxOccurs="1" minOccurs="1">
-			<element name="X" type="int" />
-			<element name="Y" type="int" />
+			<element name="Name" type="string" />
+			<element name="TechnologyDependences" type="tns:TechnologyDependences" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
-	<complexType name="RideableFields">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="int" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitsNames">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="name" type="string" />
-		</sequence>
-	</complexType>
-	<complexType name="BuildingsNames">
-		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="name" type="string" />
-		</sequence>
-	</complexType>
+		
+	<!-- Main types plural -->
 	<complexType name="UnitTroopersData">
 		<sequence>
 			<element name="UnitTrooperData" type="tns:UnitTrooperData" minOccurs="0"
@@ -179,6 +164,48 @@
 				minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
+	<complexType name="RacesData">
+		<sequence>
+			<element name="RaceData" type="tns:RaceData"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<!-- Auxiliary types -->
+	<complexType name="TechnologyDependences">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="TechnologyDependence" type="tns:TechnologyDependence" />
+		</sequence>
+	</complexType>
+		<complexType name="TechnologyDependence">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="BuildingName" type="string" />
+			<element name="RequiredBuildings" type="tns:BuildingsNames" />
+		</sequence>
+	</complexType>
+	<complexType name="BuildingsNames">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="Name" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="Size">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="X" type="int" />
+			<element name="Y" type="int" />
+		</sequence>
+	</complexType>
+	<complexType name="RideableFields">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="index" type="int" />
+		</sequence>
+	</complexType>
+	<complexType name="UnitsNames">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="name" type="string" />
+		</sequence>
+	</complexType>
+		
+	<!-- Game Settings main type -->
 	<element name="GameSettings" type="tns:GameSettings" />
 	<complexType name="GameSettings">
 		<sequence minOccurs="1" maxOccurs="1">
@@ -187,8 +214,9 @@
 			<element name="UnitHarvestersData" type="tns:UnitHarvestersData" />
 			<element name="UnitMCVsData" type="tns:UnitMCVsData" />
 			<element name="UnitSandwormsData" type="tns:UnitSandwormsData" />
-			<element name="BuildingsData" type="tns:BuildingsData" />
 			<element name="AmmosData" type="tns:AmmosData" />
+			<element name="BuildingsData" type="tns:BuildingsData" />
+			<element name="RacesData" type="tns:RacesData" />
 		</sequence>
 	</complexType>
 </schema>
