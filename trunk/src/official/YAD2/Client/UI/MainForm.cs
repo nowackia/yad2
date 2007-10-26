@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Client
+namespace Client.UI
 {
     public partial class MainForm : Form
     {

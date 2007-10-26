@@ -5,3 +5,4 @@ bin\Debug\Server.exe
 bin\Debug\Server.pdb
 obj\Debug\Server.exe
 obj\Debug\Server.pdb
+obj\Debug\Server.UI.MainForm.resources
