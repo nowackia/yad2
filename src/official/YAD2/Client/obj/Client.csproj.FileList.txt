@@ -5,3 +5,4 @@ obj\Debug\Client.Properties.Resources.resources
 obj\Debug\Client.csproj.GenerateResource.Cache
 obj\Debug\Client.exe
 obj\Debug\Client.pdb
+obj\Debug\Client.UI.MainForm.resources
