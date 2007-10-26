@@ -34,7 +34,7 @@ namespace Client.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.ClientSize = new System.Drawing.Size(592, 473);
             this.Name = "MainForm";
             this.Text = "YAD2 Client";
             this.ResumeLayout(false);
@@ -42,6 +42,8 @@ namespace Client.UI
         }
 
         #endregion
+
+
     }
 }
 
