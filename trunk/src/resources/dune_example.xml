@@ -112,7 +112,7 @@
         <tns:index>3</tns:index>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
-        <tns:name>Infantry</tns:name>
+        <tns:Name>Infantry</tns:Name>
       </tns:UnitsCanProduce>
     </tns:BuildingData>
   </tns:BuildingsData>
