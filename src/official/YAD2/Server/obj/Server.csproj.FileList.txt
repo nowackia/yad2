@@ -1,8 +1,0 @@
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\Server.Properties.Resources.resources
-obj\Debug\Server.csproj.GenerateResource.Cache
-bin\Debug\Server.exe
-bin\Debug\Server.pdb
-obj\Debug\Server.exe
-obj\Debug\Server.pdb
-obj\Debug\Server.UI.MainForm.resources
