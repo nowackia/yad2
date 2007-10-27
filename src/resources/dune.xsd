@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.example.org/dune"
-	attributeFormDefault="qualified"
-	xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:tns="http://www.example.org/dune"
-	elementFormDefault="qualified">
-
+<schema targetNamespace="http://www.example.org/dune" attributeFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/dune" elementFormDefault="qualified">
 	<!-- Main types -->
-    <complexType name="UnitTrooperData">
+	<complexType name="UnitTrooperData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="Name" type="string" />
 			<element name="Cost" type="int" />
 			<element name="FireRange" type="int" />
-			<element name="Speed" type="int" /> 
+			<element name="Speed" type="int" />
 			<element name="ReloadTime" type="int" />
 			<element name="AmmoType" type="string" />
 			<element name="Health" type="int" />
@@ -99,7 +94,7 @@
 			<element name="EnergyConsumption" type="int" />
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
 			<element name="UnitsCanProduce" type="tns:UnitsNames" minOccurs="0" maxOccurs="1" />
-			<element name="BuildingsCanProduce" type="tns:BuildingsNames" minOccurs="0" maxOccurs="1"/>
+			<element name="BuildingsCanProduce" type="tns:BuildingsNames" minOccurs="0" maxOccurs="1" />
 			<!--  For buildings with firing capability -->
 			<element name="Power" type="int" minOccurs="0" maxOccurs="1" />
 			<element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
@@ -120,64 +115,54 @@
 			<element name="TechnologyDependences" type="tns:TechnologyDependences" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
-		
 	<!-- Main types plural -->
 	<complexType name="UnitTroopersData">
 		<sequence>
-			<element name="UnitTrooperData" type="tns:UnitTrooperData" minOccurs="0"
-				maxOccurs="unbounded" />
+			<element name="UnitTrooperData" type="tns:UnitTrooperData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitTanksData">
 		<sequence>
-			<element name="UnitTankData" type="tns:UnitTankData" minOccurs="0"
-				maxOccurs="unbounded" />
+			<element name="UnitTankData" type="tns:UnitTankData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
-		<complexType name="UnitHarvestersData">
+	<complexType name="UnitHarvestersData">
 		<sequence>
-			<element name="UnitHarvesterData" type="tns:UnitHarvesterData" minOccurs="0"
-				maxOccurs="unbounded" />
+			<element name="UnitHarvesterData" type="tns:UnitHarvesterData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitMCVsData">
 		<sequence>
-			<element name="UnitMCVData" type="tns:UnitMCVData" minOccurs="0"
-				maxOccurs="unbounded" />
+			<element name="UnitMCVData" type="tns:UnitMCVData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitSandwormsData">
 		<sequence>
-			<element name="UnitSandwormData" type="tns:UnitSandwormData" minOccurs="0"
-				maxOccurs="unbounded" />
+			<element name="UnitSandwormData" type="tns:UnitSandwormData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="BuildingsData">
 		<sequence>
-			<element name="BuildingData" type="tns:BuildingData"
-				minOccurs="0" maxOccurs="unbounded" />
+			<element name="BuildingData" type="tns:BuildingData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="AmmosData">
 		<sequence>
-			<element name="AmmoData" type="tns:AmmoData"
-				minOccurs="0" maxOccurs="unbounded" />
+			<element name="AmmoData" type="tns:AmmoData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="RacesData">
 		<sequence>
-			<element name="RaceData" type="tns:RaceData"
-				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RaceData" type="tns:RaceData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
-	
 	<!-- Auxiliary types -->
 	<complexType name="TechnologyDependences">
 		<sequence maxOccurs="unbounded" minOccurs="0">
 			<element name="TechnologyDependence" type="tns:TechnologyDependence" />
 		</sequence>
 	</complexType>
-		<complexType name="TechnologyDependence">
+	<complexType name="TechnologyDependence">
 		<sequence maxOccurs="unbounded" minOccurs="0">
 			<element name="BuildingName" type="string" />
 			<element name="RequiredBuildings" type="tns:BuildingsNames" />
@@ -201,10 +186,9 @@
 	</complexType>
 	<complexType name="UnitsNames">
 		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="name" type="string" />
+			<element name="Name" type="string" />
 		</sequence>
 	</complexType>
-		
 	<!-- Game Settings main type -->
 	<element name="GameSettings" type="tns:GameSettings" />
 	<complexType name="GameSettings">
