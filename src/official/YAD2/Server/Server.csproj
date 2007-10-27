@@ -36,6 +36,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Client\Log\InfoLog.cs">
+      <Link>Log\InfoLog.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Log\InfoLogPrefix.cs">
+      <Link>Log\InfoLogPrefix.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Log\MultiStream.cs">
+      <Link>Log\MultiStream.cs</Link>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -48,10 +57,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
