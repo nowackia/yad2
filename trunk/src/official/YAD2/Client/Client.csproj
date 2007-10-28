@@ -67,9 +67,38 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\PictureButton.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UI\MenuForm.cs">
+      <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PictureButton\PictureButton.csproj">
+      <Project>{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}</Project>
+      <Name>PictureButton</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UI_Ball_ENS.png" />
+    <None Include="Resources\UI_Ball_N.png" />
+    <None Include="Resources\UI_Ball_NS.png" />
+    <None Include="Resources\UI_Ball_WES.png" />
+    <None Include="Resources\UI_Line_NS.png" />
+    <None Include="Resources\UI_Ball_E.png" />
+    <None Include="Resources\UI_Ball_W.png" />
+    <None Include="Resources\UI_Line_WE.png" />
+    <None Include="Resources\UI_Background.png" />
+    <None Include="Resources\UI_Down.png" />
+    <None Include="Resources\UI_Down_Pressed.png" />
+    <Content Include="Resources\UI_MessageBox.png" />
+    <None Include="Resources\UI_Up_Pressed.png" />
+    <None Include="Resources\UI_Up.png" />
+    <None Include="Resources\UI_TopMenu_MAIN.png" />
+    <None Include="Resources\UI_TopMenu_E.png" />
+    <None Include="Resources\UI_TopMenu_W.png" />
+    <None Include="Resources\UI_RightBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
