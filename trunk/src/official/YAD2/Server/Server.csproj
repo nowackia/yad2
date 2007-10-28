@@ -45,6 +45,13 @@
     <Compile Include="..\Client\Log\MultiStream.cs">
       <Link>Log\MultiStream.cs</Link>
     </Compile>
+    <Compile Include="Engine\MenuEventHandler.cs" />
+    <Compile Include="Engine\GameEventHandler.cs" />
+    <Compile Include="Engine\GameInfo.cs" />
+    <Compile Include="Engine\GameManager.cs" />
+    <Compile Include="Engine\Player.cs" />
+    <Compile Include="Engine\PlayerInfo.cs" />
+    <Compile Include="Engine\Server.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +79,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{FF6FC7C0-602D-4648-9E83-47BEEF2A981B}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
