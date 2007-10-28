@@ -19,7 +19,7 @@ namespace Client
            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MenuForm("groupBoxOptions"));
 
             InfoLog.WriteEnd();
             InfoLog.Close();
