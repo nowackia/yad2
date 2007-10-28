@@ -36,6 +36,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board\Renderers\AmmoRenderer.cs" />
+    <Compile Include="Board\Renderers\BuildingRenderer.cs" />
+    <Compile Include="Board\Renderers\HarvesterRenderer.cs" />
+    <Compile Include="Board\Renderers\MapRenderer.cs" />
+    <Compile Include="Board\Renderers\MCVRenderer.cs" />
+    <Compile Include="Board\Renderers\SandwormRenderer.cs" />
+    <Compile Include="Board\Renderers\TankRenderer.cs" />
+    <Compile Include="Board\Renderers\TrooperRenderer.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +83,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{FF6FC7C0-602D-4648-9E83-47BEEF2A981B}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PictureButton\PictureButton.csproj">
       <Project>{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}</Project>
       <Name>PictureButton</Name>
