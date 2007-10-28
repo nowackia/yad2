@@ -45,7 +45,6 @@
     <Compile Include="Board\UnitSandworm.cs" />
     <Compile Include="Board\UnitTank.cs" />
     <Compile Include="Board\UnitTrooper.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Board\IRenderable.cs" />
     <Compile Include="Engine\Messaging\MessageHandler.cs" />
     <Compile Include="Message\BuildMessage.cs" />
