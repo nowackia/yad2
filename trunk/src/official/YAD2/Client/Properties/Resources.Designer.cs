@@ -59,5 +59,117 @@ namespace Client.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap UI_Background {
+            get {
+                object obj = ResourceManager.GetObject("UI_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_E {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_E", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_ENS {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_ENS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_N {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_N", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_NS {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_NS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_W {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_W", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ball_WES {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ball_WES", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Down {
+            get {
+                object obj = ResourceManager.GetObject("UI_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Down_Pressed {
+            get {
+                object obj = ResourceManager.GetObject("UI_Down_Pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Line_NS {
+            get {
+                object obj = ResourceManager.GetObject("UI_Line_NS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Line_WE {
+            get {
+                object obj = ResourceManager.GetObject("UI_Line_WE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_TopMenu_E {
+            get {
+                object obj = ResourceManager.GetObject("UI_TopMenu_E", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_TopMenu_MAIN {
+            get {
+                object obj = ResourceManager.GetObject("UI_TopMenu_MAIN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_TopMenu_W {
+            get {
+                object obj = ResourceManager.GetObject("UI_TopMenu_W", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Up {
+            get {
+                object obj = ResourceManager.GetObject("UI_Up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Up_Pressed {
+            get {
+                object obj = ResourceManager.GetObject("UI_Up_Pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
