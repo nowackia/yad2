@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureButton", "PictureButton\PictureButton.csproj", "{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,10 @@ Global
 		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
