@@ -31,8 +31,6 @@ namespace Client.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panelUIMap = new System.Windows.Forms.Panel();
             this.panelTAO = new System.Windows.Forms.Panel();
-            this.pictureButtonDown = new System.Windows.Forms.Extended.PictureButton();
-            this.pictureButtonUp = new System.Windows.Forms.Extended.PictureButton();
             this.panelUITop_E = new System.Windows.Forms.Panel();
             this.panelUITop_W = new System.Windows.Forms.Panel();
             this.panelUIControl = new System.Windows.Forms.Panel();
@@ -46,7 +44,6 @@ namespace Client.UI
             this.panelUILine_WE1 = new System.Windows.Forms.Panel();
             this.panelUILine_WE2 = new System.Windows.Forms.Panel();
             this.panelUILine_NS = new System.Windows.Forms.Panel();
-            this.panelTAO.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelUIMap
@@ -64,36 +61,10 @@ namespace Client.UI
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTAO.BackColor = System.Drawing.Color.Black;
-            this.panelTAO.Controls.Add(this.pictureButtonDown);
-            this.panelTAO.Controls.Add(this.pictureButtonUp);
             this.panelTAO.Location = new System.Drawing.Point(0, 64);
             this.panelTAO.Name = "panelTAO";
             this.panelTAO.Size = new System.Drawing.Size(593, 509);
             this.panelTAO.TabIndex = 11;
-            // 
-            // pictureButtonDown
-            // 
-            this.pictureButtonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureButtonDown.BackgroundImage = global::Client.Properties.Resources.UI_Down;
-            this.pictureButtonDown.Image = null;
-            this.pictureButtonDown.Location = new System.Drawing.Point(539, 490);
-            this.pictureButtonDown.Name = "pictureButtonDown";
-            this.pictureButtonDown.PressedImage = global::Client.Properties.Resources.UI_Down_Pressed;
-            this.pictureButtonDown.Size = new System.Drawing.Size(48, 16);
-            this.pictureButtonDown.TabIndex = 1;
-            this.pictureButtonDown.UseVisualStyleBackColor = true;
-            // 
-            // pictureButtonUp
-            // 
-            this.pictureButtonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureButtonUp.BackgroundImage = global::Client.Properties.Resources.UI_Up;
-            this.pictureButtonUp.Image = null;
-            this.pictureButtonUp.Location = new System.Drawing.Point(539, 6);
-            this.pictureButtonUp.Name = "pictureButtonUp";
-            this.pictureButtonUp.PressedImage = global::Client.Properties.Resources.UI_Up_Pressed;
-            this.pictureButtonUp.Size = new System.Drawing.Size(48, 16);
-            this.pictureButtonUp.TabIndex = 0;
-            this.pictureButtonUp.UseVisualStyleBackColor = true;
             // 
             // panelUITop_E
             // 
@@ -248,7 +219,6 @@ namespace Client.UI
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "YAD2 Client";
-            this.panelTAO.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -270,8 +240,6 @@ namespace Client.UI
         private System.Windows.Forms.Panel panelUILine_WE2;
         private System.Windows.Forms.Panel panelTAO;
         private System.Windows.Forms.Panel panelUITop_E;
-        private System.Windows.Forms.Extended.PictureButton pictureButtonUp;
-        private System.Windows.Forms.Extended.PictureButton pictureButtonDown;
     }
 }
 
