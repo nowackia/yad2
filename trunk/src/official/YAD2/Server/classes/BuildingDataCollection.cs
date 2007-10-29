@@ -5,7 +5,7 @@ using System.Xml.Schema;
 using System.ComponentModel;
 
 
-namespace Server.classes
+namespace Server.Classes
 {
     public struct Declarations
     {
@@ -17,30 +17,30 @@ namespace Server.classes
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class BuildingDataCollection : ArrayList
     {
-        public Server.classes.BuildingData Add(Server.classes.BuildingData obj)
+        public Server.Classes.BuildingData Add(Server.Classes.BuildingData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.BuildingData Add()
+        public Server.Classes.BuildingData Add()
         {
-            return Add(new Server.classes.BuildingData());
+            return Add(new Server.Classes.BuildingData());
         }
 
-        public void Insert(int index, Server.classes.BuildingData obj)
+        public void Insert(int index, Server.Classes.BuildingData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.BuildingData obj)
+        public void Remove(Server.Classes.BuildingData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.BuildingData this[int index]
+        new public Server.Classes.BuildingData this[int index]
         {
-            get { return (Server.classes.BuildingData)base[index]; }
+            get { return (Server.Classes.BuildingData)base[index]; }
             set { base[index] = value; }
         }
     }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "RideableFields", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -52,14 +52,14 @@ namespace Server.classes
 
         [XmlElement(Type = typeof(int), ElementName = "index", IsNullable = false, Form = XmlSchemaForm.Qualified, DataType = "int", Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public indexCollection __indexCollection;
+        public IndexCollection __indexCollection;
 
         [XmlIgnore]
-        public indexCollection indexCollection
+        public IndexCollection indexCollection
         {
             get
             {
-                if (__indexCollection == null) __indexCollection = new indexCollection();
+                if (__indexCollection == null) __indexCollection = new IndexCollection();
                 return __indexCollection;
             }
             set { __indexCollection = value; }

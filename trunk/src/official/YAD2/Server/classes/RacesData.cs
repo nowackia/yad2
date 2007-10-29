@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "RacesData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return RaceDataCollection.GetEnumerator();
         }
 
-        public Server.classes.RaceData Add(Server.classes.RaceData obj)
+        public Server.Classes.RaceData Add(Server.Classes.RaceData obj)
         {
             return RaceDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.RaceData this[int index]
+        public Server.Classes.RaceData this[int index]
         {
-            get { return (Server.classes.RaceData)RaceDataCollection[index]; }
+            get { return (Server.Classes.RaceData)RaceDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             RaceDataCollection.Clear();
         }
 
-        public Server.classes.RaceData Remove(int index)
+        public Server.Classes.RaceData Remove(int index)
         {
-            Server.classes.RaceData obj = RaceDataCollection[index];
+            Server.Classes.RaceData obj = RaceDataCollection[index];
             RaceDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             RaceDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.RaceData), ElementName = "RaceData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.RaceData), ElementName = "RaceData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public RaceDataCollection __RaceDataCollection;
 

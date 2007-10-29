@@ -4,37 +4,36 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-
-namespace Server.classes
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class UnitTrooperDataCollection : ArrayList
     {
-        public Server.classes.UnitTrooperData Add(Server.classes.UnitTrooperData obj)
+        public Server.Classes.UnitTrooperData Add(Server.Classes.UnitTrooperData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.UnitTrooperData Add()
+        public Server.Classes.UnitTrooperData Add()
         {
-            return Add(new Server.classes.UnitTrooperData());
+            return Add(new Server.Classes.UnitTrooperData());
         }
 
-        public void Insert(int index, Server.classes.UnitTrooperData obj)
+        public void Insert(int index, Server.Classes.UnitTrooperData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.UnitTrooperData obj)
+        public void Remove(Server.Classes.UnitTrooperData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.UnitTrooperData this[int index]
+        new public Server.Classes.UnitTrooperData this[int index]
         {
-            get { return (Server.classes.UnitTrooperData)base[index]; }
+            get { return (Server.Classes.UnitTrooperData)base[index]; }
             set { base[index] = value; }
         }
     }

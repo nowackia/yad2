@@ -3,7 +3,8 @@ using System.Xml.Serialization;
 using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
-namespace Server.classes
+
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitTrooperData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]

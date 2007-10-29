@@ -3,7 +3,8 @@ using System.Xml.Serialization;
 using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
-namespace Server.classes
+
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitTroopersData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -15,15 +16,15 @@ namespace Server.classes
             return UnitTrooperDataCollection.GetEnumerator();
         }
 
-        public Server.classes.UnitTrooperData Add(Server.classes.UnitTrooperData obj)
+        public Server.Classes.UnitTrooperData Add(Server.Classes.UnitTrooperData obj)
         {
             return UnitTrooperDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.UnitTrooperData this[int index]
+        public Server.Classes.UnitTrooperData this[int index]
         {
-            get { return (Server.classes.UnitTrooperData)UnitTrooperDataCollection[index]; }
+            get { return (Server.Classes.UnitTrooperData)UnitTrooperDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -37,9 +38,9 @@ namespace Server.classes
             UnitTrooperDataCollection.Clear();
         }
 
-        public Server.classes.UnitTrooperData Remove(int index)
+        public Server.Classes.UnitTrooperData Remove(int index)
         {
-            Server.classes.UnitTrooperData obj = UnitTrooperDataCollection[index];
+            Server.Classes.UnitTrooperData obj = UnitTrooperDataCollection[index];
             UnitTrooperDataCollection.Remove(obj);
             return obj;
         }
@@ -49,7 +50,7 @@ namespace Server.classes
             UnitTrooperDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitTrooperData), ElementName = "UnitTrooperData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitTrooperData), ElementName = "UnitTrooperData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public UnitTrooperDataCollection __UnitTrooperDataCollection;
 

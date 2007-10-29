@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace Server.classes.Exceptions
+namespace Server.Classes.Exceptions
 {
     class XMLLoaderException : XmlException
     {

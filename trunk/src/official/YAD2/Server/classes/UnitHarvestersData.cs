@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitHarvestersData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return UnitHarvesterDataCollection.GetEnumerator();
         }
 
-        public Server.classes.UnitHarvesterData Add(Server.classes.UnitHarvesterData obj)
+        public Server.Classes.UnitHarvesterData Add(Server.Classes.UnitHarvesterData obj)
         {
             return UnitHarvesterDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.UnitHarvesterData this[int index]
+        public Server.Classes.UnitHarvesterData this[int index]
         {
-            get { return (Server.classes.UnitHarvesterData)UnitHarvesterDataCollection[index]; }
+            get { return (Server.Classes.UnitHarvesterData)UnitHarvesterDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             UnitHarvesterDataCollection.Clear();
         }
 
-        public Server.classes.UnitHarvesterData Remove(int index)
+        public Server.Classes.UnitHarvesterData Remove(int index)
         {
-            Server.classes.UnitHarvesterData obj = UnitHarvesterDataCollection[index];
+            Server.Classes.UnitHarvesterData obj = UnitHarvesterDataCollection[index];
             UnitHarvesterDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             UnitHarvesterDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitHarvesterData), ElementName = "UnitHarvesterData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitHarvesterData), ElementName = "UnitHarvesterData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public UnitHarvesterDataCollection __UnitHarvesterDataCollection;
 

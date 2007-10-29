@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "BuildingsData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return BuildingDataCollection.GetEnumerator();
         }
 
-        public Server.classes.BuildingData Add(Server.classes.BuildingData obj)
+        public Server.Classes.BuildingData Add(Server.Classes.BuildingData obj)
         {
             return BuildingDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.BuildingData this[int index]
+        public Server.Classes.BuildingData this[int index]
         {
-            get { return (Server.classes.BuildingData)BuildingDataCollection[index]; }
+            get { return (Server.Classes.BuildingData)BuildingDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             BuildingDataCollection.Clear();
         }
 
-        public Server.classes.BuildingData Remove(int index)
+        public Server.Classes.BuildingData Remove(int index)
         {
-            Server.classes.BuildingData obj = BuildingDataCollection[index];
+            Server.Classes.BuildingData obj = BuildingDataCollection[index];
             BuildingDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             BuildingDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.BuildingData), ElementName = "BuildingData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.BuildingData), ElementName = "BuildingData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public BuildingDataCollection __BuildingDataCollection;
 

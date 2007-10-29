@@ -3,36 +3,37 @@ using System.Xml.Serialization;
 using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
-namespace Server.classes
+
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class UnitMCVDataCollection : ArrayList
     {
-        public Server.classes.UnitMCVData Add(Server.classes.UnitMCVData obj)
+        public Server.Classes.UnitMCVData Add(Server.Classes.UnitMCVData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.UnitMCVData Add()
+        public Server.Classes.UnitMCVData Add()
         {
-            return Add(new Server.classes.UnitMCVData());
+            return Add(new Server.Classes.UnitMCVData());
         }
 
-        public void Insert(int index, Server.classes.UnitMCVData obj)
+        public void Insert(int index, Server.Classes.UnitMCVData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.UnitMCVData obj)
+        public void Remove(Server.Classes.UnitMCVData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.UnitMCVData this[int index]
+        new public Server.Classes.UnitMCVData this[int index]
         {
-            get { return (Server.classes.UnitMCVData)base[index]; }
+            get { return (Server.Classes.UnitMCVData)base[index]; }
             set { base[index] = value; }
         }
     }

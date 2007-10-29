@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "TechnologyDependences", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return TechnologyDependenceCollection.GetEnumerator();
         }
 
-        public Server.classes.TechnologyDependence Add(Server.classes.TechnologyDependence obj)
+        public Server.Classes.TechnologyDependence Add(Server.Classes.TechnologyDependence obj)
         {
             return TechnologyDependenceCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.TechnologyDependence this[int index]
+        public Server.Classes.TechnologyDependence this[int index]
         {
-            get { return (Server.classes.TechnologyDependence)TechnologyDependenceCollection[index]; }
+            get { return (Server.Classes.TechnologyDependence)TechnologyDependenceCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             TechnologyDependenceCollection.Clear();
         }
 
-        public Server.classes.TechnologyDependence Remove(int index)
+        public Server.Classes.TechnologyDependence Remove(int index)
         {
-            Server.classes.TechnologyDependence obj = TechnologyDependenceCollection[index];
+            Server.Classes.TechnologyDependence obj = TechnologyDependenceCollection[index];
             TechnologyDependenceCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             TechnologyDependenceCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.TechnologyDependence), ElementName = "TechnologyDependence", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.TechnologyDependence), ElementName = "TechnologyDependence", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public TechnologyDependenceCollection __TechnologyDependenceCollection;
 

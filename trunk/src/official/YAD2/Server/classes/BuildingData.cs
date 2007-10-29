@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "BuildingData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -104,16 +104,16 @@ namespace Server.classes
             set { __Picture = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.Size), ElementName = "Size", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.Size), ElementName = "Size", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.Size __Size;
+        public Server.Classes.Size __Size;
 
         [XmlIgnore]
-        public Server.classes.Size Size
+        public Server.Classes.Size Size
         {
             get
             {
-                if (__Size == null) __Size = new Server.classes.Size();
+                if (__Size == null) __Size = new Server.Classes.Size();
                 return __Size;
             }
             set { __Size = value; }
@@ -134,46 +134,46 @@ namespace Server.classes
             set { __EnergyConsumption = value; __EnergyConsumptionSpecified = true; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.RideableFields), ElementName = "RideableFields", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.RideableFields), ElementName = "RideableFields", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.RideableFields __RideableFields;
+        public Server.Classes.RideableFields __RideableFields;
 
         [XmlIgnore]
-        public Server.classes.RideableFields RideableFields
+        public Server.Classes.RideableFields RideableFields
         {
             get
             {
-                if (__RideableFields == null) __RideableFields = new Server.classes.RideableFields();
+                if (__RideableFields == null) __RideableFields = new Server.Classes.RideableFields();
                 return __RideableFields;
             }
             set { __RideableFields = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitsNames), ElementName = "UnitsCanProduce", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitsNames), ElementName = "UnitsCanProduce", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitsNames __UnitsCanProduce;
+        public Server.Classes.UnitsNames __UnitsCanProduce;
 
         [XmlIgnore]
-        public Server.classes.UnitsNames UnitsCanProduce
+        public Server.Classes.UnitsNames UnitsCanProduce
         {
             get
             {
-                if (__UnitsCanProduce == null) __UnitsCanProduce = new Server.classes.UnitsNames();
+                if (__UnitsCanProduce == null) __UnitsCanProduce = new Server.Classes.UnitsNames();
                 return __UnitsCanProduce;
             }
             set { __UnitsCanProduce = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.BuildingsNames), ElementName = "BuildingsCanProduce", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.BuildingsNames), ElementName = "BuildingsCanProduce", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.BuildingsNames __BuildingsCanProduce;
+        public Server.Classes.BuildingsNames __BuildingsCanProduce;
 
         [XmlIgnore]
-        public Server.classes.BuildingsNames BuildingsCanProduce
+        public Server.Classes.BuildingsNames BuildingsCanProduce
         {
             get
             {
-                if (__BuildingsCanProduce == null) __BuildingsCanProduce = new Server.classes.BuildingsNames();
+                if (__BuildingsCanProduce == null) __BuildingsCanProduce = new Server.Classes.BuildingsNames();
                 return __BuildingsCanProduce;
             }
             set { __BuildingsCanProduce = value; }

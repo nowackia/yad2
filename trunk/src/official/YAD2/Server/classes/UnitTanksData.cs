@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitTanksData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return UnitTankDataCollection.GetEnumerator();
         }
 
-        public Server.classes.UnitTankData Add(Server.classes.UnitTankData obj)
+        public Server.Classes.UnitTankData Add(Server.Classes.UnitTankData obj)
         {
             return UnitTankDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.UnitTankData this[int index]
+        public Server.Classes.UnitTankData this[int index]
         {
-            get { return (Server.classes.UnitTankData)UnitTankDataCollection[index]; }
+            get { return (Server.Classes.UnitTankData)UnitTankDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             UnitTankDataCollection.Clear();
         }
 
-        public Server.classes.UnitTankData Remove(int index)
+        public Server.Classes.UnitTankData Remove(int index)
         {
-            Server.classes.UnitTankData obj = UnitTankDataCollection[index];
+            Server.Classes.UnitTankData obj = UnitTankDataCollection[index];
             UnitTankDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             UnitTankDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitTankData), ElementName = "UnitTankData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitTankData), ElementName = "UnitTankData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public UnitTankDataCollection __UnitTankDataCollection;
 
