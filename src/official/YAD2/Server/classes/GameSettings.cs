@@ -4,128 +4,128 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlRoot(ElementName = "GameSettings", Namespace = Declarations.SchemaVersion, IsNullable = false), Serializable]
     [XmlType(TypeName = "GameSettings", Namespace = Declarations.SchemaVersion)]
     public class GameSettings
     {
 
-        [XmlElement(Type = typeof(Server.classes.UnitTroopersData), ElementName = "UnitTroopersData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitTroopersData), ElementName = "UnitTroopersData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitTroopersData __UnitTroopersData;
+        public Server.Classes.UnitTroopersData __UnitTroopersData;
 
         [XmlIgnore]
-        public Server.classes.UnitTroopersData UnitTroopersData
+        public Server.Classes.UnitTroopersData UnitTroopersData
         {
             get
             {
-                if (__UnitTroopersData == null) __UnitTroopersData = new Server.classes.UnitTroopersData();
+                if (__UnitTroopersData == null) __UnitTroopersData = new Server.Classes.UnitTroopersData();
                 return __UnitTroopersData;
             }
             set { __UnitTroopersData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitTanksData), ElementName = "UnitTanksData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitTanksData), ElementName = "UnitTanksData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitTanksData __UnitTanksData;
+        public Server.Classes.UnitTanksData __UnitTanksData;
 
         [XmlIgnore]
-        public Server.classes.UnitTanksData UnitTanksData
+        public Server.Classes.UnitTanksData UnitTanksData
         {
             get
             {
-                if (__UnitTanksData == null) __UnitTanksData = new Server.classes.UnitTanksData();
+                if (__UnitTanksData == null) __UnitTanksData = new Server.Classes.UnitTanksData();
                 return __UnitTanksData;
             }
             set { __UnitTanksData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitHarvestersData), ElementName = "UnitHarvestersData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitHarvestersData), ElementName = "UnitHarvestersData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitHarvestersData __UnitHarvestersData;
+        public Server.Classes.UnitHarvestersData __UnitHarvestersData;
 
         [XmlIgnore]
-        public Server.classes.UnitHarvestersData UnitHarvestersData
+        public Server.Classes.UnitHarvestersData UnitHarvestersData
         {
             get
             {
-                if (__UnitHarvestersData == null) __UnitHarvestersData = new Server.classes.UnitHarvestersData();
+                if (__UnitHarvestersData == null) __UnitHarvestersData = new Server.Classes.UnitHarvestersData();
                 return __UnitHarvestersData;
             }
             set { __UnitHarvestersData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitMCVsData), ElementName = "UnitMCVsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitMCVsData), ElementName = "UnitMCVsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitMCVsData __UnitMCVsData;
+        public Server.Classes.UnitMCVsData __UnitMCVsData;
 
         [XmlIgnore]
-        public Server.classes.UnitMCVsData UnitMCVsData
+        public Server.Classes.UnitMCVsData UnitMCVsData
         {
             get
             {
-                if (__UnitMCVsData == null) __UnitMCVsData = new Server.classes.UnitMCVsData();
+                if (__UnitMCVsData == null) __UnitMCVsData = new Server.Classes.UnitMCVsData();
                 return __UnitMCVsData;
             }
             set { __UnitMCVsData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitSandwormsData), ElementName = "UnitSandwormsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitSandwormsData), ElementName = "UnitSandwormsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.UnitSandwormsData __UnitSandwormsData;
+        public Server.Classes.UnitSandwormsData __UnitSandwormsData;
 
         [XmlIgnore]
-        public Server.classes.UnitSandwormsData UnitSandwormsData
+        public Server.Classes.UnitSandwormsData UnitSandwormsData
         {
             get
             {
-                if (__UnitSandwormsData == null) __UnitSandwormsData = new Server.classes.UnitSandwormsData();
+                if (__UnitSandwormsData == null) __UnitSandwormsData = new Server.Classes.UnitSandwormsData();
                 return __UnitSandwormsData;
             }
             set { __UnitSandwormsData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.AmmosData), ElementName = "AmmosData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.AmmosData), ElementName = "AmmosData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.AmmosData __AmmosData;
+        public Server.Classes.AmmosData __AmmosData;
 
         [XmlIgnore]
-        public Server.classes.AmmosData AmmosData
+        public Server.Classes.AmmosData AmmosData
         {
             get
             {
-                if (__AmmosData == null) __AmmosData = new Server.classes.AmmosData();
+                if (__AmmosData == null) __AmmosData = new Server.Classes.AmmosData();
                 return __AmmosData;
             }
             set { __AmmosData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.BuildingsData), ElementName = "BuildingsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.BuildingsData), ElementName = "BuildingsData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.BuildingsData __BuildingsData;
+        public Server.Classes.BuildingsData __BuildingsData;
 
         [XmlIgnore]
-        public Server.classes.BuildingsData BuildingsData
+        public Server.Classes.BuildingsData BuildingsData
         {
             get
             {
-                if (__BuildingsData == null) __BuildingsData = new Server.classes.BuildingsData();
+                if (__BuildingsData == null) __BuildingsData = new Server.Classes.BuildingsData();
                 return __BuildingsData;
             }
             set { __BuildingsData = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.RacesData), ElementName = "RacesData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.RacesData), ElementName = "RacesData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.RacesData __RacesData;
+        public Server.Classes.RacesData __RacesData;
 
         [XmlIgnore]
-        public Server.classes.RacesData RacesData
+        public Server.Classes.RacesData RacesData
         {
             get
             {
-                if (__RacesData == null) __RacesData = new Server.classes.RacesData();
+                if (__RacesData == null) __RacesData = new Server.Classes.RacesData();
                 return __RacesData;
             }
             set { __RacesData = value; }

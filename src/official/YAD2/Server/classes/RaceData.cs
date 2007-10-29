@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "RaceData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -22,16 +22,16 @@ namespace Server.classes
             set { __Name = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.TechnologyDependences), ElementName = "TechnologyDependences", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.TechnologyDependences), ElementName = "TechnologyDependences", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Server.classes.TechnologyDependences __TechnologyDependences;
+        public Server.Classes.TechnologyDependences __TechnologyDependences;
 
         [XmlIgnore]
-        public Server.classes.TechnologyDependences TechnologyDependences
+        public Server.Classes.TechnologyDependences TechnologyDependences
         {
             get
             {
-                if (__TechnologyDependences == null) __TechnologyDependences = new Server.classes.TechnologyDependences();
+                if (__TechnologyDependences == null) __TechnologyDependences = new Server.Classes.TechnologyDependences();
                 return __TechnologyDependences;
             }
             set { __TechnologyDependences = value; }

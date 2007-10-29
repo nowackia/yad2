@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "AmmosData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return AmmoDataCollection.GetEnumerator();
         }
 
-        public Server.classes.AmmoData Add(Server.classes.AmmoData obj)
+        public Server.Classes.AmmoData Add(Server.Classes.AmmoData obj)
         {
             return AmmoDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.AmmoData this[int index]
+        public Server.Classes.AmmoData this[int index]
         {
-            get { return (Server.classes.AmmoData)AmmoDataCollection[index]; }
+            get { return (Server.Classes.AmmoData)AmmoDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             AmmoDataCollection.Clear();
         }
 
-        public Server.classes.AmmoData Remove(int index)
+        public Server.Classes.AmmoData Remove(int index)
         {
-            Server.classes.AmmoData obj = AmmoDataCollection[index];
+            Server.Classes.AmmoData obj = AmmoDataCollection[index];
             AmmoDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             AmmoDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.AmmoData), ElementName = "AmmoData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.AmmoData), ElementName = "AmmoData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public AmmoDataCollection __AmmoDataCollection;
 

@@ -4,36 +4,36 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class AmmoDataCollection : ArrayList
     {
-        public Server.classes.AmmoData Add(Server.classes.AmmoData obj)
+        public Server.Classes.AmmoData Add(Server.Classes.AmmoData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.AmmoData Add()
+        public Server.Classes.AmmoData Add()
         {
-            return Add(new Server.classes.AmmoData());
+            return Add(new Server.Classes.AmmoData());
         }
 
-        public void Insert(int index, Server.classes.AmmoData obj)
+        public void Insert(int index, Server.Classes.AmmoData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.AmmoData obj)
+        public void Remove(Server.Classes.AmmoData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.AmmoData this[int index]
+        new public Server.Classes.AmmoData this[int index]
         {
-            get { return (Server.classes.AmmoData)base[index]; }
+            get { return (Server.Classes.AmmoData)base[index]; }
             set { base[index] = value; }
         }
     }

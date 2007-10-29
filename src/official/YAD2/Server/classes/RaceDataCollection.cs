@@ -4,36 +4,36 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class RaceDataCollection : ArrayList
     {
-        public Server.classes.RaceData Add(Server.classes.RaceData obj)
+        public Server.Classes.RaceData Add(Server.Classes.RaceData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.RaceData Add()
+        public Server.Classes.RaceData Add()
         {
-            return Add(new Server.classes.RaceData());
+            return Add(new Server.Classes.RaceData());
         }
 
-        public void Insert(int index, Server.classes.RaceData obj)
+        public void Insert(int index, Server.Classes.RaceData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.RaceData obj)
+        public void Remove(Server.Classes.RaceData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.RaceData this[int index]
+        new public Server.Classes.RaceData this[int index]
         {
-            get { return (Server.classes.RaceData)base[index]; }
+            get { return (Server.Classes.RaceData)base[index]; }
             set { base[index] = value; }
         }
     }

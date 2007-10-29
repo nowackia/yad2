@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Server.classes.Exceptions;
+using Server.Classes.Exceptions;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 
-namespace Server.classes.XMLLoader
+namespace Server.Classes.XMLLoader
 {
     class XMLLoader
     {

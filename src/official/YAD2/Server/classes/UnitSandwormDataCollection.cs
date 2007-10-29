@@ -4,36 +4,36 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class UnitSandwormDataCollection : ArrayList
     {
-        public Server.classes.UnitSandwormData Add(Server.classes.UnitSandwormData obj)
+        public Server.Classes.UnitSandwormData Add(Server.Classes.UnitSandwormData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.UnitSandwormData Add()
+        public Server.Classes.UnitSandwormData Add()
         {
-            return Add(new Server.classes.UnitSandwormData());
+            return Add(new Server.Classes.UnitSandwormData());
         }
 
-        public void Insert(int index, Server.classes.UnitSandwormData obj)
+        public void Insert(int index, Server.Classes.UnitSandwormData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.UnitSandwormData obj)
+        public void Remove(Server.Classes.UnitSandwormData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.UnitSandwormData this[int index]
+        new public Server.Classes.UnitSandwormData this[int index]
         {
-            get { return (Server.classes.UnitSandwormData)base[index]; }
+            get { return (Server.Classes.UnitSandwormData)base[index]; }
             set { base[index] = value; }
         }
     }

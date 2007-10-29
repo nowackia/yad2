@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "TechnologyDependence", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -26,7 +26,7 @@ namespace Server.classes
             set { __BuildingNameCollection = value; }
         }
 
-        [XmlElement(Type = typeof(Server.classes.BuildingsNames), ElementName = "RequiredBuildings", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.BuildingsNames), ElementName = "RequiredBuildings", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public BuildingsNamesCollection __RequiredBuildingsCollection;
 

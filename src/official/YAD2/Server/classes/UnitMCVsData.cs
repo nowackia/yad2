@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitMCVsData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return UnitMCVDataCollection.GetEnumerator();
         }
 
-        public Server.classes.UnitMCVData Add(Server.classes.UnitMCVData obj)
+        public Server.Classes.UnitMCVData Add(Server.Classes.UnitMCVData obj)
         {
             return UnitMCVDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.UnitMCVData this[int index]
+        public Server.Classes.UnitMCVData this[int index]
         {
-            get { return (Server.classes.UnitMCVData)UnitMCVDataCollection[index]; }
+            get { return (Server.Classes.UnitMCVData)UnitMCVDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             UnitMCVDataCollection.Clear();
         }
 
-        public Server.classes.UnitMCVData Remove(int index)
+        public Server.Classes.UnitMCVData Remove(int index)
         {
-            Server.classes.UnitMCVData obj = UnitMCVDataCollection[index];
+            Server.Classes.UnitMCVData obj = UnitMCVDataCollection[index];
             UnitMCVDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             UnitMCVDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitMCVData), ElementName = "UnitMCVData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitMCVData), ElementName = "UnitMCVData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public UnitMCVDataCollection __UnitMCVDataCollection;
 

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [XmlType(TypeName = "UnitSandwormsData", Namespace = Declarations.SchemaVersion), Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -16,15 +16,15 @@ namespace Server.classes
             return UnitSandwormDataCollection.GetEnumerator();
         }
 
-        public Server.classes.UnitSandwormData Add(Server.classes.UnitSandwormData obj)
+        public Server.Classes.UnitSandwormData Add(Server.Classes.UnitSandwormData obj)
         {
             return UnitSandwormDataCollection.Add(obj);
         }
 
         [XmlIgnore]
-        public Server.classes.UnitSandwormData this[int index]
+        public Server.Classes.UnitSandwormData this[int index]
         {
-            get { return (Server.classes.UnitSandwormData)UnitSandwormDataCollection[index]; }
+            get { return (Server.Classes.UnitSandwormData)UnitSandwormDataCollection[index]; }
         }
 
         [XmlIgnore]
@@ -38,9 +38,9 @@ namespace Server.classes
             UnitSandwormDataCollection.Clear();
         }
 
-        public Server.classes.UnitSandwormData Remove(int index)
+        public Server.Classes.UnitSandwormData Remove(int index)
         {
-            Server.classes.UnitSandwormData obj = UnitSandwormDataCollection[index];
+            Server.Classes.UnitSandwormData obj = UnitSandwormDataCollection[index];
             UnitSandwormDataCollection.Remove(obj);
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Server.classes
             UnitSandwormDataCollection.Remove(obj);
         }
 
-        [XmlElement(Type = typeof(Server.classes.UnitSandwormData), ElementName = "UnitSandwormData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
+        [XmlElement(Type = typeof(Server.Classes.UnitSandwormData), ElementName = "UnitSandwormData", IsNullable = false, Form = XmlSchemaForm.Qualified, Namespace = Declarations.SchemaVersion)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public UnitSandwormDataCollection __UnitSandwormDataCollection;
 

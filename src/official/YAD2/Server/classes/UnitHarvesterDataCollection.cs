@@ -4,36 +4,36 @@ using System.Collections;
 using System.Xml.Schema;
 using System.ComponentModel;
 
-namespace Server.classes
+namespace Server.Classes
 {
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class UnitHarvesterDataCollection : ArrayList
     {
-        public Server.classes.UnitHarvesterData Add(Server.classes.UnitHarvesterData obj)
+        public Server.Classes.UnitHarvesterData Add(Server.Classes.UnitHarvesterData obj)
         {
             base.Add(obj);
             return obj;
         }
 
-        public Server.classes.UnitHarvesterData Add()
+        public Server.Classes.UnitHarvesterData Add()
         {
-            return Add(new Server.classes.UnitHarvesterData());
+            return Add(new Server.Classes.UnitHarvesterData());
         }
 
-        public void Insert(int index, Server.classes.UnitHarvesterData obj)
+        public void Insert(int index, Server.Classes.UnitHarvesterData obj)
         {
             base.Insert(index, obj);
         }
 
-        public void Remove(Server.classes.UnitHarvesterData obj)
+        public void Remove(Server.Classes.UnitHarvesterData obj)
         {
             base.Remove(obj);
         }
 
-        new public Server.classes.UnitHarvesterData this[int index]
+        new public Server.Classes.UnitHarvesterData this[int index]
         {
-            get { return (Server.classes.UnitHarvesterData)base[index]; }
+            get { return (Server.Classes.UnitHarvesterData)base[index]; }
             set { base[index] = value; }
         }
     }
