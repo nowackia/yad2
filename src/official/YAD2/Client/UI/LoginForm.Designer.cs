@@ -1,6 +1,6 @@
 namespace Client.UI
 {
-    partial class MenuForm
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,23 +30,23 @@ namespace Client.UI
         {
             this.SuspendLayout();
             // 
-            // MenuForm
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 275);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "MenuForm";
+            this.Name = "LoginForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MenuForm";
+            this.Text = "LoginForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
     }
 }
