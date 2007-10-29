@@ -36,14 +36,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board\Renderers\AmmoRenderer.cs" />
-    <Compile Include="Board\Renderers\BuildingRenderer.cs" />
-    <Compile Include="Board\Renderers\HarvesterRenderer.cs" />
-    <Compile Include="Board\Renderers\MapRenderer.cs" />
-    <Compile Include="Board\Renderers\MCVRenderer.cs" />
-    <Compile Include="Board\Renderers\SandwormRenderer.cs" />
-    <Compile Include="Board\Renderers\TankRenderer.cs" />
-    <Compile Include="Board\Renderers\TrooperRenderer.cs" />
+    <Compile Include="Board\AmmoType.cs" />
+    <Compile Include="Board\Animation.cs" />
+    <Compile Include="Board\BoardObject.cs" />
+    <Compile Include="Board\Building.cs" />
+    <Compile Include="Board\IRenderable.cs" />
+    <Compile Include="Board\Map.cs" />
+    <Compile Include="Board\TileType.cs" />
+    <Compile Include="Board\Unit.cs" />
+    <Compile Include="Board\UnitHarvester.cs" />
+    <Compile Include="Board\UnitMCV.cs" />
+    <Compile Include="Board\UnitSandworm.cs" />
+    <Compile Include="Board\UnitTank.cs" />
+    <Compile Include="Board\UnitTrooper.cs" />
+    <Compile Include="Engine\Messaging\MessageHandler.cs" />
+    <Compile Include="Log\InfoLog.cs" />
+    <Compile Include="Log\InfoLogPrefix.cs" />
+    <Compile Include="Log\MultiStream.cs" />
+    <Compile Include="Message\AttackMessage.cs" />
+    <Compile Include="Message\BuildMessage.cs" />
+    <Compile Include="Message\ControlMessage.cs" />
+    <Compile Include="Message\CreateUnitMessage.cs" />
+    <Compile Include="Message\DestroyMessage.cs" />
+    <Compile Include="Message\GameInitMessage.cs" />
+    <Compile Include="Message\GameMessage.cs" />
+    <Compile Include="Message\HarvestMessage.cs" />
+    <Compile Include="Message\Message.cs" />
+    <Compile Include="Message\MessageType.cs" />
+    <Compile Include="Message\MoveMessage.cs" />
+    <Compile Include="Message\NumericMessage.cs" />
+    <Compile Include="Message\TextMessage.cs" />
+    <Compile Include="UI\ChatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChatForm.designer.cs">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChooseGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChooseGameForm.designer.cs">
+      <DependentUpon>ChooseGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,9 +97,25 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChatForm.resx">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChooseGameForm.resx">
+      <DependentUpon>ChooseGameForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -83,16 +139,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{FF6FC7C0-602D-4648-9E83-47BEEF2A981B}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PictureButton\PictureButton.csproj">
-      <Project>{DC8C7B53-73FE-41BE-BEB3-88C8707A29B5}</Project>
-      <Name>PictureButton</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />
     <None Include="Resources\UI_Ball_NS.png" />
@@ -104,13 +150,11 @@
     <None Include="Resources\UI_Background.png" />
     <None Include="Resources\UI_Down.png" />
     <None Include="Resources\UI_Down_Pressed.png" />
-    <Content Include="Resources\UI_MessageBox.png" />
     <None Include="Resources\UI_Up_Pressed.png" />
     <None Include="Resources\UI_Up.png" />
     <None Include="Resources\UI_TopMenu_MAIN.png" />
     <None Include="Resources\UI_TopMenu_E.png" />
     <None Include="Resources\UI_TopMenu_W.png" />
-    <None Include="Resources\UI_RightBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
