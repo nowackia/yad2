@@ -11,7 +11,8 @@ namespace Client.Board.Renderers
 
         public void Render(BoardObject boardObject)
         {
-            Map map = (Map)boardObject;
+            //TODO
+            Map map = new Map();//(Map)boardObject;
             /* 1) renderowanie tile */
 
 
