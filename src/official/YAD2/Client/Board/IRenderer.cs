@@ -2,16 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common.Board
+namespace Client.Board
 {
     /// <summary>
     /// Interface for rendering in TAO.
     /// </summary>
-    public interface IRenderable
+    public interface IRenderer
     {
         /// <summary>
         /// render method
         /// </summary>
-        void Render();
+        void Render(BoardObject boardObject);
     }
+
+
+
 }

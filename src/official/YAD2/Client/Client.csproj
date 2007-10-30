@@ -44,8 +44,18 @@
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />
     <Compile Include="Board\Building.cs" />
-    <Compile Include="Board\IRenderable.cs" />
+    <Compile Include="Board\IRenderer.cs" />
     <Compile Include="Board\Map.cs" />
+    <Compile Include="Board\Renderers\AmmoRenderer.cs" />
+    <Compile Include="Board\Renderers\BuildingRenderer.cs" />
+    <Compile Include="Board\Renderers\HarvesterRenderer.cs" />
+    <Compile Include="Board\Renderers\MapRenderer.cs" />
+    <Compile Include="Board\Renderers\MCVRenderer.cs" />
+    <Compile Include="Board\Renderers\MiniMapRenderer.cs" />
+    <Compile Include="Board\Renderers\RendererPool.cs" />
+    <Compile Include="Board\Renderers\SandwormRenderer.cs" />
+    <Compile Include="Board\Renderers\TankRenderer.cs" />
+    <Compile Include="Board\Renderers\TropperRenderer.cs" />
     <Compile Include="Board\TileType.cs" />
     <Compile Include="Board\Unit.cs" />
     <Compile Include="Board\UnitHarvester.cs" />
@@ -54,6 +64,7 @@
     <Compile Include="Board\UnitTank.cs" />
     <Compile Include="Board\UnitTrooper.cs" />
     <Compile Include="Engine\Messaging\MessageHandler.cs" />
+    <Compile Include="Engine\Simulation.cs" />
     <Compile Include="Log\InfoLog.cs" />
     <Compile Include="Log\InfoLogPrefix.cs" />
     <Compile Include="Log\MultiStream.cs" />
