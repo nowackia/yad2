@@ -1,0 +1,5 @@
+____________________________________________
+Start aplikacji Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-10-30 22:49:45   #MNU: MainForm starts
+Koniec aplikacji
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
