@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common.Board
+namespace Client.Board
 {
     /// <summary>
     /// base class for all units. must implement ai.

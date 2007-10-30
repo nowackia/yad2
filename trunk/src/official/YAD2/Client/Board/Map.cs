@@ -2,30 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common.Board
+namespace Client.Board
 {
-    class Map:IRenderable
+    class Map
     {
         TileType[,] tiles;
+        bool[,] fogOfWar;
         LinkedList<Building> buildings;
         LinkedList<Unit> units;
-        IRenderable renderer;
+        public LinkedList<Building> Buildings
+        {
+            get { return buildings; }
+        }
 
+        public LinkedList<Unit> Units
+        {
+            get { return units; }
+        }
         public Map()
         {
             buildings = new LinkedList<Building>();
             units = new LinkedList<Unit>();
         }
-        #region IRenderable Members
-
-        public void Render()
-        {
-            if (renderer != null)
-            {
-                renderer.Render();
-            }
-        }
-
-        #endregion
+        
     }
 }
