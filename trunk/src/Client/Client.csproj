@@ -30,7 +30,7 @@
   <ItemGroup>
     <Reference Include="PictureButton, Version=1.0.2858.39135, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>obj\Debug\PictureButton.dll</HintPath>
+      <HintPath>..\..\tmp\nowackia\PictureButton\PictureButton\bin\Debug\PictureButton.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -8,7 +8,7 @@ namespace Client.Board.Renderers
     {
         #region IRenderable Members
 
-        public static void Render(BoardObject boardObject)
+        public void Render(BoardObject boardObject)
         {
             throw new Exception("The method or operation is not implemented.");
         }
