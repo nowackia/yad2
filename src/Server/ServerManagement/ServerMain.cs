@@ -10,38 +10,48 @@ namespace Server.ServerManagement
 {
     class ServerMain
     {
-        public void Stop()
-        {
-            _worker.CancelAsync();
-        }
+        #region Pola prywatne
 
-        BackgroundWorker _worker = new BackgroundWorker();
+        private BackgroundWorker _worker = null;
+
+        #endregion
+
+        #region Konstruktory
+
         public ServerMain()
         {
+            _worker = new BackgroundWorker();
             _worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             _worker.WorkerSupportsCancellation = true;
             _worker.RunWorkerAsync();
         }
 
-        void worker_DoWork(object sender, DoWorkEventArgs e)
+        #endregion
+
+        #region Metody publiczne
+
+        public void Stop()
         {
+            _worker.CancelAsync();
+        }
+
+        #endregion
+
+        #region Metody prywatne
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            InfoLog.WriteInfo("Pocz¹tek pêtli serwera...", EPrefix.Initialization);
             while (!_worker.CancellationPending)
-            {
-                Thread.Sleep(2000);
-                InfoLog.Write("Raz");
-            }
+                ServerProcess();
             e.Cancel = true;
         }
 
-        
-        public bool Process()
+        private void ServerProcess()
         {
-            while (!_worker.CancellationPending)
-            {
-                //Thread.Sleep(2000);
-                InfoLog.Write("Raz");
-            }
-            return true;
+            Thread.Sleep(1000);
         }
+
+        #endregion
     }
 }
