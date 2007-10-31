@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Client.Log
 {
     public delegate void OnWriteLineDelegate(string s);
-    class MultiStream : IDisposable
+    public class MultiStream : IDisposable
     {
         StreamWriter _writer = null;
         OnWriteLineDelegate _onWriteLine = null;
@@ -19,7 +20,18 @@ namespace Client.Log
         
         public MultiStream(string filepath)
         {
-            _writer = new StreamWriter(filepath, true);
+            try
+            {
+                _writer = new StreamWriter(filepath, true);
+            }
+            catch (IOException ioexception)
+            {
+                MessageBox.Show("Nie mo¿na otworzyæ pliku ErrorLog.txt!");
+            }
+        }
+
+        public MultiStream()
+        {
         }
 
         public void WriteLine(string s)

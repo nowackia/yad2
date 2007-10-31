@@ -59,5 +59,12 @@ namespace Server.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Icon tray {
+            get {
+                object obj = ResourceManager.GetObject("tray", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

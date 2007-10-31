@@ -8,24 +8,47 @@ namespace Client.Log
 {
     public class InfoLog
     {
-        private const string ERROR_LOG_FILENAME = "ErrorLog.txt";
+        #region Pola prywatne 
+
+        /// <summary>
+        /// Nazwa pliku logu
+        /// </summary>
+        public const string ErrorLogFilename = "ErrorLog.txt";
+
         /// <summary>
         /// Procent maksymalnej dlugosci loga, jaki pozostanie bo redukcji jego dlugosci
         /// </summary>
-        private const double CUT_PERCENT = 0.75;
+        private const double cutPercent = 0.75;
+
         /// <summary>
         /// Pakiet danych transportowany przy przesuwaniu pliku w metodzie
         /// TruncFileBeginnig
         /// </summary>
-        private const int DATA_PACK_SIZE = 8096;
+        private const int dataPackSize = 8096;
+
         /// <summary>
-        /// Maksymalna wielkoœæ pliku
+        /// Maksymalna wielkosc pliku
         /// </summary>
-        private const long MAX_FILESIZE = 10485760L;
+        private const long maxFilesize = 10485760L;
+
+        /// <summary>
+        /// Singleton logu
+        /// </summary>
         private static InfoLog _infoLog = null;
+
+        /// <summary>
+        /// Strumien do zapisu
+        /// </summary>
         private static MultiStream _writer = null;
+
+        /// <summary>
+        /// Zarzadzanie prefiksami
+        /// </summary>
         private static InfoLogPrefix _infoLogPrefix = null;
 
+        #endregion
+
+        #region Konstruktory
 
         private InfoLog(MultiStream writer)
         {
@@ -33,7 +56,13 @@ namespace Client.Log
             _infoLogPrefix = new InfoLogPrefix();
         }
 
+        #endregion
 
+        #region Atrybuty
+
+        /// <summary>
+        /// Instancja inflogu
+        /// </summary>
         public static InfoLog Instance
         {
             get
@@ -47,50 +76,54 @@ namespace Client.Log
             }
         }
 
+        #endregion 
+
+        #region Metody prywatne
+
         private static MultiStream GetWriter()
         {
             MultiStream writer = null;
-            writer = new MultiStream(ERROR_LOG_FILENAME);
+            writer = new MultiStream(ErrorLogFilename);
             return writer;
         }
 
-        private void write(string s)
+        private void WriteIns(string s)
         {
             _writer.WriteLine(s);
         }
 
-        private void writeSingleException(Exception ex)
+        private void WriteSingleExceptionIns(Exception ex)
         {
             _writer.WriteLine("Message: " + (ex.Message == null ? "null" : ex.Message));
             _writer.WriteLine("Stack:");
             _writer.WriteLine(ex.StackTrace == null ? "null" : ex.StackTrace);
         }
 
-        private void writeException(Exception ex)
+        private void WriteExceptionIns(Exception ex)
         {
             _writer.WriteLine("-- WYJATEK ---" + DateTime.Now.ToString() + "--------------");
-            writeSingleException(ex);
+            WriteSingleExceptionIns(ex);
             if (ex.InnerException != null)
             {
                 _writer.WriteLine("---- InnerException: " + ex.InnerException.ToString());
-                writeSingleException(ex.InnerException);
+                WriteSingleExceptionIns(ex.InnerException);
             }
             _writer.WriteLine("------------------------------------------------------------");
         }
 
-        private void writeError(string s)
+        private void WriteErrorIns(string s)
         {
             _writer.WriteLine("-- BLAD ---" + DateTime.Now.ToString() + "-----------------");
             _writer.WriteLine("Message: " + s);
             _writer.WriteLine("------------------------------------------------------------");
         }
 
-        private void writeInfo(string s)
+        private void WriteInfoIns(string s)
         {
             _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
         }
 
-        private void writeInfo(string s, EPrefix prefix)
+        private void WriteInfoIns(string s, EPrefix prefix)
         {
             if (!_infoLogPrefix.isFiltred(prefix))
             {
@@ -99,82 +132,24 @@ namespace Client.Log
             }
         }
 
-        public static void WriteStart()
-        {
-            InfoLog.Write("____________________________________________");
-            InfoLog.Write("Start aplikacji " + 
-                Assembly.GetExecutingAssembly().GetName().ToString() + " : " 
-                + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-        }
-
-        public static OnWriteLineDelegate OnWriteLine
-        {
-            get
-            {
-                return _writer.OnWriteLine;
-            }
-            set
-            {
-                _writer.OnWriteLine = value;
-            }
-        }
-        public static void WriteEnd()
-        {
-            InfoLog.Write("Koniec aplikacji");
-            InfoLog.Write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        }
-        public static void Write(string s)
-        {
-            Instance.write(s);
-        }
-        public static void WriteException(Exception ex)
-        {
-            Instance.writeException(ex);
-        }
-
-        public static void WriteError(string s)
-        {
-            Instance.writeError(s);
-        }
-
-        public static void WriteInfo(string s, EPrefix prefix)
-        {
-            Instance.writeInfo(s, prefix);
-        }
-
-        public static void WriteInfo(string s)
-        {
-            Instance.writeInfo(s);
-        }
-
-        public static void Close()
-        {
-            Instance.close();
-        }
-        #region Czynnosci finalizacyjne
-
-        public void close()
+        private void CloseIns()
         {
             _writer.Close();
-            truncFileBeginning();
+            TruncFileBeginning();
         }
 
-        #endregion
-
-        #region Operacje na pliku
-
-        private static void truncFileBeginning()
+        private static void TruncFileBeginning()
         {
             FileStream fs = null;
             try
             {
-                fs = new FileStream(ERROR_LOG_FILENAME, FileMode.Open);
+                fs = new FileStream(ErrorLogFilename, FileMode.Open);
             }
             catch (Exception)
             {
                 return;
             }
-            if (fs.Length <= MAX_FILESIZE)
+            if (fs.Length <= maxFilesize)
             {
                 try
                 {
@@ -185,27 +160,27 @@ namespace Client.Log
                 }
                 return;
             }
-            int cut_filesize = (int)(MAX_FILESIZE * CUT_PERCENT);
+            int cut_filesize = (int)(maxFilesize * cutPercent);
             int toCut = (int)(fs.Length - cut_filesize);
-            int times = cut_filesize / DATA_PACK_SIZE;
-            int rest = cut_filesize % DATA_PACK_SIZE;
+            int times = cut_filesize / dataPackSize;
+            int rest = cut_filesize % dataPackSize;
             int position = toCut;
-            byte[] data = new byte[DATA_PACK_SIZE];
+            byte[] data = new byte[dataPackSize];
             int i = 0;
             try
             {
-                for (i = 0; i < times; ++i, position += DATA_PACK_SIZE)
+                for (i = 0; i < times; ++i, position += dataPackSize)
                 {
                     fs.Seek(position, SeekOrigin.Begin);
-                    fs.Read(data, 0, DATA_PACK_SIZE);
-                    fs.Seek(i * DATA_PACK_SIZE, SeekOrigin.Begin);
-                    fs.Write(data, 0, DATA_PACK_SIZE);
+                    fs.Read(data, 0, dataPackSize);
+                    fs.Seek(i * dataPackSize, SeekOrigin.Begin);
+                    fs.Write(data, 0, dataPackSize);
                 }
                 if (rest > 0)
                 {
                     fs.Seek(position, SeekOrigin.Begin);
                     fs.Read(data, 0, rest);
-                    fs.Seek(i * DATA_PACK_SIZE, SeekOrigin.Begin);
+                    fs.Seek(i * dataPackSize, SeekOrigin.Begin);
                     fs.Write(data, 0, rest);
                 }
             }
@@ -224,6 +199,84 @@ namespace Client.Log
                 }
             }
         }
-    }
+
+        #endregion
+
+        #region Metody publiczne 
+
+        public OnWriteLineDelegate OnWriteLine
+        {
+            get 
+            {
+                if (_writer != null)
+                    return _writer.OnWriteLine;
+                return null;
+            }
+            set 
+            { 
+                if (_writer != null)
+                    _writer.OnWriteLine = value; 
+            }
+
+        }
+
+        public static void WriteStart()
+        {
+            InfoLog.Write("____________________________________________");
+            InfoLog.Write("Start aplikacji " + 
+                Assembly.GetExecutingAssembly().GetName().ToString() + " : " 
+                + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        }
+
+        /*public static OnWriteLineDelegate OnWriteLine
+        {
+            get
+            {
+                return _writer.OnWriteLine;
+            }
+            set
+            {
+                _writer.OnWriteLine = value;
+            }
+        }*/
+
+        public static void WriteEnd()
+        {
+            InfoLog.Write("Koniec aplikacji");
+            InfoLog.Write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        }
+
+        public static void Write(string s)
+        {
+            Instance.WriteIns(s);
+        }
+
+        public static void WriteException(Exception ex)
+        {
+            Instance.WriteExceptionIns(ex);
+        }
+
+        public static void WriteError(string s)
+        {
+            Instance.WriteErrorIns(s);
+        }
+
+        public static void WriteInfo(string s, EPrefix prefix)
+        {
+            Instance.WriteInfoIns(s, prefix);
+        }
+
+        public static void WriteInfo(string s)
+        {
+            Instance.WriteInfoIns(s);
+        }
+
+        public static void Close()
+        {
+            Instance.CloseIns();
+        }
+
         #endregion 
+
+    } 
 }
