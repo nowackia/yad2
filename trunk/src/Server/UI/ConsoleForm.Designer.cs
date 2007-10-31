@@ -55,23 +55,24 @@ namespace Server.UI
             this.toolStripMenuItem1,
             this.endServerToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(146, 54);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 76);
             // 
             // hideConsoleToolStripMenuItem
             // 
             this.hideConsoleToolStripMenuItem.Name = "hideConsoleToolStripMenuItem";
-            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hideConsoleToolStripMenuItem.Text = "Hide Console";
+            this.hideConsoleToolStripMenuItem.Click += new System.EventHandler(this.hideConsoleToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // endServerToolStripMenuItem
             // 
             this.endServerToolStripMenuItem.Name = "endServerToolStripMenuItem";
-            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.endServerToolStripMenuItem.Text = "End Server";
             this.endServerToolStripMenuItem.Click += new System.EventHandler(this.endServerToolStripMenuItem_Click);
             // 
@@ -110,6 +111,7 @@ namespace Server.UI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ConsoleForm";
             this.Text = "Console";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleForm_FormClosing);
             this.Load += new System.EventHandler(this.ConsoleForm_Load);
             this.contextMenuStrip.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
