@@ -26,8 +26,8 @@ namespace Client.UI {
 
 			GameGraphics gg = GameGraphics.GetInstance();
 			//First: set appropriate properties
-			gg.SetMapSize(32, 32); //TODO: change
-
+			gg.SetMapSize(16, 16); //TODO: change
+			gg.SetViewSize(openGLView.Width, openGLView.Height);
 			gg.InitGL();
 			gg.InitTextures();
 
@@ -44,7 +44,7 @@ namespace Client.UI {
 
 		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
 			GameGraphics gg = GameGraphics.GetInstance();
-			gg.Zoom(e.Delta);
+			gg.Zoom(e.Delta / 120);
 		}
 
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {
@@ -83,13 +83,23 @@ namespace Client.UI {
 			GameGraphics gg = GameGraphics.GetInstance();
 
 			if (scrolling) {
-				gg.TranslateX(e.X - mousePos.X);
-				gg.TranslateY(e.Y - mousePos.Y);
+				int dx = e.X - mousePos.X;
+				int dy = e.Y - mousePos.Y;
+
+				InfoLog.WriteInfo("Translating: " + dx + " " + dy , EPrefix.GameGraphics);
+
+				gg.TranslateX(dx);
+				gg.TranslateY(dy);
 
 				mousePos = e.Location;
 			} else if (rotating) {
-				gg.RotateX(((float)(e.Y - mousePos.Y)) * 0.1f);
-				gg.RotateY(((float)(e.X - mousePos.X)) * 0.1f);
+				int dx = e.X - mousePos.X;
+				int dy = e.Y - mousePos.Y;
+
+				InfoLog.WriteInfo("Rotating: " + dx + " " + dy, EPrefix.GameGraphics);
+
+				gg.RotateX(dy * 0.1f);
+				gg.RotateY(dx * 0.1f);
 
 				mousePos = e.Location;
 			}
@@ -101,6 +111,8 @@ namespace Client.UI {
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
+			Console.Out.WriteLine("Resizing...");
+
 			GameGraphics gg = GameGraphics.GetInstance();
 			gg.SetViewSize(openGLView.Width, openGLView.Height);
 		}

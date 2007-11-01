@@ -7,6 +7,7 @@ using Tao.OpenGl;
 using Tao.Platform.Windows;
 using System.IO;
 using Client.Properties;
+using Client.Log;
 
 namespace Client.Engine.GameGraphics {
 	class GameGraphics {
@@ -58,8 +59,8 @@ namespace Client.Engine.GameGraphics {
 		/// </summary>
 		VertexData vertexData = new VertexData();
 
-		public GameGraphics() {
-			this.InitGL();
+		private GameGraphics() {
+			//this.InitGL();
 		}
 
 		public void InitGL() {
@@ -75,6 +76,8 @@ namespace Client.Engine.GameGraphics {
 			UpdateViewport();
 
 			lookAtAngleY = lookAtAngleX = 0;
+			offsetX = - mapWidth / 2 + 0.5f;
+			offsetY = - mapHeight / 2 + 0.5f;
 
 			vertexData.vertex[2] = 0.0f;
 			vertexData.vertex[5] = 0.0f;
@@ -156,11 +159,13 @@ namespace Client.Engine.GameGraphics {
 
 		public void Zoom(int zoomDiff) {
 			zoom += zoomStep * zoomDiff;
-			if (zoom < 0)
+			if (zoom <= zoomStep)
 				zoom = zoomStep;
 
 			this.mapZoomedWidth = 1.0f + (float)(mapWidth - 1) * zoom;
 			this.mapZoomedHeight = 1.0f + (float)(mapHeight - 1) * zoom;
+
+			InfoLog.WriteInfo("Zooming: " + zoom + " " + mapZoomedWidth + " " + mapZoomedHeight, EPrefix.GameGraphics); 
 
 			Notify();
 		}
@@ -185,7 +190,7 @@ namespace Client.Engine.GameGraphics {
 			Gl.glRotated(lookAtAngleY, 0.0d, 1.0d, 0.0d);
 
 			Gl.glColor4f(1, 1, 1, 1);
-
+			DrawElement(0, 0, 1, offsetX, offsetY, mapWidth, mapHeight, 0.0f);
 			/*
 			// Draw map first
 			for (int x = 0; x < map.Width; x++) {
@@ -262,6 +267,8 @@ namespace Client.Engine.GameGraphics {
 		}
 
 		public void SetMapSize(int width, int height) {
+			Console.Out.WriteLine("Setting map size");
+
 			this.mapWidth = width;
 			this.mapHeight = height;
 
