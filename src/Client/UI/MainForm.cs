@@ -26,7 +26,7 @@ namespace Client.UI {
 
 			GameGraphics gg = GameGraphics.GetInstance();
 			//First: set appropriate properties
-			gg.SetMapSize(16, 16); //TODO: change
+			gg.SetMapSize(32, 16); //TODO: change
 			gg.SetViewSize(openGLView.Width, openGLView.Height);
 			gg.InitGL();
 			gg.InitTextures();
