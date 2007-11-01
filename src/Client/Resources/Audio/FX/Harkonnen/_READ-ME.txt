@@ -1,0 +1,1 @@
+Nie u¿ywaæ bezpoœrednio! Bêd¹ wczytywane z dynamicznie z pliku konfiguracyjnego.
