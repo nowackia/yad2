@@ -40,6 +40,9 @@ namespace Client.Log
                 _onWriteLine(s);
             _writer.WriteLine(s);
             _writer.Flush();
+
+			//KŒ:
+			Console.Out.WriteLine(s);
         }
 
         public void Close()
