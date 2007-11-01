@@ -106,7 +106,7 @@ namespace Client.Engine.GameGraphics {
 			// getID, getTexturePath, create32btexture
 
 			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-			Bitmap map = new Bitmap(100, 100);
+			Bitmap map = new Bitmap(128, 128, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(map);
 			g.Clear(Color.Yellow);
 			g.FillRectangle(Brushes.Green, 10, 10, 80, 40);
@@ -135,13 +135,15 @@ namespace Client.Engine.GameGraphics {
 		}
 
 		private void Create32bTexture(int id, Bitmap bitmap) {
+            int width = bitmap.Width;
+            int height = bitmap.Height;
 			Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
 			BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, id);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);//_MIPMAP_NEAREST);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, bitmap.Width, bitmap.Height, 0, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
+			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, width, height, 0, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 			//Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, 4, bitmap.Width, bitmap.Height, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 
 			bitmap.UnlockBits(bitmapData);

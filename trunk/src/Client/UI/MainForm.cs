@@ -88,8 +88,8 @@ namespace Client.UI {
 
 				InfoLog.WriteInfo("Translating: " + dx + " " + dy , EPrefix.GameGraphics);
 
-				gg.TranslateX(dx);
-				gg.TranslateY(dy);
+				gg.TranslateX(dx * 0.2f);
+				gg.TranslateY(dy * 0.2f);
 
 				mousePos = e.Location;
 			} else if (rotating) {
