@@ -14,7 +14,4 @@ namespace Client.Board
         /// </summary>
         void Render(BoardObject boardObject);
     }
-
-
-
 }
