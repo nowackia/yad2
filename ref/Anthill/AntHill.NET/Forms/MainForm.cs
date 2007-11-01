@@ -220,8 +220,9 @@ namespace AntHill.NET
 
             float magnitude = ((float)magnitudeBar.Value) / ((float)magnitudeBar.Maximum);
             float x = 1.0f + (float)(Simulation.simulation.Map.Width - 1) * magnitude;
-            float y = 1.0f + (float)(Simulation.simulation.Map.Height - 1) * magnitude;            
+            float y = 1.0f + (float)(Simulation.simulation.Map.Height - 1) * magnitude;
 
+			Console.Out.WriteLine(x + " " + y);
             ReSizeGLScene(x, y, recalculateViewport);
         }
 
