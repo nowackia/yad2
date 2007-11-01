@@ -38,24 +38,26 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tao.OpenGl, Version=2.1.0.4, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL" />
+    <Reference Include="Tao.Platform.Windows, Version=1.0.0.4, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board\AmmoType.cs" />
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />
     <Compile Include="Board\Building.cs" />
-    <Compile Include="Board\IRenderer.cs" />
+    <Compile Include="Engine\Graphics\IRenderer.cs" />
     <Compile Include="Board\Map.cs" />
-    <Compile Include="Board\Renderers\AmmoRenderer.cs" />
-    <Compile Include="Board\Renderers\BuildingRenderer.cs" />
-    <Compile Include="Board\Renderers\HarvesterRenderer.cs" />
-    <Compile Include="Board\Renderers\MapRenderer.cs" />
-    <Compile Include="Board\Renderers\MCVRenderer.cs" />
-    <Compile Include="Board\Renderers\MiniMapRenderer.cs" />
-    <Compile Include="Board\Renderers\RendererPool.cs" />
-    <Compile Include="Board\Renderers\SandwormRenderer.cs" />
-    <Compile Include="Board\Renderers\TankRenderer.cs" />
-    <Compile Include="Board\Renderers\TropperRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\AmmoRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\BuildingRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\HarvesterRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\MapRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\MCVRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\MiniMapRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\RendererPool.cs" />
+    <Compile Include="Engine\Graphics\Renderers\SandwormRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\TankRenderer.cs" />
+    <Compile Include="Engine\Graphics\Renderers\TrooperRenderer.cs" />
     <Compile Include="Board\TileType.cs" />
     <Compile Include="Board\Unit.cs" />
     <Compile Include="Board\UnitHarvester.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Board\UnitSandworm.cs" />
     <Compile Include="Board\UnitTank.cs" />
     <Compile Include="Board\UnitTrooper.cs" />
+    <Compile Include="Engine\Graphics\Graphics.cs" />
     <Compile Include="Engine\Messaging\MessageHandler.cs" />
     <Compile Include="Engine\Simulation.cs" />
     <Compile Include="Log\InfoLog.cs" />
@@ -170,6 +173,10 @@
     <None Include="Resources\UI_TopMenu_MAIN.png" />
     <None Include="Resources\UI_TopMenu_E.png" />
     <None Include="Resources\UI_TopMenu_W.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TaoFramework\Tao.OpenGl.dll" />
+    <Content Include="TaoFramework\Tao.Platform.Windows.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
