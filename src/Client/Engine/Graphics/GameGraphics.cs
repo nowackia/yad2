@@ -106,10 +106,12 @@ namespace Client.Engine.GameGraphics {
 			// getID, getTexturePath, create32btexture
 
 			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-			Bitmap map = new Bitmap(128, 128, PixelFormat.Format32bppArgb);
+			Bitmap map = new Bitmap(32*64, 32*32, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(map);
 			g.Clear(Color.Yellow);
-			g.FillRectangle(Brushes.Green, 10, 10, 80, 40);
+			g.FillRectangle(Brushes.Green, 0, 0, 32, 32);
+            g.FillRectangle(Brushes.Blue, 128, 128, 32, 32);
+            g.FillRectangle(Brushes.Red, 256 + 64, 128 + 96, 32, 32);
 			g.Dispose();
 			Create32bTexture(1, map);
 		}
@@ -150,11 +152,13 @@ namespace Client.Engine.GameGraphics {
 		}
 
 		private void UpdateViewport() {
+            //float m = (float)viewHeight / (float)viewWidth;
+            //float n = (float)mapWidth / (float)mapHeight;
 			Gl.glViewport(0, 0, this.viewWidth, this.viewHeight);
 			Gl.glMatrixMode(Gl.GL_PROJECTION);                                  // Select The Projection Matrix
 			Gl.glLoadIdentity();                                                // Reset The Projection Matrix
-			//Gl.glOrtho(-(0.5f * width), (0.5f * width), (0.5f * height), -(0.5f * height), -100, 100);
-			Glu.gluPerspective(60.0f, this.viewWidth / this.viewHeight, 1.0f, 10000.0f);
+			Gl.glOrtho(-(0.5f * mapWidth), (0.5f * mapWidth), (0.5f * mapHeight), -(0.5f * mapHeight), -100, 100);
+			//Glu.gluPerspective(60.0f, 1.0f, 1.0f, 10000.0f);
 			Gl.glMatrixMode(Gl.GL_MODELVIEW);                                   // Select The Modelview Matrix
 			Gl.glLoadIdentity();                                                // Reset The Modelview Matrix            
 		}
