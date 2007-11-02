@@ -45,6 +45,57 @@
     <Compile Include="..\Client\Log\MultiStream.cs">
       <Link>Log\MultiStream.cs</Link>
     </Compile>
+    <Compile Include="..\Client\MessageManagment\AttackMessage.cs">
+      <Link>MessageManagement\AttackMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\BuildMessage.cs">
+      <Link>MessageManagement\BuildMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\ControlMessage.cs">
+      <Link>MessageManagement\ControlMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\CreateUnitMessage.cs">
+      <Link>MessageManagement\CreateUnitMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\DestroyMessage.cs">
+      <Link>MessageManagement\DestroyMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\GameInitMessage.cs">
+      <Link>MessageManagement\GameInitMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\GameMessage.cs">
+      <Link>MessageManagement\GameMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\HarvestMessage.cs">
+      <Link>MessageManagement\HarvestMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\Message.cs">
+      <Link>MessageManagement\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\MessageFactory.cs">
+      <Link>MessageManagement\MessageFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\MessageType.cs">
+      <Link>MessageManagement\MessageType.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\MoveMessage.cs">
+      <Link>MessageManagement\MoveMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\NumericMessage.cs">
+      <Link>MessageManagement\NumericMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\MessageManagment\TextMessage.cs">
+      <Link>MessageManagement\TextMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\ConsumerSync.cs">
+      <Link>ServerManagement\ConsumerSync.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\IMessageHandler.cs">
+      <Link>MessageManagement\IMessageHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\MessageProccessor.cs">
+      <Link>ServerManagement\MessageProccessor.cs</Link>
+    </Compile>
     <Compile Include="Classes\AmmoData.cs" />
     <Compile Include="Classes\AmmoDataCollection.cs" />
     <Compile Include="Classes\AmmosData.cs" />
@@ -83,6 +134,8 @@
     <Compile Include="Classes\UnitTrooperDataCollection.cs" />
     <Compile Include="Classes\UnitTroopersData.cs" />
     <Compile Include="Classes\XMLLoader\XMLLoader.cs" />
+    <Compile Include="ServerManagement\Player.cs" />
+    <Compile Include="ServerManagement\Server.cs" />
     <Compile Include="ServerManagement\ServerMain.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>

@@ -41,10 +41,11 @@ namespace Server.ServerManagement
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            InfoLog.WriteInfo("Pocz¹tek pêtli serwera...", EPrefix.Initialization);
+            InfoLog.WriteInfo("Server loop starts...", EPrefix.Initialization);
             while (!_worker.CancellationPending)
                 ServerProcess();
             e.Cancel = true;
+            InfoLog.WriteInfo("Server loop ends...", EPrefix.Finalization);
         }
 
         private void ServerProcess()
