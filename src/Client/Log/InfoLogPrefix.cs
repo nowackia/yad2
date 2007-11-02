@@ -15,10 +15,7 @@ namespace Client.Log
         /// </summary>
         Menu,
 		GameGraphics,
-        /// <summary>
-        /// Wartosc kontrolna - musi byc zawsze na koncu
-        /// </summary>
-        _NUMBER_PREFIXES
+        //_NUMBER_PREFIXES
     };
 
 
@@ -28,7 +25,8 @@ namespace Client.Log
         bool[] _filters = null;
         public InfoLogPrefix()
         {
-            _filters = new bool[(int)EPrefix._NUMBER_PREFIXES];
+            //_filters = new bool[(int)EPrefix._NUMBER_PREFIXES];
+            _filters = new bool[(int)Enum.GetValues(typeof(EPrefix)).Length];
             for (int i = 0; i < _filters.Length; ++i)
                 _filters[i] = false;
         }
@@ -54,7 +52,7 @@ namespace Client.Log
                 _filters[i] = true;
         }
 
-        public bool isFiltred(EPrefix prefix)
+        public bool IsFiltred(EPrefix prefix)
         {
             return _filters[(int)prefix];
         }
