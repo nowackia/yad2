@@ -36,6 +36,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Client\Engine\Simulation.cs">
+      <Link>Engine\Simulation.cs</Link>
+    </Compile>
     <Compile Include="..\Client\Log\InfoLog.cs">
       <Link>Log\InfoLog.cs</Link>
     </Compile>
@@ -134,6 +137,7 @@
     <Compile Include="Classes\UnitTrooperDataCollection.cs" />
     <Compile Include="Classes\UnitTroopersData.cs" />
     <Compile Include="Classes\XMLLoader\XMLLoader.cs" />
+    <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="ServerManagement\Player.cs" />
     <Compile Include="ServerManagement\Server.cs" />
     <Compile Include="ServerManagement\ServerMain.cs" />

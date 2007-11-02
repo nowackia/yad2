@@ -63,6 +63,7 @@
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />
     <Compile Include="Board\Building.cs" />
+    <Compile Include="Engine\ClientSimulation.cs" />
     <Compile Include="Engine\Graphics\IRenderer.cs" />
     <Compile Include="Board\Map.cs" />
     <Compile Include="Engine\Graphics\Renderers\AmmoRenderer.cs" />
