@@ -4,11 +4,9 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 
-namespace Client.Log
-{
-    public class InfoLog
-    {
-        #region Pola prywatne 
+namespace Client.Log {
+    public class InfoLog {
+        #region Pola prywatne
 
         /// <summary>
         /// Nazwa pliku logu
@@ -50,8 +48,7 @@ namespace Client.Log
 
         #region Konstruktory
 
-        private InfoLog(MultiStream writer)
-        {
+        private InfoLog(MultiStream writer) {
             _writer = writer;
             _infoLogPrefix = new InfoLogPrefix();
         }
@@ -63,12 +60,9 @@ namespace Client.Log
         /// <summary>
         /// Instancja inflogu
         /// </summary>
-        public static InfoLog Instance
-        {
-            get
-            {
-                if (null == _infoLog)
-                {
+        public static InfoLog Instance {
+            get {
+                if (null == _infoLog) {
                     _infoLog = new InfoLog(GetWriter());
                     return _infoLog;
                 }
@@ -76,87 +70,71 @@ namespace Client.Log
             }
         }
 
-        #endregion 
+        #endregion
 
         #region Metody prywatne
 
-        private static MultiStream GetWriter()
-        {
+        private static MultiStream GetWriter() {
             MultiStream writer = null;
             writer = new MultiStream(ErrorLogFilename);
             return writer;
         }
 
-        private void WriteIns(string s)
-        {
+        private void WriteIns(string s) {
             _writer.WriteLine(s);
         }
 
-        private void WriteSingleExceptionIns(Exception ex)
-        {
+        private void WriteSingleExceptionIns(Exception ex) {
             _writer.WriteLine("Message: " + (ex.Message == null ? "null" : ex.Message));
-            _writer.WriteLine("Stack: ");
+            _writer.WriteLine("Stack:");
             _writer.WriteLine(ex.StackTrace == null ? "null" : ex.StackTrace);
         }
 
-        private void WriteExceptionIns(Exception ex)
-        {
-            _writer.WriteLine("-- EXCEPTION ---" + DateTime.Now.ToString() + "--------------");
+        private void WriteExceptionIns(Exception ex) {
+            _writer.WriteLine("-- WYJATEK ---" + DateTime.Now.ToString() + "--------------");
             WriteSingleExceptionIns(ex);
-            if (ex.InnerException != null)
-            {
+            if (ex.InnerException != null) {
                 _writer.WriteLine("---- InnerException: " + ex.InnerException.ToString());
                 WriteSingleExceptionIns(ex.InnerException);
             }
             _writer.WriteLine("------------------------------------------------------------");
         }
 
-        private void WriteErrorIns(string s)
-        {
-            _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
+        private void WriteErrorIns(string s) {
+            _writer.WriteLine("-- BLAD ---" + DateTime.Now.ToString() + "-----------------");
             _writer.WriteLine("Message: " + s);
             _writer.WriteLine("------------------------------------------------------------");
         }
 
-        private void WriteInfoIns(string s)
-        {
+        private void WriteInfoIns(string s) {
             _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
         }
 
-        private void WriteInfoIns(string s, EPrefix prefix)
-        {
-            if (!_infoLogPrefix.IsFiltred(prefix))
-            {
+        private void WriteInfoIns(string s, EPrefix prefix) {
+            if (!_infoLogPrefix.isFiltred(prefix)) {
                 s = _infoLogPrefix.AddFilterString(s, prefix);
                 _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
             }
         }
 
-        private void CloseIns()
-        {
+        private void CloseIns() {
             _writer.Close();
             TruncFileBeginning();
         }
 
-        private static void TruncFileBeginning()
-        {
+        private static void TruncFileBeginning() {
             FileStream fs = null;
-            try
-            {
+            try {
                 fs = new FileStream(ErrorLogFilename, FileMode.Open);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return;
             }
-            if (fs.Length <= maxFilesize)
-            {
-                try
-                {
+            if (fs.Length <= maxFilesize) {
+                try {
                     fs.Close();
                 }
-                catch (Exception)
-                {
+                catch (Exception) {
                 }
                 return;
             }
@@ -167,64 +145,53 @@ namespace Client.Log
             int position = toCut;
             byte[] data = new byte[dataPackSize];
             int i = 0;
-            try
-            {
-                for (i = 0; i < times; ++i, position += dataPackSize)
-                {
+            try {
+                for (i = 0; i < times; ++i, position += dataPackSize) {
                     fs.Seek(position, SeekOrigin.Begin);
                     fs.Read(data, 0, dataPackSize);
                     fs.Seek(i * dataPackSize, SeekOrigin.Begin);
                     fs.Write(data, 0, dataPackSize);
                 }
-                if (rest > 0)
-                {
+                if (rest > 0) {
                     fs.Seek(position, SeekOrigin.Begin);
                     fs.Read(data, 0, rest);
                     fs.Seek(i * dataPackSize, SeekOrigin.Begin);
                     fs.Write(data, 0, rest);
                 }
             }
-            catch (Exception)
-            {
+            catch (Exception) {
             }
-            finally
-            {
-                try
-                {
+            finally {
+                try {
                     fs.SetLength(cut_filesize);
                     fs.Close();
                 }
-                catch (Exception)
-                {
+                catch (Exception) {
                 }
             }
         }
 
         #endregion
 
-        #region Metody publiczne 
+        #region Metody publiczne
 
-        public OnWriteLineDelegate OnWriteLine
-        {
-            get 
-            {
+        public OnWriteLineDelegate OnWriteLine {
+            get {
                 if (_writer != null)
                     return _writer.OnWriteLine;
                 return null;
             }
-            set 
-            { 
+            set {
                 if (_writer != null)
-                    _writer.OnWriteLine = value; 
+                    _writer.OnWriteLine = value;
             }
 
         }
 
-        public static void WriteStart()
-        {
+        public static void WriteStart() {
             InfoLog.Write("____________________________________________");
-            InfoLog.Write("Start aplikacji " + 
-                Assembly.GetExecutingAssembly().GetName().ToString() + " : " 
+            InfoLog.Write("Start aplikacji " +
+                Assembly.GetExecutingAssembly().GetName().ToString() + " : "
                 + Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
 
@@ -240,43 +207,36 @@ namespace Client.Log
             }
         }*/
 
-        public static void WriteEnd()
-        {
+        public static void WriteEnd() {
             InfoLog.Write("Koniec aplikacji");
             InfoLog.Write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         }
 
-        public static void Write(string s)
-        {
+        public static void Write(string s) {
             Instance.WriteIns(s);
         }
 
-        public static void WriteException(Exception ex)
-        {
+        public static void WriteException(Exception ex) {
             Instance.WriteExceptionIns(ex);
         }
 
-        public static void WriteError(string s)
-        {
+        public static void WriteError(string s) {
             Instance.WriteErrorIns(s);
         }
 
-        public static void WriteInfo(string s, EPrefix prefix)
-        {
+        public static void WriteInfo(string s, EPrefix prefix) {
             Instance.WriteInfoIns(s, prefix);
         }
 
-        public static void WriteInfo(string s)
-        {
+        public static void WriteInfo(string s) {
             Instance.WriteInfoIns(s);
         }
 
-        public static void Close()
-        {
+        public static void Close() {
             Instance.CloseIns();
         }
 
-        #endregion 
+        #endregion
 
-    } 
+    }
 }
