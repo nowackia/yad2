@@ -189,12 +189,13 @@ namespace Client.Engine.GameGraphics {
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
 			Gl.glLoadIdentity();
+			/*
 			Glu.gluLookAt(0, zoom * 10.0f, zoom * -20.0f,
 							0, 0, 0,
 							0, -1, 0);//0.5f * Math.Sqrt(2), 0.5f * Math.Sqrt(2));
 			Gl.glRotated(lookAtAngleX, 1.0d, 0.0d, 0.0d);
 			Gl.glRotated(lookAtAngleY, 0.0d, 1.0d, 0.0d);
-
+			*/
 			Gl.glColor4f(1, 1, 1, 1);
 			DrawElement(0, 0, 1, offsetX, offsetY, mapWidth, mapHeight, 0.0f);
 			/*
