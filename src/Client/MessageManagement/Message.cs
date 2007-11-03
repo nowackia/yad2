@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
-namespace Client.Message
+namespace Client.MessageManagement
 {
     public abstract class Message
     {
@@ -19,6 +20,9 @@ namespace Client.Message
         {
             get { return type; }
         }
+
+        public abstract void Deserialize(StreamReader reader);
+        public abstract void Serialize(StreamWriter writer);
 
     }
 }
