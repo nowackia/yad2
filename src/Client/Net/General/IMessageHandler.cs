@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Client.MessageManagement;
 
-namespace Client.Net {
+namespace Yad.Net.General {
     interface IMessageHandler {
         void ProcessMessage(Message msg);
     }

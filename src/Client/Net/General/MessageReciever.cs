@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 
-namespace Client.Net {
+namespace Yad.Net.General {
     class MessageReciever {
         private Thread _thRcv = null;
 

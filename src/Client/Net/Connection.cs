@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Net {
+namespace Yad.Net {
     class Connection {
         private static Connection _instance;
 

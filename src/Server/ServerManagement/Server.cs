@@ -18,6 +18,9 @@ namespace Server.ServerManagement {
             _players = new List<Player>();
         }
 
+        public void Start() {
+            
+        }
         public void AcceptConnections() {
             TcpClient client = _listener.AcceptTcpClient();
             _players.Add(new Player(client));
