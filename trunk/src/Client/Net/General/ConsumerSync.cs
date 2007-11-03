@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace Client.Net {
+namespace Yad.Net.General {
     public class ConsumerSync {
 
         private Semaphore _queueSem;

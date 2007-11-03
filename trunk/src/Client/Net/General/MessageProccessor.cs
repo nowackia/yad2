@@ -6,7 +6,7 @@ using System.Collections;
 using System.Threading;
 
 
-namespace Client.Net {
+namespace Yad.Net.General {
     abstract class MessageProcessor : IMessageHandler{
         private ConsumerSync _sync;
         private List<Message> _msgQueue;

@@ -106,10 +106,10 @@
     <Compile Include="MessageManagement\NumericMessage.cs" />
     <Compile Include="MessageManagement\TextMessage.cs" />
     <Compile Include="Net\Connection.cs" />
-    <Compile Include="Net\ConsumerSync.cs" />
-    <Compile Include="Net\IMessageHandler.cs" />
-    <Compile Include="Net\MessageProccessor.cs" />
-    <Compile Include="Net\MessageReciever.cs" />
+    <Compile Include="Net\General\ConsumerSync.cs" />
+    <Compile Include="Net\General\IMessageHandler.cs" />
+    <Compile Include="Net\General\MessageProccessor.cs" />
+    <Compile Include="Net\General\MessageReciever.cs" />
     <Compile Include="UI\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>

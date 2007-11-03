@@ -126,14 +126,17 @@
     <Compile Include="..\Client\MessageManagement\TextMessage.cs">
       <Link>MessageManagement\TextMessage.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\ConsumerSync.cs">
-      <Link>ServerManagement\ConsumerSync.cs</Link>
+    <Compile Include="..\Client\Net\General\ConsumerSync.cs">
+      <Link>Net\General\ConsumerSync.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\IMessageHandler.cs">
-      <Link>MessageManagement\IMessageHandler.cs</Link>
+    <Compile Include="..\Client\Net\General\IMessageHandler.cs">
+      <Link>Net\General\IMessageHandler.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\MessageProccessor.cs">
-      <Link>ServerManagement\MessageProccessor.cs</Link>
+    <Compile Include="..\Client\Net\General\MessageProccessor.cs">
+      <Link>Net\General\MessageProccessor.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\MessageReciever.cs">
+      <Link>Net\General\MessageReciever.cs</Link>
     </Compile>
     <Compile Include="Classes\AmmoData.cs" />
     <Compile Include="Classes\AmmoDataCollection.cs" />
@@ -174,6 +177,7 @@
     <Compile Include="Classes\UnitTroopersData.cs" />
     <Compile Include="Classes\XMLLoader\XMLLoader.cs" />
     <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="ServerManagement\MenuMessageHandler.cs" />
     <Compile Include="ServerManagement\Player.cs" />
     <Compile Include="ServerManagement\Server.cs" />
     <Compile Include="ServerManagement\ServerMain.cs" />
