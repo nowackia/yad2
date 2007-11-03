@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.IO;
 using Client.MessageManagement;
 using System.Threading;
-using Client.MessageManagment;
+
 
 namespace Server.ServerManagement {
     delegate void ReceiveMessageDelegate(Message msg);
@@ -27,9 +27,9 @@ namespace Server.ServerManagement {
         }
 
         public void RecieveMessages() {
-            MessageType msgType;
-            while ((msgType = _readStream.Read()) != -1) {
-                Message msg = MessageFactory.Create(msgType);
+            int type = -1;
+            while ((type = _readStream.Read()) != -1) {
+                Message msg = MessageFactory.Create((MessageType)type);
                 msg.Deserialize(_readStream);
                 lock (_onReceiveMessage) {
                     _onReceiveMessage(msg);

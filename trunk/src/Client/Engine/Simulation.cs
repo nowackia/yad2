@@ -13,12 +13,8 @@ namespace Client.Engine
         int turnNumber;
         Map map;
         Queue<Queue<Message>> messages;
-        
-        
-        public abstract void Update()
-        {
-           
 
-        }
+
+        public abstract void Update();
     }
 }

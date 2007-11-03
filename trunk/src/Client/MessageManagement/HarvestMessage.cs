@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Message
+namespace Client.MessageManagement
 {
     public class HarvestMessage : GameMessage
     {
@@ -29,6 +29,14 @@ namespace Client.Message
 
         public override void Execute()
         {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public override void Deserialize(System.IO.StreamReader reader) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public override void Serialize(System.IO.StreamWriter writer) {
             throw new Exception("The method or operation is not implemented.");
         }
     }

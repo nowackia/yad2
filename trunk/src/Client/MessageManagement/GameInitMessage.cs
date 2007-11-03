@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Message
+namespace Client.MessageManagement
 {
     public class GameInitMessage : ControlMessage
     {

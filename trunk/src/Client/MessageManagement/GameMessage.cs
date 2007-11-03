@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Message
+namespace Client.MessageManagement
 {
-    public abstract class GameMessage
+    public abstract class GameMessage : Message
     {
         private int idTurn;
 

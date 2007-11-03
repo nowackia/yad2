@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Message
+namespace Client.MessageManagement
 {
     /// <summary>
     /// message from chat(?)
@@ -16,6 +16,7 @@ namespace Client.Message
             get { return text; }
             set { text = value; }
         }
+
 
     }
 }
