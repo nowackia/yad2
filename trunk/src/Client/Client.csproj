@@ -183,6 +183,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\dune.xsd" />
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />
@@ -202,6 +203,7 @@
     <None Include="Resources\UI_TopMenu_W.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\dune_example.xml" />
     <Content Include="Resources\Audio\FX\Atreides\apprch.wav" />
     <Content Include="Resources\Audio\FX\Atreides\arrive.wav" />
     <Content Include="Resources\Audio\FX\Atreides\Atreides.wav" />
