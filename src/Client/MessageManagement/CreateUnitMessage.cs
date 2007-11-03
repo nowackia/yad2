@@ -27,7 +27,7 @@ namespace Client.MessageManagement
             get { return type; }
             set { type = value; }
         }
-
+		/*
         public override void Process()
         {
             throw new Exception("The method or operation is not implemented.");
@@ -37,7 +37,7 @@ namespace Client.MessageManagement
         {
             throw new Exception("The method or operation is not implemented.");
         }
-
+		*/
         public override void Deserialize(System.IO.StreamReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }

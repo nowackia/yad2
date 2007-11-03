@@ -23,10 +23,10 @@ namespace Server.ServerManagement {
         public Player(TcpClient client) {
             _readStream = new StreamReader(client.GetStream());
             _writeStream = new StreamWriter(client.GetStream());
-            _rcvThread = new Thread(new ThreadStart(RecieveMessages));
+            _rcvThread = new Thread(new ThreadStart(ReceiveMessages));
         }
 
-        public void RecieveMessages() {
+        public void ReceiveMessages() {
             int type = -1;
             while ((type = _readStream.Read()) != -1) {
                 Message msg = MessageFactory.Create((MessageType)type);

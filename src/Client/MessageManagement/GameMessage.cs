@@ -13,8 +13,7 @@ namespace Client.MessageManagement
             get { return idTurn; }
             set { idTurn = value; }
         }
-
-        public abstract void Process();
-        public abstract void Execute();
+        //public abstract void Process();
+        //public abstract void Execute();
     }
 }
