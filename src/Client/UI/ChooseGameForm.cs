@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Client.UI
 {
-    public partial class ChooseGameForm : Form
+    public partial class ChooseGameForm : UIManageable
     {
         private GroupBox groupBox;
 
@@ -56,6 +56,7 @@ namespace Client.UI
             buttonBack.TabIndex = 3;
             buttonBack.Text = "Back";
             buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += new EventHandler(buttonBack_Click);
 
             textBoxDescription = new TextBox();
             textBoxDescription.Location = new System.Drawing.Point(216, 19);
@@ -87,6 +88,7 @@ namespace Client.UI
             buttonJoin.TabIndex = 5;
             buttonJoin.Text = "Join";
             buttonJoin.UseVisualStyleBackColor = true;
+            buttonJoin.Click += new EventHandler(buttonJoin_Click);
 
             buttonCreate = new Button();
             buttonCreate.Location = new System.Drawing.Point(247, 89);
@@ -173,32 +175,40 @@ namespace Client.UI
             #endregion
 
             GroupBoxName = name;
+            this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        void buttonJoin_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Join);
+        }
+
+        void buttonBack_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Back);
         }
 
         void buttonStartGame_Click(object sender, EventArgs e)
         {
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
+            OnOptionChoosen(MenuOption.StartGame);
         }
 
         void buttonStartCancel_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxJoin";
+            OnOptionChoosen(MenuOption.Cancel);
         }
 
         void buttonCreate_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxStart";
+            OnOptionChoosen(MenuOption.Create);
         }
 
         void buttonCreateCancel_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxJoin";
+            OnOptionChoosen(MenuOption.Cancel);
         }
 
         void buttonJoinCreate_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxCreate";
+            OnOptionChoosen(MenuOption.Create);
         }
 
         private GroupBox GetGroupBox(string name)

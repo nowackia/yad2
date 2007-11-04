@@ -160,6 +160,7 @@
     <Compile Include="UI\ChooseGameForm.designer.cs">
       <DependentUpon>ChooseGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormPool.cs" />
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +220,18 @@
     <Compile Include="UI\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MenuOption.cs" />
+    <Compile Include="UI\MiniForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MiniForm.Designer.cs">
+      <DependentUpon>MiniForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UIManageable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UIManager.cs" />
+    <Compile Include="UI\Views.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\dune.xsd" />

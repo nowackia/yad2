@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Client.UI
 {
-    public partial class ChatForm : Form
+    public partial class ChatForm : UIManageable
     {
         private GroupBox groupBox;
 
@@ -39,6 +39,7 @@ namespace Client.UI
             buttonGame.TabIndex = 0;
             buttonGame.Text = "Game";
             buttonGame.UseVisualStyleBackColor = true;
+            buttonGame.Click += new EventHandler(buttonGame_Click);
 
             listBoxChat = new ListBox();
             listBoxChat.FormattingEnabled = true;
@@ -61,6 +62,7 @@ namespace Client.UI
             buttonBackChat.TabIndex = 3;
             buttonBackChat.Text = "Back";
             buttonBackChat.UseVisualStyleBackColor = true;
+            buttonBackChat.Click += new EventHandler(buttonBackChat_Click);
 
             textBoxChat = new TextBox();
             textBoxChat.Location = new System.Drawing.Point(6, 248);
@@ -110,6 +112,15 @@ namespace Client.UI
             #endregion
 
             GroupBoxName = name;
+            this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        void buttonBackChat_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Back);
+        }
+
+        void buttonGame_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Game);
         }
 
         public string Login
