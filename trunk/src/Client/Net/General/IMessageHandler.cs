@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Client.MessageManagement;
+using Yad.Net.General.Messaging;
 
 namespace Yad.Net.General {
     interface IMessageHandler {

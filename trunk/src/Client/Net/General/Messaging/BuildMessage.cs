@@ -2,11 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
-    public class CreateUnitMessage : GameMessage
+    public class BuildMessage : GameMessage
     {
-        private int idUnit;
+        private int idBuilding;
+        private int type;
+
+        public int Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        //TODO RS: struct or object?
         private Object place;
 
         public Object Place
@@ -15,17 +24,10 @@ namespace Client.MessageManagement
             set { place = value; }
         }
 
-        public int IdUnit
+        public int IdBuilding
         {
-            get { return idUnit; }
-            set { idUnit = value; }
-        }
-        private int type;
-
-        public int Type
-        {
-            get { return type; }
-            set { type = value; }
+            get { return idBuilding; }
+            set { idBuilding = value; }
         }
 		/*
         public override void Process()

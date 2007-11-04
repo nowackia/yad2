@@ -2,32 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
-    public class BuildMessage : GameMessage
+    public class HarvestMessage : GameMessage
     {
-        private int idBuilding;
-        private int type;
+        private LinkedList<Object> path;
 
-        public int Type
+        public LinkedList<Object> Path
         {
-            get { return type; }
-            set { type = value; }
+            get { return path; }
+            set { path = value; }
         }
 
-        //TODO RS: struct or object?
-        private Object place;
+        private int idUnit;
 
-        public Object Place
+        public int IdUnit
         {
-            get { return place; }
-            set { place = value; }
-        }
-
-        public int IdBuilding
-        {
-            get { return idBuilding; }
-            set { idBuilding = value; }
+            get { return idUnit; }
+            set { idUnit = value; }
         }
 		/*
         public override void Process()

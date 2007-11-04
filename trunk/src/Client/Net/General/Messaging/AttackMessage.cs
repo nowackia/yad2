@@ -2,24 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
-    public class HarvestMessage : GameMessage
+    public class AttackMessage:GameMessage
     {
-        private LinkedList<Object> path;
+        private int id;
 
-        public LinkedList<Object> Path
+        public int Id
         {
-            get { return path; }
-            set { path = value; }
+            get { return id; }
+            set { id = value; }
         }
 
-        private int idUnit;
+        private Object place;
 
-        public int IdUnit
+        public Object Place
         {
-            get { return idUnit; }
-            set { idUnit = value; }
+            get { return place; }
+            set { place = value; }
         }
 		/*
         public override void Process()

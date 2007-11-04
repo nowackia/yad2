@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
-    public class AttackMessage:GameMessage
+    public class DestroyMessage : GameMessage
     {
         private int id;
 
@@ -14,13 +14,6 @@ namespace Client.MessageManagement
             set { id = value; }
         }
 
-        private Object place;
-
-        public Object Place
-        {
-            get { return place; }
-            set { place = value; }
-        }
 		/*
         public override void Process()
         {

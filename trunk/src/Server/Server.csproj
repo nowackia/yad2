@@ -198,48 +198,6 @@
     <Compile Include="..\Client\Log\MultiStream.cs">
       <Link>Log\MultiStream.cs</Link>
     </Compile>
-    <Compile Include="..\Client\MessageManagement\AttackMessage.cs">
-      <Link>MessageManagement\AttackMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\BuildMessage.cs">
-      <Link>MessageManagement\BuildMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\ControlMessage.cs">
-      <Link>MessageManagement\ControlMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\CreateUnitMessage.cs">
-      <Link>MessageManagement\CreateUnitMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\DestroyMessage.cs">
-      <Link>MessageManagement\DestroyMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\GameInitMessage.cs">
-      <Link>MessageManagement\GameInitMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\GameMessage.cs">
-      <Link>MessageManagement\GameMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\HarvestMessage.cs">
-      <Link>MessageManagement\HarvestMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\Message.cs">
-      <Link>MessageManagement\Message.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\MessageFactory.cs">
-      <Link>MessageManagement\MessageFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\MessageType.cs">
-      <Link>MessageManagement\MessageType.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\MoveMessage.cs">
-      <Link>MessageManagement\MoveMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\NumericMessage.cs">
-      <Link>MessageManagement\NumericMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\MessageManagement\TextMessage.cs">
-      <Link>MessageManagement\TextMessage.cs</Link>
-    </Compile>
     <Compile Include="..\Client\Net\General\ConsumerSync.cs">
       <Link>Net\General\ConsumerSync.cs</Link>
     </Compile>
@@ -251,6 +209,48 @@
     </Compile>
     <Compile Include="..\Client\Net\General\MessageReciever.cs">
       <Link>Net\General\MessageReciever.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\AttackMessage.cs">
+      <Link>Net\General\Messaging\AttackMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\BuildMessage.cs">
+      <Link>Net\General\Messaging\BuildMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\ControlMessage.cs">
+      <Link>Net\General\Messaging\ControlMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\CreateUnitMessage.cs">
+      <Link>Net\General\Messaging\CreateUnitMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\DestroyMessage.cs">
+      <Link>Net\General\Messaging\DestroyMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\GameInitMessage.cs">
+      <Link>Net\General\Messaging\GameInitMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\GameMessage.cs">
+      <Link>Net\General\Messaging\GameMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\HarvestMessage.cs">
+      <Link>Net\General\Messaging\HarvestMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\Message.cs">
+      <Link>Net\General\Messaging\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\MessageFactory.cs">
+      <Link>Net\General\Messaging\MessageFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\MessageType.cs">
+      <Link>Net\General\Messaging\MessageType.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\MoveMessage.cs">
+      <Link>Net\General\Messaging\MoveMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\NumericMessage.cs">
+      <Link>Net\General\Messaging\NumericMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\TextMessage.cs">
+      <Link>Net\General\Messaging\TextMessage.cs</Link>
     </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="ServerManagement\MenuMessageHandler.cs" />

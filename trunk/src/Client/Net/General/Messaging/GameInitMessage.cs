@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
     public class GameInitMessage : ControlMessage
     {

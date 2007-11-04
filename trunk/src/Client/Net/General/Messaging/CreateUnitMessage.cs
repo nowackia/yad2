@@ -2,24 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
-    public class MoveMessage : GameMessage
+    public class CreateUnitMessage : GameMessage
     {
         private int idUnit;
-        //TODO RS: table or list? what type of structure? Drawing.Point?
-        private LinkedListNode<Object> path;
+        private Object place;
 
-        public LinkedListNode<Object> Path
+        public Object Place
         {
-            get { return path; }
-            set { path = value; }
+            get { return place; }
+            set { place = value; }
         }
 
         public int IdUnit
         {
             get { return idUnit; }
             set { idUnit = value; }
+        }
+        private int type;
+
+        public int Type
+        {
+            get { return type; }
+            set { type = value; }
         }
 		/*
         public override void Process()
