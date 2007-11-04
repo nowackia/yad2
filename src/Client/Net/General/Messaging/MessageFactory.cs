@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.MessageManagement {
+namespace Yad.Net.General.Messaging {
     class MessageFactory {
         public static Message Create(MessageType msgType) {
             switch (msgType) {

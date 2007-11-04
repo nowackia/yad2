@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace Client.MessageManagement
+namespace Yad.Net.General.Messaging
 {
     public abstract class Message
     {

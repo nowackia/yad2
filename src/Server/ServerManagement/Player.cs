@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.IO;
-using Client.MessageManagement;
+using Yad.Net.General.Messaging;
 using System.Threading;
 
 
