@@ -16,6 +16,7 @@ namespace Client.Log
         Menu,
 		GameGraphics,
         Finalization,
+        UIManager,
         /// <summary>
         /// Wartosc kontrolna - musi byc zawsze na koncu
         /// </summary>
@@ -25,7 +26,7 @@ namespace Client.Log
 
     class InfoLogPrefix
     {
-        private string[] _prefixes = { " #INI: ", " #MNU: ", " #GRF: ", " #FIN: " };
+        private string[] _prefixes = { " #INI: ", " #MNU: ", " #GRF: ", " #FIN: " ,"#UIM: "};
         bool[] _filters = null;
         public InfoLogPrefix()
         {
