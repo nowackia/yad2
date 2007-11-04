@@ -5,10 +5,17 @@ using System.IO;
 
 namespace Yad.Net.General.Messaging
 {
-    public abstract class Message
+    public class Message
     {
         private MessageType type;
         private int userId;
+
+        public Message(MessageType msgType) {
+            type = msgType;
+        }
+
+        public Message() {
+        }
 
         public int UserId
         {
@@ -16,13 +23,36 @@ namespace Yad.Net.General.Messaging
             set { userId = value; }
         }
 
+        public static void WriteString(string text, BinaryWriter writer) {
+            byte b = (byte)text.Length;
+            writer.Write(b);
+            writer.Write(text.ToCharArray());
+        }
+
+        public static string ReadString(BinaryReader reader) {
+            byte lenght = reader.ReadByte();
+            char[] charray = reader.ReadChars(lenght);
+            return new string(charray);
+        }
+
         public MessageType Type
         {
             get { return type; }
+            set { type = value; }
         }
 
-        public abstract void Deserialize(StreamReader reader);
-        public abstract void Serialize(StreamWriter writer);
+        public virtual void Deserialize(BinaryReader reader) {
+        }
+        public virtual void Serialize(BinaryWriter writer) {
+            SendMessage(type, writer);
+        }
+
+
+
+        public void SendMessage(MessageType type, BinaryWriter writer) {
+            byte itype = (byte)type;
+            writer.Write(itype);
+        }
 
     }
 }

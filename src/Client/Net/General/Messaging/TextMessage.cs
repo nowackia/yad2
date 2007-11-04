@@ -7,10 +7,10 @@ namespace Yad.Net.General.Messaging
     /// <summary>
     /// message from chat(?)
     /// </summary>
-    public class TextMessage : ControlMessage
+    public class TextMessage : Message
     {
         private String text;
-        //TODO: RS: from?
+
         public String Text
         {
             get { return text; }

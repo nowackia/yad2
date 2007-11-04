@@ -24,7 +24,7 @@ namespace Client.Log
             {
                 _writer = new StreamWriter(filepath, true);
             }
-            catch (IOException ioexception)
+            catch (IOException)
             {
                 MessageBox.Show("Nie mo¿na otworzyæ pliku ErrorLog.txt!");
             }

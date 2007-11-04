@@ -21,6 +21,7 @@ namespace Yad.Net.General {
 
             _queueSem = new Semaphore(0, _MaxCount);
             _eventArray = new WaitHandle[2];
+            _exitThreadEvent = new EventWaitHandle(false, EventResetMode.ManualReset);
             _eventArray[0] = _queueSem;
             _eventArray[1] = _exitThreadEvent;
         }

@@ -30,8 +30,6 @@ namespace Server
             Application.Run(consoleForm);
 
             InfoLog.WriteEnd();
-            
-            InfoLog.Instance.OnWriteLine -= owd;
             InfoLog.Close();
         }
     }

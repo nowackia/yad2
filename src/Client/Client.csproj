@@ -130,24 +130,28 @@
     <Compile Include="Log\InfoLogPrefix.cs" />
     <Compile Include="Log\MultiStream.cs" />
     <Compile Include="Net\Connection.cs" />
+    <Compile Include="Net\General\ChatUser.cs" />
     <Compile Include="Net\General\ConsumerSync.cs" />
     <Compile Include="Net\General\IMessageHandler.cs" />
     <Compile Include="Net\General\MessageProccessor.cs" />
     <Compile Include="Net\General\MessageReciever.cs" />
     <Compile Include="Net\General\Messaging\AttackMessage.cs" />
     <Compile Include="Net\General\Messaging\BuildMessage.cs" />
+    <Compile Include="Net\General\Messaging\ChatUsersMessage.cs" />
     <Compile Include="Net\General\Messaging\ControlMessage.cs" />
     <Compile Include="Net\General\Messaging\CreateUnitMessage.cs" />
     <Compile Include="Net\General\Messaging\DestroyMessage.cs" />
     <Compile Include="Net\General\Messaging\GameInitMessage.cs" />
     <Compile Include="Net\General\Messaging\GameMessage.cs" />
     <Compile Include="Net\General\Messaging\HarvestMessage.cs" />
+    <Compile Include="Net\General\Messaging\LoginMessage.cs" />
     <Compile Include="Net\General\Messaging\Message.cs" />
     <Compile Include="Net\General\Messaging\MessageFactory.cs" />
     <Compile Include="Net\General\Messaging\MessageType.cs" />
     <Compile Include="Net\General\Messaging\MoveMessage.cs" />
     <Compile Include="Net\General\Messaging\NumericMessage.cs" />
     <Compile Include="Net\General\Messaging\TextMessage.cs" />
+    <Compile Include="Net\General\PlayerStateMachine.cs" />
     <Compile Include="UI\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,7 +238,9 @@
     <Compile Include="UI\Views.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\dune.xsd" />
+    <None Include="Config\dune.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />

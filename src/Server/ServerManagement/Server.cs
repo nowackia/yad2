@@ -3,27 +3,74 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using Client.Log;
+using System.Collections;
+using System.Windows.Forms;
 
 namespace Server.ServerManagement {
     class Server {
 
         private int _portNumber;
         private TcpListener _listener;
-        private IPAddress _ipaddress;
-        private List<Player> _players;
-        
-        public Server(string ipString, int PortNumber) {
+        private Dictionary<int, Player> _playersUnlogged;
+        private Dictionary<int, Player> _playersLogged;
+
+        private MenuMessageHandler _menuMsgHandler;
+        private bool _serverEnd = false;
+        private int playerID = 1;
+
+        public Server(int PortNumber) {
+
             _portNumber = PortNumber;
-            _ipaddress = IPAddress.Parse(ipString);
-            _players = new List<Player>();
+            _playersUnlogged = new Dictionary<int, Player>();
+            _playersLogged = new Dictionary<int, Player>();
+            _listener = new TcpListener(_portNumber);
+            _listener.Start();
+            InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
+            _menuMsgHandler = new MenuMessageHandler();
+            _menuMsgHandler.Start();
+            InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
+
         }
 
         public void Start() {
+            while (!_serverEnd) {
+                    AcceptConnections();
+            }
+            _menuMsgHandler.EndThread();
             
         }
+
+        public void Stop() {
+            _listener.Stop();
+        }
+
+        public void RemovePlayer(Player player) {
+            InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);
+            if (player.State == Yad.Net.General.MenuState.Unlogged)
+                _playersUnlogged.Remove(player.Id);
+            else {
+                _playersLogged.Remove(player.Id);
+            }
+        }
         public void AcceptConnections() {
-            TcpClient client = _listener.AcceptTcpClient();
-            _players.Add(new Player(client));
+            TcpClient client = null;
+            try {
+                client = _listener.AcceptTcpClient();
+            }
+            catch (Exception) {
+                _serverEnd = true;
+                return;
+            }
+            InfoLog.WriteInfo("Server accepted new client");
+            Player player = new Player(playerID + 1, client);
+            player.OnReceiveMessage += new ReceiveMessageDelegate(_menuMsgHandler.AddMessage);
+            player.OnConnectionLost += new ConnectionLostDelegate(RemovePlayer);
+            player.Start();
+            lock(((ICollection)_playersUnlogged).SyncRoot)
+                _playersUnlogged.Add(++playerID, player);
+
         }
 
         

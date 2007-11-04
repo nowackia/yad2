@@ -32,11 +32,11 @@ namespace Yad.Net.General.Messaging
             throw new Exception("The method or operation is not implemented.");
         }
 		*/
-        public override void Deserialize(System.IO.StreamReader reader) {
+        public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public override void Serialize(System.IO.StreamWriter writer) {
+        public override void Serialize(System.IO.BinaryWriter writer) {
             throw new Exception("The method or operation is not implemented.");
         }
     }
