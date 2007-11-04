@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Yad.Net.General.Messaging
 {
-    public enum MessageType
+    public enum MessageType: byte
     {
-        Numeric,
+        Numeric=0,
         Text,
         GameInit,
         Move,
@@ -15,6 +15,10 @@ namespace Yad.Net.General.Messaging
         Build,
         Harvest,
         Attack,
-        Control
+        Control,
+        ChatText, 
+        ChatUsers,
+        DeleteChatUser,
+        Login,
     }
 }

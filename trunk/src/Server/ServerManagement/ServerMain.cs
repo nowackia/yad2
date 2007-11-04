@@ -12,18 +12,17 @@ namespace Server.ServerManagement
     {
         #region Pola prywatne
 
-        private BackgroundWorker _worker = null;
-
+        private Thread _serverThread = null;
+        private Server _server;
+        private const int _ServerPortNo = 1734;
         #endregion
 
         #region Konstruktory
 
         public ServerMain()
         {
-            _worker = new BackgroundWorker();
-            _worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-            _worker.WorkerSupportsCancellation = true;
-            _worker.RunWorkerAsync();
+            _serverThread = new Thread(new ThreadStart(ServerThread));
+            _serverThread.Start();
         }
 
         #endregion
@@ -32,25 +31,27 @@ namespace Server.ServerManagement
 
         public void Stop()
         {
-            _worker.CancelAsync();
+            InfoLog.Instance.OnWriteLine = null;
+            _server.Stop();
+            _serverThread.Interrupt();
+            _serverThread.Join();
         }
 
         #endregion
 
         #region Metody prywatne
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        private void ServerThread()
         {
             InfoLog.WriteInfo("Server loop starts...", EPrefix.Initialization);
-            while (!_worker.CancellationPending)
-                ServerProcess();
-            e.Cancel = true;
+            ServerProcess();
             InfoLog.WriteInfo("Server loop ends...", EPrefix.Finalization);
         }
 
         private void ServerProcess()
         {
-            Thread.Sleep(1000);
+            _server = new Server(_ServerPortNo);
+            _server.Start();
         }
 
         #endregion

@@ -234,6 +234,9 @@
     <Compile Include="..\Client\Net\General\Messaging\HarvestMessage.cs">
       <Link>Net\General\Messaging\HarvestMessage.cs</Link>
     </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\LoginMessage.cs">
+      <Link>Net\General\Messaging\LoginMessage.cs</Link>
+    </Compile>
     <Compile Include="..\Client\Net\General\Messaging\Message.cs">
       <Link>Net\General\Messaging\Message.cs</Link>
     </Compile>
@@ -252,7 +255,11 @@
     <Compile Include="..\Client\Net\General\Messaging\TextMessage.cs">
       <Link>Net\General\Messaging\TextMessage.cs</Link>
     </Compile>
+    <Compile Include="..\Client\Net\General\PlayerStateMachine.cs">
+      <Link>Net\General\PlayerStateMachine.cs</Link>
+    </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="Net\General\Server\Chat.cs" />
     <Compile Include="ServerManagement\MenuMessageHandler.cs" />
     <Compile Include="ServerManagement\Player.cs" />
     <Compile Include="ServerManagement\Server.cs" />

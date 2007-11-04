@@ -18,7 +18,12 @@ namespace Server.UI
 
         private ServerMain _serverProcess;
         private bool _isClosedManualy = false;
+        private bool _isAppendPossible = true;
 
+        public bool IsAppendPossible {
+            get { return _isAppendPossible; }
+            set { _isAppendPossible = value; }
+        }
         #endregion 
 
         #region Konstrutkory
@@ -32,15 +37,15 @@ namespace Server.UI
 
         public void AppendText(string s)
         {
-            if (this.textBox.InvokeRequired)
-            {
-                SetTextCallback d = new SetTextCallback(AppendText);
-                this.Invoke(d, new object[] { s });
-            }
-            else
-            {
-                if (!this.textBox.IsDisposed)
-                    this.textBox.AppendText(s + "\n");
+            if (IsAppendPossible) {
+                if (this.textBox.InvokeRequired) {
+                    SetTextCallback d = new SetTextCallback(AppendText);
+                    this.Invoke(d, new object[] { s });
+                }
+                else {
+                    if (!this.textBox.IsDisposed)
+                        this.textBox.AppendText(s + "\n");
+                }
             }
         }
 

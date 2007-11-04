@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yad.Net.General.Messaging
 {
-    public class NumericMessage:ControlMessage
+    public class NumericMessage: Message
     {
         private int number;
 

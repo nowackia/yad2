@@ -21,6 +21,10 @@ namespace Yad.Net.General.Messaging
             get { return idUnit; }
             set { idUnit = value; }
         }
+
+        public MoveMessage() {
+            this.Type = MessageType.Move;
+        }
 		/*
         public override void Process()
         {
@@ -32,12 +36,12 @@ namespace Yad.Net.General.Messaging
             throw new Exception("The method or operation is not implemented.");
         }
 		*/
-        public override void Deserialize(System.IO.StreamReader reader) {
-            throw new Exception("The method or operation is not implemented.");
+        public override void Deserialize(System.IO.BinaryReader reader) {
+            //throw new Exception("The method or operation is not implemented.");
         }
 
-        public override void Serialize(System.IO.StreamWriter writer) {
-            throw new Exception("The method or operation is not implemented.");
+        public override void Serialize(System.IO.BinaryWriter writer) {
+            base.Serialize(writer);
         }
     }
 }

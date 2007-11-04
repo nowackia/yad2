@@ -39,8 +39,7 @@ namespace Yad.Net.General {
             }
         }
 
-        public void ProcessMessage(Message msg) {
-        }
+        public abstract void ProcessMessage(Message msg);
 
     }
 }

@@ -8,7 +8,15 @@ namespace Yad.Net.General.Messaging {
             switch (msgType) {
                 case MessageType.Move:
                     return new MoveMessage();
-                    break;
+                case MessageType.ChatText:
+                    TextMessage textmsg = new TextMessage();
+                    textmsg.Type = MessageType.ChatText;
+                    return textmsg;
+
+                case MessageType.DeleteChatUser:
+                    NumericMessage nummsg = new NumericMessage();
+                    nummsg.Type = MessageType.DeleteChatUser;
+                    return nummsg;
             }
             return null;
         }
