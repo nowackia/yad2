@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Client.UI
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : UIManageable
     {
         private GroupBox groupBox;
 
@@ -53,6 +53,7 @@ namespace Client.UI
             buttonCancel.TabIndex = 10;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += new EventHandler(buttonCancel_Click);
 
             buttonLoginRegister = new Button();
             buttonLoginRegister.Location = new System.Drawing.Point(40, 228);
@@ -70,6 +71,7 @@ namespace Client.UI
             buttonRegister.TabIndex = 9;
             buttonRegister.Text = "Register";
             buttonRegister.UseVisualStyleBackColor = true;
+            buttonRegister.Click += new EventHandler(buttonRegister_Click);
 
             buttonLogin = new Button();
             buttonLogin.Location = new System.Drawing.Point(175, 189);
@@ -78,6 +80,7 @@ namespace Client.UI
             buttonLogin.TabIndex = 8;
             buttonLogin.Text = "Login";
             buttonLogin.UseVisualStyleBackColor = true;
+            buttonLogin.Click += new EventHandler(buttonLogin_Click);
 
             buttonRemind = new Button();
             buttonRemind.Location = new System.Drawing.Point(40, 189);
@@ -161,16 +164,31 @@ namespace Client.UI
             #endregion
 
             GroupBoxName = name;
+            this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        void buttonRegister_Click(object sender, EventArgs e) {
+            // TODO RS: response will be delayed -> option choosed must be placed elsewhere
+            OnOptionChoosen(MenuOption.Back);
+        }
+
+        void buttonCancel_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Cancel);
+        }
+
+        void buttonLogin_Click(object sender, EventArgs e) {
+            //TODO RS: will be delayed - need to check password
+            OnOptionChoosen(MenuOption.Login);
         }
 
         void buttonBack_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxLogin";
+            OnOptionChoosen(MenuOption.Back);
         }
 
         void buttonLoginRegister_Click(object sender, EventArgs e)
         {
-            GroupBoxName = "groupBoxRegister";
+            OnOptionChoosen(MenuOption.Registration);
         }
 
         private GroupBox GetGroupBox(string name)

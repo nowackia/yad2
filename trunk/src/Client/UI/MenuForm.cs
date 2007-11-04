@@ -6,10 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Client.UI
-{
-    public partial class MenuForm : Form
-    {
+namespace Client.UI {
+    public partial class MenuForm : UIManageable {
         private GroupBox groupBox;
 
         Button buttonNewGame;
@@ -23,6 +21,9 @@ namespace Client.UI
         Button buttonCancel;
         Button buttonOK;
 
+        
+
+
         CheckBox checkBoxMusicMute;
         CheckBox checkBoxSoundMute;
         NumericUpDown numericUpDownMusicVolume;
@@ -30,9 +31,15 @@ namespace Client.UI
         Label labelMusicVolume;
         Label labelSoundVolume;
 
+        // connected with returning from option groupbox to GameMenu or to MainMenu
+        private Views lastView = Views.None;
 
-        public MenuForm(string name)
-        {
+        public Views LastView {
+            get { return lastView; }
+            set { lastView = value; }
+        }
+
+        public MenuForm(string name) {
             InitializeComponent();
 
             #region Controls Initialization
@@ -51,6 +58,7 @@ namespace Client.UI
             buttonNewGame.TabIndex = 0;
             buttonNewGame.Text = "New Game";
             buttonNewGame.UseVisualStyleBackColor = true;
+            buttonNewGame.Click += new EventHandler(buttonNewGame_Click);
 
             buttonExit = new Button();
             buttonExit.Location = new System.Drawing.Point(6, 245);
@@ -59,6 +67,7 @@ namespace Client.UI
             buttonExit.TabIndex = 3;
             buttonExit.Text = "Exit";
             buttonExit.UseVisualStyleBackColor = true;
+            buttonExit.Click += new EventHandler(buttonExit_Click);
 
             buttonOptions = new Button();
             buttonOptions.Location = new System.Drawing.Point(6, 81);
@@ -67,6 +76,7 @@ namespace Client.UI
             buttonOptions.TabIndex = 1;
             buttonOptions.Text = "Options";
             buttonOptions.UseVisualStyleBackColor = true;
+            buttonOptions.Click += new EventHandler(buttonOptions_Click);
 
             buttonCancel = new Button();
             buttonCancel.Location = new System.Drawing.Point(237, 245);
@@ -75,6 +85,7 @@ namespace Client.UI
             buttonCancel.TabIndex = 4;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += new EventHandler(buttonCancel_Click);
 
             buttonOK = new Button();
             buttonOK.Location = new System.Drawing.Point(6, 245);
@@ -83,6 +94,7 @@ namespace Client.UI
             buttonOK.TabIndex = 3;
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
+            buttonOK.Click += new EventHandler(buttonOK_Click);
 
             buttonContinue = new Button();
             buttonContinue.Location = new System.Drawing.Point(6, 52);
@@ -91,6 +103,7 @@ namespace Client.UI
             buttonContinue.TabIndex = 0;
             buttonContinue.Text = "Continue";
             buttonContinue.UseVisualStyleBackColor = true;
+            buttonContinue.Click += new EventHandler(buttonContinue_Click);
 
             buttonPause = new Button();
             buttonPause.Location = new System.Drawing.Point(6, 52);
@@ -99,6 +112,7 @@ namespace Client.UI
             buttonPause.TabIndex = 0;
             buttonPause.Text = "Pause";
             buttonPause.UseVisualStyleBackColor = true;
+            buttonPause.Click += new EventHandler(buttonPause_Click);
 
             checkBoxMusicMute = new CheckBox();
             checkBoxMusicMute.AutoSize = true;
@@ -121,14 +135,14 @@ namespace Client.UI
             checkBoxSoundMute.CheckedChanged += new System.EventHandler(checkBoxSoundMute_CheckedChanged);
 
             numericUpDownMusicVolume = new NumericUpDown();
-            numericUpDownMusicVolume.Increment = new decimal(new int[] { 5, 0, 0, 0});
+            numericUpDownMusicVolume.Increment = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDownMusicVolume.Location = new System.Drawing.Point(175, 101);
             numericUpDownMusicVolume.Name = "numericUpDownMusicVolume";
             numericUpDownMusicVolume.Size = new System.Drawing.Size(58, 20);
             numericUpDownMusicVolume.TabIndex = 8;
 
             numericUpDownSoundVolume = new NumericUpDown();
-            numericUpDownSoundVolume.Increment = new decimal(new int[] { 5, 0, 0, 0});
+            numericUpDownSoundVolume.Increment = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDownSoundVolume.Location = new System.Drawing.Point(175, 31);
             numericUpDownSoundVolume.Name = "numericUpDownSoundVolume";
             numericUpDownSoundVolume.Size = new System.Drawing.Size(58, 20);
@@ -152,10 +166,48 @@ namespace Client.UI
             #endregion
 
             GroupBoxName = name;
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
-        private GroupBox GetGroupBox(string name)
-        {
+        void buttonOK_Click(object sender, EventArgs e) {
+            if (this.lastView == Views.GameMenuForm) {
+                OnOptionChoosen(MenuOption.OkToGameMenu);
+            } else if (this.lastView == Views.PauseForm) {
+                OnOptionChoosen(MenuOption.OkToPauseMenu);
+            } else {
+                OnOptionChoosen(MenuOption.Ok);
+            }
+        }
+
+        void buttonContinue_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Continue);
+        }
+
+        void buttonPause_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Pause);
+        }
+
+        void buttonCancel_Click(object sender, EventArgs e) {
+            if (this.lastView == Views.GameMenuForm) {
+                OnOptionChoosen(MenuOption.CancelToGameMenu);
+            } else if (this.lastView == Views.PauseForm) {
+                OnOptionChoosen(MenuOption.CancelToPauseMenu);
+            } else {
+                OnOptionChoosen(MenuOption.Cancel);
+            }
+        }
+
+        void buttonOptions_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Options);
+        }
+
+        void buttonExit_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.Exit);
+        }
+
+
+
+        private GroupBox GetGroupBox(string name) {
             List<GroupBox> groupBoxList = new List<GroupBox>();
             GroupBox groupBox = null;
 
@@ -166,8 +218,7 @@ namespace Client.UI
             groupBox.TabIndex = 0;
             groupBox.TabStop = false;
             groupBox.Text = "Main Menu";
-            if (name == groupBox.Name)
-            {
+            if (name == groupBox.Name) {
                 groupBox.Controls.Add(buttonNewGame);
                 groupBox.Controls.Add(buttonCredits);
                 groupBox.Controls.Add(buttonOptions);
@@ -182,8 +233,7 @@ namespace Client.UI
             groupBox.TabIndex = 1;
             groupBox.TabStop = false;
             groupBox.Text = "Options";
-            if (name == groupBox.Name)
-            {
+            if (name == groupBox.Name) {
                 groupBox.Controls.Add(checkBoxMusicMute);
                 groupBox.Controls.Add(checkBoxSoundMute);
                 groupBox.Controls.Add(numericUpDownMusicVolume);
@@ -202,8 +252,7 @@ namespace Client.UI
             groupBox.TabIndex = 2;
             groupBox.TabStop = false;
             groupBox.Text = "Continue";
-            if (name == groupBox.Name)
-            {
+            if (name == groupBox.Name) {
                 groupBox.Controls.Add(buttonPause);
                 groupBox.Controls.Add(buttonOptions);
                 groupBox.Controls.Add(buttonExit);
@@ -217,16 +266,14 @@ namespace Client.UI
             groupBox.TabIndex = 2;
             groupBox.TabStop = false;
             groupBox.Text = "Pause";
-            if (name == groupBox.Name)
-            {
+            if (name == groupBox.Name) {
                 groupBox.Controls.Add(buttonContinue);
                 groupBox.Controls.Add(buttonOptions);
                 groupBox.Controls.Add(buttonExit);
             }
             groupBoxList.Add(groupBox);
 
-            foreach (GroupBox gb in groupBoxList)
-            {
+            foreach (GroupBox gb in groupBoxList) {
                 if (gb.Name == name)
                     return gb;
             }
@@ -234,30 +281,30 @@ namespace Client.UI
             throw new ArgumentException("No group box with name " + name + " found");
         }
 
-        public String GroupBoxName
-        {
-            get
-            { return groupBox.Name; }
-            set
-            {
+        public String GroupBoxName {
+            get { return groupBox.Name; }
+            set {
+                lastView = Views.None;
                 Controls.Remove(groupBox);
                 groupBox = GetGroupBox(value);
                 Controls.Add(groupBox);
             }
         }
 
-        private void checkBoxSoundMute_CheckedChanged(object sender, EventArgs e)
-        {
+        private void checkBoxSoundMute_CheckedChanged(object sender, EventArgs e) {
             CheckBox checkBox = sender as CheckBox;
 
             numericUpDownSoundVolume.Enabled = !checkBox.Checked;
         }
 
-        private void checkBoxMusicMute_CheckedChanged(object sender, EventArgs e)
-        {
+        private void checkBoxMusicMute_CheckedChanged(object sender, EventArgs e) {
             CheckBox checkBox = sender as CheckBox;
 
             numericUpDownMusicVolume.Enabled = !checkBox.Checked;
+        }
+
+        void buttonNewGame_Click(object sender, EventArgs e) {
+            OnOptionChoosen(MenuOption.NewGame);
         }
     }
 }

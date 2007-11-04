@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Client.UI;
 using Client.Log;
 using System.Reflection;
+using System.Threading;
 
 namespace Client
 {
@@ -16,14 +17,15 @@ namespace Client
         static void Main()
         {
             InfoLog.WriteStart();
-           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
-
+            MiniForm miniForm = new MiniForm();
+            miniForm.Hide();
+            UIManager uiManager = new UIManager(miniForm);
+            uiManager.Start();
+            Application.Run(miniForm);
             InfoLog.WriteEnd();
             InfoLog.Close();
-
         }
     }
 }

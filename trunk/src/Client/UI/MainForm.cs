@@ -9,7 +9,7 @@ using Client.Log;
 using Client.Engine.GameGraphics;
 
 namespace Client.UI {
-	public partial class MainForm : Form {
+	public partial class MainForm : UIManageable {
 		bool scrolling = false,
 			rotating = false;
 		Point mousePos;
@@ -18,6 +18,8 @@ namespace Client.UI {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 			InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
@@ -37,6 +39,15 @@ namespace Client.UI {
 
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 		}
+
+        void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            OnOptionChoosen(MenuOption.Options);
+            e.Cancel = true;
+        }
+
+        void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
+            OnOptionChoosen(MenuOption.Options);
+        }
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
 			this.openGLView.Invalidate();
