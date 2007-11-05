@@ -262,6 +262,7 @@
     <Compile Include="Net\General\Server\Chat.cs" />
     <Compile Include="ServerManagement\MenuMessageHandler.cs" />
     <Compile Include="ServerManagement\Player.cs" />
+    <Compile Include="ServerManagement\PlayerData.cs" />
     <Compile Include="ServerManagement\Server.cs" />
     <Compile Include="ServerManagement\ServerMain.cs" />
     <Compile Include="UI\ConsoleForm.cs">
