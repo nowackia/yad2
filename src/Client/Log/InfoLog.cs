@@ -91,7 +91,7 @@ namespace Client.Log {
         }
 
         private void WriteExceptionIns(Exception ex) {
-            _writer.WriteLine("-- WYJATEK ---" + DateTime.Now.ToString() + "--------------");
+            _writer.WriteLine("-- EXCEPTION ---" + DateTime.Now.ToString() + "--------------");
             WriteSingleExceptionIns(ex);
             if (ex.InnerException != null) {
                 _writer.WriteLine("---- InnerException: " + ex.InnerException.ToString());
@@ -101,7 +101,7 @@ namespace Client.Log {
         }
 
         private void WriteErrorIns(string s) {
-            _writer.WriteLine("-- BLAD ---" + DateTime.Now.ToString() + "-----------------");
+            _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
             _writer.WriteLine("Message: " + s);
             _writer.WriteLine("------------------------------------------------------------");
         }
@@ -111,7 +111,7 @@ namespace Client.Log {
         }
 
         private void WriteInfoIns(string s, EPrefix prefix) {
-            if (!_infoLogPrefix.isFiltred(prefix)) {
+            if (!_infoLogPrefix.IsFiltred(prefix)) {
                 s = _infoLogPrefix.AddFilterString(s, prefix);
                 _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
             }

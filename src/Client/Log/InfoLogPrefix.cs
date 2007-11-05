@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 
 namespace Client.Log
@@ -7,35 +9,44 @@ namespace Client.Log
     public enum EPrefix
     {
         /// <summary>
-        /// Informacja o inicjalizacji
+        /// Initialization information
         /// </summary>
+        [Description(" #INI: ")]
         Initialization = 0,
+
         ///<summary>
-        /// Informacja o menu
+        /// Menu information
         /// </summary>
+        [Description(" #MENU: ")]
         Menu,
+
+        [Description(" #GRF: ")]
 		GameGraphics,
+        [Description(" #FIN:")]
         Finalization,
+        [Description(" #UIM: ")]
         UIManager,
+        [Description(" #SERV_INFO: ")]
         ServerInformation,
+        [Description(" #MSG_RCV: ")]
         MessageReceivedInfo,
-        /// <summary>
-        /// Wartosc kontrolna - musi byc zawsze na koncu
-        /// </summary>
-        _NUMBER_PREFIXES
+
+        // Wartosc kontrolna - musi byc zawsze na koncu
+        //_NUMBER_PREFIXES
     };
 
 
     class InfoLogPrefix
     {
-        private string[] _prefixes = { " #INI: ", " #MNU: ", " #GRF: ", " #FIN: ", "#UIM: ",  "#SERV_INFO: ", " #MSG_RCV: " };
+        //private string[] _prefixes = { " #INI: ", " #MNU: ", " #GRF: ", " #FIN: ", "#UIM: ",  "#SERV_INFO: ", " #MSG_RCV: " };
         bool[] _filters = null;
         public InfoLogPrefix()
         {
-            _filters = new bool[(int)EPrefix._NUMBER_PREFIXES];
+            _filters = new bool[Enum.GetValues(typeof(EPrefix)).Length];
             for (int i = 0; i < _filters.Length; ++i)
                 _filters[i] = false;
         }
+
         public void AddFilter(EPrefix prefix)
         {
             _filters[(int)prefix] = true;
@@ -58,14 +69,22 @@ namespace Client.Log
                 _filters[i] = true;
         }
 
-        public bool isFiltred(EPrefix prefix)
+        public bool IsFiltred(EPrefix prefix)
         {
             return _filters[(int)prefix];
         }
 
+        private string GetDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return (attributes.Length > 0) ? attributes[0].Description : value.ToString();
+        }
+
         public string AddFilterString(string message, EPrefix prefix)
         {
-            return _prefixes[(int)prefix] + message;
+            return GetDescription(prefix) + message;
         }
     }
 }
