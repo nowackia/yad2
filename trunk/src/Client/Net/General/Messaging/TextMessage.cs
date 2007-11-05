@@ -11,6 +11,10 @@ namespace Yad.Net.General.Messaging
     {
         private String text;
 
+        public TextMessage()
+            : base(MessageType.Text)
+        { }
+
         public String Text
         {
             get { return text; }

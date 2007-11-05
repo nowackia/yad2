@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yad.Net.General.Messaging
 {
-    public class ControlMessage
+    public class ControlMessage : Message
     {
         public void CreateResponse()
         {

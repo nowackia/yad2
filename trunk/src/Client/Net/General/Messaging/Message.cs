@@ -23,16 +23,23 @@ namespace Yad.Net.General.Messaging
             set { userId = value; }
         }
 
-        public static void WriteString(string text, BinaryWriter writer) {
+        protected void WriteString(string text, BinaryWriter writer)
+        {
             byte b = (byte)text.Length;
             writer.Write(b);
             writer.Write(text.ToCharArray());
         }
 
-        public static string ReadString(BinaryReader reader) {
+        protected string ReadString(BinaryReader reader) {
             byte lenght = reader.ReadByte();
             char[] charray = reader.ReadChars(lenght);
             return new string(charray);
+        }
+
+        protected void WriteMessageType(MessageType type, BinaryWriter writer)
+        {
+            byte itype = (byte)type;
+            writer.Write(itype);
         }
 
         public MessageType Type
@@ -43,16 +50,9 @@ namespace Yad.Net.General.Messaging
 
         public virtual void Deserialize(BinaryReader reader) {
         }
+
         public virtual void Serialize(BinaryWriter writer) {
-            SendMessage(type, writer);
+            WriteMessageType(type, writer);
         }
-
-
-
-        public void SendMessage(MessageType type, BinaryWriter writer) {
-            byte itype = (byte)type;
-            writer.Write(itype);
-        }
-
     }
 }
