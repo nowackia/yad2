@@ -28,6 +28,8 @@ namespace Client.Log
         UIManager,
         [Description(" #SERV_INFO: ")]
         ServerInformation,
+        [Description(" #CLIENT_INFO: ")]
+        ClientInformation,
         [Description(" #MSG_RCV: ")]
         MessageReceivedInfo,
 

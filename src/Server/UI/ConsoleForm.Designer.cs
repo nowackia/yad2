@@ -1,6 +1,6 @@
 namespace Server.UI
 {
-    partial class ConsoleForm
+    partial class consoleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Server.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(consoleForm));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.hideConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,24 +55,24 @@ namespace Server.UI
             this.toolStripMenuItem1,
             this.endServerToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.contextMenuStrip.Size = new System.Drawing.Size(137, 54);
             // 
             // hideConsoleToolStripMenuItem
             // 
             this.hideConsoleToolStripMenuItem.Name = "hideConsoleToolStripMenuItem";
-            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.hideConsoleToolStripMenuItem.Text = "Hide Console";
             this.hideConsoleToolStripMenuItem.Click += new System.EventHandler(this.hideConsoleToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 6);
             // 
             // endServerToolStripMenuItem
             // 
             this.endServerToolStripMenuItem.Name = "endServerToolStripMenuItem";
-            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.endServerToolStripMenuItem.Text = "End Server";
             this.endServerToolStripMenuItem.Click += new System.EventHandler(this.endServerToolStripMenuItem_Click);
             // 
@@ -82,7 +82,7 @@ namespace Server.UI
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(284, 264);
+            this.mainPanel.Size = new System.Drawing.Size(592, 326);
             this.mainPanel.TabIndex = 1;
             // 
             // textBox
@@ -98,19 +98,19 @@ namespace Server.UI
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(284, 264);
+            this.textBox.Size = new System.Drawing.Size(592, 326);
             this.textBox.TabIndex = 0;
             this.textBox.WordWrap = false;
             // 
-            // ConsoleForm
+            // consoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 264);
+            this.ClientSize = new System.Drawing.Size(592, 326);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "ConsoleForm";
-            this.Text = "Console";
+            this.Name = "consoleForm";
+            this.Text = "Server Console";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleForm_FormClosing);
             this.Load += new System.EventHandler(this.ConsoleForm_Load);
             this.contextMenuStrip.ResumeLayout(false);

@@ -12,7 +12,7 @@ using Server.ServerManagement;
 namespace Server.UI
 {
     delegate void SetTextCallback(string text);
-    public partial class ConsoleForm : Form
+    public partial class consoleForm : Form
     {
         #region Pola prywatne
 
@@ -28,7 +28,7 @@ namespace Server.UI
 
         #region Konstrutkory
 
-        public ConsoleForm()
+        public consoleForm()
         {
             InitializeComponent();
         }

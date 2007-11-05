@@ -5,6 +5,8 @@ using Client.UI;
 using Client.Log;
 using System.Reflection;
 using System.Threading;
+using Yad.Net;
+using Yad.Net.General.Messaging;
 
 namespace Client
 {
@@ -21,13 +23,17 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            MiniForm miniForm = new MiniForm();
+            Connection.InitConnection("127.0.0.1", 15000);
+            Connection.SendMessage(new TextMessage());
+            Connection.CloseConnection();
+
+            /*MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 
             UIManager uiManager = new UIManager(miniForm);
             uiManager.Start();
 
-            Application.Run(miniForm);
+            Application.Run(miniForm);*/
 
             InfoLog.WriteEnd();
             InfoLog.Close();

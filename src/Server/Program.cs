@@ -21,13 +21,19 @@ namespace Server
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
 
-            ConsoleForm consoleForm = new ConsoleForm();
+            consoleForm consoleForm = new consoleForm();
             OnWriteLineDelegate owd = new OnWriteLineDelegate(consoleForm.AppendText);
             InfoLog.Instance.OnWriteLine += owd;
             
             InfoLog.WriteStart();
 
-            Application.Run(consoleForm);
+            /* Server Fake only for client testing reasons, change output type to Console Application
+             * in project properties */
+            ServerFake.Process();
+            /* Uncomment this if you want original server, change output type to Windows Application
+             * in project properties */
+            //Application.Run(consoleForm);
+
 
             InfoLog.WriteEnd();
             InfoLog.Close();
