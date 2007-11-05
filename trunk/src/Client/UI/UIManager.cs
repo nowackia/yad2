@@ -43,42 +43,52 @@ namespace Client.UI {
                 case Views.MainMenuForm:
                     ManageMainMenuForm(option);
                     break;
+
                 case Views.LoginForm:
                     ManageLoginForm(option);
                     break;
+
                 case Views.RegistrationForm:
                     ManageRegistrationForm(option);
                     break;
+
                 case Views.OptionsForm:
                     ManageOptionsForm(option);
                     break;
+
                 case Views.ChatForm:
                     ManageChatForm(option);
                     break;
+
                 case Views.UserInfoForm:
                     ManageUserInfoForm(option);
                     break;
+
                 case Views.ChooseGameForm:
                     ManageChooseGameForm(option);
                     break;
+
                 case Views.GameForm:
                     ManageGameForm(option);
                     break;
                 case Views.CreateGameForm:
                     ManageCreateGameForm(option);
                     break;
+
                 case Views.WaitingForPlayersForm:
                     ManageWaitingForPlayersForm(option);
                     break;
+
                 case Views.PauseForm:
                     ManagePauseForm(option);
                     break;
+
                 case Views.GameMenuForm:
                     ManageGameMenuForm(option);
                     break;
+
                 default:
                     throw new NotImplementedException("not supported form: " + actualView + ", option: " + option);
-                    break;
             }
             InfoLog.WriteInfo("Switched to View: " + actualView, EPrefix.UIManager);
         }
@@ -88,9 +98,9 @@ namespace Client.UI {
                 case MenuOption.Back:
                     switchView(Views.LoginForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -99,15 +109,19 @@ namespace Client.UI {
                 case MenuOption.CancelToGameMenu:
                     switchView(Views.GameMenuForm);
                     break;
+
                 case MenuOption.Cancel:
                     switchView(Views.MainMenuForm);
                     break;
+
                 case MenuOption.CancelToPauseMenu:
                     switchView(Views.PauseForm);
                     break;
+
                 case MenuOption.OkToGameMenu:
                     switchView(Views.GameMenuForm);
                     break;
+
                 case MenuOption.Ok:
                     switchView(Views.MainMenuForm);
                     break;
@@ -118,7 +132,6 @@ namespace Client.UI {
                 
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -127,15 +140,17 @@ namespace Client.UI {
                 case MenuOption.Game:
                     switchView(Views.ChooseGameForm);
                     break;
+
                 case MenuOption.Back:
                     switchView(Views.LoginForm);
                     break;
+
                 case MenuOption.UserName:
                     switchView(Views.UserInfoForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -144,9 +159,9 @@ namespace Client.UI {
                 case MenuOption.Back:
                     switchView(Views.ChatForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -155,16 +170,18 @@ namespace Client.UI {
                 case MenuOption.Back:
                     switchView(Views.ChatForm);
                     break;
+
                 case MenuOption.Join:
                     switchView(Views.WaitingForPlayersForm);
                     //TODO RS: inform form that player dont have admin rights.
                     break;
+
                 case MenuOption.Create:
                     switchView(Views.CreateGameForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -173,9 +190,9 @@ namespace Client.UI {
                 case MenuOption.Options:
                     switchView(Views.GameMenuForm, false);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -184,13 +201,14 @@ namespace Client.UI {
                 case MenuOption.Cancel:
                     switchView(Views.ChooseGameForm);
                     break;
+
                 case MenuOption.Create:
                     switchView(Views.WaitingForPlayersForm);
                     //TODO RS: inform form that player has admin rights.
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -199,12 +217,13 @@ namespace Client.UI {
                 case MenuOption.Cancel:
                     switchView(Views.ChooseGameForm);
                     break;
+
                 case MenuOption.StartGame:
                     switchView(Views.GameForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -212,17 +231,18 @@ namespace Client.UI {
             switch (option) {
                 case MenuOption.Exit:
                     throw new NotImplementedException("System exit from " + actualView + ": " + option);
-                    break;
+
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
                     ((MenuForm)(actualForm)).LastView = Views.PauseForm;
                     break;
+
                 case MenuOption.Continue:
                     switchView(Views.GameForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -230,20 +250,22 @@ namespace Client.UI {
             switch (option) {
                 case MenuOption.Exit:
                     throw new NotImplementedException("System exit from " + actualView + ": " + option);
-                    break;
+
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
                     ((MenuForm)(actualForm)).LastView = Views.GameMenuForm;
                     break;
+
                 case MenuOption.Back:
                     switchView(Views.GameForm);
                     break;
+
                 case MenuOption.Pause:
                     switchView(Views.PauseForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -252,15 +274,17 @@ namespace Client.UI {
                 case MenuOption.Cancel:
                     switchView(Views.MainMenuForm);
                     break;
+
                 case MenuOption.Login:
                     switchView(Views.ChatForm);
                     break;
+
                 case MenuOption.Registration:
                     switchView(Views.RegistrationForm);
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
-                    break;
             }
         }
 
@@ -269,16 +293,18 @@ namespace Client.UI {
                 case MenuOption.Exit:
                     Stop();
                     break;
+
                 case MenuOption.NewGame:
                     switchView(Views.LoginForm);
                     break;
+
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
                     ((MenuForm)(actualForm)).LastView = Views.MainMenuForm;
                     break;
+
                 default:
                     throw new NotImplementedException("bad option from "+ actualView + ": " + option);
-                    break;
             }
         }
 

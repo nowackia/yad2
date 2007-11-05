@@ -26,7 +26,7 @@ namespace Client.Log
             }
             catch (IOException)
             {
-                MessageBox.Show("Nie mo¿na otworzyæ pliku ErrorLog.txt!");
+                MessageBox.Show("Cannot open ErrorLog.txt file");
             }
         }
 
