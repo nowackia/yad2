@@ -9,7 +9,9 @@ namespace Server.Net.General.Server {
         List<Player> _players;
 
         public void AddPlayer(Player player) {
-            _players.Add(player);
+            lock (_players) {
+                _players.Add(player);
+            }
             Message m = MessageFactory.Create(MessageType.ChatUsers);
             player.SendMessage(m);
         }

@@ -25,6 +25,7 @@ namespace Server.ServerManagement {
         private ConnectionLostDelegate _onConnectionLost;
         private int _id;
         private MenuState _state;
+        private PlayerData _data;
 
         #endregion Private members
 
@@ -38,6 +39,18 @@ namespace Server.ServerManagement {
             set { _state = value; }
         }
 
+        public string Login {
+            get { return _data.Login; }
+        }
+
+        public int WinNo {
+            get { return _data.WinNo; }
+        }
+
+        public int LossNo {
+            get { return _data.LossNo; }
+        }
+
         internal ConnectionLostDelegate OnConnectionLost {
             get { return _onConnectionLost; }
             set { _onConnectionLost = value; }
@@ -48,8 +61,11 @@ namespace Server.ServerManagement {
             set { _onReceiveMessage = value; }
         }
 
-        
 
+        public void SetData(PlayerData pd) {
+            _data = pd;
+            _id = pd.Id;
+        }
         public Player(int id, TcpClient client) {
             _id = id;
             _readStream = new BinaryReader(client.GetStream());

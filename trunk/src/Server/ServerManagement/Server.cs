@@ -7,14 +7,32 @@ using System.Threading;
 using Client.Log;
 using System.Collections;
 using System.Windows.Forms;
+using Server.Net.General.Server;
 
 namespace Server.ServerManagement {
     class Server {
 
         private int _portNumber;
         private TcpListener _listener;
+
         private Dictionary<int, Player> _playersUnlogged;
         private Dictionary<int, Player> _playersLogged;
+        private Chat _chat;
+
+        internal Chat Chat {
+            get { return _chat; }
+            set { _chat = value; }
+        }
+
+        internal Dictionary<int, Player> PlayersLogged {
+            get { return _playersLogged; }
+            set { _playersLogged = value; }
+        }
+
+        internal Dictionary<int, Player> PlayersUnlogged {
+            get { return _playersUnlogged; }
+            set { _playersUnlogged = value; }
+        }
 
         private MenuMessageHandler _menuMsgHandler;
         private bool _serverEnd = false;
@@ -28,7 +46,7 @@ namespace Server.ServerManagement {
             _listener = new TcpListener(_portNumber);
             _listener.Start();
             InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
-            _menuMsgHandler = new MenuMessageHandler();
+            _menuMsgHandler = new MenuMessageHandler(this);
             _menuMsgHandler.Start();
             InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
 
@@ -45,6 +63,7 @@ namespace Server.ServerManagement {
         public void Stop() {
             _listener.Stop();
         }
+
 
         public void RemovePlayer(Player player) {
             InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);
