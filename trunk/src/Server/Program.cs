@@ -29,10 +29,10 @@ namespace Server
 
             /* Server Fake only for client testing reasons, change output type to Console Application
              * in project properties */
-            ServerFake.Process();
+            //ServerFake.Process();
             /* Uncomment this if you want original server, change output type to Windows Application
              * in project properties */
-            //Application.Run(consoleForm);
+            Application.Run(consoleForm);
 
 
             InfoLog.WriteEnd();
