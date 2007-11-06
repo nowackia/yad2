@@ -38,6 +38,32 @@ namespace Server.ServerManagement {
         private bool _serverEnd = false;
         private int playerID = 1;
 
+        public void MoveFromUnloggedToLogged(int keyunlogged, int keylogged) {
+            Player player = null;
+            lock (_playersUnlogged) {
+                player = _playersUnlogged[keyunlogged];
+                _playersUnlogged.Remove(keyunlogged);
+            }
+            lock (_playersLogged) {
+                _playersLogged.Add(keylogged, player);
+            }
+        }
+
+        public Player GetPlayerFromUnlogged(int key) {
+            lock (_playersUnlogged) {
+                if (_playersUnlogged.ContainsKey(key))
+                    return _playersUnlogged[key];
+            }
+            return null;
+        }
+
+        public Player GetPlayerFromLogged(int key) {
+            lock (_playersLogged) {
+                if (_playersLogged.ContainsKey(key))
+                    return _playersLogged[key];
+            }
+            return null;
+        }
         public Server(int PortNumber) {
 
             _portNumber = PortNumber;
@@ -48,6 +74,7 @@ namespace Server.ServerManagement {
             InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
             _menuMsgHandler = new MenuMessageHandler(this);
             _menuMsgHandler.Start();
+            _chat = new Chat();
             InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
 
         }
@@ -65,7 +92,8 @@ namespace Server.ServerManagement {
         }
 
 
-        public void RemovePlayer(Player player) {
+        public void OnConnectionLost(object sender, ConnectionLostEventArgs args) {
+            Player player = sender as Player;
             InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);
             if (player.State == Yad.Net.General.MenuState.Unlogged)
                 _playersUnlogged.Remove(player.Id);
@@ -84,8 +112,8 @@ namespace Server.ServerManagement {
             }
             InfoLog.WriteInfo("Server accepted new client");
             Player player = new Player(playerID + 1, client);
-            player.OnReceiveMessage += new ReceiveMessageDelegate(_menuMsgHandler.AddMessage);
-            player.OnConnectionLost += new ConnectionLostDelegate(RemovePlayer);
+            player.OnReceiveMessage += new ReceiveMessageDelegate(_menuMsgHandler.OnReceivePlayerMessage);
+            player.OnConnectionLost += new ConnectionLostDelegate(OnConnectionLost);
             player.Start();
             lock(((ICollection)_playersUnlogged).SyncRoot)
                 _playersUnlogged.Add(++playerID, player);

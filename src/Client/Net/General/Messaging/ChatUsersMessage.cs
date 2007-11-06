@@ -26,7 +26,7 @@ namespace Client.Net.General.Messaging {
             writer.Write(_chatUsers.Count);
             foreach (ChatUser cu in _chatUsers) {
                 writer.Write(cu.Id);
-                base.WriteString(cu.Name, writer);
+                Message.WriteString(cu.Name, writer);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Client.Net.General.Messaging {
             string name;
             for (int i = 0; i < count; ++i) {
                 id = reader.ReadInt32();
-                name = base.ReadString(reader);
+                name = Message.ReadString(reader);
                 _chatUsers.Add(new ChatUser(id, name));
             }
         }

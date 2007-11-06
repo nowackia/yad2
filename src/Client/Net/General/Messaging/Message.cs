@@ -23,14 +23,14 @@ namespace Yad.Net.General.Messaging
             set { userId = value; }
         }
 
-        protected void WriteString(string text, BinaryWriter writer)
+        public static void WriteString(string text, BinaryWriter writer)
         {
             byte b = (byte)text.Length;
             writer.Write(b);
             writer.Write(text.ToCharArray());
         }
 
-        protected string ReadString(BinaryReader reader) {
+        public static string ReadString(BinaryReader reader) {
             byte lenght = reader.ReadByte();
             char[] charray = reader.ReadChars(lenght);
             return new string(charray);

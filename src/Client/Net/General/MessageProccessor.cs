@@ -7,17 +7,17 @@ using System.Threading;
 
 
 namespace Yad.Net.General {
-    abstract class MessageProcessor : IMessageHandler{
+    abstract class ListProcessor<T> {
         private ConsumerSync _sync;
-        private List<Message> _msgQueue;
+        private List<T> _queue;
 
-        public MessageProcessor() {
+        public ListProcessor() {
             _sync = new ConsumerSync();
-            _msgQueue = new List<Message>();
+            _queue = new List<T>();
         }
-        public void AddMessage(Message msg) {
-            lock (((ICollection)_msgQueue).SyncRoot) {
-                _msgQueue.Add(msg);
+        public void AddItem(T item) {
+            lock (((ICollection)_queue).SyncRoot) {
+                _queue.Add(item);
             }
             _sync.AddObject();
         }
@@ -28,18 +28,18 @@ namespace Yad.Net.General {
 
 
         public void Process() {
-            Message msg;
+            T item;
             while (WaitHandle.WaitAny(_sync.EventArray) != _sync.WaitIndex) {
-                lock (((ICollection)_msgQueue).SyncRoot) {
-                    msg = _msgQueue[0];
-                    _msgQueue.RemoveAt(0);
+                lock (((ICollection)_queue).SyncRoot) {
+                    item = _queue[0];
+                    _queue.RemoveAt(0);
                 }
-                ProcessMessage(msg);
+                ProcessItem(item);
 
             }
         }
 
-        public abstract void ProcessMessage(Message msg);
+        public abstract void ProcessItem(T item);
 
     }
 }

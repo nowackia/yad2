@@ -9,11 +9,12 @@ namespace Server.Net.General.Server {
         List<Player> _players;
 
         public void AddPlayer(Player player) {
+            /*
             lock (_players) {
                 _players.Add(player);
             }
             Message m = MessageFactory.Create(MessageType.ChatUsers);
-            player.SendMessage(m);
+            player.SendMessage(m);*/
         }
 
         public void Remove(Player player) {

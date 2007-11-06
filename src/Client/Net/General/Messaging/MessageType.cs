@@ -20,5 +20,7 @@ namespace Yad.Net.General.Messaging
         ChatUsers,
         DeleteChatUser,
         Login,
+        LoginSuccessful,
+        LoginUnsuccessful
     }
 }

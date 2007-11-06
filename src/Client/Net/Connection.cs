@@ -35,7 +35,7 @@ namespace Yad.Net
                 InfoLog.WriteInfo("Connection failed with error number " + ex.ErrorCode, EPrefix.ClientInformation);
             }
         }
-
+       
         public static void CloseConnection()
         {
             writer.Close();
