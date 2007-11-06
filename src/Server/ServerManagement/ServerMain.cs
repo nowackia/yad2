@@ -15,6 +15,7 @@ namespace Server.ServerManagement
         private Thread _serverThread = null;
         private Server _server;
         private const int _ServerPortNo = 1734;
+
         #endregion
 
         #region Konstruktory

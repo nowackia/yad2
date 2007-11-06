@@ -33,6 +33,7 @@ namespace Server.ServerManagement {
         }
 
         public override void ProcessMessage(Message msg) {
+            InfoLog.WriteInfo(msg.Type.ToString(), EPrefix.MessageReceivedInfo);
             switch (msg.Type) {
                 case MessageType.Login:
                     ProcessLogin((LoginMessage)msg);
