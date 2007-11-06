@@ -156,6 +156,8 @@
     </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="Net\General\Server\Chat.cs" />
+    <Compile Include="ServerManagement\ConnectionLostEventArgs.cs" />
+    <Compile Include="ServerManagement\RecieveMessageEventArgs.cs" />
     <Compile Include="ServerManagement\MenuMessageHandler.cs" />
     <Compile Include="ServerManagement\Player.cs" />
     <Compile Include="ServerManagement\PlayerData.cs" />

@@ -10,7 +10,7 @@ namespace Client.Log
     public class MultiStream : IDisposable
     {
         StreamWriter _writer = null;
-        OnWriteLineDelegate _onWriteLine = null;
+        event OnWriteLineDelegate _onWriteLine = null;
 
         public OnWriteLineDelegate OnWriteLine
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Client.Net.General.Messaging;
 
 namespace Yad.Net.General.Messaging {
     class MessageFactory {
@@ -24,6 +25,14 @@ namespace Yad.Net.General.Messaging {
                     NumericMessage nummsg = new NumericMessage();
                     nummsg.Type = MessageType.DeleteChatUser;
                     return nummsg;
+                case MessageType.Login:
+                    LoginMessage loginmsg = new LoginMessage();
+                    loginmsg.Type = MessageType.Login;
+                    return loginmsg;
+                case MessageType.LoginSuccessful:
+                    Message m = new Message();
+                    m.Type = MessageType.LoginSuccessful;
+                    return m;
             }
             return null;
         }

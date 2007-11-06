@@ -11,8 +11,8 @@ using Yad.Net.General;
 
 namespace Server.ServerManagement {
     
-    delegate void ReceiveMessageDelegate(Message msg);
-    delegate void ConnectionLostDelegate(Player player);
+    delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
+    delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);
 
     class Player {
 
@@ -21,8 +21,8 @@ namespace Server.ServerManagement {
         private BinaryReader _readStream;
         private BinaryWriter _writeStream;
         private Thread _rcvThread;
-        private ReceiveMessageDelegate _onReceiveMessage;
-        private ConnectionLostDelegate _onConnectionLost;
+        private event ReceiveMessageDelegate _onReceiveMessage;
+        private event ConnectionLostDelegate _onConnectionLost;
         private int _id;
         private MenuState _state;
         private PlayerData _data;
@@ -63,8 +63,10 @@ namespace Server.ServerManagement {
 
 
         public void SetData(PlayerData pd) {
+            /*
             _data = pd;
             _id = pd.Id;
+             */
         }
         public Player(int id, TcpClient client) {
             _id = id;
@@ -82,13 +84,23 @@ namespace Server.ServerManagement {
                 msg.Serialize(_writeStream);
             }
             catch (Exception) {
-                lock (_onConnectionLost) {
-                    if (_onConnectionLost != null)
-                        _onConnectionLost(this);
-                }
+                ExecuteOnConnectionLost();
             }
         }
 
+        private void ExecuteOnConnectionLost() {
+            lock (_onConnectionLost) {
+                if (_onConnectionLost != null)
+                    _onConnectionLost(this, new ConnectionLostEventArgs());
+            }
+        }
+
+        private void ExecuteOnReceiveMessage(Message msg) {
+            lock (_onReceiveMessage) {
+                if (_onReceiveMessage != null)
+                _onReceiveMessage(this, new RecieveMessageEventArgs(msg));
+            }
+        }
         public void ReceiveMessages() {
             byte type;
             while (true) {
@@ -96,10 +108,7 @@ namespace Server.ServerManagement {
                     type = _readStream.ReadByte();
                 }
                 catch (Exception) {
-                    lock (_onConnectionLost) {
-                        if (_onConnectionLost != null)
-                            _onConnectionLost(this);
-                    }
+                    ExecuteOnConnectionLost();
                     return;
                     
                 }
@@ -110,9 +119,8 @@ namespace Server.ServerManagement {
                     continue;
                 }
                 msg.Deserialize(_readStream);
-                lock (_onReceiveMessage) {
-                    _onReceiveMessage(msg);
-                }
+                msg.UserId = Id;
+                ExecuteOnReceiveMessage(msg);
             }
         }
 
