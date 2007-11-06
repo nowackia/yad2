@@ -23,17 +23,19 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+			/*
             Connection.InitConnection("127.0.0.1", 15000);
             Connection.SendMessage(new TextMessage());
             Connection.CloseConnection();
-
-            /*MiniForm miniForm = new MiniForm();
+			*/
+            
+			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 
             UIManager uiManager = new UIManager(miniForm);
             uiManager.Start();
 
-            Application.Run(miniForm);*/
+            Application.Run(miniForm);
 
             InfoLog.WriteEnd();
             InfoLog.Close();
