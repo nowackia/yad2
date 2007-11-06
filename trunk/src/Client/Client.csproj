@@ -130,7 +130,7 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\GameForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
@@ -202,7 +202,7 @@
       </SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\XMLLoader\generate.bat" />
+    <None Include="Config\generate.bat" />
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />
