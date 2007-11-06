@@ -7,10 +7,8 @@ using System.Xml.Serialization;
 using System.Xml;
 using YAD2Configuration;
 
-namespace Classes.XMLLoader
-{
-    static class XMLLoader
-    {
+namespace Classes.XMLLoader {
+	static class XMLLoader {
 		/*
         public static string xmlFile = "Config/dune_example.xml";
 		public static string schema = "Config/dune.xsd";
@@ -50,14 +48,62 @@ namespace Classes.XMLLoader
 				XmlReader xr = new XmlTextReader(sr);
 				XmlValidatingReader xvr = new XmlValidatingReader(xr);
 				xvr.Schemas.Add(YAD2Configuration.Declarations.SchemaVersion, configFileXSDPath);
-				return (GameSettings)xmlSer.Deserialize(xvr);
+				GameSettings gameSettings = (GameSettings)xmlSer.Deserialize(xvr);
+				GameSettingsInitializer(gameSettings);
 				xvr.Close();
 				xr.Close();
 				sr.Close();
 
+				return gameSettings;
 			} catch (Exception e) {
 				throw new XMLLoaderException(e);
 			}
 		}
-    }
+
+		private static void GameSettingsInitializer(GameSettings gameSettings) {
+			int id = 1;
+
+			foreach (AmmoData ad in gameSettings.AmmosData.AmmoDataCollection) {
+				ad.ID = GetID();
+			}
+
+			foreach (BuildingData bd in gameSettings.BuildingsData.BuildingDataCollection) {
+				bd.ID = GetID();
+			}
+
+			foreach (RaceData rd in gameSettings.RacesData.RaceDataCollection) {
+				rd.ID = GetID();
+			}
+
+			foreach (UnitHarvesterData uh in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
+				uh.ID = GetID();
+			}
+
+			foreach (UnitMCVData uh in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
+				uh.ID = GetID();
+			}
+
+			foreach (UnitSandwormData uh in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
+				uh.ID = GetID();
+			}
+
+			foreach (UnitTankData uh in gameSettings.UnitTanksData.UnitTankDataCollection) {
+				uh.ID = GetID();
+			}
+
+			foreach (UnitTrooperData uh in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
+				uh.ID = GetID();
+			}
+		}
+
+		static int generatedID;
+
+		static void InitializeIDGenerator() {
+			generatedID = 1;
+		}
+
+		static int GetID() {
+			return generatedID++;
+		}
+	}
 }
