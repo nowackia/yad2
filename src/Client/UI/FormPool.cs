@@ -49,7 +49,7 @@ namespace Client.UI {
                     pool.Add(view, form);
                     break;
                 case Views.GameForm:
-                    form = new MainForm();
+                    form = new GameForm();
                     pool.Add(view, form);
                     break;
                 case Views.CreateGameForm:

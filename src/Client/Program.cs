@@ -28,7 +28,7 @@ namespace Client
             Connection.SendMessage(new TextMessage());
             Connection.CloseConnection();
 			*/
-            
+
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 

@@ -1,6 +1,6 @@
 namespace Client.UI
 {
-    partial class MainForm
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace Client.UI
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.panelUIMap = new System.Windows.Forms.Panel();
 			this.panelUITop_E = new System.Windows.Forms.Panel();
 			this.panelUITop_W = new System.Windows.Forms.Panel();

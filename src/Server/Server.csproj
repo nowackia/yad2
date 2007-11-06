@@ -76,116 +76,11 @@
     <Compile Include="..\Client\Config\XMLLoader\XMLLoader.cs">
       <Link>Config\XMLLoader\XMLLoader.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\AmmoData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\AmmoData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\AmmoDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\AmmoDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\AmmosData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\AmmosData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingNameCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingNameCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingsData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingsData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingsNames.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingsNames.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\BuildingsNamesCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\BuildingsNamesCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\GameSettings.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\GameSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\IndexCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\IndexCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\NameCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\NameCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\RaceData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\RaceData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\RaceDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\RaceDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\RacesData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\RacesData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\RideableFields.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\RideableFields.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\Size.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\Size.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\TechnologyDependence.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\TechnologyDependence.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\TechnologyDependenceCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\TechnologyDependenceCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\TechnologyDependences.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\TechnologyDependences.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitHarvesterData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitHarvesterData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitHarvesterDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitHarvesterDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitHarvestersData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitHarvestersData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitMCVData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitMCVData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitMCVDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitMCVDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitMCVsData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitMCVsData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitSandwormData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitSandwormData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitSandwormDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitSandwormDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitSandwormsData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitSandwormsData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitsNames.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitsNames.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTankData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTankData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTankDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTankDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTanksData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTanksData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTrooperData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTrooperData.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTrooperDataCollection.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTrooperDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderClasses\UnitTroopersData.cs">
-      <Link>Config\XMLLoader\XMLLoaderClasses\UnitTroopersData.cs</Link>
-    </Compile>
     <Compile Include="..\Client\Config\XMLLoader\XMLLoaderException.cs">
       <Link>Config\XMLLoader\XMLLoaderException.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Config\YAD2Configuration.cs">
+      <Link>Config\XMLLoader\YAD2Configuration.cs</Link>
     </Compile>
     <Compile Include="..\Client\Engine\Simulation.cs">
       <Link>Engine\Simulation.cs</Link>

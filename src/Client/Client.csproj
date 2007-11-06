@@ -55,43 +55,8 @@
     <Compile Include="Board\BoardObject.cs" />
     <Compile Include="Board\Building.cs" />
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\AmmoData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\AmmoDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\AmmosData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingNameCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingsData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingsNames.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\BuildingsNamesCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\GameSettings.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\IndexCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\NameCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\RaceData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\RaceDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\RacesData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\RideableFields.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\Size.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\TechnologyDependence.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\TechnologyDependenceCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\TechnologyDependences.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitHarvesterData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitHarvesterDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitHarvestersData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitMCVData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitMCVDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitMCVsData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitSandwormData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitSandwormDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitSandwormsData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitsNames.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTankData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTankDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTanksData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTrooperData.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTrooperDataCollection.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderClasses\UnitTroopersData.cs" />
     <Compile Include="Config\XMLLoader\XMLLoader.cs" />
+    <Compile Include="Config\YAD2Configuration.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
     <Compile Include="Engine\Graphics\ClipRectangle.cs" />
     <Compile Include="Engine\Graphics\IRenderer.cs" />
@@ -144,6 +109,7 @@
     <Compile Include="Net\General\Messaging\NumericMessage.cs" />
     <Compile Include="Net\General\Messaging\TextMessage.cs" />
     <Compile Include="Net\General\PlayerStateMachine.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="UI\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,11 +129,11 @@
     <Compile Include="UI\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainForm.cs">
+    <Compile Include="UI\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="UI\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,9 +154,9 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.resx">
+    <EmbeddedResource Include="UI\GameForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>MainForm.cs</DependentUpon>
+      <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
@@ -230,11 +196,13 @@
     <Compile Include="UI\Views.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Config\dune.xsd">
       <SubType>
       </SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Config\XMLLoader\generate.bat" />
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />

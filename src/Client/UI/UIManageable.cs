@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Client.UI {
-    public abstract class UIManageable : Form {
+    public class UIManageable : Form {
         public event optionChoosen optionChoosen;
 
         protected void OnOptionChoosen(MenuOption option) {

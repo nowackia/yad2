@@ -8,17 +8,25 @@ using System.Windows.Forms;
 using Client.Log;
 using Client.Engine.GameGraphics;
 using Tao.Platform.Windows;
+using Classes;
+using Classes.XMLLoader;
+using Client.Properties;
 
 namespace Client.UI {
-	public partial class MainForm : UIManageable {
+	public partial class GameForm : UIManageable {
+
 		bool scrolling = false;
         bool wasScrolled = false;
 		Point mousePos;
 
-		public MainForm() {
+		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 			InitializeComponent();
+
+			 YAD2Configuration.GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+
+
             this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
