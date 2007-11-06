@@ -5,17 +5,18 @@ using Server.Classes.Exceptions;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using YAD2Configuration;
 
-namespace Server.Classes.XMLLoader
+namespace Classes.XMLLoader
 {
-    class XMLLoader
+    static class XMLLoader
     {
-        public static string xmlFile = "dune_example.xml";
-        public static string schema = "dune.xsd";
+		/*
+        public static string xmlFile = "Config/dune_example.xml";
+		public static string schema = "Config/dune.xsd";
         public static string validateNamespace = "http://www.example.org/dune";
-        private static GameSettings GS;
-        private XMLLoader(){}
-
+		*/
+		/*
         public static GameSettings getGameSettings()
         {
             if (GS == null)
@@ -26,7 +27,7 @@ namespace Server.Classes.XMLLoader
                     XmlSerializer xmlSer = new XmlSerializer(typeof(GameSettings));
                     System.Xml.XmlReader xr = new XmlTextReader(sr);
                     XmlValidatingReader xvr = new XmlValidatingReader(xr);
-                    xvr.Schemas.Add("http://www.example.org/dune", "dune.xsd");
+					xvr.Schemas.Add("http://www.example.org/dune", schema);
                     GS = (GameSettings)xmlSer.Deserialize(xvr);
                     xvr.Close();
                     xr.Close();
@@ -39,8 +40,24 @@ namespace Server.Classes.XMLLoader
                 
             }
             return GS;
-
         }
+		 * */
 
+		public static GameSettings get(String configFilePath, String configFileXSDPath) {
+			try {
+				FileStream sr = new FileStream(configFilePath, FileMode.Open);
+				XmlSerializer xmlSer = new XmlSerializer(typeof(GameSettings));
+				XmlReader xr = new XmlTextReader(sr);
+				XmlValidatingReader xvr = new XmlValidatingReader(xr);
+				xvr.Schemas.Add(YAD2Configuration.Declarations.SchemaVersion, configFileXSDPath);
+				return (GameSettings)xmlSer.Deserialize(xvr);
+				xvr.Close();
+				xr.Close();
+				sr.Close();
+
+			} catch (Exception e) {
+				throw new XMLLoaderException(e);
+			}
+		}
     }
 }
