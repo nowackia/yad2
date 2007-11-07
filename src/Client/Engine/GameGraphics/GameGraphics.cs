@@ -11,50 +11,37 @@ using Client.Log;
 using Client.Engine.GameGraphics;
 
 namespace Client.Engine.GameGraphics {
-    class GameGraphics {
-        private static GameGraphics gameGraphics = null;
-
-        public static GameGraphics GetInstance() {
-            if (gameGraphics == null) {
-                gameGraphics = new GameGraphics();
-            }
-            return gameGraphics;
-        }
-
-        public event EventHandler GameGraphicsChanged;
+    static class GameGraphics {
+        public static event EventHandler GameGraphicsChanged;
 
         /// <summary>
         /// Map dimension (in tiles)
         /// </summary>
-        Size map = new Size();
+        static Size map = new Size();
 
         /// <summary>
         /// SimpleOpenGLControl's size
         /// </summary>
-        Size viewport = new Size();
+		static Size viewport = new Size();
 
         /// <summary>
         /// Map view.
         /// </summary>
-        ClipRectangle mapClip = new ClipRectangle();
+		static ClipRectangle mapClip = new ClipRectangle();
 
         /// <summary>
         /// Minimum zoom, so that there is no black area on the map.
         /// </summary>
-        float minimumZoom = 1;
+		static float minimumZoom = 1;
 
-        float zoom = 1.0f, zoomStep = 8.5f;
+		static float zoom = 1.0f, zoomStep = 8.5f;
 
         /// <summary>
         /// Used for drawing textures
         /// </summary>
-        VertexData vertexData = new VertexData();
+		static VertexData vertexData = new VertexData();
 
-        private GameGraphics() {
-            //this.InitGL();
-        }
-
-        public void InitGL() {
+		public static void InitGL() {
             Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
             Gl.glEnable(Gl.GL_BLEND);
             Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
@@ -64,20 +51,10 @@ namespace Client.Engine.GameGraphics {
             Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
             Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 
-            vertexData.vertex[2] = 0.0f;
-            vertexData.vertex[5] = 0.0f;
-            vertexData.vertex[8] = 0.0f;
-            vertexData.vertex[11] = 0.0f;
             vertexData.indices[0] = 0;
             vertexData.indices[1] = 1;
             vertexData.indices[2] = 2;
             vertexData.indices[3] = 3;
-
-            //UV mapping doesn't change
-            vertexData.uv[0] = 0; vertexData.uv[1] = 0;
-            vertexData.uv[2] = 1; vertexData.uv[3] = 0;
-            vertexData.uv[4] = 1; vertexData.uv[5] = 1;
-            vertexData.uv[6] = 0; vertexData.uv[7] = 1;
 
             Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
             Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
@@ -87,7 +64,7 @@ namespace Client.Engine.GameGraphics {
             UpdateViewport();
         }
 
-        public void InitTextures() {
+		public static void InitTextures() {
             //TODO:
             //For all units from config file:
             // getID, getTexturePath, create32btexture
@@ -111,7 +88,7 @@ namespace Client.Engine.GameGraphics {
         /// </summary>
         /// <param name="t"></param>
         /// <param name="filename"></param>
-        private void Create32bTexture(int id, string filename) {
+		private static void Create32bTexture(int id, string filename) {
             Bitmap bitmap = new Bitmap(filename);
             Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
@@ -125,7 +102,7 @@ namespace Client.Engine.GameGraphics {
             bitmap.UnlockBits(bitmapData);
         }
 
-        private void Create32bTexture(int id, Bitmap bitmap) {
+		private static void Create32bTexture(int id, Bitmap bitmap) {
             int width = bitmap.Width;
             int height = bitmap.Height;
             Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
@@ -140,7 +117,7 @@ namespace Client.Engine.GameGraphics {
             bitmap.UnlockBits(bitmapData);
         }
 
-        private void UpdateViewport() {
+		private static void UpdateViewport() {
             minimumZoom = Math.Max((float)viewport.Width / map.Width, (float)viewport.Height / map.Height);
             if (zoom < minimumZoom)
                 zoom = minimumZoom;
@@ -163,14 +140,14 @@ namespace Client.Engine.GameGraphics {
             Gl.glLoadIdentity();
         }
 
-        public void Draw() {
+		public static void Draw() {
             Gl.glClearColor(0, 0, 0, 0);
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
             Gl.glLoadIdentity();
 
             Gl.glColor4f(1, 1, 1, 1);
-            DrawElementFromLeftBottom(0, 0, 1, mapClip.Left, mapClip.Bottom, map.Width, map.Height, 0.0f);
+            DrawElementFromLeftBottom(0, 0, 0, map.Width, map.Height, 1, new RectangleF(0,0,1,1));
 
             /*
             // Draw map first
@@ -187,53 +164,72 @@ namespace Client.Engine.GameGraphics {
              */
         }
 
-        private void DrawElementFromLeftBottom(float x, float y, int texture, float offsetx, float offsety, float width, float height, float z) {
-            z = -z;
+		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
             //Gl.glPushMatrix();
-            //Gl.glTranslatef(x + moveX, y + moveY, 0);            
+            //Gl.glTranslatef(x + moveX, y + moveY, 0);
+
+			//init texture
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
-            //Gl.glBegin(Gl.GL_TRIANGLE_FAN);            
-            vertexData.vertex[0] = x - offsetx;
-            vertexData.vertex[1] = y - offsety;
+
+			//init uv mapping for texture
+			vertexData.uv[0] = uv.Left; vertexData.uv[1] = uv.Bottom;
+            vertexData.uv[2] = uv.Right; vertexData.uv[3] = uv.Bottom;
+            vertexData.uv[4] = uv.Right; vertexData.uv[5] = uv.Top;
+            vertexData.uv[6] = uv.Left; vertexData.uv[7] = uv.Top;
+
+            vertexData.vertex[0] = x - mapClip.Left;
+            vertexData.vertex[1] = y - mapClip.Bottom;
             vertexData.vertex[2] = z;
-            vertexData.vertex[3] = x + width - offsetx;
-            vertexData.vertex[4] = y - offsety;
+            vertexData.vertex[3] = x + width - mapClip.Left;
+			vertexData.vertex[4] = y - mapClip.Bottom;
             vertexData.vertex[5] = z;
-            vertexData.vertex[6] = x + width - offsetx;
-            vertexData.vertex[7] = y + height - offsety;
+			vertexData.vertex[6] = x + width - mapClip.Left;
+			vertexData.vertex[7] = y + height - mapClip.Bottom;
             vertexData.vertex[8] = z;
-            vertexData.vertex[9] = x - offsetx;
-            vertexData.vertex[10] = y + height - offsety;
+			vertexData.vertex[9] = x - mapClip.Left;
+			vertexData.vertex[10] = y + height - mapClip.Bottom;
             vertexData.vertex[11] = z;
 
-            Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+			if (Properties.Settings.Default.UseSafeRendering) {
+				Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+				return;
+			}
+
+			Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+			int i2=0, i3=0;
+			for (int i = 0; i < 4; i++) {
+				Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+				Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3+1], vertexData.vertex[i3+2]);
+				i2 += 2;
+				i3 += 3;
+			}
+			Gl.glEnd();
         }
 
-        private void DrawElementFromMiddle(float x, float y, int texture, float offsetx, float offsety, float width, float height, float z) {
-            z = -z;
+		private static void DrawElementFromMiddle(float x, float y, float z, float width, float height, int texture) {
             float w2 = width / 2.0f;
             float h2 = height / 2.0f;
             //Gl.glPushMatrix();
             //Gl.glTranslatef(x + moveX, y + moveY, 0);            
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
             //Gl.glBegin(Gl.GL_TRIANGLE_FAN);            
-            vertexData.vertex[0] = x + 0.5f - w2 - offsetx;
-            vertexData.vertex[1] = y + 0.5f + -h2 - offsety;
+			vertexData.vertex[0] = x + 0.5f - w2 - mapClip.Left;
+			vertexData.vertex[1] = y + 0.5f - h2 - mapClip.Bottom;
             vertexData.vertex[2] = z;
-            vertexData.vertex[3] = x + 0.5f - offsetx + width;
-            vertexData.vertex[4] = y + 0.5f + -h2 - offsety;
+			vertexData.vertex[3] = x + 0.5f - mapClip.Left + width;
+			vertexData.vertex[4] = y + 0.5f - h2 - mapClip.Bottom;
             vertexData.vertex[5] = z;
-            vertexData.vertex[6] = x + 0.5f - offsetx + width;
-            vertexData.vertex[7] = y -0.5f - offsety + height;
+			vertexData.vertex[6] = x + 0.5f - mapClip.Left + width;
+			vertexData.vertex[7] = y - 0.5f - mapClip.Bottom + height;
             vertexData.vertex[8] = z;
-            vertexData.vertex[9] = x + 0.5f - w2 - offsetx;
-            vertexData.vertex[10] = y + 0.5f - offsety + height;
+			vertexData.vertex[9] = x + 0.5f - w2 - mapClip.Left;
+			vertexData.vertex[10] = y + 0.5f - mapClip.Bottom + height;
             vertexData.vertex[11] = z;
 
             Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
         }
 
-        public void Zoom(int zoomDiff) {
+		public static void Zoom(int zoomDiff) {
             zoom += zoomStep * zoomDiff;
             if (zoom <= zoomStep)
                 zoom = zoomStep;
@@ -245,7 +241,7 @@ namespace Client.Engine.GameGraphics {
             Notify();
         }
 
-        public void TranslateX(float amount) {
+		public static void TranslateX(float amount) {
             mapClip.X += amount;
 
             if (mapClip.X < 0) {
@@ -261,7 +257,7 @@ namespace Client.Engine.GameGraphics {
             Notify();
         }
 
-        public void TranslateY(float amount) {
+		public static void TranslateY(float amount) {
             mapClip.Y += amount;
 
             if (mapClip.Bottom < 0) {
@@ -277,30 +273,30 @@ namespace Client.Engine.GameGraphics {
             Notify();
         }
 
-        public void TranslationReset() {
+		public static void TranslationReset() {
             mapClip.X = 0;
             mapClip.Y = mapClip.Height;
 
             Notify();
         }
 
-        public void SetMapSize(int width, int height) {
+		public static void SetMapSize(int width, int height) {
             Console.Out.WriteLine("Setting map size");
 
-            this.map.Width = width;
-            this.map.Height = height;
+            map.Width = width;
+            map.Height = height;
 
-            minimumZoom = Math.Max(this.map.Width, this.map.Height);
+            minimumZoom = Math.Max(map.Width, map.Height);
         }
 
-        public void SetViewSize(int width, int height) {
-            this.viewport.Width = width;
-            this.viewport.Height = height;
+		public static void SetViewSize(int width, int height) {
+            viewport.Width = width;
+            viewport.Height = height;
 
             UpdateViewport();
         }
 
-        private void Notify() {
+		static void Notify() {
             //if (GameGraphicsChanged != null)
             GameGraphicsChanged(null, null);
         }

@@ -35,16 +35,15 @@ namespace Client.UI {
 			//initializes GameGraphics
 			this.openGLView.InitializeContexts();
 
-			GameGraphics gg = GameGraphics.GetInstance();
 			//First: set appropriate properties
-			gg.SetMapSize(32, 64); //TODO: change
-			gg.SetViewSize(openGLView.Width, openGLView.Height);
-			gg.InitGL();
-			gg.InitTextures();
+			GameGraphics.SetMapSize(32, 64); //TODO: change
+			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+			GameGraphics.InitGL();
+			GameGraphics.InitTextures();
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
-			
-			gg.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
+
+			GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 		}
@@ -63,15 +62,14 @@ namespace Client.UI {
 		}
 
 		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
-			GameGraphics gg = GameGraphics.GetInstance();
-			gg.Zoom(e.Delta / 120);
+			GameGraphics.Zoom(e.Delta / 120);
 		}
 
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {
-			GameGraphics gg = GameGraphics.GetInstance();
-
 			if (e.KeyCode == Keys.W) {
 			} else if (e.KeyCode == Keys.S) {
+				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
+				this.openGLView.Invalidate();
 			} else if (e.KeyCode == Keys.A) {
 			} else if (e.KeyCode == Keys.D) {
 			}
@@ -91,8 +89,6 @@ namespace Client.UI {
 		}
 
 		private void openGLView_MouseMove(object sender, MouseEventArgs e) {
-			GameGraphics gg = GameGraphics.GetInstance();
-
             if (wasScrolled) {
                 wasScrolled = false;
                 return;
@@ -102,8 +98,8 @@ namespace Client.UI {
 				int dx = e.X - mousePos.X;
                 int dy = e.Y - mousePos.Y;
 
-				gg.TranslateX(-dx * 0.05f);
-				gg.TranslateY(dy * 0.05f); //opengl uses different coordinate system
+				GameGraphics.TranslateX(-dx * 0.05f);
+				GameGraphics.TranslateY(dy * 0.05f); //opengl uses different coordinate system
 
                 wasScrolled = true;
 				Cursor.Position = openGLView.PointToScreen(mousePos);
@@ -111,21 +107,13 @@ namespace Client.UI {
 		}
 
 		private void openGLView_Paint(object sender, PaintEventArgs e) {
-			GameGraphics gg = GameGraphics.GetInstance();
-			gg.Draw();
+			GameGraphics.Draw();
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
 			Console.Out.WriteLine("Resizing...");
 
-			GameGraphics gg = GameGraphics.GetInstance();
-			gg.SetViewSize(openGLView.Width, openGLView.Height);
+			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
 	}
-
-    public class newOpengl : SimpleOpenGlControl {
-        protected override void OnMouseMove(MouseEventArgs e) {
-            base.OnMouseMove(e);
-        }
-    }
 }
