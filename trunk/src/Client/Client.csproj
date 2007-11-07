@@ -111,25 +111,7 @@
     <Compile Include="Net\General\Messaging\TextMessage.cs" />
     <Compile Include="Net\General\PlayerStateMachine.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="UI\ChatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ChatForm.designer.cs">
-      <DependentUpon>ChatForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ChooseGameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ChooseGameForm.designer.cs">
-      <DependentUpon>ChooseGameForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\FormPool.cs" />
-    <Compile Include="UI\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,25 +125,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChatForm.resx">
-      <DependentUpon>ChatForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChooseGameForm.resx">
-      <DependentUpon>ChooseGameForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\GameForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MenuForm.resx">
-      <DependentUpon>MenuForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MainMenu.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -177,11 +147,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\MenuForm.cs">
+    <Compile Include="UI\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MenuForm.Designer.cs">
-      <DependentUpon>MenuForm.cs</DependentUpon>
+    <Compile Include="UI\MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MenuOption.cs" />
     <Compile Include="UI\MiniForm.cs">

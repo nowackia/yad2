@@ -219,7 +219,7 @@ namespace Client.UI {
                     break;
 
                 case MenuOption.StartGame:
-                    switchView(Views.GameForm);
+                    switchView(Views.GameForm,true);
                     break;
 
                 default:
@@ -234,11 +234,11 @@ namespace Client.UI {
 
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
-                    ((MenuForm)(actualForm)).LastView = Views.PauseForm;
+                    ((MainMenuForm)(actualForm)).LastView = Views.PauseForm;
                     break;
 
                 case MenuOption.Continue:
-                    switchView(Views.GameForm);
+                    switchView(Views.GameForm,true);
                     break;
 
                 default:
@@ -253,11 +253,11 @@ namespace Client.UI {
 
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
-                    ((MenuForm)(actualForm)).LastView = Views.GameMenuForm;
+                    ((MainMenuForm)(actualForm)).LastView = Views.GameMenuForm;
                     break;
 
-                case MenuOption.Back:
-                    switchView(Views.GameForm);
+                case MenuOption.Ok:
+                    switchView(Views.GameForm,true);
                     break;
 
                 case MenuOption.Pause:
@@ -293,14 +293,15 @@ namespace Client.UI {
                 case MenuOption.Exit:
                     Stop();
                     break;
-
                 case MenuOption.NewGame:
                     switchView(Views.LoginForm);
                     break;
-
+                case MenuOption.Game:
+                    switchView(Views.GameForm,true);
+                    break;
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
-                    ((MenuForm)(actualForm)).LastView = Views.MainMenuForm;
+                    ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
                     break;
 
                 default:
@@ -309,7 +310,7 @@ namespace Client.UI {
         }
 
         private void switchView(Views viewToSwitch) {
-            switchView(viewToSwitch, true);
+            switchView(viewToSwitch, false);
         }
 
         private void switchView(Views viewToSwitch, bool hideLast) {
