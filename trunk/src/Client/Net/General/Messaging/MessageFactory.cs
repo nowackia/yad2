@@ -46,17 +46,16 @@ namespace Yad.Net.General.Messaging {
                         return nummsg;
                     }
 
+                case MessageType.LoginSuccessful:
+                    {
+                        Message m = new Message();
+                        m.Type = MessageType.LoginSuccessful;
+                        return m;
+                    }
+
                 case MessageType.Unknown:
                 default:
                     return null;
-                case MessageType.Login:
-                    LoginMessage loginmsg = new LoginMessage();
-                    loginmsg.Type = MessageType.Login;
-                    return loginmsg;
-                case MessageType.LoginSuccessful:
-                    Message m = new Message();
-                    m.Type = MessageType.LoginSuccessful;
-                    return m;
             }
         }
     }
