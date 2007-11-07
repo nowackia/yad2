@@ -12,6 +12,29 @@ namespace Client.UI {
         /// <param name="view"></param>
         /// <returns></returns>
 
+        static FormPool() {
+            UIManageable form = null;
+            //form = new GameForm();
+            //pool.Add(Views.GameForm, form);
+
+            form = new MainMenuForm();
+            InitMainMenu(form);
+
+        }
+
+        private static void InitMainMenu(UIManageable form) {
+            pool.Add(Views.MainMenuForm, form);
+            pool.Add(Views.LoginForm, form);
+            pool.Add(Views.RegistrationForm, form);
+            pool.Add(Views.OptionsForm, form);
+            pool.Add(Views.ChatForm, form);
+            pool.Add(Views.UserInfoForm, form);
+            pool.Add(Views.ChooseGameForm, form);
+            pool.Add(Views.CreateGameForm, form);
+            pool.Add(Views.WaitingForPlayersForm, form);
+            pool.Add(Views.PauseForm, form);
+            pool.Add(Views.GameMenuForm, form);
+        }
         public static UIManageable createForm(Views view) {
             UIManageable form = null;
             if (pool.ContainsKey(view)) {
@@ -21,51 +44,21 @@ namespace Client.UI {
             }
             switch (view) {
                 case Views.MainMenuForm:
-                    form = new MenuForm("groupBoxMainMenu");
-                    pool.Add(view, form);
-                    break;
                 case Views.LoginForm:
-                    form = new LoginForm("groupBoxLogin");
-                    pool.Add(view, form);
-                    break;
                 case Views.RegistrationForm:
-                    form = new LoginForm("groupBoxRegister");
-                    pool.Add(view, form);
-                    break;
                 case Views.OptionsForm:
-                    form = new MenuForm("groupBoxOptions");
-                    pool.Add(view, form);
-                    break;
                 case Views.ChatForm:
-                    form = new ChatForm("groupBoxChat");
-                    pool.Add(view, form);
-                    break;
                 case Views.UserInfoForm:
-                    form = new ChatForm("groupBoxInfo");
-                    pool.Add(view, form);
-                    break;
                 case Views.ChooseGameForm:
-                    form = new ChooseGameForm("groupBoxJoin");
-                    pool.Add(view, form);
+                case Views.CreateGameForm:
+                case Views.WaitingForPlayersForm:
+                case Views.PauseForm:
+                case Views.GameMenuForm:
+                    form = new MainMenuForm();
+                    InitMainMenu(form);
                     break;
                 case Views.GameForm:
                     form = new GameForm();
-                    pool.Add(view, form);
-                    break;
-                case Views.CreateGameForm:
-                    form = new ChooseGameForm("groupBoxCreate");
-                    pool.Add(view, form);
-                    break;
-                case Views.WaitingForPlayersForm:
-                    form = new ChooseGameForm("groupBoxStart");
-                    pool.Add(view, form);
-                    break;
-                case Views.PauseForm:
-                    form = new MenuForm("groupBoxPause");
-                    pool.Add(view, form);
-                    break;
-                case Views.GameMenuForm:
-                    form = new MenuForm("groupBoxInGame");
                     pool.Add(view, form);
                     break;
                 default:
@@ -83,39 +76,39 @@ namespace Client.UI {
         public static UIManageable initForm(UIManageable form, Views initInto) {
             switch (initInto) {
                 case Views.MainMenuForm:
-                    ((MenuForm)form).GroupBoxName = "groupBoxMainMenu";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.LoginForm:
-                    ((LoginForm)form).GroupBoxName = "groupBoxLogin";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.RegistrationForm:
-                    ((LoginForm)form).GroupBoxName = "groupBoxRegister";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.OptionsForm:
-                    ((MenuForm)form).GroupBoxName = "groupBoxOptions";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.ChatForm:
-                    ((ChatForm)form).GroupBoxName = "groupBoxChat";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.UserInfoForm:
-                    ((ChatForm)form).GroupBoxName = "groupBoxInfo";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.ChooseGameForm:
-                    ((ChooseGameForm)form).GroupBoxName = "groupBoxJoin";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.GameForm:
                     break;
                 case Views.CreateGameForm:
-                    ((ChooseGameForm)form).GroupBoxName = "groupBoxCreate";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.WaitingForPlayersForm:
-                    ((ChooseGameForm)form).GroupBoxName = "groupBoxStart";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.PauseForm:
-                    ((MenuForm)form).GroupBoxName = "groupBoxPause";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 case Views.GameMenuForm:
-                    ((MenuForm)form).GroupBoxName = "groupBoxInGame";
+                    ((MainMenuForm)form).switchToTab(initInto);
                     break;
                 default:
                     break;
