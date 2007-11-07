@@ -15,6 +15,7 @@ namespace Yad.Net.General.Messaging
         }
 
         public Message() {
+            type = MessageType.Unknown;
         }
 
         public int UserId

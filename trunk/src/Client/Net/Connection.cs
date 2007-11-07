@@ -1,9 +1,11 @@
 using Client.Log;
+using Client.Net.General;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using Yad.Net.General;
 using Yad.Net.General.Messaging;
 
 namespace Yad.Net
@@ -11,7 +13,9 @@ namespace Yad.Net
     class Connection
     {
         private static TcpClient tcpClient;
-        private static BinaryWriter writer;
+
+        private static MessageReceiver receiver;
+        private static MessageSender sender;
 
         private Connection()
         { }
@@ -28,24 +32,40 @@ namespace Yad.Net
                 InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation); 
                 tcpClient.Connect(hostname, port);
                 InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
-                writer = new BinaryWriter(tcpClient.GetStream());
+
+                receiver = new MessageReceiver(tcpClient.GetStream());
+                receiver.Start();
+                InfoLog.WriteInfo("Receiver run succesfully", EPrefix.ClientInformation);
+
+                sender = new MessageSender(tcpClient.GetStream());
+                sender.Start();
+                InfoLog.WriteInfo("Sender run succesfully", EPrefix.ClientInformation);
             }
-            catch (SocketException ex)
+            catch (Exception ex)
             {
-                InfoLog.WriteInfo("Connection failed with error number " + ex.ErrorCode, EPrefix.ClientInformation);
+                InfoLog.WriteException(ex);
             }
         }
        
+        public static bool Connected
+        {
+            get
+            { return tcpClient.Connected; }
+        }
+
         public static void CloseConnection()
         {
-            writer.Close();
-            tcpClient.Close();
+            if (tcpClient.Connected)
+            {
+                receiver.Stop();
+                tcpClient.Close();
+            }
         }
 
         public static void SendMessage(Message message)
         {
-            if(tcpClient.Connected && writer != null)
-                message.Serialize(writer);
+            if (tcpClient.Connected)
+                sender.AddMessage(message);
         }
     }
 }

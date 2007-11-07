@@ -199,8 +199,7 @@
   <ItemGroup>
     <None Include="..\Client\Config\dune.xsd">
       <Link>Config\dune.xsd</Link>
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Resources\tray.ico" />
   </ItemGroup>

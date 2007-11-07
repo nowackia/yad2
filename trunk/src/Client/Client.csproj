@@ -92,6 +92,7 @@
     <Compile Include="Net\General\IMessageHandler.cs" />
     <Compile Include="Net\General\MessageProccessor.cs" />
     <Compile Include="Net\General\MessageReciever.cs" />
+    <Compile Include="Net\General\MessageSender.cs" />
     <Compile Include="Net\General\Messaging\AttackMessage.cs" />
     <Compile Include="Net\General\Messaging\BuildMessage.cs" />
     <Compile Include="Net\General\Messaging\ChatUsersMessage.cs" />
@@ -162,6 +163,10 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\UIManageable.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UIManageable.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -198,8 +203,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Config\dune.xsd">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Config\generate.bat" />

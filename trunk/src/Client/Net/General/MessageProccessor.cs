@@ -22,10 +22,9 @@ namespace Yad.Net.General {
             _sync.AddObject();
         }
 
-        public void EndThread() {
+        protected void EndThread() {
             _sync.ExitThreadEvent.Set();
         }
-
 
         public void Process() {
             T item;
@@ -40,6 +39,5 @@ namespace Yad.Net.General {
         }
 
         public abstract void ProcessItem(T item);
-
     }
 }
