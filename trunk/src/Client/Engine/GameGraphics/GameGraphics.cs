@@ -70,16 +70,8 @@ namespace Client.Engine.GameGraphics {
             // getID, getTexturePath, create32btexture
 
             // Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-            Bitmap mapBmp = new Bitmap(32 * map.Width, 32 * map.Height, PixelFormat.Format32bppArgb);
-            Graphics g = Graphics.FromImage(mapBmp);
-            g.Clear(Color.Yellow);
-            // fill it so that we can see boundaries
-            g.FillRectangle(Brushes.Green, 0, 0, 32, 32);
-            g.FillRectangle(Brushes.Cyan, mapBmp.Width - 32, 0, 32, 32);
-            g.FillRectangle(Brushes.Blue, mapBmp.Width - 32, mapBmp.Height - 32, 32, 32);
-            g.FillRectangle(Brushes.Red, 0, mapBmp.Height - 32, 32, 32);
-            g.Dispose();
-            Create32bTexture(1, mapBmp);
+            MapHolder mh = new MapHolder("Resources/Maps/test.map");
+            Create32bTexture(1, mh.ToBitmap());
         }
 
         /// <summary>
