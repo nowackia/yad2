@@ -8,6 +8,10 @@ namespace Yad.Net.General.Messaging
     {
         private int id;
 
+        public DestroyMessage()
+            : base(MessageType.Destroy)
+        { }
+
         public int Id
         {
             get { return id; }

@@ -8,6 +8,10 @@ namespace Yad.Net.General.Messaging
     {
         private int idTurn;
 
+        public GameMessage(MessageType msgType)
+            : base(msgType)
+        { }
+
         public int IdTurn
         {
             get { return idTurn; }

@@ -10,6 +10,10 @@ namespace Yad.Net.General.Messaging
         //TODO RS: table or list? what type of structure? Drawing.Point?
         private LinkedListNode<Object> path;
 
+        public MoveMessage()
+            : base(MessageType.Move)
+        { }
+
         public LinkedListNode<Object> Path
         {
             get { return path; }
@@ -22,9 +26,6 @@ namespace Yad.Net.General.Messaging
             set { idUnit = value; }
         }
 
-        public MoveMessage() {
-            this.Type = MessageType.Move;
-        }
 		/*
         public override void Process()
         {

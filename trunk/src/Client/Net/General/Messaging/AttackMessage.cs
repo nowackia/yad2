@@ -4,9 +4,13 @@ using System.Text;
 
 namespace Yad.Net.General.Messaging
 {
-    public class AttackMessage:GameMessage
+    public class AttackMessage : GameMessage
     {
         private int id;
+
+        public AttackMessage()
+            : base(MessageType.Attack)
+        { }
 
         public int Id
         {

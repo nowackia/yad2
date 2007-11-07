@@ -4,10 +4,13 @@ using System.Text;
 
 namespace Yad.Net.General.Messaging
 {
-    public enum MessageType: byte
+    public enum MessageType : byte
     {
+        #region General messages
         Numeric = 0,
         Text,
+        #endregion
+
         GameInit,
         Move,
         Destroy,
@@ -16,14 +19,31 @@ namespace Yad.Net.General.Messaging
         Harvest,
         Attack,
         Control,
-        ChatText, 
         ChatUsers,
         DeleteChatUser,
+
+        #region Client login messages
         Login,
         Register,
-        LoginSuccessful,
         Remind,
+        #endregion
+
+        #region Client menu messages
+        ChatEntry,
+        ChatExit,
+        ChatText,
+        ChooseGameEntry,
+        JoinGameEntry,
+        JoinGameExit,
+        Logout,
+        GameCreate,
+        #endregion
+
+        LoginSuccessful,
         LoginUnsuccessful,
+
+        #region Unknown messages
         Unknown
+        #endregion
     }
 }
