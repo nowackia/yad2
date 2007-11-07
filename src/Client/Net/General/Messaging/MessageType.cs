@@ -6,7 +6,7 @@ namespace Yad.Net.General.Messaging
 {
     public enum MessageType: byte
     {
-        Numeric=0,
+        Numeric = 0,
         Text,
         GameInit,
         Move,
@@ -20,7 +20,10 @@ namespace Yad.Net.General.Messaging
         ChatUsers,
         DeleteChatUser,
         Login,
+        Register,
         LoginSuccessful,
+        Remind,
         LoginUnsuccessful
+        Unknown
     }
 }

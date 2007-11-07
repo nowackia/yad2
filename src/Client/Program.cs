@@ -26,8 +26,8 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-			
-           /* Connection.InitConnection("127.0.0.1", 15000);
+			/*
+            Connection.InitConnection("127.0.0.1", 1734);
             Connection.SendMessage(new TextMessage());
          
             Connection.CloseConnection();*/
