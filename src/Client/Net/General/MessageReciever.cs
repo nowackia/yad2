@@ -28,7 +28,7 @@ namespace Yad.Net.General
     {
         private Thread thread = null;
         private BinaryReader readStream;
-        private bool isProcessing;
+        private volatile bool isProcessing;
 
         public event MessageEventHandler MessageReceive;
         public event ConnectionLostEventHandler ConnectionLost;
@@ -46,6 +46,8 @@ namespace Yad.Net.General
                 throw new ThreadStateException("The Message Receiver thread is already running");
 
             thread = new Thread(new ThreadStart(Process));
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         public void Stop()
@@ -65,7 +67,7 @@ namespace Yad.Net.General
 
         public void Process()
         {
-            byte type;
+            byte type = (byte)MessageType.Unknown;
 
             isProcessing = true;
 
@@ -78,15 +80,15 @@ namespace Yad.Net.General
                 { type = readStream.ReadByte(); }
                 catch (Exception)
                 {
-                    lock (ConnectionLost)
+                    if (ConnectionLost != null)
                     {
-                        if (ConnectionLost != null)
-                            ConnectionLost(this, EventArgs.Empty);
+                        lock (ConnectionLost)
+                        { ConnectionLost(this, EventArgs.Empty); }
                     }
                     return;
                 }
 
-                InfoLog.WriteInfo("Client received message", EPrefix.ClientInformation);
+                InfoLog.WriteInfo("Client received message with type " + type, EPrefix.ClientInformation);
 
                 Message msg = MessageFactory.Create((MessageType)type);
                 if (msg == null)
@@ -97,10 +99,10 @@ namespace Yad.Net.General
 
                 msg.Deserialize(readStream);
 
-                lock (MessageReceive)
+                if (MessageReceive != null)
                 {
-                    if (MessageReceive != null)
-                        MessageReceive(this, new MessageEventArgs((byte)msg.Type, msg));
+                    lock (MessageReceive)
+                    { MessageReceive(this, new MessageEventArgs((byte)msg.Type, msg)); }
                 }
             }
         }

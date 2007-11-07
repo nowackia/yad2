@@ -11,6 +11,10 @@ namespace Yad.Net.General.Messaging
         private string login;
         private string password;
 
+        public LoginMessage()
+            : base(MessageType.Login)
+        { }
+
         public string Login
         {
             get { return login; }

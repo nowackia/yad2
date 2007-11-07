@@ -114,6 +114,7 @@ namespace Server.ServerManagement {
                 }
                 InfoLog.WriteInfo("Player sent message");
                 Message msg = MessageFactory.Create((MessageType)type);
+                InfoLog.WriteInfo("Received message with type " + type, EPrefix.MessageReceivedInfo);
                 if (null == msg) {
                     InfoLog.WriteInfo("Received unknown message", EPrefix.MessageReceivedInfo);
                     continue;

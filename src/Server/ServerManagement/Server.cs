@@ -83,7 +83,7 @@ namespace Server.ServerManagement {
             while (!_serverEnd) {
                     AcceptConnections();
             }
-            _menuMsgHandler.EndThread();
+            _menuMsgHandler.Stop();
             
         }
 
