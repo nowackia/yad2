@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using Server.UI;
 using Client.Log;
 using System.Threading;
-using Server.ServerManagement;
+using Yad.Net.Server;
 
 namespace Server
 {

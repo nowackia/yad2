@@ -22,7 +22,7 @@ namespace Yad.Net.General {
             _sync.AddObject();
         }
 
-        protected void EndThread() {
+        public void EndThread() {
             _sync.ExitThreadEvent.Set();
         }
 

@@ -100,8 +100,8 @@
     <Compile Include="..\Client\Net\General\IMessageHandler.cs">
       <Link>Net\General\IMessageHandler.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\General\MessageProccessor.cs">
-      <Link>Net\General\MessageProccessor.cs</Link>
+    <Compile Include="..\Client\Net\General\ListProcessor.cs">
+      <Link>Net\General\ListProcessor.cs</Link>
     </Compile>
     <Compile Include="..\Client\Net\General\MessageReciever.cs">
       <Link>Net\General\MessageReciever.cs</Link>
@@ -155,15 +155,16 @@
       <Link>Net\General\PlayerStateMachine.cs</Link>
     </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
-    <Compile Include="Net\General\Server\Chat.cs" />
-    <Compile Include="ServerManagement\ConnectionLostEventArgs.cs" />
-    <Compile Include="ServerManagement\RecieveMessageEventArgs.cs" />
-    <Compile Include="ServerManagement\MenuMessageHandler.cs" />
-    <Compile Include="ServerManagement\Player.cs" />
-    <Compile Include="ServerManagement\PlayerData.cs" />
-    <Compile Include="ServerManagement\Server.cs" />
-    <Compile Include="ServerManagement\ServerFake.cs" />
-    <Compile Include="ServerManagement\ServerMain.cs" />
+    <Compile Include="Net\Server\PostMessage.cs" />
+    <Compile Include="Net\Server\Chat.cs" />
+    <Compile Include="Net\Server\ConnectionLostEventArgs.cs" />
+    <Compile Include="Net\Server\MenuMessageHandler.cs" />
+    <Compile Include="Net\Server\Player.cs" />
+    <Compile Include="Net\Server\PlayerData.cs" />
+    <Compile Include="Net\Server\RecieveMessageEventArgs.cs" />
+    <Compile Include="Net\Server\Server.cs" />
+    <Compile Include="Net\Server\ServerFake.cs" />
+    <Compile Include="Net\Server\ServerMain.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
