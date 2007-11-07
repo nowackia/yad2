@@ -7,14 +7,17 @@ namespace Yad.Net.General.Messaging
     public class HarvestMessage : GameMessage
     {
         private LinkedList<Object> path;
+        private int idUnit;
+
+        public HarvestMessage()
+            : base(MessageType.Harvest)
+        { }
 
         public LinkedList<Object> Path
         {
             get { return path; }
             set { path = value; }
         }
-
-        private int idUnit;
 
         public int IdUnit
         {

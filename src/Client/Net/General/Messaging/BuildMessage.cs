@@ -11,6 +11,10 @@ namespace Yad.Net.General.Messaging
         //TODO RS: struct or object?
         private Object place;
 
+        public BuildMessage()
+            : base(MessageType.Build)
+        { }
+
         public Object Place
         {
             get { return place; }

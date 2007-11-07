@@ -9,6 +9,10 @@ namespace Yad.Net.General.Messaging
         private int idUnit;
         private Object place;
 
+        public CreateUnitMessage()
+            : base(MessageType.CreateUnit)
+        { }
+
         public Object Place
         {
             get { return place; }

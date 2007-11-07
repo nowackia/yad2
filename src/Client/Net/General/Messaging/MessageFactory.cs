@@ -8,54 +8,57 @@ namespace Yad.Net.General.Messaging {
         public static Message Create(MessageType msgType) {
             switch (msgType) {
 
+                #region Client login messages
+                case MessageType.Login:
+                    return new LoginMessage();
+
+                case MessageType.Register:
+                    return new LoginMessage(MessageType.Register);
+
+                case MessageType.Remind:
+                    return new TextMessage(MessageType.Remind);
+                #endregion
+
+                #region Client menu messages
+                case MessageType.ChatEntry:
+                    return new Message(MessageType.ChatEntry);
+
+                case MessageType.ChatExit:
+                    return new Message(MessageType.ChatExit);
+
+                case MessageType.ChatText:
+                    return new TextMessage(MessageType.ChatText);
+
+                case MessageType.ChooseGameEntry:
+                    return new Message(MessageType.ChooseGameEntry);
+
+                case MessageType.JoinGameEntry:
+                    return new TextMessage(MessageType.JoinGameEntry);
+
+                case MessageType.JoinGameExit:
+                    return new Message(MessageType.JoinGameExit);
+
+                case MessageType.Logout:
+                    return new Message(MessageType.Logout);
+
+                case MessageType.GameCreate:
+                    return new Message(MessageType.GameCreate);
+                #endregion
+
+                case MessageType.DeleteChatUser:
+                    return new NumericMessage(MessageType.DeleteChatUser);
+
+                case MessageType.LoginSuccessful:
+                    return new Message(MessageType.LoginSuccessful);
+
                 case MessageType.Move:
                     return new MoveMessage();
 
-                case MessageType.Login:
-                    {
-                        LoginMessage loginmsg = new LoginMessage();
-                        loginmsg.Type = MessageType.Login;
-                        return loginmsg;
-                    }
-
-                case MessageType.Register:
-                    {
-                        LoginMessage loginmsg = new LoginMessage();
-                        loginmsg.Type = MessageType.Register;
-                        return loginmsg;
-                    }
-
-                case MessageType.Remind:
-                    {
-                        TextMessage textmsg = new TextMessage();
-                        textmsg.Type = MessageType.Remind;
-                        return textmsg;
-                    }
-
-                case MessageType.ChatText:
-                    {
-                        TextMessage textmsg = new TextMessage();
-                        textmsg.Type = MessageType.ChatText;
-                        return textmsg;
-                    }
-
-                case MessageType.DeleteChatUser:
-                    {
-                        NumericMessage nummsg = new NumericMessage();
-                        nummsg.Type = MessageType.DeleteChatUser;
-                        return nummsg;
-                    }
-
-                case MessageType.LoginSuccessful:
-                    {
-                        Message m = new Message();
-                        m.Type = MessageType.LoginSuccessful;
-                        return m;
-                    }
-
+                #region Unknown messages
                 case MessageType.Unknown:
                 default:
                     return null;
+                #endregion
             }
         }
     }
