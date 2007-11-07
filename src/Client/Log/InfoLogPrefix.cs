@@ -32,6 +32,8 @@ namespace Client.Log
         ClientInformation,
         [Description(" #MSG_RCV: ")]
         MessageReceivedInfo,
+        [Description(" #SEND_MSG_INFO: ")]
+        ServerSendMessageInfo
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES
