@@ -23,7 +23,7 @@ namespace Yad.Net.General.Messaging
         Register,
         LoginSuccessful,
         Remind,
-        LoginUnsuccessful
+        LoginUnsuccessful,
         Unknown
     }
 }

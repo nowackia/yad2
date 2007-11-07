@@ -65,7 +65,7 @@ namespace Yad.Net
         public static void SendMessage(Message message)
         {
             if (tcpClient.Connected)
-                sender.AddMessage(message);
+                sender.AddItem(message);
         }
     }
 }

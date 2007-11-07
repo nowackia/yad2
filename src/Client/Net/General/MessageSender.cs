@@ -41,7 +41,7 @@ namespace Client.Net.General
             thread.Join();
         }
 
-        public override void ProcessItem(Message item)
+        public override void ProcessItem(Message msg)
         {
             try
             {
