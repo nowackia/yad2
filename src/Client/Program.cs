@@ -26,7 +26,7 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Connection.InitConnection("127.0.0.1", 1734);
+            /*Connection.InitConnection("127.0.0.1", 1734);
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.Login = "test";
             loginMessage.Password = "testpsw";
@@ -36,7 +36,7 @@ namespace Client
             InfoLog.Write("Press any key to continue ...");
             Console.Read();
 
-            Connection.CloseConnection();
+            Connection.CloseConnection();*/
 
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
