@@ -15,8 +15,6 @@
       <tns:BuildSpeed>10</tns:BuildSpeed>
       <tns:DamageDestroy>5</tns:DamageDestroy>
       <tns:RotationSpeed>1</tns:RotationSpeed>
-      <tns:Texture>Unit_Infantry</tns:Texture>
-      <tns:Picture>Picture_Infantry</tns:Picture>
     </tns:UnitTrooperData>
   </tns:UnitTroopersData>
   
@@ -35,9 +33,6 @@
       <tns:DamageDestroy>10</tns:DamageDestroy>
       <tns:RotationSpeed>2</tns:RotationSpeed>
       <tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
-      <tns:TurretTexture>Unit_TankTurret</tns:TurretTexture>
-      <tns:Texture>Unit_TankBase</tns:Texture>
-      <tns:Picture>Picture_Tank</tns:Picture>
     </tns:UnitTankData>
   </tns:UnitTanksData>
   
@@ -53,8 +48,6 @@
       <tns:RotationSpeed>2</tns:RotationSpeed>
       <tns:Capacity>150</tns:Capacity>
       <tns:GatheringSpeed>20</tns:GatheringSpeed>
-      <tns:Texture>Unit_Harvester</tns:Texture>
-      <tns:Picture>Picture_Harvester</tns:Picture>
     </tns:UnitHarvesterData>
   </tns:UnitHarvestersData>
   
@@ -69,8 +62,6 @@
       <tns:DamageDestroy>20</tns:DamageDestroy>
       <tns:RotationSpeed>4</tns:RotationSpeed>
       <tns:BuildingCanProduce>Barracks</tns:BuildingCanProduce>
-      <tns:Texture>Unit_MCV</tns:Texture>
-      <tns:Picture>Picture_MCV</tns:Picture>
     </tns:UnitMCVData>
   </tns:UnitMCVsData>
   
@@ -82,7 +73,6 @@
       <tns:Power>5000</tns:Power>
       <tns:DamageDestroy>0</tns:DamageDestroy>
       <tns:RotationSpeed>0</tns:RotationSpeed>
-      <tns:Texture>Unit_Sandworm</tns:Texture>
     </tns:UnitSandwormData>
   </tns:UnitSandwormsData>
   
@@ -95,14 +85,13 @@
   </tns:AmmosData>
   
   <tns:BuildingsData>
+	  
     <tns:BuildingData>
       <tns:Name>Barracks</tns:Name>
       <tns:Cost>100</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
-      <tns:Texture>Structure_Barracks</tns:Texture>
-      <tns:Picture>Picture_Barracks</tns:Picture>
       <tns:Size>
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
@@ -115,6 +104,25 @@
         <tns:Name>Infantry</tns:Name>
       </tns:UnitsCanProduce>
     </tns:BuildingData>
+	  
+	<tns:BuildingData>
+		  <tns:Name>ConstructionYard</tns:Name>
+		  <tns:Cost>0</tns:Cost>
+		  <tns:Health>1000</tns:Health>
+		  <tns:ViewRange>15</tns:ViewRange>
+		  <tns:BuildSpeed>30</tns:BuildSpeed>
+		  <tns:Size>
+			  <tns:X>2</tns:X>
+			  <tns:Y>2</tns:Y>
+		  </tns:Size>
+		  <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		  <tns:RideableFields>
+			  <tns:index>3</tns:index>
+		  </tns:RideableFields>
+		  <tns:UnitsCanProduce>
+			  <tns:Name>Infantry</tns:Name>
+		  </tns:UnitsCanProduce>
+	  </tns:BuildingData>
   </tns:BuildingsData>
   
   <tns:RacesData>

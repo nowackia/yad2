@@ -16,8 +16,6 @@
 			<element name="BuildSpeed" type="int" />
 			<element name="DamageDestroy" type="int" />
 			<element name="RotationSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitTankData">
@@ -36,9 +34,6 @@
 			<element name="DamageDestroy" type="int" />
 			<element name="RotationSpeed" type="int" />
 			<element name="TurretRotationSpeed" type="int" />
-			<element name="TurretTexture" type="string" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitHarvesterData">
@@ -54,8 +49,6 @@
 			<element name="RotationSpeed" type="int" />
 			<element name="Capacity" type="int" />
 			<element name="GatheringSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitMCVData">
@@ -70,8 +63,6 @@
 			<element name="DamageDestroy" type="int" />
 			<element name="RotationSpeed" type="int" />
 			<element name="BuildingCanProduce" type="string" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitSandwormData">
@@ -83,7 +74,6 @@
 			<element name="Power" type="int" />
 			<element name="DamageDestroy" type="int" />
 			<element name="RotationSpeed" type="int" />
-			<element name="Texture" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="BuildingData">
@@ -94,8 +84,6 @@
 			<element name="Health" type="int" />
 			<element name="ViewRange" type="int" />
 			<element name="BuildSpeed" type="int" />
-			<element name="Texture" type="string" />
-			<element name="Picture" type="string" />
 			<element name="Size" type="tns:Size" />
 			<element name="EnergyConsumption" type="int" />
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
@@ -113,7 +101,6 @@
 			<element name="Name" type="string" />
 			<element name="Speed" type="int" />
 			<element name="DamageDestroyRange" type="int" />
-			<element name="Texture" type="string" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
 	<complexType name="RaceData">

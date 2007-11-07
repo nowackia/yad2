@@ -58,19 +58,19 @@
     <Compile Include="Config\XMLLoader\XMLLoader.cs" />
     <Compile Include="Config\YAD2Configuration.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
-    <Compile Include="Engine\Graphics\ClipRectangle.cs" />
-    <Compile Include="Engine\Graphics\IRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
+    <Compile Include="Engine\GameGraphics\IRenderer.cs" />
     <Compile Include="Board\Map.cs" />
-    <Compile Include="Engine\Graphics\Renderers\AmmoRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\BuildingRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\HarvesterRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\MapRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\MCVRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\MiniMapRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\RendererPool.cs" />
-    <Compile Include="Engine\Graphics\Renderers\SandwormRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\TankRenderer.cs" />
-    <Compile Include="Engine\Graphics\Renderers\TrooperRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\AmmoRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\BuildingRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\HarvesterRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MapRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MCVRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MiniMapRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\RendererPool.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\SandwormRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\TankRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
     <Compile Include="Board\TileType.cs" />
     <Compile Include="Board\Unit.cs" />
     <Compile Include="Board\UnitHarvester.cs" />
@@ -78,8 +78,8 @@
     <Compile Include="Board\UnitSandworm.cs" />
     <Compile Include="Board\UnitTank.cs" />
     <Compile Include="Board\UnitTrooper.cs" />
-    <Compile Include="Engine\Graphics\GameGraphics.cs" />
-    <Compile Include="Engine\Graphics\VertexData.cs" />
+    <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
+    <Compile Include="Engine\GameGraphics\VertexData.cs" />
     <Compile Include="Engine\Messaging\MessageHandler.cs" />
     <Compile Include="Engine\Randomizer.cs" />
     <Compile Include="Engine\Simulation.cs" />
@@ -607,8 +607,10 @@
     <Content Include="Resources\Graphics\Units\TankBase.png" />
     <Content Include="Resources\Graphics\Units\Trike.png" />
     <Content Include="Resources\Graphics\Units\Trooper.png" />
-    <Content Include="TaoFramework\Tao.OpenGl.dll" />
-    <Content Include="TaoFramework\Tao.Platform.Windows.dll" />
+    <Content Include="TaoFramework\Tao.OpenGl.dll">
+    </Content>
+    <Content Include="TaoFramework\Tao.Platform.Windows.dll">
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Maps\" />
