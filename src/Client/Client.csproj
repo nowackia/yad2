@@ -107,6 +107,7 @@
     <Compile Include="Net\General\Messaging\MessageFactory.cs" />
     <Compile Include="Net\General\Messaging\MessageType.cs" />
     <Compile Include="Net\General\Messaging\MoveMessage.cs" />
+    <Compile Include="Net\General\Messaging\NewChatUserMessage.cs" />
     <Compile Include="Net\General\Messaging\NumericMessage.cs" />
     <Compile Include="Net\General\Messaging\TextMessage.cs" />
     <Compile Include="Net\General\PlayerStateMachine.cs" />

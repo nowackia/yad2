@@ -94,6 +94,9 @@
     <Compile Include="..\Client\Log\MultiStream.cs">
       <Link>Log\MultiStream.cs</Link>
     </Compile>
+    <Compile Include="..\Client\Net\General\ChatUser.cs">
+      <Link>Net\General\ChatUser.cs</Link>
+    </Compile>
     <Compile Include="..\Client\Net\General\ConsumerSync.cs">
       <Link>Net\General\ConsumerSync.cs</Link>
     </Compile>
@@ -111,6 +114,9 @@
     </Compile>
     <Compile Include="..\Client\Net\General\Messaging\BuildMessage.cs">
       <Link>Net\General\Messaging\BuildMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\ChatUsersMessage.cs">
+      <Link>Net\General\Messaging\ChatUsersMessage.cs</Link>
     </Compile>
     <Compile Include="..\Client\Net\General\Messaging\ControlMessage.cs">
       <Link>Net\General\Messaging\ControlMessage.cs</Link>
@@ -144,6 +150,9 @@
     </Compile>
     <Compile Include="..\Client\Net\General\Messaging\MoveMessage.cs">
       <Link>Net\General\Messaging\MoveMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\Net\General\Messaging\NewChatUserMessage.cs">
+      <Link>Net\General\Messaging\NewChatUserMessage.cs</Link>
     </Compile>
     <Compile Include="..\Client\Net\General\Messaging\NumericMessage.cs">
       <Link>Net\General\Messaging\NumericMessage.cs</Link>

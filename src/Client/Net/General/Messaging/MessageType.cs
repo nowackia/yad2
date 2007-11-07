@@ -19,8 +19,17 @@ namespace Yad.Net.General.Messaging
         Harvest,
         Attack,
         Control,
+
+        #region Chat
+
         ChatUsers,
         DeleteChatUser,
+        NewChatUser,
+        ChatText,
+        ChatEntry,
+        ChatExit,
+
+        #endregion
 
         #region Client login messages
         Login,
@@ -29,9 +38,6 @@ namespace Yad.Net.General.Messaging
         #endregion
 
         #region Client menu messages
-        ChatEntry,
-        ChatExit,
-        ChatText,
         ChooseGameEntry,
         JoinGameEntry,
         JoinGameExit,
