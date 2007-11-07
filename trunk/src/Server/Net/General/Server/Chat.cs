@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Server.ServerManagement;
+using Yad.Net.Server;
 using Yad.Net.General.Messaging;
 
 namespace Server.Net.General.Server {
