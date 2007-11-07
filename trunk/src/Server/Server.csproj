@@ -7,7 +7,7 @@
     <ProjectGuid>{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Server</RootNamespace>
+    <RootNamespace>Yad</RootNamespace>
     <AssemblyName>Server</AssemblyName>
     <StartupObject>Server.Program</StartupObject>
   </PropertyGroup>
@@ -155,6 +155,11 @@
       <Link>Net\General\PlayerStateMachine.cs</Link>
     </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="Net\General\IMessageSender.cs" />
+    <Compile Include="Net\General\MessageHandler.cs" />
+    <Compile Include="Net\General\ThreadListProcessor.cs" />
+    <Compile Include="Net\Server\BaseServer.cs" />
+    <Compile Include="Net\Server\IPlayerProvider.cs" />
     <Compile Include="Net\Server\PostMessage.cs" />
     <Compile Include="Net\Server\Chat.cs" />
     <Compile Include="Net\Server\ConnectionLostEventArgs.cs" />
@@ -165,6 +170,7 @@
     <Compile Include="Net\Server\Server.cs" />
     <Compile Include="Net\Server\ServerFake.cs" />
     <Compile Include="Net\Server\ServerMain.cs" />
+    <Compile Include="Net\Server\ServerMessageSender.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
