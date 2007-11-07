@@ -53,6 +53,36 @@ namespace Yad.Net
             { return tcpClient.Connected; }
         }
 
+        public event ConnectionLostEventHandler ConnectionLost
+        {
+            add
+            {
+                sender.ConnectionLost += value;
+                receiver.ConnectionLost += value;
+            }
+            remove
+            {
+                sender.ConnectionLost -= value;
+                receiver.ConnectionLost -= value;
+            }
+        }
+
+        public event MessageEventHandler MessageReceive
+        {
+            add
+            { receiver.MessageReceive += value; }
+            remove
+            { receiver.MessageReceive += value; }
+        }
+
+        public event MessageEventHandler MessageSend
+        {
+            add
+            { sender.MessageSend += value; }
+            remove
+            { sender.MessageSend += value; }
+        }
+
         public static void CloseConnection()
         {
             if (tcpClient.Connected)

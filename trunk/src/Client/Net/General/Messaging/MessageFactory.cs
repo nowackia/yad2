@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Client.Net.General.Messaging;
 
 namespace Yad.Net.General.Messaging {
     class MessageFactory {

@@ -190,7 +190,7 @@ namespace Client.Log {
 
         public static void WriteStart() {
             InfoLog.Write("____________________________________________");
-            InfoLog.Write("Start aplikacji " +
+            InfoLog.Write("Application BEGIN " +
                 Assembly.GetExecutingAssembly().GetName().ToString() + " : "
                 + Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
@@ -208,7 +208,7 @@ namespace Client.Log {
         }*/
 
         public static void WriteEnd() {
-            InfoLog.Write("Koniec aplikacji");
+            InfoLog.Write("Application END");
             InfoLog.Write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         }
 

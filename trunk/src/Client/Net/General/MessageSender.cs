@@ -32,6 +32,8 @@ namespace Client.Net.General
         public void Start()
         {
             thread = new Thread(new ThreadStart(Process));
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         public void Stop()
@@ -47,18 +49,18 @@ namespace Client.Net.General
             {
                 msg.Serialize(writeStream);
 
-                lock (MessageSend)
+                if (MessageSend != null)
                 {
-                    if (MessageSend != null)
-                        MessageSend(this, new MessageEventArgs((byte)msg.Type, msg));
+                    lock (MessageSend)
+                    { MessageSend(this, new MessageEventArgs((byte)msg.Type, msg)); }
                 }
             }
             catch (Exception)
             {
-                lock (ConnectionLost)
+                if (ConnectionLost != null)
                 {
-                    if (ConnectionLost != null)
-                        ConnectionLost(this, EventArgs.Empty);
+                    lock (ConnectionLost)
+                    { ConnectionLost(this, EventArgs.Empty); }
                 }
             }
         }

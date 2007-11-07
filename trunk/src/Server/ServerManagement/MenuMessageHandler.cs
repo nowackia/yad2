@@ -5,7 +5,6 @@ using Yad.Net.General;
 using Yad.Net.General.Messaging;
 using Client.Log;
 using System.Threading;
-using Client.Net.General.Messaging;
 
 namespace Server.ServerManagement {
     class MenuMessageHandler : ListProcessor<Message> {
@@ -30,6 +29,10 @@ namespace Server.ServerManagement {
 
         public void Join() {
             _thread.Join();
+        }
+
+        public void Stop() {
+            base.EndThread();
         }
 
         public override void ProcessItem(Message msg) {
