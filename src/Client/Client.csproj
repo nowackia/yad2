@@ -29,6 +29,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PictureButton, Version=1.0.2858.39135, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,6 +69,8 @@
     <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
     <Compile Include="Engine\GameGraphics\IRenderer.cs" />
     <Compile Include="Board\Map.cs" />
+    <Compile Include="Engine\GameGraphics\MapHolder.cs" />
+    <Compile Include="Engine\GameGraphics\MapHolderException.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\AmmoRenderer.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\BuildingRenderer.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\HarvesterRenderer.cs" />
@@ -174,6 +184,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Config\generate.bat" />
+    <None Include="Resources\Maps\test.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />
@@ -582,9 +595,6 @@
     </Content>
     <Content Include="TaoFramework\Tao.Platform.Windows.dll">
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
