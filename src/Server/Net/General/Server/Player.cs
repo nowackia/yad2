@@ -63,10 +63,11 @@ namespace Yad.Net.Server {
 
 
         public void SetData(PlayerData pd) {
-            /*
-            _data = pd;
-            _id = pd.Id;
-             */
+            if (pd != null)
+            {
+                _data = pd;
+                _id = pd.Id;
+            }
         }
         public Player(int id, TcpClient client) {
             _id = id;
