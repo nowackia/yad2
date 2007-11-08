@@ -21,6 +21,10 @@ namespace Yad.Net.Common {
             _sync.AddObject();
         }
 
+        public void BeginThread() {
+            _sync.ExitThreadEvent.Reset();
+        }
+
         public void EndThread() {
             _sync.ExitThreadEvent.Set();
         }

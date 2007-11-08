@@ -25,10 +25,11 @@ namespace Yad.Client
         {
             InfoLog.WriteStart();
 
+            Connection.InitConnection("127.0.0.1", 1734);
+            Connection.CloseConnection();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Connection.InitConnection("127.0.0.1", 1734);
 
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
