@@ -21,23 +21,23 @@ namespace Client.Net
         {
             receiver = new MessageReceiver();
             sender = new MessageSender();
+            tcpClient = new TcpClient();
         }
 
         public static void InitConnection(string hostname, int port)
         {
-            tcpClient = new TcpClient();
             try
             {
                 InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation); 
                 tcpClient.Connect(hostname, port);
                 InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
 
-                receiver.Stream =  tcpClient.GetStream();
-                receiver.Start();
-
                 sender.Stream = tcpClient.GetStream();
                 sender.Start();
                 InfoLog.WriteInfo("Sender run succesfully", EPrefix.ClientInformation);
+
+                receiver.Stream =  tcpClient.GetStream();
+                receiver.Start();
             }
             catch (Exception ex)
             {
@@ -88,6 +88,7 @@ namespace Client.Net
                 sender.Stop();
                 receiver.Stop();
                 tcpClient.Close();
+                tcpClient = new TcpClient();
             }
         }
 

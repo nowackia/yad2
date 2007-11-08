@@ -51,6 +51,7 @@ namespace Client.Net
 
             thread = new Thread(new ThreadStart(Process));
             thread.IsBackground = true;
+            this.BeginThread();
             thread.Start();
         }
 

@@ -101,10 +101,11 @@ namespace Client.UI
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
+            Connection.InitConnection(serverLoginMenu.Text, 1734);
+
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.Login = loginBTLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
-            loginMessage.PlayerId = 6;
             Connection.SendMessage(loginMessage);
         }
 
@@ -176,6 +177,7 @@ namespace Client.UI
         private void backChatMenu_Click(object sender, EventArgs e)
         {
             Connection.SendMessage(MessageFactory.Create(MessageType.Logout));
+            Connection.CloseConnection();
 
             OnMenuOptionChange(MenuOption.Back);
         }
