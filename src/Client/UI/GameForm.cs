@@ -64,16 +64,27 @@ namespace Client.UI {
 		}
 
 		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
-			GameGraphics.Zoom(e.Delta / 120);
+			GameGraphics.Zoom(e.Delta / 360);
 		}
 
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {
-			if (e.KeyCode == Keys.W) {
-			} else if (e.KeyCode == Keys.S) {
+			InfoLog.WriteInfo(e.KeyCode.ToString());
+			if (e.KeyCode == Keys.Z) {
 				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
 				this.openGLView.Invalidate();
+			}
+			if (e.KeyCode == Keys.Q) {
+				GameGraphics.Zoom(-1);
+			} else if (e.KeyCode == Keys.E) {
+				GameGraphics.Zoom(1);
 			} else if (e.KeyCode == Keys.A) {
+				GameGraphics.OffsetX(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.D) {
+				GameGraphics.OffsetX(Settings.Default.ScrollingSpeed);
+			} else if (e.KeyCode == Keys.W) {
+				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
+			} else if (e.KeyCode == Keys.S) {
+				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
 			}
 		}
 
