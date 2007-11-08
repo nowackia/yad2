@@ -1,4 +1,4 @@
-using Yad.Net.Common;
+ using Yad.Net.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -53,20 +53,14 @@ namespace Yad.Net.Server
             return true;    
         }
 
+        static short idCounter = 0;
         public PlayerData LoadPlayerData(string login) {
             PlayerData pd = new PlayerData();
-            pd.Id = 1;
+            pd.Id = ++idCounter;
             pd.Login = login;
             pd.LossNo = 1;
             pd.WinNo = 1;
             return pd;
         }
-
-        public void OnReceivePlayerMessage(object sender, RecieveMessageEventArgs args) {
-            this.AddItem(args.Message);
-        }
-
-
-
     }
 }

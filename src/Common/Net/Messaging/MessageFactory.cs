@@ -44,6 +44,8 @@ namespace Yad.Net.Messaging.Common {
                     return new Message(MessageType.GameCreate);
                 #endregion
 
+                case MessageType.ChatUsers:
+                    return new ChatUsersMessage();
                 case MessageType.DeleteChatUser:
                     return new NumericMessage(MessageType.DeleteChatUser);
 
