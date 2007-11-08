@@ -96,6 +96,8 @@ namespace Client.Net
 
             isProcessing = true;
 
+            InfoLog.WriteInfo("Receiver run succesfully", EPrefix.ClientInformation);
+
             while (true)
             {
                 if (!isProcessing)
@@ -132,8 +134,6 @@ namespace Client.Net
                     lock (MessageReceive)
                     { MessageReceive(this, new MessageEventArgs((byte)msg.Type, msg)); }
                 }
-
-
             }
         }
     }

@@ -10,15 +10,12 @@ using Yad.Log.Common;
 
 namespace Client.Net
 {
-    class Connection
+    static class Connection
     {
         private static TcpClient tcpClient;
 
         private static MessageReceiver receiver;
         private static MessageSender sender;
-
-        private Connection()
-        { }
 
         static Connection()
         {
@@ -37,7 +34,6 @@ namespace Client.Net
 
                 receiver.Stream =  tcpClient.GetStream();
                 receiver.Start();
-                InfoLog.WriteInfo("Receiver run succesfully", EPrefix.ClientInformation);
 
                 sender.Stream = tcpClient.GetStream();
                 sender.Start();
