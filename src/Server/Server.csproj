@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="Net\General\IMessageSender.cs" />
+    <Compile Include="Net\General\MessageHandler.cs" />
     <Compile Include="Net\Server\MessageHandler.cs" />
     <Compile Include="Net\General\ThreadListProcessor.cs" />
     <Compile Include="Net\Server\BaseServer.cs" />
