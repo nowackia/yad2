@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Yad.Net.General.Messaging;
+using Yad.Net;
 
 namespace Client.UI
 {
@@ -26,14 +28,26 @@ namespace Client.UI
             views.Add(Views.RegistrationForm, registerMenu);
             views.Add(Views.UserInfoForm, infoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
+
+            Connection.MenuMessageHandler.LoginRequestReply += new Yad.Net.General.RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
+        }
+
+        void MenuMessageHandler_LoginRequestReply(object sender, Yad.Net.General.RequestReplyEventArgs e)
+        {
+            MessageBox.Show(e.reason);
+
+            if (InvokeRequired)
+                this.BeginInvoke(new MenuOptionDelegate(OnOptionChoosen), new object[] { MenuOption.Login });
+            else
+                OnOptionChoosen(MenuOption.Login);
         }
 
         public void switchToTab(Views view)
         {
             TabPage page = views[view];
             if (page == null)
-                throw new NotImplementedException("view " + view + " not exist");
-            //this.tabControl.SelectedTab = page;
+                throw new NotImplementedException("View " + view + " not exist");
+
             this.tabControl.SelectTab(page.Name);
         }
 
@@ -64,7 +78,11 @@ namespace Client.UI
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Login);
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.Login = "test";
+            loginMessage.Password = "testpsw";
+            loginMessage.UserId = 6;
+            Connection.SendMessage(loginMessage);
         }
 
         private void registerRegisterMenu_Click(object sender, EventArgs e)

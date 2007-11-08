@@ -101,6 +101,7 @@
     <Compile Include="Net\General\ConsumerSync.cs" />
     <Compile Include="Net\General\IMessageHandler.cs" />
     <Compile Include="Net\General\ListProcessor.cs" />
+    <Compile Include="Net\General\MenuMessageHandlerClient.cs" />
     <Compile Include="Net\General\MessageReciever.cs" />
     <Compile Include="Net\General\MessageSender.cs" />
     <Compile Include="Net\General\Messaging\AttackMessage.cs" />
