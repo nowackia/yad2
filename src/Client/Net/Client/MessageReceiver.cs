@@ -5,10 +5,11 @@ using System.Threading;
 using System.Net.Sockets;
 using System.IO;
 using Yad.Log;
-using Yad.Net.General;
-using Yad.Net.General.Messaging;
+using Yad.Net.Common;
+using Yad.Net.Messaging.Common;
+using Yad.Log.Common;
 
-namespace Client.Net.Client
+namespace Yad.Net.Client
 {
     public delegate void MessageEventHandler(object sender, MessageEventArgs e);
     public delegate void ConnectionLostEventHandler(object sender, EventArgs e);

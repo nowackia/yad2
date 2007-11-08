@@ -5,10 +5,11 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using Yad.Log;
-using Yad.Net.General;
-using Yad.Net.General.Messaging;
+using Yad.Net.Common;
+using Yad.Net.Messaging.Common;
+using Yad.Log.Common;
 
-namespace Client.Net.Client
+namespace Yad.Net.Client
 {
     class Connection
     {

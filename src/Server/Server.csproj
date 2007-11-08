@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Yad</RootNamespace>
     <AssemblyName>Server</AssemblyName>
-    <StartupObject>Server.Program</StartupObject>
+    <StartupObject>Yad.Server.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,143 +37,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Client\Board\AmmoType.cs">
-      <Link>Board\AmmoType.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\Animation.cs">
-      <Link>Board\Animation.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\BoardObject.cs">
-      <Link>Board\BoardObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\Building.cs">
-      <Link>Board\Building.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\Map.cs">
-      <Link>Board\Map.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\TileType.cs">
-      <Link>Board\TileType.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\Unit.cs">
-      <Link>Board\Unit.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\UnitHarvester.cs">
-      <Link>Board\UnitHarvester.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\UnitMCV.cs">
-      <Link>Board\UnitMCV.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\UnitSandworm.cs">
-      <Link>Board\UnitSandworm.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\UnitTank.cs">
-      <Link>Board\UnitTank.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Board\UnitTrooper.cs">
-      <Link>Board\UnitTrooper.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoader.cs">
-      <Link>Config\XMLLoader\XMLLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\XMLLoader\XMLLoaderException.cs">
-      <Link>Config\XMLLoader\XMLLoaderException.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Config\YAD2Configuration.cs">
-      <Link>Config\XMLLoader\YAD2Configuration.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Engine\Simulation.cs">
-      <Link>Engine\Simulation.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Log\InfoLog.cs">
-      <Link>Log\InfoLog.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Log\InfoLogPrefix.cs">
-      <Link>Log\InfoLogPrefix.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Log\MultiStream.cs">
-      <Link>Log\MultiStream.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\ChatUser.cs">
-      <Link>Net\General\ChatUser.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\ConsumerSync.cs">
-      <Link>Net\General\ConsumerSync.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\IMessageHandler.cs">
-      <Link>Net\General\IMessageHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\ListProcessor.cs">
-      <Link>Net\General\ListProcessor.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\AttackMessage.cs">
-      <Link>Net\General\Messaging\AttackMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\BuildMessage.cs">
-      <Link>Net\General\Messaging\BuildMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\ChatUsersMessage.cs">
-      <Link>Net\General\Messaging\ChatUsersMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\ControlMessage.cs">
-      <Link>Net\General\Messaging\ControlMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\CreateUnitMessage.cs">
-      <Link>Net\General\Messaging\CreateUnitMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\DestroyMessage.cs">
-      <Link>Net\General\Messaging\DestroyMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\GameInitMessage.cs">
-      <Link>Net\General\Messaging\GameInitMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\GameMessage.cs">
-      <Link>Net\General\Messaging\GameMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\HarvestMessage.cs">
-      <Link>Net\General\Messaging\HarvestMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\LoginMessage.cs">
-      <Link>Net\General\Messaging\LoginMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\Message.cs">
-      <Link>Net\General\Messaging\Message.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\MessageFactory.cs">
-      <Link>Net\General\Messaging\MessageFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\MessageType.cs">
-      <Link>Net\General\Messaging\MessageType.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\MoveMessage.cs">
-      <Link>Net\General\Messaging\MoveMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\NewChatUserMessage.cs">
-      <Link>Net\General\Messaging\NewChatUserMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\NumericMessage.cs">
-      <Link>Net\General\Messaging\NumericMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Client\Net\General\Messaging\TextMessage.cs">
-      <Link>Net\General\Messaging\TextMessage.cs</Link>
-    </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
-    <Compile Include="Net\General\IMessageSender.cs" />
-    <Compile Include="Net\Server\MessageHandler.cs" />
-    <Compile Include="Net\General\ThreadListProcessor.cs" />
-    <Compile Include="Net\Server\BaseServer.cs" />
-    <Compile Include="Net\Server\IPlayerProvider.cs" />
-    <Compile Include="Net\Server\PlayerStateMachine.cs" />
-    <Compile Include="Net\Server\PostMessage.cs" />
-    <Compile Include="Net\Server\Chat.cs" />
-    <Compile Include="Net\Server\ConnectionLostEventArgs.cs" />
-    <Compile Include="Net\Server\MenuMessageHandler.cs" />
-    <Compile Include="Net\Server\Player.cs" />
-    <Compile Include="Net\Server\PlayerData.cs" />
-    <Compile Include="Net\Server\RecieveMessageEventArgs.cs" />
-    <Compile Include="Net\Server\Server.cs" />
-    <Compile Include="Net\Server\ServerMain.cs" />
-    <Compile Include="Net\Server\ServerMessageSender.cs" />
+    <Compile Include="Net\MessageHandler.cs" />
+    <Compile Include="Net\BaseServer.cs" />
+    <Compile Include="Net\IPlayerProvider.cs" />
+    <Compile Include="Net\PlayerStateMachine.cs" />
+    <Compile Include="Net\PostMessage.cs" />
+    <Compile Include="Net\Chat.cs" />
+    <Compile Include="Net\ConnectionLostEventArgs.cs" />
+    <Compile Include="Net\MenuMessageHandler.cs" />
+    <Compile Include="Net\Player.cs" />
+    <Compile Include="Net\PlayerData.cs" />
+    <Compile Include="Net\RecieveMessageEventArgs.cs" />
+    <Compile Include="Net\Server.cs" />
+    <Compile Include="Net\ServerMain.cs" />
+    <Compile Include="Net\ServerMessageSender.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,17 +85,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Client\Config\dune.xsd">
-      <Link>Config\dune.xsd</Link>
-      <SubType>
-      </SubType>
-    </None>
     <None Include="Resources\tray.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Client\Config\dune_example.xml">
-      <Link>Config\dune_example.xml</Link>
-    </Content>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -58,17 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board\AmmoType.cs" />
-    <Compile Include="Board\Animation.cs" />
-    <Compile Include="Board\BoardObject.cs" />
-    <Compile Include="Board\Building.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
-    <Compile Include="Config\XMLLoader\XMLLoader.cs" />
-    <Compile Include="Config\YAD2Configuration.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
     <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
     <Compile Include="Engine\GameGraphics\IRenderer.cs" />
-    <Compile Include="Board\Map.cs" />
     <Compile Include="Engine\GameGraphics\MapHolder.cs" />
     <Compile Include="Engine\GameGraphics\MapHolderException.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\AmmoRenderer.cs" />
@@ -81,45 +73,12 @@
     <Compile Include="Engine\GameGraphics\Renderers\SandwormRenderer.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\TankRenderer.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
-    <Compile Include="Board\TileType.cs" />
-    <Compile Include="Board\Unit.cs" />
-    <Compile Include="Board\UnitHarvester.cs" />
-    <Compile Include="Board\UnitMCV.cs" />
-    <Compile Include="Board\UnitSandworm.cs" />
-    <Compile Include="Board\UnitTank.cs" />
-    <Compile Include="Board\UnitTrooper.cs" />
     <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
     <Compile Include="Engine\GameGraphics\VertexData.cs" />
-    <Compile Include="Engine\Randomizer.cs" />
-    <Compile Include="Engine\Simulation.cs" />
-    <Compile Include="Log\InfoLog.cs" />
-    <Compile Include="Log\InfoLogPrefix.cs" />
-    <Compile Include="Log\MultiStream.cs" />
     <Compile Include="Net\Client\Connection.cs" />
-    <Compile Include="Net\General\ChatUser.cs" />
-    <Compile Include="Net\General\ConsumerSync.cs" />
-    <Compile Include="Net\General\IMessageHandler.cs" />
-    <Compile Include="Net\General\ListProcessor.cs" />
     <Compile Include="Net\Client\MenuMessageHandler.cs" />
     <Compile Include="Net\Client\MessageReceiver.cs" />
     <Compile Include="Net\Client\MessageSender.cs" />
-    <Compile Include="Net\General\Messaging\AttackMessage.cs" />
-    <Compile Include="Net\General\Messaging\BuildMessage.cs" />
-    <Compile Include="Net\General\Messaging\ChatUsersMessage.cs" />
-    <Compile Include="Net\General\Messaging\ControlMessage.cs" />
-    <Compile Include="Net\General\Messaging\CreateUnitMessage.cs" />
-    <Compile Include="Net\General\Messaging\DestroyMessage.cs" />
-    <Compile Include="Net\General\Messaging\GameInitMessage.cs" />
-    <Compile Include="Net\General\Messaging\GameMessage.cs" />
-    <Compile Include="Net\General\Messaging\HarvestMessage.cs" />
-    <Compile Include="Net\General\Messaging\LoginMessage.cs" />
-    <Compile Include="Net\General\Messaging\Message.cs" />
-    <Compile Include="Net\General\Messaging\MessageFactory.cs" />
-    <Compile Include="Net\General\Messaging\MessageType.cs" />
-    <Compile Include="Net\General\Messaging\MoveMessage.cs" />
-    <Compile Include="Net\General\Messaging\NewChatUserMessage.cs" />
-    <Compile Include="Net\General\Messaging\NumericMessage.cs" />
-    <Compile Include="Net\General\Messaging\TextMessage.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\FormPool.cs" />
     <Compile Include="UI\GameForm.cs">
@@ -178,15 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Config\dune.xsd">
-      <SubType>
-      </SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Config\generate.bat" />
-    <None Include="Resources\Maps\test.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\przenieście to do Graphics UI" />
     <None Include="Resources\UI_Ball_ENS.png" />
     <None Include="Resources\UI_Ball_N.png" />
@@ -206,9 +156,6 @@
     <None Include="Resources\UI_TopMenu_W.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\dune_example.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Audio\FX\Atreides\apprch.wav" />
     <Content Include="Resources\Audio\FX\Atreides\arrive.wav" />
     <Content Include="Resources\Audio\FX\Atreides\Atreides.wav" />
@@ -595,6 +542,12 @@
     </Content>
     <Content Include="TaoFramework\Tao.Platform.Windows.dll">
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

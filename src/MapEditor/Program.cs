@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.IO;
 
-namespace MapEditor
+namespace Yad.MapEditor
 {
     static class Program
     {

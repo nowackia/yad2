@@ -1,4 +1,4 @@
-using Client.Net.Client;
+using Yad.Net.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Yad.Net;
-using Yad.Net.General.Messaging;
+using Yad.Net.Messaging.Common;
 
 namespace Client.UI
 {

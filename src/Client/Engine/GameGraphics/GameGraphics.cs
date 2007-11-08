@@ -10,6 +10,8 @@ using Client.Properties;
 using Yad.Log;
 using Client.Engine.GameGraphics;
 using Client.Board;
+using Yad.Board.Common;
+using Yad.Log.Common;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
@@ -35,7 +37,7 @@ namespace Client.Engine.GameGraphics {
 		/// </summary>
 		static float minimumZoom = 1;
 
-		static float zoom = 1.0f, zoomStep = 7.5f;
+		static float zoom = 1.0f, zoomStep = 3.5f;
 
 		/// <summary>
 		/// Used for drawing textures

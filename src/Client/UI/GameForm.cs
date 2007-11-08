@@ -7,11 +7,14 @@ using System.Text;
 using System.Windows.Forms;
 using Client.Engine.GameGraphics;
 using Tao.Platform.Windows;
-using Classes.XMLLoader;
 using Client.Properties;
 using Client.Board;
 using System.IO;
 using Yad.Log;
+using Yad.Log.Common;
+using Yad.Config.XMLLoader.Common;
+using Yad.Config.Common;
+using Yad.Board.Common;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -25,7 +28,7 @@ namespace Client.UI {
 
 			InitializeComponent();
 
-			YAD2Configuration.GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
 			Map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 
 
@@ -63,7 +66,7 @@ namespace Client.UI {
 		}
 
 		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
-			GameGraphics.Zoom(e.Delta / 360);
+			GameGraphics.Zoom(e.Delta / 120);
 		}
 
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {

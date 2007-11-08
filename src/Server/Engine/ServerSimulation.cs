@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Client.Engine;
+using Yad.Engine.Simulation.Common;
 
-namespace Server.Engine
+namespace Yad.Engine.Server
 {
     /// <summary>
     /// 
     /// </summary>
-    class ServerSimulation:Simulation
+    class ServerSimulation : Yad.Engine.Simulation.Common.Simulation
     {
-        public override void Update()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
     }
 }

@@ -1,12 +1,12 @@
-using Server.UI;
-using Server.Net.Server;
+using Yad.Net.Server;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
-using Yad.Log;
+using Yad.Log.Common;
+using Yad.UI.Server;
 
-namespace Server
+namespace Yad.Server
 {
     static class Program
     {

@@ -1,4 +1,4 @@
-namespace MapEditor
+namespace Yad.MapEditor
 {
     partial class MapEditor
     {

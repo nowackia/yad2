@@ -5,6 +5,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Client.Board;
+using Yad.Board.Common;
 
 namespace Client.Engine.GameGraphics {
 	class MapTextureGenerator {
