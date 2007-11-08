@@ -1,16 +1,16 @@
+using Client.Net.Client;
+using Client.UI;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Client.UI;
-using Client.Log;
 using System.Reflection;
 using System.Threading;
-using Yad.Net;
-using Yad.Net.General.Messaging;
 using System.Net.Sockets;
 using System.IO;
-using Client.Net.General.Messaging;
+using Yad.Log;
+using Yad.Net;
 using Yad.Net.General;
+using Yad.Net.General.Messaging;
 
 namespace Client
 {
@@ -28,11 +28,6 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
 
             Connection.InitConnection("127.0.0.1", 1734);
-            /*LoginMessage loginMessage = new LoginMessage();
-            loginMessage.Login = "test";
-            loginMessage.Password = "testpsw";
-            loginMessage.UserId = 6;
-            Connection.SendMessage(loginMessage);*/
 
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
@@ -46,11 +41,6 @@ namespace Client
 
             InfoLog.WriteEnd();
             InfoLog.Close();
-        }
-
-        static void MenuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
-        {
-            InfoLog.WriteInfo("Login status was: " + e.isSuccessful, EPrefix.ClientInformation);
         }
     }
 }

@@ -1,17 +1,18 @@
+using Server.Net.General;
+using Server.Net.Server;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Client.Log;
 using System.Collections;
 using System.Windows.Forms;
-using Server.Net.General.Server;
 
-namespace Yad.Net.Server {
+using Yad.Log;
+
+namespace Server.Net.Server {
     /*
-     *
     class Server {
 
         private int _portNumber;
@@ -129,8 +130,7 @@ namespace Yad.Net.Server {
             public Server(int PortNumber) : base() {
 
                 _portNumber = PortNumber;
-                _listener = new TcpListener(
-                    IPAddress.Parse("194.29.178.204"), _portNumber);
+                _listener = new TcpListener(_portNumber);
                 _listener.Start();
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
 
@@ -173,7 +173,7 @@ namespace Yad.Net.Server {
             public void OnConnectionLost(object sender, ConnectionLostEventArgs args) {
                 Player player = sender as Player;
                 InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);
-                if (player.State == Yad.Net.General.MenuState.Unlogged)
+                if (player.State == MenuState.Unlogged)
                     _playersUnlogged.Remove(player.Id);
                 else
                     _playerCollection.Remove(player.Id);

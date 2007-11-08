@@ -4,7 +4,7 @@ using System.Text;
 using Yad.Net.General.Messaging;
 using Yad.Net.General;
 
-namespace Client.Net.General.Messaging {
+namespace Yad.Net.General.Messaging {
     /// <summary>
     /// Format wiadomosci
     /// Typ (byte)

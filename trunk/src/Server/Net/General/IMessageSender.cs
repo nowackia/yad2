@@ -5,6 +5,6 @@ using Yad.Net.General.Messaging;
 
 namespace Yad.Net.General {
     interface IMessageSender {
-        void PostMessage(Message msg, int recipient);
+        void MessagePost(Message msg, int recipient);
     }
 }

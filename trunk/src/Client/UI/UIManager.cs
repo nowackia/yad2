@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Client.Log;
+using Yad.Log;
 
 namespace Client.UI {
 

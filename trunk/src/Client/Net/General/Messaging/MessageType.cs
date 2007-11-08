@@ -11,6 +11,7 @@ namespace Yad.Net.General.Messaging
         Text,
         #endregion
 
+        #region Game messages
         GameInit,
         Move,
         Destroy,
@@ -19,6 +20,7 @@ namespace Yad.Net.General.Messaging
         Harvest,
         Attack,
         Control,
+        #endregion
 
         #region Chat
 

@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Client.Log;
 using System.Threading;
-using Yad.Net.Server;
+using Server.Net.Server;
+using Yad.Log;
 
 namespace Server.UI
 {

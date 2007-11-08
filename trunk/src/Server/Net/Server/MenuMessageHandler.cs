@@ -1,12 +1,14 @@
+using Server.Net.General;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Yad.Net.General;
 using Yad.Net.General.Messaging;
-using Client.Log;
-using System.Threading;
+using Yad.Log;
 
-namespace Yad.Net.Server {
+namespace Server.Net.Server
+{
     class MenuMessageHandler : MessageHandler {
 
         private Server _server;

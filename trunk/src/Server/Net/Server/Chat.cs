@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Yad.Net.Server;
 using Yad.Net.General.Messaging;
 using System.Collections;
 using Yad.Net.General;
 
-namespace Server.Net.General.Server {
+namespace Server.Net.Server {
     class Chat {
         List<Player> _players;
         IMessageSender _sender;
@@ -20,7 +19,7 @@ namespace Server.Net.General.Server {
             }
             Message m = MessageFactory.Create(MessageType.ChatUsers);
             
-            _sender.PostMessage(m, player.Id);
+            _sender.MessagePost(m, player.Id);
             BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
             
         }
@@ -39,7 +38,7 @@ namespace Server.Net.General.Server {
             lock (((ICollection)_players).SyncRoot)
                 foreach (Player p in _players)
                     if (p.Id != id)
-                        _sender.PostMessage(msg, id);
+                        _sender.MessagePost(msg, id);
         }
 
         public void PostMessage(TextMessage msg) {
