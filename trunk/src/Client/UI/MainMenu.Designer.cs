@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace Client.UI
 {
     partial class MainMenuForm

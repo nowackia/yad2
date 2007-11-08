@@ -7,6 +7,7 @@ namespace Client.UI {
     public class UIManageable : Form
     {
         public event optionChoosen optionChoosen;
+        public delegate void MenuOptionDelegate(MenuOption option);
 
         protected void OnOptionChoosen(MenuOption option) {
             if (optionChoosen != null) {

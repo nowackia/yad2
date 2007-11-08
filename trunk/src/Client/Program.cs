@@ -10,6 +10,7 @@ using Yad.Net.General.Messaging;
 using System.Net.Sockets;
 using System.IO;
 using Client.Net.General.Messaging;
+using Yad.Net.General;
 
 namespace Client
 {
@@ -26,17 +27,12 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            /*Connection.InitConnection("127.0.0.1", 1734);
-            LoginMessage loginMessage = new LoginMessage();
+            Connection.InitConnection("127.0.0.1", 1734);
+            /*LoginMessage loginMessage = new LoginMessage();
             loginMessage.Login = "test";
             loginMessage.Password = "testpsw";
             loginMessage.UserId = 6;
-            Connection.SendMessage(loginMessage);
-
-            InfoLog.Write("Press any key to continue ...");
-            Console.Read();
-
-            Connection.CloseConnection();*/
+            Connection.SendMessage(loginMessage);*/
 
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
@@ -46,8 +42,15 @@ namespace Client
 
             Application.Run(miniForm);
 
+            Connection.CloseConnection();
+
             InfoLog.WriteEnd();
             InfoLog.Close();
+        }
+
+        static void MenuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Login status was: " + e.isSuccessful, EPrefix.ClientInformation);
         }
     }
 }
