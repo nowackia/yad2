@@ -124,7 +124,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Maps")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Maps")]
         public string Maps {
             get {
                 return ((string)(this["Maps"]));

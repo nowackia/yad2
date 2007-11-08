@@ -36,7 +36,7 @@
       <Value Profile="(Default)">Audio</Value>
     </Setting>
     <Setting Name="Maps" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Maps</Value>
+      <Value Profile="(Default)">Resources/Maps</Value>
     </Setting>
     <Setting Name="UseSafeRendering" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
