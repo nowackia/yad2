@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace Client.Log {
     public class InfoLog {
+
         #region Pola prywatne
 
         /// <summary>

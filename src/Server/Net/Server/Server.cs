@@ -129,7 +129,8 @@ namespace Yad.Net.Server {
             public Server(int PortNumber) : base() {
 
                 _portNumber = PortNumber;
-                _listener = new TcpListener(IPAddress.Loopback, _portNumber);
+                _listener = new TcpListener(
+                    IPAddress.Parse("194.29.178.204"), _portNumber);
                 _listener.Start();
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
 

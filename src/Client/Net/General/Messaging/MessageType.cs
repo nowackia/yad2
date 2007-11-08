@@ -22,12 +22,66 @@ namespace Yad.Net.General.Messaging
 
         #region Chat
 
+        //wysyla aktualnych uzytkownikow czatu
         ChatUsers,
+        //kasuje uzytkownika
         DeleteChatUser,
+        //nowy uzytkownik
         NewChatUser,
+        //tresc 
         ChatText,
+   
         ChatEntry,
         ChatExit,
+
+        #endregion
+
+        #region Game Choosing
+
+        /// <summary>
+        /// Message is sent when player enters join game room
+        /// </summary>
+        ChooseGameEntry,
+
+        /// <summary>
+        /// Server response with public games list
+        /// </summary>
+        GamesList,
+
+        /// <summary>
+        /// Message with new public game data
+        /// </summary>
+        NewGame,
+
+        /// <summary>
+        /// Message with the information of deletion of public game 
+        /// </summary>
+        DeleteGame,
+
+        #endregion
+
+        #region GameCreating
+
+        CreateGameMessage, 
+        CreateGameSuccessful,
+        CreateGameUnsuccessful,
+
+        #endregion
+
+        #region Game Joining
+
+        PlayersList,
+        NewPlayer,
+        DeletePlayer,
+        UpdatePlayer,
+        StartGame,
+        StartGameSuccesful,
+        StartGameUnsuccessful,
+        JoinGameEntry,
+        JoinGameExit,
+        JoinGameSuccessful,
+        JoinGameUnsuccessful,
+        GameParams,
 
         #endregion
 
@@ -44,9 +98,9 @@ namespace Yad.Net.General.Messaging
         #endregion
 
         #region Client menu messages
-        ChooseGameEntry,
-        JoinGameEntry,
-        JoinGameExit,
+        //ChooseGameEntry,
+        //JoinGameEntry,
+        //JoinGameExit,
         Logout,
         GameCreate,
         #endregion
