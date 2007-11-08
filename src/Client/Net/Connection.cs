@@ -22,22 +22,24 @@ namespace Client.Net
 
         static Connection()
         {
-            tcpClient = new TcpClient();
+            receiver = new MessageReceiver();
+            sender = new MessageSender();
         }
 
         public static void InitConnection(string hostname, int port)
         {
+            tcpClient = new TcpClient();
             try
             {
                 InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation); 
                 tcpClient.Connect(hostname, port);
                 InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
 
-                receiver = new MessageReceiver(tcpClient.GetStream());
+                receiver.Stream =  tcpClient.GetStream();
                 receiver.Start();
                 InfoLog.WriteInfo("Receiver run succesfully", EPrefix.ClientInformation);
 
-                sender = new MessageSender(tcpClient.GetStream());
+                sender.Stream = tcpClient.GetStream();
                 sender.Start();
                 InfoLog.WriteInfo("Sender run succesfully", EPrefix.ClientInformation);
             }
@@ -53,13 +55,7 @@ namespace Client.Net
             { return tcpClient.Connected; }
         }
 
-        public static MenuMessageHandlerClient MenuMessageHandler
-        {
-            get
-            { return receiver.MenuMessageHandler; }
-        }
-
-        public event ConnectionLostEventHandler ConnectionLost
+        public static event ConnectionLostEventHandler ConnectionLost
         {
             add
             {
@@ -73,7 +69,7 @@ namespace Client.Net
             }
         }
 
-        public event MessageEventHandler MessageReceive
+        public static event MessageEventHandler MessageReceive
         {
             add
             { receiver.MessageReceive += value; }
@@ -81,7 +77,7 @@ namespace Client.Net
             { receiver.MessageReceive += value; }
         }
 
-        public event MessageEventHandler MessageSend
+        public static event MessageEventHandler MessageSend
         {
             add
             { sender.MessageSend += value; }
@@ -93,9 +89,18 @@ namespace Client.Net
         {
             if (tcpClient.Connected)
             {
+                sender.Stop();
                 receiver.Stop();
                 tcpClient.Close();
             }
+        }
+
+        public static IMessageHandler MessageHandler
+        {
+            get
+            { return receiver.MessageHandler; }
+            set
+            { receiver.MessageHandler = value; }
         }
 
         public static void SendMessage(Message message)

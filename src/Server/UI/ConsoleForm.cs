@@ -57,6 +57,14 @@ namespace Yad.UI.Server
             this.Close();
         }
 
+        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
+
+            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
+            this.TopMost = toolStripMenuItem.Checked;
+        }
+
         private void ConsoleForm_Load(object sender, EventArgs e)
         {
             _serverProcess = new ServerMain();

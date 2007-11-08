@@ -19,10 +19,15 @@ namespace Client.Net
         public event MessageEventHandler MessageSend;
         public event ConnectionLostEventHandler ConnectionLost;
 
-        public MessageSender(NetworkStream netStream)
+        public MessageSender()
+            : this(null)
+        { }
+
+        public MessageSender(Stream stream)
             : base()
         {
-            writeStream = new BinaryWriter(netStream);
+            if (stream != null)
+                writeStream = new BinaryWriter(stream);
         }
 
         public bool IsProcessing
@@ -31,8 +36,19 @@ namespace Client.Net
             { return thread.IsAlive; }
         }
 
+        public Stream Stream
+        {
+            get
+            { return writeStream.BaseStream; }
+            set
+            { writeStream = new BinaryWriter(value); }
+        }
+
         public void Start()
         {
+            if (writeStream == null)
+                throw new ArgumentNullException("Writing stream can not be null");
+
             thread = new Thread(new ThreadStart(Process));
             thread.IsBackground = true;
             thread.Start();
@@ -58,8 +74,9 @@ namespace Client.Net
                     { MessageSend(this, new MessageEventArgs((byte)msg.Type, msg)); }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                InfoLog.WriteException(ex);
                 if (ConnectionLost != null)
                 {
                     lock (ConnectionLost)

@@ -6,6 +6,7 @@ using System.Drawing;
 using Client.Net;
 using System.Text;
 using System.Windows.Forms;
+using Yad.Log.Common;
 using Yad.Net;
 using Yad.Net.Messaging.Common;
 
@@ -13,10 +14,14 @@ namespace Client.UI
 {
     public partial class MainMenuForm : UIManageable
     {
-        Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
+        private Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
+        private Views lastView;
+
         public MainMenuForm()
         {
             InitializeComponent();
+
+            #region Views Settings
             views.Add(Views.ChatForm, chatMenu);
             views.Add(Views.ChooseGameForm, chooseGameMenu);
             views.Add(Views.CreateGameForm, createGameMenu);
@@ -28,20 +33,30 @@ namespace Client.UI
             views.Add(Views.RegistrationForm, registerMenu);
             views.Add(Views.UserInfoForm, infoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
+            #endregion
 
-            Connection.MenuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
+            #region MenuMessageHandler Settings
+            MenuMessageHandler menuMessageHandler = new MenuMessageHandler();
+
+            menuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(menuMessageHandler_LoginRequestReply);
+
+            Connection.MessageHandler = menuMessageHandler;
+            #endregion
         }
 
-        void MenuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
+        #region MenuMessageHandler Events
+        void menuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
-            MessageBox.Show(e.reason);
-
+            InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
+            MessageBox.Show(e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (InvokeRequired)
-                this.BeginInvoke(new MenuOptionDelegate(OnOptionChoosen), new object[] { MenuOption.Login });
+                this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
             else
-                OnOptionChoosen(MenuOption.Login);
+                OnMenuOptionChange(MenuOption.Login);
         }
+        #endregion
 
+        #region Tab managment
         public void switchToTab(Views view)
         {
             TabPage page = views[view];
@@ -51,36 +66,46 @@ namespace Client.UI
             this.tabControl.SelectTab(page.Name);
         }
 
+        public Views LastView
+        {
+            get { return lastView; }
+            set { lastView = value; }
+        }
+        #endregion
+
+        #region Button Menu clicks
         private void NewGameMainMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.NewGame);
+            OnMenuOptionChange(MenuOption.NewGame);
         }
 
         private void OptionsMainMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Options);
+            OnMenuOptionChange(MenuOption.Options);
         }
 
         private void exitMainMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Exit);
+            OnMenuOptionChange(MenuOption.Exit);
         }
 
         private void cancelLoginMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Cancel);
+            OnMenuOptionChange(MenuOption.Cancel);
         }
 
         private void registerLoginMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Registration);
+            OnMenuOptionChange(MenuOption.Registration);
         }
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
+            Connection.InitConnection(serverLoginMenu.Text, 1734);
+
             LoginMessage loginMessage = new LoginMessage();
-            loginMessage.Login = "test";
-            loginMessage.Password = "testpsw";
+            loginMessage.Login = loginBTLoginMenu.Text;
+            loginMessage.Password = passwordLoginMenu.Text;
             loginMessage.PlayerId = 6;
             Connection.SendMessage(loginMessage);
         }
@@ -92,119 +117,100 @@ namespace Client.UI
 
         private void backRegisterMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Back);
+            OnMenuOptionChange(MenuOption.Back);
         }
 
         private void continuePauseMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Continue);
+            OnMenuOptionChange(MenuOption.Continue);
         }
 
         private void optionsPauseMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Options);
+            OnMenuOptionChange(MenuOption.Options);
         }
 
         private void exitPauseMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Exit);
+            OnMenuOptionChange(MenuOption.Exit);
         }
 
         private void pauseGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Pause);
+            OnMenuOptionChange(MenuOption.Pause);
         }
 
         private void optionsGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Options);
+            OnMenuOptionChange(MenuOption.Options);
         }
 
         private void okGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Ok);
+            OnMenuOptionChange(MenuOption.Ok);
         }
 
         private void exitGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Exit);
+            OnMenuOptionChange(MenuOption.Exit);
         }
-
-
-        private Views lastView;
-
-        public Views LastView
-        {
-            get { return lastView; }
-            set { lastView = value; }
-        }
-
 
         private void cancelOptionsMenu_Click(object sender, EventArgs e)
         {
             if (this.lastView == Views.GameMenuForm)
-            {
-                OnOptionChoosen(MenuOption.CancelToGameMenu);
-            }
+                OnMenuOptionChange(MenuOption.CancelToGameMenu);
             else if (this.lastView == Views.PauseForm)
-            {
-                OnOptionChoosen(MenuOption.CancelToPauseMenu);
-            }
+                OnMenuOptionChange(MenuOption.CancelToPauseMenu);
             else
-            {
-                OnOptionChoosen(MenuOption.Cancel);
-            }
+                OnMenuOptionChange(MenuOption.Cancel);
         }
 
         private void okOptionsMenu_Click(object sender, EventArgs e)
         {
             if (this.lastView == Views.GameMenuForm)
-            {
-                OnOptionChoosen(MenuOption.OkToGameMenu);
-            }
+                OnMenuOptionChange(MenuOption.OkToGameMenu);
             else if (this.lastView == Views.PauseForm)
-            {
-                OnOptionChoosen(MenuOption.OkToPauseMenu);
-            }
+                OnMenuOptionChange(MenuOption.OkToPauseMenu);
             else
-            {
-                OnOptionChoosen(MenuOption.Ok);
-            }
+                OnMenuOptionChange(MenuOption.Ok);
         }
 
         private void backChatMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Back);
+            Connection.SendMessage(MessageFactory.Create(MessageType.Logout));
+            Connection.CloseConnection();
+
+            OnMenuOptionChange(MenuOption.Back);
         }
 
         private void gameChatMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Game);
+            OnMenuOptionChange(MenuOption.Game);
         }
 
         private void haxxx_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Game);
+            OnMenuOptionChange(MenuOption.Game);
         }
 
         private void backInfoMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Back);
+            OnMenuOptionChange(MenuOption.Back);
         }
 
         private void backChooseGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Back);
+            OnMenuOptionChange(MenuOption.Back);
         }
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Join);
+            OnMenuOptionChange(MenuOption.Join);
         }
 
         private void createChooseGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Create);
+            OnMenuOptionChange(MenuOption.Create);
         }
 
         private void listOfGames_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,26 +220,26 @@ namespace Client.UI
 
         private void cancelCreateGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Cancel);
+            OnMenuOptionChange(MenuOption.Cancel);
         }
 
         private void createCreateGameMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Create);
+            OnMenuOptionChange(MenuOption.Create);
         }
 
         private void startWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.StartGame);
+            OnMenuOptionChange(MenuOption.StartGame);
         }
 
         private void cancelWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            OnOptionChoosen(MenuOption.Cancel);
+            OnMenuOptionChange(MenuOption.Cancel);
         }
 
-        private void descriptionWaitingForPlayersMenu_TextChanged(object sender, EventArgs e) {
-
-        }
+        private void descriptionWaitingForPlayersMenu_TextChanged(object sender, EventArgs e)
+        { }
+        #endregion
     }
 }

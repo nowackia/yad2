@@ -53,12 +53,12 @@ namespace Client.UI {
 		}
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            OnOptionChoosen(MenuOption.Options);
+            OnMenuOptionChange(MenuOption.Options);
             e.Cancel = true;
         }
 
         void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
-            OnOptionChoosen(MenuOption.Options);
+            OnMenuOptionChange(MenuOption.Options);
         }
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {

@@ -7,16 +7,17 @@ using Yad.Log.Common;
 
 namespace Client.UI {
 
-    public delegate void optionChoosen(MenuOption option);
+    public delegate void MenuEventHandler(MenuOption option);
+
     public class UIManager {
         Views actualView;
         UIManageable actualForm;
-        private optionChoosen optionChoosed = null;
+        private MenuEventHandler menuEventHandler = null;
         MiniForm mainForm;
         public UIManager(MiniForm mainForm) {
             actualView = Views.MainMenuForm;
             this.mainForm = mainForm;
-            optionChoosed = new optionChoosen(form_optionChoosed);
+            menuEventHandler = new MenuEventHandler(form_optionChoosed);
         }
 
         public void Start() {
@@ -26,8 +27,8 @@ namespace Client.UI {
         private void ThreadStartFunction() {
             actualForm = FormPool.createForm(Views.MainMenuForm);
             //reset handler
-            actualForm.optionChoosen -= optionChoosed;
-            actualForm.optionChoosen += optionChoosed;
+            actualForm.MenuOptionChange -= menuEventHandler;
+            actualForm.MenuOptionChange += menuEventHandler;
             actualForm.Show();
         }
 
@@ -320,8 +321,8 @@ namespace Client.UI {
             actualView = viewToSwitch;
             actualForm = FormPool.createForm(viewToSwitch);
             //reset handler
-            actualForm.optionChoosen -= optionChoosed;
-            actualForm.optionChoosen += optionChoosed;
+            actualForm.MenuOptionChange -= menuEventHandler;
+            actualForm.MenuOptionChange += menuEventHandler;
             if(actualForm.Visible == false)
                 actualForm.Show(mainForm);
             

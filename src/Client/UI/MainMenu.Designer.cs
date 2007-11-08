@@ -330,15 +330,16 @@ namespace Client.UI
             // 
             // serverLoginMenu
             // 
-            this.serverLoginMenu.Location = new System.Drawing.Point(93, 39);
+            this.serverLoginMenu.Location = new System.Drawing.Point(93, 64);
             this.serverLoginMenu.Name = "serverLoginMenu";
             this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.serverLoginMenu.TabIndex = 8;
+            this.serverLoginMenu.Text = "127.0.0.1";
             // 
             // serverLabel
             // 
             this.serverLabel.AutoSize = true;
-            this.serverLabel.Location = new System.Drawing.Point(8, 42);
+            this.serverLabel.Location = new System.Drawing.Point(8, 67);
             this.serverLabel.Name = "serverLabel";
             this.serverLabel.Size = new System.Drawing.Size(36, 13);
             this.serverLabel.TabIndex = 7;
@@ -353,7 +354,7 @@ namespace Client.UI
             // 
             // passwordLoginMenu
             // 
-            this.passwordLoginMenu.Location = new System.Drawing.Point(93, 64);
+            this.passwordLoginMenu.Location = new System.Drawing.Point(93, 39);
             this.passwordLoginMenu.Name = "passwordLoginMenu";
             this.passwordLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.passwordLoginMenu.TabIndex = 1;
@@ -362,7 +363,7 @@ namespace Client.UI
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(8, 67);
+            this.passwordLabel.Location = new System.Drawing.Point(6, 42);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(52, 13);
             this.passwordLabel.TabIndex = 6;
@@ -1199,7 +1200,7 @@ namespace Client.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 333);
+            this.ClientSize = new System.Drawing.Size(535, 381);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
