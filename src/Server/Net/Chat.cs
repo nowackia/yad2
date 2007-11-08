@@ -18,9 +18,11 @@ namespace Yad.Net.Server {
                 _players.Add(player);
             }
             Message m = MessageFactory.Create(MessageType.ChatUsers);
-            
-            _sender.MessagePost(m, player.Id);
-            BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
+            if (m != null)
+            {
+                //_sender.MessagePost(m, player.Id);
+                //BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
+            }
             
         }
 

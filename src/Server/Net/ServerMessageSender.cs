@@ -39,7 +39,7 @@ namespace Yad.Net.Server {
         }
 
         public override void ProcessItem(PostMessage item) {
-            if (item.Recipient == -PostMessage.BroadCastMessage)
+            if (item.Recipient == PostMessage.BroadCastMessage)
                 BroadcastMessage(item.Message);
             else
                 SendMessage(item.Message, item.Recipient);
