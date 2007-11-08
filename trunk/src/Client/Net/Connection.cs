@@ -53,6 +53,12 @@ namespace Yad.Net
             { return tcpClient.Connected; }
         }
 
+        public static MenuMessageHandlerClient MenuMessageHandler
+        {
+            get
+            { return receiver.MenuMessageHandler; }
+        }
+
         public event ConnectionLostEventHandler ConnectionLost
         {
             add
