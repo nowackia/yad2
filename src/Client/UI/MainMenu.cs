@@ -231,5 +231,9 @@ namespace Client.UI
         {
             OnOptionChoosen(MenuOption.Cancel);
         }
+
+        private void descriptionWaitingForPlayersMenu_TextChanged(object sender, EventArgs e) {
+
+        }
     }
 }

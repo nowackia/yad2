@@ -32,33 +32,40 @@ namespace Client.UI
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
-            this.haxxx = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.newGameMainMenu = new System.Windows.Forms.Button();
+            this.haxxx = new System.Windows.Forms.Button();
+            this.optionsMainMenu = new System.Windows.Forms.Button();
             this.exitMainMenu = new System.Windows.Forms.Button();
             this.creditsMainMenu = new System.Windows.Forms.Button();
-            this.optionsMainMenu = new System.Windows.Forms.Button();
             this.loginMenu = new System.Windows.Forms.TabPage();
-            this.remindPasswordLoginMenu = new System.Windows.Forms.Button();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.loginLabel = new System.Windows.Forms.Label();
             this.serverLoginMenu = new System.Windows.Forms.TextBox();
             this.serverLabel = new System.Windows.Forms.Label();
+            this.loginTBLoginMenu = new System.Windows.Forms.TextBox();
+            this.passwordLoginMenu = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.loginLabel = new System.Windows.Forms.Label();
-            this.cancelLoginMenu = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.registerLoginMenu = new System.Windows.Forms.Button();
             this.loginBTLoginMenu = new System.Windows.Forms.Button();
-            this.passwordLoginMenu = new System.Windows.Forms.TextBox();
-            this.loginTBLoginMenu = new System.Windows.Forms.TextBox();
+            this.remindPasswordLoginMenu = new System.Windows.Forms.Button();
+            this.cancelLoginMenu = new System.Windows.Forms.Button();
             this.registerMenu = new System.Windows.Forms.TabPage();
-            this.emailLRegisterMenu = new System.Windows.Forms.Label();
-            this.repeatPasswordLRegisterMenu = new System.Windows.Forms.Label();
-            this.passwordLRegisterMenu = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.loginLBRegisterMenu = new System.Windows.Forms.Label();
+            this.emailLRegisterMenu = new System.Windows.Forms.Label();
             this.loginTBRegisterMenu = new System.Windows.Forms.TextBox();
+            this.repeatPasswordLRegisterMenu = new System.Windows.Forms.Label();
             this.passwordTBRegisterMenu = new System.Windows.Forms.TextBox();
-            this.repeatPasswordTBRegisterMenu = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.backRegisterMenu = new System.Windows.Forms.Button();
+            this.repeatPasswordTBRegisterMenu = new System.Windows.Forms.TextBox();
+            this.passwordLRegisterMenu = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.registerRegisterMenu = new System.Windows.Forms.Button();
+            this.backRegisterMenu = new System.Windows.Forms.Button();
             this.chatMenu = new System.Windows.Forms.TabPage();
             this.userListChatMenu = new System.Windows.Forms.ListBox();
             this.chatListChatMenu = new System.Windows.Forms.ListBox();
@@ -97,37 +104,50 @@ namespace Client.UI
             this.startWaitingForPlayersMenu = new System.Windows.Forms.Button();
             this.cancelWaitingForPlayersMenu = new System.Windows.Forms.Button();
             this.optionsMenu = new System.Windows.Forms.TabPage();
-            this.okOptionsMenu = new System.Windows.Forms.Button();
-            this.cancelOptionsMenu = new System.Windows.Forms.Button();
-            this.soundVolumeLOptionsMenu = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.musicVolumeLOptionsMenu = new System.Windows.Forms.Label();
-            this.soundVolumeNMOptionsMenu = new System.Windows.Forms.NumericUpDown();
+            this.soundVolumeLOptionsMenu = new System.Windows.Forms.Label();
             this.musicVolumeNMOptionsMenu = new System.Windows.Forms.NumericUpDown();
             this.muteSoundOptionsMenu = new System.Windows.Forms.CheckBox();
+            this.soundVolumeNMOptionsMenu = new System.Windows.Forms.NumericUpDown();
             this.muteMusicOptionsMenu = new System.Windows.Forms.CheckBox();
+            this.okOptionsMenu = new System.Windows.Forms.Button();
+            this.cancelOptionsMenu = new System.Windows.Forms.Button();
             this.gameMenu = new System.Windows.Forms.TabPage();
-            this.exitGameMenu = new System.Windows.Forms.Button();
-            this.okGameMenu = new System.Windows.Forms.Button();
-            this.optionsGameMenu = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.pauseGameMenu = new System.Windows.Forms.Button();
+            this.exitGameMenu = new System.Windows.Forms.Button();
+            this.optionsGameMenu = new System.Windows.Forms.Button();
+            this.okGameMenu = new System.Windows.Forms.Button();
             this.pauseMenu = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
-            this.continuePauseMenu = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.loginMenu.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.registerMenu.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.chatMenu.SuspendLayout();
             this.infoMenu.SuspendLayout();
             this.chooseGameMenu.SuspendLayout();
             this.createGameMenu.SuspendLayout();
             this.waitingForPlayersMenu.SuspendLayout();
             this.optionsMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.soundVolumeNMOptionsMenu)).BeginInit();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeNMOptionsMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundVolumeNMOptionsMenu)).BeginInit();
             this.gameMenu.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.pauseMenu.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -154,11 +174,8 @@ namespace Client.UI
             // 
             // mainMenu
             // 
-            this.mainMenu.Controls.Add(this.haxxx);
-            this.mainMenu.Controls.Add(this.newGameMainMenu);
-            this.mainMenu.Controls.Add(this.exitMainMenu);
-            this.mainMenu.Controls.Add(this.creditsMainMenu);
-            this.mainMenu.Controls.Add(this.optionsMainMenu);
+            this.mainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mainMenu.Controls.Add(this.tableLayoutPanel1);
             this.mainMenu.Location = new System.Drawing.Point(4, 4);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -167,31 +184,78 @@ namespace Client.UI
             this.mainMenu.Text = "MainMenu";
             this.mainMenu.UseVisualStyleBackColor = true;
             // 
-            // haxxx
+            // tableLayoutPanel1
             // 
-            this.haxxx.Location = new System.Drawing.Point(351, 242);
-            this.haxxx.Name = "haxxx";
-            this.haxxx.Size = new System.Drawing.Size(98, 23);
-            this.haxxx.TabIndex = 4;
-            this.haxxx.Text = "Fast Game";
-            this.haxxx.UseVisualStyleBackColor = true;
-            this.haxxx.Click += new System.EventHandler(this.haxxx_Click);
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.newGameMainMenu, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.haxxx, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.optionsMainMenu, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.exitMainMenu, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.creditsMainMenu, 1, 3);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // newGameMainMenu
             // 
-            this.newGameMainMenu.Location = new System.Drawing.Point(190, 64);
+            this.newGameMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.newGameMainMenu.Location = new System.Drawing.Point(107, 83);
             this.newGameMainMenu.Name = "newGameMainMenu";
-            this.newGameMainMenu.Size = new System.Drawing.Size(75, 23);
+            this.newGameMainMenu.Size = new System.Drawing.Size(306, 23);
             this.newGameMainMenu.TabIndex = 3;
             this.newGameMainMenu.Text = "New Game";
             this.newGameMainMenu.UseVisualStyleBackColor = true;
             this.newGameMainMenu.Click += new System.EventHandler(this.NewGameMainMenu_Click);
             // 
+            // haxxx
+            // 
+            this.haxxx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.haxxx.Location = new System.Drawing.Point(107, 199);
+            this.haxxx.Name = "haxxx";
+            this.haxxx.Size = new System.Drawing.Size(306, 23);
+            this.haxxx.TabIndex = 4;
+            this.haxxx.Text = "Fast Game";
+            this.haxxx.UseVisualStyleBackColor = true;
+            this.haxxx.Click += new System.EventHandler(this.haxxx_Click);
+            // 
+            // optionsMainMenu
+            // 
+            this.optionsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionsMainMenu.Location = new System.Drawing.Point(107, 112);
+            this.optionsMainMenu.Name = "optionsMainMenu";
+            this.optionsMainMenu.Size = new System.Drawing.Size(306, 23);
+            this.optionsMainMenu.TabIndex = 0;
+            this.optionsMainMenu.Text = "Options";
+            this.optionsMainMenu.UseVisualStyleBackColor = true;
+            this.optionsMainMenu.Click += new System.EventHandler(this.OptionsMainMenu_Click);
+            // 
             // exitMainMenu
             // 
-            this.exitMainMenu.Location = new System.Drawing.Point(190, 153);
+            this.exitMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitMainMenu.Location = new System.Drawing.Point(107, 170);
             this.exitMainMenu.Name = "exitMainMenu";
-            this.exitMainMenu.Size = new System.Drawing.Size(75, 23);
+            this.exitMainMenu.Size = new System.Drawing.Size(306, 23);
             this.exitMainMenu.TabIndex = 2;
             this.exitMainMenu.Text = "Exit";
             this.exitMainMenu.UseVisualStyleBackColor = true;
@@ -199,35 +263,20 @@ namespace Client.UI
             // 
             // creditsMainMenu
             // 
-            this.creditsMainMenu.Location = new System.Drawing.Point(190, 123);
+            this.creditsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.creditsMainMenu.Location = new System.Drawing.Point(107, 141);
             this.creditsMainMenu.Name = "creditsMainMenu";
-            this.creditsMainMenu.Size = new System.Drawing.Size(75, 23);
+            this.creditsMainMenu.Size = new System.Drawing.Size(306, 23);
             this.creditsMainMenu.TabIndex = 1;
             this.creditsMainMenu.Text = "Creditzz (Pay us)";
             this.creditsMainMenu.UseVisualStyleBackColor = true;
             // 
-            // optionsMainMenu
-            // 
-            this.optionsMainMenu.Location = new System.Drawing.Point(190, 93);
-            this.optionsMainMenu.Name = "optionsMainMenu";
-            this.optionsMainMenu.Size = new System.Drawing.Size(75, 23);
-            this.optionsMainMenu.TabIndex = 0;
-            this.optionsMainMenu.Text = "Options";
-            this.optionsMainMenu.UseVisualStyleBackColor = true;
-            this.optionsMainMenu.Click += new System.EventHandler(this.OptionsMainMenu_Click);
-            // 
             // loginMenu
             // 
-            this.loginMenu.Controls.Add(this.remindPasswordLoginMenu);
-            this.loginMenu.Controls.Add(this.serverLoginMenu);
-            this.loginMenu.Controls.Add(this.serverLabel);
-            this.loginMenu.Controls.Add(this.passwordLabel);
-            this.loginMenu.Controls.Add(this.loginLabel);
-            this.loginMenu.Controls.Add(this.cancelLoginMenu);
-            this.loginMenu.Controls.Add(this.registerLoginMenu);
-            this.loginMenu.Controls.Add(this.loginBTLoginMenu);
-            this.loginMenu.Controls.Add(this.passwordLoginMenu);
-            this.loginMenu.Controls.Add(this.loginTBLoginMenu);
+            this.loginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.loginMenu.Controls.Add(this.tableLayoutPanel4);
             this.loginMenu.Location = new System.Drawing.Point(4, 4);
             this.loginMenu.Name = "loginMenu";
             this.loginMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -236,62 +285,104 @@ namespace Client.UI
             this.loginMenu.Text = "LoginMenu";
             this.loginMenu.UseVisualStyleBackColor = true;
             // 
-            // remindPasswordLoginMenu
+            // tableLayoutPanel4
             // 
-            this.remindPasswordLoginMenu.Location = new System.Drawing.Point(258, 166);
-            this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
-            this.remindPasswordLoginMenu.Size = new System.Drawing.Size(106, 23);
-            this.remindPasswordLoginMenu.TabIndex = 9;
-            this.remindPasswordLoginMenu.Text = "Remind Password";
-            this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 2);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel4.TabIndex = 10;
             // 
-            // serverLoginMenu
+            // groupBox1
             // 
-            this.serverLoginMenu.Location = new System.Drawing.Point(211, 44);
-            this.serverLoginMenu.Name = "serverLoginMenu";
-            this.serverLoginMenu.Size = new System.Drawing.Size(100, 20);
-            this.serverLoginMenu.TabIndex = 8;
-            // 
-            // serverLabel
-            // 
-            this.serverLabel.AutoSize = true;
-            this.serverLabel.Location = new System.Drawing.Point(139, 47);
-            this.serverLabel.Name = "serverLabel";
-            this.serverLabel.Size = new System.Drawing.Size(36, 13);
-            this.serverLabel.TabIndex = 7;
-            this.serverLabel.Text = "server";
-            // 
-            // passwordLabel
-            // 
-            this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(139, 99);
-            this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(52, 13);
-            this.passwordLabel.TabIndex = 6;
-            this.passwordLabel.Text = "password";
+            this.groupBox1.Controls.Add(this.loginLabel);
+            this.groupBox1.Controls.Add(this.serverLoginMenu);
+            this.groupBox1.Controls.Add(this.serverLabel);
+            this.groupBox1.Controls.Add(this.loginTBLoginMenu);
+            this.groupBox1.Controls.Add(this.passwordLoginMenu);
+            this.groupBox1.Controls.Add(this.passwordLabel);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(81, 83);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(358, 110);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
             // 
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(139, 73);
+            this.loginLabel.Location = new System.Drawing.Point(8, 16);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(29, 13);
             this.loginLabel.TabIndex = 5;
             this.loginLabel.Text = "login";
             // 
-            // cancelLoginMenu
+            // serverLoginMenu
             // 
-            this.cancelLoginMenu.Location = new System.Drawing.Point(176, 165);
-            this.cancelLoginMenu.Name = "cancelLoginMenu";
-            this.cancelLoginMenu.Size = new System.Drawing.Size(75, 23);
-            this.cancelLoginMenu.TabIndex = 4;
-            this.cancelLoginMenu.Text = "Cancel";
-            this.cancelLoginMenu.UseVisualStyleBackColor = true;
-            this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
+            this.serverLoginMenu.Location = new System.Drawing.Point(93, 39);
+            this.serverLoginMenu.Name = "serverLoginMenu";
+            this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
+            this.serverLoginMenu.TabIndex = 8;
+            // 
+            // serverLabel
+            // 
+            this.serverLabel.AutoSize = true;
+            this.serverLabel.Location = new System.Drawing.Point(8, 42);
+            this.serverLabel.Name = "serverLabel";
+            this.serverLabel.Size = new System.Drawing.Size(36, 13);
+            this.serverLabel.TabIndex = 7;
+            this.serverLabel.Text = "server";
+            // 
+            // loginTBLoginMenu
+            // 
+            this.loginTBLoginMenu.Location = new System.Drawing.Point(93, 13);
+            this.loginTBLoginMenu.Name = "loginTBLoginMenu";
+            this.loginTBLoginMenu.Size = new System.Drawing.Size(216, 20);
+            this.loginTBLoginMenu.TabIndex = 0;
+            // 
+            // passwordLoginMenu
+            // 
+            this.passwordLoginMenu.Location = new System.Drawing.Point(93, 64);
+            this.passwordLoginMenu.Name = "passwordLoginMenu";
+            this.passwordLoginMenu.Size = new System.Drawing.Size(216, 20);
+            this.passwordLoginMenu.TabIndex = 1;
+            this.passwordLoginMenu.UseSystemPasswordChar = true;
+            // 
+            // passwordLabel
+            // 
+            this.passwordLabel.AutoSize = true;
+            this.passwordLabel.Location = new System.Drawing.Point(8, 67);
+            this.passwordLabel.Name = "passwordLabel";
+            this.passwordLabel.Size = new System.Drawing.Size(52, 13);
+            this.passwordLabel.TabIndex = 6;
+            this.passwordLabel.Text = "password";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.registerLoginMenu);
+            this.panel1.Controls.Add(this.loginBTLoginMenu);
+            this.panel1.Controls.Add(this.remindPasswordLoginMenu);
+            this.panel1.Controls.Add(this.cancelLoginMenu);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(81, 199);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(358, 110);
+            this.panel1.TabIndex = 1;
             // 
             // registerLoginMenu
             // 
-            this.registerLoginMenu.Location = new System.Drawing.Point(130, 136);
+            this.registerLoginMenu.Location = new System.Drawing.Point(3, 3);
             this.registerLoginMenu.Name = "registerLoginMenu";
             this.registerLoginMenu.Size = new System.Drawing.Size(75, 23);
             this.registerLoginMenu.TabIndex = 3;
@@ -301,41 +392,37 @@ namespace Client.UI
             // 
             // loginBTLoginMenu
             // 
-            this.loginBTLoginMenu.Location = new System.Drawing.Point(211, 136);
+            this.loginBTLoginMenu.Location = new System.Drawing.Point(84, 3);
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
-            this.loginBTLoginMenu.Size = new System.Drawing.Size(75, 23);
+            this.loginBTLoginMenu.Size = new System.Drawing.Size(106, 23);
             this.loginBTLoginMenu.TabIndex = 2;
             this.loginBTLoginMenu.Text = "Login";
             this.loginBTLoginMenu.UseVisualStyleBackColor = true;
             this.loginBTLoginMenu.Click += new System.EventHandler(this.loginBTLoginMenu_Click);
             // 
-            // passwordLoginMenu
+            // remindPasswordLoginMenu
             // 
-            this.passwordLoginMenu.Location = new System.Drawing.Point(211, 96);
-            this.passwordLoginMenu.Name = "passwordLoginMenu";
-            this.passwordLoginMenu.Size = new System.Drawing.Size(100, 20);
-            this.passwordLoginMenu.TabIndex = 1;
-            this.passwordLoginMenu.UseSystemPasswordChar = true;
+            this.remindPasswordLoginMenu.Location = new System.Drawing.Point(84, 26);
+            this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
+            this.remindPasswordLoginMenu.Size = new System.Drawing.Size(106, 23);
+            this.remindPasswordLoginMenu.TabIndex = 9;
+            this.remindPasswordLoginMenu.Text = "Remind Password";
+            this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
             // 
-            // loginTBLoginMenu
+            // cancelLoginMenu
             // 
-            this.loginTBLoginMenu.Location = new System.Drawing.Point(211, 70);
-            this.loginTBLoginMenu.Name = "loginTBLoginMenu";
-            this.loginTBLoginMenu.Size = new System.Drawing.Size(100, 20);
-            this.loginTBLoginMenu.TabIndex = 0;
+            this.cancelLoginMenu.Location = new System.Drawing.Point(3, 26);
+            this.cancelLoginMenu.Name = "cancelLoginMenu";
+            this.cancelLoginMenu.Size = new System.Drawing.Size(75, 23);
+            this.cancelLoginMenu.TabIndex = 4;
+            this.cancelLoginMenu.Text = "Cancel";
+            this.cancelLoginMenu.UseVisualStyleBackColor = true;
+            this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
             // 
             // registerMenu
             // 
-            this.registerMenu.Controls.Add(this.emailLRegisterMenu);
-            this.registerMenu.Controls.Add(this.repeatPasswordLRegisterMenu);
-            this.registerMenu.Controls.Add(this.passwordLRegisterMenu);
-            this.registerMenu.Controls.Add(this.loginLBRegisterMenu);
-            this.registerMenu.Controls.Add(this.loginTBRegisterMenu);
-            this.registerMenu.Controls.Add(this.passwordTBRegisterMenu);
-            this.registerMenu.Controls.Add(this.repeatPasswordTBRegisterMenu);
-            this.registerMenu.Controls.Add(this.textBox1);
-            this.registerMenu.Controls.Add(this.backRegisterMenu);
-            this.registerMenu.Controls.Add(this.registerRegisterMenu);
+            this.registerMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.registerMenu.Controls.Add(this.tableLayoutPanel5);
             this.registerMenu.Location = new System.Drawing.Point(4, 4);
             this.registerMenu.Name = "registerMenu";
             this.registerMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -344,91 +431,137 @@ namespace Client.UI
             this.registerMenu.Text = "RegisterMenu";
             this.registerMenu.UseVisualStyleBackColor = true;
             // 
-            // emailLRegisterMenu
+            // tableLayoutPanel5
             // 
-            this.emailLRegisterMenu.AutoSize = true;
-            this.emailLRegisterMenu.Location = new System.Drawing.Point(108, 133);
-            this.emailLRegisterMenu.Name = "emailLRegisterMenu";
-            this.emailLRegisterMenu.Size = new System.Drawing.Size(32, 13);
-            this.emailLRegisterMenu.TabIndex = 9;
-            this.emailLRegisterMenu.Text = "Email";
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel5.Controls.Add(this.groupBox2, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.panel2, 1, 2);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 4;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel5.TabIndex = 10;
             // 
-            // repeatPasswordLRegisterMenu
+            // groupBox2
             // 
-            this.repeatPasswordLRegisterMenu.AutoSize = true;
-            this.repeatPasswordLRegisterMenu.Location = new System.Drawing.Point(108, 107);
-            this.repeatPasswordLRegisterMenu.Name = "repeatPasswordLRegisterMenu";
-            this.repeatPasswordLRegisterMenu.Size = new System.Drawing.Size(91, 13);
-            this.repeatPasswordLRegisterMenu.TabIndex = 8;
-            this.repeatPasswordLRegisterMenu.Text = "Repeat Password";
-            // 
-            // passwordLRegisterMenu
-            // 
-            this.passwordLRegisterMenu.AutoSize = true;
-            this.passwordLRegisterMenu.Location = new System.Drawing.Point(108, 81);
-            this.passwordLRegisterMenu.Name = "passwordLRegisterMenu";
-            this.passwordLRegisterMenu.Size = new System.Drawing.Size(53, 13);
-            this.passwordLRegisterMenu.TabIndex = 7;
-            this.passwordLRegisterMenu.Text = "Password";
+            this.groupBox2.Controls.Add(this.loginLBRegisterMenu);
+            this.groupBox2.Controls.Add(this.emailLRegisterMenu);
+            this.groupBox2.Controls.Add(this.loginTBRegisterMenu);
+            this.groupBox2.Controls.Add(this.repeatPasswordLRegisterMenu);
+            this.groupBox2.Controls.Add(this.passwordTBRegisterMenu);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.repeatPasswordTBRegisterMenu);
+            this.groupBox2.Controls.Add(this.passwordLRegisterMenu);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(107, 83);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 120);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
             // 
             // loginLBRegisterMenu
             // 
             this.loginLBRegisterMenu.AutoSize = true;
-            this.loginLBRegisterMenu.Location = new System.Drawing.Point(108, 55);
+            this.loginLBRegisterMenu.Location = new System.Drawing.Point(6, 13);
             this.loginLBRegisterMenu.Name = "loginLBRegisterMenu";
             this.loginLBRegisterMenu.Size = new System.Drawing.Size(33, 13);
             this.loginLBRegisterMenu.TabIndex = 6;
             this.loginLBRegisterMenu.Text = "Login";
             // 
+            // emailLRegisterMenu
+            // 
+            this.emailLRegisterMenu.AutoSize = true;
+            this.emailLRegisterMenu.Location = new System.Drawing.Point(7, 94);
+            this.emailLRegisterMenu.Name = "emailLRegisterMenu";
+            this.emailLRegisterMenu.Size = new System.Drawing.Size(32, 13);
+            this.emailLRegisterMenu.TabIndex = 9;
+            this.emailLRegisterMenu.Text = "Email";
+            // 
             // loginTBRegisterMenu
             // 
-            this.loginTBRegisterMenu.Location = new System.Drawing.Point(220, 52);
+            this.loginTBRegisterMenu.Location = new System.Drawing.Point(103, 10);
             this.loginTBRegisterMenu.Name = "loginTBRegisterMenu";
-            this.loginTBRegisterMenu.Size = new System.Drawing.Size(100, 20);
+            this.loginTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.loginTBRegisterMenu.TabIndex = 5;
+            // 
+            // repeatPasswordLRegisterMenu
+            // 
+            this.repeatPasswordLRegisterMenu.AutoSize = true;
+            this.repeatPasswordLRegisterMenu.Location = new System.Drawing.Point(6, 64);
+            this.repeatPasswordLRegisterMenu.Name = "repeatPasswordLRegisterMenu";
+            this.repeatPasswordLRegisterMenu.Size = new System.Drawing.Size(91, 13);
+            this.repeatPasswordLRegisterMenu.TabIndex = 8;
+            this.repeatPasswordLRegisterMenu.Text = "Repeat Password";
             // 
             // passwordTBRegisterMenu
             // 
-            this.passwordTBRegisterMenu.Location = new System.Drawing.Point(220, 78);
+            this.passwordTBRegisterMenu.Location = new System.Drawing.Point(103, 36);
             this.passwordTBRegisterMenu.Name = "passwordTBRegisterMenu";
-            this.passwordTBRegisterMenu.Size = new System.Drawing.Size(100, 20);
+            this.passwordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.passwordTBRegisterMenu.TabIndex = 4;
             this.passwordTBRegisterMenu.UseSystemPasswordChar = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(103, 87);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(166, 20);
+            this.textBox1.TabIndex = 2;
+            // 
             // repeatPasswordTBRegisterMenu
             // 
-            this.repeatPasswordTBRegisterMenu.Location = new System.Drawing.Point(220, 104);
+            this.repeatPasswordTBRegisterMenu.Location = new System.Drawing.Point(103, 61);
             this.repeatPasswordTBRegisterMenu.Name = "repeatPasswordTBRegisterMenu";
-            this.repeatPasswordTBRegisterMenu.Size = new System.Drawing.Size(100, 20);
+            this.repeatPasswordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.repeatPasswordTBRegisterMenu.TabIndex = 3;
             this.repeatPasswordTBRegisterMenu.UseSystemPasswordChar = true;
             // 
-            // textBox1
+            // passwordLRegisterMenu
             // 
-            this.textBox1.Location = new System.Drawing.Point(220, 130);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.passwordLRegisterMenu.AutoSize = true;
+            this.passwordLRegisterMenu.Location = new System.Drawing.Point(6, 39);
+            this.passwordLRegisterMenu.Name = "passwordLRegisterMenu";
+            this.passwordLRegisterMenu.Size = new System.Drawing.Size(53, 13);
+            this.passwordLRegisterMenu.TabIndex = 7;
+            this.passwordLRegisterMenu.Text = "Password";
             // 
-            // backRegisterMenu
+            // panel2
             // 
-            this.backRegisterMenu.Location = new System.Drawing.Point(220, 169);
-            this.backRegisterMenu.Name = "backRegisterMenu";
-            this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
-            this.backRegisterMenu.TabIndex = 1;
-            this.backRegisterMenu.Text = "Back";
-            this.backRegisterMenu.UseVisualStyleBackColor = true;
-            this.backRegisterMenu.Click += new System.EventHandler(this.backRegisterMenu_Click);
+            this.panel2.Controls.Add(this.registerRegisterMenu);
+            this.panel2.Controls.Add(this.backRegisterMenu);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(107, 209);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(306, 100);
+            this.panel2.TabIndex = 1;
             // 
             // registerRegisterMenu
             // 
-            this.registerRegisterMenu.Location = new System.Drawing.Point(138, 169);
+            this.registerRegisterMenu.Location = new System.Drawing.Point(103, 3);
             this.registerRegisterMenu.Name = "registerRegisterMenu";
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.registerRegisterMenu.TabIndex = 0;
             this.registerRegisterMenu.Text = "Register";
             this.registerRegisterMenu.UseVisualStyleBackColor = true;
             this.registerRegisterMenu.Click += new System.EventHandler(this.registerRegisterMenu_Click);
+            // 
+            // backRegisterMenu
+            // 
+            this.backRegisterMenu.Location = new System.Drawing.Point(22, 3);
+            this.backRegisterMenu.Name = "backRegisterMenu";
+            this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
+            this.backRegisterMenu.TabIndex = 1;
+            this.backRegisterMenu.Text = "Back";
+            this.backRegisterMenu.UseVisualStyleBackColor = true;
+            this.backRegisterMenu.Click += new System.EventHandler(this.backRegisterMenu_Click);
             // 
             // chatMenu
             // 
@@ -448,7 +581,7 @@ namespace Client.UI
             // userListChatMenu
             // 
             this.userListChatMenu.FormattingEnabled = true;
-            this.userListChatMenu.Location = new System.Drawing.Point(360, 31);
+            this.userListChatMenu.Location = new System.Drawing.Point(404, 57);
             this.userListChatMenu.Name = "userListChatMenu";
             this.userListChatMenu.Size = new System.Drawing.Size(89, 186);
             this.userListChatMenu.TabIndex = 4;
@@ -456,23 +589,23 @@ namespace Client.UI
             // chatListChatMenu
             // 
             this.chatListChatMenu.FormattingEnabled = true;
-            this.chatListChatMenu.Location = new System.Drawing.Point(7, 31);
+            this.chatListChatMenu.Location = new System.Drawing.Point(35, 57);
             this.chatListChatMenu.Name = "chatListChatMenu";
             this.chatListChatMenu.Size = new System.Drawing.Size(347, 186);
             this.chatListChatMenu.TabIndex = 3;
             // 
             // chatInputTBChatMenu
             // 
-            this.chatInputTBChatMenu.Location = new System.Drawing.Point(7, 223);
+            this.chatInputTBChatMenu.Location = new System.Drawing.Point(35, 255);
             this.chatInputTBChatMenu.Name = "chatInputTBChatMenu";
             this.chatInputTBChatMenu.Size = new System.Drawing.Size(347, 20);
             this.chatInputTBChatMenu.TabIndex = 2;
             // 
             // backChatMenu
             // 
-            this.backChatMenu.Location = new System.Drawing.Point(7, 6);
+            this.backChatMenu.Location = new System.Drawing.Point(404, 255);
             this.backChatMenu.Name = "backChatMenu";
-            this.backChatMenu.Size = new System.Drawing.Size(75, 23);
+            this.backChatMenu.Size = new System.Drawing.Size(89, 23);
             this.backChatMenu.TabIndex = 1;
             this.backChatMenu.Text = "Back";
             this.backChatMenu.UseVisualStyleBackColor = true;
@@ -480,7 +613,7 @@ namespace Client.UI
             // 
             // gameChatMenu
             // 
-            this.gameChatMenu.Location = new System.Drawing.Point(88, 6);
+            this.gameChatMenu.Location = new System.Drawing.Point(169, 28);
             this.gameChatMenu.Name = "gameChatMenu";
             this.gameChatMenu.Size = new System.Drawing.Size(75, 23);
             this.gameChatMenu.TabIndex = 0;
@@ -588,7 +721,7 @@ namespace Client.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(249, 11);
+            this.label1.Location = new System.Drawing.Point(284, 136);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 5;
@@ -596,15 +729,15 @@ namespace Client.UI
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(249, 27);
+            this.textBox2.Location = new System.Drawing.Point(287, 152);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 209);
+            this.textBox2.Size = new System.Drawing.Size(199, 130);
             this.textBox2.TabIndex = 4;
             // 
             // backChooseGameMenu
             // 
-            this.backChooseGameMenu.Location = new System.Drawing.Point(6, 242);
+            this.backChooseGameMenu.Location = new System.Drawing.Point(135, 288);
             this.backChooseGameMenu.Name = "backChooseGameMenu";
             this.backChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.backChooseGameMenu.TabIndex = 3;
@@ -615,7 +748,7 @@ namespace Client.UI
             // listOfGames
             // 
             this.listOfGames.FormattingEnabled = true;
-            this.listOfGames.Location = new System.Drawing.Point(6, 11);
+            this.listOfGames.Location = new System.Drawing.Point(41, 57);
             this.listOfGames.Name = "listOfGames";
             this.listOfGames.Size = new System.Drawing.Size(237, 225);
             this.listOfGames.TabIndex = 2;
@@ -623,7 +756,7 @@ namespace Client.UI
             // 
             // createChooseGameMenu
             // 
-            this.createChooseGameMenu.Location = new System.Drawing.Point(168, 242);
+            this.createChooseGameMenu.Location = new System.Drawing.Point(297, 288);
             this.createChooseGameMenu.Name = "createChooseGameMenu";
             this.createChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createChooseGameMenu.TabIndex = 1;
@@ -633,7 +766,7 @@ namespace Client.UI
             // 
             // joinChooseGameMenu
             // 
-            this.joinChooseGameMenu.Location = new System.Drawing.Point(87, 242);
+            this.joinChooseGameMenu.Location = new System.Drawing.Point(216, 288);
             this.joinChooseGameMenu.Name = "joinChooseGameMenu";
             this.joinChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.joinChooseGameMenu.TabIndex = 0;
@@ -662,7 +795,7 @@ namespace Client.UI
             // gameNameLCreateGameMenu
             // 
             this.gameNameLCreateGameMenu.AutoSize = true;
-            this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(232, 53);
+            this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 163);
             this.gameNameLCreateGameMenu.Name = "gameNameLCreateGameMenu";
             this.gameNameLCreateGameMenu.Size = new System.Drawing.Size(66, 13);
             this.gameNameLCreateGameMenu.TabIndex = 7;
@@ -670,7 +803,7 @@ namespace Client.UI
             // 
             // gameNameTBCreateGameMenu
             // 
-            this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(232, 69);
+            this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(269, 179);
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(217, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 6;
@@ -678,7 +811,7 @@ namespace Client.UI
             // privateCreateGameMenu
             // 
             this.privateCreateGameMenu.AutoSize = true;
-            this.privateCreateGameMenu.Location = new System.Drawing.Point(235, 129);
+            this.privateCreateGameMenu.Location = new System.Drawing.Point(269, 229);
             this.privateCreateGameMenu.Name = "privateCreateGameMenu";
             this.privateCreateGameMenu.Size = new System.Drawing.Size(58, 17);
             this.privateCreateGameMenu.TabIndex = 5;
@@ -689,7 +822,7 @@ namespace Client.UI
             // publicCreateGameMenu
             // 
             this.publicCreateGameMenu.AutoSize = true;
-            this.publicCreateGameMenu.Location = new System.Drawing.Point(235, 105);
+            this.publicCreateGameMenu.Location = new System.Drawing.Point(269, 205);
             this.publicCreateGameMenu.Name = "publicCreateGameMenu";
             this.publicCreateGameMenu.Size = new System.Drawing.Size(54, 17);
             this.publicCreateGameMenu.TabIndex = 4;
@@ -700,7 +833,7 @@ namespace Client.UI
             // mapsLCreateGameMenu
             // 
             this.mapsLCreateGameMenu.AutoSize = true;
-            this.mapsLCreateGameMenu.Location = new System.Drawing.Point(6, 7);
+            this.mapsLCreateGameMenu.Location = new System.Drawing.Point(43, 48);
             this.mapsLCreateGameMenu.Name = "mapsLCreateGameMenu";
             this.mapsLCreateGameMenu.Size = new System.Drawing.Size(67, 13);
             this.mapsLCreateGameMenu.TabIndex = 3;
@@ -709,14 +842,14 @@ namespace Client.UI
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(9, 23);
+            this.listBox1.Location = new System.Drawing.Point(46, 64);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(217, 199);
             this.listBox1.TabIndex = 2;
             // 
             // cancelCreateGameMenu
             // 
-            this.cancelCreateGameMenu.Location = new System.Drawing.Point(154, 239);
+            this.cancelCreateGameMenu.Location = new System.Drawing.Point(188, 269);
             this.cancelCreateGameMenu.Name = "cancelCreateGameMenu";
             this.cancelCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelCreateGameMenu.TabIndex = 1;
@@ -726,7 +859,7 @@ namespace Client.UI
             // 
             // createCreateGameMenu
             // 
-            this.createCreateGameMenu.Location = new System.Drawing.Point(235, 239);
+            this.createCreateGameMenu.Location = new System.Drawing.Point(269, 269);
             this.createCreateGameMenu.Name = "createCreateGameMenu";
             this.createCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createCreateGameMenu.TabIndex = 0;
@@ -753,7 +886,7 @@ namespace Client.UI
             // descriptionLWaitingForPlayersMenu
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
-            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(238, 64);
+            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(258, 86);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
             this.descriptionLWaitingForPlayersMenu.TabIndex = 5;
@@ -761,16 +894,17 @@ namespace Client.UI
             // 
             // descriptionWaitingForPlayersMenu
             // 
-            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(238, 89);
+            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(261, 102);
             this.descriptionWaitingForPlayersMenu.Multiline = true;
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
             this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(211, 147);
             this.descriptionWaitingForPlayersMenu.TabIndex = 4;
+            this.descriptionWaitingForPlayersMenu.TextChanged += new System.EventHandler(this.descriptionWaitingForPlayersMenu_TextChanged);
             // 
             // playersLWaitingForPlayersMenu
             // 
             this.playersLWaitingForPlayersMenu.AutoSize = true;
-            this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(6, 64);
+            this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(27, 86);
             this.playersLWaitingForPlayersMenu.Name = "playersLWaitingForPlayersMenu";
             this.playersLWaitingForPlayersMenu.Size = new System.Drawing.Size(41, 13);
             this.playersLWaitingForPlayersMenu.TabIndex = 3;
@@ -779,14 +913,14 @@ namespace Client.UI
             // playerListWaitingForPlayersMenu
             // 
             this.playerListWaitingForPlayersMenu.FormattingEnabled = true;
-            this.playerListWaitingForPlayersMenu.Location = new System.Drawing.Point(6, 89);
+            this.playerListWaitingForPlayersMenu.Location = new System.Drawing.Point(30, 102);
             this.playerListWaitingForPlayersMenu.Name = "playerListWaitingForPlayersMenu";
             this.playerListWaitingForPlayersMenu.Size = new System.Drawing.Size(225, 147);
             this.playerListWaitingForPlayersMenu.TabIndex = 2;
             // 
             // startWaitingForPlayersMenu
             // 
-            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(238, 242);
+            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(261, 255);
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
             this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.startWaitingForPlayersMenu.TabIndex = 1;
@@ -796,7 +930,7 @@ namespace Client.UI
             // 
             // cancelWaitingForPlayersMenu
             // 
-            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(156, 242);
+            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(180, 255);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
             this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelWaitingForPlayersMenu.TabIndex = 0;
@@ -806,14 +940,9 @@ namespace Client.UI
             // 
             // optionsMenu
             // 
+            this.optionsMenu.Controls.Add(this.groupBox3);
             this.optionsMenu.Controls.Add(this.okOptionsMenu);
             this.optionsMenu.Controls.Add(this.cancelOptionsMenu);
-            this.optionsMenu.Controls.Add(this.soundVolumeLOptionsMenu);
-            this.optionsMenu.Controls.Add(this.musicVolumeLOptionsMenu);
-            this.optionsMenu.Controls.Add(this.soundVolumeNMOptionsMenu);
-            this.optionsMenu.Controls.Add(this.musicVolumeNMOptionsMenu);
-            this.optionsMenu.Controls.Add(this.muteSoundOptionsMenu);
-            this.optionsMenu.Controls.Add(this.muteMusicOptionsMenu);
             this.optionsMenu.Location = new System.Drawing.Point(4, 4);
             this.optionsMenu.Name = "optionsMenu";
             this.optionsMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -822,9 +951,75 @@ namespace Client.UI
             this.optionsMenu.Text = "OptionsMenu";
             this.optionsMenu.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.musicVolumeLOptionsMenu);
+            this.groupBox3.Controls.Add(this.soundVolumeLOptionsMenu);
+            this.groupBox3.Controls.Add(this.musicVolumeNMOptionsMenu);
+            this.groupBox3.Controls.Add(this.muteSoundOptionsMenu);
+            this.groupBox3.Controls.Add(this.soundVolumeNMOptionsMenu);
+            this.groupBox3.Controls.Add(this.muteMusicOptionsMenu);
+            this.groupBox3.Location = new System.Drawing.Point(101, 125);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(325, 83);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            // 
+            // musicVolumeLOptionsMenu
+            // 
+            this.musicVolumeLOptionsMenu.AutoSize = true;
+            this.musicVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 16);
+            this.musicVolumeLOptionsMenu.Name = "musicVolumeLOptionsMenu";
+            this.musicVolumeLOptionsMenu.Size = new System.Drawing.Size(73, 13);
+            this.musicVolumeLOptionsMenu.TabIndex = 4;
+            this.musicVolumeLOptionsMenu.Text = "Music Volume";
+            // 
+            // soundVolumeLOptionsMenu
+            // 
+            this.soundVolumeLOptionsMenu.AutoSize = true;
+            this.soundVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 42);
+            this.soundVolumeLOptionsMenu.Name = "soundVolumeLOptionsMenu";
+            this.soundVolumeLOptionsMenu.Size = new System.Drawing.Size(76, 13);
+            this.soundVolumeLOptionsMenu.TabIndex = 5;
+            this.soundVolumeLOptionsMenu.Text = "Sound Volume";
+            // 
+            // musicVolumeNMOptionsMenu
+            // 
+            this.musicVolumeNMOptionsMenu.Location = new System.Drawing.Point(96, 14);
+            this.musicVolumeNMOptionsMenu.Name = "musicVolumeNMOptionsMenu";
+            this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
+            this.musicVolumeNMOptionsMenu.TabIndex = 2;
+            // 
+            // muteSoundOptionsMenu
+            // 
+            this.muteSoundOptionsMenu.AutoSize = true;
+            this.muteSoundOptionsMenu.Location = new System.Drawing.Point(238, 41);
+            this.muteSoundOptionsMenu.Name = "muteSoundOptionsMenu";
+            this.muteSoundOptionsMenu.Size = new System.Drawing.Size(84, 17);
+            this.muteSoundOptionsMenu.TabIndex = 1;
+            this.muteSoundOptionsMenu.Text = "Mute Sound";
+            this.muteSoundOptionsMenu.UseVisualStyleBackColor = true;
+            // 
+            // soundVolumeNMOptionsMenu
+            // 
+            this.soundVolumeNMOptionsMenu.Location = new System.Drawing.Point(96, 40);
+            this.soundVolumeNMOptionsMenu.Name = "soundVolumeNMOptionsMenu";
+            this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
+            this.soundVolumeNMOptionsMenu.TabIndex = 3;
+            // 
+            // muteMusicOptionsMenu
+            // 
+            this.muteMusicOptionsMenu.AutoSize = true;
+            this.muteMusicOptionsMenu.Location = new System.Drawing.Point(238, 15);
+            this.muteMusicOptionsMenu.Name = "muteMusicOptionsMenu";
+            this.muteMusicOptionsMenu.Size = new System.Drawing.Size(81, 17);
+            this.muteMusicOptionsMenu.TabIndex = 0;
+            this.muteMusicOptionsMenu.Text = "Mute Music";
+            this.muteMusicOptionsMenu.UseVisualStyleBackColor = true;
+            // 
             // okOptionsMenu
             // 
-            this.okOptionsMenu.Location = new System.Drawing.Point(252, 120);
+            this.okOptionsMenu.Location = new System.Drawing.Point(263, 214);
             this.okOptionsMenu.Name = "okOptionsMenu";
             this.okOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.okOptionsMenu.TabIndex = 7;
@@ -834,7 +1029,7 @@ namespace Client.UI
             // 
             // cancelOptionsMenu
             // 
-            this.cancelOptionsMenu.Location = new System.Drawing.Point(140, 120);
+            this.cancelOptionsMenu.Location = new System.Drawing.Point(182, 214);
             this.cancelOptionsMenu.Name = "cancelOptionsMenu";
             this.cancelOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelOptionsMenu.TabIndex = 6;
@@ -842,64 +1037,9 @@ namespace Client.UI
             this.cancelOptionsMenu.UseVisualStyleBackColor = true;
             this.cancelOptionsMenu.Click += new System.EventHandler(this.cancelOptionsMenu_Click);
             // 
-            // soundVolumeLOptionsMenu
-            // 
-            this.soundVolumeLOptionsMenu.AutoSize = true;
-            this.soundVolumeLOptionsMenu.Location = new System.Drawing.Point(98, 71);
-            this.soundVolumeLOptionsMenu.Name = "soundVolumeLOptionsMenu";
-            this.soundVolumeLOptionsMenu.Size = new System.Drawing.Size(76, 13);
-            this.soundVolumeLOptionsMenu.TabIndex = 5;
-            this.soundVolumeLOptionsMenu.Text = "Sound Volume";
-            // 
-            // musicVolumeLOptionsMenu
-            // 
-            this.musicVolumeLOptionsMenu.AutoSize = true;
-            this.musicVolumeLOptionsMenu.Location = new System.Drawing.Point(98, 46);
-            this.musicVolumeLOptionsMenu.Name = "musicVolumeLOptionsMenu";
-            this.musicVolumeLOptionsMenu.Size = new System.Drawing.Size(73, 13);
-            this.musicVolumeLOptionsMenu.TabIndex = 4;
-            this.musicVolumeLOptionsMenu.Text = "Music Volume";
-            // 
-            // soundVolumeNMOptionsMenu
-            // 
-            this.soundVolumeNMOptionsMenu.Location = new System.Drawing.Point(180, 69);
-            this.soundVolumeNMOptionsMenu.Name = "soundVolumeNMOptionsMenu";
-            this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
-            this.soundVolumeNMOptionsMenu.TabIndex = 3;
-            // 
-            // musicVolumeNMOptionsMenu
-            // 
-            this.musicVolumeNMOptionsMenu.Location = new System.Drawing.Point(180, 42);
-            this.musicVolumeNMOptionsMenu.Name = "musicVolumeNMOptionsMenu";
-            this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
-            this.musicVolumeNMOptionsMenu.TabIndex = 2;
-            // 
-            // muteSoundOptionsMenu
-            // 
-            this.muteSoundOptionsMenu.AutoSize = true;
-            this.muteSoundOptionsMenu.Location = new System.Drawing.Point(322, 72);
-            this.muteSoundOptionsMenu.Name = "muteSoundOptionsMenu";
-            this.muteSoundOptionsMenu.Size = new System.Drawing.Size(84, 17);
-            this.muteSoundOptionsMenu.TabIndex = 1;
-            this.muteSoundOptionsMenu.Text = "Mute Sound";
-            this.muteSoundOptionsMenu.UseVisualStyleBackColor = true;
-            // 
-            // muteMusicOptionsMenu
-            // 
-            this.muteMusicOptionsMenu.AutoSize = true;
-            this.muteMusicOptionsMenu.Location = new System.Drawing.Point(322, 43);
-            this.muteMusicOptionsMenu.Name = "muteMusicOptionsMenu";
-            this.muteMusicOptionsMenu.Size = new System.Drawing.Size(81, 17);
-            this.muteMusicOptionsMenu.TabIndex = 0;
-            this.muteMusicOptionsMenu.Text = "Mute Music";
-            this.muteMusicOptionsMenu.UseVisualStyleBackColor = true;
-            // 
             // gameMenu
             // 
-            this.gameMenu.Controls.Add(this.exitGameMenu);
-            this.gameMenu.Controls.Add(this.okGameMenu);
-            this.gameMenu.Controls.Add(this.optionsGameMenu);
-            this.gameMenu.Controls.Add(this.pauseGameMenu);
+            this.gameMenu.Controls.Add(this.tableLayoutPanel3);
             this.gameMenu.Location = new System.Drawing.Point(4, 4);
             this.gameMenu.Name = "gameMenu";
             this.gameMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -908,51 +1048,85 @@ namespace Client.UI
             this.gameMenu.Text = "GameMenu";
             this.gameMenu.UseVisualStyleBackColor = true;
             // 
-            // exitGameMenu
+            // tableLayoutPanel3
             // 
-            this.exitGameMenu.Location = new System.Drawing.Point(199, 131);
-            this.exitGameMenu.Name = "exitGameMenu";
-            this.exitGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.exitGameMenu.TabIndex = 3;
-            this.exitGameMenu.Text = "Exit";
-            this.exitGameMenu.UseVisualStyleBackColor = true;
-            this.exitGameMenu.Click += new System.EventHandler(this.exitGameMenu_Click);
-            // 
-            // okGameMenu
-            // 
-            this.okGameMenu.Location = new System.Drawing.Point(199, 101);
-            this.okGameMenu.Name = "okGameMenu";
-            this.okGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.okGameMenu.TabIndex = 2;
-            this.okGameMenu.Text = "Ok";
-            this.okGameMenu.UseVisualStyleBackColor = true;
-            this.okGameMenu.Click += new System.EventHandler(this.okGameMenu_Click);
-            // 
-            // optionsGameMenu
-            // 
-            this.optionsGameMenu.Location = new System.Drawing.Point(199, 71);
-            this.optionsGameMenu.Name = "optionsGameMenu";
-            this.optionsGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.optionsGameMenu.TabIndex = 1;
-            this.optionsGameMenu.Text = "Options";
-            this.optionsGameMenu.UseVisualStyleBackColor = true;
-            this.optionsGameMenu.Click += new System.EventHandler(this.optionsGameMenu_Click);
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.Controls.Add(this.pauseGameMenu, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.exitGameMenu, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.optionsGameMenu, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.okGameMenu, 1, 3);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 6;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel3.TabIndex = 4;
             // 
             // pauseGameMenu
             // 
-            this.pauseGameMenu.Location = new System.Drawing.Point(199, 41);
+            this.pauseGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pauseGameMenu.Location = new System.Drawing.Point(107, 83);
             this.pauseGameMenu.Name = "pauseGameMenu";
-            this.pauseGameMenu.Size = new System.Drawing.Size(75, 23);
+            this.pauseGameMenu.Size = new System.Drawing.Size(306, 23);
             this.pauseGameMenu.TabIndex = 0;
             this.pauseGameMenu.Text = "Pause";
             this.pauseGameMenu.UseVisualStyleBackColor = true;
             this.pauseGameMenu.Click += new System.EventHandler(this.pauseGameMenu_Click);
             // 
+            // exitGameMenu
+            // 
+            this.exitGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitGameMenu.Location = new System.Drawing.Point(107, 170);
+            this.exitGameMenu.Name = "exitGameMenu";
+            this.exitGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.exitGameMenu.TabIndex = 3;
+            this.exitGameMenu.Text = "Exit";
+            this.exitGameMenu.UseVisualStyleBackColor = true;
+            this.exitGameMenu.Click += new System.EventHandler(this.exitGameMenu_Click);
+            // 
+            // optionsGameMenu
+            // 
+            this.optionsGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionsGameMenu.Location = new System.Drawing.Point(107, 112);
+            this.optionsGameMenu.Name = "optionsGameMenu";
+            this.optionsGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.optionsGameMenu.TabIndex = 1;
+            this.optionsGameMenu.Text = "Options";
+            this.optionsGameMenu.UseVisualStyleBackColor = true;
+            this.optionsGameMenu.Click += new System.EventHandler(this.optionsGameMenu_Click);
+            // 
+            // okGameMenu
+            // 
+            this.okGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.okGameMenu.Location = new System.Drawing.Point(107, 141);
+            this.okGameMenu.Name = "okGameMenu";
+            this.okGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.okGameMenu.TabIndex = 2;
+            this.okGameMenu.Text = "Ok";
+            this.okGameMenu.UseVisualStyleBackColor = true;
+            this.okGameMenu.Click += new System.EventHandler(this.okGameMenu_Click);
+            // 
             // pauseMenu
             // 
-            this.pauseMenu.Controls.Add(this.exitPauseMenu);
-            this.pauseMenu.Controls.Add(this.optionsPauseMenu);
-            this.pauseMenu.Controls.Add(this.continuePauseMenu);
+            this.pauseMenu.Controls.Add(this.tableLayoutPanel2);
             this.pauseMenu.Location = new System.Drawing.Point(4, 4);
             this.pauseMenu.Name = "pauseMenu";
             this.pauseMenu.Padding = new System.Windows.Forms.Padding(3);
@@ -961,11 +1135,48 @@ namespace Client.UI
             this.pauseMenu.Text = "PauseMenu";
             this.pauseMenu.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.continuePauseMenu, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.exitPauseMenu, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.optionsPauseMenu, 1, 2);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel2.TabIndex = 3;
+            // 
+            // continuePauseMenu
+            // 
+            this.continuePauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.continuePauseMenu.Location = new System.Drawing.Point(107, 83);
+            this.continuePauseMenu.Name = "continuePauseMenu";
+            this.continuePauseMenu.Size = new System.Drawing.Size(306, 23);
+            this.continuePauseMenu.TabIndex = 0;
+            this.continuePauseMenu.Text = "Continue";
+            this.continuePauseMenu.UseVisualStyleBackColor = true;
+            this.continuePauseMenu.Click += new System.EventHandler(this.continuePauseMenu_Click);
+            // 
             // exitPauseMenu
             // 
-            this.exitPauseMenu.Location = new System.Drawing.Point(197, 113);
+            this.exitPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitPauseMenu.Location = new System.Drawing.Point(107, 141);
             this.exitPauseMenu.Name = "exitPauseMenu";
-            this.exitPauseMenu.Size = new System.Drawing.Size(75, 23);
+            this.exitPauseMenu.Size = new System.Drawing.Size(306, 23);
             this.exitPauseMenu.TabIndex = 2;
             this.exitPauseMenu.Text = "Exit";
             this.exitPauseMenu.UseVisualStyleBackColor = true;
@@ -973,29 +1184,22 @@ namespace Client.UI
             // 
             // optionsPauseMenu
             // 
-            this.optionsPauseMenu.Location = new System.Drawing.Point(197, 84);
+            this.optionsPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionsPauseMenu.Location = new System.Drawing.Point(107, 112);
             this.optionsPauseMenu.Name = "optionsPauseMenu";
-            this.optionsPauseMenu.Size = new System.Drawing.Size(75, 23);
+            this.optionsPauseMenu.Size = new System.Drawing.Size(306, 23);
             this.optionsPauseMenu.TabIndex = 1;
             this.optionsPauseMenu.Text = "Options";
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
             // 
-            // continuePauseMenu
-            // 
-            this.continuePauseMenu.Location = new System.Drawing.Point(197, 55);
-            this.continuePauseMenu.Name = "continuePauseMenu";
-            this.continuePauseMenu.Size = new System.Drawing.Size(75, 23);
-            this.continuePauseMenu.TabIndex = 0;
-            this.continuePauseMenu.Text = "Continue";
-            this.continuePauseMenu.UseVisualStyleBackColor = true;
-            this.continuePauseMenu.Click += new System.EventHandler(this.continuePauseMenu_Click);
-            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 397);
+            this.ClientSize = new System.Drawing.Size(535, 333);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -1003,10 +1207,17 @@ namespace Client.UI
             this.Text = "MainMenu";
             this.tabControl.ResumeLayout(false);
             this.mainMenu.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.loginMenu.ResumeLayout(false);
-            this.loginMenu.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.registerMenu.ResumeLayout(false);
-            this.registerMenu.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.chatMenu.ResumeLayout(false);
             this.chatMenu.PerformLayout();
             this.infoMenu.ResumeLayout(false);
@@ -1018,11 +1229,14 @@ namespace Client.UI
             this.waitingForPlayersMenu.ResumeLayout(false);
             this.waitingForPlayersMenu.PerformLayout();
             this.optionsMenu.ResumeLayout(false);
-            this.optionsMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.soundVolumeNMOptionsMenu)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeNMOptionsMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundVolumeNMOptionsMenu)).EndInit();
             this.gameMenu.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.pauseMenu.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1113,5 +1327,15 @@ namespace Client.UI
         private System.Windows.Forms.TextBox descriptionWaitingForPlayersMenu;
         private System.Windows.Forms.Label playersLWaitingForPlayersMenu;
         private System.Windows.Forms.ListBox playerListWaitingForPlayersMenu;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutPanel4;
+        private GroupBox groupBox1;
+        private Panel panel1;
+        private TableLayoutPanel tableLayoutPanel5;
+        private GroupBox groupBox2;
+        private Panel panel2;
+        private GroupBox groupBox3;
     }
 }
