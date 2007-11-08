@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Net.General.Messaging;
+using Yad.Net.General;
 
 namespace Client.Net.General.Messaging {
     /// <summary>
