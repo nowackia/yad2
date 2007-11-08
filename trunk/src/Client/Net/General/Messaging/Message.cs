@@ -41,13 +41,6 @@ namespace Yad.Net.General.Messaging
         {
             byte itype = (byte)type;
             writer.Write(itype);
-            writer.Write(userId);
-        }
-
-        protected void ReadMessageHeader(MessageType type, BinaryReader reader)
-        {
-            type = (MessageType)reader.ReadByte();
-            userId = reader.ReadInt32();
         }
 
         public MessageType Type
@@ -57,7 +50,6 @@ namespace Yad.Net.General.Messaging
         }
 
         public virtual void Deserialize(BinaryReader reader) {
-            ReadMessageHeader(type, reader);
         }
 
         public virtual void Serialize(BinaryWriter writer) {
