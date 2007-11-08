@@ -1,4 +1,4 @@
-using Yad.Net.Client;
+using Client.Net;
 using Client.UI;
 using System;
 using System.Collections.Generic;

@@ -75,10 +75,10 @@
     <Compile Include="Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
     <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
     <Compile Include="Engine\GameGraphics\VertexData.cs" />
-    <Compile Include="Net\Client\Connection.cs" />
-    <Compile Include="Net\Client\MenuMessageHandler.cs" />
-    <Compile Include="Net\Client\MessageReceiver.cs" />
-    <Compile Include="Net\Client\MessageSender.cs" />
+    <Compile Include="Net\Connection.cs" />
+    <Compile Include="Net\MenuMessageHandler.cs" />
+    <Compile Include="Net\MessageReceiver.cs" />
+    <Compile Include="Net\MessageSender.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\FormPool.cs" />
     <Compile Include="UI\GameForm.cs">

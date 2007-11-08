@@ -1,9 +1,9 @@
-using Yad.Net.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using Client.Net;
 using System.Text;
 using System.Windows.Forms;
 using Yad.Net;
@@ -13,7 +13,6 @@ namespace Client.UI
 {
     public partial class MainMenuForm : UIManageable
     {
-
         Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
         public MainMenuForm()
         {
