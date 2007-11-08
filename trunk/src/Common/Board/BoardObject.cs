@@ -12,7 +12,9 @@ namespace Yad.Board.Common {
 		/// <summary>
 		/// These two values identify board object. PlayerID and objectID is assigned by each Player.
 		/// </summary>
-		int playerID, objectID;
+		short playerID;
+		int objectID;
+		Position position;
 
 		/// <summary>
 		/// This will be null for Server.

@@ -30,7 +30,7 @@ namespace Yad.Net.Server
         }
 
         public void ProcessLogin(LoginMessage msg) {
-            Player player = _server.GetPlayerUnlogged(msg.UserId);
+            Player player = _server.GetPlayerUnlogged(msg.PlayerId);
             if (null == player || player.State == MenuState.Invalid)
                 return;
 

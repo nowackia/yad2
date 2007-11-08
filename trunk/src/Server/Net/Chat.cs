@@ -45,7 +45,7 @@ namespace Yad.Net.Server {
 
         public void PostMessage(TextMessage msg) {
             foreach (Player p in _players) {
-                if (p.Id != msg.UserId) {
+                if (p.Id != msg.PlayerId) {
                     p.SendMessage(msg);
                 }
                  

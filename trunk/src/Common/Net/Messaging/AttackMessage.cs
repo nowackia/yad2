@@ -6,37 +6,36 @@ namespace Yad.Net.Messaging.Common
 {
     public class AttackMessage : GameMessage
     {
-        private int id;
+		private int attackingPlayerID;
+		private short attackingObjectID;
+		private int attackedPlayerID;
+		private short attackedObjectID;
 
-        public AttackMessage()
+		public short AttackedObjectID {
+			get { return attackedObjectID; }
+			set { attackedObjectID = value; }
+		}
+
+		public int AttackedPlayerID {
+			get { return attackedPlayerID; }
+			set { attackedPlayerID = value; }
+		}
+
+		public short AttackingObjectID {
+			get { return attackingObjectID; }
+			set { attackingObjectID = value; }
+		}
+
+		public int AttackerID {
+			get { return attackingPlayerID; }
+			set { attackingPlayerID = value; }
+		}
+
+		public AttackMessage()
             : base(MessageType.Attack)
         { }
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
-        private Object place;
-
-        public Object Place
-        {
-            get { return place; }
-            set { place = value; }
-        }
-		/*
-        public override void Process()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        public override void Execute()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-		*/
-        public override void Deserialize(System.IO.BinaryReader reader) {
+		public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }
 

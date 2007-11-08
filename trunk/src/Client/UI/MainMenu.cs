@@ -81,7 +81,7 @@ namespace Client.UI
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.Login = "test";
             loginMessage.Password = "testpsw";
-            loginMessage.UserId = 6;
+            loginMessage.PlayerId = 6;
             Connection.SendMessage(loginMessage);
         }
 
