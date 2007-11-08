@@ -9,7 +9,7 @@ using Yad.Net.Messaging.Common;
 using Yad.Net.Common;
 using Yad.Log.Common;
 
-namespace Yad.Net.Client
+namespace Client.Net
 {
     class MessageSender : ListProcessor<Message>
     {

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
-namespace Yad.Net.Client
+namespace Client.Net
 {
     class Connection
     {
