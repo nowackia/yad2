@@ -54,7 +54,12 @@ namespace Yad.Net.Server
         }
 
         public PlayerData LoadPlayerData(string login) {
-            return null;
+            PlayerData pd = new PlayerData();
+            pd.Id = 1;
+            pd.Login = login;
+            pd.LossNo = 1;
+            pd.WinNo = 1;
+            return pd;
         }
 
         public void OnReceivePlayerMessage(object sender, RecieveMessageEventArgs args) {
