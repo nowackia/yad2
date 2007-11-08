@@ -35,7 +35,7 @@ namespace Client.Engine.GameGraphics {
 		/// </summary>
 		static float minimumZoom = 1;
 
-		static float zoom = 1.0f, zoomStep = 8.5f;
+		static float zoom = 1.0f, zoomStep = 7.5f;
 
 		/// <summary>
 		/// Used for drawing textures

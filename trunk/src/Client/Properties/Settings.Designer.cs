@@ -142,5 +142,17 @@ namespace Client.Properties {
                 this["UseSafeRendering"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
+        public float ScrollingSpeed {
+            get {
+                return ((float)(this["ScrollingSpeed"]));
+            }
+            set {
+                this["ScrollingSpeed"] = value;
+            }
+        }
     }
 }
