@@ -60,6 +60,13 @@ namespace Client.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Menu {
+            get {
+                object obj = ResourceManager.GetObject("Menu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Background {
             get {
                 object obj = ResourceManager.GetObject("UI_Background", resourceCulture);
