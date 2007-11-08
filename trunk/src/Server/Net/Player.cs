@@ -109,8 +109,9 @@ namespace Yad.Net.Server {
                 try {
                     type = _readStream.ReadByte();
                 }
-                catch (Exception) {
+                catch (Exception ex) {
                     ExecuteOnConnectionLost();
+                    InfoLog.WriteException(ex);
                     return;
                     
                 }

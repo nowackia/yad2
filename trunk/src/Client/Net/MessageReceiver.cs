@@ -26,97 +26,24 @@ namespace Client.Net
         }
     }
 
-    public delegate void RequestReplyEventHandler(object sender, RequestReplyEventArgs e);
-    public delegate void ChatEventHandler(object sender, ChatEventArgs e);
-
-    public class RequestReplyEventArgs : EventArgs
-    {
-        public bool isSuccessful;
-        public string reason;
-
-        public RequestReplyEventArgs(bool isSuccessful, string reason)
-        {
-            this.isSuccessful = isSuccessful;
-            this.reason = reason;
-        }
-    }
-
-    public class ChatEventArgs : EventArgs
-    {
-        public ChatUser chatUser;
-        public string text;
-
-        public ChatEventArgs(ChatUser chatUser, string text)
-        {
-            this.chatUser = chatUser;
-            this.text = text;
-        }
-    }
-
-    public class MenuMessageHandlerClient : IMessageHandler
-    {
-        public event RequestReplyEventHandler LoginRequestReply;
-        public event RequestReplyEventHandler RegisterRequestReply;
-        public event RequestReplyEventHandler RemindRequestReply;
-
-        public event ChatEventHandler AddChatUser;
-        public event ChatEventHandler DeleteChatUser;
-        public event ChatEventHandler ChatTextReceive;
-
-        public void ProcessMessage(Message message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.LoginSuccessful:
-                    if (LoginRequestReply != null)
-                        LoginRequestReply(this, new RequestReplyEventArgs(true, "Login successful"));
-                    break;
-
-                case MessageType.LoginUnsuccessful:
-                    if (LoginRequestReply != null)
-                        LoginRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
-                    break;
-
-                case MessageType.RegisterSuccessful:
-                    if (RegisterRequestReply != null)
-                        RegisterRequestReply(this, new RequestReplyEventArgs(true, "Register successful"));
-                    break;
-
-                case MessageType.RegisterUnsuccessful:
-                    if (RegisterRequestReply != null)
-                        RegisterRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
-                    break;
-
-                case MessageType.RemindSuccessful:
-                    if (RemindRequestReply != null)
-                        RemindRequestReply(this, new RequestReplyEventArgs(true, "Remind successful"));
-                    break;
-
-                case MessageType.RemindUnsuccessful:
-                    if (RemindRequestReply != null)
-                        RemindRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
-
     class MessageReceiver
     {
         private Thread thread = null;
         private BinaryReader readStream;
         private volatile bool isProcessing;
-        private MenuMessageHandlerClient menuMessageHandler;
+        private IMessageHandler messageHandler;
 
         public event MessageEventHandler MessageReceive;
         public event ConnectionLostEventHandler ConnectionLost;
 
-        public MessageReceiver(NetworkStream netStream)
+        public MessageReceiver()
+            : this(null)
+        { }
+
+        public MessageReceiver(Stream stream)
         {
-            readStream = new BinaryReader(netStream);
-            menuMessageHandler = new MenuMessageHandlerClient();
+            if(stream != null)
+                readStream = new BinaryReader(stream);
             isProcessing = false;
         }
 
@@ -124,6 +51,8 @@ namespace Client.Net
         {
             if (isProcessing)
                 throw new ThreadStateException("The Message Receiver thread is already running");
+            if (readStream == null)
+                throw new ArgumentNullException("Reading stream can not be null");
 
             thread = new Thread(new ThreadStart(Process));
             thread.IsBackground = true;
@@ -145,10 +74,20 @@ namespace Client.Net
             { return isProcessing; }
         }
 
-        public MenuMessageHandlerClient MenuMessageHandler
+        public Stream Stream
         {
             get
-            { return menuMessageHandler; }
+            { return readStream.BaseStream; }
+            set
+            { readStream = new BinaryReader(value); }
+        }
+
+        public IMessageHandler MessageHandler
+        {
+            get
+            { return messageHandler; }
+            set
+            { messageHandler = value; }
         }
 
         public void Process()
@@ -164,8 +103,9 @@ namespace Client.Net
 
                 try
                 { type = readStream.ReadByte(); }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    InfoLog.WriteException(ex);
                     if (ConnectionLost != null)
                     {
                         lock (ConnectionLost)
@@ -185,7 +125,7 @@ namespace Client.Net
 
                 msg.Deserialize(readStream);
 
-                menuMessageHandler.ProcessMessage(msg);
+                messageHandler.ProcessMessage(msg);
 
                 if (MessageReceive != null)
                 {

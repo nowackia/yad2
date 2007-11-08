@@ -6,12 +6,11 @@ using System.Windows.Forms;
 namespace Client.UI {
     public class UIManageable : Form
     {
-        public event optionChoosen optionChoosen;
-        public delegate void MenuOptionDelegate(MenuOption option);
+        public event MenuEventHandler MenuOptionChange;
 
-        protected void OnOptionChoosen(MenuOption option) {
-            if (optionChoosen != null) {
-                optionChoosen(option);
+        protected void OnMenuOptionChange(MenuOption option) {
+            if (MenuOptionChange != null) {
+                MenuOptionChange(option);
             }
         }
 
@@ -24,7 +23,6 @@ namespace Client.UI {
             this.ClientSize = new System.Drawing.Size(292, 273);
             this.Name = "UIManageable";
             this.ResumeLayout(false);
-
         }
     }
 }

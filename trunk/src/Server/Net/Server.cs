@@ -167,9 +167,6 @@ namespace Yad.Net.Server {
                 return p;
             }
 
-            
-
-
             public void OnConnectionLost(object sender, ConnectionLostEventArgs args) {
                 Player player = sender as Player;
                 InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);

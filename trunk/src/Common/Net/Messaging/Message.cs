@@ -10,14 +10,19 @@ namespace Yad.Net.Messaging.Common
         private MessageType type;
         private short playerId;
 
-        public Message(MessageType msgType) {
+        public Message()
+            : this(MessageType.Unknown, -1)
+        { }
+
+        public Message(MessageType msgType)
+            : this(msgType, -1)
+        { }
+
+        public Message(MessageType msgType, int id)
+        {
             type = msgType;
+            userId = id;
         }
-
-        public Message() {
-            type = MessageType.Unknown;
-        }
-
         public short PlayerId
         {
             get { return playerId; }
@@ -31,7 +36,8 @@ namespace Yad.Net.Messaging.Common
             writer.Write(text.ToCharArray());
         }
 
-        protected string ReadString(BinaryReader reader) {
+        protected string ReadString(BinaryReader reader)
+        {
             byte lenght = reader.ReadByte();
             char[] charray = reader.ReadChars(lenght);
             return new string(charray);
@@ -49,10 +55,12 @@ namespace Yad.Net.Messaging.Common
             set { type = value; }
         }
 
-        public virtual void Deserialize(BinaryReader reader) {
+        public virtual void Deserialize(BinaryReader reader)
+        {
         }
 
-        public virtual void Serialize(BinaryWriter writer) {
+        public virtual void Serialize(BinaryWriter writer)
+        {
             WriteMessageHeader(type, writer);
         }
     }
