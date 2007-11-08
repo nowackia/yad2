@@ -33,8 +33,14 @@ namespace Yad.Net.General.Messaging
 
         #region Client login messages
         Login,
+        LoginSuccessful,
+        LoginUnsuccessful,
         Register,
+        RegisterSuccessful,
+        RegisterUnsuccessful,
         Remind,
+        RemindSuccessful,
+        RemindUnsuccessful,
         #endregion
 
         #region Client menu messages
@@ -44,9 +50,6 @@ namespace Yad.Net.General.Messaging
         Logout,
         GameCreate,
         #endregion
-
-        LoginSuccessful,
-        LoginUnsuccessful,
 
         #region Unknown messages
         Unknown
