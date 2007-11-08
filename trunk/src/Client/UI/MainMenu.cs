@@ -29,7 +29,7 @@ namespace Client.UI
             views.Add(Views.UserInfoForm, infoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
 
-            Connection.MenuMessageHandler.LoginRequestReply += new Yad.Net.General.RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
+            //Connection.MenuMessageHandler.LoginRequestReply += new Yad.Net.General.RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
         }
 
         void MenuMessageHandler_LoginRequestReply(object sender, Yad.Net.General.RequestReplyEventArgs e)

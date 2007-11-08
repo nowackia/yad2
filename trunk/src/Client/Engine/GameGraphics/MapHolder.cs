@@ -4,74 +4,22 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Client.Board;
 
-namespace Client.Engine.GameGraphics
-{
-    class MapHolder
-    {
-        #region private fields
-        private Bitmap bmp;
-        List<List<int>> list = new List<List<int>>();
-        private Graphics g;
-        private int maxWidth;
-        #endregion
+namespace Client.Engine.GameGraphics {
+	class MapTextureGenerator {
+		static int textureSize = 16;
 
-        #region constructors
-        public MapHolder(string mapFilePath)
-        {
-            int c;
-            int value;
-            List<int> tempList = null;
-            try
-            {
-                StreamReader sr = new StreamReader(mapFilePath);
-                while (!sr.EndOfStream)
-                {
-                    c = sr.Read();
-                    if (tempList == null)
-                    {
-                        tempList = new List<int>();
-                        maxWidth = 0;
-                    }
-                    if ((char)c == '\n')
-                    {
-                        list.Add(tempList);
-                        tempList = null;
-                        continue;
-                    }
-                    else if (Int32.TryParse(((char)c).ToString(), out value))
-                    {
-                        tempList.Add(value);
-                        if (tempList.Count > maxWidth)
-                        {
-                            maxWidth = tempList.Count;
-                        }
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new MapHolderException(ex);
-            }
-        }
-        public MapHolder() { }
-        #endregion
-
-        public Bitmap ToBitmap()
-        {
-            bmp = new Bitmap(maxWidth * 32, list.Count * 32, PixelFormat.Format32bppArgb);
-            g = Graphics.FromImage(bmp);
-            for (int y = 0; y < list.Count; y++)
-            {
-                for (int x = 0; x < list[y].Count; x++)
-                {
-                    //TODO PR: tutaj ładowanie bitmap na mape.
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(80 * list[y][x], 80 * list[y][x], 80 * list[y][x])), new Rectangle(32 * x, 32 * y, 32, 32));
-
-                }
-            }
-            return bmp;
-        }
-    }
+		public static Bitmap GenerateBitmap() {
+			Bitmap bmp = new Bitmap(Map.Width * textureSize, Map.Height * textureSize, PixelFormat.Format32bppArgb);
+			Graphics g = Graphics.FromImage(bmp);
+			for (int y = 0; y < Map.Height; y++) {
+				for (int x = 0; x < Map.Width; x++) {
+					//TODO PR: tutaj ładowanie bitmap na mape.
+					g.FillRectangle(new SolidBrush(Color.FromArgb(80 * (int)Map.Tiles[y, x], 80 * (int)Map.Tiles[y, x], 80 * (int)Map.Tiles[y, x])), new Rectangle(32 * x, 32 * y, 32, 32));
+				}
+			}
+			return bmp;
+		}
+	}
 }

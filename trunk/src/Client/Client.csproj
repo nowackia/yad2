@@ -181,7 +181,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Config\dune.xsd">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Config\generate.bat" />

@@ -11,6 +11,8 @@ using Tao.Platform.Windows;
 using Classes;
 using Classes.XMLLoader;
 using Client.Properties;
+using Client.Board;
+using System.IO;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -24,7 +26,8 @@ namespace Client.UI {
 
 			InitializeComponent();
 
-			 YAD2Configuration.GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			YAD2Configuration.GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			Map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 
 
             this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);

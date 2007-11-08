@@ -9,15 +9,11 @@ using System.IO;
 using Client.Properties;
 using Client.Log;
 using Client.Engine.GameGraphics;
+using Client.Board;
 
 namespace Client.Engine.GameGraphics {
     static class GameGraphics {
         public static event EventHandler GameGraphicsChanged;
-
-        /// <summary>
-        /// Map dimension (in tiles)
-        /// </summary>
-        static Size map = new Size();
 
         /// <summary>
         /// SimpleOpenGLControl's size
@@ -70,8 +66,7 @@ namespace Client.Engine.GameGraphics {
             // getID, getTexturePath, create32btexture
 
             // Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-            MapHolder mh = new MapHolder("Resources/Maps/test.map");
-            Create32bTexture(1, mh.ToBitmap());
+            Create32bTexture(1, MapTextureGenerator.GenerateBitmap());
         }
 
         /// <summary>
@@ -110,27 +105,33 @@ namespace Client.Engine.GameGraphics {
         }
 
 		private static void UpdateViewport() {
-            minimumZoom = Math.Max((float)viewport.Width / map.Width, (float)viewport.Height / map.Height);
+            Gl.glViewport(0, 0, viewport.Width, viewport.Height);
+
+			minimumZoom = Math.Max((float)viewport.Width / Map.Width, (float)viewport.Height / Map.Height);
+
+			UpdateZoom();
+			UpdateClip();
+        }
+
+		private static void UpdateZoom() {
             if (zoom < minimumZoom)
                 zoom = minimumZoom;
-            /*
-            mapClip.Left = -(0.5f * viewWidth) / zoom;
-            mapClip.Right = (0.5f * viewWidth) / zoom;
-            mapClip.Bottom = -(0.5f * viewHeight) / zoom;
-            mapClip.Top = (0.5f * viewHeight / zoom);
-            */
-            mapClip.Left = 0;
-            mapClip.Width = viewport.Width / zoom;
-            mapClip.Bottom = 0;
-            mapClip.Height = viewport.Height / zoom;
 
-            Gl.glViewport(0, 0, viewport.Width, viewport.Height);
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
-            Gl.glOrtho(mapClip.Left, mapClip.Right, mapClip.Bottom, mapClip.Top, -1, 1);
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glLoadIdentity();
-        }
+			mapClip.Left = -viewport.Width / zoom / 2;
+			mapClip.Width = viewport.Width / zoom;
+			mapClip.Bottom = -viewport.Height / zoom / 2;
+			mapClip.Height = viewport.Height / zoom;
+
+			UpdateClip();
+		}
+
+		private static void UpdateClip() {
+			Gl.glMatrixMode(Gl.GL_PROJECTION);
+			Gl.glLoadIdentity();
+			Gl.glOrtho(mapClip.Left, mapClip.Right, mapClip.Bottom, mapClip.Top, -1, 1);
+			Gl.glMatrixMode(Gl.GL_MODELVIEW);
+			Gl.glLoadIdentity();
+		}
 
 		public static void Draw() {
             Gl.glClearColor(0, 0, 0, 0);
@@ -139,7 +140,7 @@ namespace Client.Engine.GameGraphics {
             Gl.glLoadIdentity();
 
             Gl.glColor4f(1, 1, 1, 1);
-            DrawElementFromLeftBottom(0, 0, 0, map.Width, map.Height, 1, new RectangleF(0,0,1,1));
+			DrawElementFromLeftBottom(0, 0, 0, Map.Width, Map.Height, 1, new RectangleF(0, 0, 1, 1));
 
             /*
             // Draw map first
@@ -159,6 +160,8 @@ namespace Client.Engine.GameGraphics {
 		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
             //Gl.glPushMatrix();
             //Gl.glTranslatef(x + moveX, y + moveY, 0);
+			float h2 = Map.Height / 2.0f;
+			float w2 = Map.Width / 2.0f;
 
 			//init texture
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
@@ -169,17 +172,17 @@ namespace Client.Engine.GameGraphics {
             vertexData.uv[4] = uv.Right; vertexData.uv[5] = uv.Top;
             vertexData.uv[6] = uv.Left; vertexData.uv[7] = uv.Top;
 
-            vertexData.vertex[0] = x - mapClip.Left;
-            vertexData.vertex[1] = y - mapClip.Bottom;
+            vertexData.vertex[0] = x - w2;
+			vertexData.vertex[1] = y - h2;
             vertexData.vertex[2] = z;
-            vertexData.vertex[3] = x + width - mapClip.Left;
-			vertexData.vertex[4] = y - mapClip.Bottom;
+			vertexData.vertex[3] = x + width - w2;
+			vertexData.vertex[4] = y - h2;
             vertexData.vertex[5] = z;
-			vertexData.vertex[6] = x + width - mapClip.Left;
-			vertexData.vertex[7] = y + height - mapClip.Bottom;
+			vertexData.vertex[6] = x + width - w2;
+			vertexData.vertex[7] = y + height - h2;
             vertexData.vertex[8] = z;
-			vertexData.vertex[9] = x - mapClip.Left;
-			vertexData.vertex[10] = y + height - mapClip.Bottom;
+			vertexData.vertex[9] = x - w2;
+			vertexData.vertex[10] = y + height - h2; 
             vertexData.vertex[11] = z;
 
 			if (Properties.Settings.Default.UseSafeRendering) {
@@ -205,17 +208,17 @@ namespace Client.Engine.GameGraphics {
             //Gl.glTranslatef(x + moveX, y + moveY, 0);            
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
             //Gl.glBegin(Gl.GL_TRIANGLE_FAN);            
-			vertexData.vertex[0] = x + 0.5f - w2 - mapClip.Left;
-			vertexData.vertex[1] = y + 0.5f - h2 - mapClip.Bottom;
+			vertexData.vertex[0] = x + 0.5f - w2;
+			vertexData.vertex[1] = y + 0.5f - h2;
             vertexData.vertex[2] = z;
-			vertexData.vertex[3] = x + 0.5f - mapClip.Left + width;
-			vertexData.vertex[4] = y + 0.5f - h2 - mapClip.Bottom;
+			vertexData.vertex[3] = x + 0.5f+ width;
+			vertexData.vertex[4] = y + 0.5f - h2;
             vertexData.vertex[5] = z;
-			vertexData.vertex[6] = x + 0.5f - mapClip.Left + width;
-			vertexData.vertex[7] = y - 0.5f - mapClip.Bottom + height;
+			vertexData.vertex[6] = x + 0.5f + width;
+			vertexData.vertex[7] = y - 0.5f + height;
             vertexData.vertex[8] = z;
-			vertexData.vertex[9] = x + 0.5f - w2 - mapClip.Left;
-			vertexData.vertex[10] = y + 0.5f - mapClip.Bottom + height;
+			vertexData.vertex[9] = x + 0.5f - w2;
+			vertexData.vertex[10] = y + 0.5f + height;
             vertexData.vertex[11] = z;
 
             Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
@@ -240,8 +243,8 @@ namespace Client.Engine.GameGraphics {
                 mapClip.X = 0;
             }
 
-            if (mapClip.Right > map.Width) {
-                mapClip.Right = map.Width;
+			if (mapClip.Right > Map.Width) {
+				mapClip.Right = Map.Width;
             }
 
             InfoLog.WriteInfo("TranslatingX: " + mapClip.X, EPrefix.GameGraphics);
@@ -256,8 +259,8 @@ namespace Client.Engine.GameGraphics {
                 mapClip.Bottom = 0;
             }
 
-            if (mapClip.Top > map.Height) {
-                mapClip.Top = map.Height;
+			if (mapClip.Top > Map.Height) {
+				mapClip.Top = Map.Height;
             }
 
             InfoLog.WriteInfo("TranslatingY: " + mapClip.Y, EPrefix.GameGraphics);
@@ -275,10 +278,7 @@ namespace Client.Engine.GameGraphics {
 		public static void SetMapSize(int width, int height) {
             Console.Out.WriteLine("Setting map size");
 
-            map.Width = width;
-            map.Height = height;
-
-            minimumZoom = Math.Max(map.Width, map.Height);
+			minimumZoom = Math.Max(Map.Width, Map.Height);
         }
 
 		public static void SetViewSize(int width, int height) {
@@ -294,3 +294,4 @@ namespace Client.Engine.GameGraphics {
         }
     }
 }
+
