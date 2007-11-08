@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using Client.Board;
 using Yad.Board.Common;
 using Client.Properties;
+using Yad.Engine.GameGraphics.Client;
 
 namespace Client.Engine.GameGraphics {
 	static class MapTextureGenerator {
