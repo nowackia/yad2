@@ -45,7 +45,7 @@ namespace Yad.Net.Server
                 player.SetData(LoadPlayerData(msg.Login));
             }
 
-            _server.Chat.AddPlayer(player);
+            //_server.Chat.AddPlayer(player);
             SendMessage((MessageFactory.Create(MessageType.LoginSuccessful)), player.Id);
         }
 

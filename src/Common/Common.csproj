@@ -92,6 +92,7 @@
   <ItemGroup>
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Config\generate.bat" />
     <None Include="Resources\Maps\test.map">

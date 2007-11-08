@@ -28,6 +28,8 @@ namespace Yad.Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Connection.InitConnection("127.0.0.1", 1734);
+
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 
@@ -35,6 +37,8 @@ namespace Yad.Client
             uiManager.Start();
 
             Application.Run(miniForm);
+
+            Connection.CloseConnection();
 
             InfoLog.WriteEnd();
             InfoLog.Close();

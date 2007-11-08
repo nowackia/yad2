@@ -18,10 +18,10 @@ namespace Yad.Net.Messaging.Common
             : this(msgType, -1)
         { }
 
-        public Message(MessageType msgType, int id)
+        public Message(MessageType msgType, short id)
         {
             type = msgType;
-            userId = id;
+            playerId = id;
         }
         public short PlayerId
         {
@@ -56,8 +56,7 @@ namespace Yad.Net.Messaging.Common
         }
 
         public virtual void Deserialize(BinaryReader reader)
-        {
-        }
+        { }
 
         public virtual void Serialize(BinaryWriter writer)
         {
