@@ -39,7 +39,6 @@ namespace Client.UI {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
-			GameGraphics.SetMapSize(32, 64); //TODO: change
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 			GameGraphics.InitGL();
 			GameGraphics.InitTextures();
@@ -101,8 +100,8 @@ namespace Client.UI {
 				int dx = e.X - mousePos.X;
                 int dy = e.Y - mousePos.Y;
 
-				GameGraphics.TranslateX(-dx * 0.05f);
-				GameGraphics.TranslateY(dy * 0.05f); //opengl uses different coordinate system
+				GameGraphics.OffsetX(-dx * 0.05f);
+				GameGraphics.OffsetY(dy * 0.05f); //opengl uses different coordinate system
 
                 wasScrolled = true;
 				Cursor.Position = openGLView.PointToScreen(mousePos);

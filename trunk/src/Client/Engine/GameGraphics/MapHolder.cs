@@ -16,7 +16,7 @@ namespace Client.Engine.GameGraphics {
 			for (int y = 0; y < Map.Height; y++) {
 				for (int x = 0; x < Map.Width; x++) {
 					//TODO PR: tutaj ładowanie bitmap na mape.
-					g.FillRectangle(new SolidBrush(Color.FromArgb(80 * (int)Map.Tiles[y, x], 80 * (int)Map.Tiles[y, x], 80 * (int)Map.Tiles[y, x])), new Rectangle(32 * x, 32 * y, 32, 32));
+					g.FillRectangle(new SolidBrush(Color.FromArgb(80 * (int)Map.Tiles[x, y], 80 * (int)Map.Tiles[x, y], 80 * (int)Map.Tiles[x, y])), new Rectangle(textureSize * x, textureSize * y, textureSize, textureSize));
 				}
 			}
 			return bmp;
