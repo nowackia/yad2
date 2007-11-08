@@ -1,41 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Board;
 
 namespace Yad.Net.Messaging.Common
 {
     public class CreateUnitMessage : GameMessage
     {
-        private int idUnit;
-        private Object place;
+        int unitID;
+		private short unitType;
 
-        public CreateUnitMessage()
-            : base(MessageType.CreateUnit)
-        { }
+		/// <summary>
+		/// Same value as assigned by XMLLoader.
+		/// </summary>
+		public short UnitType {
+			get { return unitType; }
+			set { unitType = value; }
+		}
 
-        public Object Place
+		private Position position;
+
+		public Position Position {
+			get { return position; }
+			set { position = value; }
+		}
+
+		
+		public CreateUnitMessage()
+			: base(MessageType.CreateUnit) { }
+
+		
+
+        public int UnitID
         {
-            get { return place; }
-            set { place = value; }
+            get { return unitID; }
+            set { unitID = value; }
         }
 
-        public int IdUnit
-        {
-            get { return idUnit; }
-            set { idUnit = value; }
-        }
-		/*
-        public override void Process()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        public override void Execute()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-		*/
-        public override void Deserialize(System.IO.BinaryReader reader) {
+		public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }
 

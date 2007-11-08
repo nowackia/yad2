@@ -8,7 +8,7 @@ namespace Yad.Net.Messaging.Common
     public class Message
     {
         private MessageType type;
-        private int userId;
+        private short playerId;
 
         public Message(MessageType msgType) {
             type = msgType;
@@ -18,10 +18,10 @@ namespace Yad.Net.Messaging.Common
             type = MessageType.Unknown;
         }
 
-        public int UserId
+        public short PlayerId
         {
-            get { return userId; }
-            set { userId = value; }
+            get { return playerId; }
+            set { playerId = value; }
         }
 
         protected void WriteString(string text, BinaryWriter writer)

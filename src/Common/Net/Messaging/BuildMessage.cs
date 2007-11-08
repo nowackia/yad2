@@ -1,42 +1,39 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Board;
 
 namespace Yad.Net.Messaging.Common
 {
     public class BuildMessage : GameMessage
     {
-        private int idBuilding;
+		private int buildingID;
 
-        //TODO RS: struct or object?
-        private Object place;
+		public int BuildingID {
+			get { return buildingID; }
+			set { buildingID = value; }
+		}
+
+		private short buildingType;
+
+		public short BuildingType {
+			get { return buildingType; }
+			set { buildingType = value; }
+		}
+
+
+		private Position position;
+
+		public Position Position {
+			get { return position; }
+			set { position = value; }
+		}
+	
 
         public BuildMessage()
             : base(MessageType.Build)
         { }
 
-        public Object Place
-        {
-            get { return place; }
-            set { place = value; }
-        }
-
-        public int IdBuilding
-        {
-            get { return idBuilding; }
-            set { idBuilding = value; }
-        }
-		/*
-        public override void Process()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        public override void Execute()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-		*/
         public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }

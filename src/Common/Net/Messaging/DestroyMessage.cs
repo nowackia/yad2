@@ -6,29 +6,25 @@ namespace Yad.Net.Messaging.Common
 {
     public class DestroyMessage : GameMessage
     {
-        private int id;
+        private int objectID;
+		private short playerID;
+
+		public short PlayerID {
+			get { return playerID; }
+			set { playerID = value; }
+		}
+
 
         public DestroyMessage()
             : base(MessageType.Destroy)
         { }
 
-        public int Id
+        public int ObjectID
         {
-            get { return id; }
-            set { id = value; }
+            get { return objectID; }
+            set { objectID = value; }
         }
 
-		/*
-        public override void Process()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        public override void Execute()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-		*/
         public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");
         }

@@ -16,11 +16,11 @@ namespace Yad.Net.Messaging.Common
         /// <summary>
         /// Userid to identyfikator uczestnika
         /// </summary>
-        public NewChatUserMessage(string nick, int id)
+        public NewChatUserMessage(string nick, short id)
             : base(MessageType.NewChatUser)
         {
             _nick = nick;
-            UserId = id;
+            PlayerId = id;
         }
 
 
@@ -28,14 +28,14 @@ namespace Yad.Net.Messaging.Common
         public override void Serialize(System.IO.BinaryWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(UserId);
+            writer.Write(PlayerId);
             WriteString(_nick, writer);
         }
 
         public override void Deserialize(System.IO.BinaryReader reader)
         {
             base.Deserialize(reader);
-            this.UserId = reader.ReadInt32();
+            this.PlayerId = reader.ReadInt16();
             _nick = ReadString(reader);
         }
     }

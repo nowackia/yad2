@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yad.Board.Common
 {
-    public enum TileType
+    public enum TileType : byte
     {
         Mountain,
         Rock,

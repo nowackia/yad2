@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Board;
 
 namespace Yad.Net.Messaging.Common
 {
     public class MoveMessage : GameMessage
     {
         private int idUnit;
-        //TODO RS: table or list? what type of structure? Drawing.Point?
-        private LinkedListNode<Object> path;
+        private LinkedListNode<Position> path;
 
         public MoveMessage()
             : base(MessageType.Move)
         { }
 
-        public LinkedListNode<Object> Path
+        public LinkedListNode<Position> Path
         {
             get { return path; }
             set { path = value; }
@@ -26,17 +26,6 @@ namespace Yad.Net.Messaging.Common
             set { idUnit = value; }
         }
 
-		/*
-        public override void Process()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        public override void Execute()
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-		*/
         public override void Deserialize(System.IO.BinaryReader reader) {
             //throw new Exception("The method or operation is not implemented.");
         }

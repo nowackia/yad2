@@ -31,7 +31,7 @@ namespace Yad.Net.Server {
             if (_pprovider != null) {
                 Player p = _pprovider.GetPlayer(recipient);
                 p.SendMessage(msg);
-                InfoLog.WriteInfo("Message type: " + msg.Type + " has been send to user" + msg.UserId,
+                InfoLog.WriteInfo("Message type: " + msg.Type + " has been send to user" + msg.PlayerId,
                     EPrefix.ServerSendMessageInfo);
             }
             else

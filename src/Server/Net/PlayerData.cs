@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Yad.Net.Server {
     class PlayerData {
-        int _id;
+        short _id;
 
-        public int Id {
+        public short Id {
             get { return _id; }
             set { _id = value; }
         }

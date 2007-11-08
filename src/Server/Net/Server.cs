@@ -117,7 +117,7 @@ namespace Yad.Net.Server {
             }
 
             private bool _serverEnd = false;
-            private int playerID = 0;
+            private short playerID = 0;
 
             public Player GetPlayerUnlogged(int key) {
                 lock (_playersUnlogged) {
@@ -189,7 +189,7 @@ namespace Yad.Net.Server {
                     return;
                 }
                 InfoLog.WriteInfo("Server accepted new client");
-                Player player = new Player(playerID + 1, client);
+                Player player = new Player((short)(playerID + 1), client);
                 player.OnReceiveMessage += new ReceiveMessageDelegate(_msgHandler.OnReceivePlayerMessage);
                 player.OnConnectionLost += new ConnectionLostDelegate(OnConnectionLost);
                 player.Start();

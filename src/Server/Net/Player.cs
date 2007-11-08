@@ -24,13 +24,13 @@ namespace Yad.Net.Server {
         private Thread _rcvThread;
         private event ReceiveMessageDelegate _onReceiveMessage;
         private event ConnectionLostDelegate _onConnectionLost;
-        private int _id;
+        private short _id;
         private MenuState _state;
         private PlayerData _data;
 
         #endregion Private members
 
-        public int Id {
+        public short Id {
             get { return _id; }
             set { _id = value; }
         }
@@ -70,7 +70,7 @@ namespace Yad.Net.Server {
                 _id = pd.Id;
             }
         }
-        public Player(int id, TcpClient client) {
+        public Player(short id, TcpClient client) {
             _id = id;
             _readStream = new BinaryReader(client.GetStream());
             _writeStream = new BinaryWriter(client.GetStream());
@@ -122,7 +122,7 @@ namespace Yad.Net.Server {
                     continue;
                 }
                 msg.Deserialize(_readStream);
-                msg.UserId = Id;
+                msg.PlayerId = Id;
                 ExecuteOnReceiveMessage(msg);
             }
         }

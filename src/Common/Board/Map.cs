@@ -7,17 +7,17 @@ namespace Yad.Board.Common {
 	public static class Map {
 		static TileType[,] tiles;
 		static bool[,] fogOfWar;
-		static int width, height;
+		static short width, height;
 
 		//TODO: da ka¿dego pola zrobiæ oddzieln¹ listê
 		//static LinkedList<Building> buildings;
 		//static LinkedList<Unit> units;
 
-		public static int Width {
+		public static short Width {
 			get { return width; }
 		}
 
-		public static int Height {
+		public static short Height {
 			get { return height; }
 		}
 
@@ -27,21 +27,21 @@ namespace Yad.Board.Common {
 
 		public static void LoadMap(String name) {
 			string c;
-			List<int[]> tempList = new List<int[]>();
-			int[] tempRow = null;
+			List<byte[]> tempList = new List<byte[]>();
+			byte[] tempRow = null;
 
 			StreamReader sr = new StreamReader(name);
 			while (!sr.EndOfStream) {
 				c = sr.ReadLine();
-				tempRow = new int[c.Length];
+				tempRow = new byte[c.Length];
 				for (int i = 0; i < c.Length; i++) {
-					tempRow[i] = c[i] - '0';
+					tempRow[i] = (byte)(c[i] - '0');
 				}
 				tempList.Add(tempRow);
 			}
 
-			width = tempList[0].Length;
-			height = tempList.Count;
+			width = (short)tempList[0].Length;
+			height = (short)tempList.Count;
 
 			tiles = new TileType[width, height];
 			for (int y = height - 1; y >= 0; y--) {
