@@ -1,4 +1,4 @@
-namespace Server.UI
+namespace Yad.UI.Server
 {
     partial class consoleForm
     {

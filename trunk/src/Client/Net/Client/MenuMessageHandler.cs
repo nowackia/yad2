@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Yad.Net.General.Messaging;
+using Yad.Net.Messaging.Common;
 
-namespace Client.Net.Client
+namespace Yad.Net.Client
 { 
 }

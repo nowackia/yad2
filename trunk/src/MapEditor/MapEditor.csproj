@@ -7,7 +7,7 @@
     <ProjectGuid>{2A55C829-878F-4DC2-A317-35FBC423C524}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MapEditor</RootNamespace>
+    <RootNamespace>Yad.MapEditor</RootNamespace>
     <AssemblyName>MapEditor</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -36,7 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Client\Board\TileType.cs">
+    <Compile Include="..\Common\Board\TileType.cs">
       <Link>TileType.cs</Link>
     </Compile>
     <Compile Include="CreateDialog.cs">

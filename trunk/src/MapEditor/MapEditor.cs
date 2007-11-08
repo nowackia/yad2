@@ -5,10 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Client.Board;
 using System.IO;
+using Yad.Board.Common;
 
-namespace MapEditor
+namespace Yad.MapEditor
 {
     public partial class MapEditor : Form
     {

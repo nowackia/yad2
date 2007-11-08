@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using Server.Net.Server;
-using Yad.Log;
+using Yad.Net.Server;
+using Yad.Log.Common;
 
-namespace Server.UI
+namespace Yad.UI.Server
 {
     delegate void SetTextCallback(string text);
     public partial class consoleForm : Form

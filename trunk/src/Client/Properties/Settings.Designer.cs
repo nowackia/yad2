@@ -43,7 +43,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Animations")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Animations")]
         public string Animations {
             get {
                 return ((string)(this["Animations"]));
@@ -52,7 +52,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Bullets")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Bullets")]
         public string Bullets {
             get {
                 return ((string)(this["Bullets"]));
@@ -61,7 +61,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Pictures")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Pictures")]
         public string Pictures {
             get {
                 return ((string)(this["Pictures"]));
@@ -70,7 +70,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Structures")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Structures")]
         public string Structures {
             get {
                 return ((string)(this["Structures"]));
@@ -79,7 +79,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Terrain")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Terrain")]
         public string Terrain {
             get {
                 return ((string)(this["Terrain"]));
@@ -88,7 +88,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Units")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics/Units")]
         public string Units {
             get {
                 return ((string)(this["Units"]));
@@ -97,16 +97,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Resources")]
-        public string Resources {
-            get {
-                return ((string)(this["Resources"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Graphics")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Graphics")]
         public string Graphics {
             get {
                 return ((string)(this["Graphics"]));
@@ -115,10 +106,10 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Audio")]
-        public string Audio {
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/FX")]
+        public string AudioFX {
             get {
-                return ((string)(this["Audio"]));
+                return ((string)(this["AudioFX"]));
             }
         }
         
@@ -152,6 +143,54 @@ namespace Client.Properties {
             }
             set {
                 this["ScrollingSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public float SoundVolume {
+            get {
+                return ((float)(this["SoundVolume"]));
+            }
+            set {
+                this["SoundVolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public float MusicVolume {
+            get {
+                return ((float)(this["MusicVolume"]));
+            }
+            set {
+                this["MusicVolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music")]
+        public string AudioMusic {
+            get {
+                return ((string)(this["AudioMusic"]));
+            }
+            set {
+                this["AudioMusic"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DunePlayer")]
+        public string PlayerName {
+            get {
+                return ((string)(this["PlayerName"]));
+            }
+            set {
+                this["PlayerName"] = value;
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Yad.Log;
+using Yad.Log.Common;
 
 namespace Client.UI {
 
