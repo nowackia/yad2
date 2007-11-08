@@ -5,14 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Client.Log;
 using Client.Engine.GameGraphics;
 using Tao.Platform.Windows;
-using Classes;
 using Classes.XMLLoader;
 using Client.Properties;
 using Client.Board;
 using System.IO;
+using Yad.Log;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -124,7 +123,7 @@ namespace Client.UI {
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
-			Console.Out.WriteLine("Resizing...");
+			InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
 
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}

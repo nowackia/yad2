@@ -7,7 +7,7 @@ using Tao.OpenGl;
 using Tao.Platform.Windows;
 using System.IO;
 using Client.Properties;
-using Client.Log;
+using Yad.Log;
 using Client.Engine.GameGraphics;
 using Client.Board;
 

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Client.Log;
+using Yad.Log;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Yad.Net.Server
+namespace Server.Net.Server
 {
     class ServerMain
     {

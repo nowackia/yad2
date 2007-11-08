@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 
-namespace Client.Log
+namespace Yad.Log
 {
     public enum EPrefix
     {

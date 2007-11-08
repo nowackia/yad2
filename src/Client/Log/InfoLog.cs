@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 
-namespace Client.Log {
+namespace Yad.Log {
     public class InfoLog {
 
         #region Pola prywatne

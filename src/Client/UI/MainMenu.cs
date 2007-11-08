@@ -1,3 +1,4 @@
+using Client.Net.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -5,8 +6,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Yad.Net.General.Messaging;
 using Yad.Net;
+using Yad.Net.General.Messaging;
 
 namespace Client.UI
 {
@@ -29,10 +30,10 @@ namespace Client.UI
             views.Add(Views.UserInfoForm, infoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
 
-            //Connection.MenuMessageHandler.LoginRequestReply += new Yad.Net.General.RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
+            Connection.MenuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(MenuMessageHandler_LoginRequestReply);
         }
 
-        void MenuMessageHandler_LoginRequestReply(object sender, Yad.Net.General.RequestReplyEventArgs e)
+        void MenuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
             MessageBox.Show(e.reason);
 

@@ -4,7 +4,7 @@ using System.Text;
 using Yad.Net.General;
 using System.Collections;
 
-namespace Yad.Net.Server {
+namespace Server.Net.Server {
     class BaseServer : IPlayerProvider {
 
         protected MessageHandler _msgHandler;

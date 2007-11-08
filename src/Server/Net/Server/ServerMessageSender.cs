@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Log;
 using Yad.Net.General;
 using Yad.Net.General.Messaging;
-using Client.Log;
 
-namespace Yad.Net.Server {
+namespace Server.Net.Server {
     class ServerMessageSender : ThreadListProcessor<PostMessage>, IMessageSender {
         IPlayerProvider _pprovider = null;
         
-
         public void AddProvider(IPlayerProvider Provider) {
             _pprovider = Provider;
         }
@@ -38,10 +37,8 @@ namespace Yad.Net.Server {
                 InfoLog.WriteInfo("Message sent unsuccessful.", EPrefix.ServerSendMessageInfo);
         }
 
-
-
         public override void ProcessItem(PostMessage item) {
-            if (item.Recipient == Yad.Net.Server.PostMessage.BroadCastMessage)
+            if (item.Recipient == -PostMessage.BroadCastMessage)
                 BroadcastMessage(item.Message);
             else
                 SendMessage(item.Message, item.Recipient);
@@ -49,7 +46,7 @@ namespace Yad.Net.Server {
 
         #region IMessageSender Members
 
-        public void PostMessage(Message msg, int recipient) {
+        public void MessagePost(Message msg, int recipient) {
             PostMessage pmsg = new PostMessage();
             pmsg.Recipient = recipient;
             pmsg.Message = msg;

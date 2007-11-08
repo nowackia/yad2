@@ -106,9 +106,6 @@
     <Compile Include="..\Client\Net\General\ListProcessor.cs">
       <Link>Net\General\ListProcessor.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\General\MessageReciever.cs">
-      <Link>Net\General\MessageReciever.cs</Link>
-    </Compile>
     <Compile Include="..\Client\Net\General\Messaging\AttackMessage.cs">
       <Link>Net\General\Messaging\AttackMessage.cs</Link>
     </Compile>
@@ -160,15 +157,13 @@
     <Compile Include="..\Client\Net\General\Messaging\TextMessage.cs">
       <Link>Net\General\Messaging\TextMessage.cs</Link>
     </Compile>
-    <Compile Include="..\Client\Net\General\PlayerStateMachine.cs">
-      <Link>Net\General\PlayerStateMachine.cs</Link>
-    </Compile>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="Net\General\IMessageSender.cs" />
-    <Compile Include="Net\General\MessageHandler.cs" />
+    <Compile Include="Net\Server\MessageHandler.cs" />
     <Compile Include="Net\General\ThreadListProcessor.cs" />
     <Compile Include="Net\Server\BaseServer.cs" />
     <Compile Include="Net\Server\IPlayerProvider.cs" />
+    <Compile Include="Net\Server\PlayerStateMachine.cs" />
     <Compile Include="Net\Server\PostMessage.cs" />
     <Compile Include="Net\Server\Chat.cs" />
     <Compile Include="Net\Server\ConnectionLostEventArgs.cs" />
@@ -177,7 +172,6 @@
     <Compile Include="Net\Server\PlayerData.cs" />
     <Compile Include="Net\Server\RecieveMessageEventArgs.cs" />
     <Compile Include="Net\Server\Server.cs" />
-    <Compile Include="Net\Server\ServerFake.cs" />
     <Compile Include="Net\Server\ServerMain.cs" />
     <Compile Include="Net\Server\ServerMessageSender.cs" />
     <Compile Include="UI\ConsoleForm.cs">

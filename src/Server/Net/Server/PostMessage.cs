@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Net.General.Messaging;
 
-namespace Yad.Net.Server
+namespace Server.Net.Server
 {
     class PostMessage
     {
@@ -16,7 +16,6 @@ namespace Yad.Net.Server
             get { return _priority; }
             set { _priority = value; }
         }
-
 
         public int Recipient {
           get { return _recipient; }

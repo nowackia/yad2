@@ -1,15 +1,15 @@
+using Server.Net.General;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.IO;
-using Yad.Net.General.Messaging;
 using System.Threading;
-using Client.Log;
+using Yad.Log;
 using Yad.Net.General;
+using Yad.Net.General.Messaging;
 
-
-namespace Yad.Net.Server {
+namespace Server.Net.Server {
     
     delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
     delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);

@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Client.Log
+namespace Yad.Log
 {
     public delegate void OnWriteLineDelegate(string s);
     public class MultiStream : IDisposable
