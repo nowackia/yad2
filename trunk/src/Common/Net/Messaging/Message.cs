@@ -8,7 +8,7 @@ namespace Yad.Net.Messaging.Common
     public class Message
     {
         private MessageType type;
-        private short playerId;
+        private int playerId;
 
         public Message()
             : this(MessageType.Unknown, -1)
@@ -23,7 +23,7 @@ namespace Yad.Net.Messaging.Common
             type = msgType;
             playerId = id;
         }
-        public short PlayerId
+        public int PlayerId
         {
             get { return playerId; }
             set { playerId = value; }

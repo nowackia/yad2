@@ -174,6 +174,7 @@ namespace Yad.Net.Server {
                     _playersUnlogged.Remove(player.Id);
                 else
                     _playerCollection.Remove(player.Id);
+
             }
 
             public void AcceptConnections() {

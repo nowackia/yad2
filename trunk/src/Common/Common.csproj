@@ -52,6 +52,7 @@
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
     <Compile Include="Config\Yad.Config.Common.cs" />
     <Compile Include="Engine\Player.cs" />
+    <Compile Include="Net\GameInfo.cs" />
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="Utils\Randomizer.cs" />

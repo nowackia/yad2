@@ -20,10 +20,21 @@ namespace Yad.Net.Server {
             Message m = MessageFactory.Create(MessageType.ChatUsers);
             if (m != null)
             {
-                //_sender.MessagePost(m, player.Id);
-                //BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
+                _sender.MessagePost(m, player.Id);
+                BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
             }
+            SendMessage(CreateChatUserMessage(), player.Id);
             
+        }
+
+        public ChatUsersMessage CreateChatUserMessage(){
+            ChatUsersMessage msg = MessageFactory.Create(MessageType.ChatUsers) as ChatUsersMessage;
+            return msg;
+        }
+
+        public ChatUser PlayerToChatUser(Player p)
+        {
+            return null;
         }
 
         public void Remove(Player player) {
@@ -48,8 +59,11 @@ namespace Yad.Net.Server {
                 if (p.Id != msg.PlayerId) {
                     p.SendMessage(msg);
                 }
-                 
             }
+        }
+
+        public void SendMessage(Message msg, short id) {
+            _sender.MessagePost(msg, id);
         }
 
 

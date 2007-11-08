@@ -13,13 +13,20 @@ namespace Yad.Net.Messaging.Common {
     /// dlugosc nazwy (int)
     /// nazwa (char[])
     /// </summary>
-    class ChatUsersMessage : Message {
+    public class ChatUsersMessage : Message {
         List<ChatUser> _chatUsers;
+
+        public List<ChatUser> ChatUsers
+        {
+            get { return _chatUsers; }
+            set { _chatUsers = value; }
+        }
 
         public ChatUsersMessage()
             : base(MessageType.ChatUsers) {
             _chatUsers = new List<ChatUser>();
         }
+     
 
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);
