@@ -100,9 +100,6 @@ namespace Yad.Net.Messaging.Common
         #endregion
 
         #region Client menu messages
-        //ChooseGameEntry,
-        //JoinGameEntry,
-        //JoinGameExit,
         Logout,
         GameCreate,
         #endregion

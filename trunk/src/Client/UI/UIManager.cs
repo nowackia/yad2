@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using Yad.Log;
 using Yad.Log.Common;
 
 namespace Client.UI {
 
     public delegate void MenuEventHandler(MenuOption option);
+    public delegate void ControlStateEventHandler(Control[] option, bool state);
 
     public class UIManager {
         Views actualView;
