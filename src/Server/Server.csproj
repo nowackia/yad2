@@ -42,6 +42,7 @@
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />
     <Compile Include="Net\IPlayerProvider.cs" />
+    <Compile Include="Net\PlayerInfo.cs" />
     <Compile Include="Net\PlayerStateMachine.cs" />
     <Compile Include="Net\PostMessage.cs" />
     <Compile Include="Net\Chat.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Net\Server.cs" />
     <Compile Include="Net\ServerMain.cs" />
     <Compile Include="Net\ServerMessageSender.cs" />
+    <Compile Include="Net\ServerGameInfo.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>

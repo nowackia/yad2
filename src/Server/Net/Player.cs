@@ -67,7 +67,7 @@ namespace Yad.Net.Server {
             if (pd != null)
             {
                 _data = pd;
-                _id = pd.Id;
+                pd.Id = _id;
             }
         }
         public Player(short id, TcpClient client) {
@@ -79,6 +79,11 @@ namespace Yad.Net.Server {
 
         public void Start() {
             _rcvThread.Start();
+        }
+
+        public void Stop() {
+            _writeStream.Close();
+            _rcvThread.Join();
         }
 
         public void SendMessage(Message msg) {

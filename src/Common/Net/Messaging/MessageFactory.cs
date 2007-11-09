@@ -56,6 +56,10 @@ namespace Yad.Net.Messaging.Common {
                 case MessageType.Move:
                     return new MoveMessage();
 
+
+                case MessageType.GamesList:
+                    return new GamesListMessage();
+
                 #region Unknown messages
                 case MessageType.Unknown:
                 default:

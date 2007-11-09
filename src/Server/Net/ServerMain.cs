@@ -35,7 +35,7 @@ namespace Yad.Net.Server
         {
             InfoLog.Instance.OnWriteLine = null;
             _server.Stop();
-            _serverThread.Interrupt();
+            //_serverThread.Interrupt();
             _serverThread.Join();
         }
 
