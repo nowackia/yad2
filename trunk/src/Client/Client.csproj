@@ -76,6 +76,7 @@
     <Compile Include="Engine\GameGraphics\Renderers\TankRenderer.cs" />
     <Compile Include="Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
     <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
+    <Compile Include="Engine\GameGraphics\TextureFiles.cs" />
     <Compile Include="Engine\GameGraphics\VertexData.cs" />
     <Compile Include="Net\Connection.cs" />
     <Compile Include="Net\MenuMessageHandler.cs" />
@@ -503,17 +504,39 @@
     <Content Include="Resources\Graphics\Structures\WindTrap.png" />
     <Content Include="Resources\Graphics\Structures\WOR.png" />
     <Content Include="Resources\Graphics\Structures\_READ-ME.txt" />
-    <Content Include="Resources\Graphics\Terrain\Dunes.png" />
-    <Content Include="Resources\Graphics\Terrain\Hidden.png" />
-    <Content Include="Resources\Graphics\Terrain\Mountain.png" />
-    <Content Include="Resources\Graphics\Terrain\Rock.png" />
-    <Content Include="Resources\Graphics\Terrain\RockDamage.png" />
-    <Content Include="Resources\Graphics\Terrain\RockExt.png" />
-    <Content Include="Resources\Graphics\Terrain\Sand.png" />
-    <Content Include="Resources\Graphics\Terrain\SandDamage.png" />
-    <Content Include="Resources\Graphics\Terrain\SandExt.png" />
-    <Content Include="Resources\Graphics\Terrain\Spice.png" />
-    <Content Include="Resources\Graphics\Terrain\ThickSpice.png" />
+    <Content Include="Resources\Graphics\Terrain\Dunes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\Hidden.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\Mountain.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\Rock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\RockDamage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\RockExt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\Sand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\SandDamage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\SandExt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\Spice.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Terrain\ThickSpice.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\UI\Cursor.png" />
     <Content Include="Resources\Graphics\UI\InvalidPlace.png" />
     <Content Include="Resources\Graphics\UI\Menu.png" />
