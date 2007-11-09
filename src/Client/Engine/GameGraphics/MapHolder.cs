@@ -14,7 +14,7 @@ namespace Client.Engine.GameGraphics {
 		static int textureSize = 16;
         static Bitmap[] bmps = null;
         
-        private static void loadTextures()
+        private static void LoadTextures()
         {
             if (bmps !=null)
                 return;
@@ -27,7 +27,7 @@ namespace Client.Engine.GameGraphics {
         
         public static Bitmap GenerateBitmap()
         {
-			//loadTextures();
+			LoadTextures();
 	        Bitmap bmp = new Bitmap(Map.Width * textureSize, Map.Height * textureSize, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
 			for (int y = 0; y < Map.Height; y++) {
