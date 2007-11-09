@@ -23,7 +23,15 @@ namespace Yad.Net.Server {
 
         protected void StopMessageProcessing() {
             _msgHandler.Stop();
+            _msgHandler.Join();
             _msgSender.Stop();
+            _msgSender.Join();
+        }
+
+        public void AddPlayer(int key, Player p) {
+            lock((((ICollection)_playerCollection).SyncRoot)){
+                _playerCollection.Add(new KeyValuePair<int,Player>(key, p));   
+            }
         }
 
         #region IPlayerProvider Members

@@ -101,10 +101,10 @@ namespace Yad.Net.Server {
 
             private int _portNumber;
             private TcpListener _listener;
-
             private Dictionary<int, Player> _playersUnlogged;
-
             private Chat _chat;
+            private bool _serverEnd = false;
+            private static short playerID = 0;
 
             internal Chat Chat {
                 get { return _chat; }
@@ -116,8 +116,7 @@ namespace Yad.Net.Server {
                 set { _playersUnlogged = value; }
             }
 
-            private bool _serverEnd = false;
-            private short playerID = 0;
+            
 
             public Player GetPlayerUnlogged(int key) {
                 lock (_playersUnlogged) {
@@ -150,10 +149,25 @@ namespace Yad.Net.Server {
                 while (!_serverEnd) {
                     AcceptConnections();
                 }
+                StopPlayers();
                 StopMessageProcessing();
 
             }
-
+            public static short GenerateUniqueID() {
+                return ++playerID;
+            }
+            public void StopPlayers() {
+                lock (((ICollection)_playersUnlogged).SyncRoot) {
+                    foreach (Player p in _playersUnlogged.Values) {
+                        p.Stop();
+                    }
+                }
+                lock (((ICollection)_playerCollection).SyncRoot) {
+                    foreach (Player p in _playerCollection.Values) {
+                        p.Stop();
+                    }
+                }
+            }
             public void Stop() {
                 _listener.Stop();
             }
@@ -186,13 +200,14 @@ namespace Yad.Net.Server {
                     _serverEnd = true;
                     return;
                 }
+                short id = GenerateUniqueID();
                 InfoLog.WriteInfo("Server accepted new client");
-                Player player = new Player((short)(playerID + 1), client);
+                Player player = new Player(id, client);
                 player.OnReceiveMessage += new ReceiveMessageDelegate(_msgHandler.OnReceivePlayerMessage);
                 player.OnConnectionLost += new ConnectionLostDelegate(OnConnectionLost);
                 player.Start();
                 lock (((ICollection)_playersUnlogged).SyncRoot)
-                    _playersUnlogged.Add(++playerID, player);
+                    _playersUnlogged.Add(id, player);
 
         }
 

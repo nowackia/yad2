@@ -38,8 +38,10 @@ namespace Yad.Log.Common
         {
             if (_onWriteLine != null)
                 _onWriteLine(s);
-            _writer.WriteLine(s);
-            _writer.Flush();
+            if (_writer != null) {
+                _writer.WriteLine(s);
+                _writer.Flush();
+            }
 
 			//KŒ:
 			Console.Out.WriteLine(s);

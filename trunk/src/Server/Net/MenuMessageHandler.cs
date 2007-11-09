@@ -46,6 +46,7 @@ namespace Yad.Net.Server
             }
 
             //_server.Chat.AddPlayer(player);
+            _server.AddPlayer(player.Id, player);
             SendMessage((MessageFactory.Create(MessageType.LoginSuccessful)), player.Id);
         }
 
@@ -53,10 +54,8 @@ namespace Yad.Net.Server
             return true;    
         }
 
-        static short idCounter = 0;
         public PlayerData LoadPlayerData(string login) {
             PlayerData pd = new PlayerData();
-            pd.Id = ++idCounter;
             pd.Login = login;
             pd.LossNo = 1;
             pd.WinNo = 1;
