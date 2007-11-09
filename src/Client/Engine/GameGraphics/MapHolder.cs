@@ -7,12 +7,13 @@ using System.Drawing.Imaging;
 using Client.Board;
 using Yad.Board.Common;
 using Client.Properties;
+using Yad.Engine.GameGraphics.Client;
 
 namespace Client.Engine.GameGraphics {
 	static class MapTextureGenerator {
 		static int textureSize = 16;
         static Bitmap[] bmps = null;
-        /*
+        
         private static void loadTextures()
         {
             if (bmps !=null)
@@ -23,7 +24,7 @@ namespace Client.Engine.GameGraphics {
                 bmps[i] = new Bitmap(Path.Combine(Path.GetFullPath(Settings.Default.Terrain), TextureFiles.getFileName((ETextures)i)));
             }
          }
-        */
+        
         public static Bitmap GenerateBitmap()
         {
 			//loadTextures();
