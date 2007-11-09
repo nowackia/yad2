@@ -17,12 +17,12 @@ namespace Yad.Net.Server {
             lock (((ICollection)_players).SyncRoot) {
                 _players.Add(player);
             }
-            Message m = MessageFactory.Create(MessageType.ChatUsers);
+            /*Message m = MessageFactory.Create(MessageType.ChatUsers);
             if (m != null)
             {
                 _sender.MessagePost(m, player.Id);
                 BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
-            }
+            }*/
             SendMessage(CreateChatUserMessage(), player.Id);
             
         }

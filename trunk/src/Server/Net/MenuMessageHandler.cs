@@ -69,7 +69,7 @@ namespace Yad.Net.Server
                 player.State = state;
                 player.SetData(LoadPlayerData(msg.Login));
             }
-            _server.AddPlayer(player.Id, player);
+
             SendMessage((MessageFactory.Create(MessageType.LoginSuccessful)), player.Id);
         }
 
