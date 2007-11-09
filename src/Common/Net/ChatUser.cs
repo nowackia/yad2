@@ -6,15 +6,14 @@ namespace Yad.Net.Common
 {
     public class ChatUser
     {
-        int id;
+        private int id;
+        private string name;
 
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
-
-        string name;
 
         public string Name
         {
@@ -26,6 +25,11 @@ namespace Yad.Net.Common
         {
             this.id = id;
             this.name = name;
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

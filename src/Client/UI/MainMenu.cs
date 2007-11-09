@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Yad.Log.Common;
 using Yad.Net;
+using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 
 namespace Client.UI
@@ -41,6 +42,10 @@ namespace Client.UI
             menuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(menuMessageHandler_LoginRequestReply);
             menuMessageHandler.RegisterRequestReply += new RequestReplyEventHandler(menuMessageHandler_RegisterRequestReply);
             menuMessageHandler.RemindRequestReply += new RequestReplyEventHandler(menuMessageHandler_RemindRequestReply);
+            menuMessageHandler.ResetChatUsers += new ChatEventHandler(menuMessageHandler_ResetChatUsers);
+            menuMessageHandler.NewChatUsers += new ChatEventHandler(menuMessageHandler_AddChatUsers);
+            //menuMessageHandler.DeleteChatUsers
+            //menuMessageHandler.ChatTextReceive
 
             Connection.MessageHandler = menuMessageHandler;
             #endregion
@@ -86,9 +91,27 @@ namespace Client.UI
 
             Connection.CloseConnection();
         }
+
+        void menuMessageHandler_ResetChatUsers(object sender, ChatEventArgs e)
+        {
+            InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, e.chatUsers, true });
+            else
+                ManageListBox(chatListChatMenu, e.chatUsers, true);
+        }
+
+        void menuMessageHandler_AddChatUsers(object sender, ChatEventArgs e)
+        {
+            InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, e.chatUsers, false });
+            else
+                ManageListBox(chatListChatMenu, e.chatUsers, false);
+        }
         #endregion
 
-        #region Tab managment
+        #region Controls managment
         public Views LastView
         {
             get { return lastView; }
@@ -108,6 +131,15 @@ namespace Client.UI
         {
             for (int i = 0; i < control.Length; i++)
                 control[i].Enabled = state;
+        }
+
+        public void ManageListBox(ListBox listBox, ChatUser[] users, bool reset)
+        {
+            if (reset)
+                listBox.Items.Clear();
+
+            for (int i = 0; i < users.Length; i++)
+                listBox.Items.Add(users);
         }
         #endregion
 

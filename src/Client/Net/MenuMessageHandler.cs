@@ -43,7 +43,7 @@ namespace Client.Net
         public event RequestReplyEventHandler RegisterRequestReply;
         public event RequestReplyEventHandler RemindRequestReply;
 
-        public event ChatEventHandler AddChatUsers;
+        public event ChatEventHandler NewChatUsers;
         public event ChatEventHandler DeleteChatUsers;
         public event ChatEventHandler ResetChatUsers;
         public event ChatEventHandler ChatTextReceive;
@@ -83,8 +83,19 @@ namespace Client.Net
                     break;
 
                 case MessageType.ChatUsers:
-                    //if (ResetChatUsers != null)
-                    //    ResetChatUsers(this, new ChatEventArgs();
+                    if (ResetChatUsers != null)
+                    {
+                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
+                        ResetChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.NewChatUser:
+                    if (NewChatUsers != null)
+                    {
+                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
+                        NewChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
+                    }
                     break;
 
                 default:
