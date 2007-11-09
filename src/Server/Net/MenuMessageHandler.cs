@@ -25,29 +25,57 @@ namespace Yad.Net.Server
                 case MessageType.Login:
                     ProcessLogin((LoginMessage)msg);
                     break;
+                case MessageType.ChatEntry:
+                    ProcessChatEntry(msg);
+                    break;
             }
 
         }
 
-        public void ProcessLogin(LoginMessage msg) {
-            Player player = _server.GetPlayerUnlogged(msg.PlayerId);
-            if (null == player || player.State == MenuState.Invalid)
+        public void ProcessChatEntry(Message msg) {
+
+            Player player = _server.GetPlayer(msg.PlayerId);
+
+            if (null == player || player.State == MenuState.Chat)
                 return;
 
-            int unloggedkey = player.Id;
+            MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.ChatEntry);
+            if (state == MenuState.Invalid) {
+                InfoLog.WriteInfo("Chat entry unsuccesful", EPrefix.ServerInformation);
+                return;
+            }
+
+            player.State = state;
+            _server.Chat.AddPlayer(player);
+
+        }
+        public void ProcessLogin(LoginMessage msg) {
+            
+            //Pobranie gracza z listy niezalogowanych
+            Player player = _server.GetPlayerUnlogged(msg.PlayerId);
+            
+            //Jesli gracza nie ma, lub jego stan jest jakis dziwny - koniec obslugi
+            if (null == player || player.State != MenuState.Unlogged)
+                return;
+
             if (Login(msg.Login, msg.Password)) {
                 MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.Login);
                 if (state == MenuState.Invalid) {
                     SendMessage(MessageFactory.Create(MessageType.LoginUnsuccessful), player.Id);
                     return;
                 }
+
+                LoggingTransfer(player);
                 player.State = state;
                 player.SetData(LoadPlayerData(msg.Login));
             }
-
-            //_server.Chat.AddPlayer(player);
             _server.AddPlayer(player.Id, player);
             SendMessage((MessageFactory.Create(MessageType.LoginSuccessful)), player.Id);
+        }
+
+        private void LoggingTransfer(Player player) {
+            _server.RemovePlayerUnlogged(player.Id);
+            _server.AddPlayer(player.Id, player);
         }
 
         public bool Login(string login, string password) {

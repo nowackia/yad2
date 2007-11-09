@@ -5,6 +5,7 @@ using System.Text;
 namespace Yad.Net.Server {
     public enum MenuState : byte {
         Unlogged = 0,
+        Logged,
         Chat,
         GameBrowse,
         Invalid
@@ -12,6 +13,7 @@ namespace Yad.Net.Server {
 
     public enum MenuAction : byte {
         Login = 0,
+        ChatEntry,
         GameBrowseEnter,
         GrameBrowseLeave
     }
@@ -39,7 +41,7 @@ namespace Yad.Net.Server {
                         case MenuState.Unlogged:
                             switch(action) {
                                 case MenuAction.Login:
-                                    _transitions[i,j] = MenuState.Chat;
+                                    _transitions[i,j] = MenuState.Logged;
                                     break;
 
                                 default:
@@ -47,7 +49,19 @@ namespace Yad.Net.Server {
                                     break;
                             }
                             break;
-
+                        case MenuState.Logged:
+                            switch (action) {
+                                case MenuAction.ChatEntry:
+                                    _transitions[i, j] = MenuState.Chat;
+                                    break;
+                                case MenuAction.GameBrowseEnter:
+                                    _transitions[i, j] = MenuState.GameBrowse;
+                                    break;
+                                default:
+                                    _transitions[i, j] = MenuState.Invalid;
+                                    break;
+                            }
+                            break;
                         case MenuState.Chat:
                             switch(action) {
                                 case MenuAction.GameBrowseEnter:
