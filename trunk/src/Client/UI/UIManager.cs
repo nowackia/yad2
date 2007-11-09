@@ -5,11 +5,13 @@ using System.Threading;
 using System.Windows.Forms;
 using Yad.Log;
 using Yad.Log.Common;
+using Yad.Net.Common;
 
 namespace Client.UI {
 
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ControlStateEventHandler(Control[] option, bool state);
+    public delegate void ManageListBoxEventHandler(ListBox listBox, ChatUser[] users, bool reset);
 
     public class UIManager {
         Views actualView;
