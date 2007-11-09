@@ -40,10 +40,8 @@ namespace Client.UI
             this.creditsMainMenu = new System.Windows.Forms.Button();
             this.loginMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxLogin = new System.Windows.Forms.GroupBox();
             this.loginLabel = new System.Windows.Forms.Label();
-            this.serverLoginMenu = new System.Windows.Forms.TextBox();
-            this.serverLabel = new System.Windows.Forms.Label();
             this.loginTBLoginMenu = new System.Windows.Forms.TextBox();
             this.passwordLoginMenu = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
@@ -52,6 +50,9 @@ namespace Client.UI
             this.loginBTLoginMenu = new System.Windows.Forms.Button();
             this.remindPasswordLoginMenu = new System.Windows.Forms.Button();
             this.cancelLoginMenu = new System.Windows.Forms.Button();
+            this.groupBoxServer = new System.Windows.Forms.GroupBox();
+            this.serverLabel = new System.Windows.Forms.Label();
+            this.serverLoginMenu = new System.Windows.Forms.TextBox();
             this.registerMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -60,7 +61,7 @@ namespace Client.UI
             this.loginTBRegisterMenu = new System.Windows.Forms.TextBox();
             this.repeatPasswordLRegisterMenu = new System.Windows.Forms.Label();
             this.passwordTBRegisterMenu = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.emailTBRegisterMenu = new System.Windows.Forms.TextBox();
             this.repeatPasswordTBRegisterMenu = new System.Windows.Forms.TextBox();
             this.passwordLRegisterMenu = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -129,8 +130,9 @@ namespace Client.UI
             this.tableLayoutPanel1.SuspendLayout();
             this.loginMenu.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxLogin.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBoxServer.SuspendLayout();
             this.registerMenu.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -291,8 +293,9 @@ namespace Client.UI
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.groupBoxLogin, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.groupBoxServer, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -304,57 +307,38 @@ namespace Client.UI
             this.tableLayoutPanel4.Size = new System.Drawing.Size(521, 332);
             this.tableLayoutPanel4.TabIndex = 10;
             // 
-            // groupBox1
+            // groupBoxLogin
             // 
-            this.groupBox1.Controls.Add(this.loginLabel);
-            this.groupBox1.Controls.Add(this.serverLoginMenu);
-            this.groupBox1.Controls.Add(this.serverLabel);
-            this.groupBox1.Controls.Add(this.loginTBLoginMenu);
-            this.groupBox1.Controls.Add(this.passwordLoginMenu);
-            this.groupBox1.Controls.Add(this.passwordLabel);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(81, 83);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(358, 110);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
+            this.groupBoxLogin.Controls.Add(this.loginLabel);
+            this.groupBoxLogin.Controls.Add(this.loginTBLoginMenu);
+            this.groupBoxLogin.Controls.Add(this.passwordLoginMenu);
+            this.groupBoxLogin.Controls.Add(this.passwordLabel);
+            this.groupBoxLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxLogin.Location = new System.Drawing.Point(81, 83);
+            this.groupBoxLogin.Name = "groupBoxLogin";
+            this.groupBoxLogin.Size = new System.Drawing.Size(358, 110);
+            this.groupBoxLogin.TabIndex = 0;
+            this.groupBoxLogin.TabStop = false;
             // 
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(8, 16);
+            this.loginLabel.Location = new System.Drawing.Point(6, 36);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(29, 13);
             this.loginLabel.TabIndex = 5;
             this.loginLabel.Text = "login";
             // 
-            // serverLoginMenu
-            // 
-            this.serverLoginMenu.Location = new System.Drawing.Point(93, 64);
-            this.serverLoginMenu.Name = "serverLoginMenu";
-            this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
-            this.serverLoginMenu.TabIndex = 8;
-            this.serverLoginMenu.Text = "127.0.0.1";
-            // 
-            // serverLabel
-            // 
-            this.serverLabel.AutoSize = true;
-            this.serverLabel.Location = new System.Drawing.Point(8, 67);
-            this.serverLabel.Name = "serverLabel";
-            this.serverLabel.Size = new System.Drawing.Size(36, 13);
-            this.serverLabel.TabIndex = 7;
-            this.serverLabel.Text = "server";
-            // 
             // loginTBLoginMenu
             // 
-            this.loginTBLoginMenu.Location = new System.Drawing.Point(93, 13);
+            this.loginTBLoginMenu.Location = new System.Drawing.Point(93, 33);
             this.loginTBLoginMenu.Name = "loginTBLoginMenu";
             this.loginTBLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.loginTBLoginMenu.TabIndex = 0;
             // 
             // passwordLoginMenu
             // 
-            this.passwordLoginMenu.Location = new System.Drawing.Point(93, 39);
+            this.passwordLoginMenu.Location = new System.Drawing.Point(93, 59);
             this.passwordLoginMenu.Name = "passwordLoginMenu";
             this.passwordLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.passwordLoginMenu.TabIndex = 1;
@@ -363,7 +347,7 @@ namespace Client.UI
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(6, 42);
+            this.passwordLabel.Location = new System.Drawing.Point(6, 62);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(52, 13);
             this.passwordLabel.TabIndex = 6;
@@ -409,6 +393,7 @@ namespace Client.UI
             this.remindPasswordLoginMenu.TabIndex = 9;
             this.remindPasswordLoginMenu.Text = "Remind Password";
             this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
+            this.remindPasswordLoginMenu.Click += new System.EventHandler(this.remindPasswordLoginMenu_Click);
             // 
             // cancelLoginMenu
             // 
@@ -419,6 +404,33 @@ namespace Client.UI
             this.cancelLoginMenu.Text = "Cancel";
             this.cancelLoginMenu.UseVisualStyleBackColor = true;
             this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
+            // 
+            // groupBoxServer
+            // 
+            this.groupBoxServer.Controls.Add(this.serverLabel);
+            this.groupBoxServer.Controls.Add(this.serverLoginMenu);
+            this.groupBoxServer.Location = new System.Drawing.Point(81, 3);
+            this.groupBoxServer.Name = "groupBoxServer";
+            this.groupBoxServer.Size = new System.Drawing.Size(358, 74);
+            this.groupBoxServer.TabIndex = 2;
+            this.groupBoxServer.TabStop = false;
+            // 
+            // serverLabel
+            // 
+            this.serverLabel.AutoSize = true;
+            this.serverLabel.Location = new System.Drawing.Point(6, 32);
+            this.serverLabel.Name = "serverLabel";
+            this.serverLabel.Size = new System.Drawing.Size(36, 13);
+            this.serverLabel.TabIndex = 7;
+            this.serverLabel.Text = "server";
+            // 
+            // serverLoginMenu
+            // 
+            this.serverLoginMenu.Location = new System.Drawing.Point(93, 29);
+            this.serverLoginMenu.Name = "serverLoginMenu";
+            this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
+            this.serverLoginMenu.TabIndex = 8;
+            this.serverLoginMenu.Text = "127.0.0.1";
             // 
             // registerMenu
             // 
@@ -458,7 +470,7 @@ namespace Client.UI
             this.groupBox2.Controls.Add(this.loginTBRegisterMenu);
             this.groupBox2.Controls.Add(this.repeatPasswordLRegisterMenu);
             this.groupBox2.Controls.Add(this.passwordTBRegisterMenu);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.emailTBRegisterMenu);
             this.groupBox2.Controls.Add(this.repeatPasswordTBRegisterMenu);
             this.groupBox2.Controls.Add(this.passwordLRegisterMenu);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -510,12 +522,12 @@ namespace Client.UI
             this.passwordTBRegisterMenu.TabIndex = 4;
             this.passwordTBRegisterMenu.UseSystemPasswordChar = true;
             // 
-            // textBox1
+            // emailTBRegisterMenu
             // 
-            this.textBox1.Location = new System.Drawing.Point(103, 87);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(166, 20);
-            this.textBox1.TabIndex = 2;
+            this.emailTBRegisterMenu.Location = new System.Drawing.Point(103, 87);
+            this.emailTBRegisterMenu.Name = "emailTBRegisterMenu";
+            this.emailTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
+            this.emailTBRegisterMenu.TabIndex = 2;
             // 
             // repeatPasswordTBRegisterMenu
             // 
@@ -1211,9 +1223,11 @@ namespace Client.UI
             this.tableLayoutPanel1.ResumeLayout(false);
             this.loginMenu.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxLogin.ResumeLayout(false);
+            this.groupBoxLogin.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBoxServer.ResumeLayout(false);
+            this.groupBoxServer.PerformLayout();
             this.registerMenu.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1279,7 +1293,7 @@ namespace Client.UI
         private System.Windows.Forms.TextBox loginTBRegisterMenu;
         private System.Windows.Forms.TextBox passwordTBRegisterMenu;
         private System.Windows.Forms.TextBox repeatPasswordTBRegisterMenu;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox emailTBRegisterMenu;
         private System.Windows.Forms.Button exitPauseMenu;
         private System.Windows.Forms.Button optionsPauseMenu;
         private System.Windows.Forms.Button continuePauseMenu;
@@ -1332,11 +1346,12 @@ namespace Client.UI
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
-        private GroupBox groupBox1;
+        private GroupBox groupBoxLogin;
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel5;
         private GroupBox groupBox2;
         private Panel panel2;
         private GroupBox groupBox3;
+        private GroupBox groupBoxServer;
     }
 }

@@ -7,7 +7,7 @@ namespace Client.UI {
 
         public static Dictionary<Views, UIManageable> pool = new Dictionary<Views, UIManageable>();
         /// <summary>
-        /// creates form. it is initialized in 100% - proper groupbox is set.
+        /// Creates form.
         /// </summary>
         /// <param name="view"></param>
         /// <returns></returns>
@@ -76,39 +76,39 @@ namespace Client.UI {
         public static UIManageable initForm(UIManageable form, Views initInto) {
             switch (initInto) {
                 case Views.MainMenuForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.LoginForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.RegistrationForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.OptionsForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.ChatForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.UserInfoForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.ChooseGameForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.GameForm:
                     break;
                 case Views.CreateGameForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.WaitingForPlayersForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.PauseForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 case Views.GameMenuForm:
-                    ((MainMenuForm)form).switchToTab(initInto);
+                    ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
                 default:
                     break;

@@ -39,6 +39,8 @@ namespace Client.UI
             MenuMessageHandler menuMessageHandler = new MenuMessageHandler();
 
             menuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(menuMessageHandler_LoginRequestReply);
+            menuMessageHandler.RegisterRequestReply += new RequestReplyEventHandler(menuMessageHandler_RegisterRequestReply);
+            menuMessageHandler.RemindRequestReply += new RequestReplyEventHandler(menuMessageHandler_RemindRequestReply);
 
             Connection.MessageHandler = menuMessageHandler;
             #endregion
@@ -53,11 +55,47 @@ namespace Client.UI
                 this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
             else
                 OnMenuOptionChange(MenuOption.Login);
+
+            Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
+        }
+
+        void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Remind Event", EPrefix.UIManager);
+            MessageBox.Show(e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
+            if (InvokeRequired)
+                this.BeginInvoke(new ControlStateEventHandler(ControlState), new object[] { controls, true });
+            else
+                ControlState(controls, true);
+
+            Connection.CloseConnection();
+        }
+
+        void menuMessageHandler_RegisterRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Register Event", EPrefix.UIManager);
+            MessageBox.Show(e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
+            if (InvokeRequired)
+                this.BeginInvoke(new ControlStateEventHandler(ControlState), new object[] { controls, true });
+            else
+                ControlState(controls, true);
+
+            Connection.CloseConnection();
         }
         #endregion
 
         #region Tab managment
-        public void switchToTab(Views view)
+        public Views LastView
+        {
+            get { return lastView; }
+            set { lastView = value; }
+        }
+
+        public void SwitchToTab(Views view)
         {
             TabPage page = views[view];
             if (page == null)
@@ -66,10 +104,10 @@ namespace Client.UI
             this.tabControl.SelectTab(page.Name);
         }
 
-        public Views LastView
+        public void ControlState(Control[] control, bool state)
         {
-            get { return lastView; }
-            set { lastView = value; }
+            for (int i = 0; i < control.Length; i++)
+                control[i].Enabled = state;
         }
         #endregion
 
@@ -111,7 +149,26 @@ namespace Client.UI
 
         private void registerRegisterMenu_Click(object sender, EventArgs e)
         {
-            //OnOptionChoosen(MenuOption.Registration);
+            Connection.InitConnection(serverLoginMenu.Text, 1734);
+
+            RegisterMessage registerMessage = new RegisterMessage();
+            registerMessage.Login = loginTBRegisterMenu.Text;
+            registerMessage.Password = passwordTBRegisterMenu.Text;
+            registerMessage.Mail = emailTBRegisterMenu.Text;
+            Connection.SendMessage(registerMessage);
+
+            ControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
+        }
+
+        private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
+        {
+            Connection.InitConnection(serverLoginMenu.Text, 1734);
+
+            TextMessage remindMessage = new TextMessage(MessageType.Remind);
+            remindMessage.Text = loginTBRegisterMenu.Text;
+            Connection.SendMessage(remindMessage);
+
+            ControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
 
         private void backRegisterMenu_Click(object sender, EventArgs e)

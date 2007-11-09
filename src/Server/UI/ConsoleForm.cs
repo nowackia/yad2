@@ -100,5 +100,13 @@ namespace Yad.UI.Server
             this.Visible = false;
             contextMenuStrip.Items[0].Text = "Show console";
         }
+
+        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                HideConsole();
+            else
+                ShowConsole();
+        }
     }
 }

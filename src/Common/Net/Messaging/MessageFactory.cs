@@ -12,7 +12,7 @@ namespace Yad.Net.Messaging.Common {
                     return new LoginMessage();
 
                 case MessageType.Register:
-                    return new LoginMessage(MessageType.Register);
+                    return new RegisterMessage();
 
                 case MessageType.Remind:
                     return new TextMessage(MessageType.Remind);
@@ -46,6 +46,7 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.ChatUsers:
                     return new ChatUsersMessage();
+
                 case MessageType.DeleteChatUser:
                     return new NumericMessage(MessageType.DeleteChatUser);
 

@@ -82,6 +82,11 @@ namespace Client.Net
                         RemindRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
                     break;
 
+                case MessageType.ChatUsers:
+                    //if (ResetChatUsers != null)
+                    //    ResetChatUsers(this, new ChatEventArgs();
+                    break;
+
                 default:
                     break;
             }
