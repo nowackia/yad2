@@ -4,12 +4,23 @@ using System.Text;
 using Yad.Engine.Common;
 namespace Yad.Net.Server {
     public class PlayerInfo {
-        HouseType _house;
+
+        public const int MaxTeamNo = 4;
+        private const HouseType DefaultHouseType = HouseType.Atreides;
+        HouseType _house = DefaultHouseType;
+        int _teamID; 
+       
+        
 
         public HouseType House {
             get { return _house; }
             set { _house = value; }
         }
-        int _teamID;
+        
+
+        public int TeamID {
+            get { return _teamID; }
+            set { _teamID = value; }
+        }
     }
 }

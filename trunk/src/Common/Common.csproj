@@ -53,10 +53,13 @@
     <Compile Include="Config\Yad.Config.Common.cs" />
     <Compile Include="Engine\HouseType.cs" />
     <Compile Include="Engine\Player.cs" />
+    <Compile Include="Net\CreateGameResult.cs" />
     <Compile Include="Net\GameInfo.cs" />
     <Compile Include="Net\IMessageSender.cs" />
+    <Compile Include="Net\Messaging\CreateGameMessage.cs" />
     <Compile Include="Net\Messaging\GamesListMessage.cs" />
     <Compile Include="Net\Messaging\RegisterMessage.cs" />
+    <Compile Include="Net\Messaging\ResultMessage.cs" />
     <Compile Include="Net\PlayerData.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="Utils\Randomizer.cs" />
