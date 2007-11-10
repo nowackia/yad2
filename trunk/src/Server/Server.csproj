@@ -42,7 +42,6 @@
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />
     <Compile Include="Net\IPlayerProvider.cs" />
-    <Compile Include="Net\PlayerInfo.cs" />
     <Compile Include="Net\PlayerStateMachine.cs" />
     <Compile Include="Net\PostMessage.cs" />
     <Compile Include="Net\Chat.cs" />

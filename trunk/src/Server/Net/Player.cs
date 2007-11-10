@@ -62,7 +62,6 @@ namespace Yad.Net.Server {
             set { _onReceiveMessage = value; }
         }
 
-
         public void SetData(PlayerData pd) {
             if (pd != null)
             {
@@ -70,6 +69,7 @@ namespace Yad.Net.Server {
                 pd.Id = _id;
             }
         }
+
         public Player(short id, TcpClient client) {
             _id = id;
             _readStream = new BinaryReader(client.GetStream());

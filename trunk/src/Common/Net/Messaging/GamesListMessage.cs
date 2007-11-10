@@ -9,9 +9,8 @@ namespace Yad.Net.Messaging.Common {
         
         List<GameInfo> _games = null;
 
-        public GamesListMessage()
-            : base(MessageType.GamesList) {
-
+        public GamesListMessage(MessageType msgType)
+            : base(msgType) {
         }
 
         public List<GameInfo> Games {

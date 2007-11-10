@@ -19,6 +19,7 @@ namespace Yad.Net.Common {
             get { return _mapId; }
             set { _mapId = value; }
         }
+
         public string Name {
             get { return _name; }
             set { _name = value; }
@@ -27,6 +28,17 @@ namespace Yad.Net.Common {
         public short MaxPlayerNumber {
             get { return _maxPlayerNumber; }
             set { _maxPlayerNumber = value; }
+        }
+
+        public string Description
+        {
+            get
+            { return "Id: " + MapId + Environment.NewLine + "Name: " + Name + Environment.NewLine + "Maximum players number: " + MaxPlayerNumber; }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #endregion

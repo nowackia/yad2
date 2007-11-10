@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Engine.Common;
-namespace Yad.Net.Server {
+
+namespace Yad.Net.Common {
     public class PlayerInfo {
 
         public const int MaxTeamNo = 4;
@@ -10,14 +11,11 @@ namespace Yad.Net.Server {
         HouseType _house = DefaultHouseType;
         int _teamID; 
        
-        
-
         public HouseType House {
             get { return _house; }
             set { _house = value; }
         }
         
-
         public int TeamID {
             get { return _teamID; }
             set { _teamID = value; }

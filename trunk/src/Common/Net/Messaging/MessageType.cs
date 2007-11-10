@@ -41,22 +41,15 @@ namespace Yad.Net.Messaging.Common
         #endregion
 
         #region Game Choosing
-
-        /// <summary>
-        /// Message is sent when player enters join game room
-        /// </summary>
         ChooseGameEntry,
-
         /// <summary>
         /// Server response with public games list
         /// </summary>
         GamesList,
-
         /// <summary>
         /// Message with new public game data
         /// </summary>
         NewGame,
-
         /// <summary>
         /// Message with the information of deletion of public game 
         /// </summary>
