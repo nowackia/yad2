@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Engine.GameGraphics
+namespace Yad.Engine.GameGraphics.Client
 {
     class MapHolderException : Exception
     {

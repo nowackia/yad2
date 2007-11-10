@@ -9,7 +9,7 @@ using Yad.Board.Common;
 using Client.Properties;
 using Yad.Engine.GameGraphics.Client;
 
-namespace Client.Engine.GameGraphics {
+namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {
 		static int textureSize = 16;
         static Bitmap[] bmps = null;
