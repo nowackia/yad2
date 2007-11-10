@@ -25,7 +25,25 @@ namespace Yad.Board.Common {
 			get { return tiles; }
 		}
 
-		public static void LoadMap(String name) {
+		public static bool CheckConststency()
+		{
+			for (int i = 1; i < width - 1; i++)
+				for (int j = 1; j < height - 1; j++)
+					if ((tiles[i, j] == TileType.Mountain && (!CheckField(i - 1, j) || !CheckField(i + 1, j) || !CheckField(i, j - 1) || !CheckField(i, j + 1))))
+						return false;
+			return true;
+		}
+
+		private static bool CheckField(int x, int y)
+		{
+			if (tiles[x, y] == TileType.Mountain || tiles[x, y] == TileType.Rock)
+				return true;
+			else
+				return false;
+		}
+
+		public static void LoadMap(String name)
+		{
 			string c;
 			int len = -1;
 			List<byte[]> tempList = new List<byte[]>();
