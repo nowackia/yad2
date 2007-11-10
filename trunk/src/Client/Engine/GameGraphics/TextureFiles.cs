@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
+using Client.Properties;
 
 namespace Yad.Engine.GameGraphics.Client
 {
@@ -33,18 +34,17 @@ namespace Yad.Engine.GameGraphics.Client
         private static void initialTextureMap()
         {
             textureMap = new Dictionary<ETextures, string>();
-            textureMap[ETextures.Dunes] = "Dunes.png";
-            
-            textureMap[ETextures.Mountain] = "Mountain.png";
-            textureMap[ETextures.Rock] = "Rock.png";
-            textureMap[ETextures.RockDamage] = "RockDamage.png";
-            textureMap[ETextures.RockExt] = "RockExt.png";
-            textureMap[ETextures.Sand] = "Sand.png";
-			textureMap[ETextures.Hidden] = "Hidden.png";
-            textureMap[ETextures.SandDamage] = "SandDamage.png";
-            textureMap[ETextures.SandExt] = "SandExt.png";
-            textureMap[ETextures.Spice] = "Spice.png";
-            textureMap[ETextures.ThickSpice] = "ThickSpice.png";
+            textureMap[ETextures.Dunes] = Settings.Default.TextureDunes;
+            textureMap[ETextures.Mountain] = Settings.Default.TextureMountain;
+            textureMap[ETextures.Rock] = Settings.Default.TextureRock;
+            textureMap[ETextures.RockDamage] = Settings.Default.TextureRockDamage;
+            textureMap[ETextures.RockExt] = Settings.Default.TextureRockExt;
+            textureMap[ETextures.Sand] = Settings.Default.TextureSand;
+			textureMap[ETextures.Hidden] = Settings.Default.TextureHidden;
+            textureMap[ETextures.SandDamage] = Settings.Default.TextureSandDamage;
+            textureMap[ETextures.SandExt] = Settings.Default.TextureSandExt;
+            textureMap[ETextures.Spice] = Settings.Default.TextureSpice;
+            textureMap[ETextures.ThickSpice] = Settings.Default.TextureThickSpice;
         }
 
         public static int Count
