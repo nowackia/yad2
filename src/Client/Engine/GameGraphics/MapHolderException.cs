@@ -8,5 +8,6 @@ namespace Client.Engine.GameGraphics
     {
         public MapHolderException() { }
         public MapHolderException(Exception ex) : base(ex.Message, ex) { }
+		public MapHolderException(string s) : base(s) { }
     }
 }
