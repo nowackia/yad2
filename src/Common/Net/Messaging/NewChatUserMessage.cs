@@ -14,7 +14,7 @@ namespace Yad.Net.Messaging.Common
             set { _nick = value; }
         }
         /// <summary>
-        /// Userid to identyfikator uczestnika
+        /// PlayerId to identyfikator uczestnika
         /// </summary>
         public NewChatUserMessage(string nick, short id)
             : base(MessageType.NewChatUser)

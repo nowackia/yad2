@@ -24,7 +24,5 @@ namespace Yad.Net.Messaging.Common
             get { return text; }
             set { text = value; }
         }
-
-
     }
 }

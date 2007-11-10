@@ -93,9 +93,15 @@ namespace Client.Net
                 case MessageType.NewChatUser:
                     if (NewChatUsers != null)
                     {
-                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
+                        ChatUsersMessage chatUsersMessage = message as NewChatUserMessage;
                         NewChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
                     }
+                    break;
+
+                case MessageType.DeleteChatUser:
+                    break;
+
+                case MessageType.ChatText:
                     break;
 
                 default:
