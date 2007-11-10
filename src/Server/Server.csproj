@@ -54,6 +54,7 @@
     <Compile Include="Net\ServerMain.cs" />
     <Compile Include="Net\ServerMessageSender.cs" />
     <Compile Include="Net\ServerGameInfo.cs" />
+    <Compile Include="Net\ServerPlayerInfo.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
