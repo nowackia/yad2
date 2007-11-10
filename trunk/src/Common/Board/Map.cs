@@ -27,12 +27,17 @@ namespace Yad.Board.Common {
 
 		public static void LoadMap(String name) {
 			string c;
+			int len = -1;
 			List<byte[]> tempList = new List<byte[]>();
 			byte[] tempRow = null;
 
 			StreamReader sr = new StreamReader(name);
 			while (!sr.EndOfStream) {
 				c = sr.ReadLine();
+				if (len == -1)
+					len = c.Length;
+				else if (c.Length != len)
+					throw new Exception("Wrong map format");
 				tempRow = new byte[c.Length];
 				for (int i = 0; i < c.Length; i++) {
 					tempRow[i] = (byte)(c[i] - '0');
