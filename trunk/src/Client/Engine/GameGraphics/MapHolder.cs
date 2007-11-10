@@ -69,7 +69,7 @@ namespace Client.Engine.GameGraphics {
 				tileUpper = (ETextures)Map.Tiles[x, y-1];
 			else
 				tileUpper = ETextures.Whatever;
-			if (y < Map.Width-1)
+			if (y < Map.Height-1)
 				tileLower = (ETextures)Map.Tiles[x, y+1];
 			else
 				tileLower = ETextures.Whatever;
