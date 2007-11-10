@@ -21,6 +21,10 @@ namespace Yad.Net.Common
             set { name = value; }
         }
 
+        public ChatUser(int id)
+            : this(id, String.Empty)
+        { }
+
         public ChatUser(int id, string name)
         {
             this.id = id;

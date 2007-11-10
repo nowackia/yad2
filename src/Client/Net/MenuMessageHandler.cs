@@ -48,6 +48,7 @@ namespace Client.Net
         public event RequestReplyEventHandler LoginRequestReply;
         public event RequestReplyEventHandler RegisterRequestReply;
         public event RequestReplyEventHandler RemindRequestReply;
+        public event RequestReplyEventHandler PlayerInfoRequestReply;
 
         public event ChatEventHandler NewChatUsers;
         public event ChatEventHandler DeleteChatUsers;
@@ -99,14 +100,17 @@ namespace Client.Net
                 case MessageType.NewChatUser:
                     if (NewChatUsers != null)
                     {
-                        NewChatUserMessage chatUsersMessage = message as NewChatUserMessage;
-                        NewChatUsers(this, new ChatEventArgs(new ChatUser(chatUsersMessage.PlayerId, chatUsersMessage.Nick), string.Empty));
+                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
+                        NewChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
                     }
                     break;
 
                 case MessageType.DeleteChatUser:
-                    //if (DeleteChatUsers != null)
-                    //    DeleteChatUsers(this, new ChatEventArgs(this, string.Empty));
+                    if (DeleteChatUsers != null)
+                    {
+                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
+                        DeleteChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
+                    }
                     break;
 
                 case MessageType.ChatText:
@@ -117,7 +121,12 @@ namespace Client.Net
                     }
                     break;
 
-                //case MessageType.
+                /*case MessageType.PlayerInfo:
+                    if (PlayerInfoRequestReply != null)
+                    {
+
+                    }*/
+
 
                 default:
                     break;
