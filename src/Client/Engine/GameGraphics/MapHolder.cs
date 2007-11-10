@@ -111,6 +111,8 @@ namespace Yad.Engine.GameGraphics.Client {
         
         public static Bitmap GenerateBitmap()
         {
+			if (!Map.CheckConststency())
+				throw new MapHolderException("Map is inconsistent");
 			LoadTextures();
 	        Bitmap bmp = new Bitmap(Map.Width * textureSize, Map.Height * textureSize, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
