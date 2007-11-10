@@ -34,7 +34,6 @@ namespace Yad.Net.Messaging.Common
         ChatText,
    
         ChatEntry,
-        ChatExit,
 
         #endregion
 
@@ -64,7 +63,7 @@ namespace Yad.Net.Messaging.Common
 
         #region GameCreating
 
-        CreateGameMessage, 
+        CreateGame, 
         CreateGameSuccessful,
         CreateGameUnsuccessful,
 
@@ -101,7 +100,6 @@ namespace Yad.Net.Messaging.Common
 
         #region Client menu messages
         Logout,
-        GameCreate,
         #endregion
 
         #region Unknown messages
