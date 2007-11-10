@@ -45,7 +45,7 @@ namespace Client.UI
             menuMessageHandler.ResetChatUsers += new ChatEventHandler(menuMessageHandler_ResetChatUsers);
             menuMessageHandler.NewChatUsers += new ChatEventHandler(menuMessageHandler_AddChatUsers);
             //menuMessageHandler.DeleteChatUsers
-            //menuMessageHandler.ChatTextReceive
+            menuMessageHandler.ChatTextReceive += new ChatEventHandler(menuMessageHandler_ChatTextReceive);
 
             Connection.MessageHandler = menuMessageHandler;
             #endregion
@@ -96,18 +96,28 @@ namespace Client.UI
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, e.chatUsers, true });
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, true });
             else
-                ManageListBox(chatListChatMenu, e.chatUsers, true);
+                ManageListBox(userListChatMenu, e.chatUsers, true);
         }
 
         void menuMessageHandler_AddChatUsers(object sender, ChatEventArgs e)
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, e.chatUsers, false });
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, false });
             else
-                ManageListBox(chatListChatMenu, e.chatUsers, false);
+                ManageListBox(userListChatMenu, e.chatUsers, false);
+
+        }
+
+        void menuMessageHandler_ChatTextReceive(object sender, ChatEventArgs e)
+        {
+            InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, new object[] { e.text }, false });
+            else
+                ManageListBox(chatListChatMenu, new object[] { e.text }, false);
         }
         #endregion
 
@@ -133,13 +143,13 @@ namespace Client.UI
                 control[i].Enabled = state;
         }
 
-        public void ManageListBox(ListBox listBox, ChatUser[] users, bool reset)
+        public void ManageListBox(ListBox listBox, object[] objects, bool reset)
         {
             if (reset)
                 listBox.Items.Clear();
 
-            for (int i = 0; i < users.Length; i++)
-                listBox.Items.Add(users);
+            for (int i = 0; i < objects.Length; i++)
+                listBox.Items.Add(objects);
         }
         #endregion
 

@@ -23,8 +23,6 @@ namespace Yad.Net.Messaging.Common
             PlayerId = id;
         }
 
-
-
         public override void Serialize(System.IO.BinaryWriter writer)
         {
             base.Serialize(writer);
