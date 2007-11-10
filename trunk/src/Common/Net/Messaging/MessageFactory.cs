@@ -39,17 +39,22 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 case MessageType.ChatUsers:
-                    return new ChatUsersMessage();
+                    return new ChatUsersMessage(MessageType.ChatUsers);
+
+                case MessageType.NewChatUser:
+                    return new ChatUsersMessage(MessageType.NewChatUser);
 
                 case MessageType.DeleteChatUser:
-                    return new NumericMessage(MessageType.DeleteChatUser);
+                    return new ChatUsersMessage(MessageType.DeleteChatUser);
+
+                case MessageType.PlayerInfo:
+                    return new Message(MessageType.PlayerInfo);
 
                 case MessageType.LoginSuccessful:
                     return new Message(MessageType.LoginSuccessful);
 
                 case MessageType.Move:
                     return new MoveMessage();
-
 
                 case MessageType.GamesList:
                     return new GamesListMessage();

@@ -24,6 +24,7 @@ namespace Yad.Net.Messaging.Common
 
         #region Chat
 
+        ChatEntry,
         //wysyla aktualnych uzytkownikow czatu
         ChatUsers,
         //kasuje uzytkownika
@@ -32,8 +33,10 @@ namespace Yad.Net.Messaging.Common
         NewChatUser,
         //tresc 
         ChatText,
-   
-        ChatEntry,
+
+        PlayerInfo,
+        PlayerInfoSuccessful,
+        PlayerInfoUnsuccessful,
 
         #endregion
 
@@ -61,12 +64,10 @@ namespace Yad.Net.Messaging.Common
 
         #endregion
 
-        #region GameCreating
-
+        #region Game Creating
         CreateGame, 
         CreateGameSuccessful,
         CreateGameUnsuccessful,
-
         #endregion
 
         #region Game Joining

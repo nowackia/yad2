@@ -22,8 +22,8 @@ namespace Yad.Net.Messaging.Common {
             set { _chatUsers = value; }
         }
 
-        public ChatUsersMessage()
-            : base(MessageType.ChatUsers) {
+        public ChatUsersMessage(MessageType msgType)
+            : base(msgType) {
             _chatUsers = new List<ChatUser>();
         }
      
@@ -41,7 +41,6 @@ namespace Yad.Net.Messaging.Common {
             base.Deserialize(reader);
             int count = reader.ReadInt32();
             int id;
-            int length;
             string name;
             for (int i = 0; i < count; ++i) {
                 id = reader.ReadInt32();

@@ -58,6 +58,7 @@
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\Messaging\CreateGameMessage.cs" />
     <Compile Include="Net\Messaging\GamesListMessage.cs" />
+    <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
     <Compile Include="Net\Messaging\RegisterMessage.cs" />
     <Compile Include="Net\Messaging\ResultMessage.cs" />
     <Compile Include="Net\PlayerData.cs" />
@@ -86,7 +87,6 @@
     <Compile Include="Net\Messaging\MessageFactory.cs" />
     <Compile Include="Net\Messaging\MessageType.cs" />
     <Compile Include="Net\Messaging\MoveMessage.cs" />
-    <Compile Include="Net\Messaging\NewChatUserMessage.cs" />
     <Compile Include="Net\Messaging\NumericMessage.cs" />
     <Compile Include="Net\Messaging\TextMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
