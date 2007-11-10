@@ -12,6 +12,7 @@ using Client.Engine.GameGraphics;
 using Client.Board;
 using Yad.Board.Common;
 using Yad.Log.Common;
+using Yad.Engine.GameGraphics.Client;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
