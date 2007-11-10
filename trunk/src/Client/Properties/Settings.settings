@@ -53,5 +53,38 @@
     <Setting Name="PlayerName" Type="System.String" Scope="User">
       <Value Profile="(Default)">DunePlayer</Value>
     </Setting>
+    <Setting Name="TextureDunes" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Dunes.png</Value>
+    </Setting>
+    <Setting Name="TextureMountain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Mountain.png</Value>
+    </Setting>
+    <Setting Name="TextureRock" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Rock.png</Value>
+    </Setting>
+    <Setting Name="TextureRockDamage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RockDamage.png</Value>
+    </Setting>
+    <Setting Name="TextureRockExt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RockExt.png</Value>
+    </Setting>
+    <Setting Name="TextureSand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Sand.png</Value>
+    </Setting>
+    <Setting Name="TextureHidden" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Hidden.png</Value>
+    </Setting>
+    <Setting Name="TextureSandDamage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SandDamage.png</Value>
+    </Setting>
+    <Setting Name="TextureSandExt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SandExt.png</Value>
+    </Setting>
+    <Setting Name="TextureSpice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Spice.png</Value>
+    </Setting>
+    <Setting Name="TextureThickSpice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ThickSpice.png</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
