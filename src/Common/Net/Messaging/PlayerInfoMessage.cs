@@ -5,9 +5,13 @@ using Yad.Net.Common;
 
 namespace Yad.Net.Messaging.Common
 {
-    class PlayerInfoMessage : Message
+    public class PlayerInfoMessage : Message
     {
         private PlayerData playerData;
+
+        public PlayerInfoMessage(MessageType msgType)
+            : base(msgType)
+        { }
 
         public PlayerData PlayerData
         {

@@ -53,11 +53,35 @@ namespace Yad.Net.Messaging.Common {
                 case MessageType.LoginSuccessful:
                     return new Message(MessageType.LoginSuccessful);
 
-                case MessageType.Move:
-                    return new MoveMessage();
+                case MessageType.PlayerInfoSuccessful:
+                    return new PlayerInfoMessage(MessageType.PlayerInfoSuccessful);
+
+                case MessageType.PlayerInfoUnsuccessful:
+                    return new Message(MessageType.PlayerInfoUnsuccessful);
+
+                case MessageType.PlayersList:
+                    return new PlayersListMessage(MessageType.PlayersList);
+
+                case MessageType.NewPlayer:
+                    return new PlayersListMessage(MessageType.NewPlayer);
+
+                case MessageType.DeletePlayer:
+                    return new PlayersListMessage(MessageType.DeletePlayer);
+
+                case MessageType.UpdatePlayer:
+                    return new PlayersListMessage(MessageType.UpdatePlayer);
+
+                case MessageType.NewGame:
+                    return new GamesListMessage(MessageType.NewGame);
+
+                case MessageType.DeleteGame:
+                    return new GamesListMessage(MessageType.DeleteGame);
 
                 case MessageType.GamesList:
-                    return new GamesListMessage();
+                    return new GamesListMessage(MessageType.GamesList);
+
+                case MessageType.Move:
+                    return new MoveMessage();
 
                 #region Unknown messages
                 case MessageType.Unknown:

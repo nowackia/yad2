@@ -75,12 +75,7 @@ namespace Client.UI
             this.backChatMenu = new System.Windows.Forms.Button();
             this.gameChatMenu = new System.Windows.Forms.Button();
             this.infoMenu = new System.Windows.Forms.TabPage();
-            this.looseValueInfoMenu = new System.Windows.Forms.Label();
-            this.wonValueInfoMenu = new System.Windows.Forms.Label();
-            this.loginValueInfoMenu = new System.Windows.Forms.Label();
-            this.lossLInfoMenu = new System.Windows.Forms.Label();
-            this.winLInfoMenu = new System.Windows.Forms.Label();
-            this.loginLInfoMenu = new System.Windows.Forms.Label();
+            this.playerInfoLInfoMenu = new System.Windows.Forms.Label();
             this.backInfoMenu = new System.Windows.Forms.Button();
             this.chooseGameMenu = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -649,12 +644,7 @@ namespace Client.UI
             // 
             // infoMenu
             // 
-            this.infoMenu.Controls.Add(this.looseValueInfoMenu);
-            this.infoMenu.Controls.Add(this.wonValueInfoMenu);
-            this.infoMenu.Controls.Add(this.loginValueInfoMenu);
-            this.infoMenu.Controls.Add(this.lossLInfoMenu);
-            this.infoMenu.Controls.Add(this.winLInfoMenu);
-            this.infoMenu.Controls.Add(this.loginLInfoMenu);
+            this.infoMenu.Controls.Add(this.playerInfoLInfoMenu);
             this.infoMenu.Controls.Add(this.backInfoMenu);
             this.infoMenu.Location = new System.Drawing.Point(4, 4);
             this.infoMenu.Name = "infoMenu";
@@ -664,59 +654,14 @@ namespace Client.UI
             this.infoMenu.Text = "InfoMenu";
             this.infoMenu.UseVisualStyleBackColor = true;
             // 
-            // looseValueInfoMenu
+            // playerInfoLInfoMenu
             // 
-            this.looseValueInfoMenu.AutoSize = true;
-            this.looseValueInfoMenu.Location = new System.Drawing.Point(263, 141);
-            this.looseValueInfoMenu.Name = "looseValueInfoMenu";
-            this.looseValueInfoMenu.Size = new System.Drawing.Size(13, 13);
-            this.looseValueInfoMenu.TabIndex = 6;
-            this.looseValueInfoMenu.Text = "2";
-            // 
-            // wonValueInfoMenu
-            // 
-            this.wonValueInfoMenu.AutoSize = true;
-            this.wonValueInfoMenu.Location = new System.Drawing.Point(263, 114);
-            this.wonValueInfoMenu.Name = "wonValueInfoMenu";
-            this.wonValueInfoMenu.Size = new System.Drawing.Size(25, 13);
-            this.wonValueInfoMenu.TabIndex = 5;
-            this.wonValueInfoMenu.Text = "666";
-            // 
-            // loginValueInfoMenu
-            // 
-            this.loginValueInfoMenu.AutoSize = true;
-            this.loginValueInfoMenu.Location = new System.Drawing.Point(263, 86);
-            this.loginValueInfoMenu.Name = "loginValueInfoMenu";
-            this.loginValueInfoMenu.Size = new System.Drawing.Size(38, 13);
-            this.loginValueInfoMenu.TabIndex = 4;
-            this.loginValueInfoMenu.Text = "Golota";
-            // 
-            // lossLInfoMenu
-            // 
-            this.lossLInfoMenu.AutoSize = true;
-            this.lossLInfoMenu.Location = new System.Drawing.Point(164, 141);
-            this.lossLInfoMenu.Name = "lossLInfoMenu";
-            this.lossLInfoMenu.Size = new System.Drawing.Size(29, 13);
-            this.lossLInfoMenu.TabIndex = 3;
-            this.lossLInfoMenu.Text = "Loss";
-            // 
-            // winLInfoMenu
-            // 
-            this.winLInfoMenu.AutoSize = true;
-            this.winLInfoMenu.Location = new System.Drawing.Point(164, 114);
-            this.winLInfoMenu.Name = "winLInfoMenu";
-            this.winLInfoMenu.Size = new System.Drawing.Size(26, 13);
-            this.winLInfoMenu.TabIndex = 2;
-            this.winLInfoMenu.Text = "Win";
-            // 
-            // loginLInfoMenu
-            // 
-            this.loginLInfoMenu.AutoSize = true;
-            this.loginLInfoMenu.Location = new System.Drawing.Point(164, 86);
-            this.loginLInfoMenu.Name = "loginLInfoMenu";
-            this.loginLInfoMenu.Size = new System.Drawing.Size(33, 13);
-            this.loginLInfoMenu.TabIndex = 1;
-            this.loginLInfoMenu.Text = "Login";
+            this.playerInfoLInfoMenu.AutoSize = true;
+            this.playerInfoLInfoMenu.Location = new System.Drawing.Point(164, 86);
+            this.playerInfoLInfoMenu.Name = "playerInfoLInfoMenu";
+            this.playerInfoLInfoMenu.Size = new System.Drawing.Size(57, 13);
+            this.playerInfoLInfoMenu.TabIndex = 1;
+            this.playerInfoLInfoMenu.Text = "Player Info";
             // 
             // backInfoMenu
             // 
@@ -1329,12 +1274,7 @@ namespace Client.UI
         private System.Windows.Forms.ListBox userListChatMenu;
         private System.Windows.Forms.Button haxxx;
         private System.Windows.Forms.Button backInfoMenu;
-        private System.Windows.Forms.Label loginValueInfoMenu;
-        private System.Windows.Forms.Label lossLInfoMenu;
-        private System.Windows.Forms.Label winLInfoMenu;
-        private System.Windows.Forms.Label loginLInfoMenu;
-        private System.Windows.Forms.Label looseValueInfoMenu;
-        private System.Windows.Forms.Label wonValueInfoMenu;
+        private System.Windows.Forms.Label playerInfoLInfoMenu;
         private System.Windows.Forms.ListBox listOfGames;
         private System.Windows.Forms.Button createChooseGameMenu;
         private System.Windows.Forms.Button joinChooseGameMenu;

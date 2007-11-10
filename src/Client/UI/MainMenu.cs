@@ -46,6 +46,7 @@ namespace Client.UI
             menuMessageHandler.NewChatUsers += new ChatEventHandler(menuMessageHandler_AddChatUsers);
             menuMessageHandler.DeleteChatUsers += new ChatEventHandler(menuMessageHandler_DeleteChatUsers);
             menuMessageHandler.ChatTextReceive += new ChatEventHandler(menuMessageHandler_ChatTextReceive);
+            menuMessageHandler.PlayerInfoRequestReply += new RequestReplyEventHandler(menuMessageHandler_PlayerInfoRequestReply);
 
             Connection.MessageHandler = menuMessageHandler;
             #endregion
@@ -122,6 +123,20 @@ namespace Client.UI
 
         void menuMessageHandler_DeleteChatUsers(object sender, ChatEventArgs e)
         {
+            InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { userListChatMenu, e.chatUsers });
+            else
+                RemoveListBox(chatListChatMenu, e.chatUsers);
+        }
+
+        void menuMessageHandler_PlayerInfoRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Player Info Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageControlEventHandler(ManageControl), new object[] { userListChatMenu, e.reason });
+            else
+                ManageControl(chatListChatMenu, e.reason);
         }
         #endregion
 
@@ -160,6 +175,11 @@ namespace Client.UI
         {
             for (int i = 0; i < objects.Length; i++)
                 listBox.Items.Remove(objects);
+        }
+
+        public void ManageControl(Control control, string text)
+        {
+            control.Text = text;
         }
         #endregion
 

@@ -8,15 +8,17 @@ namespace Client.Net
 {
     public delegate void RequestReplyEventHandler(object sender, RequestReplyEventArgs e);
     public delegate void ChatEventHandler(object sender, ChatEventArgs e);
+    public delegate void GamesEventHandler(object sender, GameEventArgs e);
+    public delegate void PlayersEventHandler(object sender, PlayerEventArgs e);
 
     public class RequestReplyEventArgs : EventArgs
     {
-        public bool isSuccessful;
+        public bool successful;
         public string reason;
 
-        public RequestReplyEventArgs(bool isSuccessful, string reason)
+        public RequestReplyEventArgs(bool successful, string reason)
         {
-            this.isSuccessful = isSuccessful;
+            this.successful = successful;
             this.reason = reason;
         }
     }
@@ -43,6 +45,48 @@ namespace Client.Net
         }
     }
 
+    public class GameEventArgs : EventArgs
+    {
+        public GameInfo[] games;
+        public string text;
+
+        public GameEventArgs(GameInfo game, string text)
+            : this(new GameInfo[] { game }, text)
+        { }
+
+        public GameEventArgs(GameInfo[] games, string text)
+        {
+            this.games = games;
+            this.text = text;
+        }
+    }
+
+    public class PlayerEventArgs : EventArgs
+    {
+        public PlayerInfo[] players;
+        public string text;
+        public bool update;
+
+        public PlayerEventArgs(PlayerInfo player, string text)
+            : this(player, text, false)
+        { }
+
+        public PlayerEventArgs(PlayerInfo[] players, string text)
+            : this(players, text, false)
+        { }
+
+        public PlayerEventArgs(PlayerInfo player, string text, bool update)
+            : this(new PlayerInfo[] { player }, text, update)
+        { }
+
+        public PlayerEventArgs(PlayerInfo[] players, string text, bool update)
+        {
+            this.players = players;
+            this.text = text;
+            this.update = update;
+        }
+    }
+
     public class MenuMessageHandler : IMessageHandler
     {
         public event RequestReplyEventHandler LoginRequestReply;
@@ -55,6 +99,15 @@ namespace Client.Net
         public event ChatEventHandler ResetChatUsers;
         public event ChatEventHandler ChatTextReceive;
 
+        public event GamesEventHandler NewGamesInfo;
+        public event GamesEventHandler DeleteGamesInfo;
+        public event GamesEventHandler ResetGamesInfo;
+
+        public event PlayersEventHandler NewPlayers;
+        public event PlayersEventHandler DeletePlayers;
+        public event PlayersEventHandler UpdatePlayers;
+        public event PlayersEventHandler ResetPlayers;
+
         public void ProcessMessage(Message message)
         {
             switch (message.Type)
@@ -66,7 +119,7 @@ namespace Client.Net
 
                 case MessageType.LoginUnsuccessful:
                     if (LoginRequestReply != null)
-                        LoginRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
+                        LoginRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
                     break;
 
                 case MessageType.RegisterSuccessful:
@@ -76,7 +129,7 @@ namespace Client.Net
 
                 case MessageType.RegisterUnsuccessful:
                     if (RegisterRequestReply != null)
-                        RegisterRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
+                        RegisterRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
                     break;
 
                 case MessageType.RemindSuccessful:
@@ -86,7 +139,7 @@ namespace Client.Net
 
                 case MessageType.RemindUnsuccessful:
                     if (RemindRequestReply != null)
-                        RemindRequestReply(this, new RequestReplyEventArgs(true, ((TextMessage)message).Text));
+                        RemindRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
                     break;
 
                 case MessageType.ChatUsers:
@@ -121,12 +174,75 @@ namespace Client.Net
                     }
                     break;
 
-                /*case MessageType.PlayerInfo:
+                case MessageType.PlayerInfoSuccessful:
                     if (PlayerInfoRequestReply != null)
                     {
+                        PlayerData playerData = ((PlayerInfoMessage)message).PlayerData;
+                        string info = "Login: " + playerData.Login + Environment.NewLine + "Wins: " + playerData.WinNo + Environment.NewLine + "Losses: " + playerData.LossNo;
+                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, info));
+                    }
+                    break;
 
-                    }*/
+                case MessageType.PlayerInfoUnsuccessful:
+                    if (PlayerInfoRequestReply != null)
+                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, "Error gatting player data"));
+                    break;
 
+                case MessageType.NewGame:
+                    if(NewGamesInfo != null)
+                    {
+                        GamesListMessage gamesList = message as GamesListMessage;
+                        NewGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.DeleteGame:
+                    if(DeleteGamesInfo != null)
+                    {
+                        GamesListMessage gamesList = message as GamesListMessage;
+                        DeleteGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.GamesList:
+                    if(ResetGamesInfo != null)
+                    {
+                        GamesListMessage gamesList = message as GamesListMessage;
+                        ResetGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.PlayersList:
+                    if (ResetPlayers != null)
+                    {
+                        PlayersListMessage playersList = message as PlayersListMessage;
+                        ResetPlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.NewPlayer:
+                    if (NewPlayers != null)
+                    {
+                        PlayersListMessage playersList = message as PlayersListMessage;
+                        NewPlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.DeletePlayer:
+                    if (DeletePlayers != null)
+                    {
+                        PlayersListMessage playersList = message as PlayersListMessage;
+                        DeletePlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
+                    }
+                    break;
+
+                case MessageType.UpdatePlayer:
+                    if (UpdatePlayers != null)
+                    {
+                        PlayersListMessage playersList = message as PlayersListMessage;
+                        UpdatePlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty, true));
+                    }
+                    break;
 
                 default:
                     break;
