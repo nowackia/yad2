@@ -281,6 +281,31 @@ namespace Client.UI
             OnMenuOptionChange(MenuOption.Back);
         }
 
+        private void sendChatMenu_Click(object sender, EventArgs e)
+        {
+            TextMessage chatTextMessage = (TextMessage)MessageFactory.Create(MessageType.ChatText);
+            //TODO: (AN) safe player id
+            chatTextMessage.PlayerId = 4;
+            chatTextMessage.Text = chatInputTBChatMenu.Text;
+
+            Connection.SendMessage(chatTextMessage);
+        }
+
+
+        private void userListChatMenu_DoubleClick(object sender, EventArgs e)
+        {
+            ListBox listBox = sender as ListBox;
+
+            int index = listBox.IndexFromPoint(((MouseEventArgs)e).Location);
+            if (index != -1)
+            {
+                ChatUser chatUser = listBox.Items[index] as ChatUser;
+
+                MessageBox.Show(chatUser.Id + " " + chatUser.Name);
+                //TODO: (AN) Sending PlayerInfoMessage
+            }
+        }
+
         private void gameChatMenu_Click(object sender, EventArgs e)
         {
             OnMenuOptionChange(MenuOption.Game);

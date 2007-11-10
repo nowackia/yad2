@@ -68,6 +68,7 @@ namespace Client.UI
             this.registerRegisterMenu = new System.Windows.Forms.Button();
             this.backRegisterMenu = new System.Windows.Forms.Button();
             this.chatMenu = new System.Windows.Forms.TabPage();
+            this.sendChatMenu = new System.Windows.Forms.Button();
             this.userListChatMenu = new System.Windows.Forms.ListBox();
             this.chatListChatMenu = new System.Windows.Forms.ListBox();
             this.chatInputTBChatMenu = new System.Windows.Forms.TextBox();
@@ -578,6 +579,7 @@ namespace Client.UI
             // 
             // chatMenu
             // 
+            this.chatMenu.Controls.Add(this.sendChatMenu);
             this.chatMenu.Controls.Add(this.userListChatMenu);
             this.chatMenu.Controls.Add(this.chatListChatMenu);
             this.chatMenu.Controls.Add(this.chatInputTBChatMenu);
@@ -591,13 +593,24 @@ namespace Client.UI
             this.chatMenu.Text = "ChatMenu";
             this.chatMenu.UseVisualStyleBackColor = true;
             // 
+            // sendChatMenu
+            // 
+            this.sendChatMenu.Location = new System.Drawing.Point(388, 252);
+            this.sendChatMenu.Name = "sendChatMenu";
+            this.sendChatMenu.Size = new System.Drawing.Size(116, 23);
+            this.sendChatMenu.TabIndex = 5;
+            this.sendChatMenu.Text = "Send";
+            this.sendChatMenu.UseVisualStyleBackColor = true;
+            this.sendChatMenu.Click += new System.EventHandler(this.sendChatMenu_Click);
+            // 
             // userListChatMenu
             // 
             this.userListChatMenu.FormattingEnabled = true;
-            this.userListChatMenu.Location = new System.Drawing.Point(404, 57);
+            this.userListChatMenu.Location = new System.Drawing.Point(388, 57);
             this.userListChatMenu.Name = "userListChatMenu";
-            this.userListChatMenu.Size = new System.Drawing.Size(89, 186);
+            this.userListChatMenu.Size = new System.Drawing.Size(116, 186);
             this.userListChatMenu.TabIndex = 4;
+            this.userListChatMenu.DoubleClick += new System.EventHandler(this.userListChatMenu_DoubleClick);
             // 
             // chatListChatMenu
             // 
@@ -616,9 +629,9 @@ namespace Client.UI
             // 
             // backChatMenu
             // 
-            this.backChatMenu.Location = new System.Drawing.Point(404, 255);
+            this.backChatMenu.Location = new System.Drawing.Point(388, 281);
             this.backChatMenu.Name = "backChatMenu";
-            this.backChatMenu.Size = new System.Drawing.Size(89, 23);
+            this.backChatMenu.Size = new System.Drawing.Size(116, 23);
             this.backChatMenu.TabIndex = 1;
             this.backChatMenu.Text = "Back";
             this.backChatMenu.UseVisualStyleBackColor = true;
@@ -626,7 +639,7 @@ namespace Client.UI
             // 
             // gameChatMenu
             // 
-            this.gameChatMenu.Location = new System.Drawing.Point(169, 28);
+            this.gameChatMenu.Location = new System.Drawing.Point(35, 17);
             this.gameChatMenu.Name = "gameChatMenu";
             this.gameChatMenu.Size = new System.Drawing.Size(75, 23);
             this.gameChatMenu.TabIndex = 0;
@@ -1353,5 +1366,6 @@ namespace Client.UI
         private Panel panel2;
         private GroupBox groupBox3;
         private GroupBox groupBoxServer;
+        private Button sendChatMenu;
     }
 }

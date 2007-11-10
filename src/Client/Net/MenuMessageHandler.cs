@@ -26,6 +26,12 @@ namespace Client.Net
         public ChatUser[] chatUsers;
         public string text;
 
+        public ChatEventArgs(string text)
+        {
+            chatUsers = null;
+            this.text = text;
+        }
+
         public ChatEventArgs(ChatUser chatUser, string text)
             : this(new ChatUser[] { chatUser }, text)
         { }
@@ -99,11 +105,19 @@ namespace Client.Net
                     break;
 
                 case MessageType.DeleteChatUser:
+                    //if (DeleteChatUsers != null)
+                    //    DeleteChatUsers(this, new ChatEventArgs(this, string.Empty));
                     break;
 
                 case MessageType.ChatText:
-
+                    if (ChatTextReceive != null)
+                    {
+                        TextMessage textMessage = message as TextMessage;
+                        ChatTextReceive(this, new ChatEventArgs(textMessage.PlayerId + " " + textMessage.Text));
+                    }
                     break;
+
+                //case MessageType.
 
                 default:
                     break;

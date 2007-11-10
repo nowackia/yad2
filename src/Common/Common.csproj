@@ -57,6 +57,7 @@
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\Messaging\GamesListMessage.cs" />
     <Compile Include="Net\Messaging\RegisterMessage.cs" />
+    <Compile Include="Net\PlayerData.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="Utils\Randomizer.cs" />
     <Compile Include="Engine\Simulation\IOnGameMessage.cs" />
