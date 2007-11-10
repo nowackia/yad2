@@ -11,7 +11,7 @@ namespace Client.UI {
 
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ControlStateEventHandler(Control[] option, bool state);
-    public delegate void ManageListBoxEventHandler(ListBox listBox, ChatUser[] users, bool reset);
+    public delegate void ManageListBoxEventHandler(ListBox listBox, object[] objects, bool reset);
 
     public class UIManager {
         Views actualView;

@@ -93,8 +93,8 @@ namespace Client.Net
                 case MessageType.NewChatUser:
                     if (NewChatUsers != null)
                     {
-                        ChatUsersMessage chatUsersMessage = message as NewChatUserMessage;
-                        NewChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
+                        NewChatUserMessage chatUsersMessage = message as NewChatUserMessage;
+                        NewChatUsers(this, new ChatEventArgs(new ChatUser(chatUsersMessage.PlayerId, chatUsersMessage.Nick), string.Empty));
                     }
                     break;
 
@@ -102,6 +102,7 @@ namespace Client.Net
                     break;
 
                 case MessageType.ChatText:
+
                     break;
 
                 default:

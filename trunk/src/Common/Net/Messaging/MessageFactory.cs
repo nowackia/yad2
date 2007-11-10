@@ -22,9 +22,6 @@ namespace Yad.Net.Messaging.Common {
                 case MessageType.ChatEntry:
                     return new Message(MessageType.ChatEntry);
 
-                case MessageType.ChatExit:
-                    return new Message(MessageType.ChatExit);
-
                 case MessageType.ChatText:
                     return new TextMessage(MessageType.ChatText);
 
@@ -39,9 +36,6 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.Logout:
                     return new Message(MessageType.Logout);
-
-                case MessageType.GameCreate:
-                    return new Message(MessageType.GameCreate);
                 #endregion
 
                 case MessageType.ChatUsers:
