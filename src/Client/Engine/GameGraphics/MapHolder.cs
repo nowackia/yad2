@@ -125,7 +125,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			Graphics g = Graphics.FromImage(bmp);
 			for (int y = 0; y < Map.Height; y++) {
 				for (int x = 0; x < Map.Width; x++) {
-					g.DrawImage(bmps[(int)Map.Tiles[x, y]],new Rectangle(textureSize*x,textureSize*y, textureSize,textureSize), new Rectangle (textureSize*FindFrame(x, y),0,textureSize,textureSize),GraphicsUnit.Pixel);
+					g.DrawImage(bmps[(int)Map.Tiles[x, y]], new Rectangle(textureSize * x, textureSize * y, textureSize, textureSize), new Rectangle(bmps[(int)Map.Tiles[x, y]].Height * FindFrame(x, y), 0, bmps[(int)Map.Tiles[x, y]].Height-1, bmps[(int)Map.Tiles[x, y]].Height-1), GraphicsUnit.Pixel);
 				}
 			}
 			return bmp;
