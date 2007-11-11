@@ -46,8 +46,6 @@ namespace Client.UI {
 			GameGraphics.InitGL();
 			GameGraphics.InitTextures();
 
-			this.panelUIControl.BackgroundImage = MapTextureGenerator.GenerateBitmap();
-
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
 			GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
