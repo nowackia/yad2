@@ -7,6 +7,9 @@ using System.Runtime.CompilerServices;
 using Yad.Log.Common;
 
 namespace Yad.Engine.Common {
+
+	public delegate void SimulationHandler();
+
 	public abstract class Simulation {
 		/*
 		/// <summary>
@@ -15,12 +18,18 @@ namespace Yad.Engine.Common {
 		Semaphore pauseSem = new Semaphore(1, 1);
 		bool pause = false;
 		*/
+		public event SimulationHandler onTurnEnd;
+		public event SimulationHandler onTurnBegin;
 
 		/// <summary>
-		/// Increased on DoTurn();
-		/// 2 * delta + 1 - maybe less?
+		/// this messages are processed by ProcessTurns
 		/// </summary>
-		Semaphore turnsToDo = new Semaphore(0, 2 * delta + 1);
+		List<GameMessage> currentMessages = new List<GameMessage>();
+
+		/// <summary>
+		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
+		/// </summary>
+		Semaphore allowTurn = new Semaphore(1, 1);
 
 		/// <summary>
 		/// When server sends MessageTurn it can state that the client needs to speed up a little bit ;p
@@ -29,11 +38,18 @@ namespace Yad.Engine.Common {
 		Object speedUpLocker = new Object();
 
 		public static int delta = 3;
+		public static int turnLength = 200; //ms
+		private static int transmissionDelay = 5; //ms
+
+		public int Delta {
+			get { return delta; }
+		}
 
 		/// <summary>
 		/// Current turnNumber
 		/// </summary>
 		int currentTurn = 0;
+		int turnsToSpeed = delta;
 
 		Thread turnProcessor = null;
 
@@ -47,44 +63,52 @@ namespace Yad.Engine.Common {
 		public Simulation() {
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;
+
+			for (int i = 0; i < 2 * delta; i++) {
+				this.turns[i] = new List<GameMessage>();
+			}
+
 		}
 
 		public void AddGameMessage(GameMessage gameMessage) {
+			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
 			lock (turns.SyncRoot) {
-				this.turns[gameMessage.IdTurn - this.CurrentTurn].Add(gameMessage);
+				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
+				this.turns[gameMessage.IdTurn - (this.CurrentTurn + 1)].Add(gameMessage);
 			}
 		}
 
+		/// <summary>
+		/// This function should be called ONLY after ProcessTurns completes one turn
+		/// and sends a message to the server asking for a next turn
+		/// </summary>
 		public void DoTurn() {
 			InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
-			try {
-				turnsToDo.Release();
-			} catch (SemaphoreFullException) {
-				InfoLog.WriteInfo("too many DoTurn()!", EPrefix.SimulationInfo);
+			lock (turns.SyncRoot) {
+				currentMessages = ShiftTurns();
+				currentTurn++;
+				allowTurn.Release();
 			}
 		}
 
-		private void ShiftTurns() {
+		private List<GameMessage> ShiftTurns() {
+			List<GameMessage> res = turns[0];
 			int i;
 			for (i = 0; i < turns.Length - 1; i++) {
 				turns[i] = turns[i + 1];
 			}
 			turns[i] = new List<GameMessage>();
+			return res;
 		}
 
 		private void ProcessTurns() {
 			List<GameMessage> messages;
 			List<GameMessage>.Enumerator messagesEnum;
 			while (true) {
-				turnsToDo.WaitOne(); //wait for MessageTurn
+				allowTurn.WaitOne(); //wait for MessageTurn
+				int turnStart = Environment.TickCount;
 
-				//get current turn
-				lock (turns.SyncRoot) {
-					messages = this.turns[0];
-					ShiftTurns();
-					currentTurn++;
-				}
-
+				messages = currentMessages;
 				messagesEnum = messages.GetEnumerator();
 				while (messagesEnum.MoveNext()) {
 					GameMessage gm = messagesEnum.Current;
@@ -104,11 +128,33 @@ namespace Yad.Engine.Common {
 						throw new NotImplementedException("This message type is not supported! Refer to Simulation.cs");
 					}
 				}
+
+				if (!this.SpeedUp) {
+					int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
+					if (remainingTime > 0)
+						Thread.Sleep(remainingTime);
+				}
+
+				this.turnsToSpeed--;
+				if (turnsToSpeed == 0) {
+					SpeedUp = false;
+				}
+
+				if (this.onTurnEnd != null) {
+					this.onTurnEnd();
+				}
+
+				//TODO:
+				//Send server a message asking for a new turn
 			}
 		}
 
 		public int CurrentTurn {
-			get { return currentTurn; }
+			get {
+				lock (turns.SyncRoot) {
+					return currentTurn;
+				}
+			}
 		}
 
 		public bool SpeedUp {
@@ -131,25 +177,6 @@ namespace Yad.Engine.Common {
 		public void AbortSimulation() {
 			this.turnProcessor.Abort();
 		}
-
-		/*
-		public void PauseSimulation() {
-			InfoLog.WriteInfo("Pausing...", EPrefix.SimulationInfo);
-			lock (pauseSem) {
-				pause = true;
-			}
-		}
-
-		public void ResumeSimulation() {
-			InfoLog.WriteInfo("Resuming...", EPrefix.SimulationInfo);
-			lock (pauseSem) {
-				if (pause == false) return;
-
-				pause = false;
-					pauseSem.Release();
-			}
-		}
-		 */
 
 		protected abstract void OnMessageBuild(BuildMessage bm);
 		protected abstract void onMessageMove(MoveMessage gm);
