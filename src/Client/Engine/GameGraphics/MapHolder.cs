@@ -54,7 +54,7 @@ namespace Yad.Engine.GameGraphics.Client {
 		private static int FindFrame(int x, int y)
 		{
 			int result;
-			if(x < 0 || y < 0 || x>Map.Width || y> Map.Width)
+			if(x < 0 || y < 0 || x>Map.Width || y> Map.Height)
 				throw new MapHolderException("Incorrect map position");
 			ETextures tileLeft, tileRight, tileUpper, tileLower;
 			if (x > 0)
