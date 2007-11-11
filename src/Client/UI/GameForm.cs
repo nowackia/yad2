@@ -15,6 +15,7 @@ using Yad.Log.Common;
 using Yad.Config.XMLLoader.Common;
 using Yad.Config.Common;
 using Yad.Board.Common;
+using Yad.Engine.GameGraphics.Client;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -44,6 +45,8 @@ namespace Client.UI {
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 			GameGraphics.InitGL();
 			GameGraphics.InitTextures();
+
+			this.panelUIControl.BackgroundImage = MapTextureGenerator.GenerateBitmap();
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 

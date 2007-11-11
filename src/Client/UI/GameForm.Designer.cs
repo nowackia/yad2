@@ -206,7 +206,7 @@ namespace Client.UI
 			this.openGLView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseUp);
 			this.openGLView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLView_KeyDown);
 			// 
-			// MainForm
+			// GameForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -229,7 +229,7 @@ namespace Client.UI
 			this.DoubleBuffered = true;
 			this.MaximizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(800, 600);
-			this.Name = "MainForm";
+			this.Name = "GameForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "YAD2 Client";
 			this.ResumeLayout(false);
