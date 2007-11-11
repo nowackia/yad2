@@ -19,7 +19,6 @@ namespace Yad.Log.Common
         /// </summary>
         [Description(" #MENU: ")]
         Menu,
-
         [Description(" #GRF: ")]
 		GameGraphics,
         [Description(" #FIN:")]
@@ -33,7 +32,9 @@ namespace Yad.Log.Common
         [Description(" #MSG_RCV: ")]
         MessageReceivedInfo,
         [Description(" #SEND_MSG_INFO: ")]
-        ServerSendMessageInfo
+        ServerSendMessageInfo,
+		[Description(" #SIM: ")]
+		SimulationInfo
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES

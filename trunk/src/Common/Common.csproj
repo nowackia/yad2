@@ -66,8 +66,7 @@
     <Compile Include="Net\PlayerInfo.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="Utils\Randomizer.cs" />
-    <Compile Include="Engine\Simulation\IOnGameMessage.cs" />
-    <Compile Include="Engine\Simulation\Simulation.cs" />
+    <Compile Include="Engine\Simulation.cs" />
     <Compile Include="Log\InfoLog.cs" />
     <Compile Include="Log\InfoLogPrefix.cs" />
     <Compile Include="Log\MultiStream.cs" />
