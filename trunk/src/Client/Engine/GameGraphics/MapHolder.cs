@@ -99,13 +99,20 @@ namespace Yad.Engine.GameGraphics.Client {
 
         private static void LoadTextures()
         {
-            if (bmps !=null)
-                return;
-            bmps = new Bitmap[TextureFiles.Count];
-            for (int i = 0; i < TextureFiles.Count; i++)
-            {
-                bmps[i] = new Bitmap(Path.Combine(Path.GetFullPath(Settings.Default.Terrain), TextureFiles.getFileName((ETextures)i)));
-            }
+			try
+			{
+				if (bmps != null)
+					return;
+				bmps = new Bitmap[TextureFiles.Count];
+				for (int i = 0; i < TextureFiles.Count; i++)
+				{
+					bmps[i] = new Bitmap(Path.Combine(Path.GetFullPath(Settings.Default.Terrain), TextureFiles.getFileName((ETextures)i)));
+				}
+			}
+			catch (Exception e)
+			{
+				throw new MapHolderException(e);
+			}
          }
 
         
