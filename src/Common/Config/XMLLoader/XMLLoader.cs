@@ -29,7 +29,6 @@ namespace Yad.Config.XMLLoader.Common {
 		}
 
 		private static void GameSettingsInitializer(GameSettings gameSettings) {
-			short id = 1;
 
 			foreach (AmmoData ad in gameSettings.AmmosData.AmmoDataCollection) {
 				ad.TypeID = GetTypeID();
