@@ -31,8 +31,11 @@ namespace Yad.Net.Messaging.Common {
                 case MessageType.JoinGameEntry:
                     return new TextMessage(MessageType.JoinGameEntry);
 
-                case MessageType.JoinGameExit:
-                    return new Message(MessageType.JoinGameExit);
+                case MessageType.JoinGameSuccessful:
+                    return new Message(MessageType.JoinGameSuccessful);
+
+                case MessageType.JoinGameUnsuccessful:
+                    return new TextMessage(MessageType.JoinGameUnsuccessful);
 
                 case MessageType.Logout:
                     return new Message(MessageType.Logout);
@@ -52,6 +55,9 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.LoginSuccessful:
                     return new Message(MessageType.LoginSuccessful);
+
+                case MessageType.LoginUnsuccessful:
+                    return new TextMessage(MessageType.LoginUnsuccessful);
 
                 case MessageType.PlayerInfoSuccessful:
                     return new PlayerInfoMessage(MessageType.PlayerInfoSuccessful);
@@ -79,6 +85,15 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.GamesList:
                     return new GamesListMessage(MessageType.GamesList);
+
+                case MessageType.StartGame:
+                    return new TextMessage(MessageType.StartGame);
+
+                case MessageType.StartGameSuccessful:
+                    return new Message(MessageType.StartGameSuccessful);
+
+                case MessageType.StartGameUnsuccessful:
+                    return new TextMessage(MessageType.StartGameUnsuccessful);
 
                 case MessageType.Move:
                     return new MoveMessage();

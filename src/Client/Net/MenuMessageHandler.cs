@@ -93,6 +93,8 @@ namespace Client.Net
         public event RequestReplyEventHandler RegisterRequestReply;
         public event RequestReplyEventHandler RemindRequestReply;
         public event RequestReplyEventHandler PlayerInfoRequestReply;
+        public event RequestReplyEventHandler JoinGameRequestReply;
+        public event RequestReplyEventHandler StartGameRequestReply;
 
         public event ChatEventHandler NewChatUsers;
         public event ChatEventHandler DeleteChatUsers;
@@ -185,7 +187,27 @@ namespace Client.Net
 
                 case MessageType.PlayerInfoUnsuccessful:
                     if (PlayerInfoRequestReply != null)
-                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, "Error gatting player data"));
+                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, "Error getting player data"));
+                    break;
+
+                case MessageType.JoinGameSuccessful:
+                    if (JoinGameRequestReply != null)
+                        JoinGameRequestReply(this, new RequestReplyEventArgs(true, "Join game successful"));
+                    break;
+
+                case MessageType.JoinGameUnsuccessful:
+                    if (JoinGameRequestReply != null)
+                        JoinGameRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
+                    break;
+
+                case MessageType.StartGameSuccessful:
+                    if (StartGameRequestReply != null)
+                        StartGameRequestReply(this, new RequestReplyEventArgs(true, "Start game successful"));
+                    break;
+
+                case MessageType.StartGameUnsuccessful:
+                    if (StartGameRequestReply != null)
+                        StartGameRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
                     break;
 
                 case MessageType.NewGame:
