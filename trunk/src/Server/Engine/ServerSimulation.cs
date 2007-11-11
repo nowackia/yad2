@@ -32,7 +32,7 @@ namespace Yad.Engine.Server
 		}
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 		}
 	}
 }

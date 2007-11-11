@@ -2,33 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Net.Messaging.Common;
+using Yad.Log.Common;
 
 namespace Yad.Engine.Client
 {
-    class ClientSimulation : Yad.Engine.Common.Simulation
+    public class ClientSimulation : Yad.Engine.Common.Simulation
     {
 		protected override void OnMessageBuild(BuildMessage bm) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageMove", EPrefix.SimulationInfo);
 		}
 
 		protected override void onMessageAttack(AttackMessage am) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageAttack", EPrefix.SimulationInfo);
 		}
 
 		protected override void onMessageDestroy(DestroyMessage dm) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageDestroy", EPrefix.SimulationInfo);
 		}
 
 		protected override void onMessageHarvest(HarvestMessage hm) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageHarvest", EPrefix.SimulationInfo);
 		}
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
-			throw new Exception("The method or operation is not implemented.");
+			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 		}
 	}
 }
