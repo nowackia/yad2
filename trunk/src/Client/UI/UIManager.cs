@@ -10,10 +10,12 @@ using Yad.Net.Common;
 namespace Client.UI {
 
     public delegate void MenuEventHandler(MenuOption option);
-    public delegate void ControlStateEventHandler(Control[] option, bool state);
+    public delegate void ManageControlTextEventHandler(Control control, string text);
+    public delegate void ManageControlStateEventHandler(Control[] option, bool state);
     public delegate void ManageListBoxEventHandler(ListBox listBox, object[] objects, bool reset);
     public delegate void RemoveListBoxEventHandler(ListBox listBox, object[] objects);
-    public delegate void ManageControlEventHandler(Control control, string text);
+    public delegate void ManageDataGridViewEventHandler(DataGridView gridView, object[] objects, bool reset);
+    public delegate void RemoveDataGridViewEventHandler(DataGridView grieView, object[] objects);
 
     public class UIManager {
         Views actualView;

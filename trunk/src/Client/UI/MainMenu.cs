@@ -10,6 +10,7 @@ using Yad.Log.Common;
 using Yad.Net;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
+using Yad.Engine.Common;
 
 namespace Client.UI
 {
@@ -36,33 +37,130 @@ namespace Client.UI
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
             #endregion
 
+            #region ComboBox DataGridView Settings
+            foreach(object obj in Enum.GetValues(typeof(HouseType)))
+                House.Items.Add(obj.ToString());
+
+            int index = dataGridViewPlayers.Rows.Add();
+            DataGridViewRow row = dataGridViewPlayers.Rows[index];
+            row.Cells[0].Value = "Test";
+            row.Cells[1].Value = HouseType.Harkonnen.ToString();
+            row.Cells[2].Value = "Team Test";
+            #endregion
+
             #region MenuMessageHandler Settings
             MenuMessageHandler menuMessageHandler = new MenuMessageHandler();
 
             menuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(menuMessageHandler_LoginRequestReply);
             menuMessageHandler.RegisterRequestReply += new RequestReplyEventHandler(menuMessageHandler_RegisterRequestReply);
             menuMessageHandler.RemindRequestReply += new RequestReplyEventHandler(menuMessageHandler_RemindRequestReply);
+
             menuMessageHandler.ResetChatUsers += new ChatEventHandler(menuMessageHandler_ResetChatUsers);
             menuMessageHandler.NewChatUsers += new ChatEventHandler(menuMessageHandler_AddChatUsers);
             menuMessageHandler.DeleteChatUsers += new ChatEventHandler(menuMessageHandler_DeleteChatUsers);
             menuMessageHandler.ChatTextReceive += new ChatEventHandler(menuMessageHandler_ChatTextReceive);
+
             menuMessageHandler.PlayerInfoRequestReply += new RequestReplyEventHandler(menuMessageHandler_PlayerInfoRequestReply);
+
+            menuMessageHandler.JoinGameRequestReply += new RequestReplyEventHandler(menuMessageHandler_JoinGameRequestReply);
+            menuMessageHandler.ResetGamesInfo += new GamesEventHandler(menuMessageHandler_ResetGamesInfo);
+            menuMessageHandler.NewGamesInfo += new GamesEventHandler(menuMessageHandler_NewGamesInfo);
+            menuMessageHandler.DeleteGamesInfo += new GamesEventHandler(menuMessageHandler_DeleteGamesInfo);
+
+            menuMessageHandler.NewPlayers += new PlayersEventHandler(menuMessageHandler_NewPlayers);
+            menuMessageHandler.DeletePlayers += new PlayersEventHandler(menuMessageHandler_DeletePlayers);
+            menuMessageHandler.ResetPlayers += new PlayersEventHandler(menuMessageHandler_ResetPlayers);
+            menuMessageHandler.UpdatePlayers += new PlayersEventHandler(menuMessageHandler_UpdatePlayers);
+
+            menuMessageHandler.StartGameRequestReply += new RequestReplyEventHandler(menuMessageHandler_StartGameRequestReply);
 
             Connection.MessageHandler = menuMessageHandler;
             #endregion
         }
 
         #region MenuMessageHandler Events
+        void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Start Game Event", EPrefix.UIManager);
+            MessageBox.Show(e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (e.successful)
+            {
+                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Game });
+                else OnMenuOptionChange(MenuOption.Game);
+            }
+        }
+
+
+        void menuMessageHandler_UpdatePlayers(object sender, PlayerEventArgs e)
+        {
+            throw new NotImplementedException("Not implemented yet");
+        }
+
+        void menuMessageHandler_ResetPlayers(object sender, PlayerEventArgs e)
+        {
+            InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, true });
+            else
+                ManageDataGridView(dataGridViewPlayers, e.players, true);
+        }
+
+        void menuMessageHandler_DeletePlayers(object sender, PlayerEventArgs e)
+        {
+            InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new RemoveDataGridViewEventHandler(RemoveDataGridView), new object[] { dataGridViewPlayers, e.players });
+            else
+                RemoveDataGridView(dataGridViewPlayers, e.players);
+        }
+
+        void menuMessageHandler_NewPlayers(object sender, PlayerEventArgs e)
+        {
+            InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, false });
+            else
+                ManageDataGridView(dataGridViewPlayers, e.players, true);
+        }
+
+        void menuMessageHandler_DeleteGamesInfo(object sender, GameEventArgs e)
+        {
+            InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { listOfGames, e.games });
+            else
+                RemoveListBox(listOfGames, e.games);
+        }
+
+        void menuMessageHandler_NewGamesInfo(object sender, GameEventArgs e)
+        {
+            InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, false });
+            else
+                ManageListBox(listOfGames, e.games, true);
+        }
+
+        void menuMessageHandler_ResetGamesInfo(object sender, GameEventArgs e)
+        {
+            InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, true });
+            else
+                ManageListBox(listOfGames, e.games, true);
+        }
+
         void menuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
             MessageBox.Show(e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (InvokeRequired)
-                this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
-            else
-                OnMenuOptionChange(MenuOption.Login);
+            if (e.successful)
+            {
+                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
+                else OnMenuOptionChange(MenuOption.Login);
 
-            Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
+                Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
+            }
         }
 
         void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
@@ -70,11 +168,12 @@ namespace Client.UI
             InfoLog.WriteInfo("Remind Event", EPrefix.UIManager);
             MessageBox.Show(e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
-            if (InvokeRequired)
-                this.BeginInvoke(new ControlStateEventHandler(ControlState), new object[] { controls, true });
-            else
-                ControlState(controls, true);
+            if (e.successful)
+            {
+                Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
+                if (InvokeRequired) this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                else ManageControlState(controls, true);
+            }
 
             Connection.CloseConnection();
         }
@@ -84,11 +183,12 @@ namespace Client.UI
             InfoLog.WriteInfo("Register Event", EPrefix.UIManager);
             MessageBox.Show(e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
-            if (InvokeRequired)
-                this.BeginInvoke(new ControlStateEventHandler(ControlState), new object[] { controls, true });
-            else
-                ControlState(controls, true);
+            if (e.successful)
+            {
+                Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
+                if (InvokeRequired) this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                else ManageControlState(controls, true);
+            }
 
             Connection.CloseConnection();
         }
@@ -133,11 +233,29 @@ namespace Client.UI
         void menuMessageHandler_PlayerInfoRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Player Info Event", EPrefix.UIManager);
-            if (InvokeRequired)
-                this.BeginInvoke(new ManageControlEventHandler(ManageControl), new object[] { userListChatMenu, e.reason });
-            else
-                ManageControl(chatListChatMenu, e.reason);
+
+            if (e.successful)
+            {
+                if (InvokeRequired) this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { userListChatMenu, e.reason });
+                else ManageControlText(chatListChatMenu, e.reason);
+            }
         }
+
+
+        void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
+        {
+            InfoLog.WriteInfo("Join Game Event", EPrefix.UIManager);
+            MessageBox.Show(e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (e.successful)
+            {
+                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
+                else OnMenuOptionChange(MenuOption.Join); ;
+
+                Connection.SendMessage(MessageFactory.Create(MessageType.PlayersList));
+            }
+        }
+
         #endregion
 
         #region Controls managment
@@ -156,7 +274,7 @@ namespace Client.UI
             this.tabControl.SelectTab(page.Name);
         }
 
-        public void ControlState(Control[] control, bool state)
+        public void ManageControlState(Control[] control, bool state)
         {
             for (int i = 0; i < control.Length; i++)
                 control[i].Enabled = state;
@@ -177,7 +295,28 @@ namespace Client.UI
                 listBox.Items.Remove(objects);
         }
 
-        public void ManageControl(Control control, string text)
+        public void ManageDataGridView(DataGridView gridView, object[] objects, bool reset)
+        {
+            if (reset)
+                dataGridViewPlayers.Rows.Clear();
+
+            for (int i = 0; i < objects.Length; i++)
+            {
+                int index = dataGridViewPlayers.Rows.Add();
+                DataGridViewRow row = dataGridViewPlayers.Rows[index];
+                row.Cells[0].Value = objects[0];
+                row.Cells[1].Value = objects[1];
+                row.Cells[2].Value = objects[2];
+                row.ReadOnly = true;
+            }
+        }
+
+        public void RemoveDataGridView(DataGridView gridView, object[] objects)
+        {
+            throw new NotImplementedException("Not implemented yet");
+        }
+
+        public void ManageControlText(Control control, string text)
         {
             control.Text = text;
         }
@@ -229,7 +368,7 @@ namespace Client.UI
             registerMessage.Mail = emailTBRegisterMenu.Text;
             Connection.SendMessage(registerMessage);
 
-            ControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
+            ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
         }
 
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
@@ -240,7 +379,7 @@ namespace Client.UI
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.SendMessage(remindMessage);
 
-            ControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
+            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
 
         private void backRegisterMenu_Click(object sender, EventArgs e)
@@ -358,7 +497,9 @@ namespace Client.UI
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
-            OnMenuOptionChange(MenuOption.Join);
+            TextMessage textMessage = (TextMessage)MessageFactory.Create(MessageType.JoinGameEntry);
+            textMessage.Text = textBoxTBGameName.Text;
+            Connection.SendMessage(textMessage);
         }
 
         private void createChooseGameMenu_Click(object sender, EventArgs e)
@@ -368,7 +509,14 @@ namespace Client.UI
 
         private void listOfGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO RS: wyswietlenie description
+            ListBox listBox = sender as ListBox;
+            int index = listBox.SelectedIndex;
+            if(index != -1)
+            {
+                GameInfo gameInfo = listBox.Items[index] as GameInfo;
+                textBoxTBGameDescription.Text = gameInfo.Description;
+                textBoxTBGameName.Text = gameInfo.ToString();
+            }
         }
 
         private void cancelCreateGameMenu_Click(object sender, EventArgs e)
@@ -383,16 +531,20 @@ namespace Client.UI
 
         private void startWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
+            TextMessage textMessage = MessageFactory.Create(MessageType.StartGame) as TextMessage;
+            textMessage.Text = "FALSE GAME";
+            Connection.SendMessage(textMessage);
+
             OnMenuOptionChange(MenuOption.StartGame);
         }
 
         private void cancelWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
+            Connection.SendMessage(MessageFactory.Create(MessageType.ChooseGameEntry));
+
             OnMenuOptionChange(MenuOption.Cancel);
         }
 
-        private void descriptionWaitingForPlayersMenu_TextChanged(object sender, EventArgs e)
-        { }
         #endregion
     }
 }

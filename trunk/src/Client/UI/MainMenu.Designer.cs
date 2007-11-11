@@ -34,10 +34,10 @@ namespace Client.UI
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.newGameMainMenu = new System.Windows.Forms.Button();
-            this.haxxx = new System.Windows.Forms.Button();
             this.optionsMainMenu = new System.Windows.Forms.Button();
             this.exitMainMenu = new System.Windows.Forms.Button();
             this.creditsMainMenu = new System.Windows.Forms.Button();
+            this.haxxx = new System.Windows.Forms.Button();
             this.loginMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxLogin = new System.Windows.Forms.GroupBox();
@@ -78,8 +78,9 @@ namespace Client.UI
             this.playerInfoLInfoMenu = new System.Windows.Forms.Label();
             this.backInfoMenu = new System.Windows.Forms.Button();
             this.chooseGameMenu = new System.Windows.Forms.TabPage();
+            this.textBoxTBGameName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxTBGameDescription = new System.Windows.Forms.TextBox();
             this.backChooseGameMenu = new System.Windows.Forms.Button();
             this.listOfGames = new System.Windows.Forms.ListBox();
             this.createChooseGameMenu = new System.Windows.Forms.Button();
@@ -90,14 +91,14 @@ namespace Client.UI
             this.privateCreateGameMenu = new System.Windows.Forms.RadioButton();
             this.publicCreateGameMenu = new System.Windows.Forms.RadioButton();
             this.mapsLCreateGameMenu = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxLBCreateGame = new System.Windows.Forms.ListBox();
             this.cancelCreateGameMenu = new System.Windows.Forms.Button();
             this.createCreateGameMenu = new System.Windows.Forms.Button();
             this.waitingForPlayersMenu = new System.Windows.Forms.TabPage();
+            this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
-            this.playerListWaitingForPlayersMenu = new System.Windows.Forms.ListBox();
             this.startWaitingForPlayersMenu = new System.Windows.Forms.Button();
             this.cancelWaitingForPlayersMenu = new System.Windows.Forms.Button();
             this.optionsMenu = new System.Windows.Forms.TabPage();
@@ -121,6 +122,9 @@ namespace Client.UI
             this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
+            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.House = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -138,6 +142,7 @@ namespace Client.UI
             this.chooseGameMenu.SuspendLayout();
             this.createGameMenu.SuspendLayout();
             this.waitingForPlayersMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).BeginInit();
             this.optionsMenu.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeNMOptionsMenu)).BeginInit();
@@ -189,10 +194,10 @@ namespace Client.UI
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.Controls.Add(this.newGameMainMenu, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.haxxx, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.optionsMainMenu, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.exitMainMenu, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.creditsMainMenu, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.haxxx, 2, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -219,19 +224,6 @@ namespace Client.UI
             this.newGameMainMenu.Text = "New Game";
             this.newGameMainMenu.UseVisualStyleBackColor = true;
             this.newGameMainMenu.Click += new System.EventHandler(this.NewGameMainMenu_Click);
-            // 
-            // haxxx
-            // 
-            this.haxxx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.haxxx.Location = new System.Drawing.Point(107, 199);
-            this.haxxx.Name = "haxxx";
-            this.haxxx.Size = new System.Drawing.Size(306, 23);
-            this.haxxx.TabIndex = 4;
-            this.haxxx.Text = "Fast Game";
-            this.haxxx.UseVisualStyleBackColor = true;
-            this.haxxx.Click += new System.EventHandler(this.haxxx_Click);
             // 
             // optionsMainMenu
             // 
@@ -268,8 +260,21 @@ namespace Client.UI
             this.creditsMainMenu.Name = "creditsMainMenu";
             this.creditsMainMenu.Size = new System.Drawing.Size(306, 23);
             this.creditsMainMenu.TabIndex = 1;
-            this.creditsMainMenu.Text = "Creditzz (Pay us)";
+            this.creditsMainMenu.Text = "Credits";
             this.creditsMainMenu.UseVisualStyleBackColor = true;
+            // 
+            // haxxx
+            // 
+            this.haxxx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.haxxx.Location = new System.Drawing.Point(419, 199);
+            this.haxxx.Name = "haxxx";
+            this.haxxx.Size = new System.Drawing.Size(99, 23);
+            this.haxxx.TabIndex = 4;
+            this.haxxx.Text = "Fast Game";
+            this.haxxx.UseVisualStyleBackColor = true;
+            this.haxxx.Click += new System.EventHandler(this.haxxx_Click);
             // 
             // loginMenu
             // 
@@ -363,9 +368,9 @@ namespace Client.UI
             // 
             // registerLoginMenu
             // 
-            this.registerLoginMenu.Location = new System.Drawing.Point(3, 3);
+            this.registerLoginMenu.Location = new System.Drawing.Point(125, 3);
             this.registerLoginMenu.Name = "registerLoginMenu";
-            this.registerLoginMenu.Size = new System.Drawing.Size(75, 23);
+            this.registerLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.registerLoginMenu.TabIndex = 3;
             this.registerLoginMenu.Text = "Register";
             this.registerLoginMenu.UseVisualStyleBackColor = true;
@@ -373,9 +378,9 @@ namespace Client.UI
             // 
             // loginBTLoginMenu
             // 
-            this.loginBTLoginMenu.Location = new System.Drawing.Point(84, 3);
+            this.loginBTLoginMenu.Location = new System.Drawing.Point(9, 3);
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
-            this.loginBTLoginMenu.Size = new System.Drawing.Size(106, 23);
+            this.loginBTLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.loginBTLoginMenu.TabIndex = 2;
             this.loginBTLoginMenu.Text = "Login";
             this.loginBTLoginMenu.UseVisualStyleBackColor = true;
@@ -383,9 +388,9 @@ namespace Client.UI
             // 
             // remindPasswordLoginMenu
             // 
-            this.remindPasswordLoginMenu.Location = new System.Drawing.Point(84, 26);
+            this.remindPasswordLoginMenu.Location = new System.Drawing.Point(9, 32);
             this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
-            this.remindPasswordLoginMenu.Size = new System.Drawing.Size(106, 23);
+            this.remindPasswordLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.remindPasswordLoginMenu.TabIndex = 9;
             this.remindPasswordLoginMenu.Text = "Remind Password";
             this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
@@ -393,9 +398,9 @@ namespace Client.UI
             // 
             // cancelLoginMenu
             // 
-            this.cancelLoginMenu.Location = new System.Drawing.Point(3, 26);
+            this.cancelLoginMenu.Location = new System.Drawing.Point(125, 32);
             this.cancelLoginMenu.Name = "cancelLoginMenu";
-            this.cancelLoginMenu.Size = new System.Drawing.Size(75, 23);
+            this.cancelLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.cancelLoginMenu.TabIndex = 4;
             this.cancelLoginMenu.Text = "Cancel";
             this.cancelLoginMenu.UseVisualStyleBackColor = true;
@@ -554,7 +559,7 @@ namespace Client.UI
             // 
             // registerRegisterMenu
             // 
-            this.registerRegisterMenu.Location = new System.Drawing.Point(103, 3);
+            this.registerRegisterMenu.Location = new System.Drawing.Point(22, 3);
             this.registerRegisterMenu.Name = "registerRegisterMenu";
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.registerRegisterMenu.TabIndex = 0;
@@ -564,7 +569,7 @@ namespace Client.UI
             // 
             // backRegisterMenu
             // 
-            this.backRegisterMenu.Location = new System.Drawing.Point(22, 3);
+            this.backRegisterMenu.Location = new System.Drawing.Point(103, 3);
             this.backRegisterMenu.Name = "backRegisterMenu";
             this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.backRegisterMenu.TabIndex = 1;
@@ -675,8 +680,9 @@ namespace Client.UI
             // 
             // chooseGameMenu
             // 
+            this.chooseGameMenu.Controls.Add(this.textBoxTBGameName);
             this.chooseGameMenu.Controls.Add(this.label1);
-            this.chooseGameMenu.Controls.Add(this.textBox2);
+            this.chooseGameMenu.Controls.Add(this.textBoxTBGameDescription);
             this.chooseGameMenu.Controls.Add(this.backChooseGameMenu);
             this.chooseGameMenu.Controls.Add(this.listOfGames);
             this.chooseGameMenu.Controls.Add(this.createChooseGameMenu);
@@ -689,26 +695,33 @@ namespace Client.UI
             this.chooseGameMenu.Text = "ChooseGameMenu";
             this.chooseGameMenu.UseVisualStyleBackColor = true;
             // 
+            // textBoxTBGameName
+            // 
+            this.textBoxTBGameName.Location = new System.Drawing.Point(42, 259);
+            this.textBoxTBGameName.Name = "textBoxTBGameName";
+            this.textBoxTBGameName.Size = new System.Drawing.Size(155, 20);
+            this.textBoxTBGameName.TabIndex = 6;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 136);
+            this.label1.Location = new System.Drawing.Point(281, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "description";
+            this.label1.Text = "Description";
             // 
-            // textBox2
+            // textBoxTBGameDescription
             // 
-            this.textBox2.Location = new System.Drawing.Point(287, 152);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 130);
-            this.textBox2.TabIndex = 4;
+            this.textBoxTBGameDescription.Location = new System.Drawing.Point(284, 57);
+            this.textBoxTBGameDescription.Multiline = true;
+            this.textBoxTBGameDescription.Name = "textBoxTBGameDescription";
+            this.textBoxTBGameDescription.Size = new System.Drawing.Size(199, 225);
+            this.textBoxTBGameDescription.TabIndex = 4;
             // 
             // backChooseGameMenu
             // 
-            this.backChooseGameMenu.Location = new System.Drawing.Point(135, 288);
+            this.backChooseGameMenu.Location = new System.Drawing.Point(408, 288);
             this.backChooseGameMenu.Name = "backChooseGameMenu";
             this.backChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.backChooseGameMenu.TabIndex = 3;
@@ -721,13 +734,13 @@ namespace Client.UI
             this.listOfGames.FormattingEnabled = true;
             this.listOfGames.Location = new System.Drawing.Point(41, 57);
             this.listOfGames.Name = "listOfGames";
-            this.listOfGames.Size = new System.Drawing.Size(237, 225);
+            this.listOfGames.Size = new System.Drawing.Size(237, 199);
             this.listOfGames.TabIndex = 2;
             this.listOfGames.SelectedIndexChanged += new System.EventHandler(this.listOfGames_SelectedIndexChanged);
             // 
             // createChooseGameMenu
             // 
-            this.createChooseGameMenu.Location = new System.Drawing.Point(297, 288);
+            this.createChooseGameMenu.Location = new System.Drawing.Point(327, 288);
             this.createChooseGameMenu.Name = "createChooseGameMenu";
             this.createChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createChooseGameMenu.TabIndex = 1;
@@ -737,7 +750,7 @@ namespace Client.UI
             // 
             // joinChooseGameMenu
             // 
-            this.joinChooseGameMenu.Location = new System.Drawing.Point(216, 288);
+            this.joinChooseGameMenu.Location = new System.Drawing.Point(203, 259);
             this.joinChooseGameMenu.Name = "joinChooseGameMenu";
             this.joinChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.joinChooseGameMenu.TabIndex = 0;
@@ -752,7 +765,7 @@ namespace Client.UI
             this.createGameMenu.Controls.Add(this.privateCreateGameMenu);
             this.createGameMenu.Controls.Add(this.publicCreateGameMenu);
             this.createGameMenu.Controls.Add(this.mapsLCreateGameMenu);
-            this.createGameMenu.Controls.Add(this.listBox1);
+            this.createGameMenu.Controls.Add(this.listBoxLBCreateGame);
             this.createGameMenu.Controls.Add(this.cancelCreateGameMenu);
             this.createGameMenu.Controls.Add(this.createCreateGameMenu);
             this.createGameMenu.Location = new System.Drawing.Point(4, 4);
@@ -810,17 +823,17 @@ namespace Client.UI
             this.mapsLCreateGameMenu.TabIndex = 3;
             this.mapsLCreateGameMenu.Text = "Choose Map";
             // 
-            // listBox1
+            // listBoxLBCreateGame
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(46, 64);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(217, 199);
-            this.listBox1.TabIndex = 2;
+            this.listBoxLBCreateGame.FormattingEnabled = true;
+            this.listBoxLBCreateGame.Location = new System.Drawing.Point(46, 64);
+            this.listBoxLBCreateGame.Name = "listBoxLBCreateGame";
+            this.listBoxLBCreateGame.Size = new System.Drawing.Size(217, 199);
+            this.listBoxLBCreateGame.TabIndex = 2;
             // 
             // cancelCreateGameMenu
             // 
-            this.cancelCreateGameMenu.Location = new System.Drawing.Point(188, 269);
+            this.cancelCreateGameMenu.Location = new System.Drawing.Point(272, 269);
             this.cancelCreateGameMenu.Name = "cancelCreateGameMenu";
             this.cancelCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelCreateGameMenu.TabIndex = 1;
@@ -830,7 +843,7 @@ namespace Client.UI
             // 
             // createCreateGameMenu
             // 
-            this.createCreateGameMenu.Location = new System.Drawing.Point(269, 269);
+            this.createCreateGameMenu.Location = new System.Drawing.Point(188, 269);
             this.createCreateGameMenu.Name = "createCreateGameMenu";
             this.createCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createCreateGameMenu.TabIndex = 0;
@@ -840,10 +853,10 @@ namespace Client.UI
             // 
             // waitingForPlayersMenu
             // 
+            this.waitingForPlayersMenu.Controls.Add(this.dataGridViewPlayers);
             this.waitingForPlayersMenu.Controls.Add(this.descriptionLWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.descriptionWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.playersLWaitingForPlayersMenu);
-            this.waitingForPlayersMenu.Controls.Add(this.playerListWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.startWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.cancelWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Location = new System.Drawing.Point(4, 4);
@@ -854,10 +867,28 @@ namespace Client.UI
             this.waitingForPlayersMenu.Text = "WaitingForPlayersMenu";
             this.waitingForPlayersMenu.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewPlayers
+            // 
+            this.dataGridViewPlayers.AllowUserToAddRows = false;
+            this.dataGridViewPlayers.AllowUserToDeleteRows = false;
+            this.dataGridViewPlayers.AllowUserToResizeRows = false;
+            this.dataGridViewPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlayersName,
+            this.House,
+            this.Team});
+            this.dataGridViewPlayers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewPlayers.Location = new System.Drawing.Point(15, 102);
+            this.dataGridViewPlayers.MultiSelect = false;
+            this.dataGridViewPlayers.Name = "dataGridViewPlayers";
+            this.dataGridViewPlayers.RowHeadersVisible = false;
+            this.dataGridViewPlayers.Size = new System.Drawing.Size(235, 147);
+            this.dataGridViewPlayers.TabIndex = 6;
+            // 
             // descriptionLWaitingForPlayersMenu
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
-            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(258, 86);
+            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(253, 86);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
             this.descriptionLWaitingForPlayersMenu.TabIndex = 5;
@@ -865,33 +896,24 @@ namespace Client.UI
             // 
             // descriptionWaitingForPlayersMenu
             // 
-            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(261, 102);
+            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(256, 102);
             this.descriptionWaitingForPlayersMenu.Multiline = true;
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
-            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(211, 147);
+            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(128, 147);
             this.descriptionWaitingForPlayersMenu.TabIndex = 4;
-            this.descriptionWaitingForPlayersMenu.TextChanged += new System.EventHandler(this.descriptionWaitingForPlayersMenu_TextChanged);
             // 
             // playersLWaitingForPlayersMenu
             // 
             this.playersLWaitingForPlayersMenu.AutoSize = true;
-            this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(27, 86);
+            this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 86);
             this.playersLWaitingForPlayersMenu.Name = "playersLWaitingForPlayersMenu";
             this.playersLWaitingForPlayersMenu.Size = new System.Drawing.Size(41, 13);
             this.playersLWaitingForPlayersMenu.TabIndex = 3;
             this.playersLWaitingForPlayersMenu.Text = "Players";
             // 
-            // playerListWaitingForPlayersMenu
-            // 
-            this.playerListWaitingForPlayersMenu.FormattingEnabled = true;
-            this.playerListWaitingForPlayersMenu.Location = new System.Drawing.Point(30, 102);
-            this.playerListWaitingForPlayersMenu.Name = "playerListWaitingForPlayersMenu";
-            this.playerListWaitingForPlayersMenu.Size = new System.Drawing.Size(225, 147);
-            this.playerListWaitingForPlayersMenu.TabIndex = 2;
-            // 
             // startWaitingForPlayersMenu
             // 
-            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(261, 255);
+            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(394, 102);
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
             this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.startWaitingForPlayersMenu.TabIndex = 1;
@@ -901,7 +923,7 @@ namespace Client.UI
             // 
             // cancelWaitingForPlayersMenu
             // 
-            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(180, 255);
+            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(394, 131);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
             this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelWaitingForPlayersMenu.TabIndex = 0;
@@ -990,7 +1012,7 @@ namespace Client.UI
             // 
             // okOptionsMenu
             // 
-            this.okOptionsMenu.Location = new System.Drawing.Point(263, 214);
+            this.okOptionsMenu.Location = new System.Drawing.Point(270, 214);
             this.okOptionsMenu.Name = "okOptionsMenu";
             this.okOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.okOptionsMenu.TabIndex = 7;
@@ -1000,7 +1022,7 @@ namespace Client.UI
             // 
             // cancelOptionsMenu
             // 
-            this.cancelOptionsMenu.Location = new System.Drawing.Point(182, 214);
+            this.cancelOptionsMenu.Location = new System.Drawing.Point(351, 214);
             this.cancelOptionsMenu.Name = "cancelOptionsMenu";
             this.cancelOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelOptionsMenu.TabIndex = 6;
@@ -1166,6 +1188,31 @@ namespace Client.UI
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
             // 
+            // PlayersName
+            // 
+            this.PlayersName.HeaderText = "Name";
+            this.PlayersName.MinimumWidth = 100;
+            this.PlayersName.Name = "PlayersName";
+            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // House
+            // 
+            this.House.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.House.HeaderText = "House";
+            this.House.MinimumWidth = 75;
+            this.House.Name = "House";
+            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.House.Width = 75;
+            // 
+            // Team
+            // 
+            this.Team.HeaderText = "Team";
+            this.Team.MinimumWidth = 55;
+            this.Team.Name = "Team";
+            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Team.Width = 55;
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1201,6 +1248,7 @@ namespace Client.UI
             this.createGameMenu.PerformLayout();
             this.waitingForPlayersMenu.ResumeLayout(false);
             this.waitingForPlayersMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).EndInit();
             this.optionsMenu.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1280,11 +1328,11 @@ namespace Client.UI
         private System.Windows.Forms.Button joinChooseGameMenu;
         private System.Windows.Forms.Button backChooseGameMenu;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxTBGameDescription;
         private System.Windows.Forms.Button cancelCreateGameMenu;
         private System.Windows.Forms.Button createCreateGameMenu;
         private System.Windows.Forms.Label mapsLCreateGameMenu;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxLBCreateGame;
         private System.Windows.Forms.RadioButton privateCreateGameMenu;
         private System.Windows.Forms.RadioButton publicCreateGameMenu;
         private System.Windows.Forms.Label gameNameLCreateGameMenu;
@@ -1294,7 +1342,6 @@ namespace Client.UI
         private System.Windows.Forms.Label descriptionLWaitingForPlayersMenu;
         private System.Windows.Forms.TextBox descriptionWaitingForPlayersMenu;
         private System.Windows.Forms.Label playersLWaitingForPlayersMenu;
-        private System.Windows.Forms.ListBox playerListWaitingForPlayersMenu;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
@@ -1307,5 +1354,10 @@ namespace Client.UI
         private GroupBox groupBox3;
         private GroupBox groupBoxServer;
         private Button sendChatMenu;
+        private TextBox textBoxTBGameName;
+        private DataGridView dataGridViewPlayers;
+        private DataGridViewTextBoxColumn PlayersName;
+        private DataGridViewComboBoxColumn House;
+        private DataGridViewTextBoxColumn Team;
     }
 }

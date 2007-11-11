@@ -7,7 +7,6 @@ using Yad.Net.Messaging.Common;
 
 namespace Yad.Net.Server {
      
-
     class GameManager {
 
         private const short MaxGameNumber = 20;
@@ -53,8 +52,6 @@ namespace Yad.Net.Server {
                 _games.Add(gi.Name, sgi);
             }
             return result;
-            
-
         }
 
         private short GameNumber {
