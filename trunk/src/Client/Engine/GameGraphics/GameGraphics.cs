@@ -13,6 +13,7 @@ using Client.Board;
 using Yad.Board.Common;
 using Yad.Log.Common;
 using Yad.Engine.GameGraphics.Client;
+using System.Windows.Forms;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
@@ -66,6 +67,8 @@ namespace Client.Engine.GameGraphics {
 			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
 
 			UpdateViewport();
+
+			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
 		}
 
 		public static void InitTextures() {
@@ -91,7 +94,7 @@ namespace Client.Engine.GameGraphics {
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, id);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);//_MIPMAP_NEAREST);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, bitmap.Width, bitmap.Height, 0, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
+			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, bitmap.Width, bitmap.Height, 0, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 			//Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, 4, bitmap.Width, bitmap.Height, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 
 			bitmap.UnlockBits(bitmapData);
@@ -101,8 +104,10 @@ namespace Client.Engine.GameGraphics {
 			int width = bitmap.Width;
 			int height = bitmap.Height;
 			Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+			//MessageBox.Show(bitmap.PixelFormat + " " + bitmap.PhysicalDimension);
 			BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
+			//Gl.glEnable(Gl.GL_TEXTURE_2D);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, id);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);//_MIPMAP_NEAREST);
 			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
@@ -165,6 +170,7 @@ namespace Client.Engine.GameGraphics {
 			Gl.glColor4f(1, 1, 1, 1);
 			DrawElement(rain.Position.X, rain.Position.Y, rain.GetTexture(), offsetX, offsetY, AntHillConfig.rainWidth, AntHillConfig.rainWidth, 1.0f);
 			 */
+			Gl.glFinish();
 		}
 
 		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
@@ -172,6 +178,7 @@ namespace Client.Engine.GameGraphics {
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);
 
 			//init texture
+			//Gl.glEnable(Gl.GL_TEXTURE_2D);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
 
 			//init uv mapping for texture

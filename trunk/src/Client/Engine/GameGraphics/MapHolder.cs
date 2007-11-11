@@ -121,14 +121,28 @@ namespace Yad.Engine.GameGraphics.Client {
 			if (!Map.CheckConststency())
 				throw new MapHolderException("Map is inconsistent");
 			LoadTextures();
-	        Bitmap bmp = new Bitmap(Map.Width * textureSize, Map.Height * textureSize, PixelFormat.Format32bppArgb);
+
+			int oldWidth = Map.Width * textureSize, oldHeight = Map.Height * textureSize;
+			Bitmap bmp = new Bitmap(oldWidth, oldHeight, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
 			for (int y = 0; y < Map.Height; y++) {
 				for (int x = 0; x < Map.Width; x++) {
 					g.DrawImage(bmps[(int)Map.Tiles[x, y]], new Rectangle(textureSize * x, textureSize * y, textureSize, textureSize), new Rectangle(bmps[(int)Map.Tiles[x, y]].Height * FindFrame(x, y), 0, bmps[(int)Map.Tiles[x, y]].Height-1, bmps[(int)Map.Tiles[x, y]].Height-1), GraphicsUnit.Pixel);
 				}
 			}
-			return bmp;
+			g.Dispose();
+
+			//scale bitmap to whole bitmap with dimensions = 2^y
+			int newWidth = Correct(oldWidth), newHeight = Correct(oldHeight);
+			Bitmap res = new Bitmap(newWidth, newHeight, PixelFormat.Format32bppArgb);
+			Graphics g2 = Graphics.FromImage(res);
+			g2.DrawImage(bmp, 0, 0, newWidth, newHeight);
+			return res;
+		}
+
+		private static int Correct(int size) {
+			double y = Math.Ceiling(Math.Log(size, 2));
+			return (int)Math.Pow(2, y);
 		}
 	}
 }
