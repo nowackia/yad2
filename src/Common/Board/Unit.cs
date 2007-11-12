@@ -25,6 +25,9 @@ namespace Yad.Board.Common
         public abstract void Move();
         public abstract void DoAI();
 
+		public Unit(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		}
+
         public AmmoType AmmoType
         {
             get { return ammoType; }

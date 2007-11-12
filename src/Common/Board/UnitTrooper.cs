@@ -6,6 +6,9 @@ namespace Yad.Board.Common
 {
     public class UnitTrooper:Unit
     {
+		public UnitTrooper(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		}
+
         public override void Destroy()
         {
             throw new Exception("The method or operation is not implemented.");
