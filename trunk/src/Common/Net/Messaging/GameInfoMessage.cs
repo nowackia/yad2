@@ -4,22 +4,41 @@ using System.Text;
 using Yad.Net.Messaging.Common;
 using Yad.Net.Common;
 
-namespace Yad.Net.Messaging {
-    class CreateGameMessage : Message {
+namespace Yad.Net.Messaging
+{
+    class GameInfoMessage : Message
+    {
         GameInfo _gi;
 
-        public CreateGameMessage(GameInfo gi) : base(MessageType.CreateGame){
+        public GameInfoMessage(MessageType msgType)
+            : this(msgType, null)
+        {
+        }
+
+        public GameInfoMessage(MessageType msgType, GameInfo gi)
+            : base(msgType)
+        {
             _gi = gi;
         }
 
-        public override void Serialize(System.IO.BinaryWriter writer) {
+        public GameInfo GameInfo
+        {
+            get
+            { return _gi; }
+            set
+            { _gi = value; }
+        }
+
+        public override void Serialize(System.IO.BinaryWriter writer)
+        {
             base.Serialize(writer);
             this.WriteString(_gi.Name, writer);
             writer.Write(_gi.MapId);
             writer.Write(_gi.MaxPlayerNumber);
         }
 
-        public override void Deserialize(System.IO.BinaryReader reader) {
+        public override void Deserialize(System.IO.BinaryReader reader)
+        {
             base.Deserialize(reader);
             if (null == _gi)
                 _gi = new GameInfo();

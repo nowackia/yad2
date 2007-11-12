@@ -379,9 +379,9 @@ namespace Client.UI
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
-            TextMessage textMessage = (TextMessage)MessageFactory.Create(MessageType.JoinGameEntry);
+            /*TextMessage textMessage = (TextMessage)MessageFactory.Create(MessageType.JoinGameEntry);
             textMessage.Text = textBoxTBGameName.Text;
-            Connection.SendMessage(textMessage);
+            Connection.SendMessage(textMessage);*/
         }
 
         private void createChooseGameMenu_Click(object sender, EventArgs e)

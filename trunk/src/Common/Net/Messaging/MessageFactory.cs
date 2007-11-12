@@ -25,6 +25,7 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 #region Chat
+                /* For MessageFactory Only */
                 case MessageType.ChatEntry:
                     {
                         EntryMessage entryMessage = new EntryMessage();
@@ -55,19 +56,123 @@ namespace Yad.Net.Messaging.Common {
 
                 /* Depreciated */ 
                 case MessageType.PlayerInfoUnsuccessful:
-                    return new Message(MessageType.PlayerInfoUnsuccessful);
+                    return new TextMessage(MessageType.PlayerInfoUnsuccessful);
 
                 case MessageType.PlayerInfoResponse:
                     return new PlayerInfoMessage(MessageType.PlayerInfoResponse);
                 #endregion
 
                 #region Game Choosing
+                /* For MessageFactory Only */
+                case MessageType.ChooseGameEntry:
+                    {
+                        EntryMessage entryMessage = new EntryMessage();
+                        entryMessage.ServerRoom = (byte)ServerRoom.GameChoose;
+                        return entryMessage;
+                    }
+
+                case MessageType.Games:
+                    {
+                        GamesMessage gamesMessage = new GamesMessage();
+                        gamesMessage.Operation = (byte)MessageOperation.List;
+                        return gamesMessage;
+                    }
+
+                case MessageType.NewGame:
+                    {
+                        GamesMessage gamesMessage = new GamesMessage();
+                        gamesMessage.Operation = (byte)MessageOperation.Add;
+                        return gamesMessage;
+                    }
+
+                case MessageType.DeleteGame:
+                    {
+                        GamesMessage gamesMessage = new GamesMessage();
+                        gamesMessage.Operation = (byte)MessageOperation.Remove;
+                        return gamesMessage;
+                    }
                 #endregion
 
                 #region Game Creating
+                case MessageType.CreateGame:
+                    return new GameInfoMessage(MessageType.CreateGame);
+
+                /* Depreciated */
+                case MessageType.CreateGameSuccessful:
+                    return new Message(MessageType.CreateGameSuccessful);
+
+                /* Depreciated */
+                case MessageType.CreateGameUnsuccessful:
+                    return new TextMessage(MessageType.CreateGameUnsuccessful);
+
+                case MessageType.CreateGameResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.CreateGame;
+                        return resultMessage;
+                    }
                 #endregion
 
                 #region Game Joining
+                case MessageType.Players:
+                    {
+                        PlayersMessage playersMessage = new PlayersMessage();
+                        playersMessage.Operation = (byte)MessageOperation.List;
+                        return playersMessage;
+                    }
+
+                case MessageType.NewPlayer:
+                    {
+                        PlayersMessage playersMessage = new PlayersMessage();
+                        playersMessage.Operation = (byte)MessageOperation.Add;
+                        return playersMessage;
+                    }
+
+                case MessageType.DeletePlayer:
+                    {
+                        PlayersMessage playersMessage = new PlayersMessage();
+                        playersMessage.Operation = (byte)MessageOperation.Remove;
+                        return playersMessage;
+                    }
+
+                case MessageType.UpdatePlayer:
+                    {
+                        PlayersMessage playersMessage = new PlayersMessage();
+                        playersMessage.Operation = (byte)MessageOperation.Modify;
+                        return playersMessage;
+                    }
+
+                /* Depreciated */
+                case MessageType.StartGameSuccessful:
+                    return new Message(MessageType.StartGameSuccessful);
+
+                /* Depreciated */
+                case MessageType.StartGameUnsuccessful:
+                    return new TextMessage(MessageType.StartGameUnsuccessful);
+
+                case MessageType.JoinGame:
+                    return new TextMessage(MessageType.JoinGame);
+
+                /* Depreciated */
+                case MessageType.JoinGameSuccessful:
+                    return new Message(MessageType.JoinGameSuccessful);
+
+                /* Depreciated */
+                case MessageType.JoinGameUnsuccessful:
+                    return new TextMessage(MessageType.JoinGameUnsuccessful);
+
+                case MessageType.JoinGameResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.JoinGame;
+                        return resultMessage;
+                    }
+
+                case MessageType.GameParams:
+                    return new GameInfoMessage(MessageType.GameParams);
+
+                case MessageType.StartGame:
+                    return new Message(MessageType.StartGame);
                 #endregion
 
                 #region Client login messages
@@ -127,35 +232,8 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 #region Client menu messages
-                #endregion
-
-                #region Not changed
-                case MessageType.ChooseGameEntry:
-                    return new Message(MessageType.ChooseGameEntry);
-
-                case MessageType.JoinGameEntry:
-                    return new TextMessage(MessageType.JoinGameEntry);
-
-                case MessageType.JoinGameSuccessful:
-                    return new Message(MessageType.JoinGameSuccessful);
-
-                case MessageType.JoinGameUnsuccessful:
-                    return new TextMessage(MessageType.JoinGameUnsuccessful);
-
                 case MessageType.Logout:
                     return new Message(MessageType.Logout);
-
-                case MessageType.Games:
-                    return new GamesMessage();
-
-                case MessageType.StartGame:
-                    return new TextMessage(MessageType.StartGame);
-
-                case MessageType.StartGameSuccessful:
-                    return new Message(MessageType.StartGameSuccessful);
-
-                case MessageType.StartGameUnsuccessful:
-                    return new TextMessage(MessageType.StartGameUnsuccessful);
                 #endregion
 
                 #region Unknown messages
