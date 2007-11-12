@@ -15,20 +15,16 @@ namespace Yad.Net.Messaging.Common {
         Unsuccesful,
 
         #region CreateGameMessage
-
         NameExistsError,
         InvalidPlayerNoError,
         InvalidMapIdNoError,
         MaxServerGameError,
-
         #endregion
 
         #region JoinGameMessage
-
         GameNotExists,
         GameStarted,
         GameFull,
-
         #endregion
     }
 }

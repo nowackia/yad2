@@ -11,8 +11,6 @@ namespace Yad.Net.Messaging.Common
         Text,
         Result,
         Entry,
-        GamesMessage,
-        Players,
         #endregion
 
         #region Game messages
@@ -27,72 +25,63 @@ namespace Yad.Net.Messaging.Common
         #endregion
 
         #region Chat
-
-        ChatEntry,
-        //wysyla aktualnych uzytkownikow czatu
+        /* For MessageFactory Only */ ChatEntry,
         ChatUsers,
-        //kasuje uzytkownika
         DeleteChatUser,
-        //nowy uzytkownik
         NewChatUser,
-        //tresc 
         ChatText,
+        #endregion
 
+        #region Player Info
         PlayerInfo,
-        PlayerInfoSuccessful,
-        PlayerInfoUnsuccessful,
-
+        /* Depreciated */ PlayerInfoSuccessful,
+        /* Depreciated */ PlayerInfoUnsuccessful,
+        PlayerInfoResponse,
         #endregion
 
         #region Game Choosing
-        ChooseGameEntry,
-        /// <summary>
-        /// Server response with public games list
-        /// </summary>
-        GamesList,
-        /// <summary>
-        /// Message with new public game data
-        /// </summary>
+        /* For MessageFactory Only */ ChooseGameEntry,
+        Games,
         NewGame,
-        /// <summary>
-        /// Message with the information of deletion of public game 
-        /// </summary>
         DeleteGame,
-
         #endregion
 
         #region Game Creating
-        CreateGame, 
-        CreateGameSuccessful,
-        CreateGameUnsuccessful,
+        CreateGame,
+        /* Depreciated */ CreateGameSuccessful,
+        /* Depreciated */ CreateGameUnsuccessful,
+        CreateGameResult,
         #endregion
 
         #region Game Joining
-
-        PlayersList,
+        Players,
         NewPlayer,
         DeletePlayer,
         UpdatePlayer,
-        StartGame,
-        StartGameSuccessful,
-        StartGameUnsuccessful,
+        /* Depreciated */ StartGameSuccessful,
+        /* Depreciated */ StartGameUnsuccessful,
+        StartGameResult,
         JoinGameEntry,
-        JoinGameSuccessful,
-        JoinGameUnsuccessful,
+        /* Depreciated */ JoinGameSuccessful,
+        /* Depreciated */ JoinGameUnsuccessful,
+        JoinGameResult,
         GameParams,
-
+        StartGame,
         #endregion
 
         #region Client login messages
         Login,
-        LoginSuccessful,
-        LoginUnsuccessful,
+        /* Depreciated */ LoginSuccessful,
+        /* Depreciated */ LoginUnsuccessful,
+        LoginResult,
         Register,
-        RegisterSuccessful,
-        RegisterUnsuccessful,
+        /* Depreciated */ RegisterSuccessful,
+        /* Depreciated */ RegisterUnsuccessful,
+        RegisterResult,
         Remind,
-        RemindSuccessful,
-        RemindUnsuccessful,
+        /* Depreciated */ RemindSuccessful,
+        /* Depreciated */ RemindUnsuccessful,
+        RemindResult,
         #endregion
 
         #region Client menu messages

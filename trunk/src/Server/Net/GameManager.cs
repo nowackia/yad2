@@ -50,7 +50,7 @@ namespace Yad.Net.Server {
                         list.Add(sgi.GetGameInfo());
             }
 
-            GamesMessage msg = MessageFactory.Create(MessageType.GamesMessage) as GamesMessage;
+            GamesMessage msg = MessageFactory.Create(MessageType.Games) as GamesMessage;
             msg.ListGameInfo = list;
             msg.Operation = (byte)MessageOperation.List;
             _sender.MessagePost(msg, recipient);

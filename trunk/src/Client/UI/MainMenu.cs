@@ -476,7 +476,7 @@ namespace Client.UI
                 if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
                 else OnMenuOptionChange(MenuOption.Join); ;
 
-                Connection.SendMessage(MessageFactory.Create(MessageType.PlayersList));
+                Connection.SendMessage(MessageFactory.Create(MessageType.Players));
             }
         }
 

@@ -9,6 +9,10 @@ namespace Yad.Net.Messaging.Common
     {
         private PlayerData playerData;
 
+        public PlayerInfoMessage()
+            : base(MessageType.PlayerInfo)
+        { }
+
         public PlayerInfoMessage(MessageType msgType)
             : base(msgType)
         { }
