@@ -12,8 +12,8 @@ using Yad.Log.Common;
 
 namespace Yad.Net.Server {
     
-    delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
-    delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);
+    public delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
+    public delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);
 
     public class Player : IPlayerID {
 
@@ -52,14 +52,14 @@ namespace Yad.Net.Server {
             get { return _data.LossNo; }
         }
 
-        internal ConnectionLostDelegate OnConnectionLost {
-            get { return _onConnectionLost; }
-            set { _onConnectionLost = value; }
+        public event ConnectionLostDelegate OnConnectionLost {
+            add { _onConnectionLost +=  value; }
+            remove { _onConnectionLost -= value; }
         }
 
-        internal ReceiveMessageDelegate OnReceiveMessage {
-            get { return _onReceiveMessage; }
-            set { _onReceiveMessage = value; }
+        public event ReceiveMessageDelegate OnReceiveMessage {
+            add { _onReceiveMessage += value; }
+            remove { _onReceiveMessage -= value; }
         }
 
         public void SetData(PlayerData pd) {

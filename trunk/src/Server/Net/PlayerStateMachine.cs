@@ -15,8 +15,9 @@ namespace Yad.Net.Server {
     public enum MenuAction : byte {
         Login = 0,
         ChatEntry,
-        GameBrowseEnter,
-        GrameBrowseLeave
+        GameChooseEntry,
+        GameJoinEntry,
+        Logout
     }
 
 
@@ -36,8 +37,8 @@ namespace Yad.Net.Server {
                 for (byte j = 0; j < (byte)lengthMenuAction; ++j)
                 {
                     MenuState state = (MenuState)(i);
-
                     MenuAction action = (MenuAction)(j);
+
                     switch(state) {
                         case MenuState.Unlogged:
                             switch(action) {
@@ -55,8 +56,8 @@ namespace Yad.Net.Server {
                                 case MenuAction.ChatEntry:
                                     _transitions[i, j] = MenuState.Chat;
                                     break;
-                                case MenuAction.GameBrowseEnter:
-                                    _transitions[i, j] = MenuState.GameChoose;
+                                case MenuAction.Logout:
+                                    _transitions[i, j] = MenuState.Unlogged;
                                     break;
                                 default:
                                     _transitions[i, j] = MenuState.Invalid;
@@ -65,22 +66,38 @@ namespace Yad.Net.Server {
                             break;
                         case MenuState.Chat:
                             switch(action) {
-                                case MenuAction.GameBrowseEnter:
+                                case MenuAction.GameChooseEntry:
                                     _transitions[i,j] = MenuState.GameChoose;
                                     break;
-
+                                case MenuAction.Logout:
+                                    _transitions[i, j] = MenuState.Unlogged;
+                                    break;
                                 default:
                                     _transitions[i,j] = MenuState.Invalid;
                                     break;
                             }
                             break;
-
                         case MenuState.GameChoose:
-                            switch(action) {
-                                case MenuAction.GrameBrowseLeave:
-                                    _transitions[i,j] = MenuState.Chat;
+                            switch (action) {
+                                case MenuAction.GameJoinEntry:
+                                    _transitions[i, j] = MenuState.GameJoin;
                                     break;
-
+                                case MenuAction.Logout:
+                                    _transitions[i, j] = MenuState.Unlogged;
+                                    break;
+                                case MenuAction.ChatEntry:
+                                    _transitions[i, j] = MenuState.Chat;
+                                    break;
+                            }
+                            break;
+                        case MenuState.GameJoin:
+                            switch(action) {
+                                case MenuAction.GameChooseEntry:
+                                    _transitions[i,j] = MenuState.GameChoose;
+                                    break;
+                                case MenuAction.Logout:
+                                    _transitions[i, j] = MenuState.Unlogged;
+                                    break;
                                 default:
                                     _transitions[i,j] = MenuState.Invalid;
                                     break;

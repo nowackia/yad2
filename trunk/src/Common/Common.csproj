@@ -53,6 +53,7 @@
     <Compile Include="Config\Yad.Config.Common.cs" />
     <Compile Include="Engine\HouseType.cs" />
     <Compile Include="Engine\Player.cs" />
+    <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\CreateGameResult.cs" />
     <Compile Include="Net\GameInfo.cs" />
     <Compile Include="Net\GamePlayerInfo.cs" />

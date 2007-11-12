@@ -17,11 +17,6 @@ namespace Yad.Net.Server {
 
         #region Properties
 
-        /*internal Dictionary<short, ServerPlayerInfo> Players {
-            get { return _players; }
-            set { _players = value; }
-        }*/
-
         public string Name {
             get { return _gameInfo.Name; }
             set { _gameInfo.Name = value; }

@@ -20,12 +20,21 @@ namespace Yad.Net.Server {
             _sender = sender;
         }
 
+        public void AddPlayer(Player player) {
+            lock (((ICollection)_players).SyncRoot) {
+                _players.Add(player.Id, player);
+            }
+            SendGameListMessage(player.Id);
+        }
+
+        public void RemovePlayer(short id) {
+            lock (((ICollection)_players).SyncRoot) {
+                _players.Remove(id);
+            }
+        }
         public void ProcessPlayerEntry(Player player) {
             if (!_players.ContainsKey(player.Id)) {
-                lock (((ICollection)_players).SyncRoot) {
-                    _players.Add(player.Id, player);
-                }
-                SendGameListMessage(player.Id);
+               
             }
             else {
                 RemoveFromGameJoin(player.Id);
