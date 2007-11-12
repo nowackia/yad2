@@ -14,14 +14,13 @@ namespace Yad.Net.Messaging.Common {
             set { _operation = value; }
         }
         
-
         public List<GameInfo> ListGameInfo {
             get { return _listGameInfo; }
             set { _listGameInfo = value; }
         }
 
         public GamesMessage() 
-            : base(MessageType.GamesMessage) {
+            : base(MessageType.Games) {
             _operation = 0;
             _listGameInfo = new List<GameInfo>();
         }

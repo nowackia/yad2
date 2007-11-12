@@ -7,24 +7,129 @@ namespace Yad.Net.Messaging.Common {
         public static Message Create(MessageType msgType) {
             switch (msgType) {
 
-                #region Client login messages
-                case MessageType.Login:
-                    return new LoginMessage();
+                #region General messages
+                case MessageType.Numeric:
+                    return new NumericMessage();
 
-                case MessageType.Register:
-                    return new RegisterMessage();
+                case MessageType.Text:
+                    return new TextMessage();
 
-                case MessageType.Remind:
-                    return new TextMessage(MessageType.Remind);
+                case MessageType.Result:
+                    return new ResultMessage();
+
+                case MessageType.Entry:
+                    return new EntryMessage();
                 #endregion
 
-                #region Client menu messages
+                #region Game messages
+                #endregion
+
+                #region Chat
                 case MessageType.ChatEntry:
-                    return new Message(MessageType.ChatEntry);
+                    {
+                        EntryMessage entryMessage = new EntryMessage();
+                        entryMessage.ServerRoom = (byte)ServerRoom.Chat;
+                        return entryMessage;
+                    }
+
+                case MessageType.ChatUsers:
+                    return new ChatUsersMessage(MessageType.ChatUsers);
+
+                case MessageType.DeleteChatUser:
+                    return new ChatUsersMessage(MessageType.DeleteChatUser);
+
+                case MessageType.NewChatUser:
+                    return new ChatUsersMessage(MessageType.NewChatUser);
 
                 case MessageType.ChatText:
                     return new TextMessage(MessageType.ChatText);
+                #endregion
 
+                #region Player Info
+                case MessageType.PlayerInfo:
+                    return new NumericMessage(MessageType.PlayerInfo);
+
+                /* Depreciated */ 
+                case MessageType.PlayerInfoSuccessful:
+                    return new PlayerInfoMessage(MessageType.PlayerInfoSuccessful);
+
+                /* Depreciated */ 
+                case MessageType.PlayerInfoUnsuccessful:
+                    return new Message(MessageType.PlayerInfoUnsuccessful);
+
+                case MessageType.PlayerInfoResponse:
+                    return new PlayerInfoMessage(MessageType.PlayerInfoResponse);
+                #endregion
+
+                #region Game Choosing
+                #endregion
+
+                #region Game Creating
+                #endregion
+
+                #region Game Joining
+                #endregion
+
+                #region Client login messages
+                case MessageType.Login:
+                    return new LoginMessage(MessageType.Login);
+
+                /* Depreciated */ 
+                case MessageType.LoginSuccessful:
+                    return new Message(MessageType.LoginSuccessful);
+
+                /* Depreciated */
+                case MessageType.LoginUnsuccessful:
+                    return new Message(MessageType.LoginUnsuccessful);
+        
+                case MessageType.LoginResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.Login;
+                        return resultMessage;
+                    }
+        
+                case MessageType.Register:
+                    return new RegisterMessage(MessageType.Register);
+        
+                /* Depreciated */
+                case MessageType.RegisterSuccessful:
+                    return new Message(MessageType.RegisterSuccessful);
+
+                /* Depreciated */
+                case MessageType.RegisterUnsuccessful:
+                    return new Message(MessageType.RegisterUnsuccessful);
+
+                case MessageType.RegisterResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.Register;
+                        return resultMessage;
+                    }
+
+                case MessageType.Remind:
+                    return new RegisterMessage(MessageType.Register);
+
+                /* Depreciated */
+                case MessageType.RemindSuccessful:
+                    return new RegisterMessage(MessageType.RemindSuccessful);
+
+                /* Depreciated */
+                case MessageType.RemindUnsuccessful:
+                    return new RegisterMessage(MessageType.RemindUnsuccessful);
+
+                case MessageType.RemindResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.Remind;
+                        return resultMessage;
+                    }
+                #endregion
+
+                #region Client menu messages
+                #endregion
+
+                #region Not changed
                 case MessageType.ChooseGameEntry:
                     return new Message(MessageType.ChooseGameEntry);
 
@@ -39,57 +144,9 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.Logout:
                     return new Message(MessageType.Logout);
-                #endregion
 
-                case MessageType.Result:
-                    return new ResultMessage();
-                case MessageType.Entry:
-                    return new EntryMessage();
-                case MessageType.ChatUsers:
-                    return new ChatUsersMessage(MessageType.ChatUsers);
-                case MessageType.GamesMessage:
+                case MessageType.Games:
                     return new GamesMessage();
-                case MessageType.NewChatUser:
-                    return new ChatUsersMessage(MessageType.NewChatUser);
-
-                case MessageType.DeleteChatUser:
-                    return new ChatUsersMessage(MessageType.DeleteChatUser);
-
-                case MessageType.PlayerInfo:
-                    return new Message(MessageType.PlayerInfo);
-
-                case MessageType.LoginSuccessful:
-                    return new Message(MessageType.LoginSuccessful);
-
-                case MessageType.LoginUnsuccessful:
-                    return new TextMessage(MessageType.LoginUnsuccessful);
-
-                case MessageType.PlayerInfoSuccessful:
-                    return new PlayerInfoMessage(MessageType.PlayerInfoSuccessful);
-
-                case MessageType.PlayerInfoUnsuccessful:
-                    return new Message(MessageType.PlayerInfoUnsuccessful);
-
-                case MessageType.PlayersList:
-                    return new PlayersListMessage(MessageType.PlayersList);
-
-                case MessageType.NewPlayer:
-                    return new PlayersListMessage(MessageType.NewPlayer);
-
-                case MessageType.DeletePlayer:
-                    return new PlayersListMessage(MessageType.DeletePlayer);
-
-                case MessageType.UpdatePlayer:
-                    return new PlayersListMessage(MessageType.UpdatePlayer);
-
-                case MessageType.NewGame:
-                    return new GamesListMessage(MessageType.NewGame);
-
-                case MessageType.DeleteGame:
-                    return new GamesListMessage(MessageType.DeleteGame);
-
-                case MessageType.GamesList:
-                    return new GamesListMessage(MessageType.GamesList);
 
                 case MessageType.StartGame:
                     return new TextMessage(MessageType.StartGame);
@@ -99,9 +156,7 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.StartGameUnsuccessful:
                     return new TextMessage(MessageType.StartGameUnsuccessful);
-
-                case MessageType.Move:
-                    return new MoveMessage();
+                #endregion
 
                 #region Unknown messages
                 case MessageType.Unknown:

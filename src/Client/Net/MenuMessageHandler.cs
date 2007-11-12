@@ -213,20 +213,20 @@ namespace Client.Net
                 case MessageType.NewGame:
                     if(NewGamesInfo != null)
                     {
-                        GamesListMessage gamesList = message as GamesListMessage;
-                        NewGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                        GamesMessage gamesList = message as GamesMessage;
+                        NewGamesInfo(this, new GameEventArgs(gamesList.ListGameInfo.ToArray(), string.Empty));
                     }
                     break;
 
                 case MessageType.DeleteGame:
                     if(DeleteGamesInfo != null)
                     {
-                        GamesListMessage gamesList = message as GamesListMessage;
-                        DeleteGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                        GamesMessage gamesList = message as GamesMessage;
+                        DeleteGamesInfo(this, new GameEventArgs(gamesList.ListGameInfo.ToArray(), string.Empty));
                     }
                     break;
 
-                case MessageType.GamesList:
+                /*case MessageType.GamesList:
                     if(ResetGamesInfo != null)
                     {
                         GamesListMessage gamesList = message as GamesListMessage;
@@ -264,7 +264,7 @@ namespace Client.Net
                         PlayersListMessage playersList = message as PlayersListMessage;
                         UpdatePlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty, true));
                     }
-                    break;
+                    break;*/
 
                 default:
                     break;

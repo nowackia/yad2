@@ -59,11 +59,9 @@
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\Messaging\CreateGameMessage.cs" />
     <Compile Include="Net\Messaging\EntryMessage.cs" />
-    <Compile Include="Net\Messaging\GamesListMessage.cs" />
     <Compile Include="Net\Messaging\GamesMessage.cs" />
     <Compile Include="Net\Messaging\MessageOperation.cs" />
     <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
-    <Compile Include="Net\Messaging\PlayersListMessage.cs" />
     <Compile Include="Net\Messaging\PlayersMessage.cs" />
     <Compile Include="Net\Messaging\RegisterMessage.cs" />
     <Compile Include="Net\Messaging\ResultMessage.cs" />
