@@ -4,13 +4,17 @@ using System.Text;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
-namespace Yad.Engine.Server
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    class ServerSimulation : Yad.Engine.Common.Simulation
-    {
+namespace Yad.Engine.Server {
+	/// <summary>
+	/// 
+	/// </summary>
+	class ServerSimulation : Yad.Engine.Common.Simulation {
+		public ServerSimulation()
+			: base(true) {
+			//this.onTurnBegin
+			//this.onTurnEnd
+		}
+
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 		}

@@ -75,6 +75,8 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		List<GameMessage>[] turns = new List<GameMessage>[2 * delta];
 
+		bool fastTurnProcessing = true;
+
 		#endregion
 
 		#region protected members
@@ -83,12 +85,14 @@ namespace Yad.Engine.Common {
 		/// (short id, Player player)
 		/// </summary>
 		protected Dictionary<short, Player> players = new Dictionary<short, Player>();
+		
 
 		//animations
 
 		#endregion
 		#region constructor
-		public Simulation() {
+		public Simulation(bool useFastTurnProcessing) {
+			this.fastTurnProcessing = useFastTurnProcessing;
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;
 
@@ -138,23 +142,23 @@ namespace Yad.Engine.Common {
 					}
 				}
 
-				if (!this.SpeedUp) {
-					int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
-					//InfoLog.WriteInfo(remainingTime.ToString(), EPrefix.SimulationInfo);
-					if (remainingTime > 0)
-						Thread.Sleep(remainingTime);
-				} else {
-					speedUpLength--;
-					if (speedUpLength == 0) {
-						SpeedUp = false;
+				if (!this.fastTurnProcessing) {
+					if (!this.SpeedUp) {
+						int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
+						//InfoLog.WriteInfo(remainingTime.ToString(), EPrefix.SimulationInfo);
+						if (remainingTime > 0)
+							Thread.Sleep(remainingTime);
+					} else {
+						speedUpLength--;
+						if (speedUpLength == 0) {
+							SpeedUp = false;
+						}
 					}
 				}
 
 				if (this.onTurnEnd != null) {
 					this.onTurnEnd();
-				}
-
-				
+				}				
 			}
 		}
 		#endregion
