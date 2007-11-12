@@ -6,6 +6,9 @@ namespace Yad.Board.Common
 {
     public class UnitMCV : Unit
     {
+		public UnitMCV(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		}
+
         public override void Destroy()
         {
             throw new Exception("The method or operation is not implemented.");

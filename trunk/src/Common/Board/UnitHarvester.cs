@@ -4,7 +4,12 @@ using System.Text;
 
 namespace Yad.Board.Common {
 	public class UnitHarvester : Unit {
+
 		private int capacity;
+
+		public UnitHarvester(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		}
+
 		public int Capacity {
 			get { return capacity; }
 		}

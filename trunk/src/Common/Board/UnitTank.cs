@@ -8,6 +8,10 @@ namespace Yad.Board.Common
     {
         private Animation turretAnimation;
         private int turretRotationSpeed;
+
+		public UnitTank(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		}
+
         public int TurretRotationSpeed
         {
             get { return turretRotationSpeed; }
