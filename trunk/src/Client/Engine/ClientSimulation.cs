@@ -4,10 +4,14 @@ using System.Text;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
-namespace Yad.Engine.Client
-{
-    public class ClientSimulation : Yad.Engine.Common.Simulation
-    {
+namespace Yad.Engine.Client {
+	public class ClientSimulation : Yad.Engine.Common.Simulation {
+		public ClientSimulation()
+			: base(false) {
+			//this.onTurnBegin
+			//this.onTurnEnd
+		}
+
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 		}

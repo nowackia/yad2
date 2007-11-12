@@ -6,7 +6,7 @@ using Yad.Board.Common;
 using System.Collections;
 
 namespace Yad.Engine.Common {
-	class Player {
+	public class Player {
 		/// <summary>
 		/// Player id assigned by server.
 		/// </summary>
