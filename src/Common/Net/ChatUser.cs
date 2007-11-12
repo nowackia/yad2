@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yad.Net.Common
 {
-    public class ChatUser
+    public class ChatUser : IPlayerID
     {
         private short id;
         private string name;
@@ -35,5 +35,13 @@ namespace Yad.Net.Common
         {
             return name;
         }
+
+        #region IPlayerID Members
+
+        public short GetID() {
+            return id;
+        }
+
+        #endregion
     }
 }

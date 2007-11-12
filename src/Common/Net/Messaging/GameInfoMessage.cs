@@ -4,9 +4,9 @@ using System.Text;
 using Yad.Net.Messaging.Common;
 using Yad.Net.Common;
 
-namespace Yad.Net.Messaging
+namespace Yad.Net.Messaging.Common
 {
-    class GameInfoMessage : Message
+    public class GameInfoMessage : Message
     {
         GameInfo _gi;
 

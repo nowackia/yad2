@@ -20,6 +20,7 @@ namespace Yad.Net.Server {
             private TcpListener _listener;
             private Dictionary<int, Player> _playersUnlogged;
             private Chat _chat;
+            private GameManager _gameManager;
             private bool _serverEnd = false;
             private static short playerID = 0;
 
@@ -27,14 +28,19 @@ namespace Yad.Net.Server {
 
             #region Properites
 
-            internal Chat Chat {
+            public Chat Chat {
                 get { return _chat; }
                 set { _chat = value; }
             }
 
-            internal Dictionary<int, Player> PlayersUnlogged {
+            public Dictionary<int, Player> PlayersUnlogged {
                 get { return _playersUnlogged; }
                 set { _playersUnlogged = value; }
+            }
+
+            public GameManager GameManager {
+                get { return _gameManager; }
+                set { _gameManager = value; }
             }
 
             #endregion
