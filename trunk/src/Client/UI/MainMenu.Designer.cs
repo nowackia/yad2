@@ -74,7 +74,7 @@ namespace Client.UI
             this.chatInputTBChatMenu = new System.Windows.Forms.TextBox();
             this.backChatMenu = new System.Windows.Forms.Button();
             this.gameChatMenu = new System.Windows.Forms.Button();
-            this.infoMenu = new System.Windows.Forms.TabPage();
+            this.playerInfoMenu = new System.Windows.Forms.TabPage();
             this.playerInfoLInfoMenu = new System.Windows.Forms.Label();
             this.backInfoMenu = new System.Windows.Forms.Button();
             this.chooseGameMenu = new System.Windows.Forms.TabPage();
@@ -96,6 +96,9 @@ namespace Client.UI
             this.createCreateGameMenu = new System.Windows.Forms.Button();
             this.waitingForPlayersMenu = new System.Windows.Forms.TabPage();
             this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
+            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.House = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
@@ -122,9 +125,6 @@ namespace Client.UI
             this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
-            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.House = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -138,7 +138,7 @@ namespace Client.UI
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.chatMenu.SuspendLayout();
-            this.infoMenu.SuspendLayout();
+            this.playerInfoMenu.SuspendLayout();
             this.chooseGameMenu.SuspendLayout();
             this.createGameMenu.SuspendLayout();
             this.waitingForPlayersMenu.SuspendLayout();
@@ -160,7 +160,7 @@ namespace Client.UI
             this.tabControl.Controls.Add(this.loginMenu);
             this.tabControl.Controls.Add(this.registerMenu);
             this.tabControl.Controls.Add(this.chatMenu);
-            this.tabControl.Controls.Add(this.infoMenu);
+            this.tabControl.Controls.Add(this.playerInfoMenu);
             this.tabControl.Controls.Add(this.chooseGameMenu);
             this.tabControl.Controls.Add(this.createGameMenu);
             this.tabControl.Controls.Add(this.waitingForPlayersMenu);
@@ -262,6 +262,7 @@ namespace Client.UI
             this.creditsMainMenu.TabIndex = 1;
             this.creditsMainMenu.Text = "Credits";
             this.creditsMainMenu.UseVisualStyleBackColor = true;
+            this.creditsMainMenu.Click += new System.EventHandler(this.creditsMainMenu_Click);
             // 
             // haxxx
             // 
@@ -647,17 +648,17 @@ namespace Client.UI
             this.gameChatMenu.UseVisualStyleBackColor = true;
             this.gameChatMenu.Click += new System.EventHandler(this.gameChatMenu_Click);
             // 
-            // infoMenu
+            // playerInfoMenu
             // 
-            this.infoMenu.Controls.Add(this.playerInfoLInfoMenu);
-            this.infoMenu.Controls.Add(this.backInfoMenu);
-            this.infoMenu.Location = new System.Drawing.Point(4, 4);
-            this.infoMenu.Name = "infoMenu";
-            this.infoMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.infoMenu.Size = new System.Drawing.Size(527, 338);
-            this.infoMenu.TabIndex = 4;
-            this.infoMenu.Text = "InfoMenu";
-            this.infoMenu.UseVisualStyleBackColor = true;
+            this.playerInfoMenu.Controls.Add(this.playerInfoLInfoMenu);
+            this.playerInfoMenu.Controls.Add(this.backInfoMenu);
+            this.playerInfoMenu.Location = new System.Drawing.Point(4, 4);
+            this.playerInfoMenu.Name = "playerInfoMenu";
+            this.playerInfoMenu.Padding = new System.Windows.Forms.Padding(3);
+            this.playerInfoMenu.Size = new System.Drawing.Size(527, 338);
+            this.playerInfoMenu.TabIndex = 4;
+            this.playerInfoMenu.Text = "PlayerInfoMenu";
+            this.playerInfoMenu.UseVisualStyleBackColor = true;
             // 
             // playerInfoLInfoMenu
             // 
@@ -884,6 +885,31 @@ namespace Client.UI
             this.dataGridViewPlayers.RowHeadersVisible = false;
             this.dataGridViewPlayers.Size = new System.Drawing.Size(235, 147);
             this.dataGridViewPlayers.TabIndex = 6;
+            // 
+            // PlayersName
+            // 
+            this.PlayersName.HeaderText = "Name";
+            this.PlayersName.MinimumWidth = 100;
+            this.PlayersName.Name = "PlayersName";
+            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // House
+            // 
+            this.House.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.House.HeaderText = "House";
+            this.House.MinimumWidth = 75;
+            this.House.Name = "House";
+            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.House.Width = 75;
+            // 
+            // Team
+            // 
+            this.Team.HeaderText = "Team";
+            this.Team.MinimumWidth = 55;
+            this.Team.Name = "Team";
+            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Team.Width = 55;
             // 
             // descriptionLWaitingForPlayersMenu
             // 
@@ -1188,31 +1214,6 @@ namespace Client.UI
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
             // 
-            // PlayersName
-            // 
-            this.PlayersName.HeaderText = "Name";
-            this.PlayersName.MinimumWidth = 100;
-            this.PlayersName.Name = "PlayersName";
-            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // House
-            // 
-            this.House.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.House.HeaderText = "House";
-            this.House.MinimumWidth = 75;
-            this.House.Name = "House";
-            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.House.Width = 75;
-            // 
-            // Team
-            // 
-            this.Team.HeaderText = "Team";
-            this.Team.MinimumWidth = 55;
-            this.Team.Name = "Team";
-            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Team.Width = 55;
-            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1240,8 +1241,8 @@ namespace Client.UI
             this.panel2.ResumeLayout(false);
             this.chatMenu.ResumeLayout(false);
             this.chatMenu.PerformLayout();
-            this.infoMenu.ResumeLayout(false);
-            this.infoMenu.PerformLayout();
+            this.playerInfoMenu.ResumeLayout(false);
+            this.playerInfoMenu.PerformLayout();
             this.chooseGameMenu.ResumeLayout(false);
             this.chooseGameMenu.PerformLayout();
             this.createGameMenu.ResumeLayout(false);
@@ -1269,7 +1270,7 @@ namespace Client.UI
         private System.Windows.Forms.TabPage loginMenu;
         private System.Windows.Forms.TabPage registerMenu;
         private System.Windows.Forms.TabPage chatMenu;
-        private System.Windows.Forms.TabPage infoMenu;
+        private System.Windows.Forms.TabPage playerInfoMenu;
         private System.Windows.Forms.TabPage chooseGameMenu;
         private System.Windows.Forms.TabPage createGameMenu;
         private System.Windows.Forms.TabPage waitingForPlayersMenu;
