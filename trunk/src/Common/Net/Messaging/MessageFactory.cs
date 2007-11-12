@@ -41,9 +41,14 @@ namespace Yad.Net.Messaging.Common {
                     return new Message(MessageType.Logout);
                 #endregion
 
+                case MessageType.Result:
+                    return new ResultMessage();
+                case MessageType.Entry:
+                    return new EntryMessage();
                 case MessageType.ChatUsers:
                     return new ChatUsersMessage(MessageType.ChatUsers);
-
+                case MessageType.GamesMessage:
+                    return new GamesMessage();
                 case MessageType.NewChatUser:
                     return new ChatUsersMessage(MessageType.NewChatUser);
 

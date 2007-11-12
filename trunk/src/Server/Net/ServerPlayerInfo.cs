@@ -4,17 +4,35 @@ using System.Text;
 using Yad.Net.Common;
 
 namespace Yad.Net.Server {
-    class ServerPlayerInfo : PlayerInfo {
-        Player _player;
+    class ServerPlayerInfo : GamePlayerInfo, IPlayerID {
+        bool _startedClicked = false;
 
-        public ServerPlayerInfo(Player player) {
-            _player = player;
+        public bool StartedClicked {
+            get { return _startedClicked; }
+            set { _startedClicked = value; }
         }
 
-        public short Id {
-            get {
-                return _player.Id;
-            }
+        public ServerPlayerInfo(short id, string name) {
+            this.Id = id;
+            this.Name = name;
         }
+
+        public GamePlayerInfo GetGamePlayerInfo() {
+            GamePlayerInfo gmi = new GamePlayerInfo();
+            gmi.Id = this.Id;
+            gmi.Name = this.Name;
+            gmi.TeamID = this.TeamID;
+            gmi.House = this.House;
+            return gmi;
+        }
+
+
+        #region IPlayerID Members
+
+        public short GetID() {
+            return this.Id;
+        }
+
+        #endregion
     }
 }

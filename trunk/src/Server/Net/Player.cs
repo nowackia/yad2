@@ -15,7 +15,7 @@ namespace Yad.Net.Server {
     delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
     delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);
 
-    class Player {
+    public class Player : IPlayerID {
 
         #region Private members
 
@@ -133,6 +133,22 @@ namespace Yad.Net.Server {
             }
         }
 
-        
+
+
+        #region IPlayerID Members
+
+        public short GetID() {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
+
+        #region IPlayerID Members
+
+        short IPlayerID.GetID() {
+            return this.Id;
+        }
+
+        #endregion
     }
 }

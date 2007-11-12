@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="Net\GameManager.cs" />
+    <Compile Include="Net\GameRoom.cs" />
+    <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />
     <Compile Include="Net\IPlayerProvider.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="Net\ServerMessageSender.cs" />
     <Compile Include="Net\ServerGameInfo.cs" />
     <Compile Include="Net\ServerPlayerInfo.cs" />
+    <Compile Include="Net\Utils.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>

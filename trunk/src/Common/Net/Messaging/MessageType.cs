@@ -9,6 +9,10 @@ namespace Yad.Net.Messaging.Common
         #region General messages
         Numeric = 0,
         Text,
+        Result,
+        Entry,
+        GamesMessage,
+        Players,
         #endregion
 
         #region Game messages

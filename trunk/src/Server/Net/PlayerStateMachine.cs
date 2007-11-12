@@ -7,7 +7,8 @@ namespace Yad.Net.Server {
         Unlogged = 0,
         Logged,
         Chat,
-        GameBrowse,
+        GameChoose,
+        GameJoin,
         Invalid
     }
 
@@ -55,7 +56,7 @@ namespace Yad.Net.Server {
                                     _transitions[i, j] = MenuState.Chat;
                                     break;
                                 case MenuAction.GameBrowseEnter:
-                                    _transitions[i, j] = MenuState.GameBrowse;
+                                    _transitions[i, j] = MenuState.GameChoose;
                                     break;
                                 default:
                                     _transitions[i, j] = MenuState.Invalid;
@@ -65,7 +66,7 @@ namespace Yad.Net.Server {
                         case MenuState.Chat:
                             switch(action) {
                                 case MenuAction.GameBrowseEnter:
-                                    _transitions[i,j] = MenuState.GameBrowse;
+                                    _transitions[i,j] = MenuState.GameChoose;
                                     break;
 
                                 default:
@@ -74,7 +75,7 @@ namespace Yad.Net.Server {
                             }
                             break;
 
-                        case MenuState.GameBrowse:
+                        case MenuState.GameChoose:
                             switch(action) {
                                 case MenuAction.GrameBrowseLeave:
                                     _transitions[i,j] = MenuState.Chat;

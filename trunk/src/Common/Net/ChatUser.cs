@@ -6,10 +6,10 @@ namespace Yad.Net.Common
 {
     public class ChatUser
     {
-        private int id;
+        private short id;
         private string name;
 
-        public int Id
+        public short Id
         {
             get { return id; }
             set { id = value; }
@@ -21,11 +21,11 @@ namespace Yad.Net.Common
             set { name = value; }
         }
 
-        public ChatUser(int id)
+        public ChatUser(short id)
             : this(id, String.Empty)
         { }
 
-        public ChatUser(int id, string name)
+        public ChatUser(short id, string name)
         {
             this.id = id;
             this.name = name;

@@ -11,7 +11,8 @@ namespace Yad.Net.Server
 {
     class MenuMessageHandler : MessageHandler {
 
-        private Server _server;
+        private Server _server
+            ;
         public MenuMessageHandler(Server server)
             : base() {
             _server = server;
@@ -24,13 +25,35 @@ namespace Yad.Net.Server
                 case MessageType.Login:
                     ProcessLogin((LoginMessage)msg);
                     break;
-                case MessageType.ChatEntry:
-                    ProcessChatEntry(msg);
+                case MessageType.Entry:
+                    ProcessEntry(msg);
+                    break;
+                case MessageType.ChatText:
+                    ProcessChatText((TextMessage)msg);
                     break;
             }
 
         }
 
+        private void ProcessChatText(TextMessage msg) {
+            _server.Chat.AddTextMessage(msg);
+        }
+
+        private void ProcessEntry(Message msg) {
+            EntryMessage emsg = msg as EntryMessage;
+            switch ((ServerRoom)emsg.ServerRoom) {
+                case ServerRoom.Chat:
+                    ProcessChatEntry(emsg);
+                    break;
+                case ServerRoom.GameChoose:
+                    ProcessGameChooseEntry(emsg);
+                    break;
+            }
+        }
+
+        public void ProcessGameChooseEntry(Message msg) {
+            //TODO: implementacja
+        }
         public void ProcessChatEntry(Message msg) {
 
             Player player = _server.GetPlayer(msg.PlayerId);
@@ -44,10 +67,25 @@ namespace Yad.Net.Server
                 return;
             }
 
-            player.State = state;
-            _server.Chat.AddPlayer(player);
+            switch (player.State) {
+                case MenuState.GameChoose:
+                    RemoveFromGameRoom(player);
+                break;
+            }
 
+            player.State = state;
+            AddToChat(player);
+            
         }
+
+        public void AddToChat(Player player) {
+            _server.Chat.AddPlayer(player);
+        }
+
+        public void RemoveFromGameRoom(Player player) {
+            //TODO: implementacja
+        }
+
         public void ProcessLogin(LoginMessage msg) {
             
             //Pobranie gracza z listy niezalogowanych
@@ -60,7 +98,7 @@ namespace Yad.Net.Server
             if (Login(msg.Login, msg.Password)) {
                 MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.Login);
                 if (state == MenuState.Invalid) {
-                    SendMessage(MessageFactory.Create(MessageType.LoginUnsuccessful), player.Id);
+                    SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
                     return;
                 }
 
@@ -69,7 +107,7 @@ namespace Yad.Net.Server
                 player.SetData(LoadPlayerData(msg.Login));
             }
 
-            SendMessage((MessageFactory.Create(MessageType.LoginSuccessful)), player.Id);
+            SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Successful), player.Id);
         }
 
         private void LoggingTransfer(Player player) {
