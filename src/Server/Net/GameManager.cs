@@ -20,11 +20,26 @@ namespace Yad.Net.Server {
             _sender = sender;
         }
 
-        public void AddPlayer(Player player) {
-            lock (((ICollection)_players).SyncRoot) {
-                _players.Add(player.Id, player);
+        public void ProcessPlayerEntry(Player player) {
+            if (!_players.ContainsKey(player.Id)) {
+                lock (((ICollection)_players).SyncRoot) {
+                    _players.Add(player.Id, player);
+                }
+                SendGameListMessage(player.Id);
             }
-            SendGameListMessage(player.Id);
+            else {
+                RemoveFromGameJoin(player.Id);
+            }
+        }
+
+        public void RemoveFromGameJoin(short id) {
+            lock (((ICollection)_games).SyncRoot) {
+                foreach (ServerGameInfo sgi in _games.Values)
+                    if (sgi.IsInside(id)) {
+                        sgi.RemovePlayer(id);
+                        break;
+                    }
+            }
         }
 
         public void SendGameListMessage(int recipient) {
@@ -35,39 +50,67 @@ namespace Yad.Net.Server {
                         list.Add(sgi.GetGameInfo());
             }
 
-            GamesListMessage msg = MessageFactory.Create(MessageType.GamesList) as GamesListMessage;
-            msg.Games = list;
+            GamesMessage msg = MessageFactory.Create(MessageType.GamesMessage) as GamesMessage;
+            msg.ListGameInfo = list;
+            msg.Operation = (byte)MessageOperation.List;
             _sender.MessagePost(msg, recipient);
         }
 
-        public CreateGameResult CreateGame(GameInfo gi) {
+        public ResultType CreateGame(GameInfo gi) {
             if (GameNumber == MaxGameNumber)
-                return CreateGameResult.MaxServerGameError;
-            CreateGameResult result;
+                return ResultType.MaxServerGameError;
+            ResultType result;
             lock (((ICollection)_games).SyncRoot) {
                 result = IsValid(gi);
-                if (result != CreateGameResult.CreateSuccessful)
+                if (result != ResultType.Successful)
                     return result;
-                ServerGameInfo sgi = new ServerGameInfo(gi);
+                ServerGameInfo sgi = new ServerGameInfo(gi, _sender);
                 _games.Add(gi.Name, sgi);
             }
             return result;
         }
 
+
+        public ResultType JoinGame(string name, Player player) {
+            lock (((ICollection)_games).SyncRoot) {
+                ResultType result = IsJoinPossible(name);
+                if (ResultType.Successful == result) {
+                    _games[name].AddPlayer(player);
+                }
+                return result;
+            }
+         
+        }
+
+
+
+        private void SendMessage(Message msg, short id) {
+            _sender.MessagePost(msg, id);
+        }
         private short GameNumber {
             get {
                 return (short)_games.Count;
             }
         }
-
-        public CreateGameResult IsValid(GameInfo gi) {
+        private ResultType IsJoinPossible(string name) {
+            //czy nazwa istnieje
+            if (!_games.ContainsKey(name))
+                return ResultType.GameNotExists;
+           //czy gra jest pelna
+            if (!_games[name].IsAddPosible())
+                return ResultType.GameFull;
+            //czy gra sie zaczela - jak bedzie wiadomo jak rozpoczac gre :)
+            return ResultType.Successful;
+           
+        }
+        public ResultType IsValid(GameInfo gi) {
             if (!IsNameValid(gi.Name))
-                return CreateGameResult.NameExistsError;
+                return ResultType.NameExistsError;
             if (!IsPlayerNoValid(gi.MaxPlayerNumber))
-                return CreateGameResult.InvalidPlayerNoError;
+                return ResultType.InvalidPlayerNoError;
             if (!IsMapValid(gi.MapId))
-                return CreateGameResult.InvalidMapIdNoError;
-            return CreateGameResult.CreateSuccessful;
+                return ResultType.InvalidMapIdNoError;
+            return ResultType.Successful;
             
         }
 

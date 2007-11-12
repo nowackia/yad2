@@ -14,7 +14,16 @@ namespace Yad.Net.Messaging.Common {
     /// nazwa (char[])
     /// </summary>
     public class ChatUsersMessage : Message {
+        
+        byte _option;
         List<ChatUser> _chatUsers;
+
+        public byte Option {
+            get { return _option; }
+            set { _option = value; }
+        }
+
+        
 
         public List<ChatUser> ChatUsers
         {
@@ -30,6 +39,7 @@ namespace Yad.Net.Messaging.Common {
 
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);
+            writer.Write(_option);
             writer.Write(_chatUsers.Count);
             foreach (ChatUser cu in _chatUsers) {
                 writer.Write(cu.Id);
@@ -39,11 +49,12 @@ namespace Yad.Net.Messaging.Common {
 
         public override void Deserialize(System.IO.BinaryReader reader) {
             base.Deserialize(reader);
+            _option = reader.ReadByte();
             int count = reader.ReadInt32();
-            int id;
+            short id;
             string name;
             for (int i = 0; i < count; ++i) {
-                id = reader.ReadInt32();
+                id = reader.ReadInt16();
                 name = base.ReadString(reader);
                 _chatUsers.Add(new ChatUser(id, name));
             }

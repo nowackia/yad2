@@ -7,65 +7,106 @@ using Yad.Net.Common;
 
 namespace Yad.Net.Server {
     class Chat {
-        Dictionary<short, Player> _players;
-        IMessageSender _sender;
+
+        #region Private Members
+
+        private Dictionary<short, ChatUser> _players;
+        private IMessageSender _sender;
+        private string MessageFormat = "[{0}] : {1}";
+
+        #endregion
+
+        #region Constructors
+
         public Chat(IMessageSender sender) {
-            _players = new Dictionary<short, Player>();
+            _players = new Dictionary<short, ChatUser>();
             _sender = sender;
         }
+
+        #endregion
+
+        #region Public Methods
+
         public void AddPlayer(Player player) {
+            ChatUser cu = PlayerToChatUser(player);
             lock (((ICollection)_players).SyncRoot) {
-                _players.Add(player.Id, player);
+                _players.Add(player.Id, cu);
             }
-            /*Message m = MessageFactory.Create(MessageType.ChatUsers);
-            if (m != null)
-            {
-                _sender.MessagePost(m, player.Id);
-                BroadcastExcl(new NewChatUserMessage(player.Login, player.Id), player.Id);
-            }*/
-            SendMessage(CreateChatUserMessage(), player.Id);
-            
+            SendAddPlayer(cu);
+            SendListPlayer(cu);
         }
 
-        public ChatUsersMessage CreateChatUserMessage(){
+        public void RemovePlayer(Player player) {
+            ChatUser cu = PlayerToChatUser(player);
+            lock (((ICollection)_players).SyncRoot) {
+                _players.Remove(cu.Id);
+            }
+            SendRemovePlayer(cu);
+        }
+
+        public void AddTextMessage(TextMessage msg) {
+            string message = string.Format(MessageFormat, _players[msg.PlayerId].Name, msg.Text);
+            int id = msg.PlayerId;
+            msg.Text = message;
+            msg.PlayerId = -1;
+            BroadcastExcl(msg, id);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private ChatUsersMessage CreateChatUserMessage(){
             ChatUsersMessage msg = MessageFactory.Create(MessageType.ChatUsers) as ChatUsersMessage;
             return msg;
         }
 
-        public ChatUser PlayerToChatUser(Player p)
+        private ChatUser PlayerToChatUser(Player p)
         {
-            return null;
+            return new ChatUser(p.Id, p.Login);
         }
 
-        public void Remove(Player player) {
-            _players.Remove(player.Id);
-            Message m = MessageFactory.Create(MessageType.DeleteChatUser);
-            ((NumericMessage)m).Number = player.Id;
-            foreach (Player p in _players.Values) {
-                p.SendMessage(m);
-            }
-        }
-
+      
         private void BroadcastExcl(Message msg, int id)
         {
             lock (((ICollection)_players).SyncRoot)
-                foreach (Player p in _players.Values)
-                    if (p.Id != id)
-                        _sender.MessagePost(msg, id);
+                foreach (ChatUser cu in _players.Values)
+                    if (cu.Id != id)
+                        _sender.MessagePost(msg, cu.Id);
         }
 
-        public void PostMessage(TextMessage msg) {
-            foreach (Player p in _players.Values) {
-                if (p.Id != msg.PlayerId) {
-                    p.SendMessage(msg);
-                }
-            }
-        }
 
-        public void SendMessage(Message msg, short id) {
+        private void SendMessage(Message msg, short id) {
             _sender.MessagePost(msg, id);
         }
 
+        private void SendAddPlayer(ChatUser cu) {
+            ChatUsersMessage msg = CreateChatUserMessage();
+            msg.ChatUsers.Add(cu);
+            msg.Option = (byte)MessageOperation.Add;
+            BroadcastExcl(msg, cu.Id);
+        }
+
+        private void SendListPlayer(ChatUser chuser) {
+            ChatUsersMessage msg = CreateChatUserMessage();
+            msg.Option = (byte)MessageOperation.List;
+            lock (((ICollection)_players).SyncRoot) {
+                foreach (ChatUser cu in _players.Values) {
+                    msg.ChatUsers.Add(cu);
+                }
+            }
+            SendMessage(msg, chuser.Id);
+        }
+
+        private void SendRemovePlayer(ChatUser cu) {
+            ChatUsersMessage msg = CreateChatUserMessage();
+            msg.Option = (byte)MessageOperation.Remove;
+            msg.ChatUsers.Add(cu);
+            BroadcastExcl(msg, -1);
+
+        }
+
+        #endregion
 
     }
 }
