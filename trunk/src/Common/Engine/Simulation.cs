@@ -82,7 +82,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// (short id, Player player)
 		/// </summary>
-		Dictionary<short, Player> players = new Dictionary<short, Player>();
+		protected Dictionary<short, Player> players = new Dictionary<short, Player>();
 
 		//animations
 
