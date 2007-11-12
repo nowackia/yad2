@@ -114,34 +114,27 @@ namespace Client.Net
         {
             switch (message.Type)
             {
-                case MessageType.LoginSuccessful:
-                    if (LoginRequestReply != null)
-                        LoginRequestReply(this, new RequestReplyEventArgs(true, "Login successful"));
-                    break;
+                case MessageType.Result:
+                    {
+                        ResultMessage result = message as ResultMessage;
+                        switch ((ResponseType)result.ResponseType)
+                        {
+                            case ResponseType.Login:
+                                if (LoginRequestReply != null)
+                                    LoginRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
 
-                case MessageType.LoginUnsuccessful:
-                    if (LoginRequestReply != null)
-                        LoginRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
-                    break;
+                            case ResponseType.Register:
+                                if (RegisterRequestReply != null)
+                                    RegisterRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
 
-                case MessageType.RegisterSuccessful:
-                    if (RegisterRequestReply != null)
-                        RegisterRequestReply(this, new RequestReplyEventArgs(true, "Register successful"));
-                    break;
-
-                case MessageType.RegisterUnsuccessful:
-                    if (RegisterRequestReply != null)
-                        RegisterRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
-                    break;
-
-                case MessageType.RemindSuccessful:
-                    if (RemindRequestReply != null)
-                        RemindRequestReply(this, new RequestReplyEventArgs(true, "Remind successful"));
-                    break;
-
-                case MessageType.RemindUnsuccessful:
-                    if (RemindRequestReply != null)
-                        RemindRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
+                            case ResponseType.Remind:
+                                if (RemindRequestReply != null)
+                                    RemindRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
+                        }
+                    }
                     break;
 
                 case MessageType.ChatUsers:
