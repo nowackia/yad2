@@ -16,7 +16,7 @@ namespace Yad.Net.Server {
 
         public void BroadcastMessage(Message msg) {
             if (_pprovider != null) {
-                IEnumerator<KeyValuePair<int, Player>> enumerator = _pprovider.GetPlayers();
+                IEnumerator<KeyValuePair<short, Player>> enumerator = _pprovider.GetPlayers();
                 do {
                     enumerator.Current.Value.SendMessage(msg);
                 } while (enumerator.MoveNext());
@@ -27,7 +27,7 @@ namespace Yad.Net.Server {
                 InfoLog.WriteInfo("Message broadcast unsuccessful.", EPrefix.ServerSendMessageInfo);
         }
 
-        public void SendMessage(Message msg, int recipient) {
+        public void SendMessage(Message msg, short recipient) {
             if (_pprovider != null) {
                 Player p = _pprovider.GetPlayer(recipient);
                 p.SendMessage(msg);
@@ -47,7 +47,7 @@ namespace Yad.Net.Server {
 
         #region IMessageSender Members
 
-        public void MessagePost(Message msg, int recipient) {
+        public void MessagePost(Message msg, short recipient) {
             PostMessage pmsg = new PostMessage();
             pmsg.Recipient = recipient;
             pmsg.Message = msg;

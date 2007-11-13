@@ -38,12 +38,11 @@ namespace Yad.Net.Server {
 
         
         protected void SendRemovePlayer(IPlayerID playerID) {
-            SendMessage(CreateRemoveMessage(playerID), playerID.GetID());
+            BroadcastExcl(CreateRemoveMessage(playerID), playerID.GetID());
         }
         protected void SendListPlayer(IPlayerID playerID) {
             SendMessage(CreateListMessage(playerID), playerID.GetID());
         }
-
 
         protected void SendAddPlayer(IPlayerID playerID) {
             Message msg = CreateAddMessage(playerID);
@@ -54,7 +53,7 @@ namespace Yad.Net.Server {
             _sender.MessagePost(msg, id);
         }
 
-        protected void BroadcastExcl(Message msg, int id) {
+        protected void BroadcastExcl(Message msg, short id) {
             lock (((ICollection)_players).SyncRoot)
                 foreach (IPlayerID pid in _players.Values)
                     if (pid.GetID() != id)

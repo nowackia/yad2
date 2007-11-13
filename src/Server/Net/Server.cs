@@ -18,7 +18,7 @@ namespace Yad.Net.Server {
 
             private int _portNumber;
             private TcpListener _listener;
-            private Dictionary<int, Player> _playersUnlogged;
+            private Dictionary<short, Player> _playersUnlogged;
             private Chat _chat;
             private GameManager _gameManager;
             private bool _serverEnd = false;
@@ -33,7 +33,7 @@ namespace Yad.Net.Server {
                 set { _chat = value; }
             }
 
-            public Dictionary<int, Player> PlayersUnlogged {
+            public Dictionary<short, Player> PlayersUnlogged {
                 get { return _playersUnlogged; }
                 set { _playersUnlogged = value; }
             }
@@ -55,8 +55,8 @@ namespace Yad.Net.Server {
                 _listener.Start();
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
 
-                _playersUnlogged = new Dictionary<int, Player>();
-                _playerCollection = new Dictionary<int, Player>();
+                _playersUnlogged = new Dictionary<short, Player>();
+                _playerCollection = new Dictionary<short, Player>();
 
                 _msgHandler = new MenuMessageHandler(this);
                 _msgHandler.SetSender(_msgSender);
@@ -71,14 +71,14 @@ namespace Yad.Net.Server {
 
             #region Public Methods
 
-            public Player GetPlayerUnlogged(int key) {
+            public Player GetPlayerUnlogged(short key) {
                 lock (((ICollection)_playersUnlogged).SyncRoot)
                     if (_playersUnlogged.ContainsKey(key))
                         return _playersUnlogged[key];
                 return null;
             }
 
-            public void RemovePlayerUnlogged(int key) {
+            public void RemovePlayerUnlogged(short key) {
                 lock (((ICollection)_playerCollection).SyncRoot)
                     _playerCollection.Remove(key);
             }
@@ -108,7 +108,7 @@ namespace Yad.Net.Server {
                 _listener.Stop();
             }
 
-            public override Player GetPlayer(int id) {
+            public override Player GetPlayer(short id) {
                 Player p = base.GetPlayer(id);
                 if (null == p)
                     if (_playersUnlogged != null)
@@ -119,11 +119,52 @@ namespace Yad.Net.Server {
             public void OnConnectionLost(object sender, ConnectionLostEventArgs args) {
                 Player player = sender as Player;
                 InfoLog.WriteInfo("Player " + player.Id + " has disconnected", EPrefix.ServerInformation);
-                if (player.State == MenuState.Unlogged)
-                    _playersUnlogged.Remove(player.Id);
-                else
-                    _playerCollection.Remove(player.Id);
+                
+                switch (player.State)
+                {
+                    case MenuState.Unlogged:
+                        RemoveUnlogged(player.Id);
+                        break;
+                    case MenuState.Logged:
+                        RemoveLogged(player.Id);
+                        break;
+                    case MenuState.Chat:
+                        RemoveChat(player);
+                        RemoveLogged(player.Id);
+                        break;
+                    case MenuState.GameChoose:
+                        RemoveGameChoose(player.Id);
+                        RemoveLogged(player.Id);
+                        break;
+                    case MenuState.GameJoin:
+                        RemoveGameJoin(player.Id);
+                        RemoveLogged(player.Id);
+                        break;
+                }
 
+            }
+
+            private void RemoveGameChoose(short id) {
+                _gameManager.RemovePlayer(id);
+            }
+
+            private void RemoveGameJoin(short id) {
+                _gameManager.RemoveFromGameJoin(id);
+                _gameManager.RemovePlayer(id);
+            }
+            private void RemoveUnlogged(short id)
+            {
+                lock (((ICollection)(_playersUnlogged)).SyncRoot){
+                    _playersUnlogged.Remove(id);
+                }
+            }
+
+            private void RemoveLogged(short id) {
+                base.RemovePlayer(id);
+            }
+
+            private void RemoveChat(Player player) {
+                _chat.RemovePlayer(player);
             }
 
             public void AcceptConnections() {

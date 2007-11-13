@@ -9,7 +9,7 @@ namespace Yad.Net.Server
     {
         public const int BroadCastMessage = -1;
         private int _priority;
-        private int _recipient;
+        private short _recipient;
         private Message _message;
 
         public int Priority {
@@ -17,7 +17,7 @@ namespace Yad.Net.Server
             set { _priority = value; }
         }
 
-        public int Recipient {
+        public short Recipient {
           get { return _recipient; }
           set { _recipient = value; }
         }

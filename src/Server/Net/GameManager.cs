@@ -51,7 +51,7 @@ namespace Yad.Net.Server {
             }
         }
 
-        public void SendGameListMessage(int recipient) {
+        public void SendGameListMessage(short recipient) {
             List<GameInfo> list = new List<GameInfo>();
             lock (((ICollection)_players).SyncRoot) {
                 foreach (ServerGameInfo sgi in _games.Values)
