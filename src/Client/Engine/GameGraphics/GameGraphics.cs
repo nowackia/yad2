@@ -175,7 +175,6 @@ namespace Client.Engine.GameGraphics {
 			Gl.glColor4f(1, 1, 1, 1);
 			DrawElement(rain.Position.X, rain.Position.Y, rain.GetTexture(), offsetX, offsetY, AntHillConfig.rainWidth, AntHillConfig.rainWidth, 1.0f);
 			 */
-			Gl.glFinish();
 		}
 
 		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
@@ -281,7 +280,7 @@ namespace Client.Engine.GameGraphics {
 
 			UpdateOffsetX();
 
-			InfoLog.WriteInfo("TranslatingX: " + mapClip.X, EPrefix.GameGraphics);
+			//InfoLog.WriteInfo("TranslatingX: " + mapClip.X, EPrefix.GameGraphics);
 
 			Notify();
 		}
@@ -291,7 +290,7 @@ namespace Client.Engine.GameGraphics {
 
 			UpdateOffsetY();
 
-			InfoLog.WriteInfo("TranslatingY: " + mapClip.Y, EPrefix.GameGraphics);
+			//InfoLog.WriteInfo("TranslatingY: " + mapClip.Y, EPrefix.GameGraphics);
 
 			Notify();
 		}
