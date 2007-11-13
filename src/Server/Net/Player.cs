@@ -12,7 +12,7 @@ using Yad.Log.Common;
 
 namespace Yad.Net.Server {
     
-    public delegate void ReceiveMessageDelegate(object sender, RecieveMessageEventArgs eventArgs);
+    public delegate void ReceiveMessageDelegate(object sender, ReceiveMessageEventArgs eventArgs);
     public delegate void ConnectionLostDelegate(object sender, ConnectionLostEventArgs eventArgs);
 
     public class Player : IPlayerID {
@@ -105,7 +105,7 @@ namespace Yad.Net.Server {
         private void ExecuteOnReceiveMessage(Message msg) {
             lock (_onReceiveMessage) {
                 if (_onReceiveMessage != null)
-                _onReceiveMessage(this, new RecieveMessageEventArgs(msg));
+                _onReceiveMessage(this, new ReceiveMessageEventArgs(msg));
             }
         }
         public void ReceiveMessages() {
