@@ -34,7 +34,9 @@ namespace Yad.Log.Common
         [Description(" #SEND_MSG_INFO: ")]
         ServerSendMessageInfo,
 		[Description(" #SIM: ")]
-		SimulationInfo
+		SimulationInfo,
+        [Description(" #STR: ")]
+        Stripe
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES
