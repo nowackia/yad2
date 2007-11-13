@@ -49,7 +49,7 @@
     <Compile Include="Net\ConnectionLostEventArgs.cs" />
     <Compile Include="Net\MenuMessageHandler.cs" />
     <Compile Include="Net\Player.cs" />
-    <Compile Include="Net\RecieveMessageEventArgs.cs" />
+    <Compile Include="Net\ReceiveMessageEventArgs.cs" />
     <Compile Include="Net\Server.cs" />
     <Compile Include="Net\ServerMain.cs" />
     <Compile Include="Net\ServerMessageSender.cs" />

@@ -23,7 +23,7 @@ namespace Yad.Net.Server {
             _sender.MessagePost(message, recipient);
         }
 
-        public virtual void OnReceivePlayerMessage(object sender, RecieveMessageEventArgs args) {
+        public virtual void OnReceivePlayerMessage(object sender, ReceiveMessageEventArgs args) {
             this.AddItem(args.Message);
         }
     }

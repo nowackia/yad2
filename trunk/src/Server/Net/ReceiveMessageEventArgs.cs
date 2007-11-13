@@ -5,7 +5,7 @@ using Yad.Net.Messaging.Common;
 
 namespace Yad.Net.Server {
 
-    public class RecieveMessageEventArgs : EventArgs {
+    public class ReceiveMessageEventArgs : EventArgs {
 
         private Message _msg;
 
@@ -13,7 +13,7 @@ namespace Yad.Net.Server {
             get { return _msg; }
             set { _msg = value; }
         }
-        public RecieveMessageEventArgs(Message msg) {
+        public ReceiveMessageEventArgs(Message msg) {
             _msg = msg;
         }
     }

@@ -285,8 +285,9 @@ namespace Client.UI
             TextMessage chatTextMessage = (TextMessage)MessageFactory.Create(MessageType.ChatText);
 
             chatTextMessage.Text = chatInputTBChatMenu.Text;
-            //TODO: (AN) safe somewhere login
-            chatListChatMenu.Items.Add("[" + loginTBLoginMenu.Text + "] " + chatTextMessage.Text);
+
+            chatInputTBChatMenu.Text = string.Empty;
+            chatListChatMenu.Items.Add(ClientPlayerInfo.ChatPrefix + chatTextMessage.Text);
 
             Connection.SendMessage(chatTextMessage);
         }
@@ -299,9 +300,9 @@ namespace Client.UI
             if (index != -1)
             {
                 ChatUser chatUser = listBox.Items[index] as ChatUser;
-
-                MessageBox.Show(chatUser.Id + " " + chatUser.Name);
-                //TODO: (AN) Sending PlayerInfoMessage
+                NumericMessage numericMessage = (NumericMessage)MessageFactory.Create(MessageType.PlayerInfo);
+                numericMessage.Number = chatUser.Id;
+                Connection.SendMessage(numericMessage);
             }
         }
 

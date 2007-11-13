@@ -16,6 +16,10 @@ namespace Client.Net
         public bool successful;
         public string reason;
 
+        public RequestReplyEventArgs(bool successful)
+            : this(successful, string.Empty)
+        { }
+
         public RequestReplyEventArgs(bool successful, string reason)
         {
             this.successful = successful;
@@ -28,11 +32,20 @@ namespace Client.Net
         public ChatUser[] chatUsers;
         public string text;
 
+
         public ChatEventArgs(string text)
         {
             chatUsers = null;
             this.text = text;
         }
+
+        public ChatEventArgs(ChatUser chatUser)
+            : this(chatUser, string.Empty)
+        { }
+
+        public ChatEventArgs(ChatUser[] chatUsers)
+            : this(chatUsers, string.Empty)
+        { }
 
         public ChatEventArgs(ChatUser chatUser, string text)
             : this(new ChatUser[] { chatUser }, text)
@@ -92,6 +105,7 @@ namespace Client.Net
         public event RequestReplyEventHandler LoginRequestReply;
         public event RequestReplyEventHandler RegisterRequestReply;
         public event RequestReplyEventHandler RemindRequestReply;
+
         public event RequestReplyEventHandler PlayerInfoRequestReply;
         public event RequestReplyEventHandler JoinGameRequestReply;
         public event RequestReplyEventHandler StartGameRequestReply;
@@ -143,15 +157,15 @@ namespace Client.Net
                         switch((MessageOperation)chatMessage.Option)
                         {
                             case MessageOperation.Add:
-                                NewChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                NewChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
 
                             case MessageOperation.Remove:
-                                DeleteChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                DeleteChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
 
                             case MessageOperation.List:
-                                ResetChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                ResetChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
                         }
                     }
