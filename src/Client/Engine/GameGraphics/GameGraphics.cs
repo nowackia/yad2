@@ -18,9 +18,19 @@ using Yad.Engine.Common;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
-		public static event EventHandler GameGraphicsChanged;
 
+		#region events
+		public static event EventHandler GameGraphicsChanged;
+		#endregion
+
+		#region private members
 		static Simulation simulation;
+
+		const float mapDepth = 0.0f;
+		const float buildingDepth = 0.1f;
+		const float unitDepth = 0.2f;
+		const float fogOfWarDepth = 0.3f;
+		static RectangleF defaultUV = new RectangleF(0, 0, 1, 1);
 
 		/// <summary>
 		/// SimpleOpenGLControl's size
@@ -49,41 +59,9 @@ namespace Client.Engine.GameGraphics {
 		/// </summary>
 		static VertexData vertexData = new VertexData();
 
-		public static void InitGL(Simulation sim) {
-			simulation = sim;
+		#endregion
 
-			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
-			Gl.glEnable(Gl.GL_BLEND);
-			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
-			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
-			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
-			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
-			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
-			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
-
-			vertexData.indices[0] = 0;
-			vertexData.indices[1] = 1;
-			vertexData.indices[2] = 2;
-			vertexData.indices[3] = 3;
-
-			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
-			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
-			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
-			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
-
-			UpdateViewport();
-
-			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
-		}
-
-		public static void InitTextures(Simulation simulation) {
-			//TODO:
-			//For all units from config file:
-			// getID, getTexturePath, create32btexture
-
-			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
-		}
+		#region private methods
 
 		/// <summary>
 		/// Creates 32-bit texture using bitmap "filename" and binds it to "id" so that
@@ -153,30 +131,6 @@ namespace Client.Engine.GameGraphics {
 			Gl.glLoadIdentity();
 		}
 
-		public static void Draw() {
-			Gl.glClearColor(0, 0, 0, 0);
-			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-
-			Gl.glLoadIdentity();
-
-			Gl.glColor4f(1, 1, 1, 1);
-			DrawElementFromLeftBottom(0, 0, 0, simulation.Map.Width, simulation.Map.Height, 1, new RectangleF(0, 0, 1, 1));
-
-			/*
-			// Draw map first
-			for (int x = 0; x < map.Width; x++) {
-				for (int y = 0; y < map.Height; y++) {
-					//if (ShouldOmitDrawing(x, y)) continue;
-					DrawElement(x, y, map.GetTile(x, y).GetTexture(), offsetX, offsetY, 1, 1, 0.0f);
-				}
-			}
-			Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
-			DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
-			Gl.glColor4f(1, 1, 1, 1);
-			DrawElement(rain.Position.X, rain.Position.Y, rain.GetTexture(), offsetX, offsetY, AntHillConfig.rainWidth, AntHillConfig.rainWidth, 1.0f);
-			 */
-		}
-
 		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
 			//Gl.glPushMatrix();
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);
@@ -243,17 +197,6 @@ namespace Client.Engine.GameGraphics {
 			Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 		}
 
-		public static void Zoom(int zoomDiff) {
-			zoom += zoomStep * zoomDiff;
-			if (zoom <= zoomStep)
-				zoom = zoomStep;
-
-			InfoLog.WriteInfo("Zooming: " + zoom, EPrefix.GameGraphics);
-
-			UpdateViewport();
-
-			Notify();
-		}
 		private static void UpdateOffsetY() {
 			if (offset.Y < mapClip.Height / 2.0f) {
 				offset.Y = mapClip.Height / 2.0f;
@@ -274,6 +217,106 @@ namespace Client.Engine.GameGraphics {
 			}
 		}
 
+		private static void Notify() {
+			if (GameGraphicsChanged != null) {
+				GameGraphicsChanged(null, null);
+			}
+		}
+		#endregion
+
+		#region public methods
+		public static void InitGL(Simulation sim) {
+			simulation = sim;
+			simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+
+			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
+			Gl.glEnable(Gl.GL_BLEND);
+			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
+			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
+			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
+			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+
+			vertexData.indices[0] = 0;
+			vertexData.indices[1] = 1;
+			vertexData.indices[2] = 2;
+			vertexData.indices[3] = 3;
+
+			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
+			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
+			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
+			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
+
+			UpdateViewport();
+
+			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
+		}
+
+		public static void InitTextures(Simulation simulation) {
+			//TODO:
+			//For all units from config file:
+			// getID, getTexturePath, create32btexture
+
+			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
+			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
+
+			//create dummy unit and building textures
+			Bitmap unit = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
+			Graphics g = Graphics.FromImage(unit);
+			g.Clear(Color.Green);
+			g.Dispose();
+			Bitmap building = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
+			g = Graphics.FromImage(building);
+			g.Clear(Color.Red);
+			g.Dispose();
+			Create32bTexture(2, unit);
+			Create32bTexture(3, building);
+		}
+
+		public static void Draw() {
+			Gl.glClearColor(0, 0, 0, 0);
+			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+
+			Gl.glLoadIdentity();
+
+			Gl.glColor4f(1, 1, 1, 1);
+			DrawElementFromLeftBottom(0, 0, mapDepth, simulation.Map.Width, simulation.Map.Height, 1, defaultUV);
+
+			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
+			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
+			//Gl.glColor4f(1, 1, 1, 1);
+			//DrawElement(rain.Position.X, rain.Position.Y, rain.GetTexture(), offsetX, offsetY, AntHillConfig.rainWidth, AntHillConfig.rainWidth, 1.0f);
+
+			//draw fogOfWar
+
+
+			ICollection<Player> players = simulation.GetPlayers();
+			foreach (Player p in players) {
+				List<Unit> units = p.GetAllUnits();
+				foreach (Unit u in units) {
+					DrawElementFromLeftBottom(u.Position.X, u.Position.Y, unitDepth, 1, 1, 2, defaultUV);
+				}
+
+				List<Building> buildings = p.GetAllBuildings();
+				foreach (Building b in buildings) {
+					//todo: GameSettings - add method for extracting building type
+					DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, 3, 2, 3, defaultUV);
+				}
+			}
+		}
+
+		public static void Zoom(int zoomDiff) {
+			zoom += zoomStep * zoomDiff;
+			if (zoom <= zoomStep)
+				zoom = zoomStep;
+
+			//InfoLog.WriteInfo("Zooming: " + zoom, EPrefix.GameGraphics);
+
+			UpdateViewport();
+
+			Notify();
+		}
 
 		public static void OffsetX(float amount) {
 			offset.X += amount;
@@ -289,7 +332,6 @@ namespace Client.Engine.GameGraphics {
 			offset.Y += amount;
 
 			UpdateOffsetY();
-
 			//InfoLog.WriteInfo("TranslatingY: " + mapClip.Y, EPrefix.GameGraphics);
 
 			Notify();
@@ -301,11 +343,6 @@ namespace Client.Engine.GameGraphics {
 
 			UpdateViewport();
 		}
-
-		static void Notify() {
-			//if (GameGraphicsChanged != null)
-			GameGraphicsChanged(null, null);
-		}
+		#endregion
 	}
 }
-

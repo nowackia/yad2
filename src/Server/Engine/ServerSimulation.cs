@@ -5,13 +5,15 @@ using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 using Yad.Config.Common;
 using Yad.Board.Common;
+using Yad.Config;
 
 namespace Yad.Engine.Server {
 	/// <summary>
 	/// 
 	/// </summary>
+	[Obsolete("Don't do anything in here! It might be useless ;P")]
 	class ServerSimulation : Yad.Engine.Common.Simulation {
-		public ServerSimulation(GameSettings settings, Map map)
+		public ServerSimulation(GameSettingsWrapper settings, Map map)
 			: base(settings, map, true) {
 			//this.onTurnBegin
 			//this.onTurnEnd

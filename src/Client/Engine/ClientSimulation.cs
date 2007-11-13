@@ -6,11 +6,12 @@ using Yad.Log.Common;
 using Yad.Board.Common;
 using Yad.Config.Common;
 using Yad.Board;
+using Yad.Config;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
 
-		public ClientSimulation(GameSettings settings, Map map)
+		public ClientSimulation(GameSettingsWrapper settings, Map map)
 			: base(settings, map, false) {
 			//this.onTurnBegin
 			//this.onTurnEnd
@@ -44,6 +45,11 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+			Unit u = new UnitTank(cum.PlayerId, cum.UnitID, cum.Position);
+			if (players[cum.PlayerId] == null)
+				throw new Exception("Message from unknown player");
+			players[cum.PlayerId].AddUnit(u);
+			this.map.Units[u.Position.X, u.Position.Y].AddLast(u);
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
