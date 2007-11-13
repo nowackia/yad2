@@ -23,8 +23,6 @@ namespace Yad.Net.Messaging.Common {
             set { _option = value; }
         }
 
-        
-
         public List<ChatUser> ChatUsers
         {
             get { return _chatUsers; }

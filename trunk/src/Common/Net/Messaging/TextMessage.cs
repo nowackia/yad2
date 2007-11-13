@@ -24,5 +24,17 @@ namespace Yad.Net.Messaging.Common
             get { return text; }
             set { text = value; }
         }
+
+        public override void Serialize(BinaryWriter writer)
+        {
+            base.Serialize(writer);
+            base.WriteString(text, writer);
+        }
+
+        public override void Deserialize(BinaryReader reader)
+        {
+            base.Deserialize(reader);
+            text = base.ReadString(reader);
+        }
     }
 }

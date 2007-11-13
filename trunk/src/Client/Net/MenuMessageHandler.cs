@@ -138,26 +138,22 @@ namespace Client.Net
                     break;
 
                 case MessageType.ChatUsers:
-                    if (ResetChatUsers != null)
                     {
-                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
-                        ResetChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
-                    }
-                    break;
+                        ChatUsersMessage chatMessage = message as ChatUsersMessage;
+                        switch((MessageOperation)chatMessage.Option)
+                        {
+                            case MessageOperation.Add:
+                                NewChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                break;
 
-                case MessageType.NewChatUser:
-                    if (NewChatUsers != null)
-                    {
-                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
-                        NewChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
-                    }
-                    break;
+                            case MessageOperation.Remove:
+                                DeleteChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                break;
 
-                case MessageType.DeleteChatUser:
-                    if (DeleteChatUsers != null)
-                    {
-                        ChatUsersMessage chatUsersMessage = message as ChatUsersMessage;
-                        DeleteChatUsers(this, new ChatEventArgs(chatUsersMessage.ChatUsers.ToArray(), string.Empty));
+                            case MessageOperation.List:
+                                ResetChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray(), string.Empty));
+                                break;
+                        }
                     }
                     break;
 
@@ -165,7 +161,7 @@ namespace Client.Net
                     if (ChatTextReceive != null)
                     {
                         TextMessage textMessage = message as TextMessage;
-                        ChatTextReceive(this, new ChatEventArgs(textMessage.PlayerId + " " + textMessage.Text));
+                        ChatTextReceive(this, new ChatEventArgs(textMessage.Text));
                     }
                     break;
 

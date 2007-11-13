@@ -337,6 +337,7 @@ namespace Client.UI
             this.loginTBLoginMenu.Name = "loginTBLoginMenu";
             this.loginTBLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.loginTBLoginMenu.TabIndex = 0;
+            this.loginTBLoginMenu.Text = "test_player_";
             // 
             // passwordLoginMenu
             // 
@@ -432,7 +433,7 @@ namespace Client.UI
             this.serverLoginMenu.Name = "serverLoginMenu";
             this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.serverLoginMenu.TabIndex = 8;
-            this.serverLoginMenu.Text = "127.0.0.1";
+            this.serverLoginMenu.Text = "194.29.178.228";
             // 
             // registerMenu
             // 
