@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Config.Common;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -8,6 +9,8 @@ namespace Yad.Board.Common {
 	/// base object have animation -> bullet, rocket ..
 	/// </summary>
 	public class BoardObject {
+
+		protected static GameSettings gameSettings = new GameSettings();
 
 		/// <summary>
 		/// These two values identify board object. PlayerID and objectID is assigned by each Player.

@@ -10,8 +10,8 @@ namespace Yad.Board.Common {
 		static short width, height;
 
 		//TODO: da ka¿dego pola zrobiæ oddzieln¹ listê
-		//static LinkedList<Building> buildings;
-		//static LinkedList<Unit> units;
+		static LinkedList<Building>[,] buildings;
+		static LinkedList<Unit>[,] units;
 
 		public static short Width {
 			get { return width; }
@@ -19,6 +19,22 @@ namespace Yad.Board.Common {
 
 		public static short Height {
 			get { return height; }
+		}
+
+		public static LinkedList<Building>[,] Buildings
+		{
+			get
+			{
+				return buildings;
+			}
+		}
+
+		public static LinkedList<Unit>[,] Units
+		{
+			get
+			{
+				return units;
+			}
 		}
 
 		public static TileType[,] Tiles {
@@ -72,6 +88,18 @@ namespace Yad.Board.Common {
 					tiles[x, y] = (TileType)tempList[y][x];
 				}
 			}
+
+			fogOfWar = new bool[width, height];
+			buildings = new LinkedList<Building>[width, height];
+			units = new LinkedList<Unit>[width, height];
+			for (int i = 0; i < width; i++)
+				for (int j = 0; j < height; j++)
+				{
+					fogOfWar[i, j] = true;
+					buildings[i, j] = new LinkedList<Building>();
+					units[i, j] = new LinkedList<Unit>();
+				}
+
 		}
 	}
 }
