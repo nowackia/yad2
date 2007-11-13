@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
+using Yad.Board.Common;
+using Yad.Config.Common;
+using Yad.Board;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
+		public static GameSettings gameSettings;
+
 		public ClientSimulation()
 			: base(false) {
 			//this.onTurnBegin
@@ -14,6 +19,12 @@ namespace Yad.Engine.Client {
 
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
+			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position);
+			if (players[bm.PlayerId] == null)
+				throw new Exception("Message from unknown player");
+			players[bm.PlayerId].buildings.Add(bm.BuildingID, b);
+			Map.Buildings[b.Position.X, b.Position.Y].AddLast(b);
+			//Map.
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
