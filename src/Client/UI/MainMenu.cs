@@ -103,7 +103,7 @@ namespace Client.UI
                 listBox.Items.Clear();
 
             for (int i = 0; i < objects.Length; i++)
-                listBox.Items.Add(objects);
+                listBox.Items.Add(objects[i]);
         }
 
         public void RemoveListBox(ListBox listBox, object[] objects)
@@ -184,8 +184,8 @@ namespace Client.UI
         {
             Connection.InitConnection(serverLoginMenu.Text, 1734);
 
-            LoginMessage loginMessage = new LoginMessage();
-            loginMessage.Login = loginBTLoginMenu.Text;
+            LoginMessage loginMessage = (LoginMessage)MessageFactory.Create(MessageType.Login);
+            loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
             Connection.SendMessage(loginMessage);
         }
@@ -194,7 +194,7 @@ namespace Client.UI
         {
             Connection.InitConnection(serverLoginMenu.Text, 1734);
 
-            TextMessage remindMessage = new TextMessage(MessageType.Remind);
+            TextMessage remindMessage = (TextMessage)MessageFactory.Create(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.SendMessage(remindMessage);
 
@@ -283,9 +283,10 @@ namespace Client.UI
         private void sendChatMenu_Click(object sender, EventArgs e)
         {
             TextMessage chatTextMessage = (TextMessage)MessageFactory.Create(MessageType.ChatText);
-            //TODO: (AN) safe player id
-            chatTextMessage.PlayerId = 4;
+
             chatTextMessage.Text = chatInputTBChatMenu.Text;
+            //TODO: (AN) safe somewhere login
+            chatListChatMenu.Items.Add("[" + loginTBLoginMenu.Text + "] " + chatTextMessage.Text);
 
             Connection.SendMessage(chatTextMessage);
         }
