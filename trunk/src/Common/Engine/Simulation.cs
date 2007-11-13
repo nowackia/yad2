@@ -6,6 +6,8 @@ using System.Threading;
 using System.Runtime.CompilerServices;
 using Yad.Log.Common;
 using System.Collections;
+using Yad.Board.Common;
+using Yad.Config.Common;
 
 namespace Yad.Engine.Common {
 
@@ -41,6 +43,10 @@ namespace Yad.Engine.Common {
 		/// this messages are processed by ProcessTurns
 		/// </summary>
 		List<GameMessage> currentMessages = new List<GameMessage>();
+
+		//these lists are used by ProcessTurn and are created for 1 player at a time
+		List<Building> buildingsProcessed = new List<Building>(), buildingsToProcess;
+		List<Unit> UnitsProcessed = new List<Unit>(), unitsToProcess;
 
 		/// <summary>
 		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
@@ -85,13 +91,19 @@ namespace Yad.Engine.Common {
 		/// (short id, Player player)
 		/// </summary>
 		protected Dictionary<short, Player> players = new Dictionary<short, Player>();
-		
+
+		protected Map map;
+
+		protected GameSettings gameSettings;
 
 		//animations
 
 		#endregion
+
 		#region constructor
-		public Simulation(bool useFastTurnProcessing) {
+		public Simulation(GameSettings settings, Map map, bool useFastTurnProcessing) {
+			this.gameSettings = settings;
+			this.map = map;
 			this.fastTurnProcessing = useFastTurnProcessing;
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;
@@ -99,7 +111,6 @@ namespace Yad.Engine.Common {
 			for (int i = 0; i < 2 * delta; i++) {
 				this.turns[i] = new List<GameMessage>();
 			}
-
 		}
 		#endregion
 
@@ -119,6 +130,11 @@ namespace Yad.Engine.Common {
 			List<GameMessage>.Enumerator messagesEnum;
 			while (true) {
 				nextTurn.WaitOne(); //wait for MessageTurn
+
+				if (onTurnBegin != null) {
+					onTurnBegin();
+				}
+
 				int turnStart = Environment.TickCount;
 
 				messages = currentMessages;
@@ -142,6 +158,33 @@ namespace Yad.Engine.Common {
 					}
 				}
 
+				//process all units & building & animations
+				
+				//TODO: Does dictionary and foreach/enumerator imply proper order??
+
+				Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
+				
+
+				while (playersEnumerator.MoveNext()) {
+					Player p = playersEnumerator.Current.Value;
+
+					//get copy of buildings' list
+					buildingsToProcess = p.GetAllBuildings();
+					//while there are unprocessed buildings
+					while (buildingsToProcess.Count != 0) {
+						Building b = buildingsToProcess[0];
+						buildingsToProcess.RemoveAt(0);
+						handleBuilding(b);
+					}
+
+					unitsToProcess = p.GetAllUnits();
+					while (unitsToProcess.Count != 0) {
+						Unit u = unitsToProcess[0];
+						unitsToProcess.RemoveAt(0);
+						handleUnit(u);
+					}
+				}
+
 				if (!this.fastTurnProcessing) {
 					if (!this.SpeedUp) {
 						int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
@@ -158,9 +201,49 @@ namespace Yad.Engine.Common {
 
 				if (this.onTurnEnd != null) {
 					this.onTurnEnd();
-				}				
+				}
 			}
 		}
+
+		/// <summary>
+		/// Handles unit - animation, movement, etc. If you need to destroy another unit or building
+		/// from within this function then use destroyX() functions.
+		/// </summary>
+		/// <param name="u"></param>
+		private void handleUnit(Unit u) {
+
+		}
+
+		/// <summary>
+		/// Handles building. If you need to destroy another unit or building
+		/// from within this function then use destroyX() functions.
+		/// </summary>
+		/// <param name="b"></param>
+		//any ideas how?
+		private void handleBuilding(Building b) {
+
+		}
+
+		/// <summary>
+		/// this should only be used from within handleX() functions
+		/// </summary>
+		/// <param name="u"></param>
+		private void destroyUnit(Unit u) {
+			this.unitsToProcess.Remove(u);
+			this.UnitsProcessed.Remove(u);
+			this.players[u.PlayerID].RemoveUnit(u);
+		}
+
+		/// <summary>
+		/// this should only be used from within handleX() functions
+		/// </summary>
+		/// <param name="u"></param>
+		private void destroyBuilding(Building b) {
+			this.buildingsToProcess.Remove(b);
+			this.buildingsProcessed.Remove(b);
+			this.players[b.PlayerID].RemoveBuilding(b);
+		}
+
 		#endregion
 
 		#region protected methods
@@ -170,6 +253,8 @@ namespace Yad.Engine.Common {
 		protected abstract void onMessageDestroy(DestroyMessage dm);
 		protected abstract void onMessageHarvest(HarvestMessage hm);
 		protected abstract void onMessageCreate(CreateUnitMessage cum);
+
+		protected abstract void onInvalidMove(Unit unit);
 		#endregion
 
 		#region public methods
@@ -225,6 +310,14 @@ namespace Yad.Engine.Common {
 					this.speedUpLength = delta;
 				}
 			}
+		}
+
+		public GameSettings GameSettings {
+			get { return this.gameSettings; }
+		}
+
+		public Map Map {
+			get { return this.map; }
 		}
 		#endregion
 	}
