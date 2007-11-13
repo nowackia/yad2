@@ -83,6 +83,12 @@
     <Compile Include="Net\MessageReceiver.cs" />
     <Compile Include="Net\MessageSender.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="UI\BuildStripe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BuildStripe.Designer.cs">
+      <DependentUpon>BuildStripe.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormPool.cs" />
     <Compile Include="UI\GameForm.cs">
       <SubType>Form</SubType>
@@ -96,6 +102,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BuildStripe.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BuildStripe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GameForm.resx">
       <SubType>Designer</SubType>
