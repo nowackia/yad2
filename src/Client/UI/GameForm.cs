@@ -16,6 +16,7 @@ using Yad.Config.XMLLoader.Common;
 using Yad.Config.Common;
 using Yad.Board.Common;
 using Yad.Engine.GameGraphics.Client;
+using Yad.Engine.Client;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -29,7 +30,7 @@ namespace Client.UI {
 
 			InitializeComponent();
 
-			GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			ClientSimulation.gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
 			Map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 
 
