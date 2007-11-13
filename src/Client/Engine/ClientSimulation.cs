@@ -9,10 +9,9 @@ using Yad.Board;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
-		public static GameSettings gameSettings;
 
-		public ClientSimulation()
-			: base(false) {
+		public ClientSimulation(GameSettings settings, Map map)
+			: base(settings, map, false) {
 			//this.onTurnBegin
 			//this.onTurnEnd
 		}
@@ -22,8 +21,8 @@ namespace Yad.Engine.Client {
 			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position);
 			if (players[bm.PlayerId] == null)
 				throw new Exception("Message from unknown player");
-			players[bm.PlayerId].buildings.Add(bm.BuildingID, b);
-			Map.Buildings[b.Position.X, b.Position.Y].AddLast(b);
+			players[bm.PlayerId].AddBuilding(b);
+			this.map.Buildings[b.Position.X, b.Position.Y].AddLast(b);
 			//Map.
 		}
 
@@ -45,6 +44,10 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+		}
+
+		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
+			throw new Exception("The method or operation is not implemented.");
 		}
 	}
 }

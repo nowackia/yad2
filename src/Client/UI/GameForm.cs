@@ -25,14 +25,17 @@ namespace Client.UI {
         bool wasScrolled = false;
 		Point mousePos;
 
+		public static ClientSimulation simulation;
+
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 			InitializeComponent();
 
-			ClientSimulation.gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
-			Map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-
+			GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			Map map = new Map();
+			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
+			simulation = new ClientSimulation(gameSettings, map);
 
             this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
@@ -43,9 +46,9 @@ namespace Client.UI {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
-			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-			GameGraphics.InitGL();
-			GameGraphics.InitTextures();
+			GameGraphics.InitGL(simulation);
+			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);			
+			GameGraphics.InitTextures(simulation);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 

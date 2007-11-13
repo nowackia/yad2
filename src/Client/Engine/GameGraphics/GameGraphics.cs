@@ -14,10 +14,13 @@ using Yad.Board.Common;
 using Yad.Log.Common;
 using Yad.Engine.GameGraphics.Client;
 using System.Windows.Forms;
+using Yad.Engine.Common;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
 		public static event EventHandler GameGraphicsChanged;
+
+		static Simulation simulation;
 
 		/// <summary>
 		/// SimpleOpenGLControl's size
@@ -46,7 +49,9 @@ namespace Client.Engine.GameGraphics {
 		/// </summary>
 		static VertexData vertexData = new VertexData();
 
-		public static void InitGL() {
+		public static void InitGL(Simulation sim) {
+			simulation = sim;
+
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
@@ -71,13 +76,13 @@ namespace Client.Engine.GameGraphics {
 			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
 		}
 
-		public static void InitTextures() {
+		public static void InitTextures(Simulation simulation) {
 			//TODO:
 			//For all units from config file:
 			// getID, getTexturePath, create32btexture
 
 			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
-			Create32bTexture(1, MapTextureGenerator.GenerateBitmap());
+			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
 		}
 
 		/// <summary>
@@ -120,7 +125,7 @@ namespace Client.Engine.GameGraphics {
 		private static void UpdateViewport() {
 			Gl.glViewport(0, 0, viewport.Width, viewport.Height);
 
-			minimumZoom = Math.Max((float)viewport.Width / (float)Map.Width, (float)viewport.Height / (float)Map.Height);
+			minimumZoom = Math.Max((float)viewport.Width / (float)simulation.Map.Width, (float)viewport.Height / (float)simulation.Map.Height);
 
 			UpdateZoom();
 			UpdateClip();
@@ -155,7 +160,7 @@ namespace Client.Engine.GameGraphics {
 			Gl.glLoadIdentity();
 
 			Gl.glColor4f(1, 1, 1, 1);
-			DrawElementFromLeftBottom(0, 0, 0, Map.Width, Map.Height, 1, new RectangleF(0, 0, 1, 1));
+			DrawElementFromLeftBottom(0, 0, 0, simulation.Map.Width, simulation.Map.Height, 1, new RectangleF(0, 0, 1, 1));
 
 			/*
 			// Draw map first
@@ -255,8 +260,8 @@ namespace Client.Engine.GameGraphics {
 				offset.Y = mapClip.Height / 2.0f;
 			}
 
-			if (offset.Y > Map.Height - mapClip.Height / 2.0f) {
-				offset.Y = Map.Height -mapClip.Height / 2.0f;
+			if (offset.Y > simulation.Map.Height - mapClip.Height / 2.0f) {
+				offset.Y = simulation.Map.Height - mapClip.Height / 2.0f;
 			}
 		}
 
@@ -265,8 +270,8 @@ namespace Client.Engine.GameGraphics {
 				offset.X = mapClip.Width / 2.0f;
 			}
 
-			if (offset.X > Map.Width - mapClip.Width / 2.0f) {
-				offset.X = Map.Width - mapClip.Width / 2.0f;
+			if (offset.X > simulation.Map.Width - mapClip.Width / 2.0f) {
+				offset.X = simulation.Map.Width - mapClip.Width / 2.0f;
 			}
 		}
 

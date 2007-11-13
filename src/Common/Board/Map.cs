@@ -4,45 +4,40 @@ using System.Text;
 using System.IO;
 
 namespace Yad.Board.Common {
-	public static class Map {
-		static TileType[,] tiles;
-		static bool[,] fogOfWar;
-		static short width, height;
+	public class Map {
+		TileType[,] tiles;
+		bool[,] fogOfWar;
+		short width, height;
 
 		//TODO: da ka¿dego pola zrobiæ oddzieln¹ listê
-		static LinkedList<Building>[,] buildings;
-		static LinkedList<Unit>[,] units;
+		LinkedList<Building>[,] buildings;
+		LinkedList<Unit>[,] units;
 
-		public static short Width {
+		public short Width {
 			get { return width; }
 		}
 
-		public static short Height {
+		public short Height {
 			get { return height; }
 		}
 
-		public static LinkedList<Building>[,] Buildings
-		{
-			get
-			{
+		public LinkedList<Building>[,] Buildings {
+			get {
 				return buildings;
 			}
 		}
 
-		public static LinkedList<Unit>[,] Units
-		{
-			get
-			{
+		public LinkedList<Unit>[,] Units {
+			get {
 				return units;
 			}
 		}
 
-		public static TileType[,] Tiles {
+		public TileType[,] Tiles {
 			get { return tiles; }
 		}
 
-		public static bool CheckConststency()
-		{
+		public bool CheckConststency() {
 			for (int i = 1; i < width - 1; i++)
 				for (int j = 1; j < height - 1; j++)
 					if ((tiles[i, j] == TileType.Mountain && (!CheckField(i - 1, j) || !CheckField(i + 1, j) || !CheckField(i, j - 1) || !CheckField(i, j + 1))))
@@ -50,16 +45,14 @@ namespace Yad.Board.Common {
 			return true;
 		}
 
-		private static bool CheckField(int x, int y)
-		{
+		private bool CheckField(int x, int y) {
 			if (tiles[x, y] == TileType.Mountain || tiles[x, y] == TileType.Rock)
 				return true;
 			else
 				return false;
 		}
 
-		public static void LoadMap(String name)
-		{
+		public void LoadMap(String name) {
 			string c;
 			int len = -1;
 			List<byte[]> tempList = new List<byte[]>();
@@ -93,8 +86,7 @@ namespace Yad.Board.Common {
 			buildings = new LinkedList<Building>[width, height];
 			units = new LinkedList<Unit>[width, height];
 			for (int i = 0; i < width; i++)
-				for (int j = 0; j < height; j++)
-				{
+				for (int j = 0; j < height; j++) {
 					fogOfWar[i, j] = true;
 					buildings[i, j] = new LinkedList<Building>();
 					units[i, j] = new LinkedList<Unit>();
