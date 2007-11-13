@@ -8,6 +8,9 @@ using Yad.Log.Common;
 using System.Collections;
 using Yad.Board.Common;
 using Yad.Config.Common;
+using Yad.Utils.Common;
+using Yad.Board;
+using Yad.Config;
 
 namespace Yad.Engine.Common {
 
@@ -20,15 +23,15 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Buffers messages to currentTurn + delta
 		/// </summary>
-		static int delta = 3;
+		const int delta = 3;
 		/// <summary>
 		/// Turn length in miliseconds
 		/// </summary>
-		static int turnLength = 200;
+		const int turnLength = 200;
 		/// <summary>
 		/// Transmission delay in miliseconds
 		/// </summary>
-		static int transmissionDelay = 5;
+		const int transmissionDelay = 5;
 
 		#endregion
 
@@ -94,15 +97,15 @@ namespace Yad.Engine.Common {
 
 		protected Map map;
 
-		protected GameSettings gameSettings;
+		protected GameSettingsWrapper gameSettingsWrapper;
 
 		//animations
 
 		#endregion
 
 		#region constructor
-		public Simulation(GameSettings settings, Map map, bool useFastTurnProcessing) {
-			this.gameSettings = settings;
+		public Simulation(GameSettingsWrapper settingsWrapper, Map map, bool useFastTurnProcessing) {
+			this.gameSettingsWrapper = settingsWrapper;
 			this.map = map;
 			this.fastTurnProcessing = useFastTurnProcessing;
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
@@ -159,11 +162,11 @@ namespace Yad.Engine.Common {
 				}
 
 				//process all units & building & animations
-				
+
 				//TODO: Does dictionary and foreach/enumerator imply proper order??
 
 				Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
-				
+
 
 				while (playersEnumerator.MoveNext()) {
 					Player p = playersEnumerator.Current.Value;
@@ -211,7 +214,20 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		/// <param name="u"></param>
 		private void handleUnit(Unit u) {
+			Position pos = u.Position;
+			if (Randomizer.Next(3) != 0)
+				pos.X++;
+			else if (pos.X > 0)
+				pos.X--;
 
+			if (Randomizer.Next(3) != 0)
+				pos.Y++;
+			else if (pos.Y > 0)
+				pos.Y--;
+
+			pos.X %= map.Width;
+			pos.Y %= map.Height;
+			u.Position = pos;
 		}
 
 		/// <summary>
@@ -258,6 +274,10 @@ namespace Yad.Engine.Common {
 		#endregion
 
 		#region public methods
+		public void AddPlayer(Player p) {
+			players.Add(p.ID, p);
+		}
+
 		public void AddGameMessage(GameMessage gameMessage) {
 			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
 			lock (turns.SyncRoot) {
@@ -312,12 +332,16 @@ namespace Yad.Engine.Common {
 			}
 		}
 
-		public GameSettings GameSettings {
-			get { return this.gameSettings; }
+		public GameSettingsWrapper GameSettingsWrapper {
+			get { return this.gameSettingsWrapper; }
 		}
 
 		public Map Map {
 			get { return this.map; }
+		}
+
+		public ICollection<Player> GetPlayers() {
+			return players.Values;
 		}
 		#endregion
 	}

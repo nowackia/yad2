@@ -20,6 +20,10 @@ namespace Yad.Board.Common
         private int viewRange;
         private int rotationSpeed;
 
+		private bool isMoving;
+		private short remainingTurnsToMove;
+		Position destinationPoint;
+
         //TODO : RS implement some base AI?
         public abstract void Destroy();
         public abstract void Move();
@@ -73,5 +77,13 @@ namespace Yad.Board.Common
             get { return damageDestroy; }
         }
 
+		public bool Moving {
+			get { return isMoving; }
+		}
+
+		public Position DestinationPoint {
+			get { return destinationPoint; }
+			set { destinationPoint = value; }
+		}
     }
 }

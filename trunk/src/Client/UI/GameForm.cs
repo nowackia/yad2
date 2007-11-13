@@ -17,6 +17,10 @@ using Yad.Config.Common;
 using Yad.Board.Common;
 using Yad.Engine.GameGraphics.Client;
 using Yad.Engine.Client;
+using Yad.Net.Messaging.Common;
+using Yad.Utils.Common;
+using Yad.Engine.Common;
+using Yad.Config;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -32,10 +36,20 @@ namespace Client.UI {
 
 			InitializeComponent();
 
-			GameSettings gameSettings = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			simulation = new ClientSimulation(gameSettings, map);
+			simulation = new ClientSimulation(gameSettingsWrapper, map);
+			//to remove
+			Player p = new Player(0);
+			simulation.AddPlayer(p);
+			CreateUnitMessage cum = new CreateUnitMessage();
+			cum.IdTurn = simulation.CurrentTurn + simulation.Delta;
+			cum.PlayerId = p.ID;
+			cum.Position = new Yad.Board.Position(Randomizer.NextShort(simulation.Map.Width), Randomizer.NextShort(simulation.Map.Height));
+			simulation.AddGameMessage(cum);
+			simulation.StartSimulation();
+			//to remove end
 
             this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
@@ -92,6 +106,8 @@ namespace Client.UI {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.S) {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
+			} else if (e.KeyCode == Keys.F5) {
+				simulation.DoTurn(); //todo: erase later
 			}
 		}
 
