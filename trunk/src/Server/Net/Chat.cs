@@ -33,7 +33,7 @@ namespace Yad.Net.Server {
         public void AddTextMessage(TextMessage msg) {
             string message = string.Format(MessageFormat, 
                 ((ChatUser)_players[msg.PlayerId]).Name, msg.Text);
-            int id = msg.PlayerId;
+            short id = msg.PlayerId;
             msg.Text = message;
             msg.PlayerId = -1;
             BroadcastExcl(msg, id);
@@ -79,7 +79,7 @@ namespace Yad.Net.Server {
         protected override Message CreateRemoveMessage(IPlayerID playerID) {
             ChatUsersMessage msg = CreateChatUserMessage();
             msg.Option = (byte)MessageOperation.Remove;
-            msg.ChatUsers.Add((ChatUser)playerID);
+            msg.ChatUsers.Add((ChatUser)TransformInitialy(playerID));
             return msg;
         }
 

@@ -19,7 +19,7 @@ namespace Yad.Net.Server {
         }
       
 
-        protected void SendMessage(Message message, int recipient) {
+        protected void SendMessage(Message message, short recipient) {
             _sender.MessagePost(message, recipient);
         }
 

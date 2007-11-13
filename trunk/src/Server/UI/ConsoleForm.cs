@@ -44,7 +44,7 @@ namespace Yad.UI.Server
                 }
                 else {
                     if (!this.textBox.IsDisposed)
-                        this.textBox.AppendText(s + "\n");
+                        this.textBox.AppendText(s + "\r\n");
                 }
             }
         }

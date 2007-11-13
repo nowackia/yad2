@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yad.Net.Server {
     interface IPlayerProvider {
-        Player GetPlayer(int id);
-        IEnumerator<KeyValuePair<int,Player>> GetPlayers();
+        Player GetPlayer(short id);
+        IEnumerator<KeyValuePair<short,Player>> GetPlayers();
     }
 }

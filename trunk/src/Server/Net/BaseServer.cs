@@ -9,7 +9,7 @@ namespace Yad.Net.Server {
 
         protected MessageHandler _msgHandler;
         protected ServerMessageSender _msgSender;
-        protected IDictionary<int, Player> _playerCollection;
+        protected IDictionary<short, Player> _playerCollection;
 
         public BaseServer() {
             _msgSender = new ServerMessageSender();
@@ -28,15 +28,21 @@ namespace Yad.Net.Server {
             _msgSender.Join();
         }
 
-        public void AddPlayer(int key, Player p) {
+        public void AddPlayer(short key, Player p) {
             lock((((ICollection)_playerCollection).SyncRoot)){
-                _playerCollection.Add(new KeyValuePair<int,Player>(key, p));   
+                _playerCollection.Add(new KeyValuePair<short,Player>(key, p));   
+            }
+        }
+
+        public void RemovePlayer(short id) {
+            lock (((ICollection)_playerCollection).SyncRoot) {
+                _playerCollection.Remove(id);
             }
         }
 
         #region IPlayerProvider Members
 
-        public virtual Player GetPlayer(int id) {
+        public virtual Player GetPlayer(short id) {
             if (_playerCollection != null)
                 lock (((ICollection)(_playerCollection)).SyncRoot)
                     if (_playerCollection.ContainsKey(id))
@@ -44,7 +50,7 @@ namespace Yad.Net.Server {
             return null;
         }
 
-        public virtual IEnumerator<KeyValuePair<int,Player>> GetPlayers() {
+        public virtual IEnumerator<KeyValuePair<short,Player>> GetPlayers() {
             if (_playerCollection != null)
                 lock (((ICollection)(_playerCollection)).SyncRoot)
                     return _playerCollection.GetEnumerator();
