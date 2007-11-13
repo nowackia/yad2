@@ -131,7 +131,7 @@ namespace Client.UI {
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
-			InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
+			//InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
 
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
