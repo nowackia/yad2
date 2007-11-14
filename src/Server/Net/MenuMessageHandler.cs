@@ -14,7 +14,7 @@ namespace Yad.Net.Server
         #region Private Members
 
         private Server _server;
-
+        private const string ProcessStringFormat = "Processing {0} for player: {1}...";
         #endregion 
 
         #region Constructors
@@ -71,6 +71,7 @@ namespace Yad.Net.Server
         /// </summary>
         /// <param name="msg"></param>
         private void ProcessStartGame(Message msg) {
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Start Game", msg.PlayerId), EPrefix.ServerProcessInfo);
             _server.GameManager.StartGame(msg.PlayerId);
         }
 
@@ -80,6 +81,7 @@ namespace Yad.Net.Server
         /// <param name="playersMessage"></param>
         private void ProcessPlayers(PlayersMessage playersMessage) {
             Player player = _server.GetPlayer(playersMessage.PlayerId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Start Game", player.Login), EPrefix.ServerProcessInfo);
             if (player == null || player.State != MenuState.GameJoin)
                 return;
             _server.GameManager.ModifyPlayer(player.Id, playersMessage.PlayerList[0]);
@@ -90,8 +92,8 @@ namespace Yad.Net.Server
         /// </summary>
         /// <param name="textMessage"></param>
         private void ProcessJoinGame(TextMessage textMessage) {
-
             Player player = _server.GetPlayer(textMessage.PlayerId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Join Game", textMessage.PlayerId), EPrefix.ServerProcessInfo);
             if (player == null)
                 return;
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
@@ -106,6 +108,7 @@ namespace Yad.Net.Server
         }
 
         private void ProcessChatText(TextMessage msg) {
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat Text", msg.PlayerId), EPrefix.ServerProcessInfo);
             _server.Chat.AddTextMessage(msg);
         }
 
@@ -113,7 +116,7 @@ namespace Yad.Net.Server
 
             //Pobranie gracza z listy niezalogowanych
             Player player = _server.GetPlayerUnlogged(msg.PlayerId);
-
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Login", msg.PlayerId), EPrefix.ServerProcessInfo);
             //Jesli gracza nie ma, lub jego stan jest jakis dziwny - koniec obslugi
             if (null == player || player.State != MenuState.Unlogged)
                 return;
@@ -124,17 +127,22 @@ namespace Yad.Net.Server
                     SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
                     return;
                 }
-
-                LoggingTransfer(player);
-                player.State = state;
-                player.SetData(LoadPlayerData(msg.Login));
+                lock (player) {
+                    LoggingTransfer(player);
+                    player.State = state;
+                    player.SetData(LoadPlayerData(msg.Login));
+                }
             }
 
             SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Successful), player.Id);
+            NumericMessage idmsg = (NumericMessage)MessageFactory.Create(MessageType.IdInformation);
+            idmsg.Number = player.Id;
+            SendMessage(idmsg, player.Id);
         }
 
         private void ProcessEntry(Message msg) {
             EntryMessage emsg = msg as EntryMessage;
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Entry", msg.PlayerId), EPrefix.ServerProcessInfo);
             switch ((ServerRoom)emsg.ServerRoom) {
                 case ServerRoom.Chat:
                     ProcessChatEntry(emsg);
@@ -147,7 +155,7 @@ namespace Yad.Net.Server
 
         public void ProcessGameChooseEntry(Message msg) {
             Player player = _server.GetPlayer(msg.PlayerId);
-
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Game Choose Entry", player.Login), EPrefix.ServerProcessInfo);
             if (null == player || player.State == MenuState.GameChoose)
                 return;
 
@@ -173,7 +181,7 @@ namespace Yad.Net.Server
         public void ProcessChatEntry(Message msg) {
 
             Player player = _server.GetPlayer(msg.PlayerId);
-
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat entry", player.Login), EPrefix.ServerProcessInfo);
             if (null == player || player.State == MenuState.Chat)
                 return;
 
@@ -196,6 +204,7 @@ namespace Yad.Net.Server
 
         private void ProcessCreateGame(GameInfoMessage msg) {
             Player player = _server.GetPlayer(msg.PlayerId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Create game", msg.PlayerId), EPrefix.ServerProcessInfo);
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
             ResultMessage resMsg  =  null;
             if (state == MenuState.GameJoin) {

@@ -185,6 +185,8 @@ namespace Yad.Net.Messaging.Common {
                 #region Client login messages
                 case MessageType.Login:
                     return new LoginMessage(MessageType.Login);
+                case MessageType.IdInformation:
+                    return new NumericMessage(MessageType.IdInformation);
 
                 /* Depreciated */ 
                 case MessageType.LoginSuccessful:

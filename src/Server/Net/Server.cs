@@ -60,9 +60,11 @@ namespace Yad.Net.Server {
 
                 _msgHandler = new MenuMessageHandler(this);
                 _msgHandler.SetSender(_msgSender);
+
                 StartMessageProcessing();
 
                 _chat = new Chat(_msgSender);
+                _gameManager = new GameManager(_msgSender);
                 InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
 
             }

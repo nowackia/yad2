@@ -4,6 +4,8 @@ using System.Text;
 using Yad.Net.Common;
 using System.Collections;
 using Yad.Net.Messaging.Common;
+using Yad.Log.Common;
+using Yad.Properties;
 
 namespace Yad.Net.Server {
      
@@ -73,7 +75,7 @@ namespace Yad.Net.Server {
         }
 
         public void StartGame(short playerid) {
-            bool result;
+            //bool result;
             lock (((ICollection)_players).SyncRoot) {
                 if (_players.ContainsKey(playerid)) {
                     string name = _players[playerid].GameName;
@@ -100,6 +102,8 @@ namespace Yad.Net.Server {
             lock (((ICollection)_games).SyncRoot) {
                 _games.Remove(sgi.Name);
             }
+            InfoLog.WriteInfo(string.Format(Resources.ActionStringFormat, "game removal"), EPrefix.ServerAction);
+            InfoLog.WriteInfo("Removed game: " + sgi.Name, EPrefix.ServerAction);
         }
 
         private void SendGameListMessage(short recipient) {
@@ -109,7 +113,7 @@ namespace Yad.Net.Server {
                     if (!sgi.IsPrivate)
                         list.Add(sgi.GetGameInfo());
             }
-
+           
             GamesMessage msg = MessageFactory.Create(MessageType.Games) as GamesMessage;
             msg.ListGameInfo = list;
             msg.Operation = (byte)MessageOperation.List;
@@ -154,6 +158,8 @@ namespace Yad.Net.Server {
                 ServerGameInfo sgi = new ServerGameInfo(gi, _sender);
                 _games.Add(gi.Name, sgi);
                 SendCreateGameMessage(sgi);
+                InfoLog.WriteInfo(string.Format(Resources.ActionStringFormat, "create game"), EPrefix.ServerAction);
+                InfoLog.WriteInfo("Created game: " + gi.Name, EPrefix.ServerAction);
             }
             return result;
         }
@@ -172,8 +178,8 @@ namespace Yad.Net.Server {
                 if (ResultType.Successful == result) {
                     _games[name].AddPlayer(player);
                     player.GameName = name;
-                    if (_games[name].IsPrivate)
-                        SendJoinGameMessage(_games[name], player.Id);
+                    SendJoinGameMessage(_games[name], player.Id);
+                    InfoLog.WriteInfo("Player " + player.Login + "has joined game: " + name, EPrefix.ServerAction);
                     }
                 return result;
             }

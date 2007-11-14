@@ -96,6 +96,7 @@ namespace Yad.Net.Messaging.Common
         [Obsolete("Use RemindResult instead")]
         RemindUnsuccessful,
         RemindResult,
+        IdInformation,
         #endregion
 
         #region Client menu messages
