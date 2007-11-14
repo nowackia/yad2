@@ -37,5 +37,32 @@ namespace Yad.Net.Common
             get { return _teamID; }
             set { _teamID = value; }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            PlayerInfo p = obj as PlayerInfo;
+            if ((object)p == null)
+                return false;
+
+            return this._id == p._id;
+        }
+
+        public override int GetHashCode()
+        {
+            return _id.GetHashCode();
+        }
+
+        public static bool operator ==(PlayerInfo a, PlayerInfo b)
+        {
+            return a.Equals((object)b);
+        }
+
+        public static bool operator !=(PlayerInfo a, PlayerInfo b)
+        {
+            return !(a == b);
+        }
     }
 }

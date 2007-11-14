@@ -520,7 +520,7 @@ namespace Client.UI
             //TODO (AN) Get somehow MapId
             if (listBoxLBCreateGame.SelectedItem != null)
             {
-                gameInfo.MapId = (short)listBoxLBCreateGame.SelectedItem;
+                gameInfo.MapId = short.Parse(listBoxLBCreateGame.SelectedItem.ToString());
                 gameInfo.MaxPlayerNumber = (short)maxPlayerNumberNUPCreateGameMenu.Value;
                 gameInfo.Name = gameNameTBCreateGameMenu.Text;
                 if (publicCreateGameMenu.Checked)

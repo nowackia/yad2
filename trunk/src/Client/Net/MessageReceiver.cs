@@ -116,14 +116,14 @@ namespace Yad.Net.Client
                     return;
                 }
 
-                InfoLog.WriteInfo("Client received message with type " + type, EPrefix.ClientInformation);
-
                 Message msg = MessageFactory.Create((MessageType)type);
                 if (msg == null)
                 {
                     InfoLog.WriteInfo("Received unknown message", EPrefix.MessageReceivedInfo);
                     continue;
                 }
+
+                InfoLog.WriteInfo("Client received message with type: " + msg.Type, EPrefix.ClientInformation);
 
                 msg.Deserialize(readStream);
 
