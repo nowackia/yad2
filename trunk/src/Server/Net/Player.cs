@@ -28,6 +28,7 @@ namespace Yad.Net.Server {
         private MenuState _state;
         private PlayerData _data;
         private string _gameName;
+        private bool _isDisconnected = false;
 
         #endregion Private members
 
@@ -76,7 +77,9 @@ namespace Yad.Net.Server {
             _id = id;
             _readStream = new BinaryReader(client.GetStream());
             _writeStream = new BinaryWriter(client.GetStream());
+            _isDisconnected = false;
             _rcvThread = new Thread(new ThreadStart(ReceiveMessages));
+            
         }
 
         public void Start() {
@@ -97,7 +100,9 @@ namespace Yad.Net.Server {
 
         public void SendMessage(Message msg) {
             try {
-                msg.Serialize(_writeStream);
+                if (!_isDisconnected) {
+                    msg.Serialize(_writeStream);
+                }
             }
             catch (Exception) {
                 ExecuteOnConnectionLost();
@@ -105,9 +110,12 @@ namespace Yad.Net.Server {
         }
 
         private void ExecuteOnConnectionLost() {
-            lock (_onConnectionLost) {
-                if (_onConnectionLost != null)
-                    _onConnectionLost(this, new ConnectionLostEventArgs());
+            if (!_isDisconnected) {
+                _isDisconnected = true;
+                lock (_onConnectionLost) {
+                    if (_onConnectionLost != null)
+                        _onConnectionLost(this, new ConnectionLostEventArgs());
+                }
             }
         }
 
