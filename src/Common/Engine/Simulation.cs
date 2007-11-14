@@ -11,6 +11,7 @@ using Yad.Config.Common;
 using Yad.Utils.Common;
 using Yad.Board;
 using Yad.Config;
+using System.Windows.Forms;
 
 namespace Yad.Engine.Common {
 
@@ -144,17 +145,17 @@ namespace Yad.Engine.Common {
 				messagesEnum = messages.GetEnumerator();
 				while (messagesEnum.MoveNext()) {
 					GameMessage gm = messagesEnum.Current;
-					if (gm is CreateUnitMessage) {
+					if (gm.Type == MessageType.CreateUnit) {
 						this.onMessageCreate((CreateUnitMessage)gm);
-					} else if (gm is BuildMessage) {
+					} else if (gm.Type == MessageType.Build) {
 						this.OnMessageBuild((BuildMessage)gm);
-					} else if (gm is MoveMessage) {
+					} else if (gm.Type == MessageType.Move) {
 						this.onMessageMove((MoveMessage)gm);
-					} else if (gm is AttackMessage) {
+					} else if (gm.Type == MessageType.Attack) {
 						this.onMessageAttack((AttackMessage)gm);
-					} else if (gm is DestroyMessage) {
+					} else if (gm.Type == MessageType.Destroy) {
 						this.onMessageDestroy((DestroyMessage)gm);
-					} else if (gm is HarvestMessage) {
+					} else if (gm.Type == MessageType.Harvest) {
 						this.onMessageHarvest((HarvestMessage)gm);
 					} else {
 						throw new NotImplementedException("This message type is not supported! Refer to Simulation.cs");
@@ -187,20 +188,23 @@ namespace Yad.Engine.Common {
 						handleUnit(u);
 					}
 				}
+				//this.fastTurnProcessing = true;
+				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
+				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
 
-				if (!this.fastTurnProcessing) {
-					if (!this.SpeedUp) {
-						int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
-						//InfoLog.WriteInfo(remainingTime.ToString(), EPrefix.SimulationInfo);
-						if (remainingTime > 0)
+					if (!this.SpeedUp) { // client
+						if (remainingTime > 0) {
 							Thread.Sleep(remainingTime);
+						}
 					} else {
-						speedUpLength--;
-						if (speedUpLength == 0) {
+						if (--speedUpLength == 0) {
 							SpeedUp = false;
 						}
 					}
+
 				}
+
+				InfoLog.WriteInfo((Environment.TickCount - turnStart).ToString(), EPrefix.SimulationInfo);
 
 				if (this.onTurnEnd != null) {
 					this.onTurnEnd();
@@ -295,7 +299,12 @@ namespace Yad.Engine.Common {
 			lock (turns.SyncRoot) {
 				currentMessages = ShiftTurns();
 				currentTurn++;
-				nextTurn.Release();
+				try {
+					nextTurn.Release();
+				} catch (SemaphoreFullException) {
+					currentTurn--;
+					MessageBox.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
+				}
 			}
 		}
 
