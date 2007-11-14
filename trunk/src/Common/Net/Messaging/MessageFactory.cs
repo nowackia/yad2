@@ -250,6 +250,9 @@ namespace Yad.Net.Messaging.Common {
                 default:
                     return null;
                 #endregion
+
+				case MessageType.Build:
+					return new BuildMessage();
             }
         }
     }
