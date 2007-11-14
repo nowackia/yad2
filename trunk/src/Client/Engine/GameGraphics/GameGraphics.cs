@@ -349,9 +349,9 @@ namespace Client.Engine.GameGraphics {
 		// translates screen mose coordinates to position on the map
 		public static Position TranslateMousePosition(Point p)
 		{
-			Position pn = new Position();
-			pn.X = (short)((p.X) / zoom + offset.X + mapClip.X);
-			pn.Y = (short)((p.Y) / zoom + offset.Y + mapClip.Y);// - mapClip.Height/2);
+			Position pn = new Position(
+			(short)(((float)p.X) / zoom + offset.X + mapClip.X),
+			(short)(((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));
 			return pn;
 		}
 	}

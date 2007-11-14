@@ -26,5 +26,9 @@ namespace Yad.Board {
 			this._x = x;
 			this._y = y;
 		}
+
+		public override string ToString() {
+			return "{" + _x + "," + _y + "}";
+		}
 	}
 }
