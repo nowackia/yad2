@@ -24,11 +24,11 @@ namespace Client.UI {
         /// </summary>
         private void InitializeComponent() {
             this.scrollingPanel = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonDown = new System.Windows.Forms.Extended.PictureButton();
             this.buttonUp = new System.Windows.Forms.Extended.PictureButton();
             this.contentPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.scrollingPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -42,6 +42,16 @@ namespace Client.UI {
             this.scrollingPanel.Name = "scrollingPanel";
             this.scrollingPanel.Size = new System.Drawing.Size(78, 200);
             this.scrollingPanel.TabIndex = 6;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(78, 200);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // buttonDown
             // 
@@ -73,6 +83,7 @@ namespace Client.UI {
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(72, 221);
             this.contentPanel.TabIndex = 5;
+            this.contentPanel.SizeChanged += new System.EventHandler(this.contentPanel_SizeChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -90,16 +101,6 @@ namespace Client.UI {
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(78, 267);
             this.tableLayoutPanel1.TabIndex = 9;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(78, 200);
-            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // BuildStripe
             // 

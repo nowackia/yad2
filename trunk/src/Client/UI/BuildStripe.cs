@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Yad.Log.Common;
 using System.Windows.Forms.Extended;
 using Client.Engine;
+using Client.Properties;
 
 namespace Client.UI {
     /// <summary>
@@ -79,15 +80,14 @@ namespace Client.UI {
             delta += howMany;
         }
 
-        public void Insert(short id,String name) {
-            PictureButton pictureButton = new PictureButton();
+        public void Insert(short id,String name,String pictureName) {
+            PictureButton pictureButton = new PictureButton(new Bitmap(pictureName), new Bitmap(pictureName));
             buttons[id] = pictureButton;
             pictureButton.Text = name;
             pictureButton.Name = name;
-            pictureButton.Image = null;
             pictureButton.Size = new Size(WIDTH, HEIGHT);
             //pictureButton.BackColor = Color.Black;
-            pictureButton.Margin = new Padding(0, 0, 0, 0);
+             pictureButton.Margin = new Padding(0, 0, 0, 0);
             //pictureButton.MouseOverColor = Color.DarkGray;
             //pictureButton.MouseOverEffect = true;
             pictureButton.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@ namespace Client.UI {
         public void Add(short id,string name, string pictureName) {
             InfoLog.WriteInfo("Add", EPrefix.Stripe);
             if (buttons.ContainsKey(id)) return;
-            Insert(id,name);
+            Insert(id,name,pictureName);
             
         }
 
@@ -137,5 +137,9 @@ namespace Client.UI {
         }
 
         #endregion
+
+        private void contentPanel_SizeChanged(object sender, EventArgs e) {
+            viewable = this.contentPanel.Height / HEIGHT;
+        }
     }
 }
