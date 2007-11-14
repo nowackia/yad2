@@ -96,6 +96,7 @@ namespace Yad.Net.Client
         public event RequestReplyEventHandler CreateGameRequestReply;
         public event RequestReplyEventHandler JoinGameRequestReply;
         public event RequestReplyEventHandler GameParamsRequestReply;
+        public event RequestReplyEventHandler StartGameRequestReply;
 
         public event ChatEventHandler NewChatUsers;
         public event ChatEventHandler DeleteChatUsers;
@@ -144,6 +145,11 @@ namespace Yad.Net.Client
                             case ResponseType.JoinGame:
                                 if (JoinGameRequestReply != null)
                                     JoinGameRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
+
+                            case ResponseType.StartGame:
+                                if (StartGameRequestReply != null)
+                                    StartGameRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
                                 break;
                         }
                     }
