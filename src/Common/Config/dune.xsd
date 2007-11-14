@@ -4,6 +4,7 @@
 	<complexType name="UnitTrooperData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string"  />
 			<element name="Cost" type="int" />
 			<element name="FireRange" type="int" />
@@ -21,6 +22,7 @@
 	<complexType name="UnitTankData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
 			<element name="Cost" type="int" />
 			<element name="FireRange" type="int" />
@@ -39,6 +41,7 @@
 	<complexType name="UnitHarvesterData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
 			<element name="Cost" type="int" />
 			<element name="Speed" type="int" />
@@ -54,6 +57,7 @@
 	<complexType name="UnitMCVData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
 			<element name="Cost" type="int" />
 			<element name="Speed" type="int" />
@@ -68,7 +72,8 @@
 	<complexType name="UnitSandwormData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-			<element name="Name" type="string" />
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+      <element name="Name" type="string" />
 			<element name="Speed" type="int" />
 			<element name="Health" type="int" />
 			<element name="Power" type="int" />
@@ -158,7 +163,7 @@
 		</sequence>
 	</complexType>
 	<complexType name="TechnologyDependence">
-		<sequence maxOccurs="unbounded" minOccurs="0">
+		<sequence maxOccurs="1" minOccurs="1">
 			<element name="BuildingName" type="string" />
 			<element name="RequiredBuildings" type="tns:BuildingsNames" />
 		</sequence>

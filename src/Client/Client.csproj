@@ -78,6 +78,7 @@
     <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
     <Compile Include="Engine\GameGraphics\TextureFiles.cs" />
     <Compile Include="Engine\GameGraphics\VertexData.cs" />
+    <Compile Include="Engine\StripesManager.cs" />
     <Compile Include="Net\ClientPlayerInfo.cs" />
     <Compile Include="Net\Connection.cs" />
     <Compile Include="Net\IConnection.cs" />

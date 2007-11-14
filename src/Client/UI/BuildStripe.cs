@@ -7,15 +7,17 @@ using System.Text;
 using System.Windows.Forms;
 using Yad.Log.Common;
 using System.Windows.Forms.Extended;
+using Client.Engine;
 
 namespace Client.UI {
     /// <summary>
     /// 
     /// </summary>
-    public partial class BuildStripe : UserControl {
+    public partial class BuildStripe : UserControl, IManageableStripe {
 
-        public static int SIZE = 72;
-        
+        public static int WIDTH = 90;
+        public static int HEIGHT = 70;
+        private Dictionary<short, PictureButton> buttons = new Dictionary<short, PictureButton>();
         /// <summary>
         /// number of objects under the 'upper' line
         /// </summary>
@@ -34,14 +36,10 @@ namespace Client.UI {
 
         public BuildStripe() {
             InitializeComponent();
-            viewable = this.contentPanel.Height / SIZE;
+            viewable = this.contentPanel.Height / HEIGHT;
             scrollingPanel.Location = new Point(0, top);
-            scrollingPanel.Size = new Size(SIZE, num * SIZE);
-            Insert();
-            Insert();
-            Insert();
-            Insert();
-            Insert();
+            scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+
         }
 
         private void buttonDown_Click(object sender, EventArgs e) {
@@ -63,7 +61,7 @@ namespace Client.UI {
             Point loc = scrollingPanel.Location;
             int y = top;
             y += howMany;
-            loc.Offset(0, y * SIZE);
+            loc.Offset(0, y * HEIGHT);
             scrollingPanel.Location = loc;
             delta -= howMany;
         }
@@ -76,17 +74,18 @@ namespace Client.UI {
             Point loc = scrollingPanel.Location;
             int y = top;
             y -= howMany;
-            loc.Offset(0, y*SIZE);
+            loc.Offset(0, y*HEIGHT);
             scrollingPanel.Location = loc;
             delta += howMany;
         }
 
-        public void Insert() {
+        public void Insert(short id,String name) {
             PictureButton pictureButton = new PictureButton();
-            pictureButton.Text = "hoho " + num;
-            pictureButton.Name = "hoho " + num;
+            buttons[id] = pictureButton;
+            pictureButton.Text = name;
+            pictureButton.Name = name;
             pictureButton.Image = null;
-            pictureButton.Size = new Size(SIZE, SIZE);
+            pictureButton.Size = new Size(WIDTH, HEIGHT);
             //pictureButton.BackColor = Color.Black;
             pictureButton.Margin = new Padding(0, 0, 0, 0);
             //pictureButton.MouseOverColor = Color.DarkGray;
@@ -95,9 +94,9 @@ namespace Client.UI {
             pictureButton.Click += new EventHandler(pictureButton_Click);
             num++;
             this.flowLayoutPanel1.Controls.Add(pictureButton);
-            this.scrollingPanel.Size = new Size(SIZE, num * SIZE);
-            this.flowLayoutPanel1.Size = new Size(SIZE, num * SIZE);
-            InfoLog.WriteInfo("Insert: size: " + num * SIZE, EPrefix.Stripe);
+            this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+            this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+            InfoLog.WriteInfo("Insert: size: " + num * HEIGHT, EPrefix.Stripe);
             
             
 
@@ -107,5 +106,36 @@ namespace Client.UI {
             InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
         }
 
+
+        #region IManageableStripe Members
+
+        public void Add(short id,string name, string pictureName) {
+            InfoLog.WriteInfo("Add", EPrefix.Stripe);
+            if (buttons.ContainsKey(id)) return;
+            Insert(id,name);
+            
+        }
+
+        public void Remove(short id) {
+            InfoLog.WriteInfo("Remove", EPrefix.Stripe);
+        }
+
+        public void AddPercentCounter(short id) {
+            InfoLog.WriteInfo("AddPercentCounter", EPrefix.Stripe);
+        }
+
+        public void SetPercentValue(short id,int val) {
+            InfoLog.WriteInfo("SetPercentValue", EPrefix.Stripe);
+        }
+
+        public void RemovePercentCounter() {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public void RemoveAll() {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }

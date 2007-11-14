@@ -23,6 +23,7 @@ using Yad.Engine.Common;
 using Yad.Config;
 using Yad.Board;
 using Client.Net;
+using Client.Engine;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -34,6 +35,7 @@ namespace Client.UI {
 		public static ClientSimulation sim;
 		public static Player currPlayer;
 		public static IConnection conn;
+        public static StripesManager stripesManager;
 
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
@@ -47,6 +49,17 @@ namespace Client.UI {
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 			sim = new ClientSimulation(gameSettingsWrapper, map, conn);
+            short key=0;
+            //TODO wtf? which race i am?
+            foreach (short k in gameSettingsWrapper.racesMap.Keys)
+	        {
+                key = k;
+                break;
+	        }
+            stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
+            stripesManager.AddBuilding(sim.GameSettingsWrapper.namesToIds["Barracks"]);
+            //^to remove
+
 			//to remove
 			currPlayer = new Player(0);
 			sim.AddPlayer(currPlayer);
