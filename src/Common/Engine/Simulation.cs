@@ -28,7 +28,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Turn length in miliseconds
 		/// </summary>
-		const int turnLength = 200;
+		const int turnLength = 100;
 		/// <summary>
 		/// Transmission delay in miliseconds
 		/// </summary>

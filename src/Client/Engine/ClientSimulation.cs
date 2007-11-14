@@ -8,14 +8,23 @@ using Yad.Config.Common;
 using Yad.Board;
 using Yad.Config;
 using Client.UI;
+using Client.Net;
+using Yad.Net.Messaging;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
 
-		public ClientSimulation(GameSettingsWrapper settings, Map map)
+		IConnection connectionToServer;
+
+		public ClientSimulation(GameSettingsWrapper settings, Map map, IConnection conn)
 			: base(settings, map, false) {
+			this.connectionToServer = conn;
 			//this.onTurnBegin
-			//this.onTurnEnd
+			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
+		}
+
+		void ClientSimulation_onTurnEnd() {
+			connectionToServer.SendMessage(new MessageTurnAsk());
 		}
 
 		protected override void OnMessageBuild(BuildMessage bm) {

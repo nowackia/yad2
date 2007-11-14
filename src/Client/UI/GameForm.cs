@@ -22,6 +22,7 @@ using Yad.Utils.Common;
 using Yad.Engine.Common;
 using Yad.Config;
 using Yad.Board;
+using Client.Net;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -30,27 +31,31 @@ namespace Client.UI {
 		bool wasScrolled = false;
 		Point mousePos;
 
-		public static ClientSimulation simulation;
-		public static Player currentPlayer;
+		public static ClientSimulation sim;
+		public static Player currPlayer;
+		public static IConnection conn;
 
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 			InitializeComponent();
 
+			//TODO: use real connection
+			conn = new DummyConnection();
+
 			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			simulation = new ClientSimulation(gameSettingsWrapper, map);
+			sim = new ClientSimulation(gameSettingsWrapper, map, conn);
 			//to remove
-			currentPlayer = new Player(0);
-			simulation.AddPlayer(currentPlayer);
+			currPlayer = new Player(0);
+			sim.AddPlayer(currPlayer);
 			CreateUnitMessage cum = new CreateUnitMessage();
-			cum.IdTurn = simulation.CurrentTurn + simulation.Delta;
-			cum.PlayerId = currentPlayer.ID;
-			cum.Position = new Yad.Board.Position(Randomizer.NextShort(simulation.Map.Width), Randomizer.NextShort(simulation.Map.Height));
-			simulation.AddGameMessage(cum);
-			simulation.StartSimulation();
+			cum.IdTurn = sim.CurrentTurn + sim.Delta;
+			cum.PlayerId = currPlayer.ID;
+			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
+			sim.AddGameMessage(cum);
+			sim.StartSimulation();
 			//to remove end
 
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
@@ -62,9 +67,9 @@ namespace Client.UI {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
-			GameGraphics.InitGL(simulation);
+			GameGraphics.InitGL(sim);
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-			GameGraphics.InitTextures(simulation);
+			GameGraphics.InitTextures(sim);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
@@ -109,7 +114,7 @@ namespace Client.UI {
 			} else if (e.KeyCode == Keys.S) {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.F5) {
-				simulation.DoTurn(); //todo: erase later
+				sim.DoTurn(); //todo: erase later
 			}
 		}
 
@@ -118,17 +123,16 @@ namespace Client.UI {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
+				//TODO: remove
 				BuildMessage bm = new BuildMessage();
 				Position p = GameGraphics.TranslateMousePosition(e.Location);
-				bm.BuildingID = currentPlayer.GenerateObjectID();
-				bm.PlayerId = currentPlayer.ID;
-				//todo: IdTurn will be assigned by server
-				bm.IdTurn = simulation.CurrentTurn + simulation.Delta;
-				bm.BuildingType = simulation.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].TypeID;
+				bm.BuildingID = currPlayer.GenerateObjectID();
+				bm.PlayerId = currPlayer.ID;
+				bm.BuildingType = sim.GameSettingsWrapper.buildings[0].TypeID;
 				bm.Type = MessageType.Build;
 				bm.Position = p;
-				//Connection.SendMessage(bm);
-				simulation.AddGameMessage(bm);
+				conn.SendMessage(bm);
+				//TODO END
 			}
 		}
 
@@ -166,5 +170,30 @@ namespace Client.UI {
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
 
+		private class DummyConnection : IConnection {
+
+			#region IConnection Members
+			int currentTurn = 0;
+			public void SendMessage(Yad.Net.Messaging.Common.Message message) {
+				if (message.Type == MessageType.TurnAsk) {
+					currentTurn++;
+					GameForm.sim.DoTurn();
+				} else if (message is GameMessage) {
+					GameMessage gm = message as GameMessage;
+					gm.IdTurn = currentTurn + GameForm.sim.Delta;
+					GameForm.sim.AddGameMessage(gm);
+				}
+			}
+
+			public void CloseConnection() {
+				
+			}
+
+			public void InitConnection(string host, int port) {
+				
+			}
+
+			#endregion
+		}
 	}
 }
