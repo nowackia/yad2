@@ -9,7 +9,7 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
-namespace Client.Net
+namespace Yad.Net.Client
 {
     public delegate void MessageEventHandler(object sender, MessageEventArgs e);
     public delegate void ConnectionLostEventHandler(object sender, EventArgs e);

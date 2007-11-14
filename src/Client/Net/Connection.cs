@@ -8,7 +8,7 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
-namespace Client.Net
+namespace Yad.Net.Client
 {
     static class Connection
     {

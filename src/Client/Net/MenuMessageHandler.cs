@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 
-namespace Client.Net
+namespace Yad.Net.Client
 {
     public delegate void RequestReplyEventHandler(object sender, RequestReplyEventArgs e);
     public delegate void ChatEventHandler(object sender, ChatEventArgs e);
@@ -120,6 +121,7 @@ namespace Client.Net
                         switch ((ResponseType)result.ResponseType)
                         {
                             case ResponseType.Login:
+                                ClientPlayerInfo.PlayerId = result.PlayerId;
                                 if (LoginRequestReply != null)
                                     LoginRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
                                 break;

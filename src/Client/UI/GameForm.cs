@@ -21,7 +21,6 @@ using Yad.Net.Messaging.Common;
 using Yad.Utils.Common;
 using Yad.Engine.Common;
 using Yad.Config;
-using Client.Net;
 using Yad.Board;
 
 namespace Client.UI {

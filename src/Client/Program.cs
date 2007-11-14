@@ -1,4 +1,3 @@
-using Client.Net;
 using Client.UI;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Net.Sockets;
 using System.IO;
 using Yad.Log;
 using Yad.Net;
+using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
