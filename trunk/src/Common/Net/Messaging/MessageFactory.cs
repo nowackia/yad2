@@ -173,6 +173,13 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.StartGame:
                     return new Message(MessageType.StartGame);
+
+                case MessageType.StartGameResult:
+                    {
+                        ResultMessage resultMessage = new ResultMessage();
+                        resultMessage.ResponseType = (byte)ResponseType.StartGame;
+                        return resultMessage;
+                    }
                 #endregion
 
                 #region Client login messages
