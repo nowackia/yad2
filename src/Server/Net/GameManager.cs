@@ -176,9 +176,9 @@ namespace Yad.Net.Server {
             lock (((ICollection)_games).SyncRoot) {
                 ResultType result = IsJoinPossible(name);
                 if (ResultType.Successful == result) {
+                    SendJoinGameMessage(_games[name], player.Id);
                     _games[name].AddPlayer(player);
                     player.GameName = name;
-                    SendJoinGameMessage(_games[name], player.Id);
                     InfoLog.WriteInfo("Player " + player.Login + "has joined game: " + name, EPrefix.ServerAction);
                     }
                 return result;
