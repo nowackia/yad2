@@ -21,6 +21,8 @@ using Yad.Net.Messaging.Common;
 using Yad.Utils.Common;
 using Yad.Engine.Common;
 using Yad.Config;
+using Client.Net;
+using Yad.Board;
 
 namespace Client.UI {
 	public partial class GameForm : UIManageable {
@@ -116,6 +118,20 @@ namespace Client.UI {
 				mousePos = e.Location;
 				scrolling = true;
 			}
+
+			//TODO: zmodyfikowaæ
+			if (e.Button == MouseButtons.Left)
+			{
+				BuildMessage bm = new BuildMessage();
+				Position p = GameGraphics.TranslateMousePosition(e.Location);
+				//bm.BuildingID = ustawiæ id bubynku z xml'a
+				bm.IdTurn = simulation.CurrentTurn + simulation.Delta;
+				//bm.BuildingType = nadawaæ type budynku
+				//bm.PlayerId = ustawiaæ id playera
+				bm.Type = MessageType.Build;
+				Connection.SendMessage(bm);
+			}
+			//end todo;
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
@@ -151,5 +167,6 @@ namespace Client.UI {
 
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
+
 	}
 }
