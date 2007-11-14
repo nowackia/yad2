@@ -7,6 +7,7 @@ using Yad.Board.Common;
 using Yad.Config.Common;
 using Yad.Board;
 using Yad.Config;
+using Client.UI;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
@@ -24,7 +25,6 @@ namespace Yad.Engine.Client {
 				throw new Exception("Message from unknown player");
 			players[bm.PlayerId].AddBuilding(b);
 			this.map.Buildings[b.Position.X, b.Position.Y].AddLast(b);
-			//Map.
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
