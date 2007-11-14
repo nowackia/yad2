@@ -34,8 +34,10 @@ namespace Yad.Net.Messaging.Common
 
         #region Player Info
         PlayerInfo,
-        /* Depreciated */ PlayerInfoSuccessful,
-        /* Depreciated */ PlayerInfoUnsuccessful,
+        [Obsolete("Use PlayerInfoResponse instead")]
+        PlayerInfoSuccessful,
+        [Obsolete("Use PlayerInfoResponse instead")]
+        PlayerInfoUnsuccessful,
         PlayerInfoResponse,
         #endregion
 
@@ -48,8 +50,10 @@ namespace Yad.Net.Messaging.Common
 
         #region Game Creating
         CreateGame,
-        /* Depreciated */ CreateGameSuccessful,
-        /* Depreciated */ CreateGameUnsuccessful,
+        [Obsolete("Use CreateGameResult instead")]
+        CreateGameSuccessful,
+        [Obsolete("Use CreateGameResult instead")]
+        CreateGameUnsuccessful,
         CreateGameResult,
         #endregion
 
@@ -58,28 +62,39 @@ namespace Yad.Net.Messaging.Common
         NewPlayer,
         DeletePlayer,
         UpdatePlayer,
-        /* Depreciated */ StartGameSuccessful,
-        /* Depreciated */ StartGameUnsuccessful,
-        JoinGame,
-        /* Depreciated */ JoinGameSuccessful,
-        /* Depreciated */ JoinGameUnsuccessful,
-        JoinGameResult,
         GameParams,
+        JoinGame,
+        [Obsolete("Use JoinGameResult instead")]
+        JoinGameSuccessful,
+        [Obsolete("Use JoinGameResult instead")]
+        JoinGameUnsuccessful,
+        JoinGameResult,
         StartGame,
+        [Obsolete("Use StartGameResult instead")]
+        StartGameSuccessful,
+        [Obsolete("Use StartGameResult instead")]
+        StartGameUnsuccessful,
+
         #endregion
 
         #region Client login messages
         Login,
-        /* Depreciated */ LoginSuccessful,
-        /* Depreciated */ LoginUnsuccessful,
+        [Obsolete("Use LoginResult instead")]
+        LoginSuccessful,
+        [Obsolete("Use LoginResult instead")]
+        LoginUnsuccessful,
         LoginResult,
         Register,
-        /* Depreciated */ RegisterSuccessful,
-        /* Depreciated */ RegisterUnsuccessful,
+        [Obsolete("Use RegisterResult instead")]
+        RegisterSuccessful,
+        [Obsolete("Use RegisterResult instead")]
+        RegisterUnsuccessful,
         RegisterResult,
         Remind,
-        /* Depreciated */ RemindSuccessful,
-        /* Depreciated */ RemindUnsuccessful,
+        [Obsolete("Use RemindResult instead")]
+        RemindSuccessful,
+        [Obsolete("Use RemindResult instead")]
+        RemindUnsuccessful,
         RemindResult,
         #endregion
 

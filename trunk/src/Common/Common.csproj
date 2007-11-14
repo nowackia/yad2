@@ -62,6 +62,7 @@
     <Compile Include="Net\Messaging\EntryMessage.cs" />
     <Compile Include="Net\Messaging\GameInfoMessage.cs" />
     <Compile Include="Net\Messaging\GamesMessage.cs" />
+    <Compile Include="Net\Messaging\GameType.cs" />
     <Compile Include="Net\Messaging\MessageOperation.cs" />
     <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
     <Compile Include="Net\Messaging\PlayersMessage.cs" />

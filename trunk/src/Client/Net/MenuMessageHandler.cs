@@ -61,42 +61,28 @@ namespace Client.Net
     public class GameEventArgs : EventArgs
     {
         public GameInfo[] games;
-        public string text;
 
-        public GameEventArgs(GameInfo game, string text)
-            : this(new GameInfo[] { game }, text)
+        public GameEventArgs(GameInfo game)
+            : this(new GameInfo[] { game })
         { }
 
-        public GameEventArgs(GameInfo[] games, string text)
+        public GameEventArgs(GameInfo[] games)
         {
             this.games = games;
-            this.text = text;
         }
     }
 
     public class PlayerEventArgs : EventArgs
     {
         public PlayerInfo[] players;
-        public string text;
-        public bool update;
 
-        public PlayerEventArgs(PlayerInfo player, string text)
-            : this(player, text, false)
+        public PlayerEventArgs(PlayerInfo player)
+            : this(new PlayerInfo[] { player })
         { }
 
-        public PlayerEventArgs(PlayerInfo[] players, string text)
-            : this(players, text, false)
-        { }
-
-        public PlayerEventArgs(PlayerInfo player, string text, bool update)
-            : this(new PlayerInfo[] { player }, text, update)
-        { }
-
-        public PlayerEventArgs(PlayerInfo[] players, string text, bool update)
+        public PlayerEventArgs(PlayerInfo[] players)
         {
             this.players = players;
-            this.text = text;
-            this.update = update;
         }
     }
 
@@ -105,10 +91,10 @@ namespace Client.Net
         public event RequestReplyEventHandler LoginRequestReply;
         public event RequestReplyEventHandler RegisterRequestReply;
         public event RequestReplyEventHandler RemindRequestReply;
-
         public event RequestReplyEventHandler PlayerInfoRequestReply;
+        public event RequestReplyEventHandler CreateGameRequestReply;
         public event RequestReplyEventHandler JoinGameRequestReply;
-        public event RequestReplyEventHandler StartGameRequestReply;
+        public event RequestReplyEventHandler GameParamsRequestReply;
 
         public event ChatEventHandler NewChatUsers;
         public event ChatEventHandler DeleteChatUsers;
@@ -147,6 +133,16 @@ namespace Client.Net
                                 if (RemindRequestReply != null)
                                     RemindRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
                                 break;
+
+                            case ResponseType.CreateGame:
+                                if (CreateGameRequestReply != null)
+                                    CreateGameRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
+
+                            case ResponseType.JoinGame:
+                                if (JoinGameRequestReply != null)
+                                    JoinGameRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
+                                break;
                         }
                     }
                     break;
@@ -157,15 +153,18 @@ namespace Client.Net
                         switch((MessageOperation)chatMessage.Option)
                         {
                             case MessageOperation.Add:
-                                NewChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
+                                if(NewChatUsers != null)
+                                    NewChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
 
                             case MessageOperation.Remove:
-                                DeleteChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
+                                if(DeleteChatUsers != null)
+                                    DeleteChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
 
                             case MessageOperation.List:
-                                ResetChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
+                                if(ResetChatUsers != null)
+                                    ResetChatUsers(this, new ChatEventArgs(chatMessage.ChatUsers.ToArray()));
                                 break;
                         }
                     }
@@ -179,95 +178,72 @@ namespace Client.Net
                     }
                     break;
 
-                case MessageType.PlayerInfoSuccessful:
-                    if (PlayerInfoRequestReply != null)
+                case MessageType.PlayerInfoResponse:
+                    if(PlayerInfoRequestReply != null)
                     {
-                        PlayerData playerData = ((PlayerInfoMessage)message).PlayerData;
-                        string info = "Login: " + playerData.Login + Environment.NewLine + "Wins: " + playerData.WinNo + Environment.NewLine + "Losses: " + playerData.LossNo;
-                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, info));
+                        PlayerInfoMessage playerInfoMessage = message as PlayerInfoMessage;
+                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, playerInfoMessage.PlayerData.ToString()));
                     }
                     break;
 
-                case MessageType.PlayerInfoUnsuccessful:
-                    if (PlayerInfoRequestReply != null)
-                        PlayerInfoRequestReply(this, new RequestReplyEventArgs(true, "Error getting player data"));
-                    break;
-
-                case MessageType.JoinGameSuccessful:
-                    if (JoinGameRequestReply != null)
-                        JoinGameRequestReply(this, new RequestReplyEventArgs(true, "Join game successful"));
-                    break;
-
-                case MessageType.JoinGameUnsuccessful:
-                    if (JoinGameRequestReply != null)
-                        JoinGameRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
-                    break;
-
-                case MessageType.StartGameSuccessful:
-                    if (StartGameRequestReply != null)
-                        StartGameRequestReply(this, new RequestReplyEventArgs(true, "Start game successful"));
-                    break;
-
-                case MessageType.StartGameUnsuccessful:
-                    if (StartGameRequestReply != null)
-                        StartGameRequestReply(this, new RequestReplyEventArgs(false, ((TextMessage)message).Text));
-                    break;
-
-                case MessageType.NewGame:
-                    if(NewGamesInfo != null)
+                case MessageType.Games:
                     {
-                        GamesMessage gamesList = message as GamesMessage;
-                        NewGamesInfo(this, new GameEventArgs(gamesList.ListGameInfo.ToArray(), string.Empty));
+                        GamesMessage gamesMessage = message as GamesMessage;
+                        switch ((MessageOperation)gamesMessage.Operation)
+                        {
+                            case MessageOperation.Add:
+                                if (NewGamesInfo != null)
+                                    NewGamesInfo(this, new GameEventArgs(gamesMessage.ListGameInfo.ToArray()));
+                                break;
+
+                            case MessageOperation.Remove:
+                                if (DeleteGamesInfo != null)
+                                    DeleteGamesInfo(this, new GameEventArgs(gamesMessage.ListGameInfo.ToArray()));
+                                break;
+
+                            case MessageOperation.List:
+                                if (ResetGamesInfo != null)
+                                    ResetGamesInfo(this, new GameEventArgs(gamesMessage.ListGameInfo.ToArray()));
+                                break;
+                        }
                     }
                     break;
 
-                case MessageType.DeleteGame:
-                    if(DeleteGamesInfo != null)
+                case MessageType.GameParams:
+                    if (GameParamsRequestReply != null)
                     {
-                        GamesMessage gamesList = message as GamesMessage;
-                        DeleteGamesInfo(this, new GameEventArgs(gamesList.ListGameInfo.ToArray(), string.Empty));
+                        GameInfoMessage gameInfoMessage = message as GameInfoMessage;
+                        GameParamsRequestReply(this, new RequestReplyEventArgs(true, gameInfoMessage.GameInfo.ToString()));
                     }
                     break;
 
-                /*case MessageType.GamesList:
-                    if(ResetGamesInfo != null)
+                case MessageType.Players:
                     {
-                        GamesListMessage gamesList = message as GamesListMessage;
-                        ResetGamesInfo(this, new GameEventArgs(gamesList.Games.ToArray(), string.Empty));
+                        PlayersMessage playersMessage = message as PlayersMessage;
+                        switch ((MessageOperation)playersMessage.Operation)
+                        {
+                            case MessageOperation.Add:
+                                if (NewPlayers != null)
+                                    NewPlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
+                                break;
+
+                            case MessageOperation.Remove:
+                                if (DeletePlayers != null)
+                                    DeletePlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
+                                break;
+
+                            case MessageOperation.Modify:
+                                if (UpdatePlayers != null)
+                                    UpdatePlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
+                                break;
+
+                            case MessageOperation.List:
+                                if (ResetPlayers != null)
+                                    ResetPlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
+                                break;
+                        }
                     }
                     break;
-
-                case MessageType.PlayersList:
-                    if (ResetPlayers != null)
-                    {
-                        PlayersListMessage playersList = message as PlayersListMessage;
-                        ResetPlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
-                    }
-                    break;
-
-                case MessageType.NewPlayer:
-                    if (NewPlayers != null)
-                    {
-                        PlayersListMessage playersList = message as PlayersListMessage;
-                        NewPlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
-                    }
-                    break;
-
-                case MessageType.DeletePlayer:
-                    if (DeletePlayers != null)
-                    {
-                        PlayersListMessage playersList = message as PlayersListMessage;
-                        DeletePlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty));
-                    }
-                    break;
-
-                case MessageType.UpdatePlayer:
-                    if (UpdatePlayers != null)
-                    {
-                        PlayersListMessage playersList = message as PlayersListMessage;
-                        UpdatePlayers(this, new PlayerEventArgs(playersList.Players.ToArray(), string.Empty, true));
-                    }
-                    break;*/
 
                 default:
                     break;

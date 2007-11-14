@@ -86,6 +86,8 @@ namespace Client.UI
             this.createChooseGameMenu = new System.Windows.Forms.Button();
             this.joinChooseGameMenu = new System.Windows.Forms.Button();
             this.createGameMenu = new System.Windows.Forms.TabPage();
+            this.maxPlayerNumberNUPCreateGameMenu = new System.Windows.Forms.NumericUpDown();
+            this.maxPlayerNumberLCreateGameMenu = new System.Windows.Forms.Label();
             this.gameNameLCreateGameMenu = new System.Windows.Forms.Label();
             this.gameNameTBCreateGameMenu = new System.Windows.Forms.TextBox();
             this.privateCreateGameMenu = new System.Windows.Forms.RadioButton();
@@ -141,6 +143,7 @@ namespace Client.UI
             this.playerInfoMenu.SuspendLayout();
             this.chooseGameMenu.SuspendLayout();
             this.createGameMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxPlayerNumberNUPCreateGameMenu)).BeginInit();
             this.waitingForPlayersMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).BeginInit();
             this.optionsMenu.SuspendLayout();
@@ -762,6 +765,8 @@ namespace Client.UI
             // 
             // createGameMenu
             // 
+            this.createGameMenu.Controls.Add(this.maxPlayerNumberNUPCreateGameMenu);
+            this.createGameMenu.Controls.Add(this.maxPlayerNumberLCreateGameMenu);
             this.createGameMenu.Controls.Add(this.gameNameLCreateGameMenu);
             this.createGameMenu.Controls.Add(this.gameNameTBCreateGameMenu);
             this.createGameMenu.Controls.Add(this.privateCreateGameMenu);
@@ -778,10 +783,41 @@ namespace Client.UI
             this.createGameMenu.Text = "CreateGameMenu";
             this.createGameMenu.UseVisualStyleBackColor = true;
             // 
+            // maxPlayerNumberNUPCreateGameMenu
+            // 
+            this.maxPlayerNumberNUPCreateGameMenu.Location = new System.Drawing.Point(272, 80);
+            this.maxPlayerNumberNUPCreateGameMenu.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.maxPlayerNumberNUPCreateGameMenu.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.maxPlayerNumberNUPCreateGameMenu.Name = "maxPlayerNumberNUPCreateGameMenu";
+            this.maxPlayerNumberNUPCreateGameMenu.Size = new System.Drawing.Size(36, 20);
+            this.maxPlayerNumberNUPCreateGameMenu.TabIndex = 9;
+            this.maxPlayerNumberNUPCreateGameMenu.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // maxPlayerNumberLCreateGameMenu
+            // 
+            this.maxPlayerNumberLCreateGameMenu.AutoSize = true;
+            this.maxPlayerNumberLCreateGameMenu.Location = new System.Drawing.Point(269, 64);
+            this.maxPlayerNumberLCreateGameMenu.Name = "maxPlayerNumberLCreateGameMenu";
+            this.maxPlayerNumberLCreateGameMenu.Size = new System.Drawing.Size(99, 13);
+            this.maxPlayerNumberLCreateGameMenu.TabIndex = 8;
+            this.maxPlayerNumberLCreateGameMenu.Text = "Max Player Number";
+            // 
             // gameNameLCreateGameMenu
             // 
             this.gameNameLCreateGameMenu.AutoSize = true;
-            this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 163);
+            this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 113);
             this.gameNameLCreateGameMenu.Name = "gameNameLCreateGameMenu";
             this.gameNameLCreateGameMenu.Size = new System.Drawing.Size(66, 13);
             this.gameNameLCreateGameMenu.TabIndex = 7;
@@ -789,7 +825,7 @@ namespace Client.UI
             // 
             // gameNameTBCreateGameMenu
             // 
-            this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(269, 179);
+            this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(272, 129);
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(217, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 6;
@@ -797,18 +833,18 @@ namespace Client.UI
             // privateCreateGameMenu
             // 
             this.privateCreateGameMenu.AutoSize = true;
-            this.privateCreateGameMenu.Location = new System.Drawing.Point(269, 229);
+            this.privateCreateGameMenu.Location = new System.Drawing.Point(272, 189);
             this.privateCreateGameMenu.Name = "privateCreateGameMenu";
             this.privateCreateGameMenu.Size = new System.Drawing.Size(58, 17);
             this.privateCreateGameMenu.TabIndex = 5;
-            this.privateCreateGameMenu.TabStop = true;
             this.privateCreateGameMenu.Text = "Private";
             this.privateCreateGameMenu.UseVisualStyleBackColor = true;
             // 
             // publicCreateGameMenu
             // 
             this.publicCreateGameMenu.AutoSize = true;
-            this.publicCreateGameMenu.Location = new System.Drawing.Point(269, 205);
+            this.publicCreateGameMenu.Checked = true;
+            this.publicCreateGameMenu.Location = new System.Drawing.Point(272, 166);
             this.publicCreateGameMenu.Name = "publicCreateGameMenu";
             this.publicCreateGameMenu.Size = new System.Drawing.Size(54, 17);
             this.publicCreateGameMenu.TabIndex = 4;
@@ -886,6 +922,7 @@ namespace Client.UI
             this.dataGridViewPlayers.RowHeadersVisible = false;
             this.dataGridViewPlayers.Size = new System.Drawing.Size(235, 147);
             this.dataGridViewPlayers.TabIndex = 6;
+            this.dataGridViewPlayers.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewPlayers_EditingControlShowing);
             // 
             // PlayersName
             // 
@@ -1248,6 +1285,7 @@ namespace Client.UI
             this.chooseGameMenu.PerformLayout();
             this.createGameMenu.ResumeLayout(false);
             this.createGameMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxPlayerNumberNUPCreateGameMenu)).EndInit();
             this.waitingForPlayersMenu.ResumeLayout(false);
             this.waitingForPlayersMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).EndInit();
@@ -1361,5 +1399,7 @@ namespace Client.UI
         private DataGridViewTextBoxColumn PlayersName;
         private DataGridViewComboBoxColumn House;
         private DataGridViewTextBoxColumn Team;
+        private NumericUpDown maxPlayerNumberNUPCreateGameMenu;
+        private Label maxPlayerNumberLCreateGameMenu;
     }
 }

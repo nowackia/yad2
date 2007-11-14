@@ -15,7 +15,8 @@ namespace Client.UI {
     public delegate void ManageListBoxEventHandler(ListBox listBox, object[] objects, bool reset);
     public delegate void RemoveListBoxEventHandler(ListBox listBox, object[] objects);
     public delegate void ManageDataGridViewEventHandler(DataGridView gridView, object[] objects, bool reset);
-    public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object[] objects);
+    public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object removeObject);
+    public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObject);
 
     public class UIManager {
         Views actualView;

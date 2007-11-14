@@ -109,6 +109,8 @@ namespace Client.Net
         {
             if (tcpClient.Connected)
                 sender.AddItem(message);
+            else
+                InfoLog.WriteError("Not connected - cannot send a message", EPrefix.ClientInformation);
         }
     }
 }
