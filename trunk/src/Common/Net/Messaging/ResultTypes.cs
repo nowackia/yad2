@@ -8,7 +8,8 @@ namespace Yad.Net.Messaging.Common {
         Register,
         Remind,
         CreateGame,
-        JoinGame
+        JoinGame,
+        StartGame
     }
     public enum ResultType : byte {
         Successful = 0,

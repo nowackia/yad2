@@ -27,8 +27,16 @@ namespace Yad.Net.Server {
         private short _id;
         private MenuState _state;
         private PlayerData _data;
+        private string _gameName;
 
         #endregion Private members
+
+        #region Properties
+
+        public string GameName {
+            get { return _gameName; }
+            set { _gameName = value; }
+        }
 
         public short Id {
             get { return _id; }
@@ -62,13 +70,7 @@ namespace Yad.Net.Server {
             remove { _onReceiveMessage -= value; }
         }
 
-        public void SetData(PlayerData pd) {
-            if (pd != null)
-            {
-                _data = pd;
-                pd.Id = _id;
-            }
-        }
+        #endregion Properties
 
         public Player(short id, TcpClient client) {
             _id = id;
@@ -79,6 +81,13 @@ namespace Yad.Net.Server {
 
         public void Start() {
             _rcvThread.Start();
+        }
+
+        public void SetData(PlayerData pd) {
+            if (pd != null) {
+                _data = pd;
+                pd.Id = _id;
+            }
         }
 
         public void Stop() {

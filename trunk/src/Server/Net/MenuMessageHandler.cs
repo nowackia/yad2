@@ -11,21 +11,32 @@ namespace Yad.Net.Server
 {
     class MenuMessageHandler : MessageHandler {
 
+        #region Private Members
+
         private Server _server;
+
+        #endregion 
+
+        #region Constructors
+
         public MenuMessageHandler(Server server)
             : base() {
             _server = server;
         }
 
+        #endregion
+
         #region Message processing
 
         /// <summary>
-        /// Main processing function
+        /// Main processing function - processes all menu messages from clients
         /// </summary>
-        /// <param name="msg">Message to process</param>
+        /// <param name="msg">Message to process. It must constains userid of the user who
+        /// send it.</param>
         public override void ProcessItem(Message msg) {
             InfoLog.WriteInfo(msg.Type.ToString(), EPrefix.MessageReceivedInfo);
             switch (msg.Type) {
+
                 case MessageType.Login:
                     ProcessLogin((LoginMessage)msg);
                     break;
@@ -41,11 +52,43 @@ namespace Yad.Net.Server
                 case MessageType.JoinGame:
                     ProcessJoinGame((TextMessage)msg);
                     break;
+                case MessageType.Players:
+                    ProcessPlayers((PlayersMessage)msg);
+                    break;
+                case MessageType.StartGame:
+                    ProcessStartGame(msg);
+                    break;
+            
             }
 
         }
+        #endregion 
 
+        #region Private Methods
 
+        /// <summary>
+        /// Process information about clicked button "start game"
+        /// </summary>
+        /// <param name="msg"></param>
+        private void ProcessStartGame(Message msg) {
+            _server.GameManager.StartGame(msg.PlayerId);
+        }
+
+        /// <summary>
+        /// Process plater data modification
+        /// </summary>
+        /// <param name="playersMessage"></param>
+        private void ProcessPlayers(PlayersMessage playersMessage) {
+            Player player = _server.GetPlayer(playersMessage.PlayerId);
+            if (player == null || player.State != MenuState.GameJoin)
+                return;
+            _server.GameManager.ModifyPlayer(player.Id, playersMessage.PlayerList[0]);
+        }
+
+        /// <summary>
+        /// Process join game
+        /// </summary>
+        /// <param name="textMessage"></param>
         private void ProcessJoinGame(TextMessage textMessage) {
 
             Player player = _server.GetPlayer(textMessage.PlayerId);
@@ -66,7 +109,7 @@ namespace Yad.Net.Server
             _server.Chat.AddTextMessage(msg);
         }
 
-        public void ProcessLogin(LoginMessage msg) {
+        private void ProcessLogin(LoginMessage msg) {
 
             //Pobranie gracza z listy niezalogowanych
             Player player = _server.GetPlayerUnlogged(msg.PlayerId);
@@ -193,7 +236,7 @@ namespace Yad.Net.Server
         }
 
         private void RemoveFromGameJoin(Player player) {
-            _server.GameManager.RemoveFromGameJoin(player.Id);
+            _server.GameManager.RemoveFromGameJoin(player);
         }
 
         private void MoveFromChatToGameRoom(Player player) {
