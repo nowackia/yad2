@@ -70,6 +70,15 @@ namespace Yad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Processing game message {0} in game: {1} from player {2}....
+        /// </summary>
+        internal static string GameProcessStringFormat {
+            get {
+                return ResourceManager.GetString("GameProcessStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processing {0} for player {1}.
         /// </summary>
         internal static string ProcessStringFormat {

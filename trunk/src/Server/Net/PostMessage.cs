@@ -5,7 +5,7 @@ using Yad.Net.Messaging.Common;
 
 namespace Yad.Net.Server
 {
-    class PostMessage
+    public class PostMessage
     {
         public const int BroadCastMessage = -1;
         private int _priority;

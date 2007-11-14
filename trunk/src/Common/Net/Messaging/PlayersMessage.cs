@@ -20,7 +20,9 @@ namespace Yad.Net.Messaging.Common {
             set { _playerList = value; }
         }
 
-        public PlayersMessage() : base(MessageType.Players) { }
+        public PlayersMessage() : base(MessageType.Players) {
+            _playerList = new List<PlayerInfo>();
+        }
 
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);

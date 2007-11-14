@@ -40,7 +40,9 @@ namespace Yad.Log.Common
         [Description(" #SPI: ")]
         ServerProcessInfo,
         [Description(" #SVA: ")]
-        ServerAction
+        ServerAction,
+        [Description(" #GMP: ")]
+        GameMessageProccesing
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES

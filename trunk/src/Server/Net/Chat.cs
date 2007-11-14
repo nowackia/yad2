@@ -79,13 +79,13 @@ namespace Yad.Net.Server {
         protected override Message CreateRemoveMessage(IPlayerID playerID) {
             ChatUsersMessage msg = CreateChatUserMessage();
             msg.Option = (byte)MessageOperation.Remove;
-            msg.ChatUsers.Add((ChatUser)TransformInitialy(playerID));
+            msg.ChatUsers.Add((ChatUser)playerID);
             return msg;
         }
 
         protected override IPlayerID TransformInitialy(IPlayerID player) {
-            Player p = (Player)player;
-            return (IPlayerID)PlayerToChatUser(p);
+                Player p = (Player)player;
+                return (IPlayerID)PlayerToChatUser(p);
         }
 
         #endregion
