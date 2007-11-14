@@ -2,12 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Net
+namespace Yad.Net.Client
 {
     static class ClientPlayerInfo
     {
+        private static short playerId = -1;
         private static string login = string.Empty;
         private static string gameName = string.Empty;
+
+        public static short PlayerId
+        {
+            get
+            { return playerId; }
+            set
+            { playerId = value; }
+        }
 
         public static string Login
         {

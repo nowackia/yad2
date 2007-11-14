@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using Client.Net;
 using System.Text;
 using System.Windows.Forms;
 using Yad.Config;
 using Yad.Log.Common;
 using Yad.Net;
+using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Engine.Common;
@@ -516,20 +516,25 @@ namespace Client.UI
 
             GameInfo gameInfo = new GameInfo();
             //TODO (AN) Get somehow MapId
-            gameInfo.MapId = (short)listBoxLBCreateGame.SelectedItem;
-            gameInfo.MaxPlayerNumber = (short)maxPlayerNumberNUPCreateGameMenu.Value;
-            gameInfo.Name = gameNameTBCreateGameMenu.Text;
-            if(publicCreateGameMenu.Checked)
-                gameInfo.GameType = GameType.Public;
-            else if (privateCreateGameMenu.Checked)
-                gameInfo.GameType = GameType.Private;
+            if (listBoxLBCreateGame.SelectedItem != null)
+            {
+                gameInfo.MapId = (short)listBoxLBCreateGame.SelectedItem;
+                gameInfo.MaxPlayerNumber = (short)maxPlayerNumberNUPCreateGameMenu.Value;
+                gameInfo.Name = gameNameTBCreateGameMenu.Text;
+                if (publicCreateGameMenu.Checked)
+                    gameInfo.GameType = GameType.Public;
+                else if (privateCreateGameMenu.Checked)
+                    gameInfo.GameType = GameType.Private;
+                else
+                    gameInfo.GameType = GameType.Public;
+
+                ClientPlayerInfo.GameName = gameNameTBCreateGameMenu.Text;
+
+                createGameMessage.GameInfo = gameInfo;
+                Connection.SendMessage(createGameMessage);
+            }
             else
-                gameInfo.GameType = GameType.Public;
-
-            ClientPlayerInfo.GameName = gameNameTBCreateGameMenu.Text;
-
-            createGameMessage.GameInfo = gameInfo;
-            Connection.SendMessage(createGameMessage);
+                MessageBox.Show("No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
         #region MenuMessageHandler Events
