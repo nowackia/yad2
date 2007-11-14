@@ -36,6 +36,33 @@ namespace Yad.Net.Common
             return name;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            ChatUser ch = obj as ChatUser;
+            if ((object)ch == null)
+                return false;
+
+            return this.id == ch.id && this.name == ch.name;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
+        }
+
+        public static bool operator ==(ChatUser a, ChatUser b)
+        {
+            return a.Equals((object)b);
+        }
+
+        public static bool operator !=(ChatUser a, ChatUser b)
+        {
+            return !(a == b);
+        }
+
         #region IPlayerID Members
 
         public short GetID() {

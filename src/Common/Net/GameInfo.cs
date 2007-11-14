@@ -59,6 +59,34 @@ namespace Yad.Net.Common
             return Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            GameInfo gi = obj as GameInfo;
+            if ((object)gi == null)
+                return false;
+
+            return this._mapId == gi._mapId && this._maxPlayerNumber == gi._maxPlayerNumber
+                && this._name == gi._name && this._type == gi._type;
+        }
+
+        public override int GetHashCode()
+        {
+            return _mapId.GetHashCode();
+        }
+
+        public static bool operator ==(GameInfo a, GameInfo b)
+        {
+            return a.Equals((object)b);
+        }
+
+        public static bool operator !=(GameInfo a, GameInfo b)
+        {
+            return !(a == b);
+        }
+
         #endregion
 
     }

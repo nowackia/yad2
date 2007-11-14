@@ -36,7 +36,7 @@ namespace Yad.Net.Common {
 
         public override string ToString()
         {
-            return "Login: " + _login + Environment.NewLine + "win: " + _winNo + Environment.NewLine + "loss: " + _lossNo;
+            return "Login: " + _login + Environment.NewLine + "Win: " + _winNo + Environment.NewLine + "Loss: " + _lossNo;
         }
     }
 }
