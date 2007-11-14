@@ -60,24 +60,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Engine\ClientSimulation.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\ClipRectangle.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\IRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\MapHolder.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\MapHolderException.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\AmmoRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\BuildingRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\HarvesterRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\MapRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\MCVRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\MiniMapRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\RendererPool.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\SandwormRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\TankRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\GameGraphics.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\TextureFiles.cs" />
-    <Compile Include="Properties\Engine\GameGraphics\VertexData.cs" />
+    <Compile Include="Engine\ClientSimulation.cs" />
+    <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
+    <Compile Include="Engine\GameGraphics\IRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\MapHolder.cs" />
+    <Compile Include="Engine\GameGraphics\MapHolderException.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\AmmoRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\BuildingRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\HarvesterRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MapRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MCVRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\MiniMapRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\RendererPool.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\SandwormRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\TankRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\Renderers\TrooperRenderer.cs" />
+    <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
+    <Compile Include="Engine\GameGraphics\TextureFiles.cs" />
+    <Compile Include="Engine\GameGraphics\VertexData.cs" />
     <Compile Include="Net\ClientPlayerInfo.cs" />
     <Compile Include="Net\Connection.cs" />
     <Compile Include="Net\MenuMessageHandler.cs" />
