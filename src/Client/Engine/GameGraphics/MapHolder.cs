@@ -144,5 +144,6 @@ namespace Yad.Engine.GameGraphics.Client {
 			double y = Math.Ceiling(Math.Log(size, 2));
 			return (int)Math.Pow(2, y);
 		}
+
 	}
 }
