@@ -12,7 +12,7 @@ namespace Yad.Config {
 		}
 
 		private GameSettings gameSettings;
-
+        public Dictionary<String, short> namesToIds = new Dictionary<string, short>();
 		public Dictionary<short, AmmoData> ammosMap = new Dictionary<short, AmmoData>();
 		public Dictionary<short, BuildingData> buildingsMap = new Dictionary<short, BuildingData>();
 		public Dictionary<short, RaceData> racesMap = new Dictionary<short, RaceData>();
@@ -33,44 +33,52 @@ namespace Yad.Config {
 
 		private void GameSettingsInitializer(GameSettings gameSettings) {
 
-			foreach (AmmoData o in gameSettings.AmmosData.AmmoDataCollection) {
-				o.TypeID = GetTypeID();
-				ammosMap.Add(o.TypeID, o);
+			foreach (AmmoData ad in gameSettings.AmmosData.AmmoDataCollection) {
+				ad.TypeID = GetTypeID();
+                namesToIds.Add(ad.Name, ad.TypeID);
+                ammosMap.Add(ad.TypeID, ad);
 			}
 
-			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
-				o.TypeID = GetTypeID();
-				buildingsMap.Add(o.TypeID, o);
+			foreach (BuildingData bd in gameSettings.BuildingsData.BuildingDataCollection) {
+				bd.TypeID = GetTypeID();
+                namesToIds.Add(bd.Name, bd.TypeID);
+				buildingsMap.Add(bd.TypeID, bd);
 			}
 
-			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
-				o.TypeID = GetTypeID();
-				racesMap.Add(o.TypeID, o);
+			foreach (RaceData rd in gameSettings.RacesData.RaceDataCollection) {
+				rd.TypeID = GetTypeID();
+                namesToIds.Add(rd.Name, rd.TypeID);
+				racesMap.Add(rd.TypeID, rd);
 			}
 
-			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
-				o.TypeID = GetTypeID();
-				harvestersMap.Add(o.TypeID, o);
+			foreach (UnitHarvesterData uh in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
+				uh.TypeID = GetTypeID();
+                namesToIds.Add(uh.Name, uh.TypeID);
+				harvestersMap.Add(uh.TypeID, uh);
 			}
 
-			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
-				o.TypeID = GetTypeID();
-				mcvsMap.Add(o.TypeID, o);
+			foreach (UnitMCVData uh in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
+				uh.TypeID = GetTypeID();
+                namesToIds.Add(uh.Name, uh.TypeID);
+				mcvsMap.Add(uh.TypeID, uh);
 			}
 
-			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
-				o.TypeID = GetTypeID();
-				sandwormsMap.Add(o.TypeID, o);
+			foreach (UnitSandwormData uh in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
+				uh.TypeID = GetTypeID();
+                namesToIds.Add(uh.Name, uh.TypeID);
+				sandwormsMap.Add(uh.TypeID, uh);
 			}
 
-			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
-				o.TypeID = GetTypeID();
-				tanksMap.Add(o.TypeID, o);
+			foreach (UnitTankData uh in gameSettings.UnitTanksData.UnitTankDataCollection) {
+				uh.TypeID = GetTypeID();
+                namesToIds.Add(uh.Name, uh.TypeID);
+				tanksMap.Add(uh.TypeID, uh);
 			}
 
-			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
-				o.TypeID = GetTypeID();
-				troopersMap.Add(o.TypeID, o);
+			foreach (UnitTrooperData uh in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
+				uh.TypeID = GetTypeID();
+                namesToIds.Add(uh.Name,uh.TypeID);
+				troopersMap.Add(uh.TypeID, uh);
 			}
 		}
 	}
