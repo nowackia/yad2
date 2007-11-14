@@ -74,7 +74,7 @@ namespace Yad.Net.Messaging.Common
         StartGameSuccessful,
         [Obsolete("Use StartGameResult instead")]
         StartGameUnsuccessful,
-
+        StartGameResult,
         #endregion
 
         #region Client login messages
