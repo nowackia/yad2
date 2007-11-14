@@ -36,7 +36,11 @@ namespace Yad.Log.Common
 		[Description(" #SIM: ")]
 		SimulationInfo,
         [Description(" #STR: ")]
-        Stripe
+        Stripe,
+        [Description(" #SPI: ")]
+        ServerProcessInfo,
+        [Description(" #SVA: ")]
+        ServerAction
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES
