@@ -5,16 +5,23 @@ using Yad.Net.Common;
 
 namespace Yad.Net.Server {
     class ServerPlayerInfo : PlayerInfo, IPlayerID {
-        bool _startedClicked = false;
+
+        private bool _startedClicked = false;
+        private Player _player;
+
+        public Player Player {
+            get { return _player; }
+            set { _player = value; }
+        }
 
         public bool StartedClicked {
             get { return _startedClicked; }
             set { _startedClicked = value; }
         }
 
-        public ServerPlayerInfo(short id, string name) {
-            this.Id = id;
-            this.Name = name;
+        public ServerPlayerInfo(Player player) {
+            this.Id = player.Id;
+            this.Name = player.Login;
         }
 
         public PlayerInfo GePlayerInfo() {

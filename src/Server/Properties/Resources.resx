@@ -120,6 +120,9 @@
   <data name="ActionStringFormat" xml:space="preserve">
     <value>Action {0} completed.</value>
   </data>
+  <data name="GameProcessStringFormat" xml:space="preserve">
+    <value>Processing game message {0} in game: {1} from player {2}...</value>
+  </data>
   <data name="ProcessStringFormat" xml:space="preserve">
     <value>Processing {0} for player {1}</value>
   </data>

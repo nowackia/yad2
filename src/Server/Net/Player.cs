@@ -147,16 +147,10 @@ namespace Yad.Net.Server {
         #region IPlayerID Members
 
         public short GetID() {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-        #endregion
-
-        #region IPlayerID Members
-
-        short IPlayerID.GetID() {
             return this.Id;
         }
+
+
 
         #endregion
     }

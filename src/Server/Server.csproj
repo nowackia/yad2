@@ -39,7 +39,10 @@
   <ItemGroup>
     <Compile Include="Engine\ServerSimulation.cs" />
     <Compile Include="Net\GameManager.cs" />
+    <Compile Include="Net\GameServer\GameEndEventArgs.cs" />
+    <Compile Include="Net\GameServer\GameMessageHandler.cs" />
     <Compile Include="Net\GameRoom.cs" />
+    <Compile Include="Net\GameServer\GameServer.cs" />
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />
     <Compile Include="Net\IPlayerProvider.cs" />

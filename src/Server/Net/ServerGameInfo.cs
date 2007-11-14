@@ -227,7 +227,7 @@ namespace Yad.Net.Server {
 
         protected override IPlayerID TransformInitialy(IPlayerID player) {
             Player p = player as Player;
-            ServerPlayerInfo svp = new ServerPlayerInfo(p.Id, p.Login);
+            ServerPlayerInfo svp = new ServerPlayerInfo(p);
             short teamId = -1;
             lock (((ICollection)_players).SyncRoot) {
                 teamId = GetTeamForPlayer();

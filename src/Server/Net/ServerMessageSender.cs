@@ -7,7 +7,7 @@ using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
 namespace Yad.Net.Server {
-    class ServerMessageSender : ThreadListProcessor<PostMessage>, IMessageSender {
+    public class ServerMessageSender : ThreadListProcessor<PostMessage>, IMessageSender {
         IPlayerProvider _pprovider = null;
         
         public void AddProvider(IPlayerProvider Provider) {

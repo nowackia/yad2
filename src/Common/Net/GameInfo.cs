@@ -79,6 +79,14 @@ namespace Yad.Net.Common
 
         public static bool operator ==(GameInfo a, GameInfo b)
         {
+            if (System.Object.ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if (((object)a == null) || ((object)b == null)) {
+                return false;
+            }
+
             return a.Equals((object)b);
         }
 

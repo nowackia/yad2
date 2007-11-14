@@ -31,9 +31,11 @@ namespace Yad.Net.Server {
 
         public virtual void RemovePlayer(IPlayerID playerID) {
             lock (((ICollection)_players).SyncRoot) {
+                IPlayerID pid = _players[playerID.GetID()];
                 _players.Remove(playerID.GetID());
+                SendRemovePlayer(pid);
             }
-            SendRemovePlayer(playerID);
+            
         }
 
         
