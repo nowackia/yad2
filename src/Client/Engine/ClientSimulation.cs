@@ -29,7 +29,8 @@ namespace Yad.Engine.Client {
 
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
-			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position);
+			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
+			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
 			if (players[bm.PlayerId] == null)
 				throw new Exception("Message from unknown player");
 			players[bm.PlayerId].AddBuilding(b);

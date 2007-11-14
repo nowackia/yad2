@@ -16,6 +16,8 @@ using Yad.Engine.GameGraphics.Client;
 using System.Windows.Forms;
 using Yad.Engine.Common;
 using Yad.Board;
+using Yad.Config.Common;
+using Yad.Config;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
@@ -36,7 +38,7 @@ namespace Client.Engine.GameGraphics {
 		/// <summary>
 		/// SimpleOpenGLControl's size
 		/// </summary>
-		static Size viewport = new Size();
+		static System.Drawing.Size viewport = new System.Drawing.Size();
 
 		/// <summary>
 		/// Map view.
@@ -255,24 +257,46 @@ namespace Client.Engine.GameGraphics {
 		}
 
 		public static void InitTextures(Simulation simulation) {
-			//TODO:
-			//For all units from config file:
-			// getID, getTexturePath, create32btexture
+			const int pictureOffset = 100;
+			const int textureOffset = 200;
+			const int turretOffset = 300;
 
-			// Create32bTexture(Texture.Indoor, Path.Combine(Resources.GraphicsPath, Resources.indoorTileBmp));
 			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
 
-			//create dummy unit and building textures
-			Bitmap unit = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
-			Graphics g = Graphics.FromImage(unit);
-			g.Clear(Color.Green);
-			g.Dispose();
-			Bitmap building = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
-			g = Graphics.FromImage(building);
-			g.Clear(Color.Red);
-			g.Dispose();
-			Create32bTexture(2, unit);
-			Create32bTexture(3, building);
+			GameSettings gameSettings = simulation.GameSettingsWrapper.GameSettings;
+			foreach (AmmoData o in gameSettings.AmmosData.AmmoDataCollection) {
+				
+			}
+
+			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
+				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID, texture);
+			}
+
+			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
+				
+			}
+
+			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
+				
+			}
+
+			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
+				
+			}
+
+			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
+				
+			}
+
+			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
+				
+			}
+
+			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
+				
+			}
 		}
 
 		public static void Draw() {
@@ -302,7 +326,7 @@ namespace Client.Engine.GameGraphics {
 				List<Building> buildings = p.GetAllBuildings();
 				foreach (Building b in buildings) {
 					//todo: GameSettings - add method for extracting building type
-					DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, 3, 2, 3, defaultUV);
+					DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, 2, 2, b.TypeId, defaultUV);
 				}
 			}
 		}

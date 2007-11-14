@@ -27,6 +27,11 @@ namespace Yad.Board {
 			this._y = y;
 		}
 
+		public Position(Yad.Config.Common.Size size) {
+			this._x = (short)size.X;
+			this._y = (short)size.Y;
+		}
+
 		public override string ToString() {
 			return "{" + _x + "," + _y + "}";
 		}
