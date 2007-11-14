@@ -62,7 +62,9 @@
     <Compile Include="Net\Messaging\GameInfoMessage.cs" />
     <Compile Include="Net\Messaging\GamesMessage.cs" />
     <Compile Include="Net\Messaging\GameType.cs" />
+    <Compile Include="Net\Messaging\MessageDoTurn.cs" />
     <Compile Include="Net\Messaging\MessageOperation.cs" />
+    <Compile Include="Net\Messaging\MessageTurnAsk.cs" />
     <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
     <Compile Include="Net\Messaging\PlayersMessage.cs" />
     <Compile Include="Net\Messaging\RegisterMessage.cs" />
@@ -108,7 +110,8 @@
   <ItemGroup>
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </None>
     <None Include="Config\generate.bat" />
     <None Include="Resources\Maps\test.map">

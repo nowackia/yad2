@@ -22,6 +22,8 @@ namespace Yad.Net.Messaging.Common
         Harvest,
         Attack,
         Control,
+		TurnAsk,
+		TurnDo,
         #endregion
 
         #region Chat

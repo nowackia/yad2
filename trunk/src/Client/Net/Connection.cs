@@ -9,7 +9,7 @@ using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
 namespace Yad.Net.Client
-{
+{//TODO: implement IConnection (forces use of singleton)
     static class Connection
     {
         private static TcpClient tcpClient;
