@@ -864,6 +864,8 @@ namespace Client.UI
             // listBoxLBCreateGame
             // 
             this.listBoxLBCreateGame.FormattingEnabled = true;
+            this.listBoxLBCreateGame.Items.AddRange(new object[] {
+            "1"});
             this.listBoxLBCreateGame.Location = new System.Drawing.Point(46, 64);
             this.listBoxLBCreateGame.Name = "listBoxLBCreateGame";
             this.listBoxLBCreateGame.Size = new System.Drawing.Size(217, 199);
