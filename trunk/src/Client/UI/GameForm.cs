@@ -55,7 +55,6 @@ namespace Client.UI {
 			cum.PlayerId = currPlayer.ID;
 			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
 			sim.AddGameMessage(cum);
-			sim.StartSimulation();
 			//to remove end
 
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
@@ -76,6 +75,9 @@ namespace Client.UI {
 			GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
+
+			//TODO: start on game message
+			sim.StartSimulation();
 		}
 
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -128,7 +130,8 @@ namespace Client.UI {
 				Position p = GameGraphics.TranslateMousePosition(e.Location);
 				bm.BuildingID = currPlayer.GenerateObjectID();
 				bm.PlayerId = currPlayer.ID;
-				bm.BuildingType = sim.GameSettingsWrapper.buildings[0].TypeID;
+				BuildingData bd = sim.GameSettingsWrapper.GameSettings.BuildingsData[Randomizer.NextShort(2)];
+				bm.BuildingType = bd.TypeID;
 				bm.Type = MessageType.Build;
 				bm.Position = p;
 				conn.SendMessage(bm);

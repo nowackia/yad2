@@ -439,143 +439,326 @@
     <Content Include="Resources\Graphics\Animations\SmallUnitExplosion.png" />
     <Content Include="Resources\Graphics\Animations\Smoke.png" />
     <Content Include="Resources\Graphics\Animations\TrackedUnitTracks.png" />
-    <Content Include="Resources\Graphics\Bullets\Large.png" />
-    <Content Include="Resources\Graphics\Bullets\LargeRocket.png" />
-    <Content Include="Resources\Graphics\Bullets\LargeShot.png" />
-    <Content Include="Resources\Graphics\Bullets\Medium.png" />
-    <Content Include="Resources\Graphics\Bullets\Rocket.png" />
-    <Content Include="Resources\Graphics\Bullets\ShellHit.png" />
-    <Content Include="Resources\Graphics\Bullets\Small.png" />
-    <Content Include="Resources\Graphics\Bullets\SmallRocket.png" />
-    <Content Include="Resources\Graphics\Bullets\SmallShot.png" />
-    <Content Include="Resources\Graphics\Bullets\Sonic.png" />
-    <Content Include="Resources\Graphics\Pictures\Barracks.png" />
-    <Content Include="Resources\Graphics\Pictures\Carryall.png" />
-    <Content Include="Resources\Graphics\Pictures\ConstructionYard.png" />
-    <Content Include="Resources\Graphics\Pictures\DeathHand.png" />
-    <Content Include="Resources\Graphics\Pictures\Devastator.png" />
-    <Content Include="Resources\Graphics\Pictures\Deviator.png" />
-    <Content Include="Resources\Graphics\Pictures\Fatr.png" />
-    <Content Include="Resources\Graphics\Pictures\Fhark.png" />
-    <Content Include="Resources\Graphics\Pictures\Fordos.png" />
-    <Content Include="Resources\Graphics\Pictures\Fremen.png" />
-    <Content Include="Resources\Graphics\Pictures\Frigate.png" />
-    <Content Include="Resources\Graphics\Pictures\GunTurret.png" />
-    <Content Include="Resources\Graphics\Pictures\Harvester.png" />
-    <Content Include="Resources\Graphics\Pictures\HeavyFactory.png" />
-    <Content Include="Resources\Graphics\Pictures\HeavyInfantry.png" />
-    <Content Include="Resources\Graphics\Pictures\HighTechFactory.png" />
-    <Content Include="Resources\Graphics\Pictures\Infantry.png" />
-    <Content Include="Resources\Graphics\Pictures\IX.png" />
-    <Content Include="Resources\Graphics\Pictures\Launcher.png" />
-    <Content Include="Resources\Graphics\Pictures\LightFactory.png" />
-    <Content Include="Resources\Graphics\Pictures\MCV.png" />
-    <Content Include="Resources\Graphics\Pictures\Ornithopter.png" />
-    <Content Include="Resources\Graphics\Pictures\Palace.png" />
-    <Content Include="Resources\Graphics\Pictures\Quad.png" />
-    <Content Include="Resources\Graphics\Pictures\Radar.png" />
-    <Content Include="Resources\Graphics\Pictures\Raider.png" />
-    <Content Include="Resources\Graphics\Pictures\Refinery.png" />
-    <Content Include="Resources\Graphics\Pictures\RepairYard.png" />
-    <Content Include="Resources\Graphics\Pictures\RocketTurret.png" />
-    <Content Include="Resources\Graphics\Pictures\Saboteur.png" />
-    <Content Include="Resources\Graphics\Pictures\Sandworm.png" />
-    <Content Include="Resources\Graphics\Pictures\Sardaukar.png" />
-    <Content Include="Resources\Graphics\Pictures\SiegeTank.png" />
-    <Content Include="Resources\Graphics\Pictures\Silo.png" />
-    <Content Include="Resources\Graphics\Pictures\Slab1.png" />
-    <Content Include="Resources\Graphics\Pictures\Slab4.png" />
-    <Content Include="Resources\Graphics\Pictures\SonicTank.png" />
-    <Content Include="Resources\Graphics\Pictures\Starport.png" />
-    <Content Include="Resources\Graphics\Pictures\Tank.png" />
-    <Content Include="Resources\Graphics\Pictures\Trike.png" />
-    <Content Include="Resources\Graphics\Pictures\Wall.png" />
-    <Content Include="Resources\Graphics\Pictures\WindTrap.png" />
+    <Content Include="Resources\Graphics\Bullets\Large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\LargeRocket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\LargeShot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\Medium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\Rocket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\ShellHit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\Small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\SmallRocket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\SmallShot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Bullets\Sonic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Barracks.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Carryall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\ConstructionYard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\DeathHand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Devastator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Deviator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Fremen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Frigate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\GunTurret.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Harvester.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\HeavyFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\HeavyInfantry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\HighTechFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Infantry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\IX.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Launcher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\LightFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\MCV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Ornithopter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Palace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Quad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Radar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Raider.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Refinery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\RepairYard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\RocketTurret.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Saboteur.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Sandworm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Sardaukar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\SiegeTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Silo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Slab1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Slab4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\SonicTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Starport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Tank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Trike.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Wall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\WindTrap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Pictures\_READ-ME.txt" />
-    <Content Include="Resources\Graphics\Structures\Barracks.png" />
-    <Content Include="Resources\Graphics\Structures\Building22.png" />
-    <Content Include="Resources\Graphics\Structures\Building23.png" />
-    <Content Include="Resources\Graphics\Structures\Building33.png" />
-    <Content Include="Resources\Graphics\Structures\BuildingConyard.png" />
-    <Content Include="Resources\Graphics\Structures\BuildingTurret.png" />
-    <Content Include="Resources\Graphics\Structures\ConstructionYard.png" />
-    <Content Include="Resources\Graphics\Structures\GunTurret.png" />
-    <Content Include="Resources\Graphics\Structures\HeavyFactory.png" />
-    <Content Include="Resources\Graphics\Structures\HighTechFactory.png" />
-    <Content Include="Resources\Graphics\Structures\IX.png" />
-    <Content Include="Resources\Graphics\Structures\LightFactory.png" />
-    <Content Include="Resources\Graphics\Structures\Palace.png" />
-    <Content Include="Resources\Graphics\Structures\Radar.png" />
-    <Content Include="Resources\Graphics\Structures\Refinery.png" />
-    <Content Include="Resources\Graphics\Structures\RepairYard.png" />
-    <Content Include="Resources\Graphics\Structures\RocketTurret.png" />
-    <Content Include="Resources\Graphics\Structures\Silo.png" />
-    <Content Include="Resources\Graphics\Structures\Slab1.png" />
-    <Content Include="Resources\Graphics\Structures\Slab4.png" />
-    <Content Include="Resources\Graphics\Structures\StarPort.png" />
-    <Content Include="Resources\Graphics\Structures\Wall.png" />
-    <Content Include="Resources\Graphics\Structures\WindTrap.png" />
-    <Content Include="Resources\Graphics\Structures\WOR.png" />
+    <Content Include="Resources\Graphics\Structures\Barracks.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Building22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Building23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Building33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\BuildingConyard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\BuildingTurret.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\ConstructionYard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\GunTurret.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\HeavyFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\HighTechFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\IX.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\LightFactory.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Palace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Radar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Refinery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\RepairYard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\RocketTurret.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Silo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Slab1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Slab4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\StarPort.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\Wall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\WindTrap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Structures\WOR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Structures\_READ-ME.txt" />
     <Content Include="Resources\Graphics\Terrain\Dunes.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\Hidden.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\Mountain.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\Rock.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\RockDamage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\RockExt.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\Sand.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\SandDamage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\SandExt.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\Spice.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Terrain\ThickSpice.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\UI\Cursor.png" />
     <Content Include="Resources\Graphics\UI\InvalidPlace.png" />
     <Content Include="Resources\Graphics\UI\Menu.png" />
     <Content Include="Resources\Graphics\UI\Radar_Static.png" />
     <Content Include="Resources\Graphics\UI\ValidPlace.png" />
-    <Content Include="Resources\Graphics\Units\Carryall.png" />
-    <Content Include="Resources\Graphics\Units\Devastator.png" />
-    <Content Include="Resources\Graphics\Units\DevastatorBase.png" />
-    <Content Include="Resources\Graphics\Units\Frigate.png" />
-    <Content Include="Resources\Graphics\Units\Harvester.png" />
-    <Content Include="Resources\Graphics\Units\HarvesterSand.png" />
-    <Content Include="Resources\Graphics\Units\Infantry.png" />
-    <Content Include="Resources\Graphics\Units\Launcher.png" />
-    <Content Include="Resources\Graphics\Units\MCV.png" />
-    <Content Include="Resources\Graphics\Units\Ornithopter.png" />
-    <Content Include="Resources\Graphics\Units\Quad.png" />
+    <Content Include="Resources\Graphics\Units\Carryall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Devastator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\DevastatorBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Frigate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Harvester.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\HarvesterSand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Infantry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Launcher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\MCV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Ornithopter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Quad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Units\_READ-ME.txt" />
-    <Content Include="Resources\Graphics\Units\Saboteur.png" />
-    <Content Include="Resources\Graphics\Units\Sandworm.png" />
-    <Content Include="Resources\Graphics\Units\SiegeTank.png" />
-    <Content Include="Resources\Graphics\Units\SiegeTankBase.png" />
-    <Content Include="Resources\Graphics\Units\SonicTank.png" />
-    <Content Include="Resources\Graphics\Units\Tank.png" />
-    <Content Include="Resources\Graphics\Units\TankBase.png" />
-    <Content Include="Resources\Graphics\Units\Trike.png" />
-    <Content Include="Resources\Graphics\Units\Trooper.png" />
+    <Content Include="Resources\Graphics\Units\Saboteur.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Sandworm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\SiegeTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\SiegeTankBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\SonicTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Tank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\TankBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Trike.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Trooper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TaoFramework\Tao.OpenGl.dll">
     </Content>
     <Content Include="TaoFramework\Tao.Platform.Windows.dll">

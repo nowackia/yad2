@@ -48,6 +48,7 @@
     <Compile Include="Board\UnitSandworm.cs" />
     <Compile Include="Board\UnitTank.cs" />
     <Compile Include="Board\UnitTrooper.cs" />
+    <Compile Include="Config\DataType.cs" />
     <Compile Include="Config\GameSettingsHelper.cs" />
     <Compile Include="Config\XMLLoader\XMLLoader.cs" />
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
