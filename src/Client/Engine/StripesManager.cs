@@ -5,6 +5,10 @@ using Yad.Board.Common;
 using Yad.Config.Common;
 using Yad.Engine.Common;
 using Yad.Config;
+using System.IO;
+using Yad.Properties.Common;
+using Yad.Properties;
+using Client.Properties;
 
 namespace Client.Engine {
 
@@ -43,7 +47,7 @@ namespace Client.Engine {
 
                 buildingsOnMenu.Add(id);
                 String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
-                buildingStripe.Add(id,name, null);//TODO add picture name to xsd.
+                buildingStripe.Add(id, name, Path.Combine(Settings.Default.Structures, name + ".png"));//TODO add picture name to xsd.
             }
             foreach (TechnologyDependence techRef in deps) {
                 short ids = simulation.GameSettingsWrapper.namesToIds[techRef.BuildingName];
@@ -52,7 +56,7 @@ namespace Client.Engine {
                     // adds new building to strip
                     buildingsOnMenu.Add(ids);
                     String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
-                    buildingStripe.Add(ids, name, null);//TODO add picture name to xsd.
+                    buildingStripe.Add(ids, name, Path.Combine(Settings.Default.Structures,name+".png"));//TODO add picture name to xsd.
                 }
             }      
         }
@@ -81,6 +85,9 @@ namespace Client.Engine {
         /// <param name="name">name of the building</param>
         public void BuildingClickedOnMap(short name) {
            //simulation.GameSettingsWrapper.
+            if (buildingsOnMenu.Contains(name)) {
+                BuildingData data = simulation.GameSettingsWrapper.buildingsMap[name];
+            }
         }
 
         public void ClearUnits() {
