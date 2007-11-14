@@ -31,10 +31,16 @@ namespace Yad.Net.Server {
             get { return _gameInfo.MaxPlayerNumber; }
             set { _gameInfo.MaxPlayerNumber = value; }
         }
+
         public bool IsPrivate {
             get { return _isPrivate; }
             set { _isPrivate = value; }
         }
+
+        public short PlayerNo {
+            get { return (short)_players.Count; }
+        }
+
 
         #endregion 
 
@@ -52,6 +58,65 @@ namespace Yad.Net.Server {
 
         #region Public Methods
 
+        public override void RemovePlayer(IPlayerID playerID) {
+            base.RemovePlayer(playerID);
+            lock (((ICollection)_players).SyncRoot) {
+                CancelGameStart();
+                if (RepairTeams()) {
+                    PlayersMessage msg = CreatePlayerMessage(MessageOperation.Modify, _players.GetEnumerator().Current.Value);
+                    BroadcastExcl(msg, -1);
+                }
+
+            }
+        }
+
+        public override void AddPlayer(IPlayerID player) {
+            base.AddPlayer(player);
+            CancelGameStart();
+        }
+
+        public void ModifyPlayer(short id, PlayerInfo pi) {
+            PlayersMessage pmsg;
+            lock (((ICollection)_players).SyncRoot) {
+                CancelGameStart();
+                ServerPlayerInfo spi = _players[id] as ServerPlayerInfo;
+                spi.House = pi.House;
+                if (IsTeamModificationValid(pi.TeamID, id)) {
+                    spi.TeamID = pi.TeamID;
+                }
+                pmsg = CreatePlayerMessage(MessageOperation.Modify, spi);
+            }
+            BroadcastExcl(pmsg, -1);
+        }
+
+        public bool IsAddPosible() {
+            lock (((ICollection)_players).SyncRoot) {
+                return _players.Count < MaxPlayerNumber;
+            }
+        }
+
+        public GameInfo GetGameInfo() {
+            GameInfo gi = new GameInfo();
+            gi.Name = this.Name;
+            gi.MapId = this.MapId;
+            gi.MaxPlayerNumber = this.MaxPlayerNumber;
+            return gi;
+        }
+
+        public bool StartClick(short id) {
+            lock (((ICollection)_players).SyncRoot) {
+                ((ServerPlayerInfo)_players[id]).StartedClicked = true;
+                if(IsGameStart()) {
+                    BroadcastExcl(Utils.CreateResultMessage(ResponseType.StartGame, ResultType.Successful),-1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private PlayersMessage CreatePlayerMessage(MessageOperation operation, IPlayerID playerID) {
             
@@ -69,23 +134,16 @@ namespace Yad.Net.Server {
                     }
                     break;
                 case MessageOperation.Add:
-                    list.Add((GamePlayerInfo)playerID);
+                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
                     break;
                 case MessageOperation.Remove:
-                    list.Add((GamePlayerInfo)playerID);
+                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
                     break;
                 case MessageOperation.Modify:
-                    list.Add((GamePlayerInfo)playerID);
+                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
                     break;
             }
             return msg;
-        }
-
-
-        public void RemovePlayer(short id) {
-            lock (((ICollection)_players).SyncRoot) {
-                _players.Remove(id);
-            }
         }
 
         public bool IsInside(short id) {
@@ -94,9 +152,28 @@ namespace Yad.Net.Server {
             }
         }
 
-        private void RepairTeams() {
+        private bool IsGameStart() {
+            foreach (IPlayerID spi in _players.Values)
+                lock (spi) {
+                    if (!((ServerPlayerInfo)spi).StartedClicked)
+                        return false;
+                }
+            return true;
+        }
+
+        private void CancelGameStart() {
+            foreach (IPlayerID spi in _players.Values)
+                if (((ServerPlayerInfo)spi).StartedClicked) {
+                    lock (spi) {
+                        ((ServerPlayerInfo)spi).StartedClicked = false;
+                        SendMessage(Utils.CreateResultMessage(ResponseType.StartGame, ResultType.Unsuccesful), ((ServerPlayerInfo)spi).Id);
+                    }  
+                }
+        }
+
+        private bool RepairTeams() {
             if (_players.Count < 2)
-                return;
+                return false;
             int id = ((ServerPlayerInfo)_players.Values.GetEnumerator().Current).TeamID;
             bool change = true;
             foreach (ServerPlayerInfo spi in _players.Values) {
@@ -107,6 +184,7 @@ namespace Yad.Net.Server {
             }
             if (change)
                 ((ServerPlayerInfo)_players.Values.GetEnumerator().Current).TeamID = GetTeamForPlayer();
+            return change;
                 
         }
         private short GetTeamForPlayer() {
@@ -115,8 +193,15 @@ namespace Yad.Net.Server {
                     return i;
             return -1; //This should never happen!
         }
-        
 
+        private bool IsTeamModificationValid(short teamid, short playerid) {
+            foreach (ServerPlayerInfo spi in _players.Values) {
+                    if (spi.Id != playerid)
+                        if (spi.TeamID != teamid)
+                            return true;
+            }
+            return false;
+        }
         private bool IsTeamIDValid(int id) {
             foreach (ServerPlayerInfo spi in _players.Values)
                 if (spi.TeamID != id)
@@ -124,24 +209,9 @@ namespace Yad.Net.Server {
             return false;
         }
 
-        public bool IsAddPosible() {
-            lock (((ICollection)_players).SyncRoot) {
-                return _players.Count < MaxPlayerNumber;
-            }
-        }
-
-        public GameInfo GetGameInfo() {
-            GameInfo gi = new GameInfo();
-            gi.Name = this.Name;
-            gi.MapId = this.MapId;
-            gi.MaxPlayerNumber = this.MaxPlayerNumber;
-            return gi;
-        }
-
-
         #endregion
 
-
+        #region Protected methods
 
         protected override Message CreateAddMessage(IPlayerID playerID) {
             return CreatePlayerMessage(MessageOperation.Add, playerID);
@@ -165,5 +235,7 @@ namespace Yad.Net.Server {
             svp.TeamID = teamId;
             return svp;
         }
+
+        #endregion
     }
 }

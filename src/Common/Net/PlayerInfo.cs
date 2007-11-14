@@ -8,11 +8,11 @@ namespace Yad.Net.Common
     public class PlayerInfo
     {
 
-        public const int MaxTeamNo = 4;
+        public const int MaxTeamNo = 8;
         private const HouseType DefaultHouseType = HouseType.Atreides;
-
-        private HouseType _house = DefaultHouseType;
-        private int _teamID;
+        HouseType _house = DefaultHouseType;
+        short _teamID; 
+       
         private string _name;
 
         public string Name
@@ -20,15 +20,13 @@ namespace Yad.Net.Common
             get { return _name; }
             set { _name = value; }
         }
-
         public HouseType House
         {
             get { return _house; }
             set { _house = value; }
         }
-
-        public int TeamID
-        {
+        
+        public short TeamID {
             get { return _teamID; }
             set { _teamID = value; }
         }

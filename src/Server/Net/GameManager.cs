@@ -9,16 +9,26 @@ namespace Yad.Net.Server {
      
     class GameManager {
 
+        #region Private Members
+
         private const short MaxGameNumber = 20;
-        Dictionary<short, Player> _players = null;
-        Dictionary<string, ServerGameInfo> _games = null;
-        IMessageSender _sender = null;
+        private Dictionary<short, Player> _players = null;
+        private Dictionary<string, ServerGameInfo> _games = null;
+        private IMessageSender _sender = null;
+
+        #endregion
+
+        #region Constructors 
 
         public GameManager(IMessageSender sender) {
             _players = new Dictionary<short, Player>();
             _games = new Dictionary<string, ServerGameInfo>();
             _sender = sender;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public void AddPlayer(Player player) {
             lock (((ICollection)_players).SyncRoot) {
@@ -32,28 +42,69 @@ namespace Yad.Net.Server {
                 _players.Remove(id);
             }
         }
-        public void ProcessPlayerEntry(Player player) {
-            if (!_players.ContainsKey(player.Id)) {
-               
-            }
-            else {
-                RemoveFromGameJoin(player.Id);
+
+        public void ModifyPlayer(short id, PlayerInfo pi) {
+            lock (((ICollection)_players).SyncRoot) {
+                Player p = _players[id];
+                if (p == null || p.GameName == null)
+                    return;
+                lock (((ICollection)_games).SyncRoot) {
+                    _games[p.GameName].ModifyPlayer(id, pi);
+                }
             }
         }
 
-        public void RemoveFromGameJoin(short id) {
+
+        public void RemoveFromGameJoin(Player player) {
             lock (((ICollection)_games).SyncRoot) {
                 foreach (ServerGameInfo sgi in _games.Values)
-                    if (sgi.IsInside(id)) {
-                        sgi.RemovePlayer(id);
+                    if (sgi.IsInside(player.GetID())) {
+                        sgi.RemovePlayer(player);
+                        player.GameName = null;
+                        lock (sgi) {
+                            if (sgi.PlayerNo == 0) {
+                                RemoveGame(sgi);
+                                SendRemoveGameMessage(sgi);
+                            }
+                        }
                         break;
                     }
             }
         }
 
-        public void SendGameListMessage(short recipient) {
-            List<GameInfo> list = new List<GameInfo>();
+        public void StartGame(short playerid) {
+            bool result;
             lock (((ICollection)_players).SyncRoot) {
+                if (_players.ContainsKey(playerid)) {
+                    string name = _players[playerid].GameName;
+                    if (name == null)
+                        return;
+                    lock (((ICollection)_games).SyncRoot) {
+                        if (_games.ContainsKey(name)) {
+                            if (_games[name].StartClick(playerid)) {
+                                CreateServerGame(_games[name]);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void CreateServerGame(ServerGameInfo sgi) {
+        }
+
+        #endregion
+
+        private void RemoveGame(ServerGameInfo sgi) {
+            lock (((ICollection)_games).SyncRoot) {
+                _games.Remove(sgi.Name);
+            }
+        }
+
+        private void SendGameListMessage(short recipient) {
+            List<GameInfo> list = new List<GameInfo>();
+            lock (((ICollection)_games).SyncRoot) {
                 foreach (ServerGameInfo sgi in _games.Values)
                     if (!sgi.IsPrivate)
                         list.Add(sgi.GetGameInfo());
@@ -63,6 +114,33 @@ namespace Yad.Net.Server {
             msg.ListGameInfo = list;
             msg.Operation = (byte)MessageOperation.List;
             _sender.MessagePost(msg, recipient);
+        }
+
+        private void SendRemoveGameMessage(ServerGameInfo sgi) {
+
+            GamesMessage msg = CreateBasicGamesMsg(sgi);
+            msg.Operation = (byte)MessageOperation.Remove;
+            BroadcastExcl(msg, -1);
+            
+        }
+
+        private static GamesMessage CreateBasicGamesMsg(ServerGameInfo sgi) {
+            List<GameInfo> list = new List<GameInfo>();
+            list.Add(sgi.GetGameInfo());
+            GamesMessage msg = MessageFactory.Create(MessageType.Games) as GamesMessage;
+            msg.ListGameInfo = list;
+            return msg;
+        }
+
+        private void SendJoinGameMessage(ServerGameInfo sgi, short id) {
+            GamesMessage msg = CreateBasicGamesMsg(sgi);
+            msg.Operation = (byte)MessageOperation.Info;
+            SendMessage(msg, id);
+        }
+        private void SendCreateGameMessage(ServerGameInfo sgi) {
+            GamesMessage msg = CreateBasicGamesMsg(sgi);
+            msg.Operation = (byte)MessageOperation.Add;
+            BroadcastExcl(msg, -1);
         }
 
         public ResultType CreateGame(GameInfo gi) {
@@ -75,8 +153,16 @@ namespace Yad.Net.Server {
                     return result;
                 ServerGameInfo sgi = new ServerGameInfo(gi, _sender);
                 _games.Add(gi.Name, sgi);
+                SendCreateGameMessage(sgi);
             }
             return result;
+        }
+
+        protected void BroadcastExcl(Message msg, short id) {
+            lock (((ICollection)_players).SyncRoot)
+                foreach (IPlayerID pid in _players.Values)
+                    if (pid.GetID() != id)
+                        _sender.MessagePost(msg, pid.GetID());
         }
 
 
@@ -85,7 +171,10 @@ namespace Yad.Net.Server {
                 ResultType result = IsJoinPossible(name);
                 if (ResultType.Successful == result) {
                     _games[name].AddPlayer(player);
-                }
+                    player.GameName = name;
+                    if (_games[name].IsPrivate)
+                        SendJoinGameMessage(_games[name], player.Id);
+                    }
                 return result;
             }
          

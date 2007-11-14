@@ -7,6 +7,7 @@ namespace Yad.Net.Messaging.Common {
         Add = 0,
         Remove,
         List,
-        Modify
+        Modify,
+        Info
     }
 }

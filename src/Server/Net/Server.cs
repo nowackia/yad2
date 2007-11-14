@@ -149,7 +149,14 @@ namespace Yad.Net.Server {
             }
 
             private void RemoveGameJoin(short id) {
-                _gameManager.RemoveFromGameJoin(id);
+                Player p = null;
+                lock (((ICollection)(this._playerCollection)).SyncRoot) {
+                    p  = _playerCollection[id];
+                }
+                if (p!= null)
+                    lock (p) {
+                        _gameManager.RemoveFromGameJoin(p);
+                    }
                 _gameManager.RemovePlayer(id);
             }
             private void RemoveUnlogged(short id)
@@ -166,7 +173,6 @@ namespace Yad.Net.Server {
             private void RemoveChat(Player player) {
                 _chat.RemovePlayer(player);
             }
-
             public void AcceptConnections() {
                 TcpClient client = null;
                 try {

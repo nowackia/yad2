@@ -20,7 +20,7 @@ namespace Yad.Net.Server {
             _sender = sender;
             _players = new Dictionary<short, IPlayerID>();
         }
-        public void AddPlayer(IPlayerID player) {
+        public virtual void AddPlayer(IPlayerID player) {
             lock (((ICollection)_players).SyncRoot) {
                 IPlayerID playerId = TransformInitialy(player);
                 _players.Add(playerId.GetID(), playerId);
@@ -29,7 +29,7 @@ namespace Yad.Net.Server {
             }
         }
 
-        public void RemovePlayer(IPlayerID playerID) {
+        public virtual void RemovePlayer(IPlayerID playerID) {
             lock (((ICollection)_players).SyncRoot) {
                 _players.Remove(playerID.GetID());
             }
