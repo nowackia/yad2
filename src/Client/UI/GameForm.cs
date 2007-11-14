@@ -28,10 +28,11 @@ namespace Client.UI {
 	public partial class GameForm : UIManageable {
 
 		bool scrolling = false;
-        bool wasScrolled = false;
+		bool wasScrolled = false;
 		Point mousePos;
 
 		public static ClientSimulation simulation;
+		public static Player currentPlayer;
 
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
@@ -43,18 +44,18 @@ namespace Client.UI {
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 			simulation = new ClientSimulation(gameSettingsWrapper, map);
 			//to remove
-			Player p = new Player(0);
-			simulation.AddPlayer(p);
+			currentPlayer = new Player(0);
+			simulation.AddPlayer(currentPlayer);
 			CreateUnitMessage cum = new CreateUnitMessage();
 			cum.IdTurn = simulation.CurrentTurn + simulation.Delta;
-			cum.PlayerId = p.ID;
+			cum.PlayerId = currentPlayer.ID;
 			cum.Position = new Yad.Board.Position(Randomizer.NextShort(simulation.Map.Width), Randomizer.NextShort(simulation.Map.Height));
 			simulation.AddGameMessage(cum);
 			simulation.StartSimulation();
 			//to remove end
 
-            this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
-            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
@@ -63,7 +64,7 @@ namespace Client.UI {
 
 			//First: set appropriate properties
 			GameGraphics.InitGL(simulation);
-			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);			
+			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 			GameGraphics.InitTextures(simulation);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
@@ -73,14 +74,14 @@ namespace Client.UI {
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 		}
 
-        void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            OnMenuOptionChange(MenuOption.Options);
-            e.Cancel = true;
-        }
+		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+			OnMenuOptionChange(MenuOption.Options);
+			e.Cancel = true;
+		}
 
-        void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
-            OnMenuOptionChange(MenuOption.Options);
-        }
+		void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
+			OnMenuOptionChange(MenuOption.Options);
+		}
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
 			this.openGLView.Invalidate();
@@ -117,21 +118,19 @@ namespace Client.UI {
 			if (e.Button == MouseButtons.Right) {
 				mousePos = e.Location;
 				scrolling = true;
-			}
-
-			//TODO: zmodyfikowaæ
-			if (e.Button == MouseButtons.Left)
-			{
+			} else if (e.Button == MouseButtons.Left) {
 				BuildMessage bm = new BuildMessage();
 				Position p = GameGraphics.TranslateMousePosition(e.Location);
-				//bm.BuildingID = ustawiæ id bubynku z xml'a
+				bm.BuildingID = currentPlayer.GenerateObjectID();
+				bm.PlayerId = currentPlayer.ID;
+				//todo: IdTurn will be assigned by server
 				bm.IdTurn = simulation.CurrentTurn + simulation.Delta;
-				//bm.BuildingType = nadawaæ type budynku
-				//bm.PlayerId = ustawiaæ id playera
+				bm.BuildingType = simulation.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].TypeID;
 				bm.Type = MessageType.Build;
-				Connection.SendMessage(bm);
+				bm.Position = p;
+				//Connection.SendMessage(bm);
+				simulation.AddGameMessage(bm);
 			}
-			//end todo;
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
@@ -141,19 +140,19 @@ namespace Client.UI {
 		}
 
 		private void openGLView_MouseMove(object sender, MouseEventArgs e) {
-            if (wasScrolled) {
-                wasScrolled = false;
-                return;
-            }
+			if (wasScrolled) {
+				wasScrolled = false;
+				return;
+			}
 
-            if (scrolling) {
+			if (scrolling) {
 				int dx = e.X - mousePos.X;
-                int dy = e.Y - mousePos.Y;
+				int dy = e.Y - mousePos.Y;
 
 				GameGraphics.OffsetX(-dx * 0.05f);
 				GameGraphics.OffsetY(dy * 0.05f); //opengl uses different coordinate system
 
-                wasScrolled = true;
+				wasScrolled = true;
 				Cursor.Position = openGLView.PointToScreen(mousePos);
 			}
 		}
