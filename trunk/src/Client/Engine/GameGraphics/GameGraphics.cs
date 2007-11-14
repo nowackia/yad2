@@ -15,6 +15,7 @@ using Yad.Log.Common;
 using Yad.Engine.GameGraphics.Client;
 using System.Windows.Forms;
 using Yad.Engine.Common;
+using Yad.Board;
 
 namespace Client.Engine.GameGraphics {
 	static class GameGraphics {
@@ -344,5 +345,14 @@ namespace Client.Engine.GameGraphics {
 			UpdateViewport();
 		}
 		#endregion
+
+		// translates screen mose coordinates to position on the map
+		public static Position TranslateMousePosition(Point p)
+		{
+			Position pn = new Position();
+			pn.X = (short)((p.X) / zoom + offset.X + mapClip.X);
+			pn.Y = (short)((p.Y) / zoom + offset.Y + mapClip.Y);// - mapClip.Height/2);
+			return pn;
+		}
 	}
 }
