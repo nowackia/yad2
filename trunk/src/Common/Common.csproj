@@ -57,7 +57,6 @@
     <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\CreateGameResult.cs" />
     <Compile Include="Net\GameInfo.cs" />
-    <Compile Include="Net\GamePlayerInfo.cs" />
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\Messaging\EntryMessage.cs" />
     <Compile Include="Net\Messaging\GameInfoMessage.cs" />

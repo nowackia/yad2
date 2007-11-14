@@ -8,14 +8,14 @@ namespace Yad.Net.Messaging.Common {
     public class PlayersMessage : Message {
 
         byte _operation;
-        List<GamePlayerInfo> _playerList;
+        List<PlayerInfo> _playerList;
 
         public byte Operation {
             get { return _operation; }
             set { _operation = value; }
         }
         
-        public List<GamePlayerInfo> PlayerList {
+        public List<PlayerInfo> PlayerList {
             get { return _playerList; }
             set { _playerList = value; }
         }
@@ -26,11 +26,11 @@ namespace Yad.Net.Messaging.Common {
             base.Serialize(writer);
             writer.Write(_operation);
             writer.Write(_playerList.Count);
-            foreach (GamePlayerInfo gpi in _playerList) {
-                writer.Write(gpi.Id);
-                WriteString(gpi.Name, writer);
-                writer.Write(gpi.TeamID);
-                writer.Write((byte)gpi.House);
+            foreach (PlayerInfo pi in _playerList) {
+                writer.Write(pi.Id);
+                WriteString(pi.Name, writer);
+                writer.Write(pi.TeamID);
+                writer.Write((byte)pi.House);
             }
         }
 
@@ -39,11 +39,11 @@ namespace Yad.Net.Messaging.Common {
             _operation = reader.ReadByte();
             int count = reader.ReadInt32();
             for (int i = 0; i < count; ++i) {
-                GamePlayerInfo gpi = new GamePlayerInfo();
-                gpi.Id = reader.ReadInt16();
-                gpi.Name = ReadString(reader);
-                gpi.TeamID = reader.ReadInt16();
-                gpi.House = (HouseType)reader.ReadByte();
+                PlayerInfo pi = new PlayerInfo();
+                pi.Id = reader.ReadInt16();
+                pi.Name = ReadString(reader);
+                pi.TeamID = reader.ReadInt16();
+                pi.House = (HouseType)reader.ReadByte();
             }
            
         }

@@ -120,7 +120,7 @@ namespace Yad.Net.Server {
 
         private PlayersMessage CreatePlayerMessage(MessageOperation operation, IPlayerID playerID) {
             
-            List<GamePlayerInfo> list = new List<GamePlayerInfo>();
+            List<PlayerInfo> list = new List<PlayerInfo>();
             PlayersMessage msg = (PlayersMessage)MessageFactory.Create(MessageType.Players);
             msg.Operation = (byte)operation;
             switch (operation) {
@@ -128,19 +128,19 @@ namespace Yad.Net.Server {
                     foreach (IPlayerID pid in _players.Values) {
                         if (pid.GetID() != playerID.GetID()) {
                             ServerPlayerInfo spi = pid as ServerPlayerInfo;
-                            list.Add(spi.GetGamePlayerInfo());
+                            list.Add(spi.GePlayerInfo());
                             msg.PlayerList = list;
                         }
                     }
                     break;
                 case MessageOperation.Add:
-                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
+                    list.Add(((ServerPlayerInfo)playerID).GePlayerInfo());
                     break;
                 case MessageOperation.Remove:
-                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
+                    list.Add(((ServerPlayerInfo)playerID).GePlayerInfo());
                     break;
                 case MessageOperation.Modify:
-                    list.Add(((ServerPlayerInfo)playerID).GetGamePlayerInfo());
+                    list.Add(((ServerPlayerInfo)playerID).GePlayerInfo());
                     break;
             }
             return msg;

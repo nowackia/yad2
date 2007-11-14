@@ -133,8 +133,8 @@ namespace Yad.Net.Server {
         }
 
         private void SendJoinGameMessage(ServerGameInfo sgi, short id) {
-            GamesMessage msg = CreateBasicGamesMsg(sgi);
-            msg.Operation = (byte)MessageOperation.Info;
+            GameInfoMessage msg = MessageFactory.Create(MessageType.GameParams) as GameInfoMessage;
+            msg.GameInfo = sgi.GetGameInfo();
             SendMessage(msg, id);
         }
         private void SendCreateGameMessage(ServerGameInfo sgi) {
@@ -180,8 +180,6 @@ namespace Yad.Net.Server {
          
         }
 
-
-
         private void SendMessage(Message msg, short id) {
             _sender.MessagePost(msg, id);
         }
@@ -201,6 +199,7 @@ namespace Yad.Net.Server {
             return ResultType.Successful;
            
         }
+
         public ResultType IsValid(GameInfo gi) {
             if (!IsNameValid(gi.Name))
                 return ResultType.NameExistsError;
@@ -225,7 +224,5 @@ namespace Yad.Net.Server {
         public bool IsMapValid(int mapID) {
             return true;
         }
-
-
     }
 }

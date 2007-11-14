@@ -4,7 +4,7 @@ using System.Text;
 using Yad.Net.Common;
 
 namespace Yad.Net.Server {
-    class ServerPlayerInfo : GamePlayerInfo, IPlayerID {
+    class ServerPlayerInfo : PlayerInfo, IPlayerID {
         bool _startedClicked = false;
 
         public bool StartedClicked {
@@ -17,13 +17,13 @@ namespace Yad.Net.Server {
             this.Name = name;
         }
 
-        public GamePlayerInfo GetGamePlayerInfo() {
-            GamePlayerInfo gmi = new GamePlayerInfo();
-            gmi.Id = this.Id;
-            gmi.Name = this.Name;
-            gmi.TeamID = this.TeamID;
-            gmi.House = this.House;
-            return gmi;
+        public PlayerInfo GePlayerInfo() {
+            PlayerInfo mi = new PlayerInfo();
+            mi.Id = this.Id;
+            mi.Name = this.Name;
+            mi.TeamID = this.TeamID;
+            mi.House = this.House;
+            return mi;
         }
 
 
