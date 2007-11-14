@@ -56,8 +56,10 @@ namespace Client.UI {
                 key = k;
                 break;
 	        }
+            short id =sim.GameSettingsWrapper.namesToIds["Barracks"];
             stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
-            stripesManager.AddBuilding(sim.GameSettingsWrapper.namesToIds["Barracks"]);
+            stripesManager.AddBuilding(id);
+            stripesManager.BuildingClickedOnMap(id);
             //^to remove
 
 			//to remove
