@@ -47,7 +47,7 @@ namespace Client.Engine {
 
                 buildingsOnMenu.Add(id);
                 String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
-                buildingStripe.Add(id, name, Path.Combine(Settings.Default.Structures, name + ".png"));//TODO add picture name to xsd.
+                buildingStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
             }
             foreach (TechnologyDependence techRef in deps) {
                 short ids = simulation.GameSettingsWrapper.namesToIds[techRef.BuildingName];
@@ -56,7 +56,7 @@ namespace Client.Engine {
                     // adds new building to strip
                     buildingsOnMenu.Add(ids);
                     String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
-                    buildingStripe.Add(ids, name, Path.Combine(Settings.Default.Structures,name+".png"));//TODO add picture name to xsd.
+                    buildingStripe.Add(ids, name, Path.Combine(Settings.Default.Pictures,name+".png"));//TODO add picture name to xsd.
                 }
             }      
         }
