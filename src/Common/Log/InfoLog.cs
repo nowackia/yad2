@@ -107,6 +107,16 @@ namespace Yad.Log.Common {
             _writer.WriteLine("------------------------------------------------------------");
         }
 
+        private void WriteErrorIns(string s, EPrefix prefix)
+        {
+            if (!_infoLogPrefix.IsFiltred(prefix)) {
+                _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
+                s = _infoLogPrefix.AddFilterString(s, prefix);
+                _writer.WriteLine("Message: " + s);
+                _writer.WriteLine("------------------------------------------------------------");
+            }
+        }
+
         private void WriteInfoIns(string s) {
             _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
         }
@@ -219,6 +229,10 @@ namespace Yad.Log.Common {
 
         public static void WriteException(Exception ex) {
             Instance.WriteExceptionIns(ex);
+        }
+
+        public static void WriteError(string s, EPrefix prefix) {
+            Instance.WriteErrorIns(s, prefix);
         }
 
         public static void WriteError(string s) {

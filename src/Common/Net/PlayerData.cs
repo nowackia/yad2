@@ -33,5 +33,10 @@ namespace Yad.Net.Common {
             get { return _lossNo; }
             set { _lossNo = value; }
         }
+
+        public override string ToString()
+        {
+            return "Login: " + _login + Environment.NewLine + "win: " + _winNo + Environment.NewLine + "loss: " + _lossNo;
+        }
     }
 }

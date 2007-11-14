@@ -7,6 +7,7 @@ namespace Client.Net
     static class ClientPlayerInfo
     {
         private static string login = string.Empty;
+        private static string gameName = string.Empty;
 
         public static string Login
         {
@@ -20,6 +21,14 @@ namespace Client.Net
         {
             get
             { return "[" + Login + "] : ";  }
+        }
+
+        public static string GameName
+        {
+            get
+            { return gameName; }
+            set
+            { gameName = value; }
         }
     }
 }
