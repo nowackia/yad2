@@ -79,6 +79,8 @@ namespace Client.UI
             menuMessageHandler.DeletePlayers += new PlayersEventHandler(menuMessageHandler_DeletePlayers);
             menuMessageHandler.UpdatePlayers += new PlayersEventHandler(menuMessageHandler_UpdatePlayers);
 
+            menuMessageHandler.StartGameRequestReply += new RequestReplyEventHandler(menuMessageHandler_StartGameRequestReply);
+
             Connection.MessageHandler = menuMessageHandler;
             #endregion
         }
