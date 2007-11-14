@@ -351,7 +351,7 @@ namespace Client.Engine.GameGraphics {
 		{
 			Position pn = new Position(
 			(short)(((float)p.X) / zoom + offset.X + mapClip.X),
-			(short)(simulation.Map.Height - ((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));
+			(short)(((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));
 			return pn;
 		}
 	}
