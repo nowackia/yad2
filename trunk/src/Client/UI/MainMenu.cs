@@ -229,7 +229,10 @@ namespace Client.UI
             LoginMessage loginMessage = (LoginMessage)MessageFactory.Create(MessageType.Login);
             loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
+            ClientPlayerInfo.Login = loginTBLoginMenu.Text;
             Connection.SendMessage(loginMessage);
+
+            ManageControlState(new Control[] { loginBTLoginMenu }, false);
         }
 
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
@@ -248,10 +251,18 @@ namespace Client.UI
         {
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
             MessageBox.Show(e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (InvokeRequired)
+                this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { loginBTLoginMenu }, true });
+            else
+                ManageControlState(new Control[] { loginBTLoginMenu }, true);
+
             if (e.successful)
             {
-                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
-                else OnMenuOptionChange(MenuOption.Login);
+                if (InvokeRequired)
+                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
+                else
+                    OnMenuOptionChange(MenuOption.Login);
 
                 Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
             }
