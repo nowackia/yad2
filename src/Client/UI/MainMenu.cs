@@ -226,7 +226,7 @@ namespace Client.UI
         {
             Connection.InitConnection(serverLoginMenu.Text, 1734);
 
-            LoginMessage loginMessage = (LoginMessage)MessageFactory.Create(MessageType.Login);
+            LoginMessage loginMessage = (LoginMessage)Utils.CreateMessageWithPlayerId(MessageType.Login);
             loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
             ClientPlayerInfo.Login = loginTBLoginMenu.Text;
@@ -239,7 +239,7 @@ namespace Client.UI
         {
             Connection.InitConnection(serverLoginMenu.Text, 1734);
 
-            TextMessage remindMessage = (TextMessage)MessageFactory.Create(MessageType.Remind);
+            TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.SendMessage(remindMessage);
 
@@ -264,7 +264,7 @@ namespace Client.UI
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
-                Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
+                Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
             }
         }
 
@@ -327,7 +327,7 @@ namespace Client.UI
         #region Control Events
         private void backChatMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(MessageFactory.Create(MessageType.Logout));
+            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.Logout));
             Connection.CloseConnection();
 
             OnMenuOptionChange(MenuOption.Back);
@@ -335,7 +335,7 @@ namespace Client.UI
 
         private void sendChatMenu_Click(object sender, EventArgs e)
         {
-            TextMessage chatTextMessage = (TextMessage)MessageFactory.Create(MessageType.ChatText);
+            TextMessage chatTextMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.ChatText);
 
             chatTextMessage.Text = chatInputTBChatMenu.Text;
 
@@ -353,7 +353,7 @@ namespace Client.UI
             if (index != -1)
             {
                 ChatUser chatUser = listBox.Items[index] as ChatUser;
-                NumericMessage numericMessage = (NumericMessage)MessageFactory.Create(MessageType.PlayerInfo);
+                NumericMessage numericMessage = (NumericMessage)Utils.CreateMessageWithPlayerId(MessageType.PlayerInfo);
                 numericMessage.Number = chatUser.Id;
                 Connection.SendMessage(numericMessage);
             }
@@ -361,7 +361,7 @@ namespace Client.UI
 
         private void gameChatMenu_Click(object sender, EventArgs e)
         {
-            EntryMessage entryMessage = (EntryMessage)MessageFactory.Create(MessageType.ChooseGameEntry);
+            EntryMessage entryMessage = (EntryMessage)Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry);
             Connection.SendMessage(entryMessage);
 
             OnMenuOptionChange(MenuOption.Game);
@@ -432,13 +432,13 @@ namespace Client.UI
         #region Control Events
         private void backChooseGameMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(MessageFactory.Create(MessageType.ChatEntry));
+            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
             OnMenuOptionChange(MenuOption.Back);
         }
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
-            TextMessage textMessage = (TextMessage)MessageFactory.Create(MessageType.JoinGame);
+            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.JoinGame);
             textMessage.Text = textBoxTBGameName.Text;
             ClientPlayerInfo.GameName = gameNameTBCreateGameMenu.Text;
             Connection.SendMessage(textMessage);
@@ -512,7 +512,7 @@ namespace Client.UI
 
         private void createCreateGameMenu_Click(object sender, EventArgs e)
         {
-            GameInfoMessage createGameMessage = (GameInfoMessage)MessageFactory.Create(MessageType.CreateGame);
+            GameInfoMessage createGameMessage = (GameInfoMessage)Utils.CreateMessageWithPlayerId(MessageType.CreateGame);
 
             GameInfo gameInfo = new GameInfo();
             //TODO (AN) Get somehow MapId
@@ -555,7 +555,7 @@ namespace Client.UI
         #region Control Events
         private void cancelWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(MessageFactory.Create(MessageType.ChooseGameEntry));
+            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry));
 
             OnMenuOptionChange(MenuOption.Cancel);
 
@@ -566,7 +566,7 @@ namespace Client.UI
         {
             ManageControlState(new Control[] { startWaitingForPlayersMenu }, false);
 
-            TextMessage textMessage = (TextMessage)MessageFactory.Create(MessageType.StartGame);
+            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
             textMessage.Text = ClientPlayerInfo.GameName;
             Connection.SendMessage(textMessage);
         }
