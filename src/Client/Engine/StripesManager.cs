@@ -83,10 +83,17 @@ namespace Client.Engine {
         /// checks if this building can produce units - if true - put units on menu
         /// </summary>
         /// <param name="name">name of the building</param>
-        public void BuildingClickedOnMap(short name) {
+        public void BuildingClickedOnMap(short idB) {
            //simulation.GameSettingsWrapper.
-            if (buildingsOnMenu.Contains(name)) {
-                BuildingData data = simulation.GameSettingsWrapper.buildingsMap[name];
+            if (buildingsOnMenu.Contains(idB)) {
+                BuildingData data = simulation.GameSettingsWrapper.buildingsMap[idB];
+                foreach (String name in data.UnitsCanProduce)
+	            {
+                    short id = simulation.GameSettingsWrapper.namesToIds[name];
+                    if (unitsOnMenu.Contains(id)) continue;
+                    unitsOnMenu.Add(id);
+                    unitStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));
+	            }
             }
         }
 
