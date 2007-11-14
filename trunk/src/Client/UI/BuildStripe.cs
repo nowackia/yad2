@@ -17,7 +17,7 @@ namespace Client.UI {
     public partial class BuildStripe : UserControl, IManageableStripe {
 
         public static int WIDTH = 90;
-        public static int HEIGHT = 70;
+        public static int HEIGHT = 60;
         private Dictionary<short, PictureButton> buttons = new Dictionary<short, PictureButton>();
         /// <summary>
         /// number of objects under the 'upper' line
