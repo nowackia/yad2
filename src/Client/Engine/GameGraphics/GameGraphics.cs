@@ -229,41 +229,13 @@ namespace Yad.Engine.GameGraphics.Client {
 		}
 		#endregion
 
-		#region public methods
-		public static void InitGL(Simulation sim) {
-			simulation = sim;
-			simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
-
-			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
-			Gl.glEnable(Gl.GL_BLEND);
-			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
-			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
-			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
-			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
-			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
-			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
-
-			vertexData.indices[0] = 0;
-			vertexData.indices[1] = 1;
-			vertexData.indices[2] = 2;
-			vertexData.indices[3] = 3;
-
-			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
-			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
-			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
-			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
-
-			UpdateViewport();
-
-			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
-		}
-
+		#region texture init
 		public static void InitTextures(Simulation simulation) {
 			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
 
 			GameSettings gameSettings = simulation.GameSettingsWrapper.GameSettings;
 			foreach (AmmoData o in gameSettings.AmmosData.AmmoDataCollection) {
-				
+
 			}
 
 			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
@@ -297,7 +269,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			}
 
 			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
-				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				String file = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
 				Bitmap texture = new Bitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
@@ -305,33 +277,59 @@ namespace Yad.Engine.GameGraphics.Client {
 			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = new Bitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Bitmap bmp = new Bitmap(Correct(texture.Width), Correct(texture.Height), PixelFormat.Format32bppArgb);
+				Graphics g = Graphics.FromImage(bmp);
+				g.DrawImage(texture, 0, 0, bmp.Width, bmp.Height);
+				g.Dispose();
+				Create32bTexture(o.TypeID + textureOffset, bmp);
 			}
 		}
 
+		private static int Correct(int size) {
+			double y = Math.Ceiling(Math.Log(size, 2));
+			return (int)Math.Pow(2, y);
+		}
+
+		#endregion
+
+		#region drawing
 		public static void Draw() {
 			Gl.glClearColor(0, 0, 0, 0);
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
 			Gl.glLoadIdentity();
 
-			//Gl.glColor4f(1, 1, 1, 1);
+			//draw fogOfWar
+
 			//Drawing map
 			DrawElementFromLeftBottom(0, 0, mapDepth, simulation.Map.Width, simulation.Map.Height, 1, defaultUV);
 
 			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
 			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
-			//Gl.glColor4f(1, 1, 1, 1);
-			//DrawElement(rain.Position.X, rain.Position.Y, rain.GetTexture(), offsetX, offsetY, AntHillConfig.rainWidth, AntHillConfig.rainWidth, 1.0f);
-
-			//draw fogOfWar
+			
 
 
 			ICollection<Player> players = simulation.GetPlayers();
 			foreach (Player p in players) {
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
-					//
+					switch (u.BoardObjectClass) {
+						case BoardObjectClass.UnitHarvester:
+							DrawHarvester((UnitHarvester)u);
+							break;
+						case BoardObjectClass.UnitMCV:
+							DrawMCV((UnitMCV)u);
+							break;
+						case BoardObjectClass.UnitSandworm:
+							DrawSandworm((UnitSandworm)u);
+							break;
+						case BoardObjectClass.UnitTank:
+							DrawTank((UnitTank)u);
+							break;
+						case BoardObjectClass.UnitTrooper:
+							DrawTrooper((UnitTrooper)u);
+							break;
+					}
 				}
 
 				List<Building> buildings = p.GetAllBuildings();
@@ -341,8 +339,58 @@ namespace Yad.Engine.GameGraphics.Client {
 			}
 		}
 
+		private static void DrawTrooper(UnitTrooper unitTrooper) {
+			DrawElementFromLeftBottom(unitTrooper.Position.X, unitTrooper.Position.Y, unitDepth, 0.5f, 0.5f, unitTrooper.TypeID + textureOffset, new RectangleF(0, 0, 0.25f, 1/3.0f));
+		}
+
+		private static void DrawTank(UnitTank unitTank) {
+			DrawElementFromLeftBottom(unitTank.Position.X, unitTank.Position.Y, unitDepth, 1, 1, unitTank.TypeID + textureOffset, new RectangleF(0,0,1.0f/8.0f ,1));
+		}
+
+		private static void DrawSandworm(UnitSandworm unitSandworm) {
+			DrawElementFromLeftBottom(unitSandworm.Position.X, unitSandworm.Position.Y, unitDepth, 1, 1, unitSandworm.TypeID + textureOffset, defaultUV);
+		}
+
+		private static void DrawMCV(UnitMCV unitMCV) {
+			DrawElementFromLeftBottom(unitMCV.Position.X, unitMCV.Position.Y, unitDepth, 1, 1, unitMCV.TypeID + textureOffset, defaultUV);
+		}
+
+		private static void DrawHarvester(UnitHarvester unitHarvester) {
+			DrawElementFromLeftBottom(unitHarvester.Position.X, unitHarvester.Position.Y, unitDepth, 1, 1, unitHarvester.TypeID + textureOffset, defaultUV);
+		}
+
 		private static void DrawBuilding(Building b) {
 			DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, b.Size.X, b.Size.Y, b.TypeID + textureOffset, defaultUV);
+		}
+		#endregion
+
+		#region public methods
+		public static void InitGL(Simulation sim) {
+			simulation = sim;
+			simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+
+			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
+			Gl.glEnable(Gl.GL_BLEND);
+			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
+			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
+			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
+			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+
+			vertexData.indices[0] = 0;
+			vertexData.indices[1] = 1;
+			vertexData.indices[2] = 2;
+			vertexData.indices[3] = 3;
+
+			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
+			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
+			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
+			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
+
+			UpdateViewport();
+
+			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
 		}
 
 		public static void Zoom(int zoomDiff) {

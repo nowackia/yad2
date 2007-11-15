@@ -89,5 +89,9 @@ namespace Yad.Board.Common
 			get { return destinationPoint; }
 			set { destinationPoint = value; }
 		}
+
+		public short TypeID {
+			get { return this.typeID; }
+		}
     }
 }
