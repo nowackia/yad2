@@ -54,7 +54,7 @@ namespace Yad.UI.Client {
                 key = k;
                 break;
 	        }
-            short id =sim.GameSettingsWrapper.namesToIds["Barracks"];
+			short id = sim.GameSettingsWrapper.namesToIds["HighTechFactory"];
             stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
             stripesManager.AddBuilding(id);
             stripesManager.BuildingClickedOnMap(id);
