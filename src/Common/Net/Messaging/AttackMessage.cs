@@ -11,6 +11,10 @@ namespace Yad.Net.Messaging.Common
 		private int attackedPlayerID;
 		private short attackedObjectID;
 
+        public AttackMessage()
+            : base(MessageType.Attack)
+        { }
+
 		public short AttackedObjectID {
 			get { return attackedObjectID; }
 			set { attackedObjectID = value; }
@@ -30,10 +34,6 @@ namespace Yad.Net.Messaging.Common
 			get { return attackingPlayerID; }
 			set { attackingPlayerID = value; }
 		}
-
-		public AttackMessage()
-            : base(MessageType.Attack)
-        { }
 
 		public override void Deserialize(System.IO.BinaryReader reader) {
             throw new Exception("The method or operation is not implemented.");

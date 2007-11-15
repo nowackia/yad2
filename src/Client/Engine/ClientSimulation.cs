@@ -23,7 +23,7 @@ namespace Yad.Engine.Client {
 		}
 
 		void ClientSimulation_onTurnEnd() {
-			connectionToServer.SendMessage(new MessageTurnAsk());
+			connectionToServer.SendMessage(new TurnAskMessage());
 		}
 
 		protected override void OnMessageBuild(BuildMessage bm) {

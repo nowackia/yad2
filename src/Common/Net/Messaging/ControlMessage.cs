@@ -6,9 +6,15 @@ namespace Yad.Net.Messaging.Common
 {
     public class ControlMessage : Message
     {
-        public void CreateResponse()
-        {
+        public ControlMessage()
+            : base(MessageType.Control)
+        { }
 
-        }
+        public ControlMessage(MessageType msgType)
+            : base(msgType)
+        { }
+
+        public void CreateResponse()
+        { }
     }
 }

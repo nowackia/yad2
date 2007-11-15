@@ -23,7 +23,7 @@ namespace Yad.Net.Messaging.Common
         Attack,
         Control,
 		TurnAsk,
-		TurnDo,
+		DoTurn,
         #endregion
 
         #region Chat

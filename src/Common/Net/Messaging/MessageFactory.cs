@@ -22,8 +22,35 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 #region Game messages
+                case MessageType.GameInit:
+                    return new GameInitMessage();
+
+                case MessageType.Move:
+                    return new MoveMessage();
+
+                case MessageType.Destroy:
+                    return new DestroyMessage();
+
+                case MessageType.CreateUnit:
+                    return new CreateUnitMessage();
+
                 case MessageType.Build:
                     return new BuildMessage();
+
+                case MessageType.Harvest:
+                    return new HarvestMessage();
+
+                case MessageType.Attack:
+                    return new AttackMessage();
+
+                case MessageType.Control:
+                    return new ControlMessage();
+
+                case MessageType.TurnAsk:
+                    return new TurnAskMessage();
+
+                case MessageType.DoTurn:
+                    return new DoTurnMessage();
                 #endregion
 
                 #region Chat
