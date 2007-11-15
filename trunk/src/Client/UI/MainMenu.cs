@@ -22,10 +22,9 @@ namespace Yad.UI.Client
         {
             InitializeComponent();
 
-            GameInfo gi = new GameInfo();
-            gi.MaxPlayerNumber = 8;
-            ClientPlayerInfo.GameInfo = gi;
-            this.ResetDataGridView(this.dataGridViewPlayers);
+            GameInfo tempGameInfo = new GameInfo();
+            tempGameInfo.MaxPlayerNumber = 6;
+            ClientPlayerInfo.GameInfo = tempGameInfo;
 
             #region Views Settings
             views.Add(Views.ChatForm, chatMenu);
@@ -71,7 +70,7 @@ namespace Yad.UI.Client
 
             menuMessageHandler.StartGameRequestReply += new RequestReplyEventHandler(menuMessageHandler_StartGameRequestReply);
 
-            Connection.MessageHandler = menuMessageHandler;
+            Connection.Instance.MessageHandler = menuMessageHandler;
             #endregion
         }
 
@@ -112,43 +111,10 @@ namespace Yad.UI.Client
                 listBox.Items.Remove(objects[i]);
         }
 
-        public void ResetDataGridView(DataGridView gridView)
-        {
-            //TODO (AN) change to reading races from xml
-            GameInfo gi = ClientPlayerInfo.GameInfo;
-            if (gi != null)
-            {
-                House.Items.Clear();
-                foreach (object obj in Enum.GetValues(typeof(HouseType)))
-                    House.Items.Add(obj.ToString());
-
-                Team.Items.Clear();
-                //TODO (AN) Remove team not possible to enter
-                for (int i = 1; i <= gi.MaxPlayerNumber; i++)
-                    Team.Items.Add(i.ToString());
-
-                if(dataGridViewPlayers.Rows.Count > 0 && dataGridViewPlayers.Rows[0].ReadOnly == false)
-                    dataGridViewPlayers.Rows.RemoveAt(0);
-
-                dataGridViewPlayers.Rows.Insert(0, 1);
-                DataGridViewRow row = dataGridViewPlayers.Rows[0];
-                row.ReadOnly = false;
-                row.Cells[0].Value = 1;
-                row.Cells[0].ReadOnly = true;
-                row.Cells[1].Value = ClientPlayerInfo.Login;
-                row.Cells[1].ReadOnly = true;
-                row.Cells[2].Value = House.Items[0];
-                row.Cells[3].Value = Team.Items[0];
-            }
-        }
-
         public void ManageDataGridView(DataGridView gridView, object[] objects, bool reset)
         {
             if (reset)
-            {
-                for (int i = dataGridViewPlayers.Rows.Count - 1; i > 0; i--)
-                    dataGridViewPlayers.Rows.RemoveAt(i);
-            }
+                dataGridViewPlayers.Rows.Clear();
 
             for (int i = 0; i < objects.Length; i++)
             {
@@ -158,7 +124,7 @@ namespace Yad.UI.Client
                 row.Cells[0].Value = playerInfoObject.Id;
                 row.Cells[1].Value = playerInfoObject.Name;
                 row.Cells[2].Value = playerInfoObject.House.ToString();
-                row.Cells[3].Value = playerInfoObject.TeamID;
+                row.Cells[3].Value = playerInfoObject.TeamID.ToString();
                 row.ReadOnly = true;
             }
         }
@@ -183,6 +149,7 @@ namespace Yad.UI.Client
         {
             PlayerInfo playerInfoObject = updateObject as PlayerInfo;
 
+            //TODO (AN) chceck if we modify this local user's info
             for (int i = 0; i < gridView.Rows.Count; i++)
             {
                 DataGridViewRow row = dataGridViewPlayers.Rows[i];
@@ -190,12 +157,24 @@ namespace Yad.UI.Client
                 if ((short)row.Cells[0].Value == playerInfoObject.Id)
                 {
                     row.Cells[2].Value = playerInfoObject.House.ToString();
-                    row.Cells[3].Value = playerInfoObject.TeamID;
+                    row.Cells[3].Value = playerInfoObject.TeamID.ToString();
                     break;
                 }
             }
+        }
 
-            //TODO (AN) chceck if we modify this local user's info
+        public void ManageComboBoxItems(ComboBox comboBox, string[] objects)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.AddRange(objects);
+            if(comboBox.Items.Count > 0)
+                comboBox.SelectedIndex = 0;
+        }
+
+        public void UpdateComboBox(ComboBox comboBox, string updateObject)
+        {
+            if(comboBox.Items.Contains(updateObject))
+                comboBox.SelectedItem = updateObject;
         }
 
         public void ManageControlText(Control control, string text)
@@ -247,24 +226,24 @@ namespace Yad.UI.Client
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
-            Connection.InitConnection(serverLoginMenu.Text, 1734);
+            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
 
             LoginMessage loginMessage = (LoginMessage)Utils.CreateMessageWithPlayerId(MessageType.Login);
             loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
             ClientPlayerInfo.Login = loginTBLoginMenu.Text;
-            Connection.SendMessage(loginMessage);
+            Connection.Instance.SendMessage(loginMessage);
 
-            ManageControlState(new Control[] { loginBTLoginMenu }, false);
+            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
 
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
         {
-            Connection.InitConnection(serverLoginMenu.Text, 1734);
+            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
 
 			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
-            Connection.SendMessage(remindMessage);
+            Connection.Instance.SendMessage(remindMessage);
 
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
@@ -275,10 +254,12 @@ namespace Yad.UI.Client
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
             MessageBox.Show(e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
+
             if (InvokeRequired)
-                this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { loginBTLoginMenu }, true });
+                this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
             else
-                ManageControlState(new Control[] { loginBTLoginMenu }, true);
+                ManageControlState(controls, true);
 
             if (e.successful)
             {
@@ -287,7 +268,7 @@ namespace Yad.UI.Client
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
-                Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
+                Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
             }
         }
 
@@ -303,7 +284,7 @@ namespace Yad.UI.Client
                 else ManageControlState(controls, true);
             }
 
-            Connection.CloseConnection();
+            Connection.Instance.CloseConnection();
         }
         #endregion
         #endregion
@@ -312,13 +293,13 @@ namespace Yad.UI.Client
         #region Control Events
         private void registerRegisterMenu_Click(object sender, EventArgs e)
         {
-            Connection.InitConnection(serverLoginMenu.Text, 1734);
+            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
 
             RegisterMessage registerMessage = new RegisterMessage();
             registerMessage.Login = loginTBRegisterMenu.Text;
             registerMessage.Password = passwordTBRegisterMenu.Text;
             registerMessage.Mail = emailTBRegisterMenu.Text;
-            Connection.SendMessage(registerMessage);
+            Connection.Instance.SendMessage(registerMessage);
 
             ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
         }
@@ -341,7 +322,7 @@ namespace Yad.UI.Client
                 else ManageControlState(controls, true);
             }
 
-            Connection.CloseConnection();
+            Connection.Instance.CloseConnection();
         }
         #endregion
         #endregion
@@ -350,8 +331,8 @@ namespace Yad.UI.Client
         #region Control Events
         private void backChatMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.Logout));
-            Connection.CloseConnection();
+            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.Logout));
+            Connection.Instance.CloseConnection();
 
             OnMenuOptionChange(MenuOption.Back);
         }
@@ -365,7 +346,7 @@ namespace Yad.UI.Client
             chatInputTBChatMenu.Text = string.Empty;
             chatListChatMenu.Items.Add(ClientPlayerInfo.ChatPrefix + chatTextMessage.Text);
 
-            Connection.SendMessage(chatTextMessage);
+            Connection.Instance.SendMessage(chatTextMessage);
         }
 
         private void userListChatMenu_DoubleClick(object sender, EventArgs e)
@@ -378,14 +359,14 @@ namespace Yad.UI.Client
                 ChatUser chatUser = listBox.Items[index] as ChatUser;
                 NumericMessage numericMessage = (NumericMessage)Utils.CreateMessageWithPlayerId(MessageType.PlayerInfo);
                 numericMessage.Number = chatUser.Id;
-                Connection.SendMessage(numericMessage);
+                Connection.Instance.SendMessage(numericMessage);
             }
         }
 
         private void gameChatMenu_Click(object sender, EventArgs e)
         {
             EntryMessage entryMessage = (EntryMessage)Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry);
-            Connection.SendMessage(entryMessage);
+            Connection.Instance.SendMessage(entryMessage);
 
             OnMenuOptionChange(MenuOption.Game);
         }
@@ -455,7 +436,7 @@ namespace Yad.UI.Client
         #region Control Events
         private void backChooseGameMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
+            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
             OnMenuOptionChange(MenuOption.Back);
         }
 
@@ -463,7 +444,7 @@ namespace Yad.UI.Client
         {
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.JoinGame);
             textMessage.Text = textBoxTBGameName.Text;
-            Connection.SendMessage(textMessage);
+            Connection.Instance.SendMessage(textMessage);
         }
 
         private void createChooseGameMenu_Click(object sender, EventArgs e)
@@ -551,7 +532,7 @@ namespace Yad.UI.Client
                     gameInfo.GameType = GameType.Public;
 
                 createGameMessage.GameInfo = gameInfo;
-                Connection.SendMessage(createGameMessage);
+                Connection.Instance.SendMessage(createGameMessage);
             }
             else
                 MessageBox.Show("No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -575,7 +556,7 @@ namespace Yad.UI.Client
         #region Control Events
         private void cancelWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            Connection.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry));
+            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry));
 
             OnMenuOptionChange(MenuOption.Cancel);
 
@@ -587,45 +568,36 @@ namespace Yad.UI.Client
             ManageControlState(new Control[] { startWaitingForPlayersMenu }, false);
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
-            Connection.SendMessage(textMessage);
+            Connection.Instance.SendMessage(textMessage);
         }
 
-        private void dataGridViewPlayers_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            DataGridView dataGridView = sender as DataGridView;
-            ComboBox comboBox = e.Control as ComboBox;
-
-            if (comboBox != null)
-            {
-                switch (dataGridView.CurrentCell.ColumnIndex)
-                {
-                    case 2:
-                        comboBox.SelectedIndexChanged += new EventHandler(houseComboBox_SelectedIndexChanged);
-                        break;
-
-                    case 3:
-                        comboBox.SelectedIndexChanged += new EventHandler(teamComboBox_SelectedIndexChanged);
-                        break;
-                }
-            }
-        }
-
-        void houseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBWaitingForPlayersMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
 
-            //TODO (AN) Send Message with changed information
-            MessageBox.Show("House: " + comboBox.SelectedItem.ToString());
-            comboBox.SelectedIndexChanged -= new EventHandler(houseComboBox_SelectedIndexChanged);
+            MessageBox.Show(comboBox.Name + ": " + comboBox.SelectedItem.ToString());
         }
 
-        void teamComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
+            //TODO (AN) Send Message with changed information and disable the controls
+            PlayersMessage playersMessage = (PlayersMessage)Utils.CreateMessageWithPlayerId(MessageType.UpdatePlayer);
 
-            //TODO (AN) Send Message with changed information
-            MessageBox.Show("Team: " + comboBox.SelectedItem.ToString());
-            comboBox.SelectedIndexChanged -= new EventHandler(teamComboBox_SelectedIndexChanged);
+            playersMessage.PlayerList = new List<PlayerInfo>();
+            PlayerInfo playerInfo = new PlayerInfo();
+
+            playerInfo.Id = ClientPlayerInfo.PlayerId;
+            playerInfo.Name = ClientPlayerInfo.Login;
+            playerInfo.House = (HouseType)houseCBWaitingForPlayersMenu.SelectedIndex;
+            playerInfo.TeamID = short.Parse(teamCBWaitingForPlayersMenu.SelectedItem.ToString());
+
+            playersMessage.PlayerList.Add(playerInfo);
+
+            houseCBWaitingForPlayersMenu.Enabled = false;
+            teamCBWaitingForPlayersMenu.Enabled = false;
+            changeWaitingForPlayersMenu.Enabled = false;
+
+            Connection.Instance.SendMessage(playersMessage);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -635,15 +607,26 @@ namespace Yad.UI.Client
 
             if (e.successful)
             {
+                string[] houseObjects = new string[Enum.GetValues(typeof(HouseType)).Length];
+                string[] teamObjects = new string[ClientPlayerInfo.GameInfo.MaxPlayerNumber];
+
+                for (short i = 0; i < houseObjects.Length; i++)
+                    houseObjects[i] = ((HouseType)i).ToString();
+
+                for(short i = 0; i < teamObjects.Length; i++)
+                    teamObjects[i] = i.ToString();
+
                 if (InvokeRequired)
                 {
                     this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
-                    this.BeginInvoke(new ResetDataGridViewEventHandler(ResetDataGridView), new object[] { dataGridViewPlayers });
+                    this.BeginInvoke(new ManageComboBoxItemsEventHandler(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects });
+                    this.BeginInvoke(new ManageComboBoxItemsEventHandler(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects });
                 }
                 else
                 {
                     ManageControlText(playerInfoLInfoMenu, e.reason);
-                    ResetDataGridView(dataGridViewPlayers);
+                    ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects);
+                    ManageComboBoxItems(teamCBWaitingForPlayersMenu, teamObjects);
                 }
             }
         }
@@ -678,10 +661,35 @@ namespace Yad.UI.Client
         void menuMessageHandler_UpdatePlayers(object sender, PlayerEventArgs e)
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
-            if (InvokeRequired)
-                this.BeginInvoke(new RemoveDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
+
+            if (e.players[0].Id == ClientPlayerInfo.PlayerId)
+            {
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+
+                /* Modify current player */
+                if (InvokeRequired)
+                {
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House });
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
+                    this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                }
+                else
+                {
+                    /* Enable controls */
+                    UpdateComboBox(houseCBWaitingForPlayersMenu, e.players[0].House.ToString());
+                    UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[0].TeamID.ToString());
+                    ManageControlState(controls, true);
+                }
+            }
             else
-                UpdateDataGridView(dataGridViewPlayers, e.players[0]);
+            {
+                /* Modify different player */
+                if (InvokeRequired)
+                    this.BeginInvoke(new RemoveDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
+                else
+                    UpdateDataGridView(dataGridViewPlayers, e.players[0]);
+            }
+
         }
 
         void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)

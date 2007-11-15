@@ -25,9 +25,6 @@ namespace Yad.Client
         {
             InfoLog.WriteStart();
 
-            //Connection.InitConnection("127.0.0.1", 1734);
-            //Connection.CloseConnection();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -39,7 +36,7 @@ namespace Yad.Client
 
             Application.Run(miniForm);
 
-            Connection.CloseConnection();
+            Connection.Instance.CloseConnection();
 
             InfoLog.WriteEnd();
             InfoLog.Close();

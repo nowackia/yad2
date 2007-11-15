@@ -22,6 +22,8 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 #region Game messages
+                case MessageType.Build:
+                    return new BuildMessage();
                 #endregion
 
                 #region Chat
@@ -172,7 +174,7 @@ namespace Yad.Net.Messaging.Common {
                     return new GameInfoMessage(MessageType.GameParams);
 
                 case MessageType.StartGame:
-                    return new Message(MessageType.StartGame);
+                    return new TextMessage(MessageType.StartGame);
 
                 case MessageType.StartGameResult:
                     {
@@ -250,9 +252,6 @@ namespace Yad.Net.Messaging.Common {
                 default:
                     return null;
                 #endregion
-
-				case MessageType.Build:
-					return new BuildMessage();
             }
         }
     }

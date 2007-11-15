@@ -9,22 +9,29 @@ using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 
 namespace Yad.Net.Client
-{//TODO: implement IConnection (forces use of singleton)
-    static class Connection
+{
+    class Connection : IConnection
     {
-        private static TcpClient tcpClient;
+        private TcpClient tcpClient;
+        private MessageReceiver receiver;
+        private MessageSender sender;
 
-        private static MessageReceiver receiver;
-        private static MessageSender sender;
+        private static Connection instance = new Connection();
 
-        static Connection()
+        private Connection()
         {
             receiver = new MessageReceiver();
             sender = new MessageSender();
             tcpClient = new TcpClient();
         }
 
-        public static void InitConnection(string hostname, int port)
+        public static Connection Instance
+        {
+            get
+            { return instance; }
+        }
+
+        public void InitConnection(string hostname, int port)
         {
             if (tcpClient.Connected)
                 InfoLog.WriteInfo("Already connected", EPrefix.ClientInformation);
@@ -50,13 +57,13 @@ namespace Yad.Net.Client
             }
         }
        
-        public static bool Connected
+        public bool Connected
         {
             get
             { return tcpClient.Connected; }
         }
 
-        public static event ConnectionLostEventHandler ConnectionLost
+        public event ConnectionLostEventHandler ConnectionLost
         {
             add
             {
@@ -70,7 +77,7 @@ namespace Yad.Net.Client
             }
         }
 
-        public static event MessageEventHandler MessageReceive
+        public event MessageEventHandler MessageReceive
         {
             add
             { receiver.MessageReceive += value; }
@@ -78,7 +85,7 @@ namespace Yad.Net.Client
             { receiver.MessageReceive += value; }
         }
 
-        public static event MessageEventHandler MessageSend
+        public event MessageEventHandler MessageSend
         {
             add
             { sender.MessageSend += value; }
@@ -86,7 +93,7 @@ namespace Yad.Net.Client
             { sender.MessageSend += value; }
         }
 
-        public static void CloseConnection()
+        public void CloseConnection()
         {
             if (tcpClient.Connected)
             {
@@ -97,7 +104,7 @@ namespace Yad.Net.Client
             }
         }
 
-        public static IMessageHandler MessageHandler
+        public IMessageHandler MessageHandler
         {
             get
             { return receiver.MessageHandler; }
@@ -105,7 +112,7 @@ namespace Yad.Net.Client
             { receiver.MessageHandler = value; }
         }
 
-        public static void SendMessage(Message message)
+        public void SendMessage(Message message)
         {
             if (tcpClient.Connected)
                 sender.AddItem(message);
