@@ -18,7 +18,7 @@ using Yad.Config;
 using Yad.Properties.Client;
 using Yad.Engine.GameGraphics.Renderes.Client;
 
-namespace Yad.Engine.GameGraphics.Client {
+namespace Yad.Engine.Client {
 	static partial class GameGraphics {
 
 		#region events
