@@ -222,7 +222,7 @@ namespace Yad.Net.Client
                         GameInfoMessage gameInfoMessage = message as GameInfoMessage;
                         ClientPlayerInfo.GameInfo = gameInfoMessage.GameInfo;
                         if (GameParamsRequestReply != null)
-                            GameParamsRequestReply(this, new RequestReplyEventArgs(true, gameInfoMessage.GameInfo.ToString()));
+                            GameParamsRequestReply(this, new RequestReplyEventArgs(true, gameInfoMessage.GameInfo.Description));
                     }
                     break;
 

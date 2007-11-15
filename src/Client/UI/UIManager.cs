@@ -7,34 +7,39 @@ using Yad.Log;
 using Yad.Log.Common;
 using Yad.Net.Common;
 
-namespace Yad.UI.Client {
-
+namespace Yad.UI.Client
+{
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ManageControlTextEventHandler(Control control, string text);
     public delegate void ManageControlStateEventHandler(Control[] option, bool state);
+    public delegate void ManageComboBoxItemsEventHandler(ComboBox comboBox, string[] objects);
+    public delegate void UpdateComboBoxEventHandler(ComboBox comboBox, string updateObject);
     public delegate void ManageListBoxEventHandler(ListBox listBox, object[] objects, bool reset);
     public delegate void RemoveListBoxEventHandler(ListBox listBox, object[] objects);
-    public delegate void ResetDataGridViewEventHandler(DataGridView gridView);
     public delegate void ManageDataGridViewEventHandler(DataGridView gridView, object[] objects, bool reset);
     public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object removeObject);
     public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObject);
 
-    public class UIManager {
+    public class UIManager
+    {
         Views actualView;
         UIManageable actualForm;
         private MenuEventHandler menuEventHandler = null;
         MiniForm mainForm;
-        public UIManager(MiniForm mainForm) {
+        public UIManager(MiniForm mainForm)
+        {
             actualView = Views.MainMenuForm;
             this.mainForm = mainForm;
             menuEventHandler = new MenuEventHandler(form_optionChoosed);
         }
 
-        public void Start() {
+        public void Start()
+        {
             ThreadStartFunction();
         }
 
-        private void ThreadStartFunction() {
+        private void ThreadStartFunction()
+        {
             actualForm = FormPool.createForm(Views.MainMenuForm);
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
@@ -42,16 +47,19 @@ namespace Yad.UI.Client {
             actualForm.Show();
         }
 
-        private void Stop() {
+        private void Stop()
+        {
             mainForm.Close();
             actualForm.Close();
         }
 
 
 
-        void form_optionChoosed(MenuOption option) {
+        void form_optionChoosed(MenuOption option)
+        {
             InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + option, EPrefix.UIManager);
-            switch (actualView) {
+            switch (actualView)
+            {
                 case Views.MainMenuForm:
                     ManageMainMenuForm(option);
                     break;
@@ -105,8 +113,10 @@ namespace Yad.UI.Client {
             InfoLog.WriteInfo("Switched to View: " + actualView, EPrefix.UIManager);
         }
 
-        private void ManageRegistrationForm(MenuOption option) {
-            switch (option) {
+        private void ManageRegistrationForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Back:
                     switchView(Views.LoginForm);
                     break;
@@ -116,8 +126,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageOptionsForm(MenuOption option) {
-            switch (option) {
+        private void ManageOptionsForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.CancelToGameMenu:
                     switchView(Views.GameMenuForm);
                     break;
@@ -141,14 +153,16 @@ namespace Yad.UI.Client {
                 case MenuOption.OkToPauseMenu:
                     switchView(Views.PauseForm);
                     break;
-                
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
             }
         }
 
-        private void ManageChatForm(MenuOption option) {
-            switch (option) {
+        private void ManageChatForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Game:
                     switchView(Views.ChooseGameForm);
                     break;
@@ -166,8 +180,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageUserInfoForm(MenuOption option) {
-            switch (option) {
+        private void ManageUserInfoForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Back:
                     switchView(Views.ChatForm);
                     break;
@@ -177,8 +193,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageChooseGameForm(MenuOption option) {
-            switch (option) {
+        private void ManageChooseGameForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Back:
                     switchView(Views.ChatForm);
                     break;
@@ -197,8 +215,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageGameForm(MenuOption option) {
-            switch (option) {
+        private void ManageGameForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Options:
                     switchView(Views.GameMenuForm, false);
                     break;
@@ -208,8 +228,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageCreateGameForm(MenuOption option) {
-            switch (option) {
+        private void ManageCreateGameForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Cancel:
                     switchView(Views.ChooseGameForm);
                     break;
@@ -224,14 +246,16 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageWaitingForPlayersForm(MenuOption option) {
-            switch (option) {
+        private void ManageWaitingForPlayersForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Cancel:
                     switchView(Views.ChooseGameForm);
                     break;
 
                 case MenuOption.StartGame:
-                    switchView(Views.GameForm,true);
+                    switchView(Views.GameForm, true);
                     break;
 
                 default:
@@ -239,8 +263,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManagePauseForm(MenuOption option) {
-            switch (option) {
+        private void ManagePauseForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Exit:
                     throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
@@ -250,7 +276,7 @@ namespace Yad.UI.Client {
                     break;
 
                 case MenuOption.Continue:
-                    switchView(Views.GameForm,true);
+                    switchView(Views.GameForm, true);
                     break;
 
                 default:
@@ -258,8 +284,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageGameMenuForm(MenuOption option) {
-            switch (option) {
+        private void ManageGameMenuForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Exit:
                     throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
@@ -269,7 +297,7 @@ namespace Yad.UI.Client {
                     break;
 
                 case MenuOption.Ok:
-                    switchView(Views.GameForm,true);
+                    switchView(Views.GameForm, true);
                     break;
 
                 case MenuOption.Pause:
@@ -281,8 +309,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageLoginForm(MenuOption option) {
-            switch (option) {
+        private void ManageLoginForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Cancel:
                     switchView(Views.MainMenuForm);
                     break;
@@ -300,8 +330,10 @@ namespace Yad.UI.Client {
             }
         }
 
-        private void ManageMainMenuForm(MenuOption option) {
-            switch (option) {
+        private void ManageMainMenuForm(MenuOption option)
+        {
+            switch (option)
+            {
                 case MenuOption.Exit:
                     Stop();
                     break;
@@ -309,7 +341,7 @@ namespace Yad.UI.Client {
                     switchView(Views.LoginForm);
                     break;
                 case MenuOption.Game:
-                    switchView(Views.GameForm,true);
+                    switchView(Views.GameForm, true);
                     break;
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
@@ -317,26 +349,27 @@ namespace Yad.UI.Client {
                     break;
 
                 default:
-                    throw new NotImplementedException("bad option from "+ actualView + ": " + option);
+                    throw new NotImplementedException("bad option from " + actualView + ": " + option);
             }
         }
 
-        private void switchView(Views viewToSwitch) {
+        private void switchView(Views viewToSwitch)
+        {
             switchView(viewToSwitch, false);
         }
 
-        private void switchView(Views viewToSwitch, bool hideLast) {
-            if(hideLast)
+        private void switchView(Views viewToSwitch, bool hideLast)
+        {
+            if (hideLast)
                 actualForm.Hide();
             actualView = viewToSwitch;
             actualForm = FormPool.createForm(viewToSwitch);
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
-            if(actualForm.Visible == false)
+            if (actualForm.Visible == false)
                 actualForm.Show(mainForm);
-            
+
         }
     }
-
 }

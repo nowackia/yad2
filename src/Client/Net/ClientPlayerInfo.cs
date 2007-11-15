@@ -10,21 +10,22 @@ namespace Yad.Net.Client
         private static short playerId = -1;
         private static string login = string.Empty;
         private static GameInfo gameInfo = null;
+        private static PlayerInfo playerInfo = new PlayerInfo();
 
         public static short PlayerId
         {
             get
-            { return playerId; }
+            { return playerInfo.Id; }
             set
-            { playerId = value; }
+            { playerInfo.Id = value; }
         }
 
         public static string Login
         {
             get
-            { return login; }
+            { return playerInfo.Name; }
             set
-            { login = value; }
+            { playerInfo.Name = value; }
         }
 
         public static string ChatPrefix
@@ -39,6 +40,14 @@ namespace Yad.Net.Client
             { return gameInfo; }
             set
             { gameInfo = value; }
+        }
+
+        public static PlayerInfo PlayerInfo
+        {
+            get
+            { return playerInfo; }
+            set
+            { playerInfo = value; }
         }
     }
 }
