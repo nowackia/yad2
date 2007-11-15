@@ -6,10 +6,7 @@ using System.Drawing.Imaging;
 using Tao.OpenGl;
 using Tao.Platform.Windows;
 using System.IO;
-using Client.Properties;
 using Yad.Log;
-using Client.Engine.GameGraphics;
-using Client.Board;
 using Yad.Board.Common;
 using Yad.Log.Common;
 using Yad.Engine.GameGraphics.Client;
@@ -18,9 +15,11 @@ using Yad.Engine.Common;
 using Yad.Board;
 using Yad.Config.Common;
 using Yad.Config;
+using Yad.Properties.Client;
+using Yad.Engine.GameGraphics.Renderes.Client;
 
-namespace Client.Engine.GameGraphics {
-	static class GameGraphics {
+namespace Yad.Engine.GameGraphics.Client {
+	static partial class GameGraphics {
 
 		#region events
 		public static event EventHandler GameGraphicsChanged;
@@ -34,6 +33,9 @@ namespace Client.Engine.GameGraphics {
 		const float unitDepth = 0.2f;
 		const float fogOfWarDepth = 0.3f;
 		static RectangleF defaultUV = new RectangleF(0, 0, 1, 1);
+		const short pictureOffset = 100;
+		const short textureOffset = 200;
+		const short turretOffset = 300;
 
 		/// <summary>
 		/// SimpleOpenGLControl's size
@@ -134,7 +136,7 @@ namespace Client.Engine.GameGraphics {
 			Gl.glLoadIdentity();
 		}
 
-		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
+		public static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
 			//Gl.glPushMatrix();
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);
 
@@ -161,7 +163,7 @@ namespace Client.Engine.GameGraphics {
 			vertexData.vertex[10] = y + height - offset.Y;
 			vertexData.vertex[11] = z;
 
-			if (Properties.Settings.Default.UseSafeRendering) {
+			if (Settings.Default.UseSafeRendering) {
 				Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 				return;
 			}
@@ -257,10 +259,6 @@ namespace Client.Engine.GameGraphics {
 		}
 
 		public static void InitTextures(Simulation simulation) {
-			const int pictureOffset = 100;
-			const int textureOffset = 200;
-			const int turretOffset = 300;
-
 			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
 
 			GameSettings gameSettings = simulation.GameSettingsWrapper.GameSettings;
@@ -271,31 +269,43 @@ namespace Client.Engine.GameGraphics {
 			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
 				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
 				Bitmap texture = new Bitmap(file);
-				Create32bTexture(o.TypeID, texture);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + pictureOffset, texture);
 			}
 
 			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
-				
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap texture = new Bitmap(file);
+				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 		}
 
@@ -305,7 +315,8 @@ namespace Client.Engine.GameGraphics {
 
 			Gl.glLoadIdentity();
 
-			Gl.glColor4f(1, 1, 1, 1);
+			//Gl.glColor4f(1, 1, 1, 1);
+			//Drawing map
 			DrawElementFromLeftBottom(0, 0, mapDepth, simulation.Map.Width, simulation.Map.Height, 1, defaultUV);
 
 			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
@@ -320,15 +331,18 @@ namespace Client.Engine.GameGraphics {
 			foreach (Player p in players) {
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
-					DrawElementFromLeftBottom(u.Position.X, u.Position.Y, unitDepth, 1, 1, 2, defaultUV);
+					//
 				}
 
 				List<Building> buildings = p.GetAllBuildings();
 				foreach (Building b in buildings) {
-					//todo: GameSettings - add method for extracting building type
-					DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, 2, 2, b.TypeId, defaultUV);
+					DrawBuilding(b);
 				}
 			}
+		}
+
+		private static void DrawBuilding(Building b) {
+			DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, b.Size.X, b.Size.Y, b.TypeID + textureOffset, defaultUV);
 		}
 
 		public static void Zoom(int zoomDiff) {

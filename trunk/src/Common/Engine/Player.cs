@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Yad.Properties.Common;
 using Yad.Board.Common;
 using System.Collections;
 

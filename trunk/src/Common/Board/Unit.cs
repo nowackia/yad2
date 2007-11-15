@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Config;
 
 namespace Yad.Board.Common
 {
@@ -10,26 +11,29 @@ namespace Yad.Board.Common
     public abstract class Unit : BoardObject
     {
         //common fields for all units - except sandworm
-        private int damageDestroy;
-        private String name;
-        private int fireRange;
-        private AmmoType ammoType;
-        private int speed;
-        private int reloadTime;
-        private int health;
-        private int viewRange;
-        private int rotationSpeed;
+        protected int damageDestroy;
+		protected String name;
+		protected int fireRange;
+		protected AmmoType ammoType;
+		protected int speed;
+		protected int reloadTime;
+		protected int health;
+		protected int viewRange;
+		protected int rotationSpeed;
 
-		private bool isMoving;
-		private short remainingTurnsToMove;
+		protected bool isMoving;
+		protected short remainingTurnsToMove;
 		Position destinationPoint;
+
+		protected short typeID;
 
         //TODO : RS implement some base AI?
         public abstract void Destroy();
         public abstract void Move();
         public abstract void DoAI();
 
-		public Unit(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		public Unit(short playerID, int unitID, short typeID, BoardObjectClass boc, Position pos) : base(playerID, unitID, boc, pos) {
+			this.typeID = typeID;
 		}
 
         public AmmoType AmmoType

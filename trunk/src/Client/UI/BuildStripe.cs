@@ -7,10 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using Yad.Log.Common;
 using System.Windows.Forms.Extended;
-using Client.Engine;
-using Client.Properties;
+using Yad.Engine.Client;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
     /// <summary>
     /// 
     /// </summary>

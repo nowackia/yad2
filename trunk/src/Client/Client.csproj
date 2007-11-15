@@ -7,7 +7,7 @@
     <ProjectGuid>{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Client</RootNamespace>
+    <RootNamespace>Yad</RootNamespace>
     <AssemblyName>Client</AssemblyName>
     <StartupObject>
     </StartupObject>
@@ -86,7 +86,6 @@
     <Compile Include="Net\MessageReceiver.cs" />
     <Compile Include="Net\MessageSender.cs" />
     <Compile Include="Net\Utils.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="UI\BuildStripe.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -470,6 +469,9 @@
     <Content Include="Resources\Graphics\Bullets\Sonic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Graphics\Pictures\Atreides.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Pictures\Barracks.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -497,6 +499,9 @@
     <Content Include="Resources\Graphics\Pictures\GunTurret.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Graphics\Pictures\Harkonnen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Pictures\Harvester.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -522,6 +527,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Pictures\MCV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\Ordos.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Pictures\Ornithopter.png">

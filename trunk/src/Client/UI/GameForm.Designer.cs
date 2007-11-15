@@ -1,4 +1,4 @@
-namespace Client.UI
+namespace Yad.UI.Client
 {
     partial class GameForm
     {
@@ -33,8 +33,8 @@ namespace Client.UI
             this.panelUITop_E = new System.Windows.Forms.Panel();
             this.panelUITop_W = new System.Windows.Forms.Panel();
             this.panelUIControl = new System.Windows.Forms.Panel();
-            this.rightStripe = new Client.UI.BuildStripe();
-            this.leftStripe = new Client.UI.BuildStripe();
+            this.rightStripe = new Yad.UI.Client.BuildStripe();
+            this.leftStripe = new Yad.UI.Client.BuildStripe();
             this.panelUIBall_W2 = new System.Windows.Forms.Panel();
             this.panelUIBall_E = new System.Windows.Forms.Panel();
             this.panelUIBall_W1 = new System.Windows.Forms.Panel();
@@ -61,7 +61,7 @@ namespace Client.UI
             // panelUITop_E
             // 
             this.panelUITop_E.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUITop_E.BackgroundImage = global::Client.Properties.Resources.UI_TopMenu_E;
+            this.panelUITop_E.BackgroundImage = global::Yad.Properties.Resources.UI_TopMenu_E;
             this.panelUITop_E.Location = new System.Drawing.Point(789, 0);
             this.panelUITop_E.Name = "panelUITop_E";
             this.panelUITop_E.Size = new System.Drawing.Size(4, 50);
@@ -69,7 +69,7 @@ namespace Client.UI
             // 
             // panelUITop_W
             // 
-            this.panelUITop_W.BackgroundImage = global::Client.Properties.Resources.UI_TopMenu_W;
+            this.panelUITop_W.BackgroundImage = global::Yad.Properties.Resources.UI_TopMenu_W;
             this.panelUITop_W.Location = new System.Drawing.Point(0, 0);
             this.panelUITop_W.Name = "panelUITop_W";
             this.panelUITop_W.Size = new System.Drawing.Size(4, 50);
@@ -79,7 +79,7 @@ namespace Client.UI
             // 
             this.panelUIControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUIControl.BackgroundImage = global::Client.Properties.Resources.UI_Background;
+			this.panelUIControl.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
             this.panelUIControl.Controls.Add(this.rightStripe);
             this.panelUIControl.Controls.Add(this.leftStripe);
             this.panelUIControl.Location = new System.Drawing.Point(606, 64);
@@ -110,7 +110,7 @@ namespace Client.UI
             // panelUIBall_W2
             // 
             this.panelUIBall_W2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUIBall_W2.BackgroundImage = global::Client.Properties.Resources.UI_Ball_W;
+			this.panelUIBall_W2.BackgroundImage = global::Yad.Properties.Resources.UI_Ball_W;
             this.panelUIBall_W2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelUIBall_W2.Location = new System.Drawing.Point(774, 359);
             this.panelUIBall_W2.Name = "panelUIBall_W2";
@@ -119,7 +119,7 @@ namespace Client.UI
             // 
             // panelUIBall_E
             // 
-            this.panelUIBall_E.BackgroundImage = global::Client.Properties.Resources.UI_Ball_E;
+			this.panelUIBall_E.BackgroundImage = global::Yad.Properties.Resources.UI_Ball_E;
             this.panelUIBall_E.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelUIBall_E.Location = new System.Drawing.Point(0, 50);
             this.panelUIBall_E.Name = "panelUIBall_E";
@@ -129,7 +129,7 @@ namespace Client.UI
             // panelUIBall_W1
             // 
             this.panelUIBall_W1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUIBall_W1.BackgroundImage = global::Client.Properties.Resources.UI_Ball_W;
+			this.panelUIBall_W1.BackgroundImage = global::Yad.Properties.Resources.UI_Ball_W;
             this.panelUIBall_W1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelUIBall_W1.Location = new System.Drawing.Point(774, 50);
             this.panelUIBall_W1.Name = "panelUIBall_W1";
@@ -160,7 +160,7 @@ namespace Client.UI
             // 
             this.panelUITop_MAIN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUITop_MAIN.BackgroundImage = global::Client.Properties.Resources.UI_TopMenu_MAIN;
+			this.panelUITop_MAIN.BackgroundImage = global::Yad.Properties.Resources.UI_TopMenu_MAIN;
             this.panelUITop_MAIN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelUITop_MAIN.Location = new System.Drawing.Point(4, 0);
             this.panelUITop_MAIN.Name = "panelUITop_MAIN";
@@ -181,7 +181,7 @@ namespace Client.UI
             // 
             this.panelUILine_WE1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUILine_WE1.BackgroundImage = global::Client.Properties.Resources.UI_Line_WE;
+			this.panelUILine_WE1.BackgroundImage = global::Yad.Properties.Resources.UI_Line_WE;
             this.panelUILine_WE1.Location = new System.Drawing.Point(12, 50);
             this.panelUILine_WE1.Name = "panelUILine_WE1";
             this.panelUILine_WE1.Size = new System.Drawing.Size(768, 14);
@@ -190,7 +190,7 @@ namespace Client.UI
             // panelUILine_WE2
             // 
             this.panelUILine_WE2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUILine_WE2.BackgroundImage = global::Client.Properties.Resources.UI_Line_WE;
+			this.panelUILine_WE2.BackgroundImage = global::Yad.Properties.Resources.UI_Line_WE;
             this.panelUILine_WE2.Location = new System.Drawing.Point(607, 359);
             this.panelUILine_WE2.Name = "panelUILine_WE2";
             this.panelUILine_WE2.Size = new System.Drawing.Size(173, 14);

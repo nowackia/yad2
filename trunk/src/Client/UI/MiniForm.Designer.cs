@@ -1,4 +1,4 @@
-namespace Client.UI {
+namespace Yad.UI.Client {
     partial class MiniForm {
         /// <summary>
         /// Required designer variable.

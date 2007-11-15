@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Yad.Config {
-	public enum DataType : short {
-		AmmoData,
-		BuildingData,
-		RaceData,
-		UnitHarvesterData,
-		UnitMCVData,
-		UnitSandwormData,
-		UnitTankData,
-		UnitTrooperData,
+	public enum BoardObjectClass : short {
+		Ammo,
+		Building,
+		Race,
+		UnitHarvester,
+		UnitMCV,
+		UnitSandworm,
+		UnitTank,
+		UnitTrooper,
 	}
 }

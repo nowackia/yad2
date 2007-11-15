@@ -2,19 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
+using System.Drawing;
+using Yad.Engine.GameGraphics.Client;
 
-namespace Client.Board.Renderers
-{
-    class BuildingRenderer: IRenderer
-    {
+namespace Yad.Engine.GameGraphics.Client {
 
-        #region IRenderable Members
+	class BuildingRenderer : IRenderer {
 
-        public void Render(BoardObject boardObject)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+		#region IRenderable Members
 
-        #endregion
-    }
+		public void Render(BoardObject boardObject) {
+		}
+
+		#endregion
+	}
 }
