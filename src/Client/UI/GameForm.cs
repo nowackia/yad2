@@ -21,6 +21,7 @@ using Yad.Board;
 using Yad.Net.Client;
 using Yad.Properties.Client;
 using Yad.Utilities.Common;
+using Yad.Net.Client;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -149,16 +150,7 @@ namespace Yad.UI.Client {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
-				//TODO: remove
-				BuildMessage bm = new BuildMessage();
-				Position p = GameGraphics.TranslateMousePosition(e.Location);
-				bm.BuildingID = currPlayer.GenerateObjectID();
-				bm.PlayerId = currPlayer.ID;
-				BuildingData bd = sim.GameSettingsWrapper.GameSettings.BuildingsData[Randomizer.NextShort(2)];
-				bm.BuildingType = bd.TypeID;
-				bm.Type = MessageType.Build;
-				bm.Position = p;
-				conn.SendMessage(bm);
+				
 				//TODO END
 			}
 		}
