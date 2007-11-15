@@ -205,6 +205,7 @@ namespace Yad.UI.Client
         private void haxxx_Click(object sender, EventArgs e)
         {
             Connection.Instance.MessageHandler = GameMessageHandler.Instance;
+            //Connection.Instance.InitConnection("127.0.0.1", 1734);
             OnMenuOptionChange(MenuOption.Game);
         }
         #endregion
