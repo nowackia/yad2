@@ -10,6 +10,7 @@ using Yad.Engine.Common;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
+using Yad.UI.Common;
 
 namespace Yad.UI.Client
 {
@@ -198,11 +199,12 @@ namespace Yad.UI.Client
 
         private void creditsMainMenu_Click(object sender, EventArgs e)
         {
-
+            MessageBoxEx.Show(this, "Pay Us :)", "Credits", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
         private void haxxx_Click(object sender, EventArgs e)
         {
+            Connection.Instance.MessageHandler = GameMessageHandler.Instance;
             OnMenuOptionChange(MenuOption.Game);
         }
         #endregion
@@ -248,7 +250,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
 
@@ -271,7 +273,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Remind Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -309,7 +311,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_RegisterRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Register Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -491,7 +493,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Join Game Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -531,14 +533,14 @@ namespace Yad.UI.Client
                 Connection.Instance.SendMessage(createGameMessage);
             }
             else
-                MessageBox.Show("No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxEx.Show(this, "No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
         #region MenuMessageHandler Events
         void menuMessageHandler_CreateGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Create Game Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
                 if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
@@ -571,7 +573,7 @@ namespace Yad.UI.Client
         {
             ComboBox comboBox = sender as ComboBox;
 
-            //MessageBox.Show(comboBox.Name + ": " + comboBox.SelectedItem.ToString());
+            //MessageBoxEx.Show(this, comboBox.Name + ": " + comboBox.SelectedItem.ToString());
         }
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
@@ -690,7 +692,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Start Game Event", EPrefix.UIManager);
-            MessageBox.Show(e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
                 /* Change message handler to GameMessageHandler */

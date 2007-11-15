@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using Yad.UI.Common;
 
 namespace Yad.Log.Common
 {
@@ -26,7 +27,7 @@ namespace Yad.Log.Common
             }
             catch (IOException)
             {
-                MessageBox.Show("Cannot open ErrorLog.txt file");
+                MessageBoxEx.Show("Cannot open ErrorLog.txt file");
             }
         }
 

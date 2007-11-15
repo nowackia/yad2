@@ -68,6 +68,7 @@ namespace Yad.Net.Client
                 case MessageType.Harvest:
                 case MessageType.Attack:
                     GameForm.sim.AddGameMessage((GameMessage)message);
+                    break;
 
                 case MessageType.DoTurn:
                     if (DoTurnPermission != null)
@@ -76,7 +77,6 @@ namespace Yad.Net.Client
 
                 case MessageType.Control:
                     throw new NotImplementedException("Control message handling has not been implemented yet - is it needed ?");
-                    break;
 
                 default:
                     InfoLog.WriteInfo("GameMessageHandler received unknown message type: " + message.Type, EPrefix.ClientInformation);

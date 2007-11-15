@@ -92,7 +92,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			int width = bitmap.Width;
 			int height = bitmap.Height;
 			Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-			//MessageBox.Show(bitmap.PixelFormat + " " + bitmap.PhysicalDimension);
+			//MessageBoxEx.Show(this, bitmap.PixelFormat + " " + bitmap.PhysicalDimension);
 			BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
 			//Gl.glEnable(Gl.GL_TEXTURE_2D);
@@ -390,7 +390,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 			UpdateViewport();
 
-			//MessageBox.Show(Gl.glGetString(Gl.GL_VERSION));
+			//MessageBoxEx.Show(this, Gl.glGetString(Gl.GL_VERSION));
 		}
 
 		public static void Zoom(int zoomDiff) {

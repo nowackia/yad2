@@ -12,6 +12,7 @@ using Yad.Board;
 using Yad.Config;
 using System.Windows.Forms;
 using Yad.Utilities.Common;
+using Yad.UI.Common;
 
 namespace Yad.Engine.Common {
 
@@ -303,7 +304,7 @@ namespace Yad.Engine.Common {
 					nextTurn.Release();
 				} catch (SemaphoreFullException) {
 					currentTurn--;
-					MessageBox.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
+					MessageBoxEx.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
 		}
