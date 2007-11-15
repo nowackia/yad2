@@ -10,7 +10,7 @@ namespace Yad.Net.GameServer.Server {
 
     public delegate void GameEndDelegate(object sender, GameEndEventArgs geea);
 
-    public class GameServer : BaseServer {
+    class GameServer : BaseServer {
 
         #region Private members
 
@@ -43,11 +43,22 @@ namespace Yad.Net.GameServer.Server {
                 }
             }
 
-            _msgHandler = new GameMessageHandler(this);
-            _msgHandler.SetSender(_msgSender);
+            MessageHandler = new GameMessageHandler(this);
+            MessageHandler.SetSender(_msgSender);
 
             
             InfoLog.WriteInfo("Game server for game: " + sgInfo.Name + "created successfully", EPrefix.ServerInformation);
+        }
+
+        public void ChangeMessageHanders(Yad.Net.Server.Server server) {
+            foreach (Player player in _playerCollection) {
+                Player p = player as Player;
+                lock (p) {
+                    p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
+                    p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                    p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
+                }
+            }
         }
 
         #endregion
@@ -61,6 +72,9 @@ namespace Yad.Net.GameServer.Server {
 
         public void Stop() {
             StopMessageProcessing();
+        }
+
+        public void OnConnectionLost(object sender, ConnectionLostEventArgs clea) {
         }
 
         #endregion

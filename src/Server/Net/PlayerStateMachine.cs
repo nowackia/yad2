@@ -9,7 +9,8 @@ namespace Yad.Net.Server {
         Chat,
         GameChoose,
         GameJoin,
-        Invalid
+        Invalid,
+        Game,
     }
 
     public enum MenuAction : byte {
@@ -17,6 +18,7 @@ namespace Yad.Net.Server {
         ChatEntry,
         GameChooseEntry,
         GameJoinEntry,
+        GameStart,
         Logout
     }
 
@@ -97,6 +99,9 @@ namespace Yad.Net.Server {
                                     break;
                                 case MenuAction.Logout:
                                     _transitions[i, j] = MenuState.Unlogged;
+                                    break;
+                                case MenuAction.GameStart:
+                                    _transitions[i, j] = MenuState.Game;
                                     break;
                                 default:
                                     _transitions[i,j] = MenuState.Invalid;

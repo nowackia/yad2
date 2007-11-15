@@ -6,6 +6,7 @@ using System.Collections;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 using Yad.Properties;
+using Serv = Yad.Net.GameServer.Server;
 
 namespace Yad.Net.Server {
      
@@ -17,6 +18,7 @@ namespace Yad.Net.Server {
         private Dictionary<short, Player> _players = null;
         private Dictionary<string, ServerGameInfo> _games = null;
         private IMessageSender _sender = null;
+        private List<Serv.GameServer> _gameServerList = null;
 
         #endregion
 

@@ -7,7 +7,12 @@ using System.Collections;
 namespace Yad.Net.Server {
     public class BaseServer : IPlayerProvider {
 
-        protected MessageHandler _msgHandler;
+        private MessageHandler _msgHandler;
+
+        public MessageHandler MessageHandler {
+            get { return _msgHandler; }
+            set { _msgHandler = value; }
+        }
         protected ServerMessageSender _msgSender;
         protected IDictionary<short, Player> _playerCollection;
 
