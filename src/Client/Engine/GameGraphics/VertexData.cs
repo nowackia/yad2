@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Client.Engine.GameGraphics {
+namespace Yad.Engine.GameGraphics.Client {
 	class VertexData {
 		public float[] vertex = new float[3 * 4];
 		public float[] uv = new float[2 * 4];

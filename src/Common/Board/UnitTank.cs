@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Config;
 
 namespace Yad.Board.Common
 {
@@ -9,7 +10,8 @@ namespace Yad.Board.Common
         private Animation turretAnimation;
         private int turretRotationSpeed;
 
-		public UnitTank(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		public UnitTank(short playerID, int unitID, short typeID, Position pos)
+			: base(playerID, unitID, typeID, BoardObjectClass.UnitTank, pos) {
 		}
 
         public int TurretRotationSpeed

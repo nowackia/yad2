@@ -4,10 +4,9 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Client.Board;
 using Yad.Board.Common;
-using Client.Properties;
 using Yad.Engine.GameGraphics.Client;
+using Yad.Properties.Client;
 
 namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {

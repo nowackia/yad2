@@ -7,9 +7,8 @@ using Yad.Board.Common;
 using Yad.Config.Common;
 using Yad.Board;
 using Yad.Config;
-using Client.UI;
-using Client.Net;
 using Yad.Net.Messaging;
+using Yad.Net.Client;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
@@ -55,7 +54,7 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
-			Unit u = new UnitTank(cum.PlayerId, cum.UnitID, cum.Position);
+			Unit u = new UnitTank(cum.PlayerId, cum.UnitID, cum.UnitType, cum.Position);
 			if (players[cum.PlayerId] == null)
 				throw new Exception("Message from unknown player");
 			players[cum.PlayerId].AddUnit(u);

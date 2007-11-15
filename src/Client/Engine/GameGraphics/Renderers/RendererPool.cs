@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Engine.GameGraphics.Client;
 
-namespace Client.Board.Renderers
+namespace Yad.Engine.GameGraphics.Renderes.Client
+
 {
     static class RendererPool
     {

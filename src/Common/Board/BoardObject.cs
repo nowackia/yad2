@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Config.Common;
+using Yad.Config;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -19,6 +20,8 @@ namespace Yad.Board.Common {
 		int objectID;
 		Position position;
 
+		BoardObjectClass boardObjectClass;
+
 		/// <summary>
 		/// This will be null for Server.
 		/// </summary>
@@ -30,10 +33,17 @@ namespace Yad.Board.Common {
 		/// <param name="pID">playerID</param>
 		/// <param name="oID">objectID</param>
 		/// <param name="pos">position</param>
-		public BoardObject(short pID, int oID, Position pos) {
+		public BoardObject(short pID, int oID, BoardObjectClass ot, Position pos) {
 			this.playerID = pID;
 			this.objectID = oID;
 			this.position = pos;
+			this.boardObjectClass = ot;
+		}
+
+		public BoardObjectClass BoardObjectClass {
+			get {
+				return this.boardObjectClass;
+			}
 		}
 
 		public short PlayerID {

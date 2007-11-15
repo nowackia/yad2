@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace Client.UI
+namespace Yad.UI.Client
 {
     partial class MainMenuForm
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
     public enum MenuOption {
         Exit,
         Ok,

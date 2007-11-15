@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Client.Engine.GameGraphics {
+namespace Yad.Engine.GameGraphics.Client {
     public class ClipRectangle {
         private float x;
         private float y;

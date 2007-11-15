@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Config;
 
 namespace Yad.Board.Common
 {
     public class UnitMCV : Unit
     {
-		public UnitMCV(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		public UnitMCV(short playerID, int unitID, short typeID, Position pos)
+			: base(playerID, unitID, typeID, BoardObjectClass.UnitMCV, pos) {
 		}
 
         public override void Destroy()

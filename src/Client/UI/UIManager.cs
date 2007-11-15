@@ -7,7 +7,7 @@ using Yad.Log;
 using Yad.Log.Common;
 using Yad.Net.Common;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
 
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ManageControlTextEventHandler(Control control, string text);

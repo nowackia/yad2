@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
     public partial class MiniForm : Form {
         public MiniForm() {
             InitializeComponent();

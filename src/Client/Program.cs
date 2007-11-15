@@ -1,4 +1,3 @@
-using Client.UI;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -12,6 +11,7 @@ using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
+using Yad.UI.Client;
 
 namespace Yad.Client
 {

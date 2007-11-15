@@ -6,11 +6,9 @@ using Yad.Config.Common;
 using Yad.Engine.Common;
 using Yad.Config;
 using System.IO;
-using Yad.Properties.Common;
-using Yad.Properties;
-using Client.Properties;
+using Yad.Properties.Client;
 
-namespace Client.Engine {
+namespace Yad.Engine.Client {
 
     public interface IManageableStripe {
          void Add(short id,string name, String pictureName);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
-using Client.Properties;
+using Yad.Properties.Client;
 
 namespace Yad.Engine.GameGraphics.Client
 {

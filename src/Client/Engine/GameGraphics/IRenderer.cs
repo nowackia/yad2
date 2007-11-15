@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
 
-namespace Client.Board
+namespace Yad.Engine.GameGraphics.Client
 {
     /// <summary>
     /// Interface for rendering in TAO.

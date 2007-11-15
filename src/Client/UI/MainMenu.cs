@@ -5,15 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Yad.Config;
-using Yad.Log.Common;
-using Yad.Net;
 using Yad.Net.Client;
+using Yad.Engine.Common;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
-using Yad.Engine.Common;
+using Yad.Log.Common;
 
-namespace Client.UI
+namespace Yad.UI.Client
 {
     public partial class MainMenuForm : UIManageable
     {
@@ -264,7 +262,7 @@ namespace Client.UI
         {
             Connection.InitConnection(serverLoginMenu.Text, 1734);
 
-            TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.Remind);
+			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.SendMessage(remindMessage);
 

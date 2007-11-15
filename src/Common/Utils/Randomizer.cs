@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yad.Utils.Common {
+namespace Yad.Utilities.Common {
 	public static class Randomizer {
 		static Random rnd = new Random();
 

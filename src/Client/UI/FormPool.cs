@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.UI.Client;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
     class FormPool {
 
         public static Dictionary<Views, UIManageable> pool = new Dictionary<Views, UIManageable>();

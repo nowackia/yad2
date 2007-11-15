@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
+using Yad.Engine.GameGraphics.Client;
 
-namespace Client.Board.Renderers
+namespace Yad.Engine.GameGraphics.Renderes.Client
+
 {
     class TankRenderer: IRenderer
     {

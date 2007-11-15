@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
     public class UIManageable : Form
     {
         public event MenuEventHandler MenuOptionChange;

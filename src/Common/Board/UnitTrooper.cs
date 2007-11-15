@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Config;
 
 namespace Yad.Board.Common
 {
     public class UnitTrooper:Unit
     {
-		public UnitTrooper(short playerID, int unitID, Position pos) : base(playerID, unitID, pos) {
+		public UnitTrooper(short playerID, int unitID, short typeID, Position pos)
+			: base(playerID, unitID, typeID, BoardObjectClass.UnitTrooper, pos) {
 		}
 
         public override void Destroy()

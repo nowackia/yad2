@@ -5,10 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Client.Engine.GameGraphics;
 using Tao.Platform.Windows;
-using Client.Properties;
-using Client.Board;
 using System.IO;
 using Yad.Log;
 using Yad.Log.Common;
@@ -18,14 +15,14 @@ using Yad.Board.Common;
 using Yad.Engine.GameGraphics.Client;
 using Yad.Engine.Client;
 using Yad.Net.Messaging.Common;
-using Yad.Utils.Common;
 using Yad.Engine.Common;
 using Yad.Config;
 using Yad.Board;
-using Client.Net;
-using Client.Engine;
+using Yad.Net.Client;
+using Yad.Properties.Client;
+using Yad.Utilities.Common;
 
-namespace Client.UI {
+namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
 
 		bool scrolling = false;
