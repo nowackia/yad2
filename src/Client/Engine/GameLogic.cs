@@ -56,6 +56,7 @@ namespace Yad.Engine.Client
 			{
 				if (buildingPositionOK(pos, GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID))
 				{
+					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
 					bm.BuildingID = GameForm.currPlayer.GenerateObjectID();
 					bm.PlayerId = GameForm.currPlayer.ID;

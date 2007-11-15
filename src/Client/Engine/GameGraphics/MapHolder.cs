@@ -53,7 +53,7 @@ namespace Yad.Engine.GameGraphics.Client {
 		private static int FindFrame(Map map, int x, int y)
 		{
 			int result;
-			if (x < 0 || y < 0 || x > map.Width || y > map.Height)
+			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
 				throw new MapHolderException("Incorrect map position");
 			ETextures tileLeft, tileRight, tileUpper, tileLower;
 			if (x > 0)
@@ -82,13 +82,13 @@ namespace Yad.Engine.GameGraphics.Client {
 
 		private static int Match(ETextures[] tileType, ETextures center ,ETextures tileLeft, ETextures tileRight, ETextures tileLower, ETextures tileUpper)
 		{
-			if ((int)tileLeft == 255)
+			if (tileLeft == ETextures.Whatever)
 				tileLeft = center;
-			if ((int)tileRight == 255)
+			if (tileRight == ETextures.Whatever)
 				tileRight = center;
-			if ((int)tileUpper == 255)
+			if (tileUpper == ETextures.Whatever)
 				tileUpper = center;
-			if ((int)tileLower == 255)
+			if (tileLower == ETextures.Whatever)
 				tileLower = center;
 			if (tileType[0] == center && (tileType[1] == tileLeft || tileType[1] == ETextures.Whatever) && (tileType[2] == tileRight || tileType[2] == ETextures.Whatever) && (tileType[3] == tileUpper || tileType[3] == ETextures.Whatever) && (tileType[4] == tileLower || tileType[4] == ETextures.Whatever))
 				return (int)tileType[5];
