@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Net.Common;
 
 namespace Yad.Net.Client
 {
@@ -8,7 +9,7 @@ namespace Yad.Net.Client
     {
         private static short playerId = -1;
         private static string login = string.Empty;
-        private static string gameName = string.Empty;
+        private static GameInfo gameInfo = null;
 
         public static short PlayerId
         {
@@ -32,12 +33,12 @@ namespace Yad.Net.Client
             { return "[" + Login + "] : ";  }
         }
 
-        public static string GameName
+        public static GameInfo GameInfo
         {
             get
-            { return gameName; }
+            { return gameInfo; }
             set
-            { gameName = value; }
+            { gameInfo = value; }
         }
     }
 }

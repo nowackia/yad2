@@ -218,10 +218,11 @@ namespace Yad.Net.Client
                     break;
 
                 case MessageType.GameParams:
-                    if (GameParamsRequestReply != null)
                     {
                         GameInfoMessage gameInfoMessage = message as GameInfoMessage;
-                        GameParamsRequestReply(this, new RequestReplyEventArgs(true, gameInfoMessage.GameInfo.ToString()));
+                        ClientPlayerInfo.GameInfo = gameInfoMessage.GameInfo;
+                        if (GameParamsRequestReply != null)
+                            GameParamsRequestReply(this, new RequestReplyEventArgs(true, gameInfoMessage.GameInfo.ToString()));
                     }
                     break;
 

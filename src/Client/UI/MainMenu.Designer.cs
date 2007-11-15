@@ -98,9 +98,10 @@ namespace Client.UI
             this.createCreateGameMenu = new System.Windows.Forms.Button();
             this.waitingForPlayersMenu = new System.Windows.Forms.TabPage();
             this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.House = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Team = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
@@ -914,6 +915,7 @@ namespace Client.UI
             this.dataGridViewPlayers.AllowUserToResizeRows = false;
             this.dataGridViewPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
             this.PlayersName,
             this.House,
             this.Team});
@@ -922,9 +924,16 @@ namespace Client.UI
             this.dataGridViewPlayers.MultiSelect = false;
             this.dataGridViewPlayers.Name = "dataGridViewPlayers";
             this.dataGridViewPlayers.RowHeadersVisible = false;
-            this.dataGridViewPlayers.Size = new System.Drawing.Size(235, 147);
+            this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 147);
             this.dataGridViewPlayers.TabIndex = 6;
             this.dataGridViewPlayers.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewPlayers_EditingControlShowing);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 25;
+            this.Id.Name = "Id";
+            this.Id.Width = 25;
             // 
             // PlayersName
             // 
@@ -945,16 +954,15 @@ namespace Client.UI
             // Team
             // 
             this.Team.HeaderText = "Team";
-            this.Team.MinimumWidth = 55;
+            this.Team.MinimumWidth = 75;
             this.Team.Name = "Team";
             this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Team.Width = 55;
+            this.Team.Width = 75;
             // 
             // descriptionLWaitingForPlayersMenu
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
-            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(253, 86);
+            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(296, 86);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
             this.descriptionLWaitingForPlayersMenu.TabIndex = 5;
@@ -962,7 +970,7 @@ namespace Client.UI
             // 
             // descriptionWaitingForPlayersMenu
             // 
-            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(256, 102);
+            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(299, 102);
             this.descriptionWaitingForPlayersMenu.Multiline = true;
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
             this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(128, 147);
@@ -979,7 +987,7 @@ namespace Client.UI
             // 
             // startWaitingForPlayersMenu
             // 
-            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(394, 102);
+            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(433, 102);
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
             this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.startWaitingForPlayersMenu.TabIndex = 1;
@@ -989,7 +997,7 @@ namespace Client.UI
             // 
             // cancelWaitingForPlayersMenu
             // 
-            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(394, 131);
+            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(433, 131);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
             this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelWaitingForPlayersMenu.TabIndex = 0;
@@ -1398,10 +1406,11 @@ namespace Client.UI
         private Button sendChatMenu;
         private TextBox textBoxTBGameName;
         private DataGridView dataGridViewPlayers;
-        private DataGridViewTextBoxColumn PlayersName;
-        private DataGridViewComboBoxColumn House;
-        private DataGridViewTextBoxColumn Team;
         private NumericUpDown maxPlayerNumberNUPCreateGameMenu;
         private Label maxPlayerNumberLCreateGameMenu;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn PlayersName;
+        private DataGridViewComboBoxColumn House;
+        private DataGridViewComboBoxColumn Team;
     }
 }

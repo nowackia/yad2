@@ -24,6 +24,11 @@ namespace Client.UI
         {
             InitializeComponent();
 
+            GameInfo gi = new GameInfo();
+            gi.MaxPlayerNumber = 8;
+            ClientPlayerInfo.GameInfo = gi;
+            this.ResetDataGridView(this.dataGridViewPlayers);
+
             #region Views Settings
             views.Add(Views.ChatForm, chatMenu);
             views.Add(Views.ChooseGameForm, chooseGameMenu);
@@ -36,19 +41,6 @@ namespace Client.UI
             views.Add(Views.RegistrationForm, registerMenu);
             views.Add(Views.UserInfoForm, playerInfoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
-            #endregion
-
-            #region ComboBox DataGridView Settings
-            //TODO (AN) change to reading races from xml
-            foreach(object obj in Enum.GetValues(typeof(HouseType)))
-                House.Items.Add(obj.ToString());
-
-            int index = dataGridViewPlayers.Rows.Add();
-            DataGridViewRow row = dataGridViewPlayers.Rows[index];
-            row.Cells[0].Value = ClientPlayerInfo.Login;
-            row.Cells[1].Value = HouseType.Harkonnen.ToString();
-            //TODO (AN) do something with team ID - numericUpdown ?
-            row.Cells[2].Value = "1";
             #endregion
 
             #region MenuMessageHandler Settings
@@ -122,6 +114,36 @@ namespace Client.UI
                 listBox.Items.Remove(objects[i]);
         }
 
+        public void ResetDataGridView(DataGridView gridView)
+        {
+            //TODO (AN) change to reading races from xml
+            GameInfo gi = ClientPlayerInfo.GameInfo;
+            if (gi != null)
+            {
+                House.Items.Clear();
+                foreach (object obj in Enum.GetValues(typeof(HouseType)))
+                    House.Items.Add(obj.ToString());
+
+                Team.Items.Clear();
+                //TODO (AN) Remove team not possible to enter
+                for (int i = 1; i <= gi.MaxPlayerNumber; i++)
+                    Team.Items.Add(i.ToString());
+
+                if(dataGridViewPlayers.Rows.Count > 0 && dataGridViewPlayers.Rows[0].ReadOnly == false)
+                    dataGridViewPlayers.Rows.RemoveAt(0);
+
+                dataGridViewPlayers.Rows.Insert(0, 1);
+                DataGridViewRow row = dataGridViewPlayers.Rows[0];
+                row.ReadOnly = false;
+                row.Cells[0].Value = 1;
+                row.Cells[0].ReadOnly = true;
+                row.Cells[1].Value = ClientPlayerInfo.Login;
+                row.Cells[1].ReadOnly = true;
+                row.Cells[2].Value = House.Items[0];
+                row.Cells[3].Value = Team.Items[0];
+            }
+        }
+
         public void ManageDataGridView(DataGridView gridView, object[] objects, bool reset)
         {
             if (reset)
@@ -135,9 +157,10 @@ namespace Client.UI
                 int index = dataGridViewPlayers.Rows.Add();
                 DataGridViewRow row = dataGridViewPlayers.Rows[index];
                 PlayerInfo playerInfoObject = objects[i] as PlayerInfo;
-                row.Cells[0].Value = playerInfoObject.Name;
-                row.Cells[1].Value = playerInfoObject.House.ToString();
-                row.Cells[2].Value = playerInfoObject.TeamID;
+                row.Cells[0].Value = playerInfoObject.Id;
+                row.Cells[1].Value = playerInfoObject.Name;
+                row.Cells[2].Value = playerInfoObject.House.ToString();
+                row.Cells[3].Value = playerInfoObject.TeamID;
                 row.ReadOnly = true;
             }
         }
@@ -150,7 +173,7 @@ namespace Client.UI
             {
                 DataGridViewRow row = dataGridViewPlayers.Rows[i];
 
-                if ((string)row.Cells[0].Value == playerInfoObject.Name)
+                if ((short)row.Cells[0].Value == playerInfoObject.Id)
                 {
                     gridView.Rows.RemoveAt(i);
                     break;
@@ -166,10 +189,10 @@ namespace Client.UI
             {
                 DataGridViewRow row = dataGridViewPlayers.Rows[i];
 
-                if ((string)row.Cells[0].Value == playerInfoObject.Name)
+                if ((short)row.Cells[0].Value == playerInfoObject.Id)
                 {
-                    row.Cells[1].Value = playerInfoObject.House.ToString();
-                    row.Cells[2].Value = playerInfoObject.TeamID;
+                    row.Cells[2].Value = playerInfoObject.House.ToString();
+                    row.Cells[3].Value = playerInfoObject.TeamID;
                     break;
                 }
             }
@@ -442,7 +465,6 @@ namespace Client.UI
         {
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.JoinGame);
             textMessage.Text = textBoxTBGameName.Text;
-            ClientPlayerInfo.GameName = gameNameTBCreateGameMenu.Text;
             Connection.SendMessage(textMessage);
         }
 
@@ -530,8 +552,6 @@ namespace Client.UI
                 else
                     gameInfo.GameType = GameType.Public;
 
-                ClientPlayerInfo.GameName = gameNameTBCreateGameMenu.Text;
-
                 createGameMessage.GameInfo = gameInfo;
                 Connection.SendMessage(createGameMessage);
             }
@@ -569,27 +589,45 @@ namespace Client.UI
             ManageControlState(new Control[] { startWaitingForPlayersMenu }, false);
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
-            textMessage.Text = ClientPlayerInfo.GameName;
             Connection.SendMessage(textMessage);
         }
 
         private void dataGridViewPlayers_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            DataGridView dataGridView = sender as DataGridView;
             ComboBox comboBox = e.Control as ComboBox;
 
             if (comboBox != null)
             {
-                comboBox.SelectedIndexChanged -= new EventHandler(comboBox_SelectedIndexChanged);
-                comboBox.SelectedIndexChanged += new EventHandler(comboBox_SelectedIndexChanged);
+                switch (dataGridView.CurrentCell.ColumnIndex)
+                {
+                    case 2:
+                        comboBox.SelectedIndexChanged += new EventHandler(houseComboBox_SelectedIndexChanged);
+                        break;
+
+                    case 3:
+                        comboBox.SelectedIndexChanged += new EventHandler(teamComboBox_SelectedIndexChanged);
+                        break;
+                }
             }
         }
 
-        void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        void houseComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
 
             //TODO (AN) Send Message with changed information
-            
+            MessageBox.Show("House: " + comboBox.SelectedItem.ToString());
+            comboBox.SelectedIndexChanged -= new EventHandler(houseComboBox_SelectedIndexChanged);
+        }
+
+        void teamComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            //TODO (AN) Send Message with changed information
+            MessageBox.Show("Team: " + comboBox.SelectedItem.ToString());
+            comboBox.SelectedIndexChanged -= new EventHandler(teamComboBox_SelectedIndexChanged);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -599,8 +637,16 @@ namespace Client.UI
 
             if (e.successful)
             {
-                if (InvokeRequired) this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
-                else ManageControlText(playerInfoLInfoMenu, e.reason);
+                if (InvokeRequired)
+                {
+                    this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
+                    this.BeginInvoke(new ResetDataGridViewEventHandler(ResetDataGridView), new object[] { dataGridViewPlayers });
+                }
+                else
+                {
+                    ManageControlText(playerInfoLInfoMenu, e.reason);
+                    ResetDataGridView(dataGridViewPlayers);
+                }
             }
         }
 
