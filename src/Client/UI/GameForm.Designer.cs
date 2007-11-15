@@ -33,8 +33,8 @@ namespace Yad.UI.Client
             this.panelUITop_E = new System.Windows.Forms.Panel();
             this.panelUITop_W = new System.Windows.Forms.Panel();
             this.panelUIControl = new System.Windows.Forms.Panel();
-            this.rightStripe = new Yad.UI.Client.BuildStripe();
-            this.leftStripe = new Yad.UI.Client.BuildStripe();
+            this.rightStripe = new Yad.UI.Client.BuildStripe(false);
+            this.leftStripe = new Yad.UI.Client.BuildStripe(true);
             this.panelUIBall_W2 = new System.Windows.Forms.Panel();
             this.panelUIBall_E = new System.Windows.Forms.Panel();
             this.panelUIBall_W1 = new System.Windows.Forms.Panel();

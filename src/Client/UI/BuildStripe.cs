@@ -29,13 +29,16 @@ namespace Yad.UI.Client {
 
         private int top = 0;
 
+		private bool building;
+
         /// <summary>
         /// number of objects viewable on the stripe
         /// </summary>
         private int viewable;
 
-        public BuildStripe() {
+        public BuildStripe(bool building) {
             InitializeComponent();
+			this.building = building;
             viewable = this.contentPanel.Height / HEIGHT;
             scrollingPanel.Location = new Point(0, top);
             scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
@@ -84,7 +87,7 @@ namespace Yad.UI.Client {
             buttons[id] = pictureButton;
             pictureButton.Text = name;
             pictureButton.Name = name;
-			pictureButton.Tag = (Object)id;
+			pictureButton.Tag = building;
             pictureButton.Size = new Size(WIDTH, HEIGHT);
             //pictureButton.BackColor = Color.Black;
              pictureButton.Margin = new Padding(0, 0, 0, 0);
@@ -103,9 +106,10 @@ namespace Yad.UI.Client {
         }
 
         void pictureButton_Click(object sender, EventArgs e) {
-			//if (!GameLogic.IsWaitingForBuildingBuild)
-			//	((PictureButton)sender).Enabled = false;
-			GameLogic.LocateBuilding();
+			if (!GameLogic.IsWaitingForBuildingBuild && building)
+				GameLogic.LocateBuilding(GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name]);
+			else if (!GameLogic.IsWaitingForUnitCreation && !building)
+				GameLogic.CreateUnit(GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name]);
             InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
         }
 

@@ -17,6 +17,12 @@ namespace Yad.Engine.Client
 		/// </summary>
 		private static bool isLocatingBuilding = false;
 
+		private static short buildingToBuild;
+
+		private static short unitToCreate;
+
+		private static bool isCreatingUnit = false;
+
 		/// <summary>
 		/// Waiting for building a building
 		/// </summary>
@@ -82,13 +88,20 @@ namespace Yad.Engine.Client
 		{
 			get
 			{
-				return IsWaitingForUnitCreation;
+				return isWaitingForUnitCreation;
 			}
 		}
 
-		public static void LocateBuilding()
+		public static void LocateBuilding(short p)
 		{
 			isLocatingBuilding = true;
+			buildingToBuild = p;
+		}
+
+		internal static void CreateUnit(short p)
+		{
+			isCreatingUnit = true;
+			unitToCreate = p;
 		}
 	}
 }
