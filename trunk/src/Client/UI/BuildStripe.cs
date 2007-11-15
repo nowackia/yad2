@@ -84,6 +84,7 @@ namespace Yad.UI.Client {
             buttons[id] = pictureButton;
             pictureButton.Text = name;
             pictureButton.Name = name;
+			pictureButton.Tag = (Object)id;
             pictureButton.Size = new Size(WIDTH, HEIGHT);
             //pictureButton.BackColor = Color.Black;
              pictureButton.Margin = new Padding(0, 0, 0, 0);
@@ -102,6 +103,9 @@ namespace Yad.UI.Client {
         }
 
         void pictureButton_Click(object sender, EventArgs e) {
+			//if (!GameLogic.IsWaitingForBuildingBuild)
+			//	((PictureButton)sender).Enabled = false;
+			GameLogic.LocateBuilding();
             InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
         }
 
