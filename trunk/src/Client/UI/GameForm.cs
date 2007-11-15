@@ -150,7 +150,7 @@ namespace Yad.UI.Client {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
-				
+				GameLogic.MouseLeftClick(e);
 				//TODO END
 			}
 		}
