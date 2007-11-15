@@ -50,7 +50,7 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Game server for game: " + sgInfo.Name + "created successfully", EPrefix.ServerInformation);
         }
 
-        public void ChangeMessageHanders(Yad.Net.Server.Server server) {
+        /*public void ChangeMessageHanders(Yad.Net.Server.Server server) {
             foreach (Player player in _playerCollection) {
                 Player p = player as Player;
                 lock (p) {
@@ -59,7 +59,7 @@ namespace Yad.Net.GameServer.Server {
                     p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
                 }
             }
-        }
+        }*/
 
         #endregion
 
