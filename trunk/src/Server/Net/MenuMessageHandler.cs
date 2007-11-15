@@ -127,7 +127,7 @@ namespace Yad.Net.Server
                     SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
                     return;
                 }
-                lock (player) {
+                lock (player.SyncRoot) {
                     LoggingTransfer(player);
                     player.State = state;
                     player.SetData(LoadPlayerData(msg.Login));
@@ -174,8 +174,9 @@ namespace Yad.Net.Server
                     RemoveFromGameJoin(player);
                     break;
             }
-
-            player.State = state;
+            lock (player.SyncRoot) {
+                player.State = state;
+            }
         }
 
         public void ProcessChatEntry(Message msg) {
@@ -197,8 +198,9 @@ namespace Yad.Net.Server
                     RemoveFromGameRoom(player);
                 break;
             }
-
-            player.State = state;
+            lock (player.SyncRoot) {
+                player.State = state;
+            }
             AddToChat(player);
         }
 
@@ -209,7 +211,9 @@ namespace Yad.Net.Server
             ResultMessage resMsg  =  null;
             if (state == MenuState.GameJoin) {
                 resMsg = CreateGame(msg);
-                player.State = state;
+                lock (player.SyncRoot) {
+                    player.State = state;
+                }
             }
             SendMessage(resMsg, msg.PlayerId);
         }

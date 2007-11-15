@@ -30,6 +30,15 @@ namespace Yad.Net.Server {
         private string _gameName;
         private bool _isDisconnected = false;
 
+        private readonly object _rcvMsgLock = new object();
+        private readonly object _clMsgLock = new object();
+        private readonly object _syncRoot = new object();
+
+        public object SyncRoot {
+            get { return _syncRoot; }
+        } 
+
+
         #endregion Private members
 
         #region Properties
@@ -62,13 +71,30 @@ namespace Yad.Net.Server {
         }
 
         public event ConnectionLostDelegate OnConnectionLost {
-            add { _onConnectionLost +=  value; }
-            remove { _onConnectionLost -= value; }
+            add {
+                lock (_clMsgLock) {
+                    _onConnectionLost += value;
+                }
+            }
+            remove {
+                lock (_clMsgLock) {
+                    _onConnectionLost -= value;
+                }
+            }
         }
 
         public event ReceiveMessageDelegate OnReceiveMessage {
-            add { _onReceiveMessage += value; }
-            remove { _onReceiveMessage -= value; }
+            add {
+                lock (_rcvMsgLock) {
+                    _onReceiveMessage += value;
+                }
+            }
+            remove 
+            {
+                lock (_rcvMsgLock) {
+                    _onReceiveMessage -= value;
+                }
+            }
         }
 
         #endregion Properties
@@ -112,7 +138,7 @@ namespace Yad.Net.Server {
         private void ExecuteOnConnectionLost() {
             if (!_isDisconnected) {
                 _isDisconnected = true;
-                lock (_onConnectionLost) {
+                lock (_clMsgLock) {
                     if (_onConnectionLost != null)
                         _onConnectionLost(this, new ConnectionLostEventArgs());
                 }
@@ -120,7 +146,7 @@ namespace Yad.Net.Server {
         }
 
         private void ExecuteOnReceiveMessage(Message msg) {
-            lock (_onReceiveMessage) {
+            lock (_rcvMsgLock) {
                 if (_onReceiveMessage != null)
                 _onReceiveMessage(this, new ReceiveMessageEventArgs(msg));
             }

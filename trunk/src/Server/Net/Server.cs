@@ -12,7 +12,7 @@ using Yad.Log;
 using Yad.Log.Common;
 
 namespace Yad.Net.Server {
-        class Server : BaseServer {
+       class Server : BaseServer {
 
             #region Private members 
 
@@ -58,8 +58,8 @@ namespace Yad.Net.Server {
                 _playersUnlogged = new Dictionary<short, Player>();
                 _playerCollection = new Dictionary<short, Player>();
 
-                _msgHandler = new MenuMessageHandler(this);
-                _msgHandler.SetSender(_msgSender);
+                MessageHandler = new MenuMessageHandler(this);
+                MessageHandler.SetSender(_msgSender);
 
                 StartMessageProcessing();
 
@@ -187,7 +187,7 @@ namespace Yad.Net.Server {
                 short id = GenerateUniqueID();
                 InfoLog.WriteInfo("Server accepted new client");
                 Player player = new Player(id, client);
-                player.OnReceiveMessage += new ReceiveMessageDelegate(_msgHandler.OnReceivePlayerMessage);
+                player.OnReceiveMessage += new ReceiveMessageDelegate(MessageHandler.OnReceivePlayerMessage);
                 player.OnConnectionLost += new ConnectionLostDelegate(OnConnectionLost);
                 player.Start();
                 lock (((ICollection)_playersUnlogged).SyncRoot)
