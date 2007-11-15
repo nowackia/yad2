@@ -22,10 +22,6 @@ namespace Yad.UI.Client
         {
             InitializeComponent();
 
-            GameInfo tempGameInfo = new GameInfo();
-            tempGameInfo.MaxPlayerNumber = 6;
-            ClientPlayerInfo.GameInfo = tempGameInfo;
-
             #region Views Settings
             views.Add(Views.ChatForm, chatMenu);
             views.Add(Views.ChooseGameForm, chooseGameMenu);
@@ -575,7 +571,7 @@ namespace Yad.UI.Client
         {
             ComboBox comboBox = sender as ComboBox;
 
-            MessageBox.Show(comboBox.Name + ": " + comboBox.SelectedItem.ToString());
+            //MessageBox.Show(comboBox.Name + ": " + comboBox.SelectedItem.ToString());
         }
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
