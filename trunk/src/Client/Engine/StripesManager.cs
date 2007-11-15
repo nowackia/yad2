@@ -90,6 +90,7 @@ namespace Yad.Engine.Client {
                     short id = simulation.GameSettingsWrapper.namesToIds[name];
                     if (unitsOnMenu.Contains(id)) continue;
                     unitsOnMenu.Add(id);
+					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
                     unitStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));
 	            }
             }

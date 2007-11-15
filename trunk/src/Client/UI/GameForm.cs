@@ -65,8 +65,20 @@ namespace Yad.UI.Client {
 			CreateUnitMessage cum = new CreateUnitMessage();
 			cum.IdTurn = sim.CurrentTurn + sim.Delta;
 			cum.PlayerId = currPlayer.ID;
+			cum.UnitID = currPlayer.GenerateObjectID();
+			cum.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTanksData.UnitTankDataCollection[0].TypeID;
+			cum.UnitKind = BoardObjectClass.UnitTank;
 			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
 			sim.AddGameMessage(cum);
+
+			CreateUnitMessage cum1 = new CreateUnitMessage();
+			cum1.IdTurn = sim.CurrentTurn + sim.Delta + sim.Delta - 1;
+			cum1.PlayerId = currPlayer.ID;
+			cum1.UnitID = currPlayer.GenerateObjectID();
+			cum1.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTroopersData.UnitTrooperDataCollection[0].TypeID;
+			cum1.UnitKind = BoardObjectClass.UnitTrooper;
+			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
+			sim.AddGameMessage(cum1);
 			//to remove end
 
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
