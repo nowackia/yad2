@@ -31,6 +31,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -75,6 +76,7 @@
     <Compile Include="Net\PlayerData.cs" />
     <Compile Include="Net\PlayerInfo.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
+    <Compile Include="UI\MessageBoxEx.cs" />
     <Compile Include="Utils\Randomizer.cs" />
     <Compile Include="Engine\Simulation.cs" />
     <Compile Include="Log\InfoLog.cs" />

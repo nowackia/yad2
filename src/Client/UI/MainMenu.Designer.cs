@@ -206,7 +206,7 @@ namespace Yad.UI.Client
             this.tableLayoutPanel1.Controls.Add(this.optionsMainMenu, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.exitMainMenu, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.creditsMainMenu, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.haxxx, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.haxxx, 2, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -275,12 +275,10 @@ namespace Yad.UI.Client
             // 
             // haxxx
             // 
-            this.haxxx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.haxxx.Location = new System.Drawing.Point(419, 199);
+            this.haxxx.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.haxxx.Location = new System.Drawing.Point(435, 252);
             this.haxxx.Name = "haxxx";
-            this.haxxx.Size = new System.Drawing.Size(99, 23);
+            this.haxxx.Size = new System.Drawing.Size(67, 23);
             this.haxxx.TabIndex = 4;
             this.haxxx.Text = "Fast Game";
             this.haxxx.UseVisualStyleBackColor = true;
