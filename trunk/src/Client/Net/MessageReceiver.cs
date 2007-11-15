@@ -33,6 +33,8 @@ namespace Yad.Net.Client
         private volatile bool isProcessing;
         private IMessageHandler messageHandler;
 
+        private object lockObject = new object();
+
         public event MessageEventHandler MessageReceive;
         public event ConnectionLostEventHandler ConnectionLost;
 
@@ -85,9 +87,15 @@ namespace Yad.Net.Client
         public IMessageHandler MessageHandler
         {
             get
-            { return messageHandler; }
+            {
+                lock (lockObject)
+                { return messageHandler; }
+            }
             set
-            { messageHandler = value; }
+            {
+                lock (lockObject)
+                { messageHandler = value; }
+            }
         }
 
         public void Process()

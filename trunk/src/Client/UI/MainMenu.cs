@@ -13,6 +13,7 @@ using Yad.Log.Common;
 
 namespace Yad.UI.Client
 {
+    //TODO (AN) Change HouseType strig read from xml file data
     public partial class MainMenuForm : UIManageable
     {
         private Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
@@ -145,7 +146,6 @@ namespace Yad.UI.Client
         {
             PlayerInfo playerInfoObject = updateObject as PlayerInfo;
 
-            //TODO (AN) chceck if we modify this local user's info
             for (int i = 0; i < gridView.Rows.Count; i++)
             {
                 DataGridViewRow row = dataGridViewPlayers.Rows[i];
@@ -576,7 +576,6 @@ namespace Yad.UI.Client
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            //TODO (AN) Send Message with changed information and disable the controls
             PlayersMessage playersMessage = (PlayersMessage)Utils.CreateMessageWithPlayerId(MessageType.UpdatePlayer);
 
             playersMessage.PlayerList = new List<PlayerInfo>();
@@ -694,7 +693,8 @@ namespace Yad.UI.Client
             MessageBox.Show(e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
-                //TODO (AN) Before starting the game switch to GameMessageHandler
+                /* Change message handler to GameMessageHandler */
+                Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
                 {
                     this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { startWaitingForPlayersMenu }, true });

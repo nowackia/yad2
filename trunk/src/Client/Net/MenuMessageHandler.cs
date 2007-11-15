@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Log.Common;
 using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
@@ -255,6 +256,7 @@ namespace Yad.Net.Client
                     break;
 
                 default:
+                    InfoLog.WriteInfo("MenuMessageHandler received unknown message type: " + message.Type, EPrefix.ClientInformation);
                     break;
             }
         }

@@ -15,6 +15,10 @@ namespace Yad.Net.Messaging.Common
 		private short unitType;
 		private BoardObjectClass unitKind;
 
+        public CreateUnitMessage()
+            : base(MessageType.CreateUnit)
+        { }
+
 		/// <summary>
 		/// Same value as assigned by XMLLoader.
 		/// </summary>
@@ -29,12 +33,6 @@ namespace Yad.Net.Messaging.Common
 			get { return position; }
 			set { position = value; }
 		}
-
-		
-		public CreateUnitMessage()
-			: base(MessageType.CreateUnit) { }
-
-		
 
         public int UnitID
         {

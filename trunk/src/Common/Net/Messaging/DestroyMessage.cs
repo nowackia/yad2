@@ -9,15 +9,14 @@ namespace Yad.Net.Messaging.Common
         private int objectID;
 		private short playerID;
 
+        public DestroyMessage()
+            : base(MessageType.Destroy)
+        { }
+
 		public short PlayerID {
 			get { return playerID; }
 			set { playerID = value; }
 		}
-
-
-        public DestroyMessage()
-            : base(MessageType.Destroy)
-        { }
 
         public int ObjectID
         {
