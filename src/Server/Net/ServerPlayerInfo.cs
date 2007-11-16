@@ -22,6 +22,7 @@ namespace Yad.Net.Server {
         public ServerPlayerInfo(Player player) {
             this.Id = player.Id;
             this.Name = player.Login;
+            _player = player;
         }
 
         public PlayerInfo GePlayerInfo() {

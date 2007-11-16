@@ -64,7 +64,6 @@ namespace Yad.Net.Server {
             }
         }
 
-
         public void RemoveFromGameJoin(Player player) {
             lock (((ICollection)_games).SyncRoot) {
                 foreach (ServerGameInfo sgi in _games.Values)
@@ -97,7 +96,6 @@ namespace Yad.Net.Server {
                         }
                     }
                 }
-
             }
         }
 

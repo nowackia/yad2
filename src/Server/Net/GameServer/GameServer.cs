@@ -40,8 +40,10 @@ namespace Yad.Net.GameServer.Server {
 
         public GameServer(ServerGameInfo sgInfo) : base() {
 
-            _serverGameInfo = sgInfo;
             _playerCollection = new Dictionary<short, Player>();
+            _gamePlayers = new Dictionary<short, GamePlayer>();
+            _serverGameInfo = sgInfo;
+            
             lock (((ICollection)sgInfo.Players).SyncRoot) {
                 foreach (IPlayerID pid in sgInfo.Players.Values) {
                     ServerPlayerInfo spi = pid as ServerPlayerInfo;
@@ -61,11 +63,13 @@ namespace Yad.Net.GameServer.Server {
         }
 
         public void ChangeMessageHanders(Yad.Net.Server.Server server) {
-            foreach (Player player in _playerCollection.Values) {
-                Player p = player as Player;
-                p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
-                p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
-                p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
+            lock (((ICollection)_playerCollection).SyncRoot) {
+                foreach (Player player in _playerCollection.Values) {
+                    Player p = player as Player;
+                    p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
+                    p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                    p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
+                }
             }
         }
 
