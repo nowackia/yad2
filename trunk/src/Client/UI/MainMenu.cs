@@ -706,9 +706,9 @@ namespace Yad.UI.Client
                 /* Change message handler to GameMessageHandler */
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
-                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.StartGame });
+                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Game });
                 else
-                    OnMenuOptionChange(MenuOption.StartGame);
+                    OnMenuOptionChange(MenuOption.Game);
             }
         }
         #endregion
