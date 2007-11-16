@@ -129,7 +129,6 @@ namespace Yad.Net.Server {
                         if (pid.GetID() != playerID.GetID()) {
                             ServerPlayerInfo spi = pid as ServerPlayerInfo;
                             list.Add(spi.GePlayerInfo());
-                            msg.PlayerList = list;
                         }
                     }
                     break;
@@ -143,6 +142,7 @@ namespace Yad.Net.Server {
                     list.Add(((ServerPlayerInfo)playerID).GePlayerInfo());
                     break;
             }
+            msg.PlayerList = list;
             return msg;
         }
 

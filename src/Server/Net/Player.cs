@@ -108,6 +108,8 @@ namespace Yad.Net.Server {
             
         }
 
+        
+
         public void Start() {
             _rcvThread.Start();
         }
@@ -157,9 +159,8 @@ namespace Yad.Net.Server {
                 try {
                     type = _readStream.ReadByte();
                 }
-                catch (Exception /*ex*/) {
+                catch (Exception) {
                     ExecuteOnConnectionLost();
-                    //InfoLog.WriteException(ex);
                     return;
                     
                 }
@@ -170,7 +171,14 @@ namespace Yad.Net.Server {
                     InfoLog.WriteInfo("Received unknown message", EPrefix.MessageReceivedInfo);
                     continue;
                 }
-                msg.Deserialize(_readStream);
+                try {
+                    msg.Deserialize(_readStream);
+                }
+                catch (Exception) {
+                    ExecuteOnConnectionLost();
+                    return;
+                }
+
                 msg.PlayerId = Id;
                 ExecuteOnReceiveMessage(msg);
             }

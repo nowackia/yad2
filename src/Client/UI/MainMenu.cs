@@ -199,7 +199,7 @@ namespace Yad.UI.Client
 
         private void creditsMainMenu_Click(object sender, EventArgs e)
         {
-            MessageBoxEx.Show(this, "Pay Us :)", "Credits", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //MessageBoxEx.Show(this, "Pay Us :)", "Credits", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
         private void haxxx_Click(object sender, EventArgs e)
@@ -251,7 +251,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
 
@@ -274,7 +274,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Remind Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -312,7 +312,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_RegisterRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Register Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -494,7 +494,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Join Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
@@ -533,15 +533,15 @@ namespace Yad.UI.Client
                 createGameMessage.GameInfo = gameInfo;
                 Connection.Instance.SendMessage(createGameMessage);
             }
-            else
-                MessageBoxEx.Show(this, "No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //else
+                //MessageBoxEx.Show(this, "No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
         #region MenuMessageHandler Events
         void menuMessageHandler_CreateGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Create Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
                 if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
@@ -693,7 +693,7 @@ namespace Yad.UI.Client
         void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Start Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
                 /* Change message handler to GameMessageHandler */

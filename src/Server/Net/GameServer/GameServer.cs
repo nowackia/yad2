@@ -15,7 +15,9 @@ namespace Yad.Net.GameServer.Server {
         #region Private members
 
         private ServerGameInfo _serverGameInfo;
+        private Dictionary<short, GamePlayer> _gamePlayers;
         private event GameEndDelegate _onGameEnd;
+        private short _minTurn = 0;
 
         #endregion
 
@@ -24,6 +26,12 @@ namespace Yad.Net.GameServer.Server {
         public event GameEndDelegate OnGameEnd {
             add    { _onGameEnd += value; }
             remove { _onGameEnd -= value; }
+        }
+
+        public string Name {
+            get{
+                return _serverGameInfo.Name;
+            }
         }
 
         #endregion
@@ -37,9 +45,11 @@ namespace Yad.Net.GameServer.Server {
             lock (((ICollection)sgInfo.Players).SyncRoot) {
                 foreach (IPlayerID pid in sgInfo.Players.Values) {
                     ServerPlayerInfo spi = pid as ServerPlayerInfo;
-                    lock (spi) {
+                    lock (((ICollection)_playerCollection).SyncRoot) {
                         _playerCollection.Add(new KeyValuePair<short, Player>(spi.Id, spi.Player));
+                        _gamePlayers.Add(spi.Id, new GamePlayer());
                     }
+                    
                 }
             }
 
@@ -50,16 +60,14 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Game server for game: " + sgInfo.Name + "created successfully", EPrefix.ServerInformation);
         }
 
-        /*public void ChangeMessageHanders(Yad.Net.Server.Server server) {
-            foreach (Player player in _playerCollection) {
+        public void ChangeMessageHanders(Yad.Net.Server.Server server) {
+            foreach (Player player in _playerCollection.Values) {
                 Player p = player as Player;
-                lock (p) {
-                    p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
-                    p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
-                    p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
-                }
+                p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
+                p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
             }
-        }*/
+        }
 
         #endregion
 
@@ -72,9 +80,11 @@ namespace Yad.Net.GameServer.Server {
 
         public void Stop() {
             StopMessageProcessing();
+            InfoLog.WriteInfo("Game server for game: " + _serverGameInfo.Name + "stopped successfully", EPrefix.ServerInformation);
         }
 
         public void OnConnectionLost(object sender, ConnectionLostEventArgs clea) {
+
         }
 
         #endregion
