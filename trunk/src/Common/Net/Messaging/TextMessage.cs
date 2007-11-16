@@ -10,15 +10,17 @@ namespace Yad.Net.Messaging.Common
     /// </summary>
     public class TextMessage : Message
     {
-        private string text = string.Empty;
+        private string text;
 
         public TextMessage()
-            : base(MessageType.Text)
+            : this(MessageType.Text)
         { }
 
         public TextMessage(MessageType msgType)
             : base(msgType)
-        { }
+        {
+            text = string.Empty;
+        }
 
         public string Text
         {
