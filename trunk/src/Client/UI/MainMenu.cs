@@ -668,8 +668,8 @@ namespace Yad.UI.Client
                 /* Modify current player */
                 if (InvokeRequired)
                 {
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House });
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House.ToString() });
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID.ToString() });
                     this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 }
                 else

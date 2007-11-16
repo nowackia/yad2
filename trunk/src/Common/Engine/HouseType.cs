@@ -6,8 +6,8 @@ using Yad.Config.Common;
 namespace Yad.Engine.Common {
 	[Obsolete("Wywaliæ. Rasy wczytywane z pliku konfiguracyjnego i przechowywane w GameSettings.RacesData.RaceDataCollection. Posiada short TypeID i string Name")]
     public enum HouseType : byte {
-        Ordos = 0,
+        Atreides = 0,
+        Ordos,
         Harkonnen,
-        Atreides
     }
 }
