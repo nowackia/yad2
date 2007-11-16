@@ -10,7 +10,7 @@ namespace Yad.Net.Messaging.Common
     /// </summary>
     public class TextMessage : Message
     {
-        private String text;
+        private string text = string.Empty;
 
         public TextMessage()
             : base(MessageType.Text)
@@ -20,7 +20,7 @@ namespace Yad.Net.Messaging.Common
             : base(msgType)
         { }
 
-        public String Text
+        public string Text
         {
             get { return text; }
             set { text = value; }
