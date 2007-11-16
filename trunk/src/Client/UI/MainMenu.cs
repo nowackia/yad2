@@ -567,6 +567,7 @@ namespace Yad.UI.Client
             ManageControlState(new Control[] { startWaitingForPlayersMenu }, false);
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
+            textMessage.Text = ClientPlayerInfo.GameInfo.Name;
             Connection.Instance.SendMessage(textMessage);
         }
 
