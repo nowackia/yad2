@@ -49,46 +49,71 @@ namespace Yad.UI.Common
             return MessageBox.Show(text, caption, buttons, icon, defButton, options);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text)
+        public delegate DialogResult MesssageBoxEventHandler(IWin32Window owner, string text);
+        public static DialogResult Show(Control owner, string text)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text);
+
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandler(MessageBox.Show), new object[] { owner, text });
+            else
+                return MessageBox.Show(owner, text);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text, string caption)
+        public delegate DialogResult MesssageBoxEventHandlerCaption(IWin32Window owner, string text, string caption);
+        public static DialogResult Show(Control owner, string text, string caption)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text, caption);
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaption(MessageBox.Show), new object[] { owner, text, caption });
+            else
+                return MessageBox.Show(owner, text, caption);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons)
+        public delegate DialogResult MesssageBoxEventHandlerCaptionButtons(IWin32Window owner, string text, string caption, MessageBoxButtons buttons);
+        public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text, caption, buttons);
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtons(MessageBox.Show), new object[] { owner, text, caption, buttons });
+            else
+                return MessageBox.Show(owner, text, caption, buttons);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIcon(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
+        public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text, caption, buttons, icon);
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIcon(MessageBox.Show), new object[] { owner, text, caption, buttons, icon });
+            else
+                return MessageBox.Show(owner, text, caption, buttons, icon);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton)
+        public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIconDefbutton(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton);
+        public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text, caption, buttons, icon, defButton);
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIconDefbutton(MessageBox.Show), new object[] { owner, text, caption, buttons, icon, defButton });
+            else
+                return MessageBox.Show(owner, text, caption, buttons, icon, defButton);
         }
 
-        public static DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options)
+        public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIconDefbuttonOptions(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options);
+        public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options)
         {
             _owner = owner;
             Initialize();
-            return MessageBox.Show(owner, text, caption, buttons, icon, defButton, options);
+            if (owner.InvokeRequired)
+                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIconDefbuttonOptions(MessageBox.Show), new object[] { owner, text, caption, buttons, icon, defButton, options });
+            else
+                return MessageBox.Show(owner, text, caption, buttons, icon, defButton, options);
         }
 
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
