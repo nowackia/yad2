@@ -67,7 +67,7 @@ namespace Yad.Net.Client
                 case MessageType.Build:
                 case MessageType.Harvest:
                 case MessageType.Attack:
-                    GameForm.sim.AddGameMessage((GameMessage)message);
+                    GameForm.ClientSimulation.AddGameMessage((GameMessage)message);
                     break;
 
                 case MessageType.DoTurn:

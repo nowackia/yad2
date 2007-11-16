@@ -21,7 +21,6 @@ using Yad.Board;
 using Yad.Net.Client;
 using Yad.Properties.Client;
 using Yad.Utilities.Common;
-using Yad.Net.Client;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -34,6 +33,40 @@ namespace Yad.UI.Client {
 		public static Player currPlayer;
 		public static IConnection conn;
         public static StripesManager stripesManager;
+
+        #region Properties
+        public static ClientSimulation ClientSimulation
+        {
+            get
+            { return sim; }
+            set
+            { sim = value; }
+        }
+
+        public static Player Player
+        {
+            get
+            { return currPlayer; }
+            set
+            { currPlayer = value; }
+        }
+
+        public static IConnection Connection
+        {
+            get
+            { return conn; }
+            set
+            { conn = value; }
+        }
+
+        public static StripesManager StripesManager
+        {
+            get
+            { return stripesManager; }
+            set
+            { stripesManager = value; }
+        }
+        #endregion
 
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
