@@ -123,7 +123,6 @@ namespace Yad.Net.Client
                         switch ((ResponseType)result.ResponseType)
                         {
                             case ResponseType.Login:
-                                ClientPlayerInfo.PlayerId = result.PlayerId;
                                 if (LoginRequestReply != null)
                                     LoginRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
                                 break;
@@ -153,6 +152,13 @@ namespace Yad.Net.Client
                                     StartGameRequestReply(this, new RequestReplyEventArgs(!Convert.ToBoolean(result.Result), ((ResultType)(result.Result)).ToString()));
                                 break;
                         }
+                    }
+                    break;
+
+                case MessageType.IdInformation:
+                    {
+                        NumericMessage numericMessage = message as NumericMessage;
+                        ClientPlayerInfo.PlayerId = (short)numericMessage.Number;
                     }
                     break;
 

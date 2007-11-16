@@ -49,49 +49,70 @@ namespace Yad.UI.Common
             return MessageBox.Show(text, caption, buttons, icon, defButton, options);
         }
 
+        public delegate void InitializeEventHandler();
+
         public delegate DialogResult MesssageBoxEventHandler(IWin32Window owner, string text);
         public static DialogResult Show(Control owner, string text)
         {
             _owner = owner;
-            Initialize();
-
             if (owner.InvokeRequired)
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
                 return (DialogResult)owner.Invoke(new MesssageBoxEventHandler(MessageBox.Show), new object[] { owner, text });
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text);
+            }
         }
 
         public delegate DialogResult MesssageBoxEventHandlerCaption(IWin32Window owner, string text, string caption);
         public static DialogResult Show(Control owner, string text, string caption)
         {
             _owner = owner;
-            Initialize();
             if (owner.InvokeRequired)
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
                 return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaption(MessageBox.Show), new object[] { owner, text, caption });
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text, caption);
+            }
         }
 
         public delegate DialogResult MesssageBoxEventHandlerCaptionButtons(IWin32Window owner, string text, string caption, MessageBoxButtons buttons);
         public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons)
         {
             _owner = owner;
-            Initialize();
             if (owner.InvokeRequired)
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
                 return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtons(MessageBox.Show), new object[] { owner, text, caption, buttons });
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text, caption, buttons);
+            }
         }
 
         public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIcon(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
         public static DialogResult Show(Control owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             _owner = owner;
-            Initialize();
             if (owner.InvokeRequired)
-                return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIcon(MessageBox.Show), new object[] { owner, text, caption, buttons, icon });
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
+                return (DialogResult)owner.EndInvoke(owner.BeginInvoke(new MesssageBoxEventHandlerCaptionButtonsIcon(MessageBox.Show), new object[] { owner, text, caption, buttons, icon }));
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text, caption, buttons, icon);
+            }
         }
 
         public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIconDefbutton(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton);
@@ -100,9 +121,15 @@ namespace Yad.UI.Common
             _owner = owner;
             Initialize();
             if (owner.InvokeRequired)
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
                 return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIconDefbutton(MessageBox.Show), new object[] { owner, text, caption, buttons, icon, defButton });
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text, caption, buttons, icon, defButton);
+            }
         }
 
         public delegate DialogResult MesssageBoxEventHandlerCaptionButtonsIconDefbuttonOptions(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options);
@@ -111,9 +138,15 @@ namespace Yad.UI.Common
             _owner = owner;
             Initialize();
             if (owner.InvokeRequired)
+            {
+                owner.Invoke(new InitializeEventHandler(Initialize));
                 return (DialogResult)owner.Invoke(new MesssageBoxEventHandlerCaptionButtonsIconDefbuttonOptions(MessageBox.Show), new object[] { owner, text, caption, buttons, icon, defButton, options });
+            }
             else
+            {
+                Initialize();
                 return MessageBox.Show(owner, text, caption, buttons, icon, defButton, options);
+            }
         }
 
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -184,15 +217,11 @@ namespace Yad.UI.Common
 
         private static void Initialize()
         {
-            if (_hHook != IntPtr.Zero)
-            {
-                throw new NotSupportedException("Multiple calls are not supported");
-            }
+            //if (_hHook != IntPtr.Zero)
+            //    throw new NotSupportedException("Multiple calls are not supported");
 
             if (_owner != null)
-            {
                 _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
-            }
         }
 
         private static IntPtr MessageBoxHookProc(int nCode, IntPtr wParam, IntPtr lParam)
@@ -208,9 +237,7 @@ namespace Yad.UI.Common
             if (msg.message == (int)CbtHookAction.HCBT_ACTIVATE)
             {
                 try
-                {
-                    CenterWindow(msg.hwnd);
-                }
+                { CenterWindow(msg.hwnd); }
                 finally
                 {
                     UnhookWindowsHookEx(_hHook);

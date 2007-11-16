@@ -133,7 +133,18 @@ namespace Yad.Net.Client
 
                 InfoLog.WriteInfo("Client received message with type: " + msg.Type, EPrefix.ClientInformation);
 
-                msg.Deserialize(readStream);
+                try
+                { msg.Deserialize(readStream); }
+                catch (Exception ex)
+                {
+                    InfoLog.WriteException(ex);
+                    if (ConnectionLost != null)
+                    {
+                        lock (ConnectionLost)
+                        { ConnectionLost(this, EventArgs.Empty); }
+                    }
+                    return;
+                }
 
                 messageHandler.ProcessMessage(msg);
 
