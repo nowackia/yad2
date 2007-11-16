@@ -19,15 +19,21 @@ namespace Yad.Net.Server {
         private Dictionary<string, ServerGameInfo> _games = null;
         private IMessageSender _sender = null;
         private List<Serv.GameServer> _gameServerList = null;
+        private Server _server = null;
 
         #endregion
 
         #region Constructors 
 
-        public GameManager(IMessageSender sender) {
+        public GameManager(Server server, IMessageSender sender) {
+
             _players = new Dictionary<short, Player>();
             _games = new Dictionary<string, ServerGameInfo>();
+            _gameServerList = new List<Yad.Net.GameServer.Server.GameServer>();
+
             _sender = sender;
+            _server = server;
+
         }
 
         #endregion
@@ -96,6 +102,20 @@ namespace Yad.Net.Server {
         }
 
         private void CreateServerGame(ServerGameInfo sgi) {
+            Serv.GameServer gs = new Yad.Net.GameServer.Server.GameServer(sgi);
+            gs.ChangeMessageHanders(this._server);
+            lock (((ICollection)_gameServerList).SyncRoot) {
+                _gameServerList.Add(gs);
+            }
+            gs.Start();
+        }
+
+        
+        public void StopGames() {
+            lock (((ICollection)_gameServerList).SyncRoot) {
+                foreach (Serv.GameServer gs in _gameServerList)
+                    gs.Stop();
+            }
         }
 
         #endregion

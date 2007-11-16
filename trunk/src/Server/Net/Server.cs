@@ -64,7 +64,7 @@ namespace Yad.Net.Server {
                 StartMessageProcessing();
 
                 _chat = new Chat(_msgSender);
-                _gameManager = new GameManager(_msgSender);
+                _gameManager = new GameManager(this, _msgSender);
                 InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
 
             }
@@ -91,10 +91,11 @@ namespace Yad.Net.Server {
                 }
                 StopPlayers();
                 StopMessageProcessing();
+                StopGames();
 
             }
 
-            public void StopPlayers() {
+            private void StopPlayers() {
                 lock (((ICollection)_playersUnlogged).SyncRoot) {
                     foreach (Player p in _playersUnlogged.Values) {
                         p.Stop();
@@ -106,6 +107,10 @@ namespace Yad.Net.Server {
                     }
                 }
             }
+
+           private void StopGames() {
+               _gameManager.StopGames();
+           }
             public void Stop() {
                 _listener.Stop();
             }

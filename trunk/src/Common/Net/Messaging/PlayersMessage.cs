@@ -46,6 +46,8 @@ namespace Yad.Net.Messaging.Common {
                 pi.Name = ReadString(reader);
                 pi.TeamID = reader.ReadInt16();
                 pi.House = (HouseType)reader.ReadByte();
+                _playerList.Add(pi);
+
             }
            
         }

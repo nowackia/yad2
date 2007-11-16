@@ -29,7 +29,10 @@ namespace Yad.Net.GameServer.Server {
         /// </summary>
         /// <param name="item">Message to process</param>
         public override void ProcessItem(Message item) {
-           
+            InfoLog.WriteInfo(string.Format(Resources.GameProcessStringFormat, item.Type.ToString(), 
+                _gameServer.Name, _gameServer.GetPlayer(item.PlayerId).Login),
+                EPrefix.GameMessageProccesing);
+
         }
     }
 }

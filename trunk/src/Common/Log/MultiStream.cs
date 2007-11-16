@@ -50,7 +50,8 @@ namespace Yad.Log.Common
 
         public void Close()
         {
-            _writer.Close();
+            if (_writer != null)
+                _writer.Close();
         }
 
         #region IDisposable Members

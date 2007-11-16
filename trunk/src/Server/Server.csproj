@@ -42,6 +42,7 @@
     <Compile Include="Net\GameServer\GameEndEventArgs.cs" />
     <Compile Include="Net\GameServer\GameMessageHandler.cs" />
     <Compile Include="Net\GameRoom.cs" />
+    <Compile Include="Net\GameServer\GamePlayer.cs" />
     <Compile Include="Net\GameServer\GameServer.cs" />
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />
