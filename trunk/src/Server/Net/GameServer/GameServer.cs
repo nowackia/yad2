@@ -41,7 +41,7 @@ namespace Yad.Net.GameServer.Server {
         public GameServer(ServerGameInfo sgInfo) : base() {
 
             _serverGameInfo = sgInfo;
-
+            _playerCollection = new Dictionary<short, Player>();
             lock (((ICollection)sgInfo.Players).SyncRoot) {
                 foreach (IPlayerID pid in sgInfo.Players.Values) {
                     ServerPlayerInfo spi = pid as ServerPlayerInfo;

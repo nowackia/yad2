@@ -164,10 +164,8 @@ namespace Yad.Net.Server {
         private void CancelGameStart() {
             foreach (IPlayerID spi in _players.Values)
                 if (((ServerPlayerInfo)spi).StartedClicked) {
-                    lock (spi) {
-                        ((ServerPlayerInfo)spi).StartedClicked = false;
-                        SendMessage(Utils.CreateResultMessage(ResponseType.StartGame, ResultType.Unsuccesful), ((ServerPlayerInfo)spi).Id);
-                    }  
+                    ((ServerPlayerInfo)spi).StartedClicked = false;
+                    SendMessage(Utils.CreateResultMessage(ResponseType.StartGame, ResultType.Unsuccesful), ((ServerPlayerInfo)spi).Id);
                 }
         }
 
@@ -228,10 +226,12 @@ namespace Yad.Net.Server {
         protected override IPlayerID TransformInitialy(IPlayerID player) {
             Player p = player as Player;
             ServerPlayerInfo svp = new ServerPlayerInfo(p);
-            short teamId = -1;
+            short teamId = 1;
+            /*
             lock (((ICollection)_players).SyncRoot) {
                 teamId = GetTeamForPlayer();
             }
+             */ 
             svp.TeamID = teamId;
             return svp;
         }
