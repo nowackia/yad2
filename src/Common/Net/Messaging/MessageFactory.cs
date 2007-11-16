@@ -212,10 +212,11 @@ namespace Yad.Net.Messaging.Common {
                 #endregion
 
                 #region Client login messages
-                case MessageType.Login:
-                    return new LoginMessage(MessageType.Login);
                 case MessageType.IdInformation:
                     return new NumericMessage(MessageType.IdInformation);
+
+                case MessageType.Login:
+                    return new LoginMessage(MessageType.Login);
 
                 /* Depreciated */ 
                 case MessageType.LoginSuccessful:

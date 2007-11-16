@@ -103,10 +103,6 @@ namespace Yad.UI.Client
             this.teamCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
             this.houseCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
             this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.House = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Team = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
@@ -133,6 +129,10 @@ namespace Yad.UI.Client
             this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.House = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -982,37 +982,6 @@ namespace Yad.UI.Client
             this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 147);
             this.dataGridViewPlayers.TabIndex = 6;
             // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 25;
-            this.Id.Name = "Id";
-            this.Id.Width = 25;
-            // 
-            // PlayersName
-            // 
-            this.PlayersName.HeaderText = "Name";
-            this.PlayersName.MinimumWidth = 100;
-            this.PlayersName.Name = "PlayersName";
-            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // House
-            // 
-            this.House.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.House.HeaderText = "House";
-            this.House.MinimumWidth = 75;
-            this.House.Name = "House";
-            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.House.Width = 75;
-            // 
-            // Team
-            // 
-            this.Team.HeaderText = "Team";
-            this.Team.MinimumWidth = 75;
-            this.Team.Name = "Team";
-            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Team.Width = 75;
-            // 
             // descriptionLWaitingForPlayersMenu
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
@@ -1317,6 +1286,38 @@ namespace Yad.UI.Client
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 25;
+            this.Id.Name = "Id";
+            this.Id.Width = 25;
+            // 
+            // PlayersName
+            // 
+            this.PlayersName.HeaderText = "Name";
+            this.PlayersName.MinimumWidth = 100;
+            this.PlayersName.Name = "PlayersName";
+            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // House
+            // 
+            this.House.HeaderText = "House";
+            this.House.MinimumWidth = 75;
+            this.House.Name = "House";
+            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.House.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.House.Width = 75;
+            // 
+            // Team
+            // 
+            this.Team.HeaderText = "Team";
+            this.Team.MinimumWidth = 75;
+            this.Team.Name = "Team";
+            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Team.Width = 75;
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1463,14 +1464,14 @@ namespace Yad.UI.Client
         private DataGridView dataGridViewPlayers;
         private NumericUpDown maxPlayerNumberNUPCreateGameMenu;
         private Label maxPlayerNumberLCreateGameMenu;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn PlayersName;
-        private DataGridViewComboBoxColumn House;
-        private DataGridViewComboBoxColumn Team;
         private ComboBox teamCBWaitingForPlayersMenu;
         private ComboBox houseCBWaitingForPlayersMenu;
         private Label teamLWaitingForPlayersMenu;
         private Label houseLWaitingForPlayersMenu;
         private Button changeWaitingForPlayersMenu;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn PlayersName;
+        private DataGridViewTextBoxColumn House;
+        private DataGridViewTextBoxColumn Team;
     }
 }

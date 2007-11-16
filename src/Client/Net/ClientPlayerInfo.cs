@@ -7,8 +7,6 @@ namespace Yad.Net.Client
 {
     static class ClientPlayerInfo
     {
-        private static short playerId = -1;
-        private static string login = string.Empty;
         private static GameInfo gameInfo = null;
         private static PlayerInfo playerInfo = new PlayerInfo();
 
@@ -42,12 +40,12 @@ namespace Yad.Net.Client
             { gameInfo = value; }
         }
 
-        public static PlayerInfo PlayerInfo
+        /*public static PlayerInfo PlayerInfo
         {
             get
             { return playerInfo; }
             set
             { playerInfo = value; }
-        }
+        }*/
     }
 }
