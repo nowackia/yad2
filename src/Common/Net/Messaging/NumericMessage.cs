@@ -33,7 +33,5 @@ namespace Yad.Net.Messaging.Common
             base.Serialize(writer);
             writer.Write(number);
         }
-
-
     }
 }
