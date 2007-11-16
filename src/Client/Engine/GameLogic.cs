@@ -7,6 +7,8 @@ using Yad.Net.Client;
 using Yad.Board;
 using Yad.UI.Client;
 using Yad.Config.Common;
+using Yad.Engine.Common;
+using Yad.Board.Common;
 
 namespace Yad.Engine.Client
 {
@@ -43,6 +45,10 @@ namespace Yad.Engine.Client
 						for (int y = pos.Y; y < pos.Y + b.Size.Y; y++)
 						{
 							if (GameForm.sim.Map.Tiles[x, GameForm.sim.Map.Height-y-1] != Yad.Board.Common.TileType.Rock)
+								return false;
+							if (GameForm.sim.Map.Units[x,y].Count>0)
+								return false;
+							if (GameForm.sim.Map.Buildings[x, y].Count > 0)
 								return false;
 						}
 					return true;	

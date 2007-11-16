@@ -33,10 +33,13 @@ namespace Yad.Engine.Client {
 			if (players[bm.PlayerId] == null)
 				throw new Exception("Message from unknown player");
 			players[bm.PlayerId].AddBuilding(b);
-			this.map.Buildings[b.Position.X, b.Position.Y].AddLast(b);
+			for(int i=0; i<b.Size.X; i++)
+				for(int j=0; j<b.Size.Y; j++)
+					this.map.Buildings[b.Position.X+i, b.Position.Y+j].AddLast(b);
 		}
 
-		protected override void onMessageMove(MoveMessage gm) {
+		protected override void onMessageMove(MoveMessage gm)
+		{
 			InfoLog.WriteInfo("MessageMove", EPrefix.SimulationInfo);
 		}
 
