@@ -153,11 +153,11 @@ namespace Yad.Net.Server {
         }
 
         private bool IsGameStart() {
+            if (_players.Count != this._gameInfo.MaxPlayerNumber)
+                return false;
             foreach (IPlayerID spi in _players.Values)
-                lock (spi) {
                     if (!((ServerPlayerInfo)spi).StartedClicked)
                         return false;
-                }
             return true;
         }
 
