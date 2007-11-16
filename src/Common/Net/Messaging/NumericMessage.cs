@@ -22,6 +22,18 @@ namespace Yad.Net.Messaging.Common
             set { number = value; }
         }
 
+        public override void Deserialize(System.IO.BinaryReader reader)
+        {
+            base.Deserialize(reader);
+            number = reader.ReadInt32();
+        }
+
+        public override void Serialize(System.IO.BinaryWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write(number);
+        }
+
 
     }
 }
