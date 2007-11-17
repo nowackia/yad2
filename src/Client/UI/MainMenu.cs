@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Yad.Net.Client;
 using Yad.Engine.Common;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
+using Yad.Properties;
 using Yad.Log.Common;
 using Yad.UI.Common;
 
@@ -24,7 +26,7 @@ namespace Yad.UI.Client
         {
             InitializeComponent();
 
-            #region Views Settings
+            #region Controls Initialization
             views.Add(Views.ChatForm, chatMenu);
             views.Add(Views.ChooseGameForm, chooseGameMenu);
             views.Add(Views.CreateGameForm, createGameMenu);
@@ -36,6 +38,8 @@ namespace Yad.UI.Client
             views.Add(Views.RegistrationForm, registerMenu);
             views.Add(Views.UserInfoForm, playerInfoMenu);
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
+
+            ResetMapFileNames(listBoxLBCreateGame);
             #endregion
 
             #region MenuMessageHandler Settings
@@ -86,6 +90,14 @@ namespace Yad.UI.Client
                 throw new NotImplementedException("View " + view + " not exist");
 
             this.tabControl.SelectTab(page.Name);
+        }
+
+        public void ResetMapFileNames(ListBox listBox)
+        {
+            listBox.Items.Clear();
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(Settings.Default.Maps);
+            listBox.Items.AddRange(directoryInfo.GetFiles("*.map"));
         }
 
         public void ManageControlState(Control[] control, bool state)
@@ -517,10 +529,9 @@ namespace Yad.UI.Client
             GameInfoMessage createGameMessage = (GameInfoMessage)Utils.CreateMessageWithPlayerId(MessageType.CreateGame);
 
             GameInfo gameInfo = new GameInfo();
-            //TODO (AN) Get somehow MapId
             if (listBoxLBCreateGame.SelectedItem != null)
             {
-                gameInfo.MapId = short.Parse(listBoxLBCreateGame.SelectedItem.ToString());
+                gameInfo.MapName = ((FileInfo)listBoxLBCreateGame.SelectedItem).Name;
                 gameInfo.MaxPlayerNumber = (short)maxPlayerNumberNUPCreateGameMenu.Value;
                 gameInfo.Name = gameNameTBCreateGameMenu.Text;
                 if (publicCreateGameMenu.Checked)

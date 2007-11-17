@@ -22,9 +22,9 @@ namespace Yad.Net.Server {
             set { _gameInfo.Name = value; }
         }
 
-        public short MapId {
-            get { return _gameInfo.MapId; }
-            set { _gameInfo.MapId = value; }
+        public string MapName {
+            get { return _gameInfo.MapName; }
+            set { _gameInfo.MapName = value; }
         }
 
         public short MaxPlayerNumber {
@@ -49,7 +49,7 @@ namespace Yad.Net.Server {
         public ServerGameInfo(GameInfo gi, IMessageSender sender) : base(sender) {
             _gameInfo = new GameInfo();
             _gameInfo.Name = gi.Name;
-            _gameInfo.MapId = gi.MapId;
+            _gameInfo.MapName = gi.MapName;
             _gameInfo.MaxPlayerNumber = gi.MaxPlayerNumber;
             
         }
@@ -98,7 +98,7 @@ namespace Yad.Net.Server {
         public GameInfo GetGameInfo() {
             GameInfo gi = new GameInfo();
             gi.Name = this.Name;
-            gi.MapId = this.MapId;
+            gi.MapName = this.MapName;
             gi.MaxPlayerNumber = this.MaxPlayerNumber;
             return gi;
         }

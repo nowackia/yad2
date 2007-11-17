@@ -231,7 +231,7 @@ namespace Yad.Net.Server {
                 return ResultType.NameExistsError;
             if (!IsPlayerNoValid(gi.MaxPlayerNumber))
                 return ResultType.InvalidPlayerNoError;
-            if (!IsMapValid(gi.MapId))
+            if (!IsMapValid(gi.MapName))
                 return ResultType.InvalidMapIdNoError;
             return ResultType.Successful;
             
@@ -247,7 +247,8 @@ namespace Yad.Net.Server {
             return true;
         }
 
-        public bool IsMapValid(int mapID) {
+        public bool IsMapValid(string mapName) {
+            //TODO (PW) check if file with specified name excists on server
             return true;
         }
     }
