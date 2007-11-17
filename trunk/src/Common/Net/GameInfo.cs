@@ -10,7 +10,7 @@ namespace Yad.Net.Common
 
         #region Private Members
 
-        private short _mapId;
+        private string _mapName;
         private string _name;
         private short _maxPlayerNumber;
         private byte _type;
@@ -19,10 +19,10 @@ namespace Yad.Net.Common
 
         #region Properties
 
-        public short MapId
+        public string MapName
         {
-            get { return _mapId; }
-            set { _mapId = value; }
+            get { return _mapName; }
+            set { _mapName = value; }
         }
 
         public string Name
@@ -47,8 +47,8 @@ namespace Yad.Net.Common
         {
             get
             {
-                return "MapId: " + MapId + Environment.NewLine
-                     + "Name: " + Name + Environment.NewLine
+                return "Map Name: " + MapName + Environment.NewLine
+                     + "Game Name: " + Name + Environment.NewLine
                      + "Maximum players number: " + MaxPlayerNumber + Environment.NewLine
                      + "Type: " + this.GameType.ToString();
             }
@@ -68,13 +68,13 @@ namespace Yad.Net.Common
             if ((object)gi == null)
                 return false;
 
-            return this._mapId == gi._mapId && this._maxPlayerNumber == gi._maxPlayerNumber
+            return this._mapName == gi._mapName && this._maxPlayerNumber == gi._maxPlayerNumber
                 && this._name == gi._name && this._type == gi._type;
         }
 
         public override int GetHashCode()
         {
-            return _mapId.GetHashCode();
+            return _mapName.GetHashCode();
         }
 
         public static bool operator ==(GameInfo a, GameInfo b)

@@ -112,8 +112,7 @@
   <ItemGroup>
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Config\dune.xsx">
       <DependentUpon>dune.xsd</DependentUpon>

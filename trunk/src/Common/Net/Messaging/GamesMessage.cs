@@ -31,7 +31,7 @@ namespace Yad.Net.Messaging.Common {
             writer.Write(_listGameInfo.Count);
             foreach (GameInfo gi in _listGameInfo) {
                 WriteString(gi.Name, writer);
-                writer.Write(gi.MapId);
+                this.WriteString(gi.MapName, writer);
                 writer.Write(gi.MaxPlayerNumber);
             }
                 
@@ -44,7 +44,7 @@ namespace Yad.Net.Messaging.Common {
             for (int i = 0; i < count; ++i) {
                 GameInfo gi = new GameInfo();
                 gi.Name = ReadString(reader);
-                gi.MapId = reader.ReadInt16();
+                gi.MapName = this.ReadString(reader);
                 gi.MaxPlayerNumber = reader.ReadInt16();
                 _listGameInfo.Add(gi);
             }

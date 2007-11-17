@@ -33,7 +33,7 @@ namespace Yad.Net.Messaging.Common
         {
             base.Serialize(writer);
             this.WriteString(_gi.Name, writer);
-            writer.Write(_gi.MapId);
+            this.WriteString(_gi.MapName, writer);
             writer.Write(_gi.MaxPlayerNumber);
         }
 
@@ -43,7 +43,7 @@ namespace Yad.Net.Messaging.Common
             if (null == _gi)
                 _gi = new GameInfo();
             _gi.Name = this.ReadString(reader);
-            _gi.MapId = reader.ReadInt16();
+            _gi.MapName = this.ReadString(reader);
             _gi.MaxPlayerNumber = reader.ReadInt16();
         }
     }

@@ -103,6 +103,10 @@ namespace Yad.UI.Client
             this.teamCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
             this.houseCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
             this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.House = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
@@ -129,10 +133,6 @@ namespace Yad.UI.Client
             this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayersName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.House = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -869,8 +869,6 @@ namespace Yad.UI.Client
             // listBoxLBCreateGame
             // 
             this.listBoxLBCreateGame.FormattingEnabled = true;
-            this.listBoxLBCreateGame.Items.AddRange(new object[] {
-            "1"});
             this.listBoxLBCreateGame.Location = new System.Drawing.Point(46, 64);
             this.listBoxLBCreateGame.Name = "listBoxLBCreateGame";
             this.listBoxLBCreateGame.Size = new System.Drawing.Size(217, 199);
@@ -981,6 +979,38 @@ namespace Yad.UI.Client
             this.dataGridViewPlayers.RowHeadersVisible = false;
             this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 147);
             this.dataGridViewPlayers.TabIndex = 6;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 25;
+            this.Id.Name = "Id";
+            this.Id.Width = 25;
+            // 
+            // PlayersName
+            // 
+            this.PlayersName.HeaderText = "Name";
+            this.PlayersName.MinimumWidth = 100;
+            this.PlayersName.Name = "PlayersName";
+            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // House
+            // 
+            this.House.HeaderText = "House";
+            this.House.MinimumWidth = 75;
+            this.House.Name = "House";
+            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.House.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.House.Width = 75;
+            // 
+            // Team
+            // 
+            this.Team.HeaderText = "Team";
+            this.Team.MinimumWidth = 75;
+            this.Team.Name = "Team";
+            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Team.Width = 75;
             // 
             // descriptionLWaitingForPlayersMenu
             // 
@@ -1285,38 +1315,6 @@ namespace Yad.UI.Client
             this.optionsPauseMenu.Text = "Options";
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 25;
-            this.Id.Name = "Id";
-            this.Id.Width = 25;
-            // 
-            // PlayersName
-            // 
-            this.PlayersName.HeaderText = "Name";
-            this.PlayersName.MinimumWidth = 100;
-            this.PlayersName.Name = "PlayersName";
-            this.PlayersName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // House
-            // 
-            this.House.HeaderText = "House";
-            this.House.MinimumWidth = 75;
-            this.House.Name = "House";
-            this.House.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.House.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.House.Width = 75;
-            // 
-            // Team
-            // 
-            this.Team.HeaderText = "Team";
-            this.Team.MinimumWidth = 75;
-            this.Team.Name = "Team";
-            this.Team.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Team.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Team.Width = 75;
             // 
             // MainMenuForm
             // 
