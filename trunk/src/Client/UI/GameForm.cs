@@ -71,9 +71,9 @@ namespace Yad.UI.Client {
 		public void AddBuilding(short id, short key)
 		{
 			String name = GameForm.sim.GameSettingsWrapper.buildingsMap[id].Name;
-            stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
+            //stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
             stripesManager.AddBuilding(id);
-            stripesManager.BuildingClickedOnMap(id);
+            stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
 			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
 		}
 
@@ -89,6 +89,7 @@ namespace Yad.UI.Client {
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 			sim = new ClientSimulation(gameSettingsWrapper, map, conn);
+            
             short key=0;
             //TODO wtf? which race i am?
             foreach (short k in gameSettingsWrapper.racesMap.Keys)
@@ -96,7 +97,7 @@ namespace Yad.UI.Client {
                 key = k;
                 break;
 	        }
-
+            stripesManager = new StripesManager(sim, key, rightStripe, this.leftStripe);
 			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
 
 			

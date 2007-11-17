@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms.Extended;
 using System.Drawing;
+using System.Threading;
 
 namespace Yad.UI {
 	class OwnerDrawPictureButton : PictureButton {
@@ -19,19 +20,27 @@ namespace Yad.UI {
 			get { return drawPercentage; }
 			set {
 				drawPercentage = value;
-				/* Refresh(); */
+                InvokeRefresh();
 			}
 		}
 
 		public int Percentage {
 			get { return percentage; }
-			set { percentage = value; /* Refresh(); */ }
+            set { percentage = value; InvokeRefresh(); }
 		}
+
+        public void InvokeRefresh() {
+            if (this.InvokeRequired) {
+                this.Invoke(new ThreadStart(Refresh));
+            } else {
+                Refresh();
+            }
+        }
 
 		protected override void OnPaint(System.Windows.Forms.PaintEventArgs e) {
 			base.OnPaint(e);
 			if (drawPercentage) {
-				Rectangle r = this.Bounds;
+				Rectangle r = new Rectangle(0,0,Width,Height);
 				float w = r.Width;
 				r.Width = (int)(r.Width * (percentage / 100.0));
 				e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(70, 255, 0, 0)), r);

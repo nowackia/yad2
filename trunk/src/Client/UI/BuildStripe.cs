@@ -54,6 +54,7 @@ namespace Yad.UI.Client {
         private void buttonUp_Click(object sender, EventArgs e) {
             InfoLog.WriteInfo("buttonUp: delta: " + delta + " num: " + num + " viewable: " + viewable, EPrefix.Stripe);
             ShowUpper(1);
+            
             Refresh();
         }
 
