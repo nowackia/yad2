@@ -64,10 +64,12 @@ namespace Yad.Net.Server {
 
         public int WinNo {
             get { return _data.WinNo; }
+            set { _data.WinNo = value; }
         }
 
         public int LossNo {
             get { return _data.LossNo; }
+            set { _data.LossNo = value; }
         }
 
         public event ConnectionLostDelegate OnConnectionLost {

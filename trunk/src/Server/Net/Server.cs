@@ -53,6 +53,7 @@ namespace Yad.Net.Server {
                 _portNumber = PortNumber;
                 _listener = new TcpListener(_portNumber);
                 _listener.Start();
+                
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
 
                 _playersUnlogged = new Dictionary<short, Player>();
@@ -65,6 +66,7 @@ namespace Yad.Net.Server {
 
                 _chat = new Chat(_msgSender);
                 _gameManager = new GameManager(this, _msgSender);
+                
                 InfoLog.WriteInfo("Server menu message handling started successfully", EPrefix.ServerInformation);
 
             }
