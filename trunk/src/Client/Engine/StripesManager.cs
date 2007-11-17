@@ -6,7 +6,7 @@ using Yad.Config.Common;
 using Yad.Engine.Common;
 using Yad.Config;
 using System.IO;
-using Yad.Properties.Client;
+using Yad.Properties;
 
 namespace Yad.Engine.Client {
 

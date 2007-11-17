@@ -14,7 +14,9 @@ namespace Yad.Engine.Client
 {
 	static class GameLogic
 	{
-		/// <summary>
+		public delegate void AddBuildingDelegate(short id, short key);
+		public static event AddBuildingDelegate AddBuildingEvent;
+		/// <summary>;
 		/// if gamer wants to locate builing on the map
 		/// </summary>
 		private static bool isLocatingBuilding = false;
@@ -108,6 +110,11 @@ namespace Yad.Engine.Client
 		{
 			isCreatingUnit = true;
 			unitToCreate = p;
+		}
+
+		internal static void InitStripes(string name, short key)
+		{
+			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
 		}
 	}
 }

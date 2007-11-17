@@ -127,8 +127,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\dune_example.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Config\game_data.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

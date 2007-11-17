@@ -1,9 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Client.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Yad.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="ConfigFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Config/dune_example.xml</Value>
+      <Value Profile="(Default)">Config/game_data.xml</Value>
     </Setting>
     <Setting Name="ConfigFileXSD" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Config/dune.xsd</Value>
