@@ -19,8 +19,8 @@ using Yad.Engine.Common;
 using Yad.Config;
 using Yad.Board;
 using Yad.Net.Client;
-using Yad.Properties.Client;
 using Yad.Utilities.Common;
+using Yad.Properties;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -68,6 +68,13 @@ namespace Yad.UI.Client {
         }
         #endregion
 
+		public void AddBuilding(short id, short key)
+		{
+            stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
+            stripesManager.AddBuilding(id);
+            stripesManager.BuildingClickedOnMap(id);
+		}
+
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
@@ -87,10 +94,11 @@ namespace Yad.UI.Client {
                 key = k;
                 break;
 	        }
-			short id = sim.GameSettingsWrapper.namesToIds["HighTechFactory"];
-            stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
-            stripesManager.AddBuilding(id);
-            stripesManager.BuildingClickedOnMap(id);
+
+			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
+			GameLogic.InitStripes("Barracks", key);
+			
+
             //^to remove
 
 			//to remove
