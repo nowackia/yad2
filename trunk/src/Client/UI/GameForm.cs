@@ -98,7 +98,7 @@ namespace Yad.UI.Client {
 	        }
 
 			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
-			GameLogic.InitStripes("ConstructionYard", key);
+
 			
 
             //^to remove
@@ -124,7 +124,7 @@ namespace Yad.UI.Client {
 			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
 			sim.AddGameMessage(cum1);
 			//to remove end
-
+			GameLogic.InitStripes("ConstructionYard", key);
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
@@ -190,7 +190,7 @@ namespace Yad.UI.Client {
 
 		public bool IsStripContainingBuilding(short ids)
 		{
-			return stripesManager.ContainsId(ids);
+			return StripesManager.ContainsId(ids);
 		}
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
