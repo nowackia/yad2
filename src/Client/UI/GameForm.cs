@@ -70,9 +70,11 @@ namespace Yad.UI.Client {
 
 		public void AddBuilding(short id, short key)
 		{
+			String name = GameForm.sim.GameSettingsWrapper.buildingsMap[id].Name;
             stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
             stripesManager.AddBuilding(id);
             stripesManager.BuildingClickedOnMap(id);
+			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
 		}
 
 		public GameForm() {
@@ -96,7 +98,7 @@ namespace Yad.UI.Client {
 	        }
 
 			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
-			GameLogic.InitStripes("Barracks", key);
+			GameLogic.InitStripes("ConstructionYard", key);
 			
 
             //^to remove
@@ -186,12 +188,17 @@ namespace Yad.UI.Client {
 			}
 		}
 
+		public bool IsStripContainingBuilding(short ids)
+		{
+			return stripesManager.ContainsId(ids);
+		}
+
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
 			if (e.Button == MouseButtons.Right) {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
-				GameLogic.MouseLeftClick(e);
+				GameLogic.MouseLeftClick(this, e);
 				//TODO END
 			}
 		}

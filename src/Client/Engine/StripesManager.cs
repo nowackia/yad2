@@ -57,30 +57,14 @@ namespace Yad.Engine.Client {
                 String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
                 buildingStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
             }
-            foreach (TechnologyDependence techRef in deps) {
-                short ids = simulation.GameSettingsWrapper.namesToIds[techRef.BuildingName];
-                if (buildingsOnMenu.Contains(ids) == true) continue;
-                if (CheckReqBuildingsToAddNewBuilding(techRef.RequiredBuildings)) {
-                    // adds new building to strip
-                    buildingsOnMenu.Add(ids);
-                    String name = simulation.GameSettingsWrapper.buildingsMap[id].Name;
-                    buildingStripe.Add(ids, name, Path.Combine(Settings.Default.Pictures,name+".png"));//TODO add picture name to xsd.
-                }
-            }      
-        }
+	     }
 
-        private bool CheckReqBuildingsToAddNewBuilding(BuildingsNames coll) {
-            
-            foreach (String  buildingName in coll) {
-                short id;
-                if (simulation.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id)) {
-                    if (buildingsOnMenu.Contains(id) == false)
-                        return false;
-                }
-                
-            }
-            return true;
-        }
+		public bool ContainsId(short ids)
+		{
+			return buildingsOnMenu.Contains(ids);
+		}
+
+
 
         private void ExtractRaceData() {
             RaceData raceData = simulation.GameSettingsWrapper.racesMap[race];
