@@ -15,6 +15,8 @@ namespace Yad.Engine.Client
 	static class GameLogic
 	{
 		private static short race;
+
+        public static short Race { get { return race; } }
 		public delegate void AddBuildingDelegate(short id, short key);
 		public static event AddBuildingDelegate AddBuildingEvent;
 		private static Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
