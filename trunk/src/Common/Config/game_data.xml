@@ -107,39 +107,40 @@
 
 		<tns:BuildingData>
 			<tns:Name>Slab1</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:Health>1000</tns:Health>
+			<tns:Cost>10</tns:Cost>
+			<tns:Health>10</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
-			<tns:BuildSpeed>25</tns:BuildSpeed>
+			<tns:BuildSpeed>5</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
-				<tns:Y>2</tns:Y>
+				<tns:X>1</tns:X>
+				<tns:Y>1</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>0</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
+				<tns:index>0</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
 		<tns:BuildingData>
 			<tns:Name>Slab4</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:Health>1000</tns:Health>
-			<tns:ViewRange>10</tns:ViewRange>
-			<tns:BuildSpeed>25</tns:BuildSpeed>
+			<tns:Cost>2</tns:Cost>
+			<tns:Health>100</tns:Health>
+			<tns:ViewRange>2</tns:ViewRange>
+			<tns:BuildSpeed>20</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>2</tns:X>
 				<tns:Y>2</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>0</tns:EnergyConsumption>
 			<tns:RideableFields>
+				<tns:index>0</tns:index>
+				<tns:index>1</tns:index>
+				<tns:index>2</tns:index>
 				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -155,10 +156,8 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -169,15 +168,15 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
+				<tns:X>3</tns:X>
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
+				<tns:index>2</tns:index>
+				<tns:index>5</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -188,12 +187,15 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
-				<tns:Y>2</tns:Y>
+				<tns:X>3</tns:X>
+				<tns:Y>3</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
+				<tns:index>0</tns:index>
+				<tns:index>1</tns:index>
 				<tns:index>3</tns:index>
+				<tns:index>4</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
 				<tns:Name>Infantry</tns:Name>
@@ -212,10 +214,8 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -231,10 +231,8 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -250,10 +248,8 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -264,15 +260,13 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
+				<tns:X>3</tns:X>
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -288,10 +282,8 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -302,15 +294,13 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
-				<tns:Y>2</tns:Y>
+				<tns:X>1</tns:X>
+				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -321,15 +311,13 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
-				<tns:Y>2</tns:Y>
+				<tns:X>1</tns:X>
+				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -340,15 +328,13 @@
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
-				<tns:X>2</tns:X>
-				<tns:Y>2</tns:Y>
+				<tns:X>1</tns:X>
+				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
-				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -364,7 +350,6 @@
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
 				<tns:Name>Infantry</tns:Name>
