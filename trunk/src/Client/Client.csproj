@@ -148,6 +148,9 @@
     <Compile Include="UI\MiniForm.Designer.cs">
       <DependentUpon>MiniForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OwnerDrawPictureButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\UIManageable.cs">
       <SubType>Form</SubType>
     </Compile>

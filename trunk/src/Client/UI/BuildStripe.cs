@@ -17,7 +17,7 @@ namespace Yad.UI.Client {
 
         public static int WIDTH = 90;
         public static int HEIGHT = 60;
-        private Dictionary<short, PictureButton> buttons = new Dictionary<short, PictureButton>();
+        private Dictionary<short, OwnerDrawPictureButton> buttons = new Dictionary<short, OwnerDrawPictureButton>();
         /// <summary>
         /// number of objects under the 'upper' line
         /// </summary>
@@ -83,7 +83,7 @@ namespace Yad.UI.Client {
         }
 
         public void Insert(short id,String name,String pictureName) {
-            PictureButton pictureButton = new PictureButton(new Bitmap(pictureName), new Bitmap(pictureName));
+            OwnerDrawPictureButton pictureButton = new OwnerDrawPictureButton(new Bitmap(pictureName), new Bitmap(pictureName));
             buttons[id] = pictureButton;
             pictureButton.Text = name;
             pictureButton.Name = name;
@@ -106,10 +106,14 @@ namespace Yad.UI.Client {
         }
 
         void pictureButton_Click(object sender, EventArgs e) {
-			if (!GameLogic.IsWaitingForBuildingBuild && building)
-				GameLogic.LocateBuilding(GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name]);
-			else if (!GameLogic.IsWaitingForUnitCreation && !building)
-				GameLogic.CreateUnit(GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name]);
+            short id = GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name];
+            if (!GameLogic.IsWaitingForBuildingBuild && building) {
+                AddPercentCounter(id);
+                GameLogic.LocateBuilding(id);
+            } else if (!GameLogic.IsWaitingForUnitCreation && !building) {
+                AddPercentCounter(id);
+                GameLogic.CreateUnit(id);
+            }
             InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
         }
 
@@ -129,14 +133,22 @@ namespace Yad.UI.Client {
 
         public void AddPercentCounter(short id) {
             InfoLog.WriteInfo("AddPercentCounter", EPrefix.Stripe);
+            OwnerDrawPictureButton but;
+            if (this.buttons.TryGetValue(id,out but)) {
+                but.DrawPercentage = true;
+            }
         }
 
         public void SetPercentValue(short id,int val) {
             InfoLog.WriteInfo("SetPercentValue", EPrefix.Stripe);
         }
 
-        public void RemovePercentCounter() {
-            throw new Exception("The method or operation is not implemented.");
+        public void RemovePercentCounter(short id) {
+            InfoLog.WriteInfo("RemovePercentCounter", EPrefix.Stripe);
+            OwnerDrawPictureButton but;
+            if (this.buttons.TryGetValue(id, out but)) {
+                but.DrawPercentage = false;
+            }
         }
 
         public void RemoveAll() {
