@@ -9,6 +9,7 @@ using Yad.Board;
 using Yad.Config;
 using Yad.Net.Messaging;
 using Yad.Net.Client;
+using Yad.UI.Client;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
@@ -32,6 +33,9 @@ namespace Yad.Engine.Client {
 			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
 			if (players[bm.PlayerId] == null)
 				throw new Exception("Message from unknown player");
+            if (bm.PlayerId.Equals(GameForm.currPlayer.ID)) {
+                GameForm.StripesManager.RemovePercentageCounter(bm.BuildingType,true);
+            }
 			players[bm.PlayerId].AddBuilding(b);
 			for(int i=0; i<b.Size.X; i++)
 				for(int j=0; j<b.Size.Y; j++)

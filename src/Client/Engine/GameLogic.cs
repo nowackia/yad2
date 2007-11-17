@@ -74,9 +74,11 @@ namespace Yad.Engine.Client
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
 					bm.BuildingID = GameForm.currPlayer.GenerateObjectID();
 					bm.PlayerId = GameForm.currPlayer.ID;
-					bm.BuildingType = GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID;
+                    bm.BuildingType = buildingToBuild; //GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID;
 					bm.Type = MessageType.Build;
-					bm.Position = pos;
+					
+                    
+                    bm.Position = pos;
 					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
 					GameForm.conn.SendMessage(bm);
 					isLocatingBuilding = false;

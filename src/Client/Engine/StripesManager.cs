@@ -15,7 +15,7 @@ namespace Yad.Engine.Client {
          void Remove(short id);
          void AddPercentCounter(short id);
          void SetPercentValue(short id,int val);
-         void RemovePercentCounter();
+         void RemovePercentCounter(short id);
          void RemoveAll();
     }
     public class StripesManager {
@@ -32,6 +32,16 @@ namespace Yad.Engine.Client {
             simulation = sim;
             this.race = race;
             ExtractRaceData();
+        }
+
+        public void AddPercentageCounter(short id, bool building) {
+            IManageableStripe stripe = building ? buildingStripe : unitStripe;
+            stripe.AddPercentCounter(id);
+        }
+
+        public void RemovePercentageCounter(short id,bool building) {
+            IManageableStripe stripe = building ? buildingStripe : unitStripe;
+            stripe.RemovePercentCounter(id);
         }
 
         /// <summary>
