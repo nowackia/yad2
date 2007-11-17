@@ -219,20 +219,28 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		/// <param name="u"></param>
 		private void handleUnit(Unit u) {
-			Position pos = u.Position;
-			if (Randomizer.Next(3) != 0)
-				pos.X++;
-			else if (pos.X > 0)
-				pos.X--;
+			u.Move();
 
-			if (Randomizer.Next(3) != 0)
-				pos.Y++;
-			else if (pos.Y > 0)
-				pos.Y--;
+			if (!u.Moving) {
 
-			pos.X %= map.Width;
-			pos.Y %= map.Height;
-			u.Position = pos;
+				Position pos = u.Position;
+
+
+				//TODO: remove all Randomizer's in the future
+				if (Randomizer.Next(3) != 0)
+					pos.X++;
+				else if (pos.X > 0)
+					pos.X--;
+
+				if (Randomizer.Next(3) != 0)
+					pos.Y++;
+				else if (pos.Y > 0)
+					pos.Y--;
+
+				pos.X %= map.Width;
+				pos.Y %= map.Height;
+				u.MoveTo(pos);
+			}
 		}
 
 		/// <summary>
