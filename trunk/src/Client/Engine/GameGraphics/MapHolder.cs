@@ -11,7 +11,7 @@ using Yad.Properties;
 namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {
 		static int textureSize = 16;
-        static Bitmap[] bmps = null;
+		static Bitmap[] bmps = null;
 		private static ETextures[][] tileFrameMap = new ETextures[][]{
 			new ETextures[]{ETextures.Mountain, ETextures.Mountain, ETextures.Mountain, ETextures.Mountain, ETextures.Mountain, (ETextures)0}, //left, right, upper, lower
 			new ETextures[]{ETextures.Mountain, ETextures.Rock, ETextures.Rock, ETextures.Rock, ETextures.Rock, (ETextures)1},
@@ -50,29 +50,34 @@ namespace Yad.Engine.GameGraphics.Client {
 			new ETextures[]{ETextures.Sand, ETextures.Whatever,ETextures.Whatever,ETextures.Whatever,ETextures.Whatever, (ETextures)0}
 			};
 
-		private static int FindFrame(Map map, int x, int y)
-		{
+		private static int FindFrame(Map map, int x, int y) {
 			int result;
 			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
 				throw new MapHolderException("Incorrect map position");
+			
 			ETextures tileLeft, tileRight, tileUpper, tileLower;
+			
 			if (x > 0)
 				tileLeft = (ETextures)map.Tiles[x - 1, y];
 			else
 				tileLeft = ETextures.Whatever;
+			
 			if (x < map.Width - 1)
 				tileRight = (ETextures)map.Tiles[x + 1, y];
 			else
 				tileRight = ETextures.Whatever;
-			if (y > 0)
-				tileUpper = (ETextures)map.Tiles[x, y - 1];
+
+			if (y < map.Height - 1)
+				tileUpper = (ETextures)map.Tiles[x, y + 1];
 			else
 				tileUpper = ETextures.Whatever;
-			if (y < map.Height - 1)
-				tileLower = (ETextures)map.Tiles[x, y + 1];
+
+			if (y > 0)
+				tileLower = (ETextures)map.Tiles[x, y - 1];
 			else
 				tileLower = ETextures.Whatever;
-			for(int i=0; i<tileFrameMap.Length; i++){
+
+			for (int i = 0; i < tileFrameMap.Length; i++) {
 				if ((result = Match(tileFrameMap[i], (ETextures)map.Tiles[x, y], tileLeft, tileRight, tileLower, tileUpper)) >= 0)
 					return result;
 			}
@@ -80,8 +85,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 		}
 
-		private static int Match(ETextures[] tileType, ETextures center ,ETextures tileLeft, ETextures tileRight, ETextures tileLower, ETextures tileUpper)
-		{
+		private static int Match(ETextures[] tileType, ETextures center, ETextures tileLeft, ETextures tileRight, ETextures tileLower, ETextures tileUpper) {
 			if (tileLeft == ETextures.Whatever)
 				tileLeft = center;
 			if (tileRight == ETextures.Whatever)
@@ -96,27 +100,21 @@ namespace Yad.Engine.GameGraphics.Client {
 				return -1;
 		}
 
-        private static void LoadTextures()
-        {
-			try
-			{
+		private static void LoadTextures() {
+			try {
 				if (bmps != null)
 					return;
 				bmps = new Bitmap[TextureFiles.Count];
-				for (int i = 0; i < TextureFiles.Count; i++)
-				{
+				for (int i = 0; i < TextureFiles.Count; i++) {
 					bmps[i] = new Bitmap(Path.Combine(Path.GetFullPath(Settings.Default.Terrain), TextureFiles.getFileName((ETextures)i)));
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				throw new MapHolderException(e);
 			}
-         }
+		}
 
-        
-        public static Bitmap GenerateBitmap(Map map)
-        {
+
+		public static Bitmap GenerateBitmap(Map map) {
 			if (!map.CheckConststency())
 				throw new MapHolderException("Map is inconsistent");
 			LoadTextures();
@@ -124,9 +122,15 @@ namespace Yad.Engine.GameGraphics.Client {
 			int oldWidth = map.Width * textureSize, oldHeight = map.Height * textureSize;
 			Bitmap bmp = new Bitmap(oldWidth, oldHeight, PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
+
 			for (int y = 0; y < map.Height; y++) {
 				for (int x = 0; x < map.Width; x++) {
-					g.DrawImage(bmps[(int)map.Tiles[x, y]], new Rectangle(textureSize * x, textureSize * y, textureSize, textureSize), new Rectangle(bmps[(int)map.Tiles[x, y]].Height * FindFrame(map, x, y), 0, bmps[(int)map.Tiles[x, y]].Height - 1, bmps[(int)map.Tiles[x, y]].Height - 1), GraphicsUnit.Pixel);
+					Bitmap sourceBitmap = bmps[(int)map.Tiles[x, y]]; //all the possible tile's variations are here, spaced horizontally
+
+					Rectangle destRect = new Rectangle(textureSize * x, textureSize * (map.Height - y - 1), textureSize, textureSize);
+					Rectangle sourceRect = new Rectangle(sourceBitmap.Height * FindFrame(map, x, y), 0, sourceBitmap.Height, sourceBitmap.Height);
+
+					g.DrawImage(sourceBitmap, destRect, sourceRect, GraphicsUnit.Pixel);
 				}
 			}
 			g.Dispose();
