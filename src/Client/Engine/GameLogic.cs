@@ -17,6 +17,7 @@ namespace Yad.Engine.Client
 		private static short race;
 		public delegate void AddBuildingDelegate(short id, short key);
 		public static event AddBuildingDelegate AddBuildingEvent;
+		private static Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
 		/// <summary>;
 		/// if gamer wants to locate builing on the map
 		/// </summary>
@@ -77,8 +78,9 @@ namespace Yad.Engine.Client
 					bm.PlayerId = GameForm.currPlayer.ID;
                     bm.BuildingType = buildingToBuild; //GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID;
 					bm.Type = MessageType.Build;
+
+					AddBuildingCounter(bm.BuildingType, race);
 					
-                    
                     bm.Position = pos;
 					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
 					GameForm.conn.SendMessage(bm);
@@ -123,18 +125,33 @@ namespace Yad.Engine.Client
 			}
 		}
 
+		private static void AddBuildingCounter(short id, short key)
+		{
+			if (buldingCounter.ContainsKey(id))
+				buldingCounter[id]++;
+			else
+				buldingCounter[id] = 1;
+
+
+		}
+
 		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll)
 		{
 
 			foreach (String buildingName in coll)
 			{
 				short id;
+				short count;
 				if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id))
 				{
-					if (gf.IsStripContainingBuilding(id) == false)
-						return false;
+					if (buldingCounter.TryGetValue(id, out count))
+					{
+						if (count == 0)
+							return false;
+					}
+					else return false;
 				}
-
+				else return false;
 			}
 			return true;
 		}
@@ -155,6 +172,7 @@ namespace Yad.Engine.Client
 		{
 			race = key;
 			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
+
 		}
 	}
 }
