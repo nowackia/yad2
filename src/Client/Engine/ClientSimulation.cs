@@ -61,12 +61,14 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+
 			BoardObjectClass boc = cum.UnitKind;
 			Unit u = null;
+
 			if (boc == BoardObjectClass.UnitTank) {
-				u = new UnitTank(cum.PlayerId, cum.UnitID, cum.UnitType, cum.Position);
+				u = new UnitTank(cum.PlayerId, cum.UnitID, gameSettingsWrapper.tanksMap[cum.UnitType], cum.Position, this.map);
 			} else if (boc == BoardObjectClass.UnitTrooper) {
-				u = new UnitTrooper(cum.PlayerId, cum.UnitID, cum.UnitType, cum.Position);
+				u = new UnitTrooper(cum.PlayerId, cum.UnitID, gameSettingsWrapper.troopersMap[cum.UnitType], cum.Position, this.map);
 			}
 			if (players[cum.PlayerId] == null)
 				throw new Exception("Message from unknown player");

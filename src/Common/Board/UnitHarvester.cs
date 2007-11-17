@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Config;
+using Yad.Config.Common;
 
 namespace Yad.Board.Common {
 	public class UnitHarvester : Unit {
 
 		private int capacity;
 
-		public UnitHarvester(short playerID, int unitID, short typeID, Position pos)
-			: base(playerID, unitID, typeID, BoardObjectClass.UnitHarvester, pos) {
+		public UnitHarvester(short playerID, int unitID, UnitHarvesterData ud, Position pos, Map map, int speed)
+			: base(playerID, unitID, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map) {
+			this.Speed = ud.Speed;
+			//fill other properties
 		}
 
 		public int Capacity {

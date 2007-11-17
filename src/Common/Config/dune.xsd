@@ -4,108 +4,110 @@
 	<complexType name="UnitTrooperData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string"  />
-			<element name="Cost" type="int" />
-			<element name="FireRange" type="int" />
-			<element name="Speed" type="int" />
-			<element name="ReloadTime" type="int" />
+			<element name="Cost" type="short" />
+			<element name="FireRange" type="short" />
+			<element name="FirePower" type="short" />
+			<element name="Speed" type="short" />
+			<element name="ReloadTime" type="short" />
 			<element name="AmmoType" type="string" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="Power" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitTankData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="FireRange" type="int" />
-			<element name="Speed" type="int" />
-			<element name="ReloadTime" type="int" />
+			<element name="Cost" type="short" />
+			<element name="FireRange" type="short" />
+			<element name="FirePower" type="short" />
+			<element name="Speed" type="short" />
+			<element name="ReloadTime" type="short" />
 			<element name="AmmoType" type="string" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="Power" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="TurretRotationSpeed" type="int" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
+			<element name="TurretRotationSpeed" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitHarvesterData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
-			<element name="Capacity" type="int" />
-			<element name="GatheringSpeed" type="int" />
+			<element name="Cost" type="short" />
+			<element name="Speed" type="short" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
+			<element name="Capacity" type="short" />
+			<element name="HarvestingSpeed" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitMCVData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
+			<element name="Cost" type="short" />
+			<element name="Speed" type="short" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
 			<element name="BuildingCanProduce" type="string" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitSandwormData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
-      <element name="Name" type="string" />
-			<element name="Speed" type="int" />
-			<element name="Health" type="int" />
-			<element name="Power" type="int" />
-			<element name="DamageDestroy" type="int" />
-			<element name="RotationSpeed" type="int" />
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1"/>
+			<element name="Name" type="string" />
+			<element name="Speed" type="short" />
+			<element name="Health" type="short" />
+			<element name="FirePower" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="BuildingData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
-			<element name="Cost" type="int" />
-			<element name="Health" type="int" />
-			<element name="ViewRange" type="int" />
-			<element name="BuildSpeed" type="int" />
+			<element name="Cost" type="short" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
 			<element name="Size" type="tns:Size" />
 			<element name="EnergyConsumption" type="int" />
+			<!--  For buildings with firing capability -->
+			<element name="FireRange" type="short" minOccurs="0" maxOccurs="1" default="0"/>
+			<element name="FirePower" type="short" minOccurs="0" maxOccurs="1" default="0"/>
+			<element name="ReloadTime" type="short" minOccurs="0" maxOccurs="1" default="0"/>
+			<!-- -->
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
 			<element name="UnitsCanProduce" type="tns:UnitsNames" minOccurs="0" maxOccurs="1" />
 			<element name="BuildingsCanProduce" type="tns:BuildingsNames" minOccurs="0" maxOccurs="1" />
-			<!--  For buildings with firing capability -->
-			<element name="Power" type="int" minOccurs="0" maxOccurs="1" />
-			<element name="FireRange" type="int" minOccurs="0" maxOccurs="1" />
-			<element name="ReloadTime" type="int" minOccurs="0" maxOccurs="1" />
+			
 		</sequence>
 	</complexType>
 	<complexType name="AmmoData">
 		<sequence maxOccurs="1" minOccurs="1">
 			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1"/>
 			<element name="Name" type="string" />
-			<element name="Speed" type="int" />
-			<element name="DamageDestroyRange" type="int" />
+			<element name="Speed" type="short" />
+			<element name="DamageDestroyRange" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="RaceData">
@@ -175,13 +177,13 @@
 	</complexType>
 	<complexType name="Size">
 		<sequence maxOccurs="1" minOccurs="1">
-			<element name="X" type="int" />
-			<element name="Y" type="int" />
+			<element name="X" type="short" />
+			<element name="Y" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="RideableFields">
 		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="index" type="int" />
+			<element name="index" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitsNames">

@@ -6,12 +6,12 @@
 			<tns:Name>Infantry</tns:Name>
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>5</tns:FireRange>
-			<tns:Speed>2</tns:Speed>
+			<tns:FirePower>5</tns:FirePower>
+			<tns:Speed>10</tns:Speed>
 			<tns:ReloadTime>2</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
-			<tns:Power>50</tns:Power>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
@@ -23,12 +23,12 @@
 			<tns:Name>Tank</tns:Name>
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>10</tns:FireRange>
-			<tns:Speed>4</tns:Speed>
+			<tns:FirePower>100</tns:FirePower>
+			<tns:Speed>5</tns:Speed>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
-			<tns:Power>30</tns:Power>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>10</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
@@ -40,14 +40,14 @@
 		<tns:UnitHarvesterData>
 			<tns:Name>Harvester</tns:Name>
 			<tns:Cost>300</tns:Cost>
-			<tns:Speed>3</tns:Speed>
+			<tns:Speed>8</tns:Speed>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:Capacity>150</tns:Capacity>
-			<tns:GatheringSpeed>20</tns:GatheringSpeed>
+			<tns:HarvestingSpeed>20</tns:HarvestingSpeed>
 		</tns:UnitHarvesterData>
 	</tns:UnitHarvestersData>
 
@@ -68,9 +68,9 @@
 	<tns:UnitSandwormsData>
 		<tns:UnitSandwormData>
 			<tns:Name>Sandworm</tns:Name>
-			<tns:Speed>1</tns:Speed>
+			<tns:Speed>5</tns:Speed>
 			<tns:Health>100</tns:Health>
-			<tns:Power>5000</tns:Power>
+			<tns:FirePower>10000</tns:FirePower>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>0</tns:RotationSpeed>
 		</tns:UnitSandwormData>
@@ -79,7 +79,7 @@
 	<tns:AmmosData>
 		<tns:AmmoData>
 			<tns:Name>Bullet</tns:Name>
-			<tns:Speed>0</tns:Speed>
+			<tns:Speed>1</tns:Speed>
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 		</tns:AmmoData>
 	</tns:AmmosData>
@@ -97,6 +97,9 @@
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:FireRange>1</tns:FireRange>
+			<tns:FirePower>10</tns:FirePower>
+			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:RideableFields>
 				<tns:index>3</tns:index>
 			</tns:RideableFields>
@@ -298,6 +301,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:FireRange>5</tns:FireRange>
+			<tns:FirePower>50</tns:FirePower>
+			<tns:ReloadTime>15</tns:ReloadTime>
 			<tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
@@ -315,6 +321,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:FireRange>10</tns:FireRange>
+			<tns:FirePower>80</tns:FirePower>
+			<tns:ReloadTime>20</tns:ReloadTime>
 			<tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
