@@ -7,6 +7,8 @@ namespace Yad.Board.Common {
 	public class Map {
 		TileType[,] tiles;
 		bool[,] fogOfWar;
+		bool[,] slabs; // they don't work as normal buildings
+
 		short width, height;
 
 		//TODO: da ka¿dego pola zrobiæ oddzieln¹ listê
@@ -69,29 +71,33 @@ namespace Yad.Board.Common {
 				for (int i = 0; i < c.Length; i++) {
 					tempRow[i] = (byte)(c[i] - '0');
 				}
-				tempList.Add(tempRow);
+				tempList.Insert(0, tempRow);
 			}
 
 			width = (short)tempList[0].Length;
 			height = (short)tempList.Count;
 
 			tiles = new TileType[width, height];
-			for (int y = height - 1; y >= 0; y--) {
+			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					tiles[x, y] = (TileType)tempList[y][x];
 				}
 			}
 
 			fogOfWar = new bool[width, height];
+			slabs = new bool[width, height];
+
 			buildings = new LinkedList<Building>[width, height];
 			units = new LinkedList<Unit>[width, height];
-			for (int i = 0; i < width; i++)
+
+			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
 					fogOfWar[i, j] = true;
+					slabs[i, j] = false;
 					buildings[i, j] = new LinkedList<Building>();
 					units[i, j] = new LinkedList<Unit>();
 				}
-
+			}
 		}
 	}
 }
