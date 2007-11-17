@@ -15,13 +15,18 @@ namespace Yad.Net.GameServer.Server {
         #region Private members
 
         private ServerGameInfo _serverGameInfo;
-        private Dictionary<short, GamePlayer> _gamePlayers;
         private event GameEndDelegate _onGameEnd;
-        private short _minTurn = 0;
+        private IServerSimulation _simulation;
 
+        
         #endregion
 
         #region Properties 
+
+        public IServerSimulation Simulation {
+            get { return _simulation; }
+            set { _simulation = value; }
+        }
 
         public event GameEndDelegate OnGameEnd {
             add    { _onGameEnd += value; }
@@ -41,15 +46,15 @@ namespace Yad.Net.GameServer.Server {
         public GameServer(ServerGameInfo sgInfo) : base() {
 
             _playerCollection = new Dictionary<short, Player>();
-            _gamePlayers = new Dictionary<short, GamePlayer>();
             _serverGameInfo = sgInfo;
+            _simulation = new MockServerSimulation();
             
             lock (((ICollection)sgInfo.Players).SyncRoot) {
                 foreach (IPlayerID pid in sgInfo.Players.Values) {
                     ServerPlayerInfo spi = pid as ServerPlayerInfo;
                     lock (((ICollection)_playerCollection).SyncRoot) {
                         _playerCollection.Add(new KeyValuePair<short, Player>(spi.Id, spi.Player));
-                        _gamePlayers.Add(spi.Id, new GamePlayer());
+                        _simulation.AddPlayer(spi.Id);
                     }
                     
                 }

@@ -42,7 +42,9 @@ namespace Yad.Log.Common
         [Description(" #SVA: ")]
         ServerAction,
         [Description(" #GMP: ")]
-        GameMessageProccesing
+        GameMessageProccesing,
+        [Description(" #DBI: ")]
+        DatebaseInfo
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES

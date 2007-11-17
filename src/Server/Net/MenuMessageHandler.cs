@@ -6,6 +6,8 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log;
 using Yad.Log.Common;
+using Yad.Database.Server;
+using Yad.Properties;
 
 namespace Yad.Net.Server
 {
@@ -36,7 +38,9 @@ namespace Yad.Net.Server
         public override void ProcessItem(Message msg) {
             InfoLog.WriteInfo(msg.Type.ToString(), EPrefix.MessageReceivedInfo);
             switch (msg.Type) {
-
+                case MessageType.Register:
+                    ProcessRegister((RegisterMessage)msg);
+                    break;
                 case MessageType.Login:
                     ProcessLogin((LoginMessage)msg);
                     break;
@@ -62,9 +66,25 @@ namespace Yad.Net.Server
             }
 
         }
+
+       
         #endregion 
 
         #region Private Methods
+
+
+        private void ProcessRegister(RegisterMessage msg) {
+            if (Settings.Default.DBAvail) {
+                InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Register", msg.PlayerId), EPrefix.ServerProcessInfo);
+                if (YadDB.Register(msg.Login, msg.Password, msg.Mail)) {
+                    InfoLog.WriteInfo("Player registered successfully", EPrefix.ServerProcessInfo);
+                    SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.PlayerId);
+                }
+                InfoLog.WriteInfo("Player registered unsucessfully", EPrefix.ServerProcessInfo);
+            }
+            else
+                SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.PlayerId);
+        }
 
         /// <summary>
         /// Process information about clicked button "start game"
@@ -121,17 +141,28 @@ namespace Yad.Net.Server
             if (null == player || player.State != MenuState.Unlogged)
                 return;
 
-            if (Login(msg.Login, msg.Password)) {
+            if (Login(msg.PlayerId, msg.Login, msg.Password) || !Settings.Default.DBAvail) {
                 MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.Login);
                 if (state == MenuState.Invalid) {
                     SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
                     return;
                 }
-                lock (player.SyncRoot) {
-                    LoggingTransfer(player);
-                    player.State = state;
-                    player.SetData(LoadPlayerData(msg.Login));
+                LoggingTransfer(player);
+                player.State = state;
+                if (!Settings.Default.DBAvail) {
+                    PlayerData pd = new PlayerData();
+                    pd.Login = msg.Login;
+                    pd.LossNo = pd.WinNo = 0;
+                    pd.Id = msg.PlayerId;
+                    player.SetData(pd);
                 }
+                
+
+            }
+            else {
+                SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
+                InfoLog.WriteInfo("Player: " + msg.Login + "failed to login", EPrefix.ServerProcessInfo);
+                return;
             }
 
             SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Successful), player.Id);
@@ -257,8 +288,23 @@ namespace Yad.Net.Server
             _server.GameManager.AddPlayer(player);
         }
 
-        public bool Login(string login, string password) {
-            return true;    
+        public bool Login(short id, string login, string password) {
+
+            ushort winno = 0;
+            ushort lossno = 0;
+
+            if (YadDB.Login(login, password, ref winno, ref lossno)) {
+                Player player = _server.GetPlayer(id);
+                PlayerData pd = new PlayerData();
+                pd.Id = id;
+                pd.Login = login;
+                pd.LossNo = lossno;
+                pd.WinNo = winno;
+                player.SetData(pd);
+                return true;
+            }
+            return false;
+            
         }
 
         public PlayerData LoadPlayerData(string login) {
