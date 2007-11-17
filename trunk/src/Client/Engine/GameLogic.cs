@@ -14,6 +14,7 @@ namespace Yad.Engine.Client
 {
 	static class GameLogic
 	{
+		private static short race;
 		public delegate void AddBuildingDelegate(short id, short key);
 		public static event AddBuildingDelegate AddBuildingEvent;
 		/// <summary>;
@@ -63,7 +64,7 @@ namespace Yad.Engine.Client
 		/// Reaction on left mouse button on the map
 		/// </summary>
 		/// <param name="e"></param>
-		public static void MouseLeftClick(MouseEventArgs e)
+		public static void MouseLeftClick(GameForm gf, MouseEventArgs e)
 		{
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
 			if (isLocatingBuilding)
@@ -82,8 +83,28 @@ namespace Yad.Engine.Client
 					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
 					GameForm.conn.SendMessage(bm);
 					isLocatingBuilding = false;
+					foreach (TechnologyDependence techRef in GameForm.sim.GameSettingsWrapper.GameSettings.RacesData[getRaceIdx(race)].TechnologyDependences)
+					{
+						short ids = GameForm.sim.GameSettingsWrapper.namesToIds[techRef.BuildingName];
+						if (gf.IsStripContainingBuilding(ids) == true) continue;
+						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings))
+						{
+							// adds new building to strip
+							AddBuildingEvent(ids, race);
+							
+							
+						}
+					}  
 				}
 			}
+		}
+
+		public static short getRaceIdx(short raceId)
+		{
+			for (short i = 0; i < GameForm.sim.GameSettingsWrapper.GameSettings.RacesData.Count; i++)
+				if (GameForm.sim.GameSettingsWrapper.GameSettings.RacesData[i].TypeID == raceId)
+					return i;
+			return -1;
 		}
 
 		public static bool IsWaitingForBuildingBuild
@@ -102,6 +123,22 @@ namespace Yad.Engine.Client
 			}
 		}
 
+		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll)
+		{
+
+			foreach (String buildingName in coll)
+			{
+				short id;
+				if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id))
+				{
+					if (gf.IsStripContainingBuilding(id) == false)
+						return false;
+				}
+
+			}
+			return true;
+		}
+
 		public static void LocateBuilding(short p)
 		{
 			isLocatingBuilding = true;
@@ -116,6 +153,7 @@ namespace Yad.Engine.Client
 
 		internal static void InitStripes(string name, short key)
 		{
+			race = key;
 			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
 		}
 	}

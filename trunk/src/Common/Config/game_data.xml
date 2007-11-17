@@ -376,6 +376,7 @@
 
 	<tns:RacesData>
 		<tns:RaceData>
+			<tns:TypeID>0</tns:TypeID>
 			<tns:Name>Atreides</tns:Name>
 			<tns:TechnologyDependences>
 				<tns:TechnologyDependence>
