@@ -95,7 +95,7 @@ namespace Yad.Board.Common {
 			this.map = map;
 			this.lastPosition = pos;
 			this.direction = Direction.North;
-			this.currentPath = new Queue<Position>();			
+			this.currentPath = new Queue<Position>();
 		}
 
 		public AmmoType AmmoType {
@@ -150,7 +150,7 @@ namespace Yad.Board.Common {
 			this.currentPath = FindPath(this.Position, destination, this.map,
 										this.canCrossMountain, this.canCrossBuildings,
 										this.canCrossRock, this.canCrossTrooper, this.canCrossRock);
-			
+
 			//this._remainingTurnsInMove = this.speed;
 		}
 
@@ -169,11 +169,34 @@ namespace Yad.Board.Common {
 												bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
 			Queue<Position> path = new Queue<Position>();
 			
-			
 			//TODO Go-Go-Gadget!
 
 			//remove
-			path.Enqueue(dest);
+
+			int diffX = dest.X - source.X;
+			int diffY = dest.Y - source.Y;
+			float x = source.X, y = source.Y;
+			int m;
+
+			if (Math.Abs(diffX) > Math.Abs(diffY)) {
+				m = (diffX > 0)?1:-1;
+				float dy = (float)diffY / (float)Math.Abs(diffX);
+				for (int i = 0; i < Math.Abs(diffX); i++) {
+					x += m;
+					y += dy;
+					path.Enqueue(new Position((short)x, (short)y));
+				}
+			} else {
+				m = (diffY > 0) ? 1 : -1;
+				float dx = diffX / (float)Math.Abs(diffY);
+				for (int i = 0; i < Math.Abs(diffY); i++) {
+					x += dx;
+					y += m;
+					path.Enqueue(new Position((short)x, (short)y));
+				}
+			}
+
+			//path.Enqueue(dest);
 			//end remove
 
 			return path;

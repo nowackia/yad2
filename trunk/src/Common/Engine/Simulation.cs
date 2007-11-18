@@ -224,6 +224,7 @@ namespace Yad.Engine.Common {
 		private void handleUnit(Unit u) {
 			u.Move();
 
+			/*
 			if (!u.Moving && (Randomizer.Next(3)!=0)) {
 
 				Position pos = u.Position;
@@ -237,6 +238,7 @@ namespace Yad.Engine.Common {
 
 				u.MoveTo(pos);
 			}
+			 * */
 		}
 
 		/// <summary>
