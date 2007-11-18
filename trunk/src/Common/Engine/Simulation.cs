@@ -101,14 +101,17 @@ namespace Yad.Engine.Common {
 
 		protected GameSettingsWrapper gameSettingsWrapper;
 
+		protected Player currentPlayer;
+
 		//animations
 
 		#endregion
 
 		#region constructor
-		public Simulation(GameSettingsWrapper settingsWrapper, Map map, bool useFastTurnProcessing) {
+		public Simulation(GameSettingsWrapper settingsWrapper, Map map, Player currPlayer, bool useFastTurnProcessing) {
 			this.gameSettingsWrapper = settingsWrapper;
 			this.map = map;
+			this.currentPlayer = currPlayer;
 			this.fastTurnProcessing = useFastTurnProcessing;
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;

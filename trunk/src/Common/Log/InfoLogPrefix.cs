@@ -21,6 +21,8 @@ namespace Yad.Log.Common
         Menu,
         [Description(" #GRF: ")]
 		GameGraphics,
+		[Description(" #GLOG: ")]
+		GameLogic,
         [Description(" #FIN:")]
         Finalization,
         [Description(" #UIM: ")]

@@ -6,6 +6,7 @@ using Yad.Log.Common;
 using Yad.Config.Common;
 using Yad.Board.Common;
 using Yad.Config;
+using Yad.Engine.Common;
 
 namespace Yad.Engine.Server {
 	/// <summary>
@@ -13,8 +14,8 @@ namespace Yad.Engine.Server {
 	/// </summary>
 	[Obsolete("Don't do anything in here! It might be useless ;P")]
 	class ServerSimulation : Yad.Engine.Common.Simulation {
-		public ServerSimulation(GameSettingsWrapper settings, Map map)
-			: base(settings, map, true) {
+		public ServerSimulation(GameSettingsWrapper settings, Map map, Player currPlayer)
+			: base(settings, map, currPlayer, true) {
 			//this.onTurnBegin
 			//this.onTurnEnd
 		}

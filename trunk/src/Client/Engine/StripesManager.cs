@@ -11,13 +11,15 @@ using Yad.Properties;
 namespace Yad.Engine.Client {
 
     public interface IManageableStripe {
-         void Add(short id,string name, String pictureName);
-         void Remove(short id);
-         void AddPercentCounter(short id);
-         void SetPercentValue(short id,int val);
-         void RemovePercentCounter(short id);
-         void RemoveAll();
+		event Yad.UI.Client.BuildStripe.ChoiceHandler OnChoice;
+		void Add(short id,string name, String pictureName);
+		void Remove(short id);
+		void AddPercentCounter(short id);
+		void SetPercentValue(short id,int val);
+		void RemovePercentCounter(short id);
+		void RemoveAll();
     }
+
     public class StripesManager {
         IManageableStripe unitStripe;
         IManageableStripe buildingStripe;
@@ -26,9 +28,12 @@ namespace Yad.Engine.Client {
         Simulation simulation;
         short race;
         TechnologyDependences deps;
+
         public StripesManager(Simulation sim, short race, IManageableStripe unitStripe,IManageableStripe buildingStripe) {
             this.buildingStripe = buildingStripe;
             this.unitStripe = unitStripe;
+
+
             simulation = sim;
             this.race = race;
             ExtractRaceData();
@@ -39,8 +44,8 @@ namespace Yad.Engine.Client {
             stripe.AddPercentCounter(id);
         }
 
-        public void RemovePercentageCounter(short id,bool building) {
-            IManageableStripe stripe = building ? buildingStripe : unitStripe;
+        public void RemovePercentageCounter(short id,bool isABuilding) {
+            IManageableStripe stripe = isABuilding ? buildingStripe : unitStripe;
             stripe.RemovePercentCounter(id);
         }
 

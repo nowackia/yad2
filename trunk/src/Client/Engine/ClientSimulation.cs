@@ -11,14 +11,23 @@ using Yad.Net.Messaging;
 using Yad.Net.Client;
 using Yad.UI.Client;
 using System.Windows.Forms;
+using Yad.Engine.Common;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
+	
+		#region events
+		public delegate void BuildingCompletedHandler (short buildingType);
+		public delegate void UnitCompletedHandler (short unitType);
+
+		public event BuildingCompletedHandler OnBuildingCompleted;
+		public event UnitCompletedHandler OnUnitCompleted;
+		#endregion
 
 		IConnection connectionToServer;
 
-		public ClientSimulation(GameSettingsWrapper settings, Map map, IConnection conn)
-			: base(settings, map, false) {
+		public ClientSimulation(GameSettingsWrapper settings, Map map, Player currPlayer, IConnection conn)
+			: base(settings, map, currPlayer, false) {
 			this.connectionToServer = conn;
 			//this.onTurnBegin
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
@@ -34,8 +43,11 @@ namespace Yad.Engine.Client {
 			Building b = new Building(bm.PlayerId, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
 			if (players[bm.PlayerId] == null)
 				throw new Exception("Message from unknown player");
-            if (bm.PlayerId.Equals(GameForm.currPlayer.ID)) {
-                GameForm.StripesManager.RemovePercentageCounter(bm.BuildingType,true);
+            if (bm.PlayerId.Equals(currentPlayer.ID)) {
+				if (this.OnBuildingCompleted != null) {
+					this.OnBuildingCompleted(bm.BuildingType);
+				}
+                //StripesManager.RemovePercentageCounter(bm.BuildingType,true);
             }
 			players[bm.PlayerId].AddBuilding(b);
 			for (int i = 0; i < b.Size.X; i++) {

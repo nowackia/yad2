@@ -26,13 +26,14 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region private members
-		static Simulation simulation;
+		static GameLogic gameLogic;
 
 		const float mapDepth = 0.0f;
 		const float slabDepth = 0.1f;
 		const float buildingDepth = 0.2f;
 		const float unitDepth = 0.3f;
-		const float fogOfWarDepth = 0.4f;
+		const float selectionDepth = 0.4f;
+		const float fogOfWarDepth = 0.5f;
 		static RectangleF defaultUV = new RectangleF(0, 0, 1, 1);
 		const short pictureOffset = 100;
 		const short textureOffset = 200;
@@ -113,7 +114,7 @@ namespace Yad.Engine.Client {
 		private static void UpdateViewport() {
 			Gl.glViewport(0, 0, viewport.Width, viewport.Height);
 
-			minimumZoom = Math.Max((float)viewport.Width / (float)simulation.Map.Width, (float)viewport.Height / (float)simulation.Map.Height);
+			minimumZoom = Math.Max((float)viewport.Width / (float)gameLogic.Simulation.Map.Width, (float)viewport.Height / (float)gameLogic.Simulation.Map.Height);
 
 			UpdateZoom();
 			UpdateClip();
@@ -212,8 +213,8 @@ namespace Yad.Engine.Client {
 				offset.Y = mapClip.Height / 2.0f;
 			}
 
-			if (offset.Y > simulation.Map.Height - mapClip.Height / 2.0f) {
-				offset.Y = simulation.Map.Height - mapClip.Height / 2.0f;
+			if (offset.Y > gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f) {
+				offset.Y = gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f;
 			}
 		}
 
@@ -222,8 +223,8 @@ namespace Yad.Engine.Client {
 				offset.X = mapClip.Width / 2.0f;
 			}
 
-			if (offset.X > simulation.Map.Width - mapClip.Width / 2.0f) {
-				offset.X = simulation.Map.Width - mapClip.Width / 2.0f;
+			if (offset.X > gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f) {
+				offset.X = gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f;
 			}
 		}
 
@@ -237,6 +238,7 @@ namespace Yad.Engine.Client {
 		#region texture init
 		public static void InitTextures(Simulation simulation) {
 			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
+			Create32bTexture(2, LoadBitmap(Path.Combine(Settings.Default.UI, "Selection.png")));
 
 			GameSettings gameSettings = simulation.GameSettingsWrapper.GameSettings;
 			foreach (AmmoData o in gameSettings.AmmosData.AmmoDataCollection) {
@@ -312,16 +314,16 @@ namespace Yad.Engine.Client {
 			//draw fogOfWar
 
 			//Drawing map
-			DrawElementFromLeftBottom(0, 0, mapDepth, simulation.Map.Width, simulation.Map.Height, 1, defaultUV);
+			DrawElementFromLeftBottom(0, 0, mapDepth, gameLogic.Simulation.Map.Width, gameLogic.Simulation.Map.Height, 1, defaultUV);
 
 			//Drawing slab's
 			//TODO
 
 			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
 			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
-			
 
-			ICollection<Player> players = simulation.GetPlayers();
+
+			ICollection<Player> players = gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
@@ -348,6 +350,14 @@ namespace Yad.Engine.Client {
 				foreach (Building b in buildings) {
 					DrawBuilding(b);
 				}
+			}
+			foreach (Unit u in gameLogic.SelectedUnits) {
+				DrawElementFromLeftBottom(u.Position.X, u.Position.Y, selectionDepth, 1, 1, 2, defaultUV);
+			}
+
+			Building selB = gameLogic.SelectedBuilding;
+			if (selB != null) {
+				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, selectionDepth, selB.Size.X, selB.Size.Y, 2, defaultUV);
 			}
 		}
 
@@ -502,9 +512,9 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region public methods
-		public static void InitGL(Simulation sim) {
-			simulation = sim;
-			simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+		public static void InitGL(GameLogic gLogic) {
+			gameLogic = gLogic;
+			gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
 
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
