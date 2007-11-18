@@ -82,8 +82,8 @@ namespace Yad.Net.GameServer.Server {
         private void IncreaseTurn(short id) {
             int minTurnBefore = _gameServer.Simulation.GetMinTurn();
             _gameServer.Simulation.IncPlayerTurn(id);
-            SendMessage(MessageFactory.Create(MessageType.DoTurn), id);
             int minTurn = _gameServer.Simulation.GetMinTurn();
+            SendMessage(MessageFactory.Create(MessageType.DoTurn), id);
             if (minTurn != minTurnBefore) {
                 short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
                 for (int i = 0; i < stoppedWaiting.Length; ++i)

@@ -112,12 +112,11 @@ namespace Yad.Net.Server {
 
         private void OnGameServerEnd(object sender, GameEndEventArgs args) {
             Serv.GameServer gs = sender as Serv.GameServer;
-            IEnumerator<KeyValuePair<short,Player>> enumerator = gs.GetPlayers();
-            do {
-                Player p = enumerator.Current.Value;
-                p.State = PlayerStateMachine.Transform(MenuState.Game, MenuAction.GameEnd);
-                _server.Chat.AddPlayer(p);
-            } while (enumerator.MoveNext());
+            Player[] players = gs.GetPlayersArray();
+            for (int i = 0; i < players.Length; ++i) {
+                players[i].State = PlayerStateMachine.Transform(MenuState.Game, MenuAction.GameEnd);
+                _server.Chat.AddPlayer(players[i]);
+            }
             gs.LeaveMsgHandlerChange(this._server);
             _games.Remove(gs.Name);
         }
