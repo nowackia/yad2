@@ -106,6 +106,14 @@
 			<tns:UnitsCanProduce>
 				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
+      <tns:BuildingsCanProduce>
+        <tns:Name>Slab4</tns:Name>
+        <tns:Name>Barracks</tns:Name>
+        <tns:Name>Slab1</tns:Name>
+        <tns:Name>Radar</tns:Name>
+        <tns:Name>Refinery</tns:Name>
+        <tns:Name>Wall</tns:Name>
+      </tns:BuildingsCanProduce>
 		</tns:BuildingData>
 
 		<tns:BuildingData>

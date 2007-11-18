@@ -72,6 +72,13 @@ namespace Yad.Engine.Client {
 		public delegate void AddUnitDelegate(string name, short key);
 		public event AddUnitDelegate AddUnitEvent;
 		private Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
+        public bool hasBuilding(short id) {
+            short c;
+            if (buldingCounter.TryGetValue(id, out c)) {
+                return c > 0;
+            }
+            return false;
+        }
 		/// <summary>;
 		/// if gamer wants to locate builing on the map
 		/// </summary>
@@ -259,7 +266,9 @@ namespace Yad.Engine.Client {
 		/// <param name="key"></param>
 		internal void InitStripes(string name, short key) {
 			race = key;
-			AddBuildingEvent(sim.GameSettingsWrapper.namesToIds[name], key);
+            short id = sim.GameSettingsWrapper.namesToIds[name];
+            AddBuildingCounter(id, key);
+			AddBuildingEvent(id, key);
 
 
 		}
