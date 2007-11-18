@@ -53,8 +53,6 @@ namespace Yad.UI.Client
             actualForm.Close();
         }
 
-
-
         void form_optionChoosed(MenuOption option)
         {
             InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + option, EPrefix.UIManager);
