@@ -91,6 +91,7 @@ namespace Yad.Net.Client
                     break;
 
                 case MessageType.DoTurn:
+					InfoLog.WriteInfo("DoTurn received", EPrefix.ClientInformation);
                     if (DoTurnPermission != null)
                         DoTurnPermission(this, EventArgs.Empty);
                     break;
