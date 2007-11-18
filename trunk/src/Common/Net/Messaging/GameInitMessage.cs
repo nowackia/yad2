@@ -22,10 +22,13 @@ namespace Yad.Net.Messaging.Common
 
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);
-            if (_posData == null || _posData.Length == 0) {
+            if (_posData == null || _posData.Length == 0)
+            {
                 writer.Write((int)0);
                 return;
             }
+            else
+                writer.Write(_posData.Length);
             for (int i = 0; i < _posData.Length; ++i) {
                 writer.Write(_posData[i].PlayerId);
                 writer.Write(_posData[i].X);
@@ -43,7 +46,7 @@ namespace Yad.Net.Messaging.Common
             _posData = new PositionData[count];
             short id = -1;
             int x = -1, y = -1;
-
+            
             for (int i = 0; i < count; ++i) {
                 id = reader.ReadInt16();
                 x = reader.ReadInt32();
