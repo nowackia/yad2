@@ -142,22 +142,24 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo("MouseDown");
 			if (e.Button == MouseButtons.Right) {
 				mousePos = e.Location;
-				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
 				this.selecting = true;
 				this.selectionStart = GameGraphics.TranslateMousePosition(e.Location);
+			} else if (e.Button == MouseButtons.Middle) {
+				scrolling = true;
 			}
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseUp");
 			if (e.Button == MouseButtons.Right) {
-				scrolling = false;
 				gameLogic.IssuedOrder(GameGraphics.TranslateMousePosition(e.Location));
 			} else if (e.Button == MouseButtons.Left) {
 				selecting = false;
 				this.selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 				gameLogic.Select(selectionStart, selectionEnd);
+			} else if (e.Button == MouseButtons.Middle) {
+				scrolling = false;
 			}
 		}
 

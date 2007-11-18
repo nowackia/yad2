@@ -42,9 +42,10 @@ namespace Yad.Board.Common {
 				return;
 			}
 
-			if (_remainingTurnsInMove == this.speed) {
+			if (_remainingTurnsInMove == 0) {
 				//unit starts to move
 				//so we set a new position
+				this._remainingTurnsInMove = this.speed;
 
 				Position newPos = currentPath.Dequeue();
 
@@ -150,7 +151,7 @@ namespace Yad.Board.Common {
 										this.canCrossMountain, this.canCrossBuildings,
 										this.canCrossRock, this.canCrossTrooper, this.canCrossRock);
 			
-			this._remainingTurnsInMove = this.speed;
+			//this._remainingTurnsInMove = this.speed;
 		}
 
 		/// <summary>
