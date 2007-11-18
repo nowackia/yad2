@@ -146,7 +146,8 @@ namespace Yad.Net.Client
                     return;
                 }
 
-                messageHandler.ProcessMessage(msg);
+                if(messageHandler != null)
+                    messageHandler.ProcessMessage(msg);
 
                 if (MessageReceive != null)
                 {

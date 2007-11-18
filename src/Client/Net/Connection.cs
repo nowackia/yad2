@@ -82,7 +82,7 @@ namespace Yad.Net.Client
             add
             { receiver.MessageReceive += value; }
             remove
-            { receiver.MessageReceive += value; }
+            { receiver.MessageReceive -= value; }
         }
 
         public event MessageEventHandler MessageSend
@@ -90,7 +90,7 @@ namespace Yad.Net.Client
             add
             { sender.MessageSend += value; }
             remove
-            { sender.MessageSend += value; }
+            { sender.MessageSend -= value; }
         }
 
         public void CloseConnection()
