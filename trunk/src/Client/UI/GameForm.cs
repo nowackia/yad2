@@ -68,14 +68,7 @@ namespace Yad.UI.Client {
         }
         #endregion
 
-		public void AddBuilding(short id, short key)
-		{
-			String name = GameForm.sim.GameSettingsWrapper.buildingsMap[id].Name;
-            //stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
-            stripesManager.AddBuilding(id);
-            stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
-			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
-		}
+
 
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
@@ -262,6 +255,20 @@ namespace Yad.UI.Client {
 			}
 
 			#endregion
+		}
+
+		internal void addUnitCreationPossibility(string s)
+		{
+			
+		}
+
+		public void AddBuilding(short id, short key)
+		{
+			String name = GameForm.sim.GameSettingsWrapper.buildingsMap[id].Name;
+			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
+			stripesManager.AddBuilding(id);
+			stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
+			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
 		}
 	}
 }

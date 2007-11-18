@@ -95,7 +95,7 @@ namespace Yad.Engine.Client
 						{
 							// adds new building to strip
 							AddBuildingEvent(ids, race);
-							
+							AddUnitCreation(gf, bm.BuildingType);
 							
 						}
 					}  
@@ -103,6 +103,29 @@ namespace Yad.Engine.Client
 			}
 		}
 
+		/// <summary>
+		/// Adds certain unit to the unic creation stripe as a possibility of creation a new unit
+		/// </summary>
+		/// <param name="p"></param>
+		private static void AddUnitCreation(GameForm gf, short p)
+		{
+			if (buldingCounter[p] == 1)
+			{
+				foreach (BuildingData b in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData)
+				{
+					if (b.TypeID == p)
+						foreach (string s in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData[0].UnitsCanProduce)
+							gf.addUnitCreationPossibility(s);
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// Retrieves race index in race collection by the race id
+		/// </summary>
+		/// <param name="raceId"></param>
+		/// <returns></returns>
 		public static short getRaceIdx(short raceId)
 		{
 			for (short i = 0; i < GameForm.sim.GameSettingsWrapper.GameSettings.RacesData.Count; i++)
@@ -137,6 +160,12 @@ namespace Yad.Engine.Client
 
 		}
 
+		/// <summary>
+		/// Checks requied building needed to build requested one
+		/// </summary>
+		/// <param name="gf"></param>
+		/// <param name="coll"></param>
+		/// <returns></returns>
 		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll)
 		{
 
@@ -170,6 +199,11 @@ namespace Yad.Engine.Client
 			unitToCreate = p;
 		}
 
+		/// <summary>
+		/// Initializating stripes and delegates
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="key"></param>
 		internal static void InitStripes(string name, short key)
 		{
 			race = key;
