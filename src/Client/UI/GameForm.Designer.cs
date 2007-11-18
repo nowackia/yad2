@@ -225,7 +225,6 @@ namespace Yad.UI.Client
 			this.openGLView.StencilBits = ((byte)(0));
 			this.openGLView.TabIndex = 14;
 			this.openGLView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
-			this.openGLView.Click += new System.EventHandler(this.openGLView_Click);
 			this.openGLView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
 			this.openGLView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
 			this.openGLView.Resize += new System.EventHandler(this.openGLView_Resize);

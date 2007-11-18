@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\AudioEngine.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
     <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
     <Compile Include="Engine\GameGraphics\IRenderer.cs" />
@@ -129,6 +130,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Yad.Properties.Client</CustomToolNamespace>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -399,37 +401,97 @@
     <Content Include="Resources\Audio\FX\Unused\whoever.wav" />
     <Content Include="Resources\Audio\FX\Unused\wind2bp.wav" />
     <Content Include="Resources\Audio\FX\Unused\your.wav" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_01.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_02.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_03.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_04.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_05.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_06.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_07.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_08.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_09.MID" />
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_10.MID" />
-    <Content Include="Resources\Audio\Music\Lose\dune_lose_01.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_01.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_02.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_03.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_04.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_05.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_06.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_07.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_08.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_09.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_10.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_11.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_12.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_13.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_14.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_15.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_16.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_17.MID" />
-    <Content Include="Resources\Audio\Music\Peace\dune_peace_18.MID" />
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_01.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_02.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_03.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_04.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_05.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_06.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_07.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_08.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_09.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Fight\dune_fight_10.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Lose\dune_lose_01.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_01.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_02.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_03.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_04.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_05.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_06.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_07.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_08.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_09.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_10.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_11.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_12.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_13.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_14.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_15.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_16.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_17.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\Peace\dune_peace_18.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Audio\Music\_READ-ME.txt" />
-    <Content Include="Resources\Audio\Music\Win\dune_win_01.MID" />
+    <Content Include="Resources\Audio\Music\Win\dune_win_01.MID">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Animations\BurningLargeTracked.png" />
     <Content Include="Resources\Graphics\Animations\BurningSmallTracked.png" />
     <Content Include="Resources\Graphics\Animations\BurningUnitFlames.png" />

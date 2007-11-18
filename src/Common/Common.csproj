@@ -114,9 +114,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </None>
     <None Include="Config\dune.xsx">
       <DependentUpon>dune.xsd</DependentUpon>
@@ -128,11 +130,12 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\game_data.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

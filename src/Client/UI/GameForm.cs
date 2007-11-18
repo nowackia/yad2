@@ -21,6 +21,7 @@ using Yad.Board;
 using Yad.Net.Client;
 using Yad.Utilities.Common;
 using Yad.Properties;
+using Yad.Properties.Client;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -88,7 +89,9 @@ namespace Yad.UI.Client {
             InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
             gameLogic.CreateUnit(id);
         }
+		#endregion
 
+		#region simulation events handling
         void rightStripe_onBuildChosen(short id) {
             InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
             gameLogic.LocateBuilding(id);
@@ -121,21 +124,31 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
+		#region GameGraphics-related
+
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
 			this.openGLView.Invalidate();
 		}
 
-		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
-			GameGraphics.Zoom(e.Delta / 120);
+		private void openGLView_Paint(object sender, PaintEventArgs e) {
+			GameGraphics.Draw();
 		}
 
+		private void openGLView_Resize(object sender, EventArgs e) {
+			//InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
+
+			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+		}
+
+		#endregion
+
+		#region ui control
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {
 			InfoLog.WriteInfo(e.KeyCode.ToString());
 			if (e.KeyCode == Keys.Z) {
 				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
 				this.openGLView.Invalidate();
-			}
-			if (e.KeyCode == Keys.Q) {
+			} else if (e.KeyCode == Keys.Q) {
 				GameGraphics.Zoom(-1);
 			} else if (e.KeyCode == Keys.E) {
 				GameGraphics.Zoom(1);
@@ -150,8 +163,8 @@ namespace Yad.UI.Client {
 			}
 		}
 
-		public bool IsStripContainingBuilding(short ids) {
-			return leftStripe.Ids.Contains(ids);
+		void MainForm_MouseWheel(object sender, MouseEventArgs e) {
+			GameGraphics.Zoom(e.Delta / 120);
 		}
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
@@ -196,17 +209,9 @@ namespace Yad.UI.Client {
 				Cursor.Position = openGLView.PointToScreen(mousePos);
 			}
 		}
+		#endregion
 
-		private void openGLView_Paint(object sender, PaintEventArgs e) {
-			GameGraphics.Draw();
-		}
-
-		private void openGLView_Resize(object sender, EventArgs e) {
-			//InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
-
-			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-		}
-
+		#region stripes-related
 		internal void addUnitCreationPossibility(string name, short key)
 		{
 			
@@ -221,10 +226,7 @@ namespace Yad.UI.Client {
 			BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
 		}
 
-		private void openGLView_Click(object sender, EventArgs e) {
-			InfoLog.WriteInfo("MouseClick");
-		}
-
+		#endregion
         public void BuildingClickedOnMap(short idB) {
             rightStripe.RemoveAll(); // flush the stripe
 
@@ -262,5 +264,9 @@ namespace Yad.UI.Client {
             }
             return true;
         }
+
+		internal bool IsStripContainingBuilding(short ids) {
+			return leftStripe.Ids.Contains(ids);
+		}
 	}
 }
