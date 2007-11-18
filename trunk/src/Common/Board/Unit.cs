@@ -19,6 +19,7 @@ namespace Yad.Board.Common {
 		protected short health;
 		protected short viewRange;
 		protected short rotationSpeed;
+		protected Direction direction;
 
 		//used for moving
 		protected bool canCrossMountain = false, canCrossBuildings = false, canCrossRock = true, canCrossTrooper = false, canCrossTank = false;
@@ -59,9 +60,24 @@ namespace Yad.Board.Common {
 				this.map.Units[this.Position.X, this.Position.Y].Remove(this);
 
 				this.lastPosition = Position;
-				this.Position = newPos;				
+				this.Position = newPos;
 
-				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);				
+				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+
+				//set new direction
+				short dx = (short)(newPos.X - lastPosition.X);
+				short dy = (short)(newPos.Y - lastPosition.Y);
+				this.direction = Direction.None;
+				if (dx > 0) {
+					direction |= Direction.East;
+				} else if (dx < 0) {
+					direction |= Direction.West;
+				}
+				if (dy > 0) {
+					direction |= Direction.North;
+				} else if (dy < 0) {
+					direction |= Direction.South;
+				}
 			}
 
 			//move unit
@@ -77,6 +93,7 @@ namespace Yad.Board.Common {
 			this.typeID = typeID;
 			this.map = map;
 			this.lastPosition = pos;
+			this.direction = Direction.North;
 			this.currentPath = new Queue<Position>();			
 		}
 
@@ -181,6 +198,11 @@ namespace Yad.Board.Common {
 
 		public int RemainingTurnsInMove {
 			get { return this._remainingTurnsInMove; }
+		}
+
+		public Direction Direction {
+			get { return direction; }
+			set { direction = value; }
 		}
 	}
 }

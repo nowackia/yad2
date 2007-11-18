@@ -10,13 +10,11 @@ using Yad.Config.Common;
 using Yad.Engine.Common;
 using Yad.Board.Common;
 
-namespace Yad.Engine.Client
-{
-	static class GameLogic
-	{
+namespace Yad.Engine.Client {
+	static class GameLogic {
 		private static short race;
 
-        public static short Race { get { return race; } }
+		public static short Race { get { return race; } }
 		public delegate void AddBuildingDelegate(short id, short key);
 		public static event AddBuildingDelegate AddBuildingEvent;
 		private static Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
@@ -41,64 +39,65 @@ namespace Yad.Engine.Client
 		/// </summary>
 		private static bool isWaitingForUnitCreation = false;
 
-		private static bool buildingPositionOK(Position pos, short buildingTypeId)
-		{
-			foreach (BuildingData b in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData)
-			{
-				if (b.TypeID == buildingTypeId && pos.X + b.Size.X < GameForm.sim.Map.Width && pos.X + b.Size.X < GameForm.sim.Map.Width)
-				{
-					for(int x = pos.X; x<pos.X+ b.Size.X; x++)
-						for (int y = pos.Y; y < pos.Y + b.Size.Y; y++)
-						{
-							if (GameForm.sim.Map.Tiles[x, y] != Yad.Board.Common.TileType.Rock)
-								return false;
-							if (GameForm.sim.Map.Units[x,y].Count>0)
-								return false;
-							if (GameForm.sim.Map.Buildings[x, y].Count > 0)
-								return false;
-						}
-					return true;	
+		private static bool buildingPositionOK(Position pos, short buildingTypeId) {
+			BuildingData bd = GameForm.sim.GameSettingsWrapper.buildingsMap[buildingTypeId];
+
+			Map map = GameForm.sim.Map;
+
+			if ((pos.X + bd.Size.X - 1 >= map.Width)
+				|| (pos.Y + bd.Size.Y >= map.Height)) {
+				return false;
+			}
+
+			for (int x = pos.X; x < pos.X + bd.Size.X; x++) {
+				for (int y = pos.Y; y < pos.Y + bd.Size.Y; y++) {
+					if (map.Tiles[x, y] != TileType.Rock)
+						return false;
+					if (map.Units[x, y].Count > 0)
+						return false;
+					if (map.Buildings[x, y].Count > 0)
+						return false;
 				}
 			}
-			return false;
+			return true;
 		}
-		
+
 		/// <summary>
 		/// Reaction on left mouse button on the map
 		/// </summary>
 		/// <param name="e"></param>
-		public static void MouseLeftClick(GameForm gf, MouseEventArgs e)
-		{
+		public static void MouseLeftClick(GameForm gf, MouseEventArgs e) {
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
-			if (isLocatingBuilding)
-			{
-				if (buildingPositionOK(pos, GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID))
-				{
+			if (isLocatingBuilding) {
+
+				//AAAAAAAAAA!  I KILL YOU!                                                                vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+				//if (buildingPositionOK(pos, GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].TypeID)) {
+
+				if (buildingPositionOK(pos, buildingToBuild)) {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
 					bm.BuildingID = GameForm.currPlayer.GenerateObjectID();
 					bm.PlayerId = GameForm.currPlayer.ID;
-                    bm.BuildingType = buildingToBuild; //GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].__TypeID;
+					bm.BuildingType = buildingToBuild;
 					bm.Type = MessageType.Build;
 
 					AddBuildingCounter(bm.BuildingType, race);
-					
-                    bm.Position = pos;
+
+					bm.Position = pos;
 					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
 					GameForm.conn.SendMessage(bm);
 					isLocatingBuilding = false;
-					foreach (TechnologyDependence techRef in GameForm.sim.GameSettingsWrapper.GameSettings.RacesData[getRaceIdx(race)].TechnologyDependences)
-					{
+					foreach (TechnologyDependence techRef in GameForm.sim.GameSettingsWrapper.racesMap[race].TechnologyDependences) {
 						short ids = GameForm.sim.GameSettingsWrapper.namesToIds[techRef.BuildingName];
 						if (gf.IsStripContainingBuilding(ids) == true) continue;
-						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings))
-						{
+						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings)) {
 							// adds new building to strip
 							AddBuildingEvent(ids, race);
 							AddUnitCreation(gf, bm.BuildingType);
-							
+
 						}
-					}  
+					}
+					//MessageBox.Show(pos.ToString());
 				}
 			}
 		}
@@ -107,15 +106,11 @@ namespace Yad.Engine.Client
 		/// Adds certain unit to the unic creation stripe as a possibility of creation a new unit
 		/// </summary>
 		/// <param name="p"></param>
-		private static void AddUnitCreation(GameForm gf, short p)
-		{
-			if (buldingCounter[p] == 1)
-			{
-				foreach (BuildingData b in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData)
-				{
-					if (b.TypeID == p)
-						foreach (string s in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData[0].UnitsCanProduce)
-							gf.addUnitCreationPossibility(s);
+		private static void AddUnitCreation(GameForm gf, short p) {
+			if (buldingCounter[p] == 1) {
+				BuildingData b = GameForm.sim.GameSettingsWrapper.buildingsMap[p];
+				foreach (string s in b.UnitsCanProduce) {
+					gf.addUnitCreationPossibility(s);
 				}
 			}
 		}
@@ -126,32 +121,27 @@ namespace Yad.Engine.Client
 		/// </summary>
 		/// <param name="raceId"></param>
 		/// <returns></returns>
-		public static short getRaceIdx(short raceId)
-		{
+		[Obsolete("We've got Dictionaries in GameSettingsWrapper...")]
+		public static short getRaceIdx(short raceId) {
 			for (short i = 0; i < GameForm.sim.GameSettingsWrapper.GameSettings.RacesData.Count; i++)
 				if (GameForm.sim.GameSettingsWrapper.GameSettings.RacesData[i].TypeID == raceId)
 					return i;
 			return -1;
 		}
 
-		public static bool IsWaitingForBuildingBuild
-		{
-			get
-			{
+		public static bool IsWaitingForBuildingBuild {
+			get {
 				return isWaitingForBuildingBuilt;
 			}
 		}
 
-		public static bool IsWaitingForUnitCreation
-		{
-			get
-			{
+		public static bool IsWaitingForUnitCreation {
+			get {
 				return isWaitingForUnitCreation;
 			}
 		}
 
-		private static void AddBuildingCounter(short id, short key)
-		{
+		private static void AddBuildingCounter(short id, short key) {
 			if (buldingCounter.ContainsKey(id))
 				buldingCounter[id]++;
 			else
@@ -166,35 +156,27 @@ namespace Yad.Engine.Client
 		/// <param name="gf"></param>
 		/// <param name="coll"></param>
 		/// <returns></returns>
-		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll)
-		{
+		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll) {
 
-			foreach (String buildingName in coll)
-			{
+			foreach (String buildingName in coll) {
 				short id;
 				short count;
-				if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id))
-				{
-					if (buldingCounter.TryGetValue(id, out count))
-					{
+				if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id)) {
+					if (buldingCounter.TryGetValue(id, out count)) {
 						if (count == 0)
 							return false;
-					}
-					else return false;
-				}
-				else return false;
+					} else return false;
+				} else return false;
 			}
 			return true;
 		}
 
-		public static void LocateBuilding(short p)
-		{
+		public static void LocateBuilding(short p) {
 			isLocatingBuilding = true;
 			buildingToBuild = p;
 		}
 
-		internal static void CreateUnit(short p)
-		{
+		internal static void CreateUnit(short p) {
 			isCreatingUnit = true;
 			unitToCreate = p;
 		}
@@ -204,8 +186,7 @@ namespace Yad.Engine.Client
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="key"></param>
-		internal static void InitStripes(string name, short key)
-		{
+		internal static void InitStripes(string name, short key) {
 			race = key;
 			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
 

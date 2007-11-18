@@ -10,6 +10,7 @@ using Yad.Config;
 using Yad.Net.Messaging;
 using Yad.Net.Client;
 using Yad.UI.Client;
+using System.Windows.Forms;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
@@ -37,9 +38,13 @@ namespace Yad.Engine.Client {
                 GameForm.StripesManager.RemovePercentageCounter(bm.BuildingType,true);
             }
 			players[bm.PlayerId].AddBuilding(b);
-			for(int i=0; i<b.Size.X; i++)
-				for(int j=0; j<b.Size.Y; j++)
-					this.map.Buildings[b.Position.X+i, b.Position.Y+j].AddLast(b);
+			for (int i = 0; i < b.Size.X; i++) {
+				for (int j = 0; j < b.Size.Y; j++) {
+					this.map.Buildings[b.Position.X + i, b.Position.Y + j].AddLast(b);
+				}
+			}
+			//MessageBox.Show(bm.Position.ToString());
+			//MessageBox.Show(b.Position.ToString());
 		}
 
 		protected override void onMessageMove(MoveMessage gm)

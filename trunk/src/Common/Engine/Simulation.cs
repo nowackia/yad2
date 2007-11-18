@@ -221,24 +221,17 @@ namespace Yad.Engine.Common {
 		private void handleUnit(Unit u) {
 			u.Move();
 
-			if (!u.Moving) {
+			if (!u.Moving && (Randomizer.Next(3)!=0)) {
 
 				Position pos = u.Position;
 
 
 				//TODO: remove all Randomizer's in the future
-				if (Randomizer.Next(3) != 0)
-					pos.X++;
-				else if (pos.X > 0)
-					pos.X--;
+				pos.X += (short)(Randomizer.NextShort(3) - 1);
+				pos.Y += (short)(Randomizer.NextShort(3) - 1);
 
-				if (Randomizer.Next(3) != 0)
-					pos.Y++;
-				else if (pos.Y > 0)
-					pos.Y--;
+				UsefulFunctions.CorrectPosition(ref pos, map.Width, map.Height);
 
-				pos.X %= map.Width;
-				pos.Y %= map.Height;
 				u.MoveTo(pos);
 			}
 		}
