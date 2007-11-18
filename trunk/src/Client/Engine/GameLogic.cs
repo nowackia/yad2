@@ -45,7 +45,7 @@ namespace Yad.Engine.Client
 		{
 			foreach (BuildingData b in GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData)
 			{
-				if (b.TypeID == buildingTypeId)
+				if (b.TypeID == buildingTypeId && pos.X + b.Size.X < GameForm.sim.Map.Width && pos.X + b.Size.X < GameForm.sim.Map.Width)
 				{
 					for(int x = pos.X; x<pos.X+ b.Size.X; x++)
 						for (int y = pos.Y; y < pos.Y + b.Size.Y; y++)
