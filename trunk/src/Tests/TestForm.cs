@@ -22,7 +22,7 @@ namespace KaleeTests {
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
-			TestDirection();
+			AudioEngine.Init();
 		}
 
 		#region direction
@@ -95,5 +95,37 @@ namespace KaleeTests {
 			return new HarvestMessage();
 		}
 		#endregion
+
+		#region Audio
+		private void btnRandom_Click(object sender, EventArgs e) {
+			AudioEngine.MusicType mt;
+			if (rbFight.Checked) {
+				mt = Yad.Engine.Client.AudioEngine.MusicType.Fight;
+			} else if (rbLose.Checked) {
+				mt = AudioEngine.MusicType.Lose;
+			} else if (rbPeace.Checked) {
+				mt = AudioEngine.MusicType.Peace;
+			} else {
+				mt = AudioEngine.MusicType.Win;
+			}
+			AudioEngine.PlayRandom(mt);
+		}
+
+		private void btnNext_Click(object sender, EventArgs e) {
+			AudioEngine.MusicType mt;
+			if (rbFight.Checked) {
+				mt = Yad.Engine.Client.AudioEngine.MusicType.Fight;
+			} else if (rbLose.Checked) {
+				mt = AudioEngine.MusicType.Lose;
+			} else if (rbPeace.Checked) {
+				mt = AudioEngine.MusicType.Peace;
+			} else {
+				mt = AudioEngine.MusicType.Win;
+			}
+			AudioEngine.PlayNext(mt);
+		}
+
+		#endregion
+
 	}
 }

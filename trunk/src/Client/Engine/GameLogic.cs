@@ -15,6 +15,7 @@ using Yad.Config.XMLLoader.Common;
 using Yad.Properties;
 using System.IO;
 using Yad.Utilities.Common;
+using Yad.Properties.Common;
 
 namespace Yad.Engine.Client {
 	public class GameLogic {
@@ -296,6 +297,9 @@ namespace Yad.Engine.Client {
 		public bool Select(Position a, Position b) {
 			selectedUnits.Clear();
 			selectedBuilding = null;
+
+			Utilities.Common.UsefulFunctions.CorrectPosition(ref a, sim.Map.Width, sim.Map.Height);
+			Utilities.Common.UsefulFunctions.CorrectPosition(ref b, sim.Map.Width, sim.Map.Height);
 
 			int xMin = Math.Min(a.X, b.X);
 			int xMax = Math.Max(a.X, b.X);

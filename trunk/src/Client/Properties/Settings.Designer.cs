@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Yad.Properties {
+namespace Yad.Properties.Client {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,24 +20,6 @@ namespace Yad.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Config/game_data.xml")]
-        public string ConfigFile {
-            get {
-                return ((string)(this["ConfigFile"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Config/dune.xsd")]
-        public string ConfigFileXSD {
-            get {
-                return ((string)(this["ConfigFileXSD"]));
             }
         }
         
@@ -299,6 +281,51 @@ namespace Yad.Properties {
         public string UI {
             get {
                 return ((string)(this["UI"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music")]
+        public string Music {
+            get {
+                return ((string)(this["Music"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music/Fight")]
+        public string MusicFight {
+            get {
+                return ((string)(this["MusicFight"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music/Peace")]
+        public string MusicPeace {
+            get {
+                return ((string)(this["MusicPeace"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music/Lose")]
+        public string MusicLose {
+            get {
+                return ((string)(this["MusicLose"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music/Win")]
+        public string MusicWin {
+            get {
+                return ((string)(this["MusicWin"]));
             }
         }
     }

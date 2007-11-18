@@ -17,6 +17,7 @@ using Yad.Config.Common;
 using Yad.Config;
 using Yad.Engine.GameGraphics.Renderes.Client;
 using Yad.Properties;
+using Yad.Properties.Client;
 
 namespace Yad.Engine.Client {
 	static partial class GameGraphics {

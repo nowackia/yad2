@@ -13,6 +13,7 @@ using Yad.Net.Messaging.Common;
 using Yad.Properties;
 using Yad.Log.Common;
 using Yad.UI.Common;
+using Yad.Properties.Common;
 
 namespace Yad.UI.Client
 {

@@ -1,13 +1,7 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Yad.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Yad.Properties.Client" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ConfigFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Config/game_data.xml</Value>
-    </Setting>
-    <Setting Name="ConfigFileXSD" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Config/dune.xsd</Value>
-    </Setting>
     <Setting Name="Animations" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Graphics/Animations</Value>
     </Setting>
@@ -88,6 +82,21 @@
     </Setting>
     <Setting Name="UI" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Graphics/UI</Value>
+    </Setting>
+    <Setting Name="Music" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music</Value>
+    </Setting>
+    <Setting Name="MusicFight" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Fight</Value>
+    </Setting>
+    <Setting Name="MusicPeace" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Peace</Value>
+    </Setting>
+    <Setting Name="MusicLose" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Lose</Value>
+    </Setting>
+    <Setting Name="MusicWin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Win</Value>
     </Setting>
   </Settings>
 </SettingsFile>
