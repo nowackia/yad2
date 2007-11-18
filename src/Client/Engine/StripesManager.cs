@@ -59,6 +59,19 @@ namespace Yad.Engine.Client {
             }
 	     }
 
+		public void AddUnit(short id)
+		{
+			//if (simulation.GameSettingsWrapper.buildingsMap.ContainsKey(id) == false)
+			//	throw new NotSupportedException("uknown building name");
+			if (unitsOnMenu.Contains(id) == false)
+			{
+
+				unitsOnMenu.Add(id);
+				//String name = simulation.GameSettingsWrapper. buildingsMap[id].Name;
+				//buildingStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
+			}
+		}
+
 		public bool ContainsId(short ids)
 		{
 			return buildingsOnMenu.Contains(ids);

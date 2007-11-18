@@ -92,6 +92,7 @@ namespace Yad.UI.Client {
 	        }
             stripesManager = new StripesManager(sim, key, rightStripe, this.leftStripe);
 			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
+			GameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
 
 			
 
@@ -258,9 +259,14 @@ namespace Yad.UI.Client {
 			#endregion
 		}
 
-		internal void addUnitCreationPossibility(string s)
+		internal void addUnitCreationPossibility(string name, short key)
 		{
 			
+			short id = GameForm.sim.GameSettingsWrapper.namesToIds[name];
+			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
+			stripesManager.AddUnit(id);
+			//stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
+			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
 		}
 
 		public void AddBuilding(short id, short key)
