@@ -16,6 +16,7 @@ using Yad.Properties;
 using System.IO;
 using Yad.Utilities.Common;
 using Yad.Properties.Common;
+using Yad.Net.Common;
 
 namespace Yad.Engine.Client {
 	public class GameLogic {
@@ -31,33 +32,34 @@ namespace Yad.Engine.Client {
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
 			currPlayer = new Player(0);
 
-			//FIXME
-			DummyConnection dc = new DummyConnection();
-			conn = dc;
+			conn = Connection.Instance;
+			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
+			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
+			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
-			dc.sim = sim;
-			//
+		}
 
-			//to remove			
-			sim.AddPlayer(currPlayer);
-			CreateUnitMessage cum = new CreateUnitMessage();
-			cum.IdTurn = sim.CurrentTurn + sim.Delta;
-			cum.PlayerId = currPlayer.ID;
-			cum.UnitID = currPlayer.GenerateObjectID();
-			cum.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTanksData.UnitTankDataCollection[0].TypeID;
-			cum.UnitKind = BoardObjectClass.UnitTank;
-			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
-			sim.AddGameMessage(cum);
+		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
+			PositionData[] aPd = e.gameInitInfo;
+			foreach (PositionData pd in aPd) {
+				Player p = new Player(pd.PlayerId);
+				sim.AddPlayer(p);
+				//FIXME!
+				UnitTank u = new UnitTank(p.ID, p.GenerateObjectID(), sim.GameSettingsWrapper.GameSettings.UnitTanksData[0], new Position((short)pd.X, (short)pd.Y), this.sim.Map);
+				p.AddUnit(u);
+				//FIXME END
+			}
+			sim.StartSimulation();
+			sim.DoTurn();
+		}
 
-			CreateUnitMessage cum1 = new CreateUnitMessage();
-			cum1.IdTurn = sim.CurrentTurn + sim.Delta + sim.Delta - 1;
-			cum1.PlayerId = currPlayer.ID;
-			cum1.UnitID = currPlayer.GenerateObjectID();
-			cum1.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTroopersData.UnitTrooperDataCollection[0].TypeID;
-			cum1.UnitKind = BoardObjectClass.UnitTrooper;
-			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
-			sim.AddGameMessage(cum1);
-			//to remove end
+		void Instance_DoTurnPermission(object sender, EventArgs e) {
+			InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
+			sim.DoTurn();
+		}
+
+		void Instance_GameMessageReceive(object sender, GameMessageEventArgs e) {
+			this.sim.AddGameMessage(e.gameMessage);
 		}
 
 		[Obsolete("Remove when connection to server is ready. This is just for GameForm constructor")]

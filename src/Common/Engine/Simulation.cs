@@ -138,6 +138,7 @@ namespace Yad.Engine.Common {
 			List<GameMessage>.Enumerator messagesEnum;
 			while (true) {
 				nextTurn.WaitOne(); //wait for MessageTurn
+				InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
 
 				if (onTurnBegin != null) {
 					onTurnBegin();

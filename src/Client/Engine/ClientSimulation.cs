@@ -34,6 +34,7 @@ namespace Yad.Engine.Client {
 		}
 
 		void ClientSimulation_onTurnEnd() {
+			InfoLog.WriteInfo("Asking for turn", EPrefix.SimulationInfo);
 			connectionToServer.SendMessage(new TurnAskMessage());
 		}
 
