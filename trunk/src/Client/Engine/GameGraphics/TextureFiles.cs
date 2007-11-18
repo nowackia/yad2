@@ -8,12 +8,12 @@ namespace Yad.Engine.GameGraphics.Client
 {
     enum ETextures
     {
-        Dunes,
-        Mountain = TileType.Mountain,
-        Rock = TileType.Rock,
+		Mountain = TileType.Mountain,
+		Sand = TileType.Sand,
+		Rock = TileType.Rock,
+		Dunes,
         RockDamage,
         RockExt,
-        Sand = TileType.Sand,
 		Hidden,
         SandDamage,
         SandExt,
