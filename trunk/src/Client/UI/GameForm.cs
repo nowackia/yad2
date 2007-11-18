@@ -235,16 +235,32 @@ namespace Yad.UI.Client {
                     short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
                     if (rightStripe.Ids.Contains(id)) continue;
                     //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-                    rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
-
+                    if (checkDeps(name)) {
+                        rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
+                    }
                 }
                 foreach (String name in data.UnitsCanProduce) {
                     short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
                     if (rightStripe.Ids.Contains(id)) continue;
-                    //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-                    rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
+                    
+                        //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
+                        rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
+                    
                 }
             }
+        }
+
+        private bool checkDeps(string name) {
+            TechnologyDependences deps = gameLogic.GameSettingsWrapper.racesMap[gameLogic.Race].TechnologyDependences;
+            foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
+                if (dep.BuildingName.Equals(name)) {
+                    foreach (string n in dep.RequiredBuildings) {
+                        short id = gameLogic.GameSettingsWrapper.namesToIds[n];
+                        if (gameLogic.hasBuilding(id) == false) return false;
+                    }
+                }
+            }
+            return true;
         }
 	}
 }
