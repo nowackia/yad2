@@ -17,7 +17,15 @@ namespace Yad.Net.Messaging.Common
             get { return idTurn; }
             set { idTurn = value; }
         }
-        //public abstract void Process();
-        //public abstract void Execute();
+
+        public override void Serialize(System.IO.BinaryWriter writer) {
+            base.Serialize(writer);
+            writer.Write(idTurn);
+        }
+
+        public override void Deserialize(System.IO.BinaryReader reader) {
+            base.Deserialize(reader);
+            idTurn = reader.ReadInt32();
+        }
     }
 }

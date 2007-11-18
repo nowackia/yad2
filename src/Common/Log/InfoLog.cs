@@ -52,9 +52,7 @@ namespace Yad.Log.Common {
         private InfoLog(MultiStream writer) {
             _writer = writer;
             _infoLogPrefix = new InfoLogPrefix();
-			//KŒ
-			_infoLogPrefix.AddFilter(EPrefix.SimulationInfo);
-			//-KŒ
+            
         }
 
         #endregion

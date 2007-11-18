@@ -19,7 +19,8 @@ namespace Yad.Net.Server {
         GameChooseEntry,
         GameJoinEntry,
         GameStart,
-        Logout
+        Logout,
+        GameEnd
     }
 
 
@@ -108,6 +109,18 @@ namespace Yad.Net.Server {
                                     break;
                             }
                             break;
+                        case MenuState.Game:
+                            switch (action) {
+                                case MenuAction.GameEnd:
+                                    _transitions[i, j] = MenuState.Chat;
+                                    break;
+                                default:
+                                    _transitions[i, j] = MenuState.Invalid;
+                                    break;
+                            }
+                            break;
+
+
                     }
                 }
         }

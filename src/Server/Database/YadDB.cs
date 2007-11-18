@@ -22,7 +22,7 @@ namespace Yad.Database.Server {
         const string CreateSTM = "CREATE TABLE Player (ID AUTOINCREMENT PRIMARY KEY, LOGIN nvarchar(50) UNIQUE, PASS nvarchar(50), EMAIL nvarchar(50), WINNO int DEFAULT 0, LOSSNO int DEFAULT 0)";
         const string RegisterSTM = "INSERT INTO Player (LOGIN, PASS, EMAIL) VALUES('{0}', '{1}', '{2}')";
         const string LoginSTM = "SELECT WINNO, LOSSNO FROM Player WHERE LOGIN = '{0}' AND PASS = '{1}'";
-
+        const string UpdateResultSTM = "UPDATE TABLE Player SET WINNO = {0}, LOSSNO = {1} WHERE LOGIN = '{2}'";
         private YadDB() {
         }
 
@@ -55,6 +55,11 @@ namespace Yad.Database.Server {
             return true;
         }
 
+        public static bool UpdatePlayerStats(string name, int winno, int lossno) {
+            string query = string.Format(UpdateResultSTM, winno, lossno, name);
+            OleDbCommand ocmd = new OleDbCommand(query);
+            return ExecuteCommand(ocmd);
+        }
         private static bool CreateFile() {
             ADOX.CatalogClass cat = new ADOX.CatalogClass();
             try {

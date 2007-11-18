@@ -8,7 +8,7 @@ namespace Yad.Net.Server {
     public class BaseServer : IPlayerProvider {
 
         private MessageHandler _msgHandler;
-
+        private object _playerLock = new object();
         public MessageHandler MessageHandler {
             get { return _msgHandler; }
             set { _msgHandler = value; }
@@ -34,13 +34,13 @@ namespace Yad.Net.Server {
         }
 
         public void AddPlayer(short key, Player p) {
-            lock((((ICollection)_playerCollection).SyncRoot)){
+            lock(_playerLock){
                 _playerCollection.Add(new KeyValuePair<short,Player>(key, p));   
             }
         }
 
         public void RemovePlayer(short id) {
-            lock (((ICollection)_playerCollection).SyncRoot) {
+            lock (_playerLock) {
                 _playerCollection.Remove(id);
             }
         }
@@ -49,19 +49,25 @@ namespace Yad.Net.Server {
 
         public virtual Player GetPlayer(short id) {
             if (_playerCollection != null)
-                lock (((ICollection)(_playerCollection)).SyncRoot)
+                lock (_playerLock)
                     if (_playerCollection.ContainsKey(id))
                         return _playerCollection[id];
             return null;
         }
 
         public virtual IEnumerator<KeyValuePair<short,Player>> GetPlayers() {
-            if (_playerCollection != null)
-                lock (((ICollection)(_playerCollection)).SyncRoot)
+            lock (_playerLock) {
+                if (_playerCollection != null)
                     return _playerCollection.GetEnumerator();
+            }
             return null;
         }
 
+        public object PlayerLock {
+            get { return _playerLock; }
+        }
+
         #endregion
+
     }
 }

@@ -7,6 +7,7 @@ using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 using Yad.Properties;
 using Serv = Yad.Net.GameServer.Server;
+using Yad.Net.GameServer.Server;
 
 namespace Yad.Net.Server {
      
@@ -101,18 +102,31 @@ namespace Yad.Net.Server {
 
         private void CreateServerGame(ServerGameInfo sgi) {
             Serv.GameServer gs = new Yad.Net.GameServer.Server.GameServer(sgi);
-            gs.ChangeMessageHanders(this._server);
+            gs.EnterMsgHandlerChange(this._server);
             lock (((ICollection)_gameServerList).SyncRoot) {
                 _gameServerList.Add(gs);
             }
-            gs.Start();
+            gs.OnGameEnd += new GameEndDelegate(OnGameServerEnd);
+            gs.StartGameServer();
+        }
+
+        private void OnGameServerEnd(object sender, GameEndEventArgs args) {
+            Serv.GameServer gs = sender as Serv.GameServer;
+            IEnumerator<KeyValuePair<short,Player>> enumerator = gs.GetPlayers();
+            do {
+                Player p = enumerator.Current.Value;
+                p.State = PlayerStateMachine.Transform(MenuState.Game, MenuAction.GameEnd);
+                _server.Chat.AddPlayer(p);
+            } while (enumerator.MoveNext());
+            gs.LeaveMsgHandlerChange(this._server);
+            _games.Remove(gs.Name);
         }
 
         
         public void StopGames() {
             lock (((ICollection)_gameServerList).SyncRoot) {
                 foreach (Serv.GameServer gs in _gameServerList)
-                    gs.Stop();
+                    gs.StopGameServer();
             }
         }
 

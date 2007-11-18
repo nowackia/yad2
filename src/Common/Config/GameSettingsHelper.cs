@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Config.Common;
 using System.Collections;
+using Yad.Properties;
 
 namespace Yad.Config {
 	public class GameSettingsWrapper {

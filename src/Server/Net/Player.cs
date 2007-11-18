@@ -72,6 +72,10 @@ namespace Yad.Net.Server {
             set { _data.LossNo = value; }
         }
 
+        public PlayerData PlayerData {
+            get { return _data; }
+        }
+
         public event ConnectionLostDelegate OnConnectionLost {
             add {
                 lock (_clMsgLock) {
