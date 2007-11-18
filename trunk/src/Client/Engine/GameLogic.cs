@@ -17,6 +17,9 @@ namespace Yad.Engine.Client {
 		public static short Race { get { return race; } }
 		public delegate void AddBuildingDelegate(short id, short key);
 		public static event AddBuildingDelegate AddBuildingEvent;
+
+		public delegate void AddUnitDelegate(string name, short key);
+		public static event AddUnitDelegate AddUnitEvent;
 		private static Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
 		/// <summary>;
 		/// if gamer wants to locate builing on the map
@@ -73,6 +76,8 @@ namespace Yad.Engine.Client {
 				//AAAAAAAAAA!  I KILL YOU!                                                                vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 				//if (buildingPositionOK(pos, GameForm.sim.GameSettingsWrapper.GameSettings.BuildingsData.BuildingDataCollection[0].TypeID)) {
 
+				//OMG! I'M SO SCARED
+
 				if (buildingPositionOK(pos, buildingToBuild)) {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
@@ -82,7 +87,7 @@ namespace Yad.Engine.Client {
 					bm.Type = MessageType.Build;
 
 					AddBuildingCounter(bm.BuildingType, race);
-
+					AddUnitCreation(gf, bm.BuildingType);
 					bm.Position = pos;
 					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
 					GameForm.conn.SendMessage(bm);
@@ -93,7 +98,7 @@ namespace Yad.Engine.Client {
 						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings)) {
 							// adds new building to strip
 							AddBuildingEvent(ids, race);
-							AddUnitCreation(gf, bm.BuildingType);
+							
 
 						}
 					}
@@ -107,10 +112,14 @@ namespace Yad.Engine.Client {
 		/// </summary>
 		/// <param name="p"></param>
 		private static void AddUnitCreation(GameForm gf, short p) {
+			short o;
 			if (buldingCounter[p] == 1) {
 				BuildingData b = GameForm.sim.GameSettingsWrapper.buildingsMap[p];
 				foreach (string s in b.UnitsCanProduce) {
-					gf.addUnitCreationPossibility(s);
+					if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(s, out o))
+					{
+						AddUnitEvent(s, race);
+					}
 				}
 			}
 		}
@@ -189,6 +198,7 @@ namespace Yad.Engine.Client {
 		internal static void InitStripes(string name, short key) {
 			race = key;
 			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
+
 
 		}
 	}
