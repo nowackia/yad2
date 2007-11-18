@@ -9,5 +9,6 @@ namespace Yad.Net.Server {
         object PlayerLock {
             get;
         }
+        Player[] GetPlayersArray();
     }
 }

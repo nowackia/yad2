@@ -63,11 +63,30 @@ namespace Yad.Net.Server {
             return null;
         }
 
+        public Player[] GetPlayersArray()
+        {
+            Player[] players = null;
+            int index = 0;
+            lock (_playerLock){
+                if (_playerCollection != null) {
+                    players = new Player[_playerCollection.Count];
+                    foreach (Player p in _playerCollection.Values)
+                        players[index++] = p;   
+                }
+            }
+            return players;
+        }
+
         public object PlayerLock {
             get { return _playerLock; }
         }
 
         #endregion
+
+
+
+
+
 
     }
 }
