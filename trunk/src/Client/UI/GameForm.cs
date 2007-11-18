@@ -141,11 +141,12 @@ namespace Yad.UI.Client {
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseDown");
 			if (e.Button == MouseButtons.Right) {
-				mousePos = e.Location;
+				//mousePos = e.Location;
 			} else if (e.Button == MouseButtons.Left) {
 				this.selecting = true;
 				this.selectionStart = GameGraphics.TranslateMousePosition(e.Location);
 			} else if (e.Button == MouseButtons.Middle) {
+				mousePos = e.Location;
 				scrolling = true;
 			}
 		}
