@@ -27,8 +27,11 @@ namespace Yad.UI.Client {
 
 		#region private members
 		bool scrolling = false;
+		bool selecting = false;
 		bool wasScrolled = false;
 		Point mousePos;
+		Position selectionStart;
+		Position selectionEnd;
 		GameLogic gameLogic;
 		#endregion
 
@@ -91,7 +94,7 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
-
+		#region form events
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			OnMenuOptionChange(MenuOption.Options);
 			e.Cancel = true;
@@ -100,6 +103,7 @@ namespace Yad.UI.Client {
 		void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
 			OnMenuOptionChange(MenuOption.Options);
 		}
+		#endregion
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
 			this.openGLView.Invalidate();
@@ -140,9 +144,8 @@ namespace Yad.UI.Client {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
-				
-				//gameLogic.MouseLeftClick(this, e);
-				//TODO END
+				this.selecting = true;
+				this.selectionStart = GameGraphics.TranslateMousePosition(e.Location);
 			}
 		}
 
@@ -150,6 +153,11 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo("MouseUp");
 			if (e.Button == MouseButtons.Right) {
 				scrolling = false;
+				gameLogic.IssuedOrder(GameGraphics.TranslateMousePosition(e.Location));
+			} else if (e.Button == MouseButtons.Left) {
+				selecting = false;
+				this.selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
+				gameLogic.Select(selectionStart, selectionEnd);
 			}
 		}
 

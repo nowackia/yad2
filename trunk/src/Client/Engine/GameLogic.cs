@@ -330,6 +330,18 @@ namespace Yad.Engine.Client {
 		public GameSettingsWrapper GameSettingsWrapper {
 			get { return this.sim.GameSettingsWrapper; }
 		}
+
+		internal void IssuedOrder(Position newPos) {
+			if (selectedUnits.Count != 0) {
+				foreach (Unit u in selectedUnits) {
+					//if no enemy at newPos
+					u.MoveTo(newPos);
+					//if enemy - attack
+
+				}
+				return;
+			}
+		}
 	}
 
 	public class DummyConnection : IConnection {

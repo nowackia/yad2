@@ -352,7 +352,8 @@ namespace Yad.Engine.Client {
 				}
 			}
 			foreach (Unit u in gameLogic.SelectedUnits) {
-				DrawElementFromLeftBottom(u.Position.X, u.Position.Y, selectionDepth, 1, 1, 2, defaultUV);
+				PointF realPos = CountRealPosition(u);
+				DrawElementFromLeftBottom(realPos.X, realPos.Y, selectionDepth, 1, 1, 2, defaultUV);
 			}
 
 			Building selB = gameLogic.SelectedBuilding;

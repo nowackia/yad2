@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace Yad.Board {
 	/// <summary>
@@ -31,6 +32,13 @@ namespace Yad.Board {
 			this._x = (short)size.X;
 			this._y = (short)size.Y;
 		}
+
+		/*
+		public Position(Point p) {
+			this._x = (short)p.X;
+			this._y = (short)p.Y;
+		}
+		 */
 
 		public override string ToString() {
 			return "{" + _x + "," + _y + "}";
