@@ -10,6 +10,9 @@ using System.Windows.Forms.Extended;
 using Yad.Engine.Client;
 
 namespace Yad.UI.Client {
+
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -17,9 +20,32 @@ namespace Yad.UI.Client {
 		public delegate void ChoiceHandler(string name);
 		public event ChoiceHandler OnChoice;
 
+        public event OnBuildChosen onBuildChosen;
+        public event OnUnitChosen onUnitChosen;
+
+        public void OnBuildChosen(short id) {
+            if (onBuildChosen != null) {
+                onBuildChosen(id);
+            }
+        }
+        public void OnUnitChosen(short id) {
+            if (onUnitChosen != null) {
+                onUnitChosen(id);
+            }
+        }
         public static int WIDTH = 90;
         public static int HEIGHT = 60;
+        private List<short> ids = new List<short>();
+
+        public List<short> Ids {
+            get { return ids; }
+            set { ids = value; }
+        }
+
         private Dictionary<short, OwnerDrawPictureButton> buttons = new Dictionary<short, OwnerDrawPictureButton>();
+        private Dictionary<short, bool> isBuilding = new Dictionary<short, bool>();
+        private Dictionary<OwnerDrawPictureButton, short> buttonsToId = new Dictionary<OwnerDrawPictureButton, short>();
+        #region rendering
         /// <summary>
         /// number of objects under the 'upper' line
         /// </summary>
@@ -30,8 +56,6 @@ namespace Yad.UI.Client {
         private int num = 0;
 
         private int top = 0;
-
-		private bool building;
 
         /// <summary>
         /// number of objects viewable on the stripe
@@ -84,18 +108,24 @@ namespace Yad.UI.Client {
             scrollingPanel.Location = loc;
             delta += howMany;
         }
+        private void contentPanel_SizeChanged(object sender, EventArgs e) {
+            viewable = this.contentPanel.Height / HEIGHT;
+        }
 
-        public void Insert(short id,String name,String pictureName) {
+        #endregion
+
+        public void Insert(short id,String name,String pictureName, bool building) {
             OwnerDrawPictureButton pictureButton = new OwnerDrawPictureButton(new Bitmap(pictureName), new Bitmap(pictureName));
+            isBuilding[id] = building;
             buttons[id] = pictureButton;
+            buttonsToId[pictureButton] = id;
+            ids.Add(id);
             pictureButton.Text = name;
             pictureButton.Name = name;
 			pictureButton.Tag = building;
             pictureButton.Size = new Size(WIDTH, HEIGHT);
-            //pictureButton.BackColor = Color.Black;
+            
              pictureButton.Margin = new Padding(0, 0, 0, 0);
-            //pictureButton.MouseOverColor = Color.DarkGray;
-            //pictureButton.MouseOverEffect = true;
             pictureButton.UseVisualStyleBackColor = true;
             pictureButton.Click += new EventHandler(pictureButton_Click);
             num++;
@@ -104,43 +134,42 @@ namespace Yad.UI.Client {
             this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
             InfoLog.WriteInfo("Insert: size: " + num * HEIGHT, EPrefix.Stripe);
             
-            
-
         }
 
         void pictureButton_Click(object sender, EventArgs e) {
-			/*
-            short id = GameForm.sim.GameSettingsWrapper.namesToIds[name];
-            if (!GameLogic.IsWaitingForBuildingBuild && building) {
-                AddPercentCounter(id);
-                GameLogic.LocateBuilding(id);
-            } else if (!GameLogic.IsWaitingForUnitCreation && !building) {
-                AddPercentCounter(id);
-                GameLogic.CreateUnit(id);
+            OwnerDrawPictureButton picture = (OwnerDrawPictureButton)sender;
+            short id = buttonsToId[picture];
+            bool b = isBuilding[id];
+            if (b) {
+                OnBuildChosen(id);
+            } else {
+                OnUnitChosen(id);
             }
-            InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
-			 */
-
-			String name = ((PictureButton)sender).Name;
-			InfoLog.WriteInfo("pictureButton_Click, name: " + name, EPrefix.Stripe);
-
-			if (this.OnChoice != null) {
-				this.OnChoice(name);
-			}
         }
 
 
         #region IManageableStripe Members
 
-        public void Add(short id,string name, string pictureName) {
+        public void Add(short id,string name, string pictureName,bool building) {
             InfoLog.WriteInfo("Add", EPrefix.Stripe);
             if (buttons.ContainsKey(id)) return;
-            Insert(id,name,pictureName);
+            Insert(id,name,pictureName,building);
             
         }
 
         public void Remove(short id) {
+            OwnerDrawPictureButton but = buttons[id];
+            if (but != null) {
+                this.flowLayoutPanel1.Controls.Remove(but);
+                this.isBuilding.Remove(id);
+                this.buttons.Remove(id);
+                this.buttonsToId.Remove(but);
+                ids.Remove(id);
+            }
             InfoLog.WriteInfo("Remove", EPrefix.Stripe);
+            num = 0;
+            this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+            this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
         }
 
         public void AddPercentCounter(short id) {
@@ -164,13 +193,19 @@ namespace Yad.UI.Client {
         }
 
         public void RemoveAll() {
-            throw new Exception("The method or operation is not implemented.");
+            ids.Clear();
+            this.flowLayoutPanel1.Controls.Clear();
+            buttons.Clear();
+            buttonsToId.Clear();
+            isBuilding.Clear();
+            num = 0;
+            this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+            this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+            
         }
 
         #endregion
 
-        private void contentPanel_SizeChanged(object sender, EventArgs e) {
-            viewable = this.contentPanel.Height / HEIGHT;
-        }
+        
     }
 }

@@ -35,9 +35,6 @@ namespace Yad.UI.Client {
 		GameLogic gameLogic;
 		#endregion
 
-		#region stripes
-		private StripesManager stripesManager;
-		#endregion
 
 		#region constructor
 		public GameForm() {
@@ -53,9 +50,11 @@ namespace Yad.UI.Client {
 				key = k;
 				break;
 			}
-			stripesManager = new StripesManager(gameLogic.Simulation, key, rightStripe, leftStripe);
 			gameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
 			gameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
+            leftStripe.onBuildChosen += new OnBuildChosen(leftStripe_onBuildChosen);
+            rightStripe.onBuildChosen += new OnBuildChosen(rightStripe_onBuildChosen);
+            rightStripe.onUnitChosen += new OnUnitChosen(rightStripe_onUnitChosen);
 			gameLogic.InitStripes("ConstructionYard", key);
 
 			gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(Simulation_OnBuildingCompleted);
@@ -83,14 +82,31 @@ namespace Yad.UI.Client {
 			//v remove
 			this.gameLogic.StartSimulation();
 			//^ remove
-		}
+        }
+        #region stripes handler
+        void rightStripe_onUnitChosen(short id) {
+            InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
+            gameLogic.CreateUnit(id);
+        }
+
+        void rightStripe_onBuildChosen(short id) {
+            InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
+            gameLogic.LocateBuilding(id);
+        }
+
+        void leftStripe_onBuildChosen(short id) {
+            InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
+            // show building on rightStripe
+            BuildingClickedOnMap(id);
+
+        }
 
 		void Simulation_OnUnitCompleted(short unitType) {
-			this.stripesManager.RemovePercentageCounter(unitType, false);
-		}
-
-		void Simulation_OnBuildingCompleted(short buildingType) {
-			this.stripesManager.RemovePercentageCounter(buildingType, true);
+            this.rightStripe.RemovePercentCounter(unitType);
+        }
+        #endregion
+        void Simulation_OnBuildingCompleted(short buildingType) {
+            this.rightStripe.RemovePercentCounter(buildingType);
 		}
 		#endregion
 
@@ -135,7 +151,7 @@ namespace Yad.UI.Client {
 		}
 
 		public bool IsStripContainingBuilding(short ids) {
-			return StripesManager.ContainsId(ids);
+			return leftStripe.Ids.Contains(ids);
 		}
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
@@ -195,27 +211,40 @@ namespace Yad.UI.Client {
 		{
 			
 			short id = gameLogic.GameSettingsWrapper.namesToIds[name];
-			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
-			stripesManager.AddUnit(id);
 			//stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
-			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
+			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"),false);//TODO add picture name to xsd.
 		}
 
 		public void AddBuilding(short id, short key) {
 			String name = gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
-			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
-			stripesManager.AddBuilding(id);
-			stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
-			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
-		}
-
-		public StripesManager StripesManager {
-			get { return stripesManager; }
-			set { stripesManager = value; }
+            leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);//TODO add picture name to xsd.
+			BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
 		}
 
 		private void openGLView_Click(object sender, EventArgs e) {
 			InfoLog.WriteInfo("MouseClick");
 		}
+
+        public void BuildingClickedOnMap(short idB) {
+            rightStripe.RemoveAll(); // flush the stripe
+
+            //simulation.GameSettingsWrapper.
+            if (leftStripe.Ids.Contains(idB)) {
+                BuildingData data = gameLogic.Simulation.GameSettingsWrapper.buildingsMap[idB];
+                foreach (String name in data.BuildingsCanProduce) {
+                    short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
+                    if (rightStripe.Ids.Contains(id)) continue;
+                    //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
+                    rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
+
+                }
+                foreach (String name in data.UnitsCanProduce) {
+                    short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
+                    if (rightStripe.Ids.Contains(id)) continue;
+                    //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
+                    rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
+                }
+            }
+        }
 	}
 }
