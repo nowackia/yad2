@@ -17,10 +17,10 @@ namespace Yad.Net.Server {
         public void BroadcastMessage(Message msg) {
             if (_pprovider != null) {
                 lock (_pprovider.PlayerLock) {
-                    IEnumerator<KeyValuePair<short, Player>> enumerator = _pprovider.GetPlayers();
-                    do {
-                        enumerator.Current.Value.SendMessage(msg);
-                    } while (enumerator.MoveNext());
+                    Player[] players = _pprovider.GetPlayersArray();
+                    for (int i = 0; i < players.Length; ++i)
+                        players[i].SendMessage(msg);
+
                 }
                 InfoLog.WriteInfo("Message type: " + msg.Type + " has been broadcasted.",
                     EPrefix.ServerSendMessageInfo);

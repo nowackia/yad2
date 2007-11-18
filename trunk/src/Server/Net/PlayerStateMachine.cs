@@ -9,8 +9,8 @@ namespace Yad.Net.Server {
         Chat,
         GameChoose,
         GameJoin,
-        Invalid,
         Game,
+        Invalid
     }
 
     public enum MenuAction : byte {
