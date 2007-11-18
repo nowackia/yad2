@@ -118,6 +118,7 @@ namespace Yad.UI.Client {
 			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
 			sim.AddGameMessage(cum1);
 			//to remove end
+
 			GameLogic.InitStripes("ConstructionYard", key);
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);

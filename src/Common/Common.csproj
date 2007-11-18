@@ -40,6 +40,7 @@
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />
     <Compile Include="Board\Building.cs" />
+    <Compile Include="Board\Direction.cs" />
     <Compile Include="Board\Map.cs" />
     <Compile Include="Board\Position.cs" />
     <Compile Include="Board\TileType.cs" />

@@ -37,6 +37,10 @@ namespace Yad.Engine.Client {
 		const short pictureOffset = 100;
 		const short textureOffset = 200;
 		const short turretOffset = 300;
+		const float oneThird = 1.0f / 3.0f;
+		const float oneFourth = 0.25f;
+		const float oneFifth = 0.2f;
+		const float oneEight = 0.125f;
 
 		/// <summary>
 		/// SimpleOpenGLControl's size
@@ -363,29 +367,132 @@ namespace Yad.Engine.Client {
 			return new PointF(x, y);
 		}
 
+		private static bool Test(Direction s, Direction t) {
+			return ((s & t) != 0);
+		}
+
 		private static void DrawTrooper(UnitTrooper o) {
 			PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 0.5f, 0.5f, o.TypeID + textureOffset, new RectangleF(0, 0, 0.25f, 1/3.0f));
+			float frame = o.RemainingTurnsInMove % 3;
+			
+			// >^<v
+			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneThird, oneFourth, oneThird);
+			Direction d = o.Direction;
+
+			if (Test(d, Direction.East)) {
+
+			} else if (Test(d, Direction.West)) {
+				uv.X = 2 * oneFourth;
+			} else if (Test(d, Direction.North)) {
+				uv.X = oneFourth;
+			} else if (Test(d, Direction.South)) {
+				uv.X = 3 * oneFourth;
+			}
+
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 0.5f, 0.5f, o.TypeID + textureOffset, uv);
 		}
 
 		private static void DrawTank(UnitTank o) {
 			PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, new RectangleF(0, 0, 1.0f / 8.0f, 1));
+			Direction d = o.Direction;
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+
+			if (Test(d, Direction.East)) {
+				if (Test(d, Direction.North)) {
+					//uv.X *= 1;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 7.0f;
+				} else {
+					uv.X = 0;
+				}
+			} else if (Test(d, Direction.West)) {
+				if (Test(d, Direction.North)) {
+					uv.X *= 3.0f;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 5.0f;
+				} else {
+					uv.X *= 4.0f;
+				}
+			} else /* center */ {
+				if (Test(d, Direction.North)) {
+					uv.X *= 2.0f;
+				} else {
+					uv.X *= 6.0f;
+				}
+			}
+
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
 		}
 
 		private static void DrawSandworm(UnitSandworm o) {
 			PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
+			float frame = o.RemainingTurnsInMove % 5;
+			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneFifth, 1, oneFifth);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
 		}
 
 		private static void DrawMCV(UnitMCV o) {
 			PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
+			Direction d = o.Direction;
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+
+			if (Test(d, Direction.East)) {
+				if (Test(d, Direction.North)) {
+					//uv.X *= 1;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 7.0f;
+				} else {
+					uv.X = 0;
+				}
+			} else if (Test(d, Direction.West)) {
+				if (Test(d, Direction.North)) {
+					uv.X *= 3.0f;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 5.0f;
+				} else {
+					uv.X *= 4.0f;
+				}
+			} else /* center */ {
+				if (Test(d, Direction.North)) {
+					uv.X *= 2.0f;
+				} else {
+					uv.X *= 6.0f;
+				}
+			}
+
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
 		}
 
 		private static void DrawHarvester(UnitHarvester o) {
 			PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
+			Direction d = o.Direction;
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+
+			if (Test(d, Direction.East)) {
+				if (Test(d, Direction.North)) {
+					//uv.X *= 1;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 7.0f;
+				} else {
+					uv.X = 0;
+				}
+			} else if (Test(d, Direction.West)) {
+				if (Test(d, Direction.North)) {
+					uv.X *= 3.0f;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 5.0f;
+				} else {
+					uv.X *= 4.0f;
+				}
+			} else /* center */ {
+				if (Test(d, Direction.North)) {
+					uv.X *= 2.0f;
+				} else {
+					uv.X *= 6.0f;
+				}
+			}
+
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
 		}
 
 		private static void DrawBuilding(Building o) {
