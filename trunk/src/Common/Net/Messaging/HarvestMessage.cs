@@ -7,17 +7,17 @@ namespace Yad.Net.Messaging.Common
 {
     public class HarvestMessage : GameMessage
     {
-        private LinkedList<Position> path;
+        private Position position;
         private int idUnit;
 
         public HarvestMessage()
             : base(MessageType.Harvest)
         { }
 
-        public LinkedList<Position> Path
+        public Position Position
         {
-            get { return path; }
-            set { path = value; }
+            get { return position; }
+            set { position = value; }
         }
 
         public int IdUnit
@@ -27,11 +27,17 @@ namespace Yad.Net.Messaging.Common
         }
 
 		public override void Deserialize(System.IO.BinaryReader reader) {
-            throw new Exception("The method or operation is not implemented.");
+            base.Deserialize(reader);
+            idUnit = reader.ReadInt32();
+            position.Deserialize(reader);
+
+
         }
 
         public override void Serialize(System.IO.BinaryWriter writer) {
-            throw new Exception("The method or operation is not implemented.");
+            base.Serialize(writer);
+            writer.Write(idUnit);
+            position.Serialize(writer);
         }
     }
 }

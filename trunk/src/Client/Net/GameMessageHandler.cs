@@ -14,9 +14,9 @@ namespace Yad.Net.Client
 
     public class GameInitEventArgs : EventArgs
     {
-        public GameInitInfo[] gameInitInfo;
+        public PositionData[] gameInitInfo;
 
-        public GameInitEventArgs(GameInitInfo[] gameInitInfo)
+        public GameInitEventArgs(PositionData[] gameInitInfo)
         {
             this.gameInitInfo = gameInitInfo;
         }
@@ -71,12 +71,7 @@ namespace Yad.Net.Client
                 case MessageType.GameInit:
                     {
                         GameInitMessage gameInitMessage = message as GameInitMessage;
-                        int columns = gameInitMessage.PlayerStartPoints.GetLength(0);
-                        GameInitInfo[] infoTab = new GameInitInfo[columns];
-
-                        for (int i = 0; i < columns; i++)
-                            infoTab[i] = new GameInitInfo(gameInitMessage.PlayerStartPoints[i, 2], gameInitMessage.PlayerStartPoints[i, 0], gameInitMessage.PlayerStartPoints[i, 1]);
-
+                        PositionData[] infoTab = gameInitMessage.PositionData;
                         if (GameInitialization != null)
                             GameInitialization(this, new GameInitEventArgs(infoTab));
                     }

@@ -25,11 +25,16 @@ namespace Yad.Net.Messaging.Common
         }
 
         public override void Deserialize(System.IO.BinaryReader reader) {
-            throw new Exception("The method or operation is not implemented.");
+            base.Deserialize(reader);
+            objectID = reader.ReadInt32();
+            playerID = reader.ReadInt16();
+            
         }
 
         public override void Serialize(System.IO.BinaryWriter writer) {
-            throw new Exception("The method or operation is not implemented.");
+            base.Serialize(writer);
+            writer.Write(objectID);
+            writer.Write(playerID);
         }
     }
 }

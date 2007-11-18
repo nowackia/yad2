@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Yad.Properties {
+namespace Yad.Properties.Server {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,6 +32,18 @@ namespace Yad.Properties {
             }
             set {
                 this["DBAvail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConfigFile {
+            get {
+                return ((string)(this["ConfigFile"]));
+            }
+            set {
+                this["ConfigFile"] = value;
             }
         }
     }

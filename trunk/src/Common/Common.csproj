@@ -63,7 +63,9 @@
     <Compile Include="Net\IMessageSender.cs" />
     <Compile Include="Net\Messaging\DoTurnMessage.cs" />
     <Compile Include="Net\Messaging\EntryMessage.cs" />
+    <Compile Include="Net\Messaging\GameEndMessage.cs" />
     <Compile Include="Net\Messaging\GameInfoMessage.cs" />
+    <Compile Include="Net\Messaging\GameNumericMessage.cs" />
     <Compile Include="Net\Messaging\GamesMessage.cs" />
     <Compile Include="Net\Messaging\GameType.cs" />
     <Compile Include="Net\Messaging\MessageOperation.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Net\Messaging\TurnAskMessage.cs" />
     <Compile Include="Net\PlayerData.cs" />
     <Compile Include="Net\PlayerInfo.cs" />
+    <Compile Include="Net\PositionData.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="UI\MessageBoxEx.cs" />
     <Compile Include="Utils\Randomizer.cs" />
@@ -113,8 +116,7 @@
   <ItemGroup>
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Config\dune.xsx">
       <DependentUpon>dune.xsd</DependentUpon>

@@ -8,6 +8,7 @@ using Yad.Log;
 using Yad.Log.Common;
 using Yad.Database.Server;
 using Yad.Properties;
+using Yad.Properties.Server;
 
 namespace Yad.Net.Server
 {
@@ -62,16 +63,29 @@ namespace Yad.Net.Server
                 case MessageType.StartGame:
                     ProcessStartGame(msg);
                     break;
+                case MessageType.PlayerInfo:
+                    ProcessPlayerInfoMessage((NumericMessage)msg);
+                    break;
             
             }
 
+        }
+
+        private void ProcessPlayerInfoMessage(NumericMessage numericMessage) {
+            InfoLog.WriteInfo("Processing player info message", EPrefix.ServerProcessInfo);
+            PlayerInfoMessage pimsg = (PlayerInfoMessage)MessageFactory.Create(MessageType.PlayerInfoResponse);
+            Player p = _server.GetPlayer((short)numericMessage.Number);
+            if (p == null)
+                pimsg.PlayerData = null;
+            else
+                pimsg.PlayerData = (PlayerData)p.PlayerData.Clone();
+            SendMessage(pimsg, numericMessage.PlayerId);
         }
 
        
         #endregion 
 
         #region Private Methods
-
 
         private void ProcessRegister(RegisterMessage msg) {
             if (Settings.Default.DBAvail) {

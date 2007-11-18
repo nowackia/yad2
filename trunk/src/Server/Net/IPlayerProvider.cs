@@ -6,5 +6,8 @@ namespace Yad.Net.Server {
     public interface IPlayerProvider {
         Player GetPlayer(short id);
         IEnumerator<KeyValuePair<short,Player>> GetPlayers();
+        object PlayerLock {
+            get;
+        }
     }
 }

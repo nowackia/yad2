@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Yad.Net.Common {
-    public class PlayerData
+    public class PlayerData : ICloneable
     {
         short _id;
         string _login;
@@ -38,5 +38,18 @@ namespace Yad.Net.Common {
         {
             return "Login: " + _login + Environment.NewLine + "Win: " + _winNo + Environment.NewLine + "Loss: " + _lossNo;
         }
+
+        #region ICloneable Members
+
+        public object Clone() {
+            PlayerData pd = new PlayerData();
+            pd.Login = this.Login;
+            pd.Id = this.Id;
+            pd.WinNo = this.WinNo;
+            pd.LossNo = this.LossNo;
+            return pd;
+        }
+
+        #endregion
     }
 }

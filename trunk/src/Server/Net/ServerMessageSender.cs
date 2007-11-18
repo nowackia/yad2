@@ -16,10 +16,12 @@ namespace Yad.Net.Server {
 
         public void BroadcastMessage(Message msg) {
             if (_pprovider != null) {
-                IEnumerator<KeyValuePair<short, Player>> enumerator = _pprovider.GetPlayers();
-                do {
-                    enumerator.Current.Value.SendMessage(msg);
-                } while (enumerator.MoveNext());
+                lock (_pprovider.PlayerLock) {
+                    IEnumerator<KeyValuePair<short, Player>> enumerator = _pprovider.GetPlayers();
+                    do {
+                        enumerator.Current.Value.SendMessage(msg);
+                    } while (enumerator.MoveNext());
+                }
                 InfoLog.WriteInfo("Message type: " + msg.Type + " has been broadcasted.",
                     EPrefix.ServerSendMessageInfo);
             }
@@ -29,10 +31,14 @@ namespace Yad.Net.Server {
 
         public void SendMessage(Message msg, short recipient) {
             if (_pprovider != null) {
-                Player p = _pprovider.GetPlayer(recipient);                    
-                p.SendMessage(msg);
-                InfoLog.WriteInfo("Message type: " + msg.Type + " has been send to user " + p.Id,
+                Player p = null;
+                lock (_pprovider.PlayerLock) {
+                    p = _pprovider.GetPlayer(recipient);
+                    p.SendMessage(msg);
+                    InfoLog.WriteInfo("Message type: " + msg.Type + " has been send to user " + p.Id,
                     EPrefix.ServerSendMessageInfo);
+                }
+                
             }
             else
                 InfoLog.WriteInfo("Message sent unsuccessful.", EPrefix.ServerSendMessageInfo);

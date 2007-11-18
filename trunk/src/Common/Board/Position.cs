@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Drawing;
 
 namespace Yad.Board {
@@ -43,5 +44,15 @@ namespace Yad.Board {
 		public override string ToString() {
 			return "{" + _x + "," + _y + "}";
 		}
+
+        public void Serialize(BinaryWriter writer) {
+            writer.Write(this._x);
+            writer.Write(this._y);
+        }
+
+        public void Deserialize(BinaryReader reader) {
+            _x = reader.ReadInt16();
+            _y = reader.ReadInt16();
+        }
 	}
 }
