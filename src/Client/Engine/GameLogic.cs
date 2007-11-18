@@ -138,6 +138,8 @@ namespace Yad.Engine.Client {
 
 				//OMG! I'M SO SCARED
 
+                //Silence! I kill you!
+
 				if (buildingPositionOK(pos, buildingToBuild)) {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
