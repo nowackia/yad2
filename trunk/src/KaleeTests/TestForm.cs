@@ -16,8 +16,8 @@ using Yad.Config.XMLLoader.Common;
 using System.IO;
 
 namespace KaleeTests {
-	public partial class Form1 : Form {
-		public Form1() {
+	public partial class TestForm : Form {
+		public TestForm() {
 			InitializeComponent();
 		}
 
