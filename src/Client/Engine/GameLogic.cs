@@ -9,43 +9,103 @@ using Yad.UI.Client;
 using Yad.Config.Common;
 using Yad.Engine.Common;
 using Yad.Board.Common;
+using Yad.Log.Common;
+using Yad.Config;
+using Yad.Config.XMLLoader.Common;
+using Yad.Properties;
+using System.IO;
+using Yad.Utilities.Common;
 
 namespace Yad.Engine.Client {
-	static class GameLogic {
-		private static short race;
+	public class GameLogic {
+		ClientSimulation sim;
+		Player currPlayer;
+		IConnection conn;
+		short race;
 
-		public static short Race { get { return race; } }
+		public GameLogic() {
+
+			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			Map map = new Map();
+			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
+			currPlayer = new Player(0);
+
+			//FIXME
+			DummyConnection dc = new DummyConnection();
+			conn = dc;
+			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
+			dc.sim = sim;
+			//
+
+			//to remove			
+			sim.AddPlayer(currPlayer);
+			CreateUnitMessage cum = new CreateUnitMessage();
+			cum.IdTurn = sim.CurrentTurn + sim.Delta;
+			cum.PlayerId = currPlayer.ID;
+			cum.UnitID = currPlayer.GenerateObjectID();
+			cum.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTanksData.UnitTankDataCollection[0].TypeID;
+			cum.UnitKind = BoardObjectClass.UnitTank;
+			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
+			sim.AddGameMessage(cum);
+
+			CreateUnitMessage cum1 = new CreateUnitMessage();
+			cum1.IdTurn = sim.CurrentTurn + sim.Delta + sim.Delta - 1;
+			cum1.PlayerId = currPlayer.ID;
+			cum1.UnitID = currPlayer.GenerateObjectID();
+			cum1.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTroopersData.UnitTrooperDataCollection[0].TypeID;
+			cum1.UnitKind = BoardObjectClass.UnitTrooper;
+			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
+			sim.AddGameMessage(cum1);
+			//to remove end
+		}
+
+		[Obsolete("Remove when connection to server is ready. This is just for GameForm constructor")]
+		public void StartSimulation() {
+			this.sim.StartSimulation();
+		}
+
+		public short Race { get { return race; } }
+
 		public delegate void AddBuildingDelegate(short id, short key);
-		public static event AddBuildingDelegate AddBuildingEvent;
+		public event AddBuildingDelegate AddBuildingEvent;
 
 		public delegate void AddUnitDelegate(string name, short key);
-		public static event AddUnitDelegate AddUnitEvent;
-		private static Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
+		public event AddUnitDelegate AddUnitEvent;
+		private Dictionary<short, short> buldingCounter = new Dictionary<short, short>();
 		/// <summary>;
 		/// if gamer wants to locate builing on the map
 		/// </summary>
-		private static bool isLocatingBuilding = false;
+		private bool isLocatingBuilding = false;
 
-		private static short buildingToBuild;
+		private short buildingToBuild;
 
-		private static short unitToCreate;
+		private short unitToCreate;
 
-		private static bool isCreatingUnit = false;
+		private bool isCreatingUnit = false;
 
 		/// <summary>
 		/// Waiting for building a building
 		/// </summary>
-		private static bool isWaitingForBuildingBuilt = false;
+		private bool isWaitingForBuildingBuilt = false;
 
 		/// <summary>
 		/// Waiting for umit creation
 		/// </summary>
-		private static bool isWaitingForUnitCreation = false;
+		private bool isWaitingForUnitCreation = false;
 
-		private static bool buildingPositionOK(Position pos, short buildingTypeId) {
-			BuildingData bd = GameForm.sim.GameSettingsWrapper.buildingsMap[buildingTypeId];
+		private List<Unit> selectedUnits = new List<Unit>();
 
-			Map map = GameForm.sim.Map;
+		/// <summary>
+		/// Defined groups: Ctrl+1 - Ctrl+4
+		/// </summary>
+		private List<Unit>[] definedGroups = new List<Unit>[4];
+
+		private Building selectedBuilding = null;
+
+		private bool buildingPositionOK(Position pos, short buildingTypeId) {
+			BuildingData bd = sim.GameSettingsWrapper.buildingsMap[buildingTypeId];
+
+			Map map = sim.Map;
 
 			if ((pos.X + bd.Size.X - 1 >= map.Width)
 				|| (pos.Y + bd.Size.Y >= map.Height)) {
@@ -69,7 +129,7 @@ namespace Yad.Engine.Client {
 		/// Reaction on left mouse button on the map
 		/// </summary>
 		/// <param name="e"></param>
-		public static void MouseLeftClick(GameForm gf, MouseEventArgs e) {
+		public void MouseLeftClick(GameForm gf, MouseEventArgs e) {
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
 			if (isLocatingBuilding) {
 
@@ -81,19 +141,19 @@ namespace Yad.Engine.Client {
 				if (buildingPositionOK(pos, buildingToBuild)) {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
-					bm.BuildingID = GameForm.currPlayer.GenerateObjectID();
-					bm.PlayerId = GameForm.currPlayer.ID;
+					bm.BuildingID = currPlayer.GenerateObjectID();
+					bm.PlayerId = currPlayer.ID;
 					bm.BuildingType = buildingToBuild;
 					bm.Type = MessageType.Build;
 
 					AddBuildingCounter(bm.BuildingType, race);
 					AddUnitCreation(gf, bm.BuildingType);
 					bm.Position = pos;
-					bm.IdTurn = GameForm.sim.CurrentTurn + GameForm.sim.Delta;
-					GameForm.conn.SendMessage(bm);
+					bm.IdTurn = sim.CurrentTurn + sim.Delta;
+					conn.SendMessage(bm);
 					isLocatingBuilding = false;
-					foreach (TechnologyDependence techRef in GameForm.sim.GameSettingsWrapper.racesMap[race].TechnologyDependences) {
-						short ids = GameForm.sim.GameSettingsWrapper.namesToIds[techRef.BuildingName];
+					foreach (TechnologyDependence techRef in sim.GameSettingsWrapper.racesMap[race].TechnologyDependences) {
+						short ids = sim.GameSettingsWrapper.namesToIds[techRef.BuildingName];
 						if (gf.IsStripContainingBuilding(ids) == true) continue;
 						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings)) {
 							// adds new building to strip
@@ -111,12 +171,12 @@ namespace Yad.Engine.Client {
 		/// Adds certain unit to the unic creation stripe as a possibility of creation a new unit
 		/// </summary>
 		/// <param name="p"></param>
-		private static void AddUnitCreation(GameForm gf, short p) {
+		private void AddUnitCreation(GameForm gf, short p) {
 			short o;
 			if (buldingCounter[p] == 1) {
-				BuildingData b = GameForm.sim.GameSettingsWrapper.buildingsMap[p];
+				BuildingData b = sim.GameSettingsWrapper.buildingsMap[p];
 				foreach (string s in b.UnitsCanProduce) {
-					if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(s, out o))
+					if (sim.GameSettingsWrapper.namesToIds.TryGetValue(s, out o))
 					{
 						AddUnitEvent(s, race);
 					}
@@ -131,26 +191,26 @@ namespace Yad.Engine.Client {
 		/// <param name="raceId"></param>
 		/// <returns></returns>
 		[Obsolete("We've got Dictionaries in GameSettingsWrapper...")]
-		public static short getRaceIdx(short raceId) {
-			for (short i = 0; i < GameForm.sim.GameSettingsWrapper.GameSettings.RacesData.Count; i++)
-				if (GameForm.sim.GameSettingsWrapper.GameSettings.RacesData[i].TypeID == raceId)
+		public short getRaceIdx(short raceId) {
+			for (short i = 0; i < sim.GameSettingsWrapper.GameSettings.RacesData.Count; i++)
+				if (sim.GameSettingsWrapper.GameSettings.RacesData[i].TypeID == raceId)
 					return i;
 			return -1;
 		}
 
-		public static bool IsWaitingForBuildingBuild {
+		public bool IsWaitingForBuildingBuild {
 			get {
 				return isWaitingForBuildingBuilt;
 			}
 		}
 
-		public static bool IsWaitingForUnitCreation {
+		public bool IsWaitingForUnitCreation {
 			get {
 				return isWaitingForUnitCreation;
 			}
 		}
 
-		private static void AddBuildingCounter(short id, short key) {
+		private void AddBuildingCounter(short id, short key) {
 			if (buldingCounter.ContainsKey(id))
 				buldingCounter[id]++;
 			else
@@ -165,12 +225,12 @@ namespace Yad.Engine.Client {
 		/// <param name="gf"></param>
 		/// <param name="coll"></param>
 		/// <returns></returns>
-		private static bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll) {
+		private bool CheckReqBuildingsToAddNewBuilding(GameForm gf, BuildingsNames coll) {
 
 			foreach (String buildingName in coll) {
 				short id;
 				short count;
-				if (GameForm.sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id)) {
+				if (sim.GameSettingsWrapper.namesToIds.TryGetValue(buildingName, out id)) {
 					if (buldingCounter.TryGetValue(id, out count)) {
 						if (count == 0)
 							return false;
@@ -180,12 +240,12 @@ namespace Yad.Engine.Client {
 			return true;
 		}
 
-		public static void LocateBuilding(short p) {
+		public void LocateBuilding(short p) {
 			isLocatingBuilding = true;
 			buildingToBuild = p;
 		}
 
-		internal static void CreateUnit(short p) {
+		internal void CreateUnit(short p) {
 			isCreatingUnit = true;
 			unitToCreate = p;
 		}
@@ -195,10 +255,103 @@ namespace Yad.Engine.Client {
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="key"></param>
-		internal static void InitStripes(string name, short key) {
+		internal void InitStripes(string name, short key) {
 			race = key;
-			AddBuildingEvent(GameForm.sim.GameSettingsWrapper.namesToIds[name], key);
+			AddBuildingEvent(sim.GameSettingsWrapper.namesToIds[name], key);
 
+
+		}
+
+		public bool Select(Position pos) {
+
+			InfoLog.WriteInfo("Selecting position: " + pos.ToString(), EPrefix.GameLogic);
+			selectedUnits.Clear();
+			selectedBuilding = null;
+
+			LinkedList<Unit> unitsOnPos = sim.Map.Units[pos.X, pos.Y];
+			selectedUnits.AddRange(unitsOnPos);
+			if (selectedUnits.Count != 0) {
+				return true;
+			}
+
+			LinkedList<Building> buildingOnPos = sim.Map.Buildings[pos.X, pos.Y];
+			if (buildingOnPos.Count != 0) {
+				selectedBuilding = buildingOnPos.First.Value;
+				return true;
+			}
+			return false;
+		}
+
+		public bool Select(Position a, Position b) {
+			selectedUnits.Clear();
+			selectedBuilding = null;
+
+			int xMin = Math.Min(a.X, b.X);
+			int xMax = Math.Max(a.X, b.X);
+			int yMin = Math.Min(a.Y, b.Y);
+			int yMax = Math.Max(a.Y, b.Y);
+
+			LinkedList<Unit> unitsOnPos;
+			for (int x = xMin; x <= xMax; x++) {
+				for (int y = yMin; y <= yMax; y++) {
+					unitsOnPos = sim.Map.Units[x, y];
+					selectedUnits.AddRange(unitsOnPos);
+				}
+			}
+			if (selectedUnits.Count != 0) {
+				return true;
+			}
+
+			LinkedList<Building> buildingOnPos;
+			for (int x = xMin; x <= xMax; x++) {
+				for (int y = yMin; y <= yMax; y++) {
+					buildingOnPos = sim.Map.Buildings[x, y];
+					if (buildingOnPos.Count != 0) {
+						selectedBuilding = buildingOnPos.First.Value;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public List<Unit> SelectedUnits {
+			get { return selectedUnits; }
+		}
+
+		public Building SelectedBuilding {
+			get { return selectedBuilding; }
+		}
+
+		public ClientSimulation Simulation {
+			get { return this.sim; }
+		}
+
+		public GameSettingsWrapper GameSettingsWrapper {
+			get { return this.sim.GameSettingsWrapper; }
+		}
+	}
+
+	public class DummyConnection : IConnection {
+		int currentTurn = 0;
+		public Simulation sim;
+
+		public void SendMessage(Yad.Net.Messaging.Common.Message message) {
+			if (message.Type == MessageType.TurnAsk) {
+				currentTurn++;
+				sim.DoTurn();
+			} else if (message is GameMessage) {
+				GameMessage gm = message as GameMessage;
+				gm.IdTurn = currentTurn + sim.Delta;
+				sim.AddGameMessage(gm);
+			}
+		}
+
+		public void CloseConnection() {
+
+		}
+
+		public void InitConnection(string host, int port) {
 
 		}
 	}

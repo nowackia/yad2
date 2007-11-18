@@ -25,102 +25,39 @@ using Yad.Properties;
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
 
+		#region private members
 		bool scrolling = false;
 		bool wasScrolled = false;
 		Point mousePos;
+		GameLogic gameLogic;
+		#endregion
 
-		public static ClientSimulation sim;
-		public static Player currPlayer;
-		public static IConnection conn;
-        public static StripesManager stripesManager;
+		#region stripes
+		private StripesManager stripesManager;
+		#endregion
 
-        #region Properties
-        public static ClientSimulation ClientSimulation
-        {
-            get
-            { return sim; }
-            set
-            { sim = value; }
-        }
-
-        public static Player Player
-        {
-            get
-            { return currPlayer; }
-            set
-            { currPlayer = value; }
-        }
-
-        public static IConnection Connection
-        {
-            get
-            { return conn; }
-            set
-            { conn = value; }
-        }
-
-        public static StripesManager StripesManager
-        {
-            get
-            { return stripesManager; }
-            set
-            { stripesManager = value; }
-        }
-        #endregion
-
-
-
+		#region constructor
 		public GameForm() {
 			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 			InitializeComponent();
 
-			//TODO: use real connection
-			conn = new DummyConnection();
-
-			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
-			Map map = new Map();
-			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			sim = new ClientSimulation(gameSettingsWrapper, map, conn);
-            
-            short key=0;
-            //TODO wtf? which race i am?
-            foreach (short k in gameSettingsWrapper.racesMap.Keys)
-	        {
-                key = k;
-                break;
-	        }
-            stripesManager = new StripesManager(sim, key, rightStripe, this.leftStripe);
-			GameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
-			GameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
-
+			gameLogic = new GameLogic();
 			
+			//TODO wtf? which race i am?
+			short key = 0;
+			foreach (short k in gameLogic.GameSettingsWrapper.racesMap.Keys) {
+				key = k;
+				break;
+			}
+			stripesManager = new StripesManager(gameLogic.Simulation, key, rightStripe, leftStripe);
+			gameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
+			gameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
+			gameLogic.InitStripes("ConstructionYard", key);
 
-            //^to remove
+			gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(Simulation_OnBuildingCompleted);
+			gameLogic.Simulation.OnUnitCompleted += new ClientSimulation.UnitCompletedHandler(Simulation_OnUnitCompleted);
 
-			//to remove
-			currPlayer = new Player(0);
-			sim.AddPlayer(currPlayer);
-			CreateUnitMessage cum = new CreateUnitMessage();
-			cum.IdTurn = sim.CurrentTurn + sim.Delta;
-			cum.PlayerId = currPlayer.ID;
-			cum.UnitID = currPlayer.GenerateObjectID();
-			cum.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTanksData.UnitTankDataCollection[0].TypeID;
-			cum.UnitKind = BoardObjectClass.UnitTank;
-			cum.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
-			sim.AddGameMessage(cum);
-
-			CreateUnitMessage cum1 = new CreateUnitMessage();
-			cum1.IdTurn = sim.CurrentTurn + sim.Delta + sim.Delta - 1;
-			cum1.PlayerId = currPlayer.ID;
-			cum1.UnitID = currPlayer.GenerateObjectID();
-			cum1.UnitType = sim.GameSettingsWrapper.GameSettings.UnitTroopersData.UnitTrooperDataCollection[0].TypeID;
-			cum1.UnitKind = BoardObjectClass.UnitTrooper;
-			cum1.Position = new Yad.Board.Position(Randomizer.NextShort(sim.Map.Width), Randomizer.NextShort(sim.Map.Height));
-			sim.AddGameMessage(cum1);
-			//to remove end
-
-			GameLogic.InitStripes("ConstructionYard", key);
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
@@ -130,9 +67,9 @@ namespace Yad.UI.Client {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
-			GameGraphics.InitGL(sim);
+			GameGraphics.InitGL(gameLogic);
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-			GameGraphics.InitTextures(sim);
+			GameGraphics.InitTextures(gameLogic.Simulation);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
@@ -140,9 +77,20 @@ namespace Yad.UI.Client {
 
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 
-			//TODO: start on game message
-			sim.StartSimulation();
+			//v remove
+			this.gameLogic.StartSimulation();
+			//^ remove
 		}
+
+		void Simulation_OnUnitCompleted(short unitType) {
+			this.stripesManager.RemovePercentageCounter(unitType, false);
+		}
+
+		void Simulation_OnBuildingCompleted(short buildingType) {
+			this.stripesManager.RemovePercentageCounter(buildingType, true);
+		}
+		#endregion
+
 
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			OnMenuOptionChange(MenuOption.Options);
@@ -179,27 +127,27 @@ namespace Yad.UI.Client {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.S) {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
-			} else if (e.KeyCode == Keys.F5) {
-				sim.DoTurn(); //todo: erase later
 			}
 		}
 
-		public bool IsStripContainingBuilding(short ids)
-		{
+		public bool IsStripContainingBuilding(short ids) {
 			return StripesManager.ContainsId(ids);
 		}
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
+			InfoLog.WriteInfo("MouseDown");
 			if (e.Button == MouseButtons.Right) {
 				mousePos = e.Location;
 				scrolling = true;
 			} else if (e.Button == MouseButtons.Left) {
-				GameLogic.MouseLeftClick(this, e);
+				
+				//gameLogic.MouseLeftClick(this, e);
 				//TODO END
 			}
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
+			InfoLog.WriteInfo("MouseUp");
 			if (e.Button == MouseButtons.Right) {
 				scrolling = false;
 			}
@@ -210,7 +158,6 @@ namespace Yad.UI.Client {
 				wasScrolled = false;
 				return;
 			}
-
 			if (scrolling) {
 				int dx = e.X - mousePos.X;
 				int dy = e.Y - mousePos.Y;
@@ -233,49 +180,31 @@ namespace Yad.UI.Client {
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
 
-		private class DummyConnection : IConnection {
-
-			#region IConnection Members
-			int currentTurn = 0;
-			public void SendMessage(Yad.Net.Messaging.Common.Message message) {
-				if (message.Type == MessageType.TurnAsk) {
-					currentTurn++;
-					GameForm.sim.DoTurn();
-				} else if (message is GameMessage) {
-					GameMessage gm = message as GameMessage;
-					gm.IdTurn = currentTurn + GameForm.sim.Delta;
-					GameForm.sim.AddGameMessage(gm);
-				}
-			}
-
-			public void CloseConnection() {
-				
-			}
-
-			public void InitConnection(string host, int port) {
-				
-			}
-
-			#endregion
-		}
-
 		internal void addUnitCreationPossibility(string name, short key)
 		{
 			
-			short id = GameForm.sim.GameSettingsWrapper.namesToIds[name];
+			short id = gameLogic.GameSettingsWrapper.namesToIds[name];
 			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
 			stripesManager.AddUnit(id);
 			//stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
 			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
 		}
 
-		public void AddBuilding(short id, short key)
-		{
-			String name = GameForm.sim.GameSettingsWrapper.buildingsMap[id].Name;
+		public void AddBuilding(short id, short key) {
+			String name = gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
 			//stripesManager = new StripesManager(sim, key, rightStripe,this.leftStripe);
 			stripesManager.AddBuilding(id);
 			stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
 			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"));//TODO add picture name to xsd.
+		}
+
+		public StripesManager StripesManager {
+			get { return stripesManager; }
+			set { stripesManager = value; }
+		}
+
+		private void openGLView_Click(object sender, EventArgs e) {
+			InfoLog.WriteInfo("MouseClick");
 		}
 	}
 }

@@ -712,6 +712,9 @@
     <Content Include="Resources\Graphics\UI\InvalidPlace.png" />
     <Content Include="Resources\Graphics\UI\Menu.png" />
     <Content Include="Resources\Graphics\UI\Radar_Static.png" />
+    <Content Include="Resources\Graphics\UI\Selection.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\UI\ValidPlace.png" />
     <Content Include="Resources\Graphics\Units\Carryall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

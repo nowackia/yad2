@@ -14,6 +14,8 @@ namespace Yad.UI.Client {
     /// 
     /// </summary>
     public partial class BuildStripe : UserControl, IManageableStripe {
+		public delegate void ChoiceHandler(string name);
+		public event ChoiceHandler OnChoice;
 
         public static int WIDTH = 90;
         public static int HEIGHT = 60;
@@ -36,9 +38,9 @@ namespace Yad.UI.Client {
         /// </summary>
         private int viewable;
 
-        public BuildStripe(bool building) {
+        public BuildStripe() {
             InitializeComponent();
-			this.building = building;
+			//this.building = building;
             viewable = this.contentPanel.Height / HEIGHT;
             scrollingPanel.Location = new Point(0, top);
             scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
@@ -107,7 +109,8 @@ namespace Yad.UI.Client {
         }
 
         void pictureButton_Click(object sender, EventArgs e) {
-            short id = GameForm.sim.GameSettingsWrapper.namesToIds[((PictureButton)sender).Name];
+			/*
+            short id = GameForm.sim.GameSettingsWrapper.namesToIds[name];
             if (!GameLogic.IsWaitingForBuildingBuild && building) {
                 AddPercentCounter(id);
                 GameLogic.LocateBuilding(id);
@@ -116,6 +119,14 @@ namespace Yad.UI.Client {
                 GameLogic.CreateUnit(id);
             }
             InfoLog.WriteInfo("pictureButton_Click", EPrefix.Stripe);
+			 */
+
+			String name = ((PictureButton)sender).Name;
+			InfoLog.WriteInfo("pictureButton_Click, name: " + name, EPrefix.Stripe);
+
+			if (this.OnChoice != null) {
+				this.OnChoice(name);
+			}
         }
 
 
