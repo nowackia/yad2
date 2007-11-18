@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Yad.Utilities.Common {
+	/// <summary>
+	/// DO NOT USE IN SIMULATION!
+	/// </summary>
 	public static class Randomizer {
 		static Random rnd = new Random();
 

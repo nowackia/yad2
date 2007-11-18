@@ -29,9 +29,10 @@ namespace Yad.Engine.Client {
 		static Simulation simulation;
 
 		const float mapDepth = 0.0f;
-		const float buildingDepth = 0.1f;
-		const float unitDepth = 0.2f;
-		const float fogOfWarDepth = 0.3f;
+		const float slabDepth = 0.1f;
+		const float buildingDepth = 0.2f;
+		const float unitDepth = 0.3f;
+		const float fogOfWarDepth = 0.4f;
 		static RectangleF defaultUV = new RectangleF(0, 0, 1, 1);
 		const short pictureOffset = 100;
 		const short textureOffset = 200;
@@ -240,47 +241,43 @@ namespace Yad.Engine.Client {
 
 			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
 				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
 				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + pictureOffset, texture);
 			}
 
 			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
-				Bitmap texture = new Bitmap(file);
+				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, texture);
 			}
 
 			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = new Bitmap(file);
-				Bitmap bmp = new Bitmap(Correct(texture.Width), Correct(texture.Height), PixelFormat.Format32bppArgb);
-				Graphics g = Graphics.FromImage(bmp);
-				g.DrawImage(texture, 0, 0, bmp.Width, bmp.Height);
-				g.Dispose();
+				Bitmap bmp = LoadBitmap(file);
 				Create32bTexture(o.TypeID + textureOffset, bmp);
 			}
 		}
@@ -288,6 +285,15 @@ namespace Yad.Engine.Client {
 		private static int Correct(int size) {
 			double y = Math.Ceiling(Math.Log(size, 2));
 			return (int)Math.Pow(2, y);
+		}
+
+		private static Bitmap LoadBitmap(String path) {
+			Bitmap tmp = new Bitmap(path);
+			Bitmap bmp = new Bitmap(Correct(tmp.Width), Correct(tmp.Height), PixelFormat.Format32bppArgb);
+			Graphics g = Graphics.FromImage(bmp);
+			g.DrawImage(tmp, 0, 0, bmp.Width, bmp.Height);
+			g.Dispose();
+			return bmp;
 		}
 
 		#endregion
@@ -304,10 +310,12 @@ namespace Yad.Engine.Client {
 			//Drawing map
 			DrawElementFromLeftBottom(0, 0, mapDepth, simulation.Map.Width, simulation.Map.Height, 1, defaultUV);
 
+			//Drawing slab's
+			//TODO
+
 			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
 			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
 			
-
 
 			ICollection<Player> players = simulation.GetPlayers();
 			foreach (Player p in players) {
@@ -339,28 +347,50 @@ namespace Yad.Engine.Client {
 			}
 		}
 
-		private static void DrawTrooper(UnitTrooper unitTrooper) {
-			DrawElementFromLeftBottom(unitTrooper.Position.X, unitTrooper.Position.Y, unitDepth, 0.5f, 0.5f, unitTrooper.TypeID + textureOffset, new RectangleF(0, 0, 0.25f, 1/3.0f));
+		private static PointF CountRealPosition(Unit u) {
+			float dx = u.Position.X - u.LastPosition.X;
+			float dy = u.Position.Y - u.LastPosition.Y;
+
+			float moveProgress = (float)u.RemainingTurnsInMove / (float)u.Speed;
+			if (moveProgress >= 1) {
+				moveProgress = 0;
+			}
+
+			//InfoLog.WriteInfo(dx.ToString() + " " + dy.ToString()+ " " + moveProgress.ToString(), EPrefix.GameGraphics);
+
+			float x = ((float)u.Position.X) - dx * moveProgress;
+			float y = ((float)u.Position.Y) - dy * moveProgress;
+			return new PointF(x, y);
 		}
 
-		private static void DrawTank(UnitTank unitTank) {
-			DrawElementFromLeftBottom(unitTank.Position.X, unitTank.Position.Y, unitDepth, 1, 1, unitTank.TypeID + textureOffset, new RectangleF(0,0,1.0f/8.0f ,1));
+		private static void DrawTrooper(UnitTrooper o) {
+			PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 0.5f, 0.5f, o.TypeID + textureOffset, new RectangleF(0, 0, 0.25f, 1/3.0f));
 		}
 
-		private static void DrawSandworm(UnitSandworm unitSandworm) {
-			DrawElementFromLeftBottom(unitSandworm.Position.X, unitSandworm.Position.Y, unitDepth, 1, 1, unitSandworm.TypeID + textureOffset, defaultUV);
+		private static void DrawTank(UnitTank o) {
+			PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, new RectangleF(0, 0, 1.0f / 8.0f, 1));
 		}
 
-		private static void DrawMCV(UnitMCV unitMCV) {
-			DrawElementFromLeftBottom(unitMCV.Position.X, unitMCV.Position.Y, unitDepth, 1, 1, unitMCV.TypeID + textureOffset, defaultUV);
+		private static void DrawSandworm(UnitSandworm o) {
+			PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
 		}
 
-		private static void DrawHarvester(UnitHarvester unitHarvester) {
-			DrawElementFromLeftBottom(unitHarvester.Position.X, unitHarvester.Position.Y, unitDepth, 1, 1, unitHarvester.TypeID + textureOffset, defaultUV);
+		private static void DrawMCV(UnitMCV o) {
+			PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
 		}
 
-		private static void DrawBuilding(Building b) {
-			DrawElementFromLeftBottom(b.Position.X, b.Position.Y, buildingDepth, b.Size.X, b.Size.Y, b.TypeID + textureOffset, defaultUV);
+		private static void DrawHarvester(UnitHarvester o) {
+			PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, defaultUV);
+		}
+
+		private static void DrawBuilding(Building o) {
+			//PointF realPos = CountRealPosition(o);
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, buildingDepth, o.Size.X, o.Size.Y, o.TypeID + textureOffset, defaultUV);
 		}
 		#endregion
 

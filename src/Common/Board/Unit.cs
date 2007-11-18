@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Config;
+using System.Windows.Forms;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -22,7 +23,7 @@ namespace Yad.Board.Common {
 		//used for moving
 		protected bool canCrossMountain = false, canCrossBuildings = false, canCrossRock = true, canCrossTrooper = false, canCrossTank = false;
 
-		protected short remainingTurnsToMove = 0;
+		protected short _remainingTurnsInMove = 0;
 		protected Position lastPosition; //used while moving to remember last pos
 		protected Queue<Position> currentPath;
 		//BoardObject.Position - current position, while moving unit is always at this coordinates
@@ -40,8 +41,10 @@ namespace Yad.Board.Common {
 				return;
 			}
 
-			if (remainingTurnsToMove == this.speed) {
+			if (_remainingTurnsInMove == this.speed) {
 				//unit starts to move
+				//so we set a new position
+
 				Position newPos = currentPath.Dequeue();
 
 				//TODO: check newPos;
@@ -54,15 +57,15 @@ namespace Yad.Board.Common {
 				*/
 
 				this.map.Units[this.Position.X, this.Position.Y].Remove(this);
-				
-				this.Position = newPos;
+
+				this.lastPosition = Position;
+				this.Position = newPos;				
 
 				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);				
 			}
 
 			//move unit
-			this.remainingTurnsToMove--;
-
+			this._remainingTurnsInMove--;
 
 			return;
 		}
@@ -73,7 +76,8 @@ namespace Yad.Board.Common {
 			: base(playerID, unitID, boc, pos) {
 			this.typeID = typeID;
 			this.map = map;
-			this.currentPath = new Queue<Position>();
+			this.lastPosition = pos;
+			this.currentPath = new Queue<Position>();			
 		}
 
 		public AmmoType AmmoType {
@@ -129,7 +133,7 @@ namespace Yad.Board.Common {
 										this.canCrossMountain, this.canCrossBuildings,
 										this.canCrossRock, this.canCrossTrooper, this.canCrossRock);
 			
-			this.remainingTurnsToMove = this.speed;
+			this._remainingTurnsInMove = this.speed;
 		}
 
 		/// <summary>
@@ -139,7 +143,7 @@ namespace Yad.Board.Common {
 		/// - have destination queued
 		/// </summary>
 		public bool Moving {
-			get { return (this.remainingTurnsToMove != 0) || (this.currentPath.Count != 0); }
+			get { return (this._remainingTurnsInMove != 0) || (this.currentPath.Count != 0); }
 		}
 
 		public static Queue<Position> FindPath(Position source, Position dest, Map map,
@@ -169,6 +173,14 @@ namespace Yad.Board.Common {
 				}
 				this.speed = value;
 			}
+		}
+
+		public Position LastPosition {
+			get { return this.lastPosition; }
+		}
+
+		public int RemainingTurnsInMove {
+			get { return this._remainingTurnsInMove; }
 		}
 	}
 }
