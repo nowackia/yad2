@@ -37,8 +37,7 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
-			Connection.Instance.ResumeReceiving();
-		}
+        }
 
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PositionData[] aPd = e.gameInitInfo;
