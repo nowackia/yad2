@@ -30,7 +30,7 @@ namespace Yad.Net.GameServer.Server {
         }
 
         public int GetMinTurn() {
-            int min = 0;
+            int min = int.MaxValue;
             lock (((ICollection)_gamePlayers).SyncRoot) {
                 foreach (GamePlayer gp in _gamePlayers.Values) {
                     min = Math.Min(min, gp.TurnNo);
