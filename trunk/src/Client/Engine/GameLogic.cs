@@ -37,6 +37,7 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
+			Connection.Instance.ResumeReceiving();
         }
 
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
@@ -158,7 +159,7 @@ namespace Yad.Engine.Client {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
 					bm.BuildingID = currPlayer.GenerateObjectID();
-					bm.SenderId = currPlayer.ID;
+					bm.IdPlayer = currPlayer.ID;
 					bm.BuildingType = buildingToBuild;
 					bm.Type = MessageType.Build;
 
@@ -361,7 +362,7 @@ namespace Yad.Engine.Client {
 					MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
 					mm.IdUnit = u.ObjectID;
 					mm.Path = newPos;
-					mm.SenderId = u.PlayerID;
+					mm.IdPlayer = u.PlayerID;
 					Connection.Instance.SendMessage(mm);
 					//if enemy - attack
 

@@ -161,5 +161,13 @@ namespace Yad.Net.Client
                 }
             }
         }
+
+		internal void PauseReceiving() {
+			this.receiverPause.WaitOne();
+		}
+
+		internal void ResumeReceiving() {
+			this.receiverPause.Release();
+		}
 	}
 }

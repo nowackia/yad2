@@ -121,12 +121,12 @@ namespace Yad.Net.Client
                 InfoLog.WriteError("Not connected - cannot send a message", EPrefix.ClientInformation);
         }
 
-		/*internal void PauseReceiving() {
+		internal void PauseReceiving() {
 			this.receiver.PauseReceiving();
 		}
 
 		internal void ResumeReceiving() {
 			this.receiver.ResumeReceiving();
-		}*/
+		}
 	}
 }

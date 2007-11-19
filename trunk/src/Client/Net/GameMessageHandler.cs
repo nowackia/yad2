@@ -85,7 +85,7 @@ namespace Yad.Net.Client
                 case MessageType.Attack:
                     {
                         GameMessage gameMessage = message as GameMessage;
-						InfoLog.WriteInfo("WARNING: playerID = " + gameMessage.SenderId, EPrefix.GameMessageProccesing);
+						InfoLog.WriteInfo("WARNING: playerID = " + gameMessage.IdPlayer, EPrefix.GameMessageProccesing);
                         if(GameMessageReceive != null)
                             GameMessageReceive(this, new GameMessageEventArgs(gameMessage));
                     }
