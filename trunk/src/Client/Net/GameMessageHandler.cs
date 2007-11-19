@@ -85,13 +85,14 @@ namespace Yad.Net.Client
                 case MessageType.Attack:
                     {
                         GameMessage gameMessage = message as GameMessage;
+						InfoLog.WriteInfo("WARNING: playerID = " + gameMessage.PlayerId, EPrefix.GameMessageProccesing);
                         if(GameMessageReceive != null)
                             GameMessageReceive(this, new GameMessageEventArgs(gameMessage));
                     }
                     break;
 
                 case MessageType.DoTurn:
-					InfoLog.WriteInfo("DoTurn received", EPrefix.ClientInformation);
+					//InfoLog.WriteInfo("DoTurn received", EPrefix.ClientInformation);
                     if (DoTurnPermission != null)
                         DoTurnPermission(this, EventArgs.Empty);
                     break;

@@ -59,7 +59,7 @@ namespace Yad.Engine.Client {
 		}
 
 		void Instance_DoTurnPermission(object sender, EventArgs e) {
-			InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
+			//InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
 			sim.DoTurn();
 		}
 
@@ -362,7 +362,7 @@ namespace Yad.Engine.Client {
 					MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
 					mm.IdUnit = u.ObjectID;
 					mm.Path = newPos;
-					mm.PlayerId = currPlayer.ID;
+					mm.PlayerId = u.PlayerID;
 					Connection.Instance.SendMessage(mm);
 					//if enemy - attack
 
@@ -371,7 +371,7 @@ namespace Yad.Engine.Client {
 			}
 		}
 	}
-
+	/*
 	public class DummyConnection : IConnection {
 		int currentTurn = 0;
 		public Simulation sim;
@@ -395,4 +395,5 @@ namespace Yad.Engine.Client {
 
 		}
 	}
+	 */
 }

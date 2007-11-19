@@ -34,7 +34,7 @@ namespace Yad.Engine.Client {
 		}
 
 		void ClientSimulation_onTurnEnd() {
-			InfoLog.WriteInfo("Asking for turn", EPrefix.SimulationInfo);
+			//InfoLog.WriteInfo("Asking for turn", EPrefix.SimulationInfo);
 			connectionToServer.SendMessage(new TurnAskMessage());
 		}
 
@@ -62,7 +62,7 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageMove(MoveMessage gm)
 		{
-			InfoLog.WriteInfo("MessageMove", EPrefix.SimulationInfo);
+			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.PlayerId + " UnitID:" + gm.IdUnit, EPrefix.SimulationInfo);
 
 			Player p = this.players[gm.PlayerId];
 			Unit u = p.GetUnit(gm.IdUnit);

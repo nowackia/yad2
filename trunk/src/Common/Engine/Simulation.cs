@@ -138,7 +138,7 @@ namespace Yad.Engine.Common {
 			List<GameMessage>.Enumerator messagesEnum;
 			while (true) {
 				nextTurn.WaitOne(); //wait for MessageTurn
-				InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
+				//InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
 
 				if (onTurnBegin != null) {
 					onTurnBegin();
@@ -209,7 +209,7 @@ namespace Yad.Engine.Common {
 
 				}
 
-				InfoLog.WriteInfo((Environment.TickCount - turnStart).ToString(), EPrefix.SimulationInfo);
+				//InfoLog.WriteInfo((Environment.TickCount - turnStart).ToString(), EPrefix.SimulationInfo);
 
 				if (this.onTurnEnd != null) {
 					this.onTurnEnd();
@@ -303,7 +303,7 @@ namespace Yad.Engine.Common {
 		/// and sends a message to the server asking for a next turn
 		/// </summary>
 		public void DoTurn() {
-			InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
+			//InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
 			lock (turns.SyncRoot) {
 				currentMessages = ShiftTurns();
 				currentTurn++;
