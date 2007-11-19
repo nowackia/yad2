@@ -67,7 +67,7 @@ namespace Yad.Net.GameServer.Server {
 			//ja pierdolê, kolejne pó³ godziny w plecy :P
             //gameMessage.IdTurn += _gameServer.Simulation.Delta;
 
-			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.SenderId) + _gameServer.Simulation.Delta;
+			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.SenderId) + _gameServer.Simulation.Delta + 1;
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
