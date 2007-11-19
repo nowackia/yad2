@@ -91,8 +91,10 @@ namespace Yad.Net.GameServer.Server {
             SendMessage(MessageFactory.Create(MessageType.DoTurn), id);
             if (minTurn != minTurnBefore) {
                 short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
-                for (int i = 0; i < stoppedWaiting.Length; ++i)
+                for (int i = 0; i < stoppedWaiting.Length; ++i){
+                    _gameServer.Simulation.IncPlayerTurn(id);
                     SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
+                }
             }
         }
 
