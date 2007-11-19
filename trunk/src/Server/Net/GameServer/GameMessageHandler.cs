@@ -31,7 +31,7 @@ namespace Yad.Net.GameServer.Server {
         /// <param name="item">Message to process</param>
         public override void ProcessItem(Message item) {
             InfoLog.WriteInfo(string.Format(Resources.GameProcessStringFormat, item.Type.ToString(), 
-                _gameServer.Name, _gameServer.GetPlayer(item.PlayerId).Login),
+                _gameServer.Name, _gameServer.GetPlayer(item.SenderId).Login),
                 EPrefix.GameMessageProccesing);
             switch (item.Type) {
                 case MessageType.TurnAsk:
@@ -55,33 +55,33 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void ProcessGameEnd(GameEndMessage item) {
-            _gameServer.Simulation.SetEndGame(item.PlayerId, item.HasWon);
+            _gameServer.Simulation.SetEndGame(item.SenderId, item.HasWon);
             if (_gameServer.Simulation.HasGameEnded())
                 _gameServer.StopGameServer();
         }
 
         private void ProcessGameMessage(GameMessage gameMessage) {
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
-                " from player: " + _gameServer.GetPlayer(gameMessage.PlayerId).Login, 
+                " from player: " + _gameServer.GetPlayer(gameMessage.SenderId).Login, 
                 EPrefix.GameMessageProccesing);
 			//ja pierdolê, kolejne pó³ godziny w plecy :P
             //gameMessage.IdTurn += _gameServer.Simulation.Delta;
 
-			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.PlayerId) + _gameServer.Simulation.Delta;
+			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.SenderId) + _gameServer.Simulation.Delta;
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
 
         private void ProcessTurnAsk(TurnAskMessage turnAskMessage) {
             InfoLog.WriteInfo("Processing Turn Ask message from player: " +
-                 _gameServer.GetPlayer(turnAskMessage.PlayerId).Login,
+                 _gameServer.GetPlayer(turnAskMessage.SenderId).Login,
                EPrefix.GameMessageProccesing);
 			//KŒ: ;( kolejne 45 minut ;(
 			//if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta)
-            if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta - 1)
-                IncreaseTurn(turnAskMessage.PlayerId);
+            if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.SenderId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta - 1)
+                IncreaseTurn(turnAskMessage.SenderId);
             else
-                WaitPlayer(turnAskMessage.PlayerId);
+                WaitPlayer(turnAskMessage.SenderId);
         }
 
         private void IncreaseTurn(short id) {

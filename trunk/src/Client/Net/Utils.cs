@@ -10,7 +10,7 @@ namespace Yad.Net.Client
         public static Message CreateMessageWithPlayerId(MessageType type)
         {
             Message message = MessageFactory.Create(type);
-            message.PlayerId = ClientPlayerInfo.PlayerId;
+            message.SenderId = ClientPlayerInfo.PlayerId;
             return message;
         }
     }

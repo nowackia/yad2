@@ -7,7 +7,13 @@ namespace Yad.Net.Messaging.Common
     public abstract class GameMessage : Message
     {
         private int idTurn;
+        private short idPlayer;
 
+        public short IdPlayer
+        {
+            get { return idPlayer; }
+            set { idPlayer = value; }
+        }
         public GameMessage(MessageType msgType)
             : base(msgType)
         { }
@@ -18,14 +24,18 @@ namespace Yad.Net.Messaging.Common
             set { idTurn = value; }
         }
 
+        
+
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);
             writer.Write(idTurn);
+            writer.Write(idPlayer);
         }
 
         public override void Deserialize(System.IO.BinaryReader reader) {
             base.Deserialize(reader);
             idTurn = reader.ReadInt32();
+            idPlayer = reader.ReadInt16();
         }
     }
 }

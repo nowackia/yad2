@@ -159,7 +159,7 @@ namespace Yad.Engine.Client {
 					//TODO: to jeszcze poprawić w miarę potrzeby
 					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
 					bm.BuildingID = currPlayer.GenerateObjectID();
-					bm.PlayerId = currPlayer.ID;
+					bm.SenderId = currPlayer.ID;
 					bm.BuildingType = buildingToBuild;
 					bm.Type = MessageType.Build;
 
@@ -362,7 +362,7 @@ namespace Yad.Engine.Client {
 					MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
 					mm.IdUnit = u.ObjectID;
 					mm.Path = newPos;
-					mm.PlayerId = u.PlayerID;
+					mm.SenderId = u.PlayerID;
 					Connection.Instance.SendMessage(mm);
 					//if enemy - attack
 
