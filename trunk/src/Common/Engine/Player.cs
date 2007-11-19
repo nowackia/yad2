@@ -83,5 +83,13 @@ namespace Yad.Engine.Common {
 		public List<Building> GetAllBuildings() {
 			return new List<Building>(this.buildings);
 		}
+
+		public Unit GetUnit(int id) {
+			return this.unitsDict[id];
+		}
+
+		public Building GetBuilding(int id) {
+			return this.buildingsDict[id];
+		}
 	}
 }

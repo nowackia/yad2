@@ -37,20 +37,25 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
+			Connection.Instance.ResumeReceiving();
 		}
 
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PositionData[] aPd = e.gameInitInfo;
+
 			foreach (PositionData pd in aPd) {
 				Player p = new Player(pd.PlayerId);
 				sim.AddPlayer(p);
 				//FIXME!
 				UnitTank u = new UnitTank(p.ID, p.GenerateObjectID(), sim.GameSettingsWrapper.GameSettings.UnitTanksData[0], new Position((short)pd.X, (short)pd.Y), this.sim.Map);
 				p.AddUnit(u);
+				this.sim.Map.Units[u.Position.X, u.Position.Y].AddLast(u);
 				//FIXME END
 			}
+			/*
 			sim.StartSimulation();
 			sim.DoTurn();
+			 */
 		}
 
 		void Instance_DoTurnPermission(object sender, EventArgs e) {
@@ -349,10 +354,16 @@ namespace Yad.Engine.Client {
 		}
 
 		internal void IssuedOrder(Position newPos) {
+
 			if (selectedUnits.Count != 0) {
 				foreach (Unit u in selectedUnits) {
 					//if no enemy at newPos
-					u.MoveTo(newPos);
+
+					MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
+					mm.IdUnit = u.ObjectID;
+					mm.Path = newPos;
+					mm.PlayerId = currPlayer.ID;
+					Connection.Instance.SendMessage(mm);
 					//if enemy - attack
 
 				}
