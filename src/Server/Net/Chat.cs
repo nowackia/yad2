@@ -32,10 +32,10 @@ namespace Yad.Net.Server {
         /// <param name="msg"></param>
         public void AddTextMessage(TextMessage msg) {
             string message = string.Format(MessageFormat, 
-                ((ChatUser)_players[msg.PlayerId]).Name, msg.Text);
-            short id = msg.PlayerId;
+                ((ChatUser)_players[msg.SenderId]).Name, msg.Text);
+            short id = msg.SenderId;
             msg.Text = message;
-            msg.PlayerId = -1;
+            msg.SenderId = -1;
             BroadcastExcl(msg, id);
         }
 

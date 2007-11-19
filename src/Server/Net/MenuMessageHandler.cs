@@ -79,7 +79,7 @@ namespace Yad.Net.Server
                 pimsg.PlayerData = null;
             else
                 pimsg.PlayerData = (PlayerData)p.PlayerData.Clone();
-            SendMessage(pimsg, numericMessage.PlayerId);
+            SendMessage(pimsg, numericMessage.SenderId);
         }
 
        
@@ -89,15 +89,15 @@ namespace Yad.Net.Server
 
         private void ProcessRegister(RegisterMessage msg) {
             if (Settings.Default.DBAvail) {
-                InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Register", msg.PlayerId), EPrefix.ServerProcessInfo);
+                InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Register", msg.SenderId), EPrefix.ServerProcessInfo);
                 if (YadDB.Register(msg.Login, msg.Password, msg.Mail)) {
                     InfoLog.WriteInfo("Player registered successfully", EPrefix.ServerProcessInfo);
-                    SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.PlayerId);
+                    SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.SenderId);
                 }
                 InfoLog.WriteInfo("Player registered unsucessfully", EPrefix.ServerProcessInfo);
             }
             else
-                SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.PlayerId);
+                SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.SenderId);
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Yad.Net.Server
         /// </summary>
         /// <param name="msg"></param>
         private void ProcessStartGame(Message msg) {
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Start Game", msg.PlayerId), EPrefix.ServerProcessInfo);
-            _server.GameManager.StartGame(msg.PlayerId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Start Game", msg.SenderId), EPrefix.ServerProcessInfo);
+            _server.GameManager.StartGame(msg.SenderId);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Yad.Net.Server
         /// </summary>
         /// <param name="playersMessage"></param>
         private void ProcessPlayers(PlayersMessage playersMessage) {
-            Player player = _server.GetPlayer(playersMessage.PlayerId);
+            Player player = _server.GetPlayer(playersMessage.SenderId);
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Start Game", player.Login), EPrefix.ServerProcessInfo);
             if (player == null || player.State != MenuState.GameJoin)
                 return;
@@ -126,8 +126,8 @@ namespace Yad.Net.Server
         /// </summary>
         /// <param name="textMessage"></param>
         private void ProcessJoinGame(TextMessage textMessage) {
-            Player player = _server.GetPlayer(textMessage.PlayerId);
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Join Game", textMessage.PlayerId), EPrefix.ServerProcessInfo);
+            Player player = _server.GetPlayer(textMessage.SenderId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Join Game", textMessage.SenderId), EPrefix.ServerProcessInfo);
             if (player == null)
                 return;
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
@@ -142,20 +142,20 @@ namespace Yad.Net.Server
         }
 
         private void ProcessChatText(TextMessage msg) {
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat Text", msg.PlayerId), EPrefix.ServerProcessInfo);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat Text", msg.SenderId), EPrefix.ServerProcessInfo);
             _server.Chat.AddTextMessage(msg);
         }
 
         private void ProcessLogin(LoginMessage msg) {
 
             //Pobranie gracza z listy niezalogowanych
-            Player player = _server.GetPlayerUnlogged(msg.PlayerId);
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Login", msg.PlayerId), EPrefix.ServerProcessInfo);
+            Player player = _server.GetPlayerUnlogged(msg.SenderId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Login", msg.SenderId), EPrefix.ServerProcessInfo);
             //Jesli gracza nie ma, lub jego stan jest jakis dziwny - koniec obslugi
             if (null == player || player.State != MenuState.Unlogged)
                 return;
 
-            if (Login(msg.PlayerId, msg.Login, msg.Password) || !Settings.Default.DBAvail) {
+            if (Login(msg.SenderId, msg.Login, msg.Password) || !Settings.Default.DBAvail) {
                 MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.Login);
                 if (state == MenuState.Invalid) {
                     SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);
@@ -167,7 +167,7 @@ namespace Yad.Net.Server
                     PlayerData pd = new PlayerData();
                     pd.Login = msg.Login;
                     pd.LossNo = pd.WinNo = 0;
-                    pd.Id = msg.PlayerId;
+                    pd.Id = msg.SenderId;
                     player.SetData(pd);
                 }
                 
@@ -187,7 +187,7 @@ namespace Yad.Net.Server
 
         private void ProcessEntry(Message msg) {
             EntryMessage emsg = msg as EntryMessage;
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Entry", msg.PlayerId), EPrefix.ServerProcessInfo);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Entry", msg.SenderId), EPrefix.ServerProcessInfo);
             switch ((ServerRoom)emsg.ServerRoom) {
                 case ServerRoom.Chat:
                     ProcessChatEntry(emsg);
@@ -199,7 +199,7 @@ namespace Yad.Net.Server
         }
 
         public void ProcessGameChooseEntry(Message msg) {
-            Player player = _server.GetPlayer(msg.PlayerId);
+            Player player = _server.GetPlayer(msg.SenderId);
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Game Choose Entry", player.Login), EPrefix.ServerProcessInfo);
             if (null == player || player.State == MenuState.GameChoose)
                 return;
@@ -226,7 +226,7 @@ namespace Yad.Net.Server
 
         public void ProcessChatEntry(Message msg) {
 
-            Player player = _server.GetPlayer(msg.PlayerId);
+            Player player = _server.GetPlayer(msg.SenderId);
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat entry", player.Login), EPrefix.ServerProcessInfo);
             if (null == player || player.State == MenuState.Chat)
                 return;
@@ -250,8 +250,8 @@ namespace Yad.Net.Server
         }
 
         private void ProcessCreateGame(GameInfoMessage msg) {
-            Player player = _server.GetPlayer(msg.PlayerId);
-            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Create game", msg.PlayerId), EPrefix.ServerProcessInfo);
+            Player player = _server.GetPlayer(msg.SenderId);
+            InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Create game", msg.SenderId), EPrefix.ServerProcessInfo);
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
             ResultMessage resMsg  =  null;
             if (state == MenuState.GameJoin) {
@@ -260,13 +260,13 @@ namespace Yad.Net.Server
                     player.State = state;
                 }
             }
-            SendMessage(resMsg, msg.PlayerId);
+            SendMessage(resMsg, msg.SenderId);
         }
 
         private ResultMessage CreateGame(GameInfoMessage msg) {
             ResultType resultType = _server.GameManager.CreateGame(msg.GameInfo);
             if (resultType == ResultType.Successful) {
-                ResultType joinResult = _server.GameManager.JoinGame(msg.GameInfo.Name, _server.GetPlayer(msg.PlayerId));
+                ResultType joinResult = _server.GameManager.JoinGame(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));
                 if (joinResult != ResultType.Successful) {
                     InfoLog.WriteError("Join not possible after create!");
                     return null;

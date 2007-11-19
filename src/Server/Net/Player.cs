@@ -185,7 +185,7 @@ namespace Yad.Net.Server {
                     return;
                 }
 
-                msg.PlayerId = Id;
+                msg.SenderId = Id;
                 ExecuteOnReceiveMessage(msg);
             }
         }

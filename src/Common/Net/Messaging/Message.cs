@@ -9,7 +9,7 @@ namespace Yad.Net.Messaging.Common
     public class Message
     {
         private MessageType type;
-        private short playerId;
+        private short senderId;
 
         public Message()
             : this(MessageType.Unknown, -1)
@@ -22,12 +22,12 @@ namespace Yad.Net.Messaging.Common
         public Message(MessageType msgType, short id)
         {
             type = msgType;
-            playerId = id;
+            senderId = id;
         }
-        public short PlayerId
+        public short SenderId
         {
-            get { return playerId; }
-            set { playerId = value; }
+            get { return senderId; }
+            set { senderId = value; }
         }
 
         protected void WriteString(string text, BinaryWriter writer)
@@ -59,13 +59,13 @@ namespace Yad.Net.Messaging.Common
 
         public virtual void Deserialize(BinaryReader reader)
         {
-			this.playerId = reader.ReadInt16();
+			this.senderId = reader.ReadInt16();
 		}
 
         public virtual void Serialize(BinaryWriter writer)
         {
             WriteMessageHeader(type, writer);
-			writer.Write(this.playerId);
+			writer.Write(this.senderId);
         }
     }
 }
