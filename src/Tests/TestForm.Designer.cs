@@ -1,4 +1,4 @@
-namespace KaleeTests {
+namespace Tests {
 	partial class TestForm {
 		/// <summary>
 		/// Required designer variable.

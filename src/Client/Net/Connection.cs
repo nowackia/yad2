@@ -54,6 +54,8 @@ namespace Yad.Net.Client
                 catch (Exception ex)
                 {
                     InfoLog.WriteException(ex);
+                    if (ex is SocketException)
+                        throw new Exception("Connection exception", ex);
                 }
             }
         }

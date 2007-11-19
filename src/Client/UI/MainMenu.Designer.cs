@@ -182,7 +182,7 @@ namespace Yad.UI.Client
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(535, 382);
-            this.tabControl.TabIndex = 0;
+            this.tabControl.TabIndex = 25;
             // 
             // mainMenu
             // 
@@ -229,7 +229,7 @@ namespace Yad.UI.Client
             this.newGameMainMenu.Location = new System.Drawing.Point(107, 83);
             this.newGameMainMenu.Name = "newGameMainMenu";
             this.newGameMainMenu.Size = new System.Drawing.Size(306, 23);
-            this.newGameMainMenu.TabIndex = 3;
+            this.newGameMainMenu.TabIndex = 1;
             this.newGameMainMenu.Text = "New Game";
             this.newGameMainMenu.UseVisualStyleBackColor = true;
             this.newGameMainMenu.Click += new System.EventHandler(this.NewGameMainMenu_Click);
@@ -242,7 +242,7 @@ namespace Yad.UI.Client
             this.optionsMainMenu.Location = new System.Drawing.Point(107, 112);
             this.optionsMainMenu.Name = "optionsMainMenu";
             this.optionsMainMenu.Size = new System.Drawing.Size(306, 23);
-            this.optionsMainMenu.TabIndex = 0;
+            this.optionsMainMenu.TabIndex = 2;
             this.optionsMainMenu.Text = "Options";
             this.optionsMainMenu.UseVisualStyleBackColor = true;
             this.optionsMainMenu.Click += new System.EventHandler(this.OptionsMainMenu_Click);
@@ -255,7 +255,7 @@ namespace Yad.UI.Client
             this.exitMainMenu.Location = new System.Drawing.Point(107, 170);
             this.exitMainMenu.Name = "exitMainMenu";
             this.exitMainMenu.Size = new System.Drawing.Size(306, 23);
-            this.exitMainMenu.TabIndex = 2;
+            this.exitMainMenu.TabIndex = 4;
             this.exitMainMenu.Text = "Exit";
             this.exitMainMenu.UseVisualStyleBackColor = true;
             this.exitMainMenu.Click += new System.EventHandler(this.exitMainMenu_Click);
@@ -268,7 +268,7 @@ namespace Yad.UI.Client
             this.creditsMainMenu.Location = new System.Drawing.Point(107, 141);
             this.creditsMainMenu.Name = "creditsMainMenu";
             this.creditsMainMenu.Size = new System.Drawing.Size(306, 23);
-            this.creditsMainMenu.TabIndex = 1;
+            this.creditsMainMenu.TabIndex = 3;
             this.creditsMainMenu.Text = "Credits";
             this.creditsMainMenu.UseVisualStyleBackColor = true;
             this.creditsMainMenu.Click += new System.EventHandler(this.creditsMainMenu_Click);
@@ -279,7 +279,7 @@ namespace Yad.UI.Client
             this.haxxx.Location = new System.Drawing.Point(435, 252);
             this.haxxx.Name = "haxxx";
             this.haxxx.Size = new System.Drawing.Size(67, 23);
-            this.haxxx.TabIndex = 4;
+            this.haxxx.TabIndex = 5;
             this.haxxx.Text = "Fast Game";
             this.haxxx.UseVisualStyleBackColor = true;
             this.haxxx.Click += new System.EventHandler(this.haxxx_Click);
@@ -326,7 +326,7 @@ namespace Yad.UI.Client
             this.groupBoxLogin.Location = new System.Drawing.Point(81, 83);
             this.groupBoxLogin.Name = "groupBoxLogin";
             this.groupBoxLogin.Size = new System.Drawing.Size(358, 110);
-            this.groupBoxLogin.TabIndex = 0;
+            this.groupBoxLogin.TabIndex = 1;
             this.groupBoxLogin.TabStop = false;
             // 
             // loginLabel
@@ -335,23 +335,25 @@ namespace Yad.UI.Client
             this.loginLabel.Location = new System.Drawing.Point(6, 36);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(29, 13);
-            this.loginLabel.TabIndex = 5;
+            this.loginLabel.TabIndex = 11;
             this.loginLabel.Text = "login";
             // 
             // loginTBLoginMenu
             // 
             this.loginTBLoginMenu.Location = new System.Drawing.Point(93, 33);
+            this.loginTBLoginMenu.MaxLength = 25;
             this.loginTBLoginMenu.Name = "loginTBLoginMenu";
-            this.loginTBLoginMenu.Size = new System.Drawing.Size(216, 20);
-            this.loginTBLoginMenu.TabIndex = 0;
+            this.loginTBLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.loginTBLoginMenu.TabIndex = 2;
             this.loginTBLoginMenu.Text = "test_player_";
             // 
             // passwordLoginMenu
             // 
             this.passwordLoginMenu.Location = new System.Drawing.Point(93, 59);
+            this.passwordLoginMenu.MaxLength = 25;
             this.passwordLoginMenu.Name = "passwordLoginMenu";
-            this.passwordLoginMenu.Size = new System.Drawing.Size(216, 20);
-            this.passwordLoginMenu.TabIndex = 1;
+            this.passwordLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.passwordLoginMenu.TabIndex = 3;
             this.passwordLoginMenu.UseSystemPasswordChar = true;
             // 
             // passwordLabel
@@ -360,7 +362,7 @@ namespace Yad.UI.Client
             this.passwordLabel.Location = new System.Drawing.Point(6, 62);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(52, 13);
-            this.passwordLabel.TabIndex = 6;
+            this.passwordLabel.TabIndex = 12;
             this.passwordLabel.Text = "password";
             // 
             // panel1
@@ -373,14 +375,14 @@ namespace Yad.UI.Client
             this.panel1.Location = new System.Drawing.Point(81, 199);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(358, 110);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 2;
             // 
             // registerLoginMenu
             // 
             this.registerLoginMenu.Location = new System.Drawing.Point(125, 3);
             this.registerLoginMenu.Name = "registerLoginMenu";
             this.registerLoginMenu.Size = new System.Drawing.Size(110, 23);
-            this.registerLoginMenu.TabIndex = 3;
+            this.registerLoginMenu.TabIndex = 5;
             this.registerLoginMenu.Text = "Register";
             this.registerLoginMenu.UseVisualStyleBackColor = true;
             this.registerLoginMenu.Click += new System.EventHandler(this.registerLoginMenu_Click);
@@ -390,7 +392,7 @@ namespace Yad.UI.Client
             this.loginBTLoginMenu.Location = new System.Drawing.Point(9, 3);
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
             this.loginBTLoginMenu.Size = new System.Drawing.Size(110, 23);
-            this.loginBTLoginMenu.TabIndex = 2;
+            this.loginBTLoginMenu.TabIndex = 4;
             this.loginBTLoginMenu.Text = "Login";
             this.loginBTLoginMenu.UseVisualStyleBackColor = true;
             this.loginBTLoginMenu.Click += new System.EventHandler(this.loginBTLoginMenu_Click);
@@ -400,7 +402,7 @@ namespace Yad.UI.Client
             this.remindPasswordLoginMenu.Location = new System.Drawing.Point(9, 32);
             this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
             this.remindPasswordLoginMenu.Size = new System.Drawing.Size(110, 23);
-            this.remindPasswordLoginMenu.TabIndex = 9;
+            this.remindPasswordLoginMenu.TabIndex = 6;
             this.remindPasswordLoginMenu.Text = "Remind Password";
             this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
             this.remindPasswordLoginMenu.Click += new System.EventHandler(this.remindPasswordLoginMenu_Click);
@@ -410,7 +412,7 @@ namespace Yad.UI.Client
             this.cancelLoginMenu.Location = new System.Drawing.Point(125, 32);
             this.cancelLoginMenu.Name = "cancelLoginMenu";
             this.cancelLoginMenu.Size = new System.Drawing.Size(110, 23);
-            this.cancelLoginMenu.TabIndex = 4;
+            this.cancelLoginMenu.TabIndex = 7;
             this.cancelLoginMenu.Text = "Cancel";
             this.cancelLoginMenu.UseVisualStyleBackColor = true;
             this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
@@ -422,7 +424,7 @@ namespace Yad.UI.Client
             this.groupBoxServer.Location = new System.Drawing.Point(81, 3);
             this.groupBoxServer.Name = "groupBoxServer";
             this.groupBoxServer.Size = new System.Drawing.Size(358, 74);
-            this.groupBoxServer.TabIndex = 2;
+            this.groupBoxServer.TabIndex = 0;
             this.groupBoxServer.TabStop = false;
             // 
             // serverLabel
@@ -431,16 +433,17 @@ namespace Yad.UI.Client
             this.serverLabel.Location = new System.Drawing.Point(6, 32);
             this.serverLabel.Name = "serverLabel";
             this.serverLabel.Size = new System.Drawing.Size(36, 13);
-            this.serverLabel.TabIndex = 7;
+            this.serverLabel.TabIndex = 10;
             this.serverLabel.Text = "server";
             // 
             // serverLoginMenu
             // 
             this.serverLoginMenu.Location = new System.Drawing.Point(93, 29);
+            this.serverLoginMenu.MaxLength = 15;
             this.serverLoginMenu.Name = "serverLoginMenu";
-            this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
-            this.serverLoginMenu.TabIndex = 8;
-            this.serverLoginMenu.Text = "194.29.178.204";
+            this.serverLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.serverLoginMenu.TabIndex = 1;
+            this.serverLoginMenu.Text = "127.0.0.1";
             // 
             // registerMenu
             // 
@@ -496,7 +499,7 @@ namespace Yad.UI.Client
             this.loginLBRegisterMenu.Location = new System.Drawing.Point(6, 13);
             this.loginLBRegisterMenu.Name = "loginLBRegisterMenu";
             this.loginLBRegisterMenu.Size = new System.Drawing.Size(33, 13);
-            this.loginLBRegisterMenu.TabIndex = 6;
+            this.loginLBRegisterMenu.TabIndex = 10;
             this.loginLBRegisterMenu.Text = "Login";
             // 
             // emailLRegisterMenu
@@ -505,15 +508,16 @@ namespace Yad.UI.Client
             this.emailLRegisterMenu.Location = new System.Drawing.Point(7, 94);
             this.emailLRegisterMenu.Name = "emailLRegisterMenu";
             this.emailLRegisterMenu.Size = new System.Drawing.Size(32, 13);
-            this.emailLRegisterMenu.TabIndex = 9;
+            this.emailLRegisterMenu.TabIndex = 13;
             this.emailLRegisterMenu.Text = "Email";
             // 
             // loginTBRegisterMenu
             // 
             this.loginTBRegisterMenu.Location = new System.Drawing.Point(103, 10);
+            this.loginTBRegisterMenu.MaxLength = 25;
             this.loginTBRegisterMenu.Name = "loginTBRegisterMenu";
             this.loginTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
-            this.loginTBRegisterMenu.TabIndex = 5;
+            this.loginTBRegisterMenu.TabIndex = 1;
             // 
             // repeatPasswordLRegisterMenu
             // 
@@ -521,27 +525,30 @@ namespace Yad.UI.Client
             this.repeatPasswordLRegisterMenu.Location = new System.Drawing.Point(6, 64);
             this.repeatPasswordLRegisterMenu.Name = "repeatPasswordLRegisterMenu";
             this.repeatPasswordLRegisterMenu.Size = new System.Drawing.Size(91, 13);
-            this.repeatPasswordLRegisterMenu.TabIndex = 8;
+            this.repeatPasswordLRegisterMenu.TabIndex = 12;
             this.repeatPasswordLRegisterMenu.Text = "Repeat Password";
             // 
             // passwordTBRegisterMenu
             // 
             this.passwordTBRegisterMenu.Location = new System.Drawing.Point(103, 36);
+            this.passwordTBRegisterMenu.MaxLength = 25;
             this.passwordTBRegisterMenu.Name = "passwordTBRegisterMenu";
             this.passwordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
-            this.passwordTBRegisterMenu.TabIndex = 4;
+            this.passwordTBRegisterMenu.TabIndex = 2;
             this.passwordTBRegisterMenu.UseSystemPasswordChar = true;
             // 
             // emailTBRegisterMenu
             // 
             this.emailTBRegisterMenu.Location = new System.Drawing.Point(103, 87);
+            this.emailTBRegisterMenu.MaxLength = 100;
             this.emailTBRegisterMenu.Name = "emailTBRegisterMenu";
             this.emailTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
-            this.emailTBRegisterMenu.TabIndex = 2;
+            this.emailTBRegisterMenu.TabIndex = 4;
             // 
             // repeatPasswordTBRegisterMenu
             // 
             this.repeatPasswordTBRegisterMenu.Location = new System.Drawing.Point(103, 61);
+            this.repeatPasswordTBRegisterMenu.MaxLength = 25;
             this.repeatPasswordTBRegisterMenu.Name = "repeatPasswordTBRegisterMenu";
             this.repeatPasswordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.repeatPasswordTBRegisterMenu.TabIndex = 3;
@@ -553,7 +560,7 @@ namespace Yad.UI.Client
             this.passwordLRegisterMenu.Location = new System.Drawing.Point(6, 39);
             this.passwordLRegisterMenu.Name = "passwordLRegisterMenu";
             this.passwordLRegisterMenu.Size = new System.Drawing.Size(53, 13);
-            this.passwordLRegisterMenu.TabIndex = 7;
+            this.passwordLRegisterMenu.TabIndex = 11;
             this.passwordLRegisterMenu.Text = "Password";
             // 
             // panel2
@@ -571,7 +578,7 @@ namespace Yad.UI.Client
             this.registerRegisterMenu.Location = new System.Drawing.Point(22, 3);
             this.registerRegisterMenu.Name = "registerRegisterMenu";
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
-            this.registerRegisterMenu.TabIndex = 0;
+            this.registerRegisterMenu.TabIndex = 5;
             this.registerRegisterMenu.Text = "Register";
             this.registerRegisterMenu.UseVisualStyleBackColor = true;
             this.registerRegisterMenu.Click += new System.EventHandler(this.registerRegisterMenu_Click);
@@ -581,7 +588,7 @@ namespace Yad.UI.Client
             this.backRegisterMenu.Location = new System.Drawing.Point(103, 3);
             this.backRegisterMenu.Name = "backRegisterMenu";
             this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
-            this.backRegisterMenu.TabIndex = 1;
+            this.backRegisterMenu.TabIndex = 6;
             this.backRegisterMenu.Text = "Back";
             this.backRegisterMenu.UseVisualStyleBackColor = true;
             this.backRegisterMenu.Click += new System.EventHandler(this.backRegisterMenu_Click);
@@ -607,7 +614,7 @@ namespace Yad.UI.Client
             this.sendChatMenu.Location = new System.Drawing.Point(388, 252);
             this.sendChatMenu.Name = "sendChatMenu";
             this.sendChatMenu.Size = new System.Drawing.Size(116, 23);
-            this.sendChatMenu.TabIndex = 5;
+            this.sendChatMenu.TabIndex = 2;
             this.sendChatMenu.Text = "Send";
             this.sendChatMenu.UseVisualStyleBackColor = true;
             this.sendChatMenu.Click += new System.EventHandler(this.sendChatMenu_Click);
@@ -618,7 +625,7 @@ namespace Yad.UI.Client
             this.userListChatMenu.Location = new System.Drawing.Point(388, 57);
             this.userListChatMenu.Name = "userListChatMenu";
             this.userListChatMenu.Size = new System.Drawing.Size(116, 186);
-            this.userListChatMenu.TabIndex = 4;
+            this.userListChatMenu.TabIndex = 5;
             this.userListChatMenu.DoubleClick += new System.EventHandler(this.userListChatMenu_DoubleClick);
             // 
             // chatListChatMenu
@@ -627,21 +634,23 @@ namespace Yad.UI.Client
             this.chatListChatMenu.Location = new System.Drawing.Point(35, 57);
             this.chatListChatMenu.Name = "chatListChatMenu";
             this.chatListChatMenu.Size = new System.Drawing.Size(347, 186);
-            this.chatListChatMenu.TabIndex = 3;
+            this.chatListChatMenu.TabIndex = 4;
             // 
             // chatInputTBChatMenu
             // 
             this.chatInputTBChatMenu.Location = new System.Drawing.Point(35, 255);
+            this.chatInputTBChatMenu.MaxLength = 200;
             this.chatInputTBChatMenu.Name = "chatInputTBChatMenu";
             this.chatInputTBChatMenu.Size = new System.Drawing.Size(347, 20);
-            this.chatInputTBChatMenu.TabIndex = 2;
+            this.chatInputTBChatMenu.TabIndex = 1;
+            this.chatInputTBChatMenu.KeyUp += new System.Windows.Forms.KeyEventHandler(this.chatInputTBChatMenu_KeyUp);
             // 
             // backChatMenu
             // 
             this.backChatMenu.Location = new System.Drawing.Point(388, 281);
             this.backChatMenu.Name = "backChatMenu";
             this.backChatMenu.Size = new System.Drawing.Size(116, 23);
-            this.backChatMenu.TabIndex = 1;
+            this.backChatMenu.TabIndex = 3;
             this.backChatMenu.Text = "Back";
             this.backChatMenu.UseVisualStyleBackColor = true;
             this.backChatMenu.Click += new System.EventHandler(this.backChatMenu_Click);
@@ -709,7 +718,7 @@ namespace Yad.UI.Client
             this.textBoxTBGameName.Location = new System.Drawing.Point(42, 259);
             this.textBoxTBGameName.Name = "textBoxTBGameName";
             this.textBoxTBGameName.Size = new System.Drawing.Size(155, 20);
-            this.textBoxTBGameName.TabIndex = 6;
+            this.textBoxTBGameName.TabIndex = 1;
             // 
             // label1
             // 
@@ -727,7 +736,7 @@ namespace Yad.UI.Client
             this.textBoxTBGameDescription.Name = "textBoxTBGameDescription";
             this.textBoxTBGameDescription.ReadOnly = true;
             this.textBoxTBGameDescription.Size = new System.Drawing.Size(199, 225);
-            this.textBoxTBGameDescription.TabIndex = 4;
+            this.textBoxTBGameDescription.TabIndex = 5;
             // 
             // backChooseGameMenu
             // 
@@ -745,7 +754,7 @@ namespace Yad.UI.Client
             this.listOfGames.Location = new System.Drawing.Point(41, 57);
             this.listOfGames.Name = "listOfGames";
             this.listOfGames.Size = new System.Drawing.Size(237, 199);
-            this.listOfGames.TabIndex = 2;
+            this.listOfGames.TabIndex = 4;
             this.listOfGames.SelectedIndexChanged += new System.EventHandler(this.listOfGames_SelectedIndexChanged);
             // 
             // createChooseGameMenu
@@ -753,7 +762,7 @@ namespace Yad.UI.Client
             this.createChooseGameMenu.Location = new System.Drawing.Point(327, 288);
             this.createChooseGameMenu.Name = "createChooseGameMenu";
             this.createChooseGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.createChooseGameMenu.TabIndex = 1;
+            this.createChooseGameMenu.TabIndex = 2;
             this.createChooseGameMenu.Text = "Create";
             this.createChooseGameMenu.UseVisualStyleBackColor = true;
             this.createChooseGameMenu.Click += new System.EventHandler(this.createChooseGameMenu_Click);
@@ -803,7 +812,7 @@ namespace Yad.UI.Client
             0});
             this.maxPlayerNumberNUPCreateGameMenu.Name = "maxPlayerNumberNUPCreateGameMenu";
             this.maxPlayerNumberNUPCreateGameMenu.Size = new System.Drawing.Size(36, 20);
-            this.maxPlayerNumberNUPCreateGameMenu.TabIndex = 9;
+            this.maxPlayerNumberNUPCreateGameMenu.TabIndex = 1;
             this.maxPlayerNumberNUPCreateGameMenu.Value = new decimal(new int[] {
             2,
             0,
@@ -816,7 +825,7 @@ namespace Yad.UI.Client
             this.maxPlayerNumberLCreateGameMenu.Location = new System.Drawing.Point(269, 64);
             this.maxPlayerNumberLCreateGameMenu.Name = "maxPlayerNumberLCreateGameMenu";
             this.maxPlayerNumberLCreateGameMenu.Size = new System.Drawing.Size(99, 13);
-            this.maxPlayerNumberLCreateGameMenu.TabIndex = 8;
+            this.maxPlayerNumberLCreateGameMenu.TabIndex = 11;
             this.maxPlayerNumberLCreateGameMenu.Text = "Max Player Number";
             // 
             // gameNameLCreateGameMenu
@@ -825,7 +834,7 @@ namespace Yad.UI.Client
             this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 113);
             this.gameNameLCreateGameMenu.Name = "gameNameLCreateGameMenu";
             this.gameNameLCreateGameMenu.Size = new System.Drawing.Size(66, 13);
-            this.gameNameLCreateGameMenu.TabIndex = 7;
+            this.gameNameLCreateGameMenu.TabIndex = 12;
             this.gameNameLCreateGameMenu.Text = "Game Name";
             // 
             // gameNameTBCreateGameMenu
@@ -833,7 +842,8 @@ namespace Yad.UI.Client
             this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(272, 129);
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(217, 20);
-            this.gameNameTBCreateGameMenu.TabIndex = 6;
+            this.gameNameTBCreateGameMenu.TabIndex = 2;
+            this.gameNameTBCreateGameMenu.Text = "test_game_";
             // 
             // privateCreateGameMenu
             // 
@@ -841,7 +851,7 @@ namespace Yad.UI.Client
             this.privateCreateGameMenu.Location = new System.Drawing.Point(272, 189);
             this.privateCreateGameMenu.Name = "privateCreateGameMenu";
             this.privateCreateGameMenu.Size = new System.Drawing.Size(58, 17);
-            this.privateCreateGameMenu.TabIndex = 5;
+            this.privateCreateGameMenu.TabIndex = 4;
             this.privateCreateGameMenu.Text = "Private";
             this.privateCreateGameMenu.UseVisualStyleBackColor = true;
             // 
@@ -852,7 +862,7 @@ namespace Yad.UI.Client
             this.publicCreateGameMenu.Location = new System.Drawing.Point(272, 166);
             this.publicCreateGameMenu.Name = "publicCreateGameMenu";
             this.publicCreateGameMenu.Size = new System.Drawing.Size(54, 17);
-            this.publicCreateGameMenu.TabIndex = 4;
+            this.publicCreateGameMenu.TabIndex = 3;
             this.publicCreateGameMenu.TabStop = true;
             this.publicCreateGameMenu.Text = "Public";
             this.publicCreateGameMenu.UseVisualStyleBackColor = true;
@@ -863,7 +873,7 @@ namespace Yad.UI.Client
             this.mapsLCreateGameMenu.Location = new System.Drawing.Point(43, 48);
             this.mapsLCreateGameMenu.Name = "mapsLCreateGameMenu";
             this.mapsLCreateGameMenu.Size = new System.Drawing.Size(67, 13);
-            this.mapsLCreateGameMenu.TabIndex = 3;
+            this.mapsLCreateGameMenu.TabIndex = 10;
             this.mapsLCreateGameMenu.Text = "Choose Map";
             // 
             // listBoxLBCreateGame
@@ -879,7 +889,7 @@ namespace Yad.UI.Client
             this.cancelCreateGameMenu.Location = new System.Drawing.Point(272, 269);
             this.cancelCreateGameMenu.Name = "cancelCreateGameMenu";
             this.cancelCreateGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.cancelCreateGameMenu.TabIndex = 1;
+            this.cancelCreateGameMenu.TabIndex = 6;
             this.cancelCreateGameMenu.Text = "Cancel";
             this.cancelCreateGameMenu.UseVisualStyleBackColor = true;
             this.cancelCreateGameMenu.Click += new System.EventHandler(this.cancelCreateGameMenu_Click);
@@ -889,7 +899,7 @@ namespace Yad.UI.Client
             this.createCreateGameMenu.Location = new System.Drawing.Point(188, 269);
             this.createCreateGameMenu.Name = "createCreateGameMenu";
             this.createCreateGameMenu.Size = new System.Drawing.Size(75, 23);
-            this.createCreateGameMenu.TabIndex = 0;
+            this.createCreateGameMenu.TabIndex = 5;
             this.createCreateGameMenu.Text = "Create";
             this.createCreateGameMenu.UseVisualStyleBackColor = true;
             this.createCreateGameMenu.Click += new System.EventHandler(this.createCreateGameMenu_Click);
@@ -1027,7 +1037,7 @@ namespace Yad.UI.Client
             this.descriptionWaitingForPlayersMenu.Multiline = true;
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
             this.descriptionWaitingForPlayersMenu.ReadOnly = true;
-            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(128, 147);
+            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(142, 147);
             this.descriptionWaitingForPlayersMenu.TabIndex = 4;
             // 
             // playersLWaitingForPlayersMenu
@@ -1041,9 +1051,9 @@ namespace Yad.UI.Client
             // 
             // startWaitingForPlayersMenu
             // 
-            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(433, 131);
+            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(447, 131);
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
-            this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
+            this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
             this.startWaitingForPlayersMenu.TabIndex = 1;
             this.startWaitingForPlayersMenu.Text = "Start Game";
             this.startWaitingForPlayersMenu.UseVisualStyleBackColor = true;
@@ -1051,9 +1061,9 @@ namespace Yad.UI.Client
             // 
             // cancelWaitingForPlayersMenu
             // 
-            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(433, 160);
+            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(447, 160);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
-            this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
+            this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
             this.cancelWaitingForPlayersMenu.TabIndex = 0;
             this.cancelWaitingForPlayersMenu.Text = "Cancel";
             this.cancelWaitingForPlayersMenu.UseVisualStyleBackColor = true;
@@ -1080,9 +1090,9 @@ namespace Yad.UI.Client
             this.groupBox3.Controls.Add(this.muteSoundOptionsMenu);
             this.groupBox3.Controls.Add(this.soundVolumeNMOptionsMenu);
             this.groupBox3.Controls.Add(this.muteMusicOptionsMenu);
-            this.groupBox3.Location = new System.Drawing.Point(101, 125);
+            this.groupBox3.Location = new System.Drawing.Point(153, 125);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(325, 83);
+            this.groupBox3.Size = new System.Drawing.Size(273, 83);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             // 
@@ -1098,7 +1108,7 @@ namespace Yad.UI.Client
             // soundVolumeLOptionsMenu
             // 
             this.soundVolumeLOptionsMenu.AutoSize = true;
-            this.soundVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 42);
+            this.soundVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 40);
             this.soundVolumeLOptionsMenu.Name = "soundVolumeLOptionsMenu";
             this.soundVolumeLOptionsMenu.Size = new System.Drawing.Size(76, 13);
             this.soundVolumeLOptionsMenu.TabIndex = 5;
@@ -1106,15 +1116,20 @@ namespace Yad.UI.Client
             // 
             // musicVolumeNMOptionsMenu
             // 
-            this.musicVolumeNMOptionsMenu.Location = new System.Drawing.Point(96, 14);
+            this.musicVolumeNMOptionsMenu.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.musicVolumeNMOptionsMenu.Location = new System.Drawing.Point(98, 15);
             this.musicVolumeNMOptionsMenu.Name = "musicVolumeNMOptionsMenu";
-            this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
+            this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.musicVolumeNMOptionsMenu.TabIndex = 2;
             // 
             // muteSoundOptionsMenu
             // 
             this.muteSoundOptionsMenu.AutoSize = true;
-            this.muteSoundOptionsMenu.Location = new System.Drawing.Point(238, 41);
+            this.muteSoundOptionsMenu.Location = new System.Drawing.Point(180, 41);
             this.muteSoundOptionsMenu.Name = "muteSoundOptionsMenu";
             this.muteSoundOptionsMenu.Size = new System.Drawing.Size(84, 17);
             this.muteSoundOptionsMenu.TabIndex = 1;
@@ -1123,15 +1138,20 @@ namespace Yad.UI.Client
             // 
             // soundVolumeNMOptionsMenu
             // 
-            this.soundVolumeNMOptionsMenu.Location = new System.Drawing.Point(96, 40);
+            this.soundVolumeNMOptionsMenu.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.soundVolumeNMOptionsMenu.Location = new System.Drawing.Point(98, 40);
             this.soundVolumeNMOptionsMenu.Name = "soundVolumeNMOptionsMenu";
-            this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(120, 20);
+            this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.soundVolumeNMOptionsMenu.TabIndex = 3;
             // 
             // muteMusicOptionsMenu
             // 
             this.muteMusicOptionsMenu.AutoSize = true;
-            this.muteMusicOptionsMenu.Location = new System.Drawing.Point(238, 15);
+            this.muteMusicOptionsMenu.Location = new System.Drawing.Point(180, 15);
             this.muteMusicOptionsMenu.Name = "muteMusicOptionsMenu";
             this.muteMusicOptionsMenu.Size = new System.Drawing.Size(81, 17);
             this.muteMusicOptionsMenu.TabIndex = 0;

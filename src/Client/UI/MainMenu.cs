@@ -238,26 +238,38 @@ namespace Yad.UI.Client
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
+            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
-            LoginMessage loginMessage = (LoginMessage)Utils.CreateMessageWithPlayerId(MessageType.Login);
+            try
+            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+            catch (Exception)
+            {
+                ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
+                return;
+            }
+
+            LoginMessage loginMessage = (LoginMessage)Utils.CreateMessageWithSenderId(MessageType.Login);
             loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
             ClientPlayerInfo.Login = loginTBLoginMenu.Text;
             Connection.Instance.SendMessage(loginMessage);
-
-            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
 
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
+            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
-			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.Remind);
+            try
+            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+            catch (Exception)
+            {
+                ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
+                return;
+            }
+
+			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.Instance.SendMessage(remindMessage);
-
-            ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -280,7 +292,7 @@ namespace Yad.UI.Client
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
-                Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
+                Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.ChatEntry));
             }
         }
 
@@ -305,15 +317,26 @@ namespace Yad.UI.Client
         #region Control Events
         private void registerRegisterMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.InitConnection(serverLoginMenu.Text, 1734);
-
-            RegisterMessage registerMessage = new RegisterMessage();
-            registerMessage.Login = loginTBRegisterMenu.Text;
-            registerMessage.Password = passwordTBRegisterMenu.Text;
-            registerMessage.Mail = emailTBRegisterMenu.Text;
-            Connection.Instance.SendMessage(registerMessage);
-
             ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
+
+            try
+            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+            catch (Exception)
+            {
+                ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
+                return;
+            }
+
+            if (passwordTBRegisterMenu.Text == repeatPasswordTBRegisterMenu.Text)
+            {
+                RegisterMessage registerMessage = new RegisterMessage();
+                registerMessage.Login = loginTBRegisterMenu.Text;
+                registerMessage.Password = passwordTBRegisterMenu.Text;
+                registerMessage.Mail = emailTBRegisterMenu.Text;
+                Connection.Instance.SendMessage(registerMessage);
+            }
+            else
+                MessageBoxEx.Show(this, "Repeated password does not match", "Repeat", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void backRegisterMenu_Click(object sender, EventArgs e)
@@ -343,7 +366,7 @@ namespace Yad.UI.Client
         #region Control Events
         private void backChatMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.Logout));
+            Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.Logout));
             Connection.Instance.CloseConnection();
 
             OnMenuOptionChange(MenuOption.Back);
@@ -351,7 +374,7 @@ namespace Yad.UI.Client
 
         private void sendChatMenu_Click(object sender, EventArgs e)
         {
-            TextMessage chatTextMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.ChatText);
+            TextMessage chatTextMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.ChatText);
 
             chatTextMessage.Text = chatInputTBChatMenu.Text;
 
@@ -369,7 +392,7 @@ namespace Yad.UI.Client
             if (index != -1)
             {
                 ChatUser chatUser = listBox.Items[index] as ChatUser;
-                NumericMessage numericMessage = (NumericMessage)Utils.CreateMessageWithPlayerId(MessageType.PlayerInfo);
+                NumericMessage numericMessage = (NumericMessage)Utils.CreateMessageWithSenderId(MessageType.PlayerInfo);
                 numericMessage.Number = chatUser.Id;
                 Connection.Instance.SendMessage(numericMessage);
             }
@@ -377,10 +400,16 @@ namespace Yad.UI.Client
 
         private void gameChatMenu_Click(object sender, EventArgs e)
         {
-            EntryMessage entryMessage = (EntryMessage)Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry);
+            EntryMessage entryMessage = (EntryMessage)Utils.CreateMessageWithSenderId(MessageType.ChooseGameEntry);
             Connection.Instance.SendMessage(entryMessage);
 
             OnMenuOptionChange(MenuOption.Game);
+        }
+
+        private void chatInputTBChatMenu_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                sendChatMenu_Click(sendChatMenu, EventArgs.Empty);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -456,13 +485,13 @@ namespace Yad.UI.Client
         #region Control Events
         private void backChooseGameMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChatEntry));
+            Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.ChatEntry));
             OnMenuOptionChange(MenuOption.Back);
         }
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
-            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.JoinGame);
+            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.JoinGame);
             textMessage.Text = textBoxTBGameName.Text;
             Connection.Instance.SendMessage(textMessage);
         }
@@ -535,7 +564,7 @@ namespace Yad.UI.Client
 
         private void createCreateGameMenu_Click(object sender, EventArgs e)
         {
-            GameInfoMessage createGameMessage = (GameInfoMessage)Utils.CreateMessageWithPlayerId(MessageType.CreateGame);
+            GameInfoMessage createGameMessage = (GameInfoMessage)Utils.CreateMessageWithSenderId(MessageType.CreateGame);
 
             GameInfo gameInfo = new GameInfo();
             if (listBoxLBCreateGame.SelectedItem != null)
@@ -575,7 +604,7 @@ namespace Yad.UI.Client
         #region Control Events
         private void cancelWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            Connection.Instance.SendMessage(Utils.CreateMessageWithPlayerId(MessageType.ChooseGameEntry));
+            Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.ChooseGameEntry));
 
             OnMenuOptionChange(MenuOption.Cancel);
 
@@ -586,7 +615,7 @@ namespace Yad.UI.Client
         {
             ManageControlState(new Control[] { startWaitingForPlayersMenu }, false);
 
-            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
+            TextMessage textMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.StartGame);
             textMessage.Text = ClientPlayerInfo.GameInfo.Name;
             Connection.Instance.SendMessage(textMessage);
         }
@@ -600,12 +629,12 @@ namespace Yad.UI.Client
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
         {
-            PlayersMessage playersMessage = (PlayersMessage)Utils.CreateMessageWithPlayerId(MessageType.UpdatePlayer);
+            PlayersMessage playersMessage = (PlayersMessage)Utils.CreateMessageWithSenderId(MessageType.UpdatePlayer);
 
             playersMessage.PlayerList = new List<PlayerInfo>();
             PlayerInfo playerInfo = new PlayerInfo();
 
-            playerInfo.Id = ClientPlayerInfo.PlayerId;
+            playerInfo.Id = ClientPlayerInfo.SenderId;
             playerInfo.Name = ClientPlayerInfo.Login;
             playerInfo.House = (HouseType)houseCBWaitingForPlayersMenu.SelectedIndex;
             playerInfo.TeamID = short.Parse(teamCBWaitingForPlayersMenu.SelectedItem.ToString());
@@ -681,7 +710,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
 
-            if (e.players[0].Id == ClientPlayerInfo.PlayerId)
+            if (e.players[0].Id == ClientPlayerInfo.SenderId)
             {
                 Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
 
