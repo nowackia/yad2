@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Yad.Log.Common;
 
 namespace Yad.Net.Messaging.Common
 {
@@ -46,6 +47,7 @@ namespace Yad.Net.Messaging.Common
         protected void WriteMessageHeader(MessageType type, BinaryWriter writer)
         {
             byte itype = (byte)type;
+			//InfoLog.WriteInfo("Message header: " + itype);
             writer.Write(itype);
         }
 
@@ -56,11 +58,14 @@ namespace Yad.Net.Messaging.Common
         }
 
         public virtual void Deserialize(BinaryReader reader)
-        { }
+        {
+			this.playerId = reader.ReadInt16();
+		}
 
         public virtual void Serialize(BinaryWriter writer)
         {
             WriteMessageHeader(type, writer);
+			writer.Write(this.playerId);
         }
     }
 }

@@ -63,6 +63,10 @@ namespace Yad.Engine.Client {
 		protected override void onMessageMove(MoveMessage gm)
 		{
 			InfoLog.WriteInfo("MessageMove", EPrefix.SimulationInfo);
+
+			Player p = this.players[gm.PlayerId];
+			Unit u = p.GetUnit(gm.IdUnit);
+			u.MoveTo(gm.Path);			
 		}
 
 		protected override void onMessageAttack(AttackMessage am) {

@@ -580,6 +580,8 @@ namespace Yad.UI.Client
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
             textMessage.Text = ClientPlayerInfo.GameInfo.Name;
+			//TODO: KŒ: check
+			Connection.Instance.PauseReceiving();
             Connection.Instance.SendMessage(textMessage);
         }
 

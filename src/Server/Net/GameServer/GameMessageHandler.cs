@@ -64,7 +64,10 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
                 " from player: " + _gameServer.GetPlayer(gameMessage.PlayerId).Login, 
                 EPrefix.GameMessageProccesing);
-            gameMessage.IdTurn += _gameServer.Simulation.Delta;
+			//ja pierdolê, kolejne pó³ godziny w plecy :P
+            //gameMessage.IdTurn += _gameServer.Simulation.Delta;
+
+			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.PlayerId) + _gameServer.Simulation.Delta;
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
