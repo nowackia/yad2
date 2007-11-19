@@ -84,7 +84,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// This table holds turns' messages
 		/// </summary>
-		List<GameMessage>[] turns = new List<GameMessage>[2 * delta];
+		List<GameMessage>[] turns = new List<GameMessage>[3 * delta];
 
 		bool fastTurnProcessing = true;
 
@@ -116,7 +116,7 @@ namespace Yad.Engine.Common {
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;
 
-			for (int i = 0; i < 2 * delta; i++) {
+			for (int i = 0; i < 3 * delta; i++) {
 				this.turns[i] = new List<GameMessage>();
 			}
 		}
