@@ -440,7 +440,7 @@ namespace Yad.UI.Client
             this.serverLoginMenu.Name = "serverLoginMenu";
             this.serverLoginMenu.Size = new System.Drawing.Size(216, 20);
             this.serverLoginMenu.TabIndex = 8;
-            this.serverLoginMenu.Text = "127.0.0.1";
+            this.serverLoginMenu.Text = "194.29.178.204";
             // 
             // registerMenu
             // 

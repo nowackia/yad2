@@ -437,8 +437,16 @@ namespace Yad.UI.Client
 
             if (e.successful)
             {
-                if (InvokeRequired) this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { playerInfoLInfoMenu, e.reason });
-                else ManageControlText(playerInfoLInfoMenu, e.reason);
+                if (InvokeRequired)
+                {
+                    this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { playerInfoLInfoMenu, e.reason });
+                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.UserName });
+                }
+                else
+                {
+                    ManageControlText(playerInfoLInfoMenu, e.reason);
+                    OnMenuOptionChange(MenuOption.UserName);
+                }
             }
         }
         #endregion
@@ -580,8 +588,6 @@ namespace Yad.UI.Client
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
             textMessage.Text = ClientPlayerInfo.GameInfo.Name;
-			//TODO: KŒ: check
-			Connection.Instance.PauseReceiving();
             Connection.Instance.SendMessage(textMessage);
         }
 
