@@ -66,7 +66,7 @@ namespace Yad.Net.Client
         {
             try
             {
-                InfoLog.WriteInfo("Sending message : " + (byte)msg.Type, EPrefix.ClientInformation);
+                //InfoLog.WriteInfo("Sending message : " + (byte)msg.Type, EPrefix.ClientInformation);
                 msg.Serialize(writeStream);
 
                 if (MessageSend != null)

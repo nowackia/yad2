@@ -76,7 +76,9 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Processing Turn Ask message from player: " +
                  _gameServer.GetPlayer(turnAskMessage.PlayerId).Login,
                EPrefix.GameMessageProccesing);
-            if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta)
+			//KŒ: ;( kolejne 45 minut ;(
+			//if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta)
+            if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta - 1)
                 IncreaseTurn(turnAskMessage.PlayerId);
             else
                 WaitPlayer(turnAskMessage.PlayerId);
