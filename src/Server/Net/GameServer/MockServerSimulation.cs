@@ -9,7 +9,7 @@ namespace Yad.Net.GameServer.Server {
     public class MockServerSimulation : IServerSimulation {
         
         private Dictionary<short, GamePlayer> _gamePlayers;
-        const int _Delta = 3;
+        static int _Delta = Yad.Properties.Common.Settings.Default.Delta;
 
         public int Delta {
             get { return _Delta; }

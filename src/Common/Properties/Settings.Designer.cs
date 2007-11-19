@@ -196,10 +196,10 @@ namespace Yad.Properties.Common {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public ushort Delta {
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public short Delta {
             get {
-                return ((ushort)(this["Delta"]));
+                return ((short)(this["Delta"]));
             }
         }
     }

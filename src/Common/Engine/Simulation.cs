@@ -25,15 +25,15 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Buffers messages to currentTurn + delta
 		/// </summary>
-		const int delta = 3;
+		static int delta = Yad.Properties.Common.Settings.Default.Delta;
 		/// <summary>
 		/// Turn length in miliseconds
 		/// </summary>
-		const int turnLength = 100;
+		const int turnLength = 200;
 		/// <summary>
 		/// Transmission delay in miliseconds
 		/// </summary>
-		const int transmissionDelay = 5;
+		const int transmissionDelay = 30;
 
 		#endregion
 
@@ -84,7 +84,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// This table holds turns' messages
 		/// </summary>
-		List<GameMessage>[] turns = new List<GameMessage>[3 * delta];
+		List<GameMessage>[] turns = new List<GameMessage>[2 * delta];
 
 		bool fastTurnProcessing = true;
 
@@ -194,7 +194,8 @@ namespace Yad.Engine.Common {
 					}
 				}
 				//this.fastTurnProcessing = true;
-				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
+				//2 * transmissionDelay - to server & back
+				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - 2 * transmissionDelay;
 				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
 
 					if (!this.SpeedUp) { // client
