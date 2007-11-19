@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Yad.Log.Common;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
@@ -58,14 +59,27 @@ namespace Yad.Net.Client
 
         private static GameMessageHandler instance = new GameMessageHandler();
 
+        private Semaphore handlerSuspender = new Semaphore(1, 1);
+
         public static GameMessageHandler Instance
         {
             get
             { return instance; }
         }
 
+        public void Suspend()
+        {
+            handlerSuspender.WaitOne();
+        }
+
+        public void Resume()
+        {
+            handlerSuspender.Release();
+        }
+
         public void ProcessMessage(Message message)
         {
+            handlerSuspender.WaitOne();
             switch (message.Type)
             {
                 case MessageType.GameInit:
@@ -85,25 +99,21 @@ namespace Yad.Net.Client
                 case MessageType.Attack:
                     {
                         GameMessage gameMessage = message as GameMessage;
-						InfoLog.WriteInfo("WARNING: playerID = " + gameMessage.IdPlayer, EPrefix.GameMessageProccesing);
                         if(GameMessageReceive != null)
                             GameMessageReceive(this, new GameMessageEventArgs(gameMessage));
                     }
                     break;
 
                 case MessageType.DoTurn:
-					//InfoLog.WriteInfo("DoTurn received", EPrefix.ClientInformation);
                     if (DoTurnPermission != null)
                         DoTurnPermission(this, EventArgs.Empty);
                     break;
-
-                case MessageType.Control:
-                    throw new NotImplementedException("Control message handling has not been implemented yet - is it needed ?");
 
                 default:
                     InfoLog.WriteInfo("GameMessageHandler received unknown message type: " + message.Type, EPrefix.ClientInformation);
                     break;
             }
+            handlerSuspender.Release();
         }
     }
 }

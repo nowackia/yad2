@@ -17,7 +17,7 @@ using Yad.Properties.Common;
 
 namespace Yad.UI.Client
 {
-    //TODO (AN) Change HouseType strig read from xml file data
+    //TODO (AN) Change HouseType string read from xml file data
     public partial class MainMenuForm : UIManageable
     {
         private Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
@@ -588,7 +588,6 @@ namespace Yad.UI.Client
 
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithPlayerId(MessageType.StartGame);
             textMessage.Text = ClientPlayerInfo.GameInfo.Name;
-			Connection.Instance.PauseReceiving();
             Connection.Instance.SendMessage(textMessage);
         }
 
@@ -725,6 +724,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {
                 /* Change message handler to GameMessageHandler */
+                GameMessageHandler.Instance.Suspend();
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
                     this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.StartGame });

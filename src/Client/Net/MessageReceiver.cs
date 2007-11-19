@@ -28,8 +28,6 @@ namespace Yad.Net.Client
 
     class MessageReceiver
     {
-		Semaphore receiverPause = new Semaphore(1, 1);
-
         private Thread thread = null;
         private BinaryReader readStream;
         private volatile bool isProcessing;
@@ -113,9 +111,6 @@ namespace Yad.Net.Client
                 if (!isProcessing)
                     return;
 
-				receiverPause.WaitOne();
-				receiverPause.Release();
-
                 try
                 { type = readStream.ReadByte(); }
                 catch (Exception ex)
@@ -161,13 +156,5 @@ namespace Yad.Net.Client
                 }
             }
         }
-
-		internal void PauseReceiving() {
-			this.receiverPause.WaitOne();
-		}
-
-		internal void ResumeReceiving() {
-			this.receiverPause.Release();
-		}
 	}
 }
