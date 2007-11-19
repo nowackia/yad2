@@ -41,16 +41,16 @@ namespace Yad.Engine.Client {
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
-			Building b = new Building(bm.SenderId, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
-			if (players[bm.SenderId] == null)
+			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
+			if (players[bm.IdPlayer] == null)
 				throw new Exception("Message from unknown player");
-            if (bm.SenderId.Equals(currentPlayer.ID)) {
+            if (bm.IdPlayer.Equals(currentPlayer.ID)) {
 				if (this.OnBuildingCompleted != null) {
 					this.OnBuildingCompleted(bm.BuildingType);
 				}
                 //StripesManager.RemovePercentageCounter(bm.BuildingType,true);
             }
-			players[bm.SenderId].AddBuilding(b);
+			players[bm.IdPlayer].AddBuilding(b);
 			for (int i = 0; i < b.Size.X; i++) {
 				for (int j = 0; j < b.Size.Y; j++) {
 					this.map.Buildings[b.Position.X + i, b.Position.Y + j].AddLast(b);
@@ -62,9 +62,9 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageMove(MoveMessage gm)
 		{
-			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.SenderId + " UnitID:" + gm.IdUnit, EPrefix.SimulationInfo);
+			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " UnitID:" + gm.IdUnit, EPrefix.SimulationInfo);
 
-			Player p = this.players[gm.SenderId];
+			Player p = this.players[gm.IdPlayer];
 			Unit u = p.GetUnit(gm.IdUnit);
 			u.MoveTo(gm.Path);			
 		}
@@ -88,13 +88,13 @@ namespace Yad.Engine.Client {
 			Unit u = null;
 
 			if (boc == BoardObjectClass.UnitTank) {
-				u = new UnitTank(cum.SenderId, cum.UnitID, gameSettingsWrapper.tanksMap[cum.UnitType], cum.Position, this.map);
+				u = new UnitTank(cum.IdPlayer, cum.UnitID, gameSettingsWrapper.tanksMap[cum.UnitType], cum.Position, this.map);
 			} else if (boc == BoardObjectClass.UnitTrooper) {
-				u = new UnitTrooper(cum.SenderId, cum.UnitID, gameSettingsWrapper.troopersMap[cum.UnitType], cum.Position, this.map);
+				u = new UnitTrooper(cum.IdPlayer, cum.UnitID, gameSettingsWrapper.troopersMap[cum.UnitType], cum.Position, this.map);
 			}
-			if (players[cum.SenderId] == null)
+			if (players[cum.IdPlayer] == null)
 				throw new Exception("Message from unknown player");
-			players[cum.SenderId].AddUnit(u);
+			players[cum.IdPlayer].AddUnit(u);
 			this.map.Units[u.Position.X, u.Position.Y].AddLast(u);
 		}
 
