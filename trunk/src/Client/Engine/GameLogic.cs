@@ -158,7 +158,7 @@ namespace Yad.Engine.Client {
 
 				if (buildingPositionOK(pos, buildingToBuild)) {
 					//TODO: to jeszcze poprawić w miarę potrzeby
-					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithPlayerId(MessageType.Build);
+					BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.Build);
 					bm.BuildingID = currPlayer.GenerateObjectID();
 					bm.IdPlayer = currPlayer.ID;
 					bm.BuildingType = buildingToBuild;

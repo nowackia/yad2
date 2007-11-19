@@ -158,7 +158,7 @@ namespace Yad.Net.Client
                 case MessageType.IdInformation:
                     {
                         NumericMessage numericMessage = message as NumericMessage;
-                        ClientPlayerInfo.PlayerId = (short)numericMessage.Number;
+                        ClientPlayerInfo.SenderId = (short)numericMessage.Number;
                     }
                     break;
 

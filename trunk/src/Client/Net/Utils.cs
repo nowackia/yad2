@@ -7,11 +7,10 @@ namespace Yad.Net.Client
 {
     public static class Utils
     {
-		[Obsolete("Network components override playerid (=senderID)")]
-        public static Message CreateMessageWithPlayerId(MessageType type)
+        public static Message CreateMessageWithSenderId(MessageType type)
         {
             Message message = MessageFactory.Create(type);
-            message.SenderId = ClientPlayerInfo.PlayerId;
+            message.SenderId = ClientPlayerInfo.SenderId;
             return message;
         }
     }
