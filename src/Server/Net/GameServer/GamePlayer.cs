@@ -6,7 +6,7 @@ using Yad.Net.Common;
 
 namespace Yad.Net.GameServer {
     public class GamePlayer : PlayerData {
-        private int _turnNo = 0;
+        private int _turnNo = 1;
         bool _isWaiting = false;
         bool _hasEnded = false;
         bool _hasWon = false;
