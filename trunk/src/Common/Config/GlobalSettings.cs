@@ -29,6 +29,7 @@ namespace Yad.Config {
                 Yad.Properties.Common.Settings.Default.ConfigFile,
                 Yad.Properties.Common.Settings.Default.ConfigFileXSD);
         }
+
         private void InitDefaultHouse() {
             foreach (short key in _gameSettingsWrapper.racesMap.Keys) {
                 _defaultHouse = key;

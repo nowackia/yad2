@@ -14,6 +14,7 @@ using Yad.Properties;
 using Yad.Log.Common;
 using Yad.UI.Common;
 using Yad.Properties.Common;
+using Yad.Config;
 
 namespace Yad.UI.Client
 {
@@ -75,6 +76,20 @@ namespace Yad.UI.Client
 
             Connection.Instance.MessageHandler = menuMessageHandler;
             #endregion
+
+            short[] houseIDs = GlobalSettings.Instance.GetHouseIDs();
+
+            object[] houseObjects = new object[houseIDs.Length];
+            object[] teamObjects = new object[2];
+
+            for (short i = 0; i < houseObjects.Length; i++)
+                houseObjects[i] = houseIDs[i];
+
+            for (short i = 0; i < teamObjects.Length; i++)
+                teamObjects[i] = (i + 1);
+
+            ManageComboBoxItems(teamCBWaitingForPlayersMenu, teamObjects);
+            ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse);
         }
 
         #region Controls managment
@@ -173,18 +188,22 @@ namespace Yad.UI.Client
             }
         }
 
-        public void ManageComboBoxItems(ComboBox comboBox, string[] objects)
+        public void ManageComboBoxItems(ComboBox comboBox, Array array)
         {
             comboBox.Items.Clear();
-            comboBox.Items.AddRange(objects);
-            if(comboBox.Items.Count > 0)
-                comboBox.SelectedIndex = 0;
+            for(int i = 0; i < array.Length; i++)
+                comboBox.Items.Add(array.GetValue(i));
         }
 
-        public void UpdateComboBox(ComboBox comboBox, string updateObject)
+        public void ManageComboBoxItems(ComboBox comboBox, Array array, object defaultItem)
         {
-            if(comboBox.Items.Contains(updateObject))
-                comboBox.SelectedItem = updateObject;
+            ManageComboBoxItems(comboBox, array);
+            comboBox.SelectedItem = defaultItem;
+        }
+
+        public void UpdateComboBox(ComboBox comboBox, object updateObject)
+        {
+            comboBox.SelectedItem = updateObject;
         }
 
         public void ManageControlText(Control control, string text)
@@ -624,8 +643,6 @@ namespace Yad.UI.Client
         private void CBWaitingForPlayersMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-
-            //MessageBoxEx.Show(this, comboBox.Name + ": " + comboBox.SelectedItem.ToString());
         }
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
@@ -637,8 +654,8 @@ namespace Yad.UI.Client
 
             playerInfo.Id = ClientPlayerInfo.SenderId;
             playerInfo.Name = ClientPlayerInfo.Login;
-            playerInfo.House = (HouseType)houseCBWaitingForPlayersMenu.SelectedIndex;
-            playerInfo.TeamID = short.Parse(teamCBWaitingForPlayersMenu.SelectedItem.ToString());
+            playerInfo.House = (short)houseCBWaitingForPlayersMenu.SelectedItem;
+            playerInfo.TeamID = (short)teamCBWaitingForPlayersMenu.SelectedItem;
 
             playersMessage.PlayerList.Add(playerInfo);
 
@@ -656,26 +673,28 @@ namespace Yad.UI.Client
 
             if (e.successful)
             {
-                string[] houseObjects = new string[Enum.GetValues(typeof(HouseType)).Length];
-                string[] teamObjects = new string[ClientPlayerInfo.GameInfo.MaxPlayerNumber];
+                short[] houseIDs = GlobalSettings.Instance.GetHouseIDs();
+
+                object[] houseObjects = new object[houseIDs.Length];
+                short[] teamObjects = new short[ClientPlayerInfo.GameInfo.MaxPlayerNumber];
 
                 for (short i = 0; i < houseObjects.Length; i++)
-                    houseObjects[i] = ((HouseType)i).ToString();
+                    houseObjects[i] = houseIDs[i];
 
-                for(short i = 0; i < teamObjects.Length; i++)
-                    teamObjects[i] = (i + 1).ToString();
+                for (short i = 0; i < teamObjects.Length; i++)
+                    teamObjects[i] = (short)(i + 1);
 
                 if (InvokeRequired)
                 {
                     this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
-                    this.BeginInvoke(new ManageComboBoxItemsEventHandler(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects });
-                    this.BeginInvoke(new ManageComboBoxItemsEventHandler(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects });
+                    this.BeginInvoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects, teamObjects[0] });
+                    this.BeginInvoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse });
                 }
                 else
                 {
                     ManageControlText(playerInfoLInfoMenu, e.reason);
-                    ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects);
                     ManageComboBoxItems(teamCBWaitingForPlayersMenu, teamObjects);
+                    ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse);
                 }
             }
         }
@@ -718,15 +737,15 @@ namespace Yad.UI.Client
                 /* Modify current player */
                 if (InvokeRequired)
                 {
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House.ToString() });
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID.ToString() });
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House });
+                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
                     this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 }
                 else
                 {
                     /* Enable controls */
-                    UpdateComboBox(houseCBWaitingForPlayersMenu, e.players[0].House.ToString());
-                    UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[0].TeamID.ToString());
+                    UpdateComboBox(houseCBWaitingForPlayersMenu, e.players[0].House);
+                    UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[0].TeamID);
                     ManageControlState(controls, true);
                 }
             }
