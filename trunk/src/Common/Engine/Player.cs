@@ -5,91 +5,108 @@ using Yad.Board.Common;
 using System.Collections;
 
 namespace Yad.Engine.Common {
+	/// <summary>
+	/// Player class holds information on player:
+	/// his buildings, units, id, race, etc...
+	/// Each player must have unique ID.
+	/// </summary>
 	public class Player {
+
+		#region private members
 		/// <summary>
 		/// Player id assigned by server.
 		/// </summary>
-		short playerID = -1;
+		short _playerID = -1;
 
 		/// <summary>
 		/// Player name assigned by player.
 		/// </summary>
-		string playerName;
+		string _playerName;
 
-		int objectID = 0;
+		/// <summary>
+		/// Player race assigned by player.
+		/// </summary>
+		short _race;
+
+		int _objectID = 0;
 
 		//used for fast access to an object
-		private Dictionary<int, Building> buildingsDict = new Dictionary<int, Building>();
-		private Dictionary<int, Unit> unitsDict = new Dictionary<int, Unit>();
+		private Dictionary<int, Building> _buildingsDict = new Dictionary<int, Building>();
+		private Dictionary<int, Unit> _unitsDict = new Dictionary<int, Unit>();
 
-		//used for slow acces to an object :D
+		//used for slow access to an object :D
 		//but pretty useful for a turn processing
-		private List<Building> buildings = new List<Building>();
-		private List<Unit> units = new List<Unit>();
+		private List<Building> _buildings = new List<Building>();
+		private List<Unit> _units = new List<Unit>();
+		#endregion
 
-		public Player(short id) {
-			this.playerID = id;
+		#region constructor
+		public Player(short playerID, string playerName, short raceID) {
+			this._playerID = playerID;
+			this._race = raceID;
+			this._playerName = playerName;
 		}
+		#endregion
 
+		#region accessors
 		public short ID {
-			get { return playerID; }
-			set { playerID = value; }
+			get { return _playerID; }
 		}		
 
 		public string Name {
-			get { return this.playerName; }
-			set { this.playerName = value; }
+			get { return this._playerName; }
 		}
-		
+
+		public short Race {
+			get { return this._race; }
+		}
+		#endregion
+
+		#region public methods
 		/// <summary>
 		/// Used for generating id's for player-created objects (units/buildings)
 		/// </summary>
 		public int GenerateObjectID() {
-			return objectID++;
+			return _objectID++;
 		}
 
 		public void AddUnit(Unit u) {
-			unitsDict.Add(u.ObjectID, u);
-			units.Add(u);
+			_unitsDict.Add(u.ObjectID, u);
+			_units.Add(u);
+			u.PlaceOnMap();
 		}
 
 		public void RemoveUnit(Unit u) {
-			unitsDict.Remove(u.ObjectID);
-			units.Remove(u);
+			_unitsDict.Remove(u.ObjectID);
+			_units.Remove(u);
 		}
 
 		public void AddBuilding(Building b) {
-			buildingsDict.Add(b.ObjectID, b);
-			buildings.Add(b);
+			_buildingsDict.Add(b.ObjectID, b);
+			_buildings.Add(b);
+			b.PlaceOnMap();
 		}
 
 		public void RemoveBuilding(Building b) {
-			buildingsDict.Remove(b.ObjectID);
-			buildings.Remove(b);
+			_buildingsDict.Remove(b.ObjectID);
+			_buildings.Remove(b);
 		}
 
-		/// <summary>
-		/// return copy of units list
-		/// </summary>
-		/// <returns></returns>
 		public List<Unit> GetAllUnits() {
-			return new List<Unit>(this.units);
+			return new List<Unit>(this._units);
 		}
 
-		/// <summary>
-		/// return copy of buildings list
-		/// </summary>
-		/// <returns></returns>
 		public List<Building> GetAllBuildings() {
-			return new List<Building>(this.buildings);
+			return new List<Building>(this._buildings);
 		}
 
 		public Unit GetUnit(int id) {
-			return this.unitsDict[id];
+			return this._unitsDict[id];
 		}
 
 		public Building GetBuilding(int id) {
-			return this.buildingsDict[id];
+			return this._buildingsDict[id];
 		}
+		#endregion
 	}
 }

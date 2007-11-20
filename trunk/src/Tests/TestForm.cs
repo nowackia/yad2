@@ -53,7 +53,7 @@ namespace Tests {
 			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get("dune_data.xml", "dune.xsd");
 			Map map = new Map();
 			map.LoadMap(Path.Combine("Resources/Maps", "test.map"));
-			sim = new ClientSimulation(gameSettingsWrapper, map, new Player(0), null);
+			sim = new ClientSimulation(gameSettingsWrapper, map, new Player(0, "test1", gameSettingsWrapper.GameSettings.RacesData[0].TypeID), null);
 			sim.onTurnEnd += new SimulationHandler(sim_onTurnEnd);
 			sim.StartSimulation();
 

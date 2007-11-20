@@ -11,24 +11,24 @@ using Yad.Engine.Client;
 
 namespace Yad.UI.Client {
 
+	public partial class BuildStripe : UserControl, IManageableStripe {
+		
+		delegate void UpdatePicture(OwnerDrawPictureButton odpb);
+		delegate void ClearPicture();
+		delegate void UpdateControlSize(Control c, Size s);
 
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class BuildStripe : UserControl, IManageableStripe {
 		public delegate void ChoiceHandler(string name);
 		public event ChoiceHandler OnChoice;
 
-        public event OnBuildChosen onBuildChosen;
-        public event OnUnitChosen onUnitChosen;
+        public event BuildChosenHandler onBuildChosen;
+        public event UnitChosenHandler onUnitChosen;
 
-        public void OnBuildChosen(short id) {
+        private void OnBuildChosen(short id) {
             if (onBuildChosen != null) {
                 onBuildChosen(id);
             }
         }
-        public void OnUnitChosen(short id) {
+        private void OnUnitChosen(short id) {
             if (onUnitChosen != null) {
                 onUnitChosen(id);
             }
@@ -125,13 +125,23 @@ namespace Yad.UI.Client {
 			pictureButton.Tag = building;
             pictureButton.Size = new Size(WIDTH, HEIGHT);
             
-             pictureButton.Margin = new Padding(0, 0, 0, 0);
+            pictureButton.Margin = new Padding(0, 0, 0, 0);
             pictureButton.UseVisualStyleBackColor = true;
             pictureButton.Click += new EventHandler(pictureButton_Click);
             num++;
-            this.flowLayoutPanel1.Controls.Add(pictureButton);
-            this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
-            this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+			//TODO: check?
+            //this.flowLayoutPanel1.Controls.Add(pictureButton);
+			if (flowLayoutPanel1.InvokeRequired) {
+				flowLayoutPanel1.Invoke(new UpdatePicture(this.AddHelper), new object[] { pictureButton });
+				scrollingPanel.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[]{scrollingPanel,new Size(WIDTH, num * HEIGHT)});
+				flowLayoutPanel1.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { flowLayoutPanel1, new Size(WIDTH, num * HEIGHT) });
+			} else {
+				this.flowLayoutPanel1.Controls.Add(pictureButton);
+				this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+				this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+			}
+
+            
             InfoLog.WriteInfo("Insert: size: " + num * HEIGHT, EPrefix.Stripe);
             
         }
@@ -160,7 +170,12 @@ namespace Yad.UI.Client {
         public void Remove(short id) {
             OwnerDrawPictureButton but = buttons[id];
             if (but != null) {
-                this.flowLayoutPanel1.Controls.Remove(but);
+                //this.flowLayoutPanel1.Controls.Remove(but);
+				if (flowLayoutPanel1.InvokeRequired) {
+					flowLayoutPanel1.Invoke(new UpdatePicture(this.RemoveHelper), new object[] { but });
+				} else {
+					this.flowLayoutPanel1.Controls.Remove(but);
+				}
                 this.isBuilding.Remove(id);
                 this.buttons.Remove(id);
                 this.buttonsToId.Remove(but);
@@ -194,18 +209,42 @@ namespace Yad.UI.Client {
 
         public void RemoveAll() {
             ids.Clear();
-            this.flowLayoutPanel1.Controls.Clear();
+
+            //this.flowLayoutPanel1.Controls.Clear();
+			if (flowLayoutPanel1.InvokeRequired) {
+				flowLayoutPanel1.Invoke(new ClearPicture(this.RemoveAllHelper));
+			} else {
+				this.flowLayoutPanel1.Controls.Clear();
+			}
             buttons.Clear();
             buttonsToId.Clear();
             isBuilding.Clear();
             num = 0;
-            this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
-            this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
-            
+            if (flowLayoutPanel1.InvokeRequired) {
+				scrollingPanel.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { scrollingPanel, new Size(WIDTH, num * HEIGHT) });
+				flowLayoutPanel1.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { flowLayoutPanel1, new Size(WIDTH, num * HEIGHT) });
+			} else {
+				this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
+				this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+			}
         }
 
-        #endregion
+		private void AddHelper(OwnerDrawPictureButton odpb) {
+			this.flowLayoutPanel1.Controls.Add(odpb);
+		}
 
-        
+		private void RemoveHelper(OwnerDrawPictureButton odpb) {
+			this.flowLayoutPanel1.Controls.Remove(odpb);
+		}
+
+		private void RemoveAllHelper() {
+			this.flowLayoutPanel1.Controls.Clear();
+		}
+
+		private void UpdateControlSizeHelper(Control c, Size s) {
+			c.Size = s;
+		}
+
+        #endregion
     }
 }

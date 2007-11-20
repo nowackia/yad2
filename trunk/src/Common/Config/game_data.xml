@@ -61,7 +61,7 @@
 			<tns:BuildSpeed>15</tns:BuildSpeed>
 			<tns:DamageDestroy>20</tns:DamageDestroy>
 			<tns:RotationSpeed>4</tns:RotationSpeed>
-			<tns:BuildingCanProduce>Barracks</tns:BuildingCanProduce>
+			<tns:BuildingCanProduce>ConstructionYard</tns:BuildingCanProduce>
 		</tns:UnitMCVData>
 	</tns:UnitMCVsData>
 

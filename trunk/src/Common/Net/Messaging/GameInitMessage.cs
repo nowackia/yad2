@@ -45,12 +45,12 @@ namespace Yad.Net.Messaging.Common
             }
             _posData = new PositionData[count];
             short id = -1;
-            int x = -1, y = -1;
+            short x = -1, y = -1;
             
             for (int i = 0; i < count; ++i) {
                 id = reader.ReadInt16();
-                x = reader.ReadInt32();
-                y = reader.ReadInt32();
+                x = reader.ReadInt16();
+                y = reader.ReadInt16();
                 PositionData pd = new PositionData(id, x, y);
                 _posData[i] = pd;
             }

@@ -20,15 +20,15 @@ namespace Yad.Board.Common {
 		}
 
 		public override void Destroy() {
-			throw new Exception("The method or operation is not implemented.");
+			base.Destroy();
 		}
 
 		public override void Move() {
-			throw new Exception("The method or operation is not implemented.");
+			base.Move();
 		}
 
 		public override void DoAI() {
-			throw new Exception("The method or operation is not implemented.");
+			base.DoAI();
 		}
 	}
 }

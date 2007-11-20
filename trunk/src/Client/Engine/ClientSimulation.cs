@@ -41,7 +41,7 @@ namespace Yad.Engine.Client {
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
-			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, bm.Position, new Position(bd.Size));
+			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, this.map, bm.Position, new Position(bd.Size));
 			if (players[bm.IdPlayer] == null)
 				throw new Exception("Message from unknown player");
             if (bm.IdPlayer.Equals(currentPlayer.ID)) {
@@ -51,13 +51,6 @@ namespace Yad.Engine.Client {
                 //StripesManager.RemovePercentageCounter(bm.BuildingType,true);
             }
 			players[bm.IdPlayer].AddBuilding(b);
-			for (int i = 0; i < b.Size.X; i++) {
-				for (int j = 0; j < b.Size.Y; j++) {
-					this.map.Buildings[b.Position.X + i, b.Position.Y + j].AddLast(b);
-				}
-			}
-			//MessageBox.Show(bm.Position.ToString());
-			//MessageBox.Show(b.Position.ToString());
 		}
 
 		protected override void onMessageMove(MoveMessage gm)

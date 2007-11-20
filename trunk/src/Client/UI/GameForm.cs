@@ -43,26 +43,19 @@ namespace Yad.UI.Client {
 
 			InitializeComponent();
 
+			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
 			gameLogic = new GameLogic();
-			
-			//TODO wtf? which race i am?
-			short key = 0;
-			foreach (short k in gameLogic.GameSettingsWrapper.racesMap.Keys) {
-				key = k;
-				break;
-			}
 			gameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
 			gameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
-            leftStripe.onBuildChosen += new OnBuildChosen(leftStripe_onBuildChosen);
-            rightStripe.onBuildChosen += new OnBuildChosen(rightStripe_onBuildChosen);
-            rightStripe.onUnitChosen += new OnUnitChosen(rightStripe_onUnitChosen);
-			gameLogic.InitStripes("ConstructionYard", key);
 
 			gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(Simulation_OnBuildingCompleted);
 			gameLogic.Simulation.OnUnitCompleted += new ClientSimulation.UnitCompletedHandler(Simulation_OnUnitCompleted);
 
-			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
-			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+			leftStripe.onBuildChosen += new BuildChosenHandler(leftStripe_onBuildChosen);
+			rightStripe.onBuildChosen += new BuildChosenHandler(rightStripe_onBuildChosen);
+			rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
@@ -80,9 +73,7 @@ namespace Yad.UI.Client {
 
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 
-			//v remove
-			this.gameLogic.StartSimulation();
-			//^ remove
+			GameMessageHandler.Instance.Resume();
         }
         #region stripes handler
         void rightStripe_onUnitChosen(short id) {
@@ -253,7 +244,7 @@ namespace Yad.UI.Client {
         }
 
         private bool checkDeps(string name) {
-            TechnologyDependences deps = gameLogic.GameSettingsWrapper.racesMap[gameLogic.Race].TechnologyDependences;
+            TechnologyDependences deps = gameLogic.GameSettingsWrapper.racesMap[gameLogic.CurrentPlayer.Race].TechnologyDependences;
             foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
                 if (dep.BuildingName.Equals(name)) {
                     foreach (string n in dep.RequiredBuildings) {
