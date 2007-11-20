@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Yad.Log.Common;
 using Yad.Database.Server;
+using Yad.Properties.Server;
 
 namespace Yad.Net.Server
 {
@@ -53,18 +54,24 @@ namespace Yad.Net.Server
 
         private void ServerProcess()
         {
-            switch (YadDB.Init()) {
-                case InitDBResult.Successful:
-                    InfoLog.WriteInfo("Database initialized successfully...", EPrefix.DatebaseInfo);
-                    _server = new Server(_ServerPortNo);
-                    _server.Start();
-                    break;
-                case InitDBResult.CreateMDBFileFailed:
-                    InfoLog.WriteInfo("Unable to create .mdb file...", EPrefix.DatebaseInfo);
-                    break;
-                case InitDBResult.CreateDBFailed:
-                    InfoLog.WriteInfo("Unablie to create database...", EPrefix.DatebaseInfo);
-                    break;
+            if (Settings.Default.DBAvail) {
+                switch (YadDB.Init()) {
+                    case InitDBResult.Successful:
+                        InfoLog.WriteInfo("Database initialized successfully...", EPrefix.DatebaseInfo);
+                        _server = new Server(_ServerPortNo);
+                        _server.Start();
+                        break;
+                    case InitDBResult.CreateMDBFileFailed:
+                        InfoLog.WriteInfo("Unable to create .mdb file...", EPrefix.DatebaseInfo);
+                        break;
+                    case InitDBResult.CreateDBFailed:
+                        InfoLog.WriteInfo("Unablie to create database...", EPrefix.DatebaseInfo);
+                        break;
+                }
+            }
+            else {
+                _server = new Server(_ServerPortNo);
+                _server.Start();
             }
         }
 
