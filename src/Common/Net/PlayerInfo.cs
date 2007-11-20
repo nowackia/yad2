@@ -8,7 +8,7 @@ namespace Yad.Net.Common
     public class PlayerInfo
     {
         public const int MaxTeamNo = 8;
-        private const HouseType DefaultHouseType = HouseType.Atreides;
+        public const HouseType DefaultHouseType = HouseType.Atreides;
 
         private short _id;
         private HouseType _house = DefaultHouseType;

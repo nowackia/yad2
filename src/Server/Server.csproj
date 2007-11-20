@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ServerGS.cs" />
     <Compile Include="Database\IQueryReader.cs" />
     <Compile Include="Database\LoginQueryReader.cs" />
     <Compile Include="Database\YadDB.cs" />
