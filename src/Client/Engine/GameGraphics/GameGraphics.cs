@@ -15,7 +15,6 @@ using Yad.Engine.Common;
 using Yad.Board;
 using Yad.Config.Common;
 using Yad.Config;
-using Yad.Engine.GameGraphics.Renderes.Client;
 using Yad.Properties;
 using Yad.Properties.Client;
 
@@ -27,23 +26,44 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region private members
-		static GameLogic gameLogic;
+		static GameLogic _gameLogic;
 
-		const float mapDepth = 0.0f;
-		const float slabDepth = 0.1f;
-		const float buildingDepth = 0.2f;
-		const float unitDepth = 0.3f;
-		const float selectionDepth = 0.4f;
-		const float fogOfWarDepth = 0.5f;
-		static RectangleF defaultUV = new RectangleF(0, 0, 1, 1);
-		const short pictureOffset = 100;
-		const short textureOffset = 200;
-		const short turretOffset = 300;
-		const float oneThird = 1.0f / 3.0f;
-		const float oneFourth = 0.25f;
-		const float oneFifth = 0.2f;
-		const float oneEight = 0.125f;
+		#region z-constants
+		/// <summary>
+		/// Defines z-depth of an object type.
+		/// </summary>
+		const float _depthMap = 0.0f,
+					_depthSlab = 0.1f,
+					_depthBuilding = 0.2f,
+					_depthUnit = 0.3f,
+					_depthUnitAddons = 0.4f,
+					_depthSelection = 0.5f,
+					_depthFogOfWar = 0.6f;
+		#endregion
 
+		static RectangleF _defaultUV = new RectangleF(0, 0, 1, 1);
+
+		#region texture offsets
+		/// <summary>
+		/// Used for defining textures,
+		/// ie. a tank's textures:
+		/// picture = tankID + _pictureOffset;
+		/// texture = tankID + _textureOffset;
+		/// turret = tankID + _turretOffset;
+		/// Of course, we must remeber not to define more than 100 objects (units, buildings, etc)
+		/// because the id's will overlap :P
+		/// </summary>
+		const short _offsetPicture = 100, _offsetTexture = 200, _offsetTurret = 300, _offsetSpecialAnimation = 400;
+		#endregion
+
+		#region funny constants
+		/// <summary>
+		/// These are just stupid, very often used constants.
+		/// </summary>
+		const float oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f;
+		#endregion
+
+		#region drawing-related members
 		/// <summary>
 		/// SimpleOpenGLControl's size
 		/// </summary>
@@ -63,18 +83,17 @@ namespace Yad.Engine.Client {
 		/// Minimum zoom, so that there is no black area on the map.
 		/// </summary>
 		static float minimumZoom = 1;
-
 		static float zoom = 1.0f, zoomStep = 3.5f;
 
 		/// <summary>
 		/// Used for drawing textures
 		/// </summary>
 		static VertexData vertexData = new VertexData();
+		#endregion
 
 		#endregion
 
 		#region private methods
-
 		/// <summary>
 		/// Creates 32-bit texture using bitmap "filename" and binds it to "id" so that
 		/// it can be used by OpenGL to render objects.
@@ -95,6 +114,12 @@ namespace Yad.Engine.Client {
 			bitmap.UnlockBits(bitmapData);
 		}
 
+		/// <summary>
+		/// Remember that bitmap should have dimensions 2^x / 2^y.
+		/// Use GameGraphics.LoadBitmap( ) for bitmap loading.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="bitmap"></param>
 		private static void Create32bTexture(int id, Bitmap bitmap) {
 			int width = bitmap.Width;
 			int height = bitmap.Height;
@@ -115,7 +140,7 @@ namespace Yad.Engine.Client {
 		private static void UpdateViewport() {
 			Gl.glViewport(0, 0, viewport.Width, viewport.Height);
 
-			minimumZoom = Math.Max((float)viewport.Width / (float)gameLogic.Simulation.Map.Width, (float)viewport.Height / (float)gameLogic.Simulation.Map.Height);
+			minimumZoom = Math.Max((float)viewport.Width / (float)_gameLogic.Simulation.Map.Width, (float)viewport.Height / (float)_gameLogic.Simulation.Map.Height);
 
 			UpdateZoom();
 			UpdateClip();
@@ -143,7 +168,7 @@ namespace Yad.Engine.Client {
 			Gl.glLoadIdentity();
 		}
 
-		public static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
+		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
 			//Gl.glPushMatrix();
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);
 
@@ -171,41 +196,57 @@ namespace Yad.Engine.Client {
 			vertexData.vertex[11] = z;
 
 			if (Settings.Default.UseSafeRendering) {
-				Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+				Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
 				return;
 			}
-
-			Gl.glBegin(Gl.GL_TRIANGLE_FAN);
-			int i2 = 0, i3 = 0;
-			for (int i = 0; i < 4; i++) {
-				Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
-				Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
-				i2 += 2;
-				i3 += 3;
-			}
-			Gl.glEnd();
+			Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 		}
 
-		private static void DrawElementFromMiddle(float x, float y, float z, float width, float height, int texture) {
+		private static void DrawElementFromMiddle(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
 			float w2 = width / 2.0f;
 			float h2 = height / 2.0f;
 			//Gl.glPushMatrix();
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);            
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, texture);
-			//Gl.glBegin(Gl.GL_TRIANGLE_FAN);            
-			vertexData.vertex[0] = x + 0.5f - w2;
-			vertexData.vertex[1] = y + 0.5f - h2;
+
+			vertexData.uv[0] = uv.Left; vertexData.uv[1] = uv.Bottom;
+			vertexData.uv[2] = uv.Right; vertexData.uv[3] = uv.Bottom;
+			vertexData.uv[4] = uv.Right; vertexData.uv[5] = uv.Top;
+			vertexData.uv[6] = uv.Left; vertexData.uv[7] = uv.Top;
+
+			vertexData.vertex[0] = x + 0.5f - w2 - offset.X;
+			vertexData.vertex[1] = y + 0.5f - h2 - offset.Y;
 			vertexData.vertex[2] = z;
-			vertexData.vertex[3] = x + 0.5f + width;
-			vertexData.vertex[4] = y + 0.5f - h2;
+			vertexData.vertex[3] = x + 0.5f + w2 - offset.X;
+			vertexData.vertex[4] = y + 0.5f - h2 - offset.Y;
 			vertexData.vertex[5] = z;
-			vertexData.vertex[6] = x + 0.5f + width;
-			vertexData.vertex[7] = y - 0.5f + height;
+			vertexData.vertex[6] = x + 0.5f + w2 - offset.X;
+			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y;
 			vertexData.vertex[8] = z;
-			vertexData.vertex[9] = x + 0.5f - w2;
-			vertexData.vertex[10] = y + 0.5f + height;
+			vertexData.vertex[9] = x + 0.5f - w2 - offset.X;
+			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y;
 			vertexData.vertex[11] = z;
 
+			if (Settings.Default.UseSafeRendering) {
+				Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
+				return;
+			}
 			Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 		}
 
@@ -214,8 +255,8 @@ namespace Yad.Engine.Client {
 				offset.Y = mapClip.Height / 2.0f;
 			}
 
-			if (offset.Y > gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f) {
-				offset.Y = gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f;
+			if (offset.Y > _gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f) {
+				offset.Y = _gameLogic.Simulation.Map.Height - mapClip.Height / 2.0f;
 			}
 		}
 
@@ -224,8 +265,8 @@ namespace Yad.Engine.Client {
 				offset.X = mapClip.Width / 2.0f;
 			}
 
-			if (offset.X > gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f) {
-				offset.X = gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f;
+			if (offset.X > _gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f) {
+				offset.X = _gameLogic.Simulation.Map.Width - mapClip.Width / 2.0f;
 			}
 		}
 
@@ -247,45 +288,61 @@ namespace Yad.Engine.Client {
 			}
 
 			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
+				//Load texture for map
 				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetTexture, texture);
+
+				//Load picture (currently not needed)
+				/*
+				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
+				Bitmap texture = LoadBitmap(file);
+				Create32bTexture(o.TypeID + _pictureOffset, texture);
+				 */
 			}
 
 			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
 				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + pictureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetPicture, texture);
 			}
 
 			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetTexture, texture);
+
+				file = Path.Combine(Settings.Default.Units, o.Name + "Sand.png");
+				texture = LoadBitmap(file);
+				Create32bTexture(o.TypeID + _offsetSpecialAnimation, texture);
 			}
 
 			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetTexture, texture);
 			}
 
 			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetTexture, texture);
 			}
 
 			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
 				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, texture);
+				Create32bTexture(o.TypeID + _offsetTexture, texture);
+
+				file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				texture = LoadBitmap(file);
+				Create32bTexture(o.TypeID + _offsetTurret, texture);
 			}
 
 			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap bmp = LoadBitmap(file);
-				Create32bTexture(o.TypeID + textureOffset, bmp);
+				Create32bTexture(o.TypeID + _offsetTexture, bmp);
 			}
 		}
 
@@ -294,7 +351,7 @@ namespace Yad.Engine.Client {
 			return (int)Math.Pow(2, y);
 		}
 
-		private static Bitmap LoadBitmap(String path) {
+		public static Bitmap LoadBitmap(String path) {
 			Bitmap tmp = new Bitmap(path);
 			Bitmap bmp = new Bitmap(Correct(tmp.Width), Correct(tmp.Height), PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
@@ -312,20 +369,25 @@ namespace Yad.Engine.Client {
 
 			Gl.glLoadIdentity();
 
-			//draw fogOfWar
-
-			//Drawing map
-			DrawElementFromLeftBottom(0, 0, mapDepth, gameLogic.Simulation.Map.Width, gameLogic.Simulation.Map.Height, 1, defaultUV);
-
-			//Drawing slab's
+			#region fow
 			//TODO
+			#endregion
+
+			#region map
+			DrawElementFromLeftBottom(0, 0, _depthMap, _gameLogic.Simulation.Map.Width, _gameLogic.Simulation.Map.Height, 1, _defaultUV);
+			#endregion
+
+			#region slabs
+			//TODO
+			#endregion
 
 			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
 			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
 
-
-			ICollection<Player> players = gameLogic.Simulation.GetPlayers();
+			#region players' data (units & buildings)
+			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
+
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
 					switch (u.BoardObjectClass) {
@@ -352,17 +414,22 @@ namespace Yad.Engine.Client {
 					DrawBuilding(b);
 				}
 			}
-			foreach (Unit u in gameLogic.SelectedUnits) {
+			#endregion
+
+			#region selected objects
+			foreach (Unit u in _gameLogic.SelectedUnits) {
 				PointF realPos = CountRealPosition(u);
-				DrawElementFromLeftBottom(realPos.X, realPos.Y, selectionDepth, 1, 1, 2, defaultUV);
+				DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthSelection, 1, 1, 2, _defaultUV);
 			}
 
-			Building selB = gameLogic.SelectedBuilding;
+			Building selB = _gameLogic.SelectedBuilding;
 			if (selB != null) {
-				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, selectionDepth, selB.Size.X, selB.Size.Y, 2, defaultUV);
+				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Size.X, selB.Size.Y, 2, _defaultUV);
 			}
+			#endregion
 		}
 
+		#region helpers
 		private static PointF CountRealPosition(Unit u) {
 			float dx = u.Position.X - u.LastPosition.X;
 			float dy = u.Position.Y - u.LastPosition.Y;
@@ -382,11 +449,12 @@ namespace Yad.Engine.Client {
 		private static bool Test(Direction s, Direction t) {
 			return ((s & t) != 0);
 		}
+		#endregion
 
 		private static void DrawTrooper(UnitTrooper o) {
 			PointF realPos = CountRealPosition(o);
 			float frame = o.RemainingTurnsInMove % 3;
-			
+
 			// >^<v
 			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneThird, oneFourth, oneThird);
 			Direction d = o.Direction;
@@ -401,14 +469,23 @@ namespace Yad.Engine.Client {
 				uv.X = 3 * oneFourth;
 			}
 
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 0.5f, 0.5f, o.TypeID + textureOffset, uv);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + _offsetTexture, uv);
 		}
 
 		private static void DrawTank(UnitTank o) {
 			PointF realPos = CountRealPosition(o);
 			Direction d = o.Direction;
-			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
 
+			RectangleF uvBase = VehicleUVChooser(d);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uvBase);
+
+			//TODO: add separate turret direction
+			RectangleF uvTurret = VehicleUVChooser(d);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret);
+		}
+
+		private static RectangleF VehicleUVChooser(Direction d) {
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
 			if (Test(d, Direction.East)) {
 				if (Test(d, Direction.North)) {
 					//uv.X *= 1;
@@ -432,91 +509,43 @@ namespace Yad.Engine.Client {
 					uv.X *= 6.0f;
 				}
 			}
-
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
+			return uv;
 		}
 
 		private static void DrawSandworm(UnitSandworm o) {
 			PointF realPos = CountRealPosition(o);
 			float frame = o.RemainingTurnsInMove % 5;
 			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneFifth, 1, oneFifth);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv);
 		}
 
 		private static void DrawMCV(UnitMCV o) {
 			PointF realPos = CountRealPosition(o);
 			Direction d = o.Direction;
-			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
 
-			if (Test(d, Direction.East)) {
-				if (Test(d, Direction.North)) {
-					//uv.X *= 1;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 7.0f;
-				} else {
-					uv.X = 0;
-				}
-			} else if (Test(d, Direction.West)) {
-				if (Test(d, Direction.North)) {
-					uv.X *= 3.0f;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 5.0f;
-				} else {
-					uv.X *= 4.0f;
-				}
-			} else /* center */ {
-				if (Test(d, Direction.North)) {
-					uv.X *= 2.0f;
-				} else {
-					uv.X *= 6.0f;
-				}
-			}
-
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
+			RectangleF uv = VehicleUVChooser(d);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + _offsetTexture, uv);
 		}
 
 		private static void DrawHarvester(UnitHarvester o) {
 			PointF realPos = CountRealPosition(o);
 			Direction d = o.Direction;
-			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+			RectangleF uv = VehicleUVChooser(d);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + _offsetTexture, uv);
 
-			if (Test(d, Direction.East)) {
-				if (Test(d, Direction.North)) {
-					//uv.X *= 1;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 7.0f;
-				} else {
-					uv.X = 0;
-				}
-			} else if (Test(d, Direction.West)) {
-				if (Test(d, Direction.North)) {
-					uv.X *= 3.0f;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 5.0f;
-				} else {
-					uv.X *= 4.0f;
-				}
-			} else /* center */ {
-				if (Test(d, Direction.North)) {
-					uv.X *= 2.0f;
-				} else {
-					uv.X *= 6.0f;
-				}
-			}
-
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, unitDepth, 1, 1, o.TypeID + textureOffset, uv);
+			//TODO: draw sand animation
 		}
 
 		private static void DrawBuilding(Building o) {
 			//PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, buildingDepth, o.Size.X, o.Size.Y, o.TypeID + textureOffset, defaultUV);
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Size.X, o.Size.Y, o.TypeID + _offsetTexture, _defaultUV);
 		}
 		#endregion
 
 		#region public methods
 		public static void InitGL(GameLogic gLogic) {
-			gameLogic = gLogic;
-			gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+			_gameLogic = gLogic;
+			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
 
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
@@ -582,8 +611,7 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		// translates screen mose coordinates to position on the map
-		public static Position TranslateMousePosition(Point p)
-		{
+		public static Position TranslateMousePosition(Point p) {
 			Position pn = new Position(
 			(short)(((float)p.X) / zoom + offset.X + mapClip.X),
 			(short)(((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));

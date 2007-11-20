@@ -11,8 +11,8 @@ using Yad.Properties.Client;
 
 namespace Yad.Engine.Client {
 
-    public delegate void OnBuildChosen(short id);
-    public delegate void OnUnitChosen(short id);
+    public delegate void BuildChosenHandler(short id);
+    public delegate void UnitChosenHandler(short id);
 
     public interface IManageableStripe {
 		event Yad.UI.Client.BuildStripe.ChoiceHandler OnChoice;

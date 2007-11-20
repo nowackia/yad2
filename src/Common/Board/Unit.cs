@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Config;
 using System.Windows.Forms;
+using Yad.Log.Common;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -31,12 +32,18 @@ namespace Yad.Board.Common {
 
 		protected short typeID;
 
+		//map-related
 		protected Map map;
+		bool alreadyOnMap = false;
 
 		//TODO : RS implement some base AI?
 		//KŒ: yes ;P
-		public abstract void Destroy();
-
+		public virtual void Destroy() {
+			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
+		}
+		public virtual void DoAI() {
+			InfoLog.WriteInfo("Unit:DoAI() Not implemented", EPrefix.SimulationInfo);
+		}
 		public virtual void Move() {
 			if (!this.Moving) {
 				return;
@@ -86,8 +93,6 @@ namespace Yad.Board.Common {
 
 			return;
 		}
-
-		public abstract void DoAI();
 
 		public Unit(short playerID, int unitID, short typeID, BoardObjectClass boc, Position pos, Map map)
 			: base(playerID, unitID, boc, pos) {
@@ -227,6 +232,14 @@ namespace Yad.Board.Common {
 		public Direction Direction {
 			get { return direction; }
 			set { direction = value; }
+		}
+
+		public bool PlaceOnMap() {
+			if (!alreadyOnMap) {
+				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				return true;
+			}
+			return false;
 		}
 	}
 }

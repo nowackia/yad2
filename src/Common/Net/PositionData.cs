@@ -9,8 +9,8 @@ namespace Yad.Net.Common {
         #region Private Members
 
         short _playerId = 0;
-        int _y = 0;
-        int _x = 0;
+        short _y = 0;
+        short _x = 0;
 
         #endregion
 
@@ -20,15 +20,15 @@ namespace Yad.Net.Common {
             get { return _playerId; }
             set { _playerId = value; }
         }
-        
 
-        public int X {
+
+		public short X {
             get { return _x; }
             set { _x = value; }
         }
-        
 
-        public int Y {
+
+		public short Y {
             get { return _y; }
             set { _y = value; }
         }
@@ -43,7 +43,7 @@ namespace Yad.Net.Common {
             _playerId = PlayerID;
         }
 
-        public PositionData(short PlayerID, int X, int Y) {
+		public PositionData(short PlayerID, short X, short Y) {
             _playerId = PlayerID;
             _x = X;
             _y = Y;

@@ -203,7 +203,7 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void SetStartPositions(PositionData[] PosData) {
-            for (int i = 0; i < PosData.Length; ++i) {
+            for (short i = 0; i < PosData.Length; ++i) {
                 PosData[i].X = i;
                 PosData[i].Y = i;
             }     

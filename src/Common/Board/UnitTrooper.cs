@@ -13,7 +13,7 @@ namespace Yad.Board.Common {
 		}
 
 		public override void Destroy() {
-			throw new Exception("The method or operation is not implemented.");
+			base.Destroy();
 		}
 
 		/// <summary>
@@ -24,7 +24,7 @@ namespace Yad.Board.Common {
 		}
 
 		public override void DoAI() {
-			throw new Exception("The method or operation is not implemented.");
+			base.DoAI();
 		}
 	}
 }

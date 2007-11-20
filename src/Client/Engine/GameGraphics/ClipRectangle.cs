@@ -3,35 +3,38 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Yad.Engine.GameGraphics.Client {
+	/// <summary>
+	/// Helper class for GameGraphics.
+	/// </summary>
     public class ClipRectangle {
-        private float x;
-        private float y;
-        private float width;
-        private float height;
+        float _x, _y, _width, _height;
 
-        public ClipRectangle() {
-            x = y = 0.0f;
-            width = height = 1.0f;
-        }
+		#region constructor
+		public ClipRectangle() {
+            _x = _y = 0.0f;
+            _width = _height = 1.0f;
+		}
+		#endregion
 
-        public float X {
-            get { return x; }
-            set { x = value; }
+		#region accessors
+		public float X {
+            get { return _x; }
+            set { _x = value; }
         }
 
         public float Y {
-            get { return y; }
-            set { y = value; }
+            get { return _y; }
+            set { _y = value; }
         }
 
         public float Width {
-            get { return width; }
-            set { width = value; }
+            get { return _width; }
+            set { _width = value; }
         }
 
         public float Height {
-            get { return height; }
-            set { height = value; }
+            get { return _height; }
+            set { _height = value; }
         }
 
         public float Left {
@@ -52,6 +55,7 @@ namespace Yad.Engine.GameGraphics.Client {
         public float Bottom {
             get { return Y; }
             set { Y = value; }
-        }
-    }
+		}
+		#endregion
+	}
 }

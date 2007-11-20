@@ -19,18 +19,20 @@ using Yad.Properties.Common;
 using Yad.Net.Common;
 
 namespace Yad.Engine.Client {
+	/// <summary>
+	/// This is our GameLogic. There are many like it, but this one is OURS.
+	/// </summary>
 	public class GameLogic {
 		ClientSimulation sim;
 		Player currPlayer;
 		IConnection conn;
-		short race;
 
 		public GameLogic() {
-
 			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			currPlayer = new Player(0);
+			//TODO: use proper race
+			currPlayer = new Player(ClientPlayerInfo.SenderId, ClientPlayerInfo.Login, gameSettingsWrapper.GameSettings.RacesData[0].TypeID);
 
 			conn = Connection.Instance;
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
@@ -38,23 +40,34 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			sim = new ClientSimulation(gameSettingsWrapper, map, currPlayer, conn);
 
-			GameMessageHandler.Instance.Resume();
+			//GameMessageHandler.Instance.Resume();
         }
 
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PositionData[] aPd = e.gameInitInfo;
 
 			foreach (PositionData pd in aPd) {
-				Player p = new Player(pd.PlayerId);
+				//TODO: get info
+				Player p = new Player(pd.PlayerId, "???", GameSettingsWrapper.GameSettings.RacesData[0].TypeID);
 				sim.AddPlayer(p);
-				//FIXME!
-				UnitTank u = new UnitTank(p.ID, p.GenerateObjectID(), sim.GameSettingsWrapper.GameSettings.UnitTanksData[0], new Position((short)pd.X, (short)pd.Y), this.sim.Map);
+				UnitMCV mcv = new UnitMCV(p.ID, p.GenerateObjectID(), GameSettingsWrapper.GameSettings.UnitMCVsData[0], new Position(pd.X, pd.Y), sim.Map);
+				p.AddUnit(mcv);
+
+				// vjust for fun ;p
+				UnitTank u = new UnitTank(p.ID, p.GenerateObjectID(), sim.GameSettingsWrapper.GameSettings.UnitTanksData[0], new Position((short)((pd.X+1)%sim.Map.Width), pd.Y), this.sim.Map);
 				p.AddUnit(u);
-				this.sim.Map.Units[u.Position.X, u.Position.Y].AddLast(u);
-				//FIXME END
+				// ^
+
+				//this.sim.Map.Units[u.Position.X, u.Position.Y].AddLast(u);
 			}
+
+			// v remove when MCV's ready
+			// TODO: use proper race data
+			InitStripes("ConstructionYard");
+			// ^
+
+			this.sim.StartSimulation();
 			/*
-			sim.StartSimulation();
 			sim.DoTurn();
 			 */
 		}
@@ -67,13 +80,6 @@ namespace Yad.Engine.Client {
 		void Instance_GameMessageReceive(object sender, GameMessageEventArgs e) {
 			this.sim.AddGameMessage(e.gameMessage);
 		}
-
-		[Obsolete("Remove when connection to server is ready. This is just for GameForm constructor")]
-		public void StartSimulation() {
-			this.sim.StartSimulation();
-		}
-
-		public short Race { get { return race; } }
 
 		public delegate void AddBuildingDelegate(short id, short key);
 		public event AddBuildingDelegate AddBuildingEvent;
@@ -164,18 +170,18 @@ namespace Yad.Engine.Client {
 					bm.BuildingType = buildingToBuild;
 					bm.Type = MessageType.Build;
 
-					AddBuildingCounter(bm.BuildingType, race);
+					AddBuildingCounter(bm.BuildingType, currPlayer.Race);
 					AddUnitCreation(gf, bm.BuildingType);
 					bm.Position = pos;
 					bm.IdTurn = sim.CurrentTurn + sim.Delta;
 					conn.SendMessage(bm);
 					isLocatingBuilding = false;
-					foreach (TechnologyDependence techRef in sim.GameSettingsWrapper.racesMap[race].TechnologyDependences) {
+					foreach (TechnologyDependence techRef in sim.GameSettingsWrapper.racesMap[currPlayer.Race].TechnologyDependences) {
 						short ids = sim.GameSettingsWrapper.namesToIds[techRef.BuildingName];
 						if (gf.IsStripContainingBuilding(ids) == true) continue;
 						if (CheckReqBuildingsToAddNewBuilding(gf, techRef.RequiredBuildings)) {
 							// adds new building to strip
-							AddBuildingEvent(ids, race);
+							AddBuildingEvent(ids, currPlayer.Race);
 							
 
 						}
@@ -196,7 +202,7 @@ namespace Yad.Engine.Client {
 				foreach (string s in b.UnitsCanProduce) {
 					if (sim.GameSettingsWrapper.namesToIds.TryGetValue(s, out o))
 					{
-						AddUnitEvent(s, race);
+						AddUnitEvent(s, currPlayer.Race);
 					}
 				}
 			}
@@ -272,14 +278,10 @@ namespace Yad.Engine.Client {
 		/// Initializating stripes and delegates
 		/// </summary>
 		/// <param name="name"></param>
-		/// <param name="key"></param>
-		internal void InitStripes(string name, short key) {
-			race = key;
+		internal void InitStripes(string name) {
             short id = sim.GameSettingsWrapper.namesToIds[name];
-            AddBuildingCounter(id, key);
-			AddBuildingEvent(id, key);
-
-
+			AddBuildingCounter(id, currPlayer.Race);
+			AddBuildingEvent(id, currPlayer.Race);
 		}
 
 		public bool Select(Position pos) {
@@ -370,6 +372,10 @@ namespace Yad.Engine.Client {
 				}
 				return;
 			}
+		}
+
+		public Player CurrentPlayer {
+			get { return this.currPlayer; }
 		}
 	}
 	/*
