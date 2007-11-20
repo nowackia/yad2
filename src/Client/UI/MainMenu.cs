@@ -75,20 +75,6 @@ namespace Yad.UI.Client
 
             Connection.Instance.MessageHandler = menuMessageHandler;
             #endregion
-
-            short[] houseIDs = GlobalSettings.Instance.GetHouseIDs();
-
-            object[] houseObjects = new object[houseIDs.Length];
-            object[] teamObjects = new object[2];
-
-            for (short i = 0; i < houseObjects.Length; i++)
-                houseObjects[i] = houseIDs[i];
-
-            for (short i = 0; i < teamObjects.Length; i++)
-                teamObjects[i] = (i + 1);
-
-            ManageComboBoxItems(teamCBWaitingForPlayersMenu, teamObjects);
-            ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse);
         }
 
         #region Controls managment
@@ -130,10 +116,14 @@ namespace Yad.UI.Client
                 listBox.Items.Add(objects[i]);
         }
 
-        public void RemoveListBox(ListBox listBox, object[] objects)
+        public void RemoveListBox(ListBox listBox, object removeObject)
         {
-            for (int i = 0; i < objects.Length; i++)
-                listBox.Items.Remove(objects[i]);
+            listBox.Items.Remove(removeObject);
+        }
+
+        public object GetListBoxSelectedItem(ListBox listBox)
+        {
+            return listBox.SelectedItem;
         }
 
         public void ManageDataGridView(DataGridView gridView, object[] objects, bool reset)
@@ -300,14 +290,14 @@ namespace Yad.UI.Client
             Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
 
             if (InvokeRequired)
-                this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
             else
                 ManageControlState(controls, true);
 
             if (e.successful)
             {
                 if (InvokeRequired)
-                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
@@ -323,7 +313,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {
                 Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
-                if (InvokeRequired) this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 else ManageControlState(controls, true);
             }
 
@@ -372,7 +362,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {
                 Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
-                if (InvokeRequired) this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 else ManageControlState(controls, true);
             }
 
@@ -436,7 +426,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, true });
+                this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, true });
             else
                 ManageListBox(userListChatMenu, e.chatUsers, true);
         }
@@ -445,7 +435,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, false });
+                this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, false });
             else
                 ManageListBox(userListChatMenu, e.chatUsers, false);
 
@@ -455,7 +445,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { userListChatMenu, e.chatUsers });
+                this.Invoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { userListChatMenu, e.chatUsers });
             else
                 RemoveListBox(chatListChatMenu, e.chatUsers);
         }
@@ -464,7 +454,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Chat Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, new object[] { e.text }, false });
+                this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { chatListChatMenu, new object[] { e.text }, false });
             else
                 ManageListBox(chatListChatMenu, new object[] { e.text }, false);
         }
@@ -487,8 +477,8 @@ namespace Yad.UI.Client
             {
                 if (InvokeRequired)
                 {
-                    this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { playerInfoLInfoMenu, e.reason });
-                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.UserName });
+                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { playerInfoLInfoMenu, e.reason });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.UserName });
                 }
                 else
                 {
@@ -537,27 +527,48 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, true });
+                this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, true });
             else
                 ManageListBox(listOfGames, e.games, true);
         }
 
         void menuMessageHandler_NewGamesInfo(object sender, GameEventArgs e)
         {
-            InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
+            InfoLog.WriteInfo("New Game Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, false });
+                this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { listOfGames, e.games, false });
             else
                 ManageListBox(listOfGames, e.games, true);
         }
 
         void menuMessageHandler_DeleteGamesInfo(object sender, GameEventArgs e)
         {
-            InfoLog.WriteInfo("Games Event", EPrefix.UIManager);
+            InfoLog.WriteInfo("Delete Game Event", EPrefix.UIManager);
+            /* Check if not deleting currently selected game */
+            GameInfo gameInfo = null;
+
+            if (InvokeRequired) gameInfo = (GameInfo)this.Invoke(new GetListBoxSelectedItemEventHandler(GetListBoxSelectedItem), new object[] { listOfGames });
+            else gameInfo = (GameInfo)GetListBoxSelectedItem(listOfGames);
+
+            if (gameInfo == e.games[0])
+            {
+                if (InvokeRequired)
+                {
+                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameName, string.Empty });
+                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameDescription, string.Empty });
+
+                }
+                else
+                {
+                    ManageControlText(textBoxTBGameName, string.Empty);
+                    ManageControlText(textBoxTBGameDescription, string.Empty);
+                }
+            }
+
             if (InvokeRequired)
-                this.BeginInvoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { listOfGames, e.games });
+                this.Invoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { listOfGames, e.games[0] });
             else
-                RemoveListBox(listOfGames, e.games);
+                RemoveListBox(listOfGames, e.games[0]);
         }
 
         void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
@@ -567,7 +578,7 @@ namespace Yad.UI.Client
 
             if (e.successful)
             {
-                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
+                if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
                 else OnMenuOptionChange(MenuOption.Join); ;
             }
         }
@@ -612,7 +623,7 @@ namespace Yad.UI.Client
             MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
-                if (InvokeRequired) this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
+                if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
                 else OnMenuOptionChange(MenuOption.Create);
             }
         }
@@ -685,9 +696,9 @@ namespace Yad.UI.Client
 
                 if (InvokeRequired)
                 {
-                    this.BeginInvoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
-                    this.BeginInvoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects, teamObjects[0] });
-                    this.BeginInvoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse });
+                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
+                    this.Invoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects, teamObjects[0] });
+                    this.Invoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects, GlobalSettings.Instance.DefaultHouse });
                 }
                 else
                 {
@@ -702,7 +713,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, true });
+                this.Invoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, true });
             else
                 ManageDataGridView(dataGridViewPlayers, e.players, true);
         }
@@ -711,7 +722,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, false });
+                this.Invoke(new ManageDataGridViewEventHandler(ManageDataGridView), new object[] { dataGridViewPlayers, e.players, false });
             else
                 ManageDataGridView(dataGridViewPlayers, e.players, false);
         }
@@ -720,7 +731,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.BeginInvoke(new RemoveDataGridViewEventHandler(RemoveDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
+                this.Invoke(new RemoveDataGridViewEventHandler(RemoveDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
             else
                 RemoveDataGridView(dataGridViewPlayers, e.players[0]);
         }
@@ -736,9 +747,9 @@ namespace Yad.UI.Client
                 /* Modify current player */
                 if (InvokeRequired)
                 {
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House });
-                    this.BeginInvoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
-                    this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                    this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, e.players[0].House });
+                    this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
+                    this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 }
                 else
                 {
@@ -752,7 +763,7 @@ namespace Yad.UI.Client
             {
                 /* Modify different player */
                 if (InvokeRequired)
-                    this.BeginInvoke(new RemoveDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
+                    this.Invoke(new RemoveDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
                 else
                     UpdateDataGridView(dataGridViewPlayers, e.players[0]);
             }
@@ -765,7 +776,7 @@ namespace Yad.UI.Client
             MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if(this.InvokeRequired)
-                this.BeginInvoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { startWaitingForPlayersMenu }, true });
+                this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { startWaitingForPlayersMenu }, true });
             else
                 ManageControlState(new Control[] { startWaitingForPlayersMenu }, true);
 
@@ -775,7 +786,7 @@ namespace Yad.UI.Client
                 GameMessageHandler.Instance.Suspend();
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
-                    this.BeginInvoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.StartGame });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.StartGame });
                 else
                     OnMenuOptionChange(MenuOption.StartGame);
             }

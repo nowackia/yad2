@@ -930,7 +930,7 @@ namespace Yad.UI.Client
             this.changeWaitingForPlayersMenu.Location = new System.Drawing.Point(218, 52);
             this.changeWaitingForPlayersMenu.Name = "changeWaitingForPlayersMenu";
             this.changeWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
-            this.changeWaitingForPlayersMenu.TabIndex = 11;
+            this.changeWaitingForPlayersMenu.TabIndex = 5;
             this.changeWaitingForPlayersMenu.Text = "Change";
             this.changeWaitingForPlayersMenu.UseVisualStyleBackColor = true;
             this.changeWaitingForPlayersMenu.Click += new System.EventHandler(this.changeWaitingForPlayersMenu_Click);
@@ -941,7 +941,7 @@ namespace Yad.UI.Client
             this.teamLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 62);
             this.teamLWaitingForPlayersMenu.Name = "teamLWaitingForPlayersMenu";
             this.teamLWaitingForPlayersMenu.Size = new System.Drawing.Size(34, 13);
-            this.teamLWaitingForPlayersMenu.TabIndex = 10;
+            this.teamLWaitingForPlayersMenu.TabIndex = 15;
             this.teamLWaitingForPlayersMenu.Text = "Team";
             // 
             // houseLWaitingForPlayersMenu
@@ -950,7 +950,7 @@ namespace Yad.UI.Client
             this.houseLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 35);
             this.houseLWaitingForPlayersMenu.Name = "houseLWaitingForPlayersMenu";
             this.houseLWaitingForPlayersMenu.Size = new System.Drawing.Size(38, 13);
-            this.houseLWaitingForPlayersMenu.TabIndex = 9;
+            this.houseLWaitingForPlayersMenu.TabIndex = 14;
             this.houseLWaitingForPlayersMenu.Text = "House";
             // 
             // teamCBWaitingForPlayersMenu
@@ -959,7 +959,7 @@ namespace Yad.UI.Client
             this.teamCBWaitingForPlayersMenu.Location = new System.Drawing.Point(80, 54);
             this.teamCBWaitingForPlayersMenu.Name = "teamCBWaitingForPlayersMenu";
             this.teamCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
-            this.teamCBWaitingForPlayersMenu.TabIndex = 8;
+            this.teamCBWaitingForPlayersMenu.TabIndex = 4;
             this.teamCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
             // 
             // houseCBWaitingForPlayersMenu
@@ -968,7 +968,7 @@ namespace Yad.UI.Client
             this.houseCBWaitingForPlayersMenu.Location = new System.Drawing.Point(80, 27);
             this.houseCBWaitingForPlayersMenu.Name = "houseCBWaitingForPlayersMenu";
             this.houseCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
-            this.houseCBWaitingForPlayersMenu.TabIndex = 7;
+            this.houseCBWaitingForPlayersMenu.TabIndex = 3;
             this.houseCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
             // 
             // dataGridViewPlayers
@@ -988,7 +988,7 @@ namespace Yad.UI.Client
             this.dataGridViewPlayers.Name = "dataGridViewPlayers";
             this.dataGridViewPlayers.RowHeadersVisible = false;
             this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 147);
-            this.dataGridViewPlayers.TabIndex = 6;
+            this.dataGridViewPlayers.TabIndex = 10;
             // 
             // Id
             // 
@@ -1028,7 +1028,7 @@ namespace Yad.UI.Client
             this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(296, 115);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
-            this.descriptionLWaitingForPlayersMenu.TabIndex = 5;
+            this.descriptionLWaitingForPlayersMenu.TabIndex = 13;
             this.descriptionLWaitingForPlayersMenu.Text = "Description";
             // 
             // descriptionWaitingForPlayersMenu
@@ -1038,7 +1038,7 @@ namespace Yad.UI.Client
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
             this.descriptionWaitingForPlayersMenu.ReadOnly = true;
             this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(142, 147);
-            this.descriptionWaitingForPlayersMenu.TabIndex = 4;
+            this.descriptionWaitingForPlayersMenu.TabIndex = 11;
             // 
             // playersLWaitingForPlayersMenu
             // 
@@ -1046,7 +1046,7 @@ namespace Yad.UI.Client
             this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 115);
             this.playersLWaitingForPlayersMenu.Name = "playersLWaitingForPlayersMenu";
             this.playersLWaitingForPlayersMenu.Size = new System.Drawing.Size(41, 13);
-            this.playersLWaitingForPlayersMenu.TabIndex = 3;
+            this.playersLWaitingForPlayersMenu.TabIndex = 12;
             this.playersLWaitingForPlayersMenu.Text = "Players";
             // 
             // startWaitingForPlayersMenu
@@ -1064,7 +1064,7 @@ namespace Yad.UI.Client
             this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(447, 160);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
             this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
-            this.cancelWaitingForPlayersMenu.TabIndex = 0;
+            this.cancelWaitingForPlayersMenu.TabIndex = 2;
             this.cancelWaitingForPlayersMenu.Text = "Cancel";
             this.cancelWaitingForPlayersMenu.UseVisualStyleBackColor = true;
             this.cancelWaitingForPlayersMenu.Click += new System.EventHandler(this.cancelWaitingForPlayersMenu_Click);
