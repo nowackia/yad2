@@ -98,5 +98,65 @@
     <Setting Name="MusicWin" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Audio/Music/Win</Value>
     </Setting>
+    <Setting Name="TextureUnitCarryall" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Carryall.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitDevastator" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Devastator.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitDevastatorBase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DevastatorBase.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitFrigate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Frigate.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitHarvester" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Harvester.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitHarvesterSand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HarvesterSand.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitInfantry" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Infantry.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitLauncher" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Launcher.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitMCV" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MCV.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitOrnithopter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ornithopter.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitQuad" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Quad.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitSaboteur" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Saboteur.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitSandworm" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Sandworm.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitSiegeTank" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SiegeTank.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitSiegeTankBase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SiegeTankBase.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitSonicTank" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SonicTank.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitTank" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tank.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitTankBase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TankBase.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitTrike" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Trike.png</Value>
+    </Setting>
+    <Setting Name="TextureUnitTrooper" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Trooper.png</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
