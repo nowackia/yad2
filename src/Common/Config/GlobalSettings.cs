@@ -4,29 +4,19 @@ using System.Text;
 using Yad.Config.Common;
 
 namespace Yad.Config {
-    class GlobalSettings {
+    public class GlobalSettings {
 
         private GameSettingsWrapper _gameSettingsWrapper;
         private static GlobalSettings _instance;
         private short _defaultHouse;
-        private string[] _houseNames;
 
         public short DefaultHouse {
             get { return _defaultHouse; }
             set { _defaultHouse = value; }
         }
 
-        public string[] HouseNames {
-            get {
-                if (_houseNames == null) {
-                    _houseNames = new string[_gameSettingsWrapper.racesMap.Values.Count];
-                    int index = 0;
-                    foreach (RaceData rd in _gameSettingsWrapper.racesMap.Values) {
-                        _houseNames[index++] = rd.Name;
-                    }
-                }
-                return _houseNames;
-            }
+        public string GetHouseName(short id){
+            return _gameSettingsWrapper.racesMap[id].Name;
         }
 
         private GlobalSettings() {

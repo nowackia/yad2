@@ -253,29 +253,28 @@ namespace Yad.Net.Server
             Player player = _server.GetPlayer(msg.SenderId);
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Create game", msg.SenderId), EPrefix.ServerProcessInfo);
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
-            ResultMessage resMsg  =  null;
+            ResultMessage resMsg = Utils.CreateResultMessage(ResponseType.CreateGame, ResultType.Unsuccesful);
+            ResultType result = ResultType.Unsuccesful;
             if (state == MenuState.GameJoin) {
-                resMsg = CreateGame(msg);
-                lock (player.SyncRoot) {
-                    player.State = state;
-                }
+                result = CreateGame(msg);
+                if (result == ResultType.Successful)
+                    lock (player.SyncRoot)
+                        player.State = state;
             }
+            resMsg.Result = (byte)result;
             SendMessage(resMsg, msg.SenderId);
         }
 
-        private ResultMessage CreateGame(GameInfoMessage msg) {
+        private ResultType CreateGame(GameInfoMessage msg) {
             ResultType resultType = _server.GameManager.CreateGame(msg.GameInfo);
             if (resultType == ResultType.Successful) {
                 ResultType joinResult = _server.GameManager.JoinGame(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));
                 if (joinResult != ResultType.Successful) {
                     InfoLog.WriteError("Join not possible after create!");
-                    return null;
+                    return joinResult;
                 }
             }
-            ResultMessage resultmsg = MessageFactory.Create(MessageType.Result) as ResultMessage;
-            resultmsg.ResponseType = (byte)ResponseType.CreateGame;
-            resultmsg.Result = (byte)resultType;
-            return resultmsg;
+            return resultType;
         }
 
         #endregion
