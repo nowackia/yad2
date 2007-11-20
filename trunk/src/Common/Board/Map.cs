@@ -29,6 +29,15 @@ namespace Yad.Board.Common {
 			}
 		}
 
+		public bool[,] FogOfWar
+		{
+			get
+			{
+				return fogOfWar;
+			}
+		}
+
+
 		public LinkedList<Unit>[,] Units {
 			get {
 				return units;
