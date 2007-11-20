@@ -186,6 +186,7 @@ namespace Yad.Net.Server {
                 TcpClient client = null;
                 try {
                     client = _listener.AcceptTcpClient();
+                    client.NoDelay = true;
                 }
                 catch (Exception) {
                     _serverEnd = true;
