@@ -36,6 +36,14 @@ namespace Yad.Config {
             }
         }
 
+        public short[] GetHouseIDs() {
+            short[] result = new short[_gameSettingsWrapper.racesMap.Count];
+            int i = 0;
+            foreach (short key in _gameSettingsWrapper.racesMap.Keys)
+                result[i++] = key;
+            return result;
+        }
+
         public static short DeafultHouse {
             get {
                 return Instance._defaultHouse;
