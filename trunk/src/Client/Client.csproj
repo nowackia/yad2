@@ -72,7 +72,6 @@
     <Compile Include="Engine\StripesManager.cs" />
     <Compile Include="Net\ClientPlayerInfo.cs" />
     <Compile Include="Net\Connection.cs" />
-    <Compile Include="Net\GameInitInfo.cs" />
     <Compile Include="Net\GameMessageHandler.cs" />
     <Compile Include="Net\IConnection.cs" />
     <Compile Include="Net\MenuMessageHandler.cs" />
