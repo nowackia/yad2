@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Net.Common;
 
+
 namespace Yad.Net.Server {
     class ServerPlayerInfo : PlayerInfo, IPlayerID {
 
@@ -23,6 +24,7 @@ namespace Yad.Net.Server {
             this.Id = player.Id;
             this.Name = player.Login;
             _player = player;
+            
         }
 
         public PlayerInfo GePlayerInfo() {
