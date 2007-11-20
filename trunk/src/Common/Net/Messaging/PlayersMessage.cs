@@ -32,7 +32,7 @@ namespace Yad.Net.Messaging.Common {
                 writer.Write(pi.Id);
                 WriteString(pi.Name, writer);
                 writer.Write(pi.TeamID);
-                writer.Write((byte)pi.House);
+                writer.Write(pi.House);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Yad.Net.Messaging.Common {
                 pi.Id = reader.ReadInt16();
                 pi.Name = ReadString(reader);
                 pi.TeamID = reader.ReadInt16();
-                pi.House = (HouseType)reader.ReadByte();
+                pi.House = reader.ReadInt16();
                 _playerList.Add(pi);
 
             }

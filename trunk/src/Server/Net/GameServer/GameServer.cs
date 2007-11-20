@@ -84,8 +84,10 @@ namespace Yad.Net.GameServer.Server {
 
         public void EndGame() {
             PlayerData[] arrayPd = Simulation.GetPlayerData();
-            for (int i = 0; i < arrayPd.Length; ++i)
-                UpdatePlayerStats(arrayPd[i].Id);
+            if (arrayPd != null) {
+                for (int i = 0; i < arrayPd.Length; ++i)
+                    UpdatePlayerStats(arrayPd[i].Id);
+            }
             lock (_gameEndEventLock) {
                 if (_onGameEnd != null)
                 _onGameEnd(this, new GameEndEventArgs());
@@ -135,11 +137,18 @@ namespace Yad.Net.GameServer.Server {
             GameNumericMessage numMsg = (GameNumericMessage)MessageFactory.Create(MessageType.PlayerDisconnected);
             numMsg.Number = player.Id;
             numMsg.IdTurn = _simulation.GetPlayerTurn(player.Id) + _simulation.Delta;
+            bool areNoPlayersLeft;
             lock (((ICollection)_playerCollection).SyncRoot) {
                 _playerCollection.Remove(player.Id);
+                areNoPlayersLeft = (_playerCollection.Count == 0);
             }
-            _simulation.AddMessage(numMsg);
-            _msgSender.BroadcastMessage(numMsg);
+            if (!areNoPlayersLeft) {
+                _simulation.AddMessage(numMsg);
+                _msgSender.BroadcastMessage(numMsg);
+            }
+            else
+                this.StopGameServer();
+
         }
 
         #endregion

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yad.Net.Common;
+using Yad.Config.Common;
+using Yad.Config;
 
 
 namespace Yad.Net.Server {
@@ -23,6 +25,7 @@ namespace Yad.Net.Server {
         public ServerPlayerInfo(Player player) {
             this.Id = player.Id;
             this.Name = player.Login;
+            this.House = GlobalSettings.DeafultHouse;
             _player = player;
             
         }

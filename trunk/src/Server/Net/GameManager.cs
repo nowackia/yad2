@@ -83,7 +83,6 @@ namespace Yad.Net.Server {
         }
 
         public void StartGame(short playerid) {
-            //bool result;
             lock (((ICollection)_players).SyncRoot) {
                 if (_players.ContainsKey(playerid)) {
                     string name = _players[playerid].GameName;
