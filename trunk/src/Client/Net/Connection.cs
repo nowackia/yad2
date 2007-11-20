@@ -24,6 +24,7 @@ namespace Yad.Net.Client
             receiver = new MessageReceiver();
             sender = new MessageSender();
             tcpClient = new TcpClient();
+            tcpClient.NoDelay = true;
         }
 
         public static Connection Instance
