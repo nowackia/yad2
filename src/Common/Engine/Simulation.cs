@@ -29,11 +29,11 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Turn length in miliseconds
 		/// </summary>
-		const int turnLength = 200;
+		static int turnLength = Yad.Properties.Common.Settings.Default.TurnLength;
 		/// <summary>
 		/// Transmission delay in miliseconds
 		/// </summary>
-		const int transmissionDelay = 30;
+		const int transmissionDelay = 20;
 
 		#endregion
 
@@ -80,11 +80,13 @@ namespace Yad.Engine.Common {
 		 * fastest player: turn x+delta-1
 		 * newest message x+delta-1 + delta
 		 * max turns cached: x+delta-1 + delta - x + 1 = 2 * delta
+		 * but it doesn't work so we have to add 1 :D :D :D
 		 */
+		int bufferLength = 2 * delta + 1;
 		/// <summary>
 		/// This table holds turns' messages
 		/// </summary>
-		List<GameMessage>[] turns = new List<GameMessage>[2 * delta];
+		List<GameMessage>[] turns;
 
 		bool fastTurnProcessing = true;
 
@@ -113,10 +115,11 @@ namespace Yad.Engine.Common {
 			this.map = map;
 			this.currentPlayer = currPlayer;
 			this.fastTurnProcessing = useFastTurnProcessing;
+			turns = new List<GameMessage>[bufferLength];
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
 			this.turnProcessor.IsBackground = true;
 
-			for (int i = 0; i < 3 * delta; i++) {
+			for (int i = 0; i < bufferLength; i++) {
 				this.turns[i] = new List<GameMessage>();
 			}
 		}
@@ -194,8 +197,7 @@ namespace Yad.Engine.Common {
 					}
 				}
 				//this.fastTurnProcessing = true;
-				//2 * transmissionDelay - to server & back
-				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - 2 * transmissionDelay;
+				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
 				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
 
 					if (!this.SpeedUp) { // client
