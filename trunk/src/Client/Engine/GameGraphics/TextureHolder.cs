@@ -61,11 +61,11 @@ namespace Yad.Engine.GameGraphics
 		}
 
 
-		public static Bitmap getBitmap(int x, int y)
+		public static Bitmap getBitmap(int x, EUnitTexture y)
 		{
 			if (bitmaps == null)
 				initializeAll();
-			return bitmaps[x, y];
+			return bitmaps[x, (int)y];
 		}
 
 
