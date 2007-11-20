@@ -118,8 +118,6 @@
     <None Include="app.config" />
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>
-      </SubType>
     </None>
     <None Include="Config\dune.xsx">
       <DependentUpon>dune.xsd</DependentUpon>
