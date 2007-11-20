@@ -23,6 +23,8 @@ namespace Yad.Database.Server {
         const string RegisterSTM = "INSERT INTO Player (LOGIN, PASS, EMAIL) VALUES('{0}', '{1}', '{2}')";
         const string LoginSTM = "SELECT WINNO, LOSSNO FROM Player WHERE LOGIN = '{0}' AND PASS = '{1}'";
         const string UpdateResultSTM = "UPDATE TABLE Player SET WINNO = {0}, LOSSNO = {1} WHERE LOGIN = '{2}'";
+        const string RemidDataSTM = "SELECT PASS, EMAIL FROM Player WHERE LOGIN = '{0}'";
+        
         private YadDB() {
         }
 
@@ -42,6 +44,21 @@ namespace Yad.Database.Server {
             return ExecuteCommand(ocmd);
         }
 
+        public static bool Remind(string name,  out string email, out string password){
+            string query = string.Format(RemidDataSTM, name);
+            OleDbCommand ocmd = new OleDbCommand(query);
+            RemindQueryReader rqr = new RemindQueryReader();
+            ExecuteQuery(ocmd, rqr);
+            email = null;
+            password = null;
+            if (rqr.Result) {
+                email = rqr.Email;
+                password = rqr.Password;
+                return true;
+            }
+            return false;
+
+        }
         public static bool Login(string name, string password, ref ushort winno, ref ushort lossno) {
             string query = string.Format(LoginSTM, name, password);
             OleDbCommand ocmd = new OleDbCommand(query);

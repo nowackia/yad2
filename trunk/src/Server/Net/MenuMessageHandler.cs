@@ -9,6 +9,7 @@ using Yad.Log.Common;
 using Yad.Database.Server;
 using Yad.Properties;
 using Yad.Properties.Server;
+using Yad.Mail;
 
 namespace Yad.Net.Server
 {
@@ -66,9 +67,27 @@ namespace Yad.Net.Server
                 case MessageType.PlayerInfo:
                     ProcessPlayerInfoMessage((NumericMessage)msg);
                     break;
+                case MessageType.Remind:
+                    ProcessRemindMessage((TextMessage)msg);
+                    break;
             
             }
 
+        }
+
+        private void ProcessRemindMessage(TextMessage textMessage) {
+            InfoLog.WriteInfo("Processing remind message", EPrefix.ServerProcessInfo);
+            string login = textMessage.Text;
+            string email = null;
+            string password = null;
+            if (Settings.Default.DBAvail)
+                if (YadDB.Remind(login, out email, out password)) {
+                    YadMail.SendRemindMail(login, email, password);
+                    ResultMessage resMsg = Utils.CreateResultMessage(ResponseType.Remind, ResultType.Successful);
+                    SendMessage(resMsg, textMessage.SenderId);
+                    return;
+                }
+           SendMessage(Utils.CreateResultMessage(ResponseType.Remind, ResultType.Unsuccesful), textMessage.SenderId);
         }
 
         private void ProcessPlayerInfoMessage(NumericMessage numericMessage) {
