@@ -67,8 +67,6 @@
     <Compile Include="Engine\GameGraphics\MapHolderException.cs" />
     <Compile Include="Engine\GameGraphics\GameGraphics.cs" />
     <Compile Include="Engine\GameGraphics\TextureFiles.cs" />
-    <Compile Include="Engine\GameGraphics\TextureHolder.cs" />
-    <Compile Include="Engine\GameGraphics\UnitTextures.cs" />
     <Compile Include="Engine\GameGraphics\VertexData.cs" />
     <Compile Include="Engine\GameLogic.cs" />
     <Compile Include="Engine\StripesManager.cs" />
