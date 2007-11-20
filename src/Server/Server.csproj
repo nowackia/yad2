@@ -37,14 +37,17 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\IQueryReader.cs" />
     <Compile Include="Database\LoginQueryReader.cs" />
+    <Compile Include="Database\RemindQueryReader.cs" />
     <Compile Include="Database\YadDB.cs" />
     <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="Mail\YadMail.cs" />
     <Compile Include="Net\GameManager.cs" />
     <Compile Include="Net\GameServer\GameEndEventArgs.cs" />
     <Compile Include="Net\GameServer\GameMessageHandler.cs" />
