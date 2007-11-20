@@ -94,6 +94,45 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region private methods
+
+		/// <summary>
+		/// Converse one bitmap to another with giver colour theme
+		/// </summary>
+		/// <param name="color"></param>
+		/// <param name="bmp"></param>
+		/// <returns></returns>
+		public static Bitmap convertColour(Color color, Bitmap bmp)
+		{
+			byte a = 3, r = 2, g = 1, b = 0, temp;
+			//Graphics g = Graphics.FromImage(bmp);
+			Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+			System.Drawing.Imaging.BitmapData bmpData =
+				bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
+				bmp.PixelFormat);
+			IntPtr ptr = bmpData.Scan0;
+			int bytes = bmp.Width * bmp.Height * 3;
+			byte[] rgbValues = new byte[bytes];
+			System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+
+			//color conversion
+			for (int counter = 0; counter < rgbValues.Length; counter += 4)
+			{
+				if (rgbValues[counter + a] != 0 && rgbValues[counter + g] == 0 && rgbValues[counter + b] == 0)
+				{
+					temp = rgbValues[counter + r];
+					rgbValues[counter + r] = (byte)((double)temp / 255 * color.R);
+					rgbValues[counter + g] = (byte)((double)temp / 255 * color.G);
+					rgbValues[counter + b] = (byte)((double)temp / 255 * color.B);
+				}
+			}
+			//conversion end
+			System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
+			bmp.UnlockBits(bmpData);
+
+			return bmp;
+		}
+
+
 		/// <summary>
 		/// Creates 32-bit texture using bitmap "filename" and binds it to "id" so that
 		/// it can be used by OpenGL to render objects.
