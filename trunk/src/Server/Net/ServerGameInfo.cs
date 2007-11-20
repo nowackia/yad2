@@ -51,7 +51,12 @@ namespace Yad.Net.Server {
             _gameInfo.Name = gi.Name;
             _gameInfo.MapName = gi.MapName;
             _gameInfo.MaxPlayerNumber = gi.MaxPlayerNumber;
-            
+            _gameInfo.GameType = gi.GameType;
+            if (gi.GameType == GameType.Private)
+                _isPrivate = true;
+            else
+                _isPrivate = false;
+            //_gameInfo.Description = gi.Description;
         }
 
         #endregion 
@@ -100,6 +105,8 @@ namespace Yad.Net.Server {
             gi.Name = this.Name;
             gi.MapName = this.MapName;
             gi.MaxPlayerNumber = this.MaxPlayerNumber;
+            gi.GameType = this._gameInfo.GameType;
+            //gi.Description = this._gameInfo.Description;
             return gi;
         }
 
