@@ -8,6 +8,8 @@ using Yad.Board.Common;
 using Yad.Engine.GameGraphics.Client;
 using Yad.Properties;
 using Yad.Properties.Client;
+using Yad.UI.Client;
+using Yad.Engine.Client;
 
 namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {
@@ -50,6 +52,23 @@ namespace Yad.Engine.GameGraphics.Client {
 			new ETextures[]{ETextures.Rock, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, (ETextures)0}, //left, right, upper, lower
 			new ETextures[]{ETextures.Sand, ETextures.Whatever,ETextures.Whatever,ETextures.Whatever,ETextures.Whatever, (ETextures)0}
 			};
+		private static short[][] fogFrameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
+			new short[]{(short)1, (short)0, (short)0, (short)0, (short)0, (short)1},
+			new short[]{(short)1, (short)1, (short)1, (short)0, (short)0, (short)2},
+			new short[]{(short)1, (short)1,(short)0, (short)0,(short)0, (short)3},
+			new short[]{(short)1, (short)0,(short)1,(short)0,(short)0, (short)4},
+			new short[]{(short)1, (short)0,(short)0, (short)1, (short)0, (short)5},
+			new short[]{(short)1, (short)0,(short)0, (short)0,(short)1, (short)6},
+			new short[]{(short)1, (short)0,(short)0, (short)1, (short)1, (short)7},
+			new short[]{(short)1, (short)0,(short)1, (short)1, (short)1, (short)8},
+			new short[]{(short)1, (short)1,(short)0, (short)1, (short)1, (short)9},
+			new short[]{(short)1, (short)1, (short)1, (short)0, (short)1, (short)10},
+			new short[]{(short)1, (short)1, (short)1, (short)1, (short)0, (short)11},
+			new short[]{(short)1, (short)0, (short)1, (short)0, (short)1, (short)12},
+			new short[]{(short)1, (short)1, (short)0, (short)1, (short)0, (short)13},
+			new short[]{(short)1, (short)1, (short)0, (short)0, (short)1, (short)14},
+			new short[]{(short)1, (short)0, (short)1, (short)1, (short)0, (short)15}
+		};
 
 		private static int FindFrame(Map map, int x, int y) {
 			int result;
@@ -147,6 +166,49 @@ namespace Yad.Engine.GameGraphics.Client {
 		private static int Correct(int size) {
 			double y = Math.Ceiling(Math.Log(size, 2));
 			return (int)Math.Pow(2, y);
+		}
+
+		private static int FindFogFrame(Map map, int x, int y)
+		{
+			int result;
+			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
+				throw new MapHolderException("Incorrect map position");
+
+			bool fogLeft, fogRight, fogUpper, fogLower;
+
+			if (x > 0)
+				fogLeft = map.FogOfWar[x - 1, y];
+			else
+				fogLeft = map.FogOfWar[x, y];
+
+			if (x < map.Width - 1)
+				fogRight = map.FogOfWar[x + 1, y];
+			else
+				fogRight = map.FogOfWar[x, y];
+
+			if (y < map.Height - 1)
+				fogUpper = map.FogOfWar[x, y + 1];
+			else
+				fogUpper = map.FogOfWar[x, y];
+
+			if (y > 0)
+				fogLower = map.FogOfWar[x, y - 1];
+			else
+				fogLower = map.FogOfWar[x, y];
+			for (int i = 0; i < tileFrameMap.Length; i++)
+			{
+				if ((result = MatchFog(fogFrameMap[i], map.FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
+					return result;
+			}
+			throw new MapHolderException("Bitmap frame not found");
+
+		}
+
+		private static short MatchFog(short[] fogFrameMap, bool center, bool fogLeft, bool fogRight, bool fogLower, bool fogUpper)
+		{
+			if (Convert.ToInt16(center) == fogFrameMap[0] && Convert.ToInt16(fogLeft) == fogFrameMap[1] && Convert.ToInt16(fogRight) == fogFrameMap[2] && Convert.ToInt16(fogUpper) == fogFrameMap[3] && Convert.ToInt16(fogLower) == fogFrameMap[4])
+				return fogFrameMap[5];
+			return -1;
 		}
 
 	}
