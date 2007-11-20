@@ -18,7 +18,6 @@ using Yad.Config;
 
 namespace Yad.UI.Client
 {
-    //TODO (AN) Change HouseType string read from xml file data
     public partial class MainMenuForm : UIManageable
     {
         private Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();

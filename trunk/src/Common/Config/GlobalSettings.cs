@@ -45,12 +45,6 @@ namespace Yad.Config {
             return result;
         }
 
-        public static short DeafultHouse {
-            get {
-                return Instance._defaultHouse;
-            }
-        }
-
         public static GlobalSettings Instance {
             get {
                 if (_instance == null) {

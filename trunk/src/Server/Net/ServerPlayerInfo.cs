@@ -25,7 +25,7 @@ namespace Yad.Net.Server {
         public ServerPlayerInfo(Player player) {
             this.Id = player.Id;
             this.Name = player.Login;
-            this.House = GlobalSettings.DeafultHouse;
+            this.House = GlobalSettings.Instance.DefaultHouse;
             _player = player;
             
         }
