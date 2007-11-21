@@ -67,7 +67,7 @@ namespace Yad.Engine.Common {
 		/// Used for generating id's for player-created objects (units/buildings)
 		/// </summary>
 		public int GenerateObjectID() {
-			return _objectID++;
+			return ++_objectID;
 		}
 
 		public void AddUnit(Unit u) {
@@ -82,9 +82,13 @@ namespace Yad.Engine.Common {
 		}
 
 		public void AddBuilding(Building b) {
-			_buildingsDict.Add(b.ObjectID, b);
-			_buildings.Add(b);
-			b.PlaceOnMap();
+            try {
+                _buildingsDict.Add(b.ObjectID, b);
+                _buildings.Add(b);
+                b.PlaceOnMap();
+            } catch (ArgumentException ae) {
+                //RS TODO - sometimes duplicated id happens :| 
+            }
 		}
 
 		public void RemoveBuilding(Building b) {
