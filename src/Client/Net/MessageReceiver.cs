@@ -131,7 +131,7 @@ namespace Yad.Net.Client
                     continue;
                 }
 
-               InfoLog.WriteInfo("Client received message with type: " + msg.Type, EPrefix.ClientInformation);
+               InfoLog.WriteInfo("Client received msg with type: " + msg.Type, EPrefix.ClientInformation);
 
                 try
                 { msg.Deserialize(readStream); }

@@ -578,8 +578,19 @@ namespace Yad.UI.Client
 
             if (e.successful)
             {
-                if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
-                else OnMenuOptionChange(MenuOption.Join); ;
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+                if (InvokeRequired)
+                {
+                    /* Block the possibility to change tha race and team before receiving them from server */
+                    this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, false });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
+                }
+                else
+                {
+                    /* Block the possibility to change tha race and team before receiving them from server */
+                    ManageControlState(controls, false);
+                    OnMenuOptionChange(MenuOption.Join);
+                }
             }
         }
         #endregion
@@ -623,8 +634,19 @@ namespace Yad.UI.Client
             MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
-                if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
-                else OnMenuOptionChange(MenuOption.Create);
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+                if (InvokeRequired)
+                {
+                    /* Block the possibility to change tha race and team before receiving them from server */                    
+                    this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, false });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
+                }
+                else
+                {
+                    /* Block the possibility to change tha race and team before receiving them from server */
+                    ManageControlState(controls, false);
+                    OnMenuOptionChange(MenuOption.Create);
+                }
             }
         }
         #endregion
