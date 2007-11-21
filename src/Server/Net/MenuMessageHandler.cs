@@ -152,12 +152,16 @@ namespace Yad.Net.Server
             MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.GameJoinEntry);
             if (state == MenuState.Invalid)
                 SendMessage(Utils.CreateResultMessage(ResponseType.JoinGame, ResultType.Unsuccesful), player.Id);
+
+            ResultType result = _server.GameManager.IsJoinGamePossible(textMessage.Text, _server.GetPlayer(textMessage.SenderId));
             
-            ResultType result = _server.GameManager.JoinGame(textMessage.Text, player);
             if (result == ResultType.Successful) {
+                SendMessage(Utils.CreateResultMessage(ResponseType.JoinGame, result), player.Id);
+                _server.GameManager.JoinGame(textMessage.Text, player);
                 player.State = state;
             }
-            SendMessage(Utils.CreateResultMessage(ResponseType.JoinGame, result), player.Id);
+            else
+                SendMessage(Utils.CreateResultMessage(ResponseType.JoinGame, result), player.Id);
         }
 
         private void ProcessChatText(TextMessage msg) {
@@ -280,12 +284,24 @@ namespace Yad.Net.Server
                     lock (player.SyncRoot)
                         player.State = state;
             }
-            resMsg.Result = (byte)result;
-            SendMessage(resMsg, msg.SenderId);
+            //resMsg.Result = (byte)result;
+            //SendMessage(resMsg, msg.SenderId);
         }
 
         private ResultType CreateGame(GameInfoMessage msg) {
-            ResultType resultType = _server.GameManager.CreateGame(msg.GameInfo);
+            ResultType result = _server.GameManager.IsCreateGamePossible(msg.GameInfo);
+            SendMessage(Utils.CreateResultMessage(ResponseType.CreateGame, ResultType.Successful), msg.SenderId);
+            if (ResultType.Successful == result) {
+                _server.GameManager.CreateGameNoError(msg.GameInfo);
+                result = _server.GameManager.IsJoinGamePossible(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));
+                if (result == ResultType.Successful)
+                    _server.GameManager.JoinGame(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));
+                else
+                    InfoLog.WriteError("Join not possible after create!");
+
+            }
+            return result;
+            /*ResultType resultType = _server.GameManager.CreateGame(msg.GameInfo);
             if (resultType == ResultType.Successful) {
                 ResultType joinResult = _server.GameManager.JoinGame(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));
                 if (joinResult != ResultType.Successful) {
@@ -293,7 +309,7 @@ namespace Yad.Net.Server
                     return joinResult;
                 }
             }
-            return resultType;
+            return resultType;*/
         }
 
         #endregion

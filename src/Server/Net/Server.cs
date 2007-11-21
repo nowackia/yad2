@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using Yad.Log;
 using Yad.Log.Common;
+using Yad.Utilities.Common;
+
 
 namespace Yad.Net.Server {
        class Server : BaseServer {
@@ -187,8 +189,9 @@ namespace Yad.Net.Server {
                 try {
                     client = _listener.AcceptTcpClient();
                     client.NoDelay = true;
+                    NetUtils.SetKeepAlive(client);
                 }
-                catch (Exception) {
+                catch (Exception ex) {
                     _serverEnd = true;
                     return;
                 }
