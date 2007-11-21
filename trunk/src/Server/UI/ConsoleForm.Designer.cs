@@ -58,33 +58,31 @@ namespace Yad.UI.Server
             this.toolStripMenuItem1,
             this.endServerToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(143, 76);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 98);
             // 
             // hideConsoleToolStripMenuItem
             // 
             this.hideConsoleToolStripMenuItem.Name = "hideConsoleToolStripMenuItem";
-            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.hideConsoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hideConsoleToolStripMenuItem.Text = "Hide console";
             this.hideConsoleToolStripMenuItem.Click += new System.EventHandler(this.hideConsoleToolStripMenuItem_Click);
             // 
             // alwaysOnTopToolStripMenuItem
             // 
-            this.alwaysOnTopToolStripMenuItem.Checked = true;
-            this.alwaysOnTopToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
             this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(139, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // endServerToolStripMenuItem
             // 
             this.endServerToolStripMenuItem.Name = "endServerToolStripMenuItem";
-            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.endServerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.endServerToolStripMenuItem.Text = "End server";
             this.endServerToolStripMenuItem.Click += new System.EventHandler(this.endServerToolStripMenuItem_Click);
             // 
@@ -123,7 +121,6 @@ namespace Yad.UI.Server
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "consoleForm";
             this.Text = "Server Console";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleForm_FormClosing);
             this.Load += new System.EventHandler(this.ConsoleForm_Load);
             this.contextMenuStrip.ResumeLayout(false);

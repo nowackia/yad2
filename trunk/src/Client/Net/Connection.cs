@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using Yad.Log;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
-using System.Threading;
+using Yad.Utilities.Common;
 
 namespace Yad.Net.Client
 {
@@ -43,6 +44,7 @@ namespace Yad.Net.Client
                 {
                     InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation);
                     tcpClient.Connect(hostname, port);
+                    NetUtils.SetKeepAlive(tcpClient);
                     InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
 
                     sender.Stream = tcpClient.GetStream();

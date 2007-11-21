@@ -239,21 +239,26 @@ namespace Yad.Net.Client
                         switch ((MessageOperation)playersMessage.Operation)
                         {
                             case MessageOperation.Add:
+                                ClientPlayerInfo.Enemies.Add(playersMessage.PlayerList.ToArray());
                                 if (NewPlayers != null)
                                     NewPlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
                                 break;
 
                             case MessageOperation.Remove:
+                                ClientPlayerInfo.Enemies.Remove(playersMessage.PlayerList.ToArray());
                                 if (DeletePlayers != null)
                                     DeletePlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
                                 break;
 
                             case MessageOperation.Modify:
+                                ClientPlayerInfo.Enemies.Modify(playersMessage.PlayerList.ToArray());
                                 if (UpdatePlayers != null)
                                     UpdatePlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
                                 break;
 
                             case MessageOperation.List:
+                                ClientPlayerInfo.Enemies.Clear();
+                                ClientPlayerInfo.Enemies.Add(playersMessage.PlayerList.ToArray());
                                 if (ResetPlayers != null)
                                     ResetPlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
                                 break;

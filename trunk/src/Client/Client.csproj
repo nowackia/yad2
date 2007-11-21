@@ -77,6 +77,7 @@
     <Compile Include="Net\MenuMessageHandler.cs" />
     <Compile Include="Net\MessageReceiver.cs" />
     <Compile Include="Net\MessageSender.cs" />
+    <Compile Include="Net\Players.cs" />
     <Compile Include="Net\Utils.cs" />
     <Compile Include="UI\BuildStripe.cs">
       <SubType>UserControl</SubType>
