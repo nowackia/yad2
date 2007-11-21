@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Threading;
 using Yad.Log.Common;
 using Yad.UI.Server;
+using System.Reflection;
+using System.Net.Sockets;
 
 namespace Yad.Server
 {
@@ -20,7 +22,6 @@ namespace Yad.Server
         {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
-
             consoleForm consoleForm = new consoleForm();
             OnWriteLineDelegate owd = new OnWriteLineDelegate(consoleForm.AppendText);
             InfoLog.Instance.OnWriteLine += owd;

@@ -196,6 +196,26 @@ namespace Yad.Net.Server {
             return result;
         }
 
+        public void CreateGameNoError(GameInfo gi) {
+            lock (((ICollection)_games).SyncRoot) {
+                ServerGameInfo sgi = new ServerGameInfo(gi, _sender);
+                _games.Add(gi.Name, sgi);
+                SendCreateGameMessage(sgi);
+                InfoLog.WriteInfo(string.Format(Resources.ActionStringFormat, "create game"), EPrefix.ServerAction);
+                InfoLog.WriteInfo("Created game: " + gi.Name, EPrefix.ServerAction);
+            }
+        }
+
+       
+
+        public ResultType IsCreateGamePossible(GameInfo gi){
+            if (GameNumber == MaxGameNumber)
+                return ResultType.MaxServerGameError;
+            lock (((ICollection)_games).SyncRoot) {
+                return IsValid(gi);
+            }
+        }
+
         protected void BroadcastExcl(Message msg, short id) {
             lock (((ICollection)_players).SyncRoot)
                 foreach (IPlayerID pid in _players.Values)
@@ -203,19 +223,16 @@ namespace Yad.Net.Server {
                         _sender.MessagePost(msg, pid.GetID());
         }
 
-
-        public ResultType JoinGame(string name, Player player) {
+        public ResultType IsJoinGamePossible(string name, Player player) {
             lock (((ICollection)_games).SyncRoot) {
-                ResultType result = IsJoinPossible(name);
-                if (ResultType.Successful == result) {
-                    SendJoinGameMessage(_games[name], player.Id);
-                    _games[name].AddPlayer(player);
-                    player.GameName = name;
-                    InfoLog.WriteInfo("Player " + player.Login + "has joined game: " + name, EPrefix.ServerAction);
-                    }
-                return result;
+                return IsJoinPossible(name);
             }
-         
+        }
+        public void JoinGame(string name, Player player) {
+            SendJoinGameMessage(_games[name], player.Id);
+            _games[name].AddPlayer(player);
+            player.GameName = name;
+            InfoLog.WriteInfo("Player " + player.Login + "has joined game: " + name, EPrefix.ServerAction);
         }
 
         private void SendMessage(Message msg, short id) {

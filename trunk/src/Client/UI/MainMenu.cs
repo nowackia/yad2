@@ -16,6 +16,7 @@ using Yad.UI.Common;
 using Yad.Properties.Common;
 using Yad.Config;
 
+
 namespace Yad.UI.Client
 {
     public partial class MainMenuForm : UIManageable

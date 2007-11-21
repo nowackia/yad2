@@ -77,6 +77,8 @@ namespace Yad.Net.Server {
 
         public override void AddPlayer(IPlayerID player) {
             base.AddPlayer(player);
+            PlayersMessage pim = CreatePlayerMessage(MessageOperation.Modify, (ServerPlayerInfo)_players[player.GetID()]);
+            SendMessage(pim, player.GetID());
             CancelGameStart();
         }
 
@@ -193,13 +195,15 @@ namespace Yad.Net.Server {
                 
         }
         private short GetTeamForPlayer() {
-            for (short i = 0; i < PlayerInfo.MaxTeamNo; ++i)
-                if (IsTeamIDValid(i))
-                    return i;
+            for (short i = 0; i < this.GetGameInfo().MaxPlayerNumber; ++i)
+                if (IsTeamIDValid(i+1))
+                    return (short)(i+1);
             return -1; //This should never happen!
         }
 
         private bool IsTeamModificationValid(short teamid, short playerid) {
+            if (_players.Count == 1)
+                return true;
             foreach (ServerPlayerInfo spi in _players.Values) {
                     if (spi.Id != playerid)
                         if (spi.TeamID != teamid)
@@ -234,11 +238,11 @@ namespace Yad.Net.Server {
             Player p = player as Player;
             ServerPlayerInfo svp = new ServerPlayerInfo(p);
             short teamId = 1;
-            /*
-            lock (((ICollection)_players).SyncRoot) {
-                teamId = GetTeamForPlayer();
+            if (_players.Count > 0) {
+                lock (((ICollection)_players).SyncRoot) {
+                    teamId = GetTeamForPlayer();
+                }
             }
-             */ 
             svp.TeamID = teamId;
             return svp;
         }
