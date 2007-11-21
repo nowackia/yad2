@@ -53,7 +53,7 @@ namespace Yad.Engine.Client {
 		/// Of course, we must remeber not to define more than 100 objects (units, buildings, etc)
 		/// because the id's will overlap :P
 		/// </summary>
-		const short _offsetPicture = 100, _offsetTexture = 200, _offsetTurret = 300, _offsetSpecialAnimation = 400;
+		const short _offsetPicture = 100, _offsetTurret = 200, _offsetSpecialAnimation = 300, _offsetTexture = 1000;
 		#endregion
 
 		#region funny constants
@@ -321,15 +321,15 @@ namespace Yad.Engine.Client {
 			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
 			Create32bTexture(2, LoadBitmap(Path.Combine(Settings.Default.UI, "Selection.png")));
 
-			GameSettings gameSettings = simulation.GameSettingsWrapper.GameSettings;
-			foreach (AmmoData o in gameSettings.AmmosData.AmmoDataCollection) {
-
+			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
+			foreach (AmmoData o in gameSettings.Ammos) {
 			}
 
-			foreach (BuildingData o in gameSettings.BuildingsData.BuildingDataCollection) {
+			foreach (BuildingData o in gameSettings.Buildings) {
 				//Load texture for map
 				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
+				
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
 
 				//Load picture (currently not needed)
@@ -340,13 +340,13 @@ namespace Yad.Engine.Client {
 				 */
 			}
 
-			foreach (RaceData o in gameSettings.RacesData.RaceDataCollection) {
+			foreach (RaceData o in gameSettings.Races) {
 				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetPicture, texture);
 			}
 
-			foreach (UnitHarvesterData o in gameSettings.UnitHarvestersData.UnitHarvesterDataCollection) {
+			foreach (UnitHarvesterData o in gameSettings.Harvesters) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
@@ -356,19 +356,19 @@ namespace Yad.Engine.Client {
 				Create32bTexture(o.TypeID + _offsetSpecialAnimation, texture);
 			}
 
-			foreach (UnitMCVData o in gameSettings.UnitMCVsData.UnitMCVDataCollection) {
+			foreach (UnitMCVData o in gameSettings.MCVs) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
 			}
 
-			foreach (UnitSandwormData o in gameSettings.UnitSandwormsData.UnitSandwormDataCollection) {
+			foreach (UnitSandwormData o in gameSettings.Sandworms) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
 			}
 
-			foreach (UnitTankData o in gameSettings.UnitTanksData.UnitTankDataCollection) {
+			foreach (UnitTankData o in gameSettings.Tanks) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
 				Bitmap texture = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
@@ -378,7 +378,7 @@ namespace Yad.Engine.Client {
 				Create32bTexture(o.TypeID + _offsetTurret, texture);
 			}
 
-			foreach (UnitTrooperData o in gameSettings.UnitTroopersData.UnitTrooperDataCollection) {
+			foreach (UnitTrooperData o in gameSettings.Troopers) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
 				Bitmap bmp = LoadBitmap(file);
 				Create32bTexture(o.TypeID + _offsetTexture, bmp);
@@ -394,6 +394,9 @@ namespace Yad.Engine.Client {
 			Bitmap tmp = new Bitmap(path);
 			Bitmap bmp = new Bitmap(Correct(tmp.Width), Correct(tmp.Height), PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
+			g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 			g.DrawImage(tmp, 0, 0, bmp.Width, bmp.Height);
 			g.Dispose();
 			return bmp;

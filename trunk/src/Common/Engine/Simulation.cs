@@ -30,10 +30,6 @@ namespace Yad.Engine.Common {
 		/// Turn length in miliseconds
 		/// </summary>
 		static int turnLength = Yad.Properties.Common.Settings.Default.TurnLength;
-		/// <summary>
-		/// Transmission delay in miliseconds
-		/// </summary>
-		const int transmissionDelay = 20;
 
 		#endregion
 
@@ -136,6 +132,7 @@ namespace Yad.Engine.Common {
 			return res;
 		}
 
+		int turnAsk;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
 			List<GameMessage>.Enumerator messagesEnum;
@@ -143,6 +140,7 @@ namespace Yad.Engine.Common {
 				nextTurn.WaitOne(); //wait for MessageTurn
 				//InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
 
+				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
 					onTurnBegin();
 				}
@@ -197,7 +195,7 @@ namespace Yad.Engine.Common {
 					}
 				}
 				//this.fastTurnProcessing = true;
-				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart) - transmissionDelay;
+				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart);
 				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
 
 					if (!this.SpeedUp) { // client
@@ -228,21 +226,7 @@ namespace Yad.Engine.Common {
 		private void handleUnit(Unit u) {
 			u.Move();
 
-			/*
-			if (!u.Moving && (Randomizer.Next(3)!=0)) {
-
-				Position pos = u.Position;
-
-
-				//TODO: remove all Randomizer's in the future
-				pos.X += (short)(Randomizer.NextShort(3) - 1);
-				pos.Y += (short)(Randomizer.NextShort(3) - 1);
-
-				UsefulFunctions.CorrectPosition(ref pos, map.Width, map.Height);
-
-				u.MoveTo(pos);
-			}
-			 * */
+			
 		}
 
 		/// <summary>
@@ -317,6 +301,8 @@ namespace Yad.Engine.Common {
 					MessageBoxEx.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
+			int ms = (Environment.TickCount - turnAsk);
+			InfoLog.WriteInfo("Ask-Permit length: " +  ms.ToString(), EPrefix.SimulationInfo);
 		}
 
 		public void StartSimulation() {

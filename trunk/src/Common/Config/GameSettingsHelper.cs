@@ -28,9 +28,11 @@ namespace Yad.Config {
 			GameSettingsInitializer(gameSettings);
 		}
 
+		/*
 		public GameSettings GameSettings {
 			get { return this.gameSettings; }
 		}
+		 */
 
 		private void GameSettingsInitializer(GameSettings gameSettings) {
 
@@ -81,6 +83,36 @@ namespace Yad.Config {
                 namesToIds.Add(uh.Name,uh.TypeID);
 				troopersMap.Add(uh.TypeID, uh);
 			}
+		}
+
+		public AmmoDataCollection Ammos {
+			get { return this.gameSettings.AmmosData.AmmoDataCollection; }
+		}
+
+		public BuildingDataCollection Buildings {
+			get { return this.gameSettings.BuildingsData.BuildingDataCollection; }
+		}
+
+		public RaceDataCollection Races {
+			get { return this.gameSettings.RacesData.RaceDataCollection; }
+		}
+
+		public UnitHarvesterDataCollection Harvesters {
+			get { return this.gameSettings.UnitHarvestersData.UnitHarvesterDataCollection; }
+		}
+
+		public UnitMCVDataCollection MCVs {
+			get { return this.gameSettings.UnitMCVsData.UnitMCVDataCollection; }
+		}
+
+		public UnitSandwormDataCollection Sandworms {
+			get { return this.gameSettings.UnitSandwormsData.UnitSandwormDataCollection; }
+		}
+		public UnitTankDataCollection Tanks {
+			get { return this.gameSettings.UnitTanksData.UnitTankDataCollection; }
+		}
+		public UnitTrooperDataCollection Troopers {
+			get { return this.gameSettings.UnitTroopersData.UnitTrooperDataCollection; }
 		}
 	}
 }

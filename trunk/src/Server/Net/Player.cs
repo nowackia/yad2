@@ -111,7 +111,6 @@ namespace Yad.Net.Server {
             _writeStream = new BinaryWriter(client.GetStream());
             _isDisconnected = false;
             _rcvThread = new Thread(new ThreadStart(ReceiveMessages));
-            
         }
 
         

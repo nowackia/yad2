@@ -7,7 +7,7 @@
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>5</tns:FireRange>
 			<tns:FirePower>5</tns:FirePower>
-			<tns:Speed>10</tns:Speed>
+			<tns:Speed>8</tns:Speed>
 			<tns:ReloadTime>2</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:Health>100</tns:Health>
@@ -24,7 +24,7 @@
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>10</tns:FireRange>
 			<tns:FirePower>100</tns:FirePower>
-			<tns:Speed>5</tns:Speed>
+			<tns:Speed>3</tns:Speed>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:Health>100</tns:Health>
@@ -40,7 +40,7 @@
 		<tns:UnitHarvesterData>
 			<tns:Name>Harvester</tns:Name>
 			<tns:Cost>300</tns:Cost>
-			<tns:Speed>8</tns:Speed>
+			<tns:Speed>7</tns:Speed>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
@@ -55,7 +55,7 @@
 		<tns:UnitMCVData>
 			<tns:Name>MCV</tns:Name>
 			<tns:Cost>400</tns:Cost>
-			<tns:Speed>10</tns:Speed>
+			<tns:Speed>7</tns:Speed>
 			<tns:Health>150</tns:Health>
 			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>15</tns:BuildSpeed>
@@ -106,14 +106,16 @@
 			<tns:UnitsCanProduce>
 				<tns:Name>Infantry</tns:Name>
 			</tns:UnitsCanProduce>
-      <tns:BuildingsCanProduce>
-        <tns:Name>Slab4</tns:Name>
-        <tns:Name>Barracks</tns:Name>
-        <tns:Name>Slab1</tns:Name>
-        <tns:Name>Radar</tns:Name>
-        <tns:Name>Refinery</tns:Name>
-        <tns:Name>Wall</tns:Name>
-      </tns:BuildingsCanProduce>
+			<tns:BuildingsCanProduce>
+				<tns:Name>ConstructionYard</tns:Name>
+				<tns:Name>Slab1</tns:Name>
+				<tns:Name>Slab4</tns:Name>
+				<tns:Name>WindTrap</tns:Name>
+				<tns:Name>Refinery</tns:Name>
+				<tns:Name>Barracks</tns:Name>
+				<tns:Name>Radar</tns:Name>
+				<tns:Name>Wall</tns:Name>
+			</tns:BuildingsCanProduce>
 		</tns:BuildingData>
 
 		<tns:BuildingData>
