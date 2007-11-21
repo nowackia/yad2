@@ -31,8 +31,8 @@ namespace Yad.Engine.Common {
 		int _objectID = 0;
 
 		//used for fast access to an object
-		private Dictionary<int, Building> _buildingsDict = new Dictionary<int, Building>();
-		private Dictionary<int, Unit> _unitsDict = new Dictionary<int, Unit>();
+        private Dictionary<ObjectID, Building> _buildingsDict = new Dictionary<ObjectID, Building>();
+        private Dictionary<ObjectID, Unit> _unitsDict = new Dictionary<ObjectID, Unit>();
 
 		//used for slow access to an object :D
 		//but pretty useful for a turn processing
@@ -100,11 +100,11 @@ namespace Yad.Engine.Common {
 			return new List<Building>(this._buildings);
 		}
 
-		public Unit GetUnit(int id) {
+		public Unit GetUnit(ObjectID id) {
 			return this._unitsDict[id];
 		}
 
-		public Building GetBuilding(int id) {
+		public Building GetBuilding(ObjectID id) {
 			return this._buildingsDict[id];
 		}
 		#endregion

@@ -246,7 +246,7 @@ namespace Yad.Engine.Common {
 		private void destroyUnit(Unit u) {
 			this.unitsToProcess.Remove(u);
 			this.UnitsProcessed.Remove(u);
-			this.players[u.PlayerID].RemoveUnit(u);
+			this.players[u.ObjectID.PlayerID].RemoveUnit(u);
 		}
 
 		/// <summary>
@@ -256,7 +256,7 @@ namespace Yad.Engine.Common {
 		private void destroyBuilding(Building b) {
 			this.buildingsToProcess.Remove(b);
 			this.buildingsProcessed.Remove(b);
-			this.players[b.PlayerID].RemoveBuilding(b);
+			this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
 		}
 
 		#endregion

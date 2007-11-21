@@ -189,9 +189,9 @@ namespace Yad.Engine.Client {
 			}
 			foreach (Unit u in _selectedUnits) {
 				MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
-				mm.IdUnit = u.ObjectID;
+				mm.IdUnit = u.ObjectID.ObjectId;
 				mm.Destination = newPos;
-				mm.IdPlayer = u.PlayerID;
+				mm.IdPlayer = u.ObjectID.PlayerID;
 				Connection.Instance.SendMessage(mm);
 			}
 		}
