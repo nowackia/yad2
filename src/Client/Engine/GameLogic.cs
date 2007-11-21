@@ -253,7 +253,7 @@ namespace Yad.Engine.Client {
 				}
 			}
 			return true;
-		}		
+		}
 
 		private void IncreaseBuildingCounter(short buildingId) {
 			if (_buildingCounter.ContainsKey(buildingId)) {

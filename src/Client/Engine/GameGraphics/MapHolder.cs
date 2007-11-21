@@ -74,14 +74,14 @@ namespace Yad.Engine.GameGraphics.Client {
 			int result;
 			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
 				throw new MapHolderException("Incorrect map position");
-			
+
 			ETextures tileLeft, tileRight, tileUpper, tileLower;
-			
+
 			if (x > 0)
 				tileLeft = (ETextures)map.Tiles[x - 1, y];
 			else
 				tileLeft = ETextures.Whatever;
-			
+
 			if (x < map.Width - 1)
 				tileRight = (ETextures)map.Tiles[x + 1, y];
 			else
@@ -168,8 +168,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			return (int)Math.Pow(2, y);
 		}
 
-		private static int FindFogFrame(Map map, int x, int y)
-		{
+		private static int FindFogFrame(Map map, int x, int y) {
 			int result;
 			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
 				throw new MapHolderException("Incorrect map position");
@@ -195,8 +194,7 @@ namespace Yad.Engine.GameGraphics.Client {
 				fogLower = map.FogOfWar[x, y - 1];
 			else
 				fogLower = map.FogOfWar[x, y];
-			for (int i = 0; i < tileFrameMap.Length; i++)
-			{
+			for (int i = 0; i < tileFrameMap.Length; i++) {
 				if ((result = MatchFog(fogFrameMap[i], map.FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
 					return result;
 			}
@@ -204,8 +202,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 		}
 
-		private static short MatchFog(short[] fogFrameMap, bool center, bool fogLeft, bool fogRight, bool fogLower, bool fogUpper)
-		{
+		private static short MatchFog(short[] fogFrameMap, bool center, bool fogLeft, bool fogRight, bool fogLower, bool fogUpper) {
 			if (Convert.ToInt16(center) == fogFrameMap[0] && Convert.ToInt16(fogLeft) == fogFrameMap[1] && Convert.ToInt16(fogRight) == fogFrameMap[2] && Convert.ToInt16(fogUpper) == fogFrameMap[3] && Convert.ToInt16(fogLower) == fogFrameMap[4])
 				return fogFrameMap[5];
 			return -1;
