@@ -56,7 +56,6 @@
     <Compile Include="Config\XMLLoader\XMLLoader.cs" />
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
     <Compile Include="Config\Yad.Config.Common.cs" />
-    <Compile Include="Engine\HouseType.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\CreateGameResult.cs" />

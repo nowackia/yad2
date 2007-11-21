@@ -961,15 +961,18 @@ namespace Yad.UI.Client
             this.teamCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
             this.teamCBWaitingForPlayersMenu.TabIndex = 4;
             this.teamCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
+            this.teamCBWaitingForPlayersMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBWaitingForPlayersMenu_KeyDown);
             // 
             // houseCBWaitingForPlayersMenu
             // 
             this.houseCBWaitingForPlayersMenu.FormattingEnabled = true;
             this.houseCBWaitingForPlayersMenu.Location = new System.Drawing.Point(80, 27);
+            this.houseCBWaitingForPlayersMenu.MaxDropDownItems = 10;
             this.houseCBWaitingForPlayersMenu.Name = "houseCBWaitingForPlayersMenu";
             this.houseCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
             this.houseCBWaitingForPlayersMenu.TabIndex = 3;
             this.houseCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
+            this.houseCBWaitingForPlayersMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBWaitingForPlayersMenu_KeyDown);
             // 
             // dataGridViewPlayers
             // 
