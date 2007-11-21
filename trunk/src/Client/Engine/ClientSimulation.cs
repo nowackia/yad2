@@ -47,9 +47,9 @@ namespace Yad.Engine.Client {
 			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
 			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, this.map, bm.Position, new Position(bd.Size));
 
-			players[b.PlayerID].AddBuilding(b);
+			players[b.ObjectID.PlayerID].AddBuilding(b);
 
-			if (b.PlayerID.Equals(currentPlayer.ID)) {
+			if (b.ObjectID.PlayerID.Equals(currentPlayer.ID)) {
 				if (OnBuildingCompleted != null) {
 					this.OnBuildingCompleted(b);
 				}
@@ -61,7 +61,7 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " UnitID:" + gm.IdUnit, EPrefix.SimulationInfo);
 
 			Player p = this.players[gm.IdPlayer];
-			Unit u = p.GetUnit(gm.IdUnit);
+			Unit u = p.GetUnit(ObjectID.From(gm.IdUnit,gm.IdPlayer));
 			u.MoveTo(gm.Destination);			
 		}
 
@@ -90,7 +90,7 @@ namespace Yad.Engine.Client {
 			}
 			players[cum.IdPlayer].AddUnit(u);
 
-			if (u.PlayerID == currentPlayer.ID) {
+			if (u.ObjectID.PlayerID == currentPlayer.ID) {
 				if (OnUnitCompleted != null) {
 					this.OnUnitCompleted(u);
 				}

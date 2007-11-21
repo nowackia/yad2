@@ -9,15 +9,43 @@ namespace Yad.Board.Common {
 	/// base object for all objects placed on map: units, buildings.
 	/// base object have animation -> bullet, rocket ..
 	/// </summary>
+    /// 
+
+    public class ObjectID {
+        protected int objectID;
+        protected short playerID;
+        public int ObjectId {
+            get { return objectID; }
+        }
+        public short PlayerID {
+            get { return playerID; }
+        }
+        public ObjectID(int objectID, short playerID) {
+            this.objectID = objectID;
+            this.playerID = playerID;
+        }
+        public static ObjectID From(int objectID, short playerID) {
+            return new ObjectID(objectID, playerID);
+        }
+
+        public override bool Equals(object obj) {
+            if ((obj is ObjectID) == false) return false;
+            ObjectID ob = (ObjectID)obj;
+            return this.playerID == ob.playerID && this.objectID == ob.objectID;
+        }
+
+        public override int GetHashCode() {
+            return objectID +  1000 * this.PlayerID;
+        }
+
+    }
+
 	public class BoardObject {
 
 		protected static GameSettings gameSettings = new GameSettings();
 
-		/// <summary>
-		/// These two values identify board object. PlayerID and objectID is assigned by each Player.
-		/// </summary>
-		short playerID;
-		int objectID;
+
+        ObjectID objectID;
 		Position position;
 
 		BoardObjectClass boardObjectClass;
@@ -34,8 +62,7 @@ namespace Yad.Board.Common {
 		/// <param name="oID">objectID</param>
 		/// <param name="pos">position</param>
 		public BoardObject(short pID, int oID, BoardObjectClass ot, Position pos) {
-			this.playerID = pID;
-			this.objectID = oID;
+            this.objectID = new ObjectID(oID, pID);
 			this.position = pos;
 			this.boardObjectClass = ot;
 		}
@@ -46,11 +73,9 @@ namespace Yad.Board.Common {
 			}
 		}
 
-		public short PlayerID {
-			get { return this.playerID; }
-		}
+		
 
-		public int ObjectID {
+		public ObjectID ObjectID {
 			get { return this.objectID; }
 		}
 
