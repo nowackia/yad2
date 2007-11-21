@@ -9,6 +9,7 @@ namespace Yad.Net.Client
     {
         private static GameInfo gameInfo = null;
         private static PlayerInfo playerInfo = new PlayerInfo();
+        private static PlayerInfo[] enemies = null;
 
         public static short SenderId
         {
@@ -37,7 +38,14 @@ namespace Yad.Net.Client
             get
             { return gameInfo; }
             set
-            { gameInfo = value; }
+            { 
+                gameInfo = value;
+            }
         }
+
+        /*public static PlayerInfo[] Enemies
+        {
+            get { return 
+        }*/
     }
 }
