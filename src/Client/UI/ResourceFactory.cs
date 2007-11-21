@@ -36,6 +36,7 @@ namespace Yad.UI {
                 try {
                     im = TryGetImage(Path.Combine(Settings.Default.Pictures, name + ".png"));
                     pictures.Add(name, im);
+                    return im;
                 } catch (FileNotFoundException ex) {
                     throw new NotImplementedException("brak pliku grafiki dla " + name + ": " + ex.Message);
                 }
