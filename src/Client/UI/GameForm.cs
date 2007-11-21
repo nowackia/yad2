@@ -302,6 +302,7 @@ namespace Yad.UI.Client {
 			if (leftStripe.Ids.Contains(idB)) {
 				BuildingData data = GlobalSettings.Wrapper.buildingsMap[idB];
 				foreach (String name in data.BuildingsCanProduce) {
+                    InfoLog.WriteInfo(name, EPrefix.ClientInformation);
 					short id = _gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
 					if (rightStripe.Ids.Contains(id)) continue;
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor

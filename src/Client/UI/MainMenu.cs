@@ -809,7 +809,7 @@ namespace Yad.UI.Client
                 ManageControlState(new Control[] { startWaitingForPlayersMenu }, true);
 
             if (e.successful)
-            {
+            {   
                 /* Change message handler to GameMessageHandler */
                 GameMessageHandler.Instance.Suspend();
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
