@@ -105,7 +105,7 @@ namespace Yad.UI.Client {
 		#endregion
 
 		public void Insert(short id, String name, String pictureName, bool building) {
-			OwnerDrawPictureButton pictureButton = new OwnerDrawPictureButton(new Bitmap(pictureName), new Bitmap(pictureName));
+            OwnerDrawPictureButton pictureButton = new OwnerDrawPictureButton(ResourceFactory.GetPicture(name), ResourceFactory.GetPicture(name));
 			isBuilding[id] = building;
 			buttons[id] = pictureButton;
 			buttonsToId[pictureButton] = id;

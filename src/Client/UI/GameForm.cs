@@ -292,7 +292,7 @@ namespace Yad.UI.Client {
 
 		public void AddBuildingToStripe(short id) {
 			String name = _gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
-			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true); //TODO add picture name to xsd.
+			leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
 		}
 
 		public void ShowPossibilitiesForBuilding(short idB) {
@@ -306,7 +306,7 @@ namespace Yad.UI.Client {
 					if (rightStripe.Ids.Contains(id)) continue;
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
 					if (CheckDependencies(name)) {
-						rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
+						rightStripe.Add(id, name, name, true);
 					}
 				}
 				foreach (String name in data.UnitsCanProduce) {
@@ -314,7 +314,7 @@ namespace Yad.UI.Client {
 					if (rightStripe.Ids.Contains(id)) continue;
 
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-					rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
+					rightStripe.Add(id, name, name, false);
 				}
 			}
 		}
