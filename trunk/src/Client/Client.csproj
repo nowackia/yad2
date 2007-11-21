@@ -125,6 +125,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\ItemValue.cs" />
     <Compile Include="UI\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>

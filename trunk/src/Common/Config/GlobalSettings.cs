@@ -15,6 +15,11 @@ namespace Yad.Config {
             set { _defaultHouse = value; }
         }
 
+        public string DefaultHouseName
+        {
+            get { return GetHouseName(_defaultHouse); }
+        }
+
         public string GetHouseName(short id){
             return _gameSettingsWrapper.racesMap[id].Name;
         }
