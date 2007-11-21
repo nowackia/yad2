@@ -29,6 +29,11 @@ namespace Yad.Board {
 			this._y = y;
 		}
 
+		public Position(int x, int y) {
+			this._x = (short)x;
+			this._y = (short)y;
+		}
+
 		public Position(Yad.Config.Common.Size size) {
 			this._x = (short)size.X;
 			this._y = (short)size.Y;

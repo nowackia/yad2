@@ -50,10 +50,10 @@ namespace Tests {
 
 		public void TestSimulaton() {
 			Simulation sim;
-			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get("dune_data.xml", "dune.xsd");
+			GameSettingsWrapper gameSettingsWrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine("Resources/Maps", "test.map"));
-			sim = new ClientSimulation(gameSettingsWrapper, map, new Player(0, "test1", gameSettingsWrapper.GameSettings.RacesData[0].TypeID), null);
+			sim = new ClientSimulation(gameSettingsWrapper, map, new Player(0, "test1", gameSettingsWrapper.Races[0].TypeID));
 			sim.onTurnEnd += new SimulationHandler(sim_onTurnEnd);
 			sim.StartSimulation();
 

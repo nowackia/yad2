@@ -15,42 +15,45 @@ using Yad.Engine.Common;
 
 namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
+		TurnAskMessage tam = new TurnAskMessage();
 	
 		#region events
-		public delegate void BuildingCompletedHandler (short buildingType);
-		public delegate void UnitCompletedHandler (short unitType);
+		public delegate void BuildingCompletedHandler (Building b);
+		public delegate void UnitCompletedHandler (Unit u);
 
 		public event BuildingCompletedHandler OnBuildingCompleted;
 		public event UnitCompletedHandler OnUnitCompleted;
 		#endregion
 
-		IConnection connectionToServer;
-
-		public ClientSimulation(GameSettingsWrapper settings, Map map, Player currPlayer, IConnection conn)
+		public ClientSimulation(GameSettingsWrapper settings, Map map, Player currPlayer)
 			: base(settings, map, currPlayer, false) {
-			this.connectionToServer = conn;
-			//this.onTurnBegin
+			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
+		}
+
+		void ClientSimulation_onTurnBegin() {
+			//This optimisation roxxxz! :D
+			Connection.Instance.SendMessage(tam);
 		}
 
 		void ClientSimulation_onTurnEnd() {
 			//InfoLog.WriteInfo("Asking for turn", EPrefix.SimulationInfo);
-			connectionToServer.SendMessage(new TurnAskMessage());
+			//connectionToServer.SendMessage(tam);
 		}
 
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
+
 			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
 			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, this.map, bm.Position, new Position(bd.Size));
-			if (players[bm.IdPlayer] == null)
-				throw new Exception("Message from unknown player");
-            if (bm.IdPlayer.Equals(currentPlayer.ID)) {
-				if (this.OnBuildingCompleted != null) {
-					this.OnBuildingCompleted(bm.BuildingType);
+
+			players[b.PlayerID].AddBuilding(b);
+
+			if (b.PlayerID.Equals(currentPlayer.ID)) {
+				if (OnBuildingCompleted != null) {
+					this.OnBuildingCompleted(b);
 				}
-                //StripesManager.RemovePercentageCounter(bm.BuildingType,true);
-            }
-			players[bm.IdPlayer].AddBuilding(b);
+			}
 		}
 
 		protected override void onMessageMove(MoveMessage gm)
@@ -59,7 +62,7 @@ namespace Yad.Engine.Client {
 
 			Player p = this.players[gm.IdPlayer];
 			Unit u = p.GetUnit(gm.IdUnit);
-			u.MoveTo(gm.Path);			
+			u.MoveTo(gm.Destination);			
 		}
 
 		protected override void onMessageAttack(AttackMessage am) {
@@ -85,10 +88,13 @@ namespace Yad.Engine.Client {
 			} else if (boc == BoardObjectClass.UnitTrooper) {
 				u = new UnitTrooper(cum.IdPlayer, cum.UnitID, gameSettingsWrapper.troopersMap[cum.UnitType], cum.Position, this.map);
 			}
-			if (players[cum.IdPlayer] == null)
-				throw new Exception("Message from unknown player");
 			players[cum.IdPlayer].AddUnit(u);
-			this.map.Units[u.Position.X, u.Position.Y].AddLast(u);
+
+			if (u.PlayerID == currentPlayer.ID) {
+				if (OnUnitCompleted != null) {
+					this.OnUnitCompleted(u);
+				}
+			}
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {

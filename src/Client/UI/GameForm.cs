@@ -27,15 +27,24 @@ namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
 
 		#region private members
-		bool scrolling = false;
-		bool selecting = false;
-		bool wasScrolled = false;
-		Point mousePos;
-		Position selectionStart;
-		Position selectionEnd;
-		GameLogic gameLogic;
-		#endregion
+		bool _scrolling = false;
+		bool _selecting = false;
+		bool _wasScrolled = false;
+		Point _mousePos;
+		Position _selectionStart;
+		Position _selectionEnd;
+		GameLogic _gameLogic;
 
+		/// <summary>
+		/// True after player clicks strip
+		/// </summary>
+		private bool _isCreatingBuilding = false, _isCreatingUnit = false;
+		/// <summary>
+		/// Can be both - unit or building
+		/// </summary>
+		private short _objectToCreateId;
+
+		#endregion
 
 		#region constructor
 		public GameForm() {
@@ -46,15 +55,14 @@ namespace Yad.UI.Client {
 			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
-			gameLogic = new GameLogic();
-			gameLogic.AddBuildingEvent += new GameLogic.AddBuildingDelegate(AddBuilding);
-			gameLogic.AddUnitEvent += new GameLogic.AddUnitDelegate(addUnitCreationPossibility);
+			_gameLogic = new GameLogic();
+			_gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(Simulation_OnBuildingCompleted);
+			_gameLogic.Simulation.OnUnitCompleted += new ClientSimulation.UnitCompletedHandler(Simulation_OnUnitCompleted);
+			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 
-			gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(Simulation_OnBuildingCompleted);
-			gameLogic.Simulation.OnUnitCompleted += new ClientSimulation.UnitCompletedHandler(Simulation_OnUnitCompleted);
-
-			leftStripe.onBuildChosen += new BuildChosenHandler(leftStripe_onBuildChosen);
-			rightStripe.onBuildChosen += new BuildChosenHandler(rightStripe_onBuildChosen);
+			leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
+			//leftStripe.onUnitChosen //there should be no units there...
+			rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 			rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
@@ -63,9 +71,9 @@ namespace Yad.UI.Client {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
-			GameGraphics.InitGL(gameLogic);
+			GameGraphics.InitGL(_gameLogic);
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-			GameGraphics.InitTextures(gameLogic.Simulation);
+			GameGraphics.InitTextures(_gameLogic.Simulation);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
@@ -74,33 +82,22 @@ namespace Yad.UI.Client {
 			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 
 			GameMessageHandler.Instance.Resume();
-        }
-        #region stripes handler
-        void rightStripe_onUnitChosen(short id) {
-            InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-            gameLogic.CreateUnit(id);
-        }
+		}
 		#endregion
 
 		#region simulation events handling
-        void rightStripe_onBuildChosen(short id) {
-            InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            gameLogic.LocateBuilding(id);
-        }
+		void Simulation_onTurnEnd() {
+			this.openGLView.Invalidate();
+		}
 
-        void leftStripe_onBuildChosen(short id) {
-            InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            // show building on rightStripe
-            BuildingClickedOnMap(id);
-
-        }
-
-		void Simulation_OnUnitCompleted(short unitType) {
-            this.rightStripe.RemovePercentCounter(unitType);
-        }
-        #endregion
-        void Simulation_OnBuildingCompleted(short buildingType) {
-            this.rightStripe.RemovePercentCounter(buildingType);
+		void Simulation_OnUnitCompleted(Unit u) {
+			//TODO
+			//this.rightStripe.RemovePercentCounter(unitType);
+		}
+		void Simulation_OnBuildingCompleted(Building b) {
+			//this.rightStripe.RemovePercentCounter(buildingType);
+			//TODO: add building type, update tech-tree
+			AddBuildingToStripe(b.TypeID);
 		}
 		#endregion
 
@@ -144,13 +141,15 @@ namespace Yad.UI.Client {
 			} else if (e.KeyCode == Keys.E) {
 				GameGraphics.Zoom(1);
 			} else if (e.KeyCode == Keys.A) {
-				GameGraphics.OffsetX(Settings.Default.ScrollingSpeed);
+				GameGraphics.OffsetX(-Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.D) {
 				GameGraphics.OffsetX(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.W) {
 				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.S) {
-				GameGraphics.OffsetY(Settings.Default.ScrollingSpeed);
+				GameGraphics.OffsetY(-Settings.Default.ScrollingSpeed);
+			} else if (e.KeyCode == Keys.X) {
+				_gameLogic.DeployMCV();
 			}
 		}
 
@@ -160,104 +159,182 @@ namespace Yad.UI.Client {
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseDown");
-			if (e.Button == MouseButtons.Right) {
-				//mousePos = e.Location;
-			} else if (e.Button == MouseButtons.Left) {
-				this.selecting = true;
-				this.selectionStart = GameGraphics.TranslateMousePosition(e.Location);
-			} else if (e.Button == MouseButtons.Middle) {
-				mousePos = e.Location;
-				scrolling = true;
+
+			switch (e.Button) {
+				case MouseButtons.Left:
+					HandleLeftButtonDown(e);
+					break;
+				case MouseButtons.Middle:
+					HandleMiddleButtonDown(e);
+					break;
+				case MouseButtons.Right:
+					HandleRightButtonDown(e);
+					break;
+				case MouseButtons.XButton1:
+				case MouseButtons.XButton2:
+				case MouseButtons.None:
+				default:
+					break;
 			}
+		}
+
+		private void HandleRightButtonDown(MouseEventArgs e) {
+			_isCreatingBuilding = _isCreatingUnit = false;
+
+			_gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
+		}
+
+		private void HandleMiddleButtonDown(MouseEventArgs e) {
+			_mousePos = e.Location;
+			_scrolling = true;
+			Cursor.Hide();
+		}
+
+		private void HandleLeftButtonDown(MouseEventArgs e) {
+			Position pos = GameGraphics.TranslateMousePosition(e.Location);
+
+			if (this._isCreatingBuilding) {
+				_gameLogic.CreateBuilding(pos, _objectToCreateId);
+				this._isCreatingBuilding = false;
+				return;
+			}
+
+			this._selecting = true;
+			this._selectionStart = GameGraphics.TranslateMousePosition(e.Location);
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseUp");
-			if (e.Button == MouseButtons.Right) {
-				gameLogic.IssuedOrder(GameGraphics.TranslateMousePosition(e.Location));
-			} else if (e.Button == MouseButtons.Left) {
-				selecting = false;
-				this.selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
-				gameLogic.Select(selectionStart, selectionEnd);
-			} else if (e.Button == MouseButtons.Middle) {
-				scrolling = false;
+
+			switch (e.Button) {
+				case MouseButtons.Left:
+					HandleLeftButtonUp(e);
+					break;
+				case MouseButtons.Middle:
+					HandleMiddleButtonUp();
+					break;
+				case MouseButtons.Right:
+					break;
+				case MouseButtons.XButton1:
+				case MouseButtons.XButton2:
+				case MouseButtons.None:
+				default:
+					break;
 			}
 		}
 
+		private void HandleMiddleButtonUp() {
+			_scrolling = false;
+			Cursor.Show();
+		}
+
+		private void HandleLeftButtonUp(MouseEventArgs e) {
+			_selecting = false;
+			this._selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
+			_gameLogic.Select(_selectionStart, _selectionEnd);
+		}
+
 		private void openGLView_MouseMove(object sender, MouseEventArgs e) {
-			if (wasScrolled) {
-				wasScrolled = false;
+			if (_wasScrolled) {
+				_wasScrolled = false;
 				return;
 			}
-			if (scrolling) {
-				int dx = e.X - mousePos.X;
-				int dy = e.Y - mousePos.Y;
+			if (_scrolling) {
+				int dx = e.X - _mousePos.X;
+				int dy = e.Y - _mousePos.Y;
 
 				GameGraphics.OffsetX(-dx * 0.05f);
 				GameGraphics.OffsetY(dy * 0.05f); //opengl uses different coordinate system
 
-				wasScrolled = true;
-				Cursor.Position = openGLView.PointToScreen(mousePos);
+				_wasScrolled = true;
+				Cursor.Position = openGLView.PointToScreen(_mousePos);
 			}
 		}
 		#endregion
 
 		#region stripes-related
-		internal void addUnitCreationPossibility(string name, short key)
-		{
-			
+		void rightStripe_onUnitChosen(short id) {
+			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
+			PlaceUnit(id);
+		}
+
+		void rightStripe_onBuildingChosen(short id) {
+			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
+			PlaceBuilding(id);
+		}
+
+		void leftStripe_onBuildingChosen(short id) {
+			InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
+			// show building on rightStripe
+			ShowPossibilitiesForBuilding(id);
+		}
+
+		private void PlaceUnit(short id) {
+			//create or let user choose where to place unit?
+			//this.isCreatingUnit = true;
+			//gameLogic.createUnit(short unitID, Building!!)
+			_objectToCreateId = id;
+		}
+
+		private void PlaceBuilding(short id) {
+			this._isCreatingBuilding = true;
+			_objectToCreateId = id;
+		}
+
+		/*
+		internal void addUnitCreationPossibility(string name, short key) {
+
 			short id = gameLogic.GameSettingsWrapper.namesToIds[name];
 			//stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
-			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"),false);//TODO add picture name to xsd.
+			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);//TODO add picture name to xsd.
+		}
+		*/
+
+		public void AddBuildingToStripe(short id) {
+			String name = _gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
+			leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true); //TODO add picture name to xsd.
 		}
 
-		public void AddBuilding(short id, short key) {
-			String name = gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
-            leftStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);//TODO add picture name to xsd.
-			BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
+		public void ShowPossibilitiesForBuilding(short idB) {
+			rightStripe.RemoveAll(); // flush the stripe
+
+			//simulation.GameSettingsWrapper.
+			if (leftStripe.Ids.Contains(idB)) {
+				BuildingData data = GlobalSettings.Wrapper.buildingsMap[idB];
+				foreach (String name in data.BuildingsCanProduce) {
+					short id = _gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
+					if (rightStripe.Ids.Contains(id)) continue;
+					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
+					if (CheckDependencies(name)) {
+						rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
+					}
+				}
+				foreach (String name in data.UnitsCanProduce) {
+					short id = _gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
+					if (rightStripe.Ids.Contains(id)) continue;
+
+					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
+					rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
+				}
+			}
 		}
 
-		#endregion
-        public void BuildingClickedOnMap(short idB) {
-            rightStripe.RemoveAll(); // flush the stripe
-
-            //simulation.GameSettingsWrapper.
-            if (leftStripe.Ids.Contains(idB)) {
-                BuildingData data = gameLogic.Simulation.GameSettingsWrapper.buildingsMap[idB];
-                foreach (String name in data.BuildingsCanProduce) {
-                    short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
-                    if (rightStripe.Ids.Contains(id)) continue;
-                    //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-                    if (checkDeps(name)) {
-                        rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), true);
-                    }
-                }
-                foreach (String name in data.UnitsCanProduce) {
-                    short id = gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
-                    if (rightStripe.Ids.Contains(id)) continue;
-                    
-                        //TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-                        rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);
-                    
-                }
-            }
-        }
-
-        private bool checkDeps(string name) {
-            TechnologyDependences deps = gameLogic.GameSettingsWrapper.racesMap[gameLogic.CurrentPlayer.Race].TechnologyDependences;
-            foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
-                if (dep.BuildingName.Equals(name)) {
-                    foreach (string n in dep.RequiredBuildings) {
-                        short id = gameLogic.GameSettingsWrapper.namesToIds[n];
-                        if (gameLogic.hasBuilding(id) == false) return false;
-                    }
-                }
-            }
-            return true;
-        }
+		private bool CheckDependencies(string name) {
+			TechnologyDependences deps = _gameLogic.GameSettingsWrapper.racesMap[_gameLogic.CurrentPlayer.Race].TechnologyDependences;
+			foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
+				if (dep.BuildingName.Equals(name)) {
+					foreach (string n in dep.RequiredBuildings) {
+						short id = _gameLogic.GameSettingsWrapper.namesToIds[n];
+						if (_gameLogic.hasBuilding(id) == false) return false;
+					}
+				}
+			}
+			return true;
+		}
 
 		internal bool IsStripContainingBuilding(short ids) {
 			return leftStripe.Ids.Contains(ids);
 		}
+		#endregion
 	}
 }

@@ -14,7 +14,7 @@ namespace Yad.Net.Messaging.Common
             : base(MessageType.Move)
         { }
 
-        public Position Path
+        public Position Destination
         {
             get { return position; }
             set { position = value; }

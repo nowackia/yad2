@@ -34,7 +34,7 @@ namespace Yad.Board.Common {
 
 		//map-related
 		protected Map map;
-		bool alreadyOnMap = false;
+		bool _alreadyOnMap = false;
 
 		//TODO : RS implement some base AI?
 		//KŒ: yes ;P
@@ -235,8 +235,9 @@ namespace Yad.Board.Common {
 		}
 
 		public bool PlaceOnMap() {
-			if (!alreadyOnMap) {
+			if (!_alreadyOnMap) {
 				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				_alreadyOnMap = true;
 				return true;
 			}
 			return false;
