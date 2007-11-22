@@ -336,7 +336,6 @@ namespace Yad.UI.Client
             this.serverLoginMenu.Size = new System.Drawing.Size(105, 20);
             this.serverLoginMenu.TabIndex = 11;
             this.serverLoginMenu.Text = "127.0.0.1";
-            this.serverLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
             // 
             // serverLabel
             // 
@@ -377,7 +376,6 @@ namespace Yad.UI.Client
             this.loginTBLoginMenu.Size = new System.Drawing.Size(105, 20);
             this.loginTBLoginMenu.TabIndex = 2;
             this.loginTBLoginMenu.Text = "test_player_";
-            this.loginTBLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
             // 
             // passwordLoginMenu
             // 
@@ -388,7 +386,6 @@ namespace Yad.UI.Client
             this.passwordLoginMenu.TabIndex = 3;
             this.passwordLoginMenu.Text = "yad2";
             this.passwordLoginMenu.UseSystemPasswordChar = true;
-            this.passwordLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
             // 
             // passwordLabel
             // 
@@ -524,7 +521,6 @@ namespace Yad.UI.Client
             this.loginTBRegisterMenu.Name = "loginTBRegisterMenu";
             this.loginTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.loginTBRegisterMenu.TabIndex = 1;
-            this.loginTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // repeatPasswordLRegisterMenu
             // 
@@ -543,7 +539,6 @@ namespace Yad.UI.Client
             this.passwordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.passwordTBRegisterMenu.TabIndex = 2;
             this.passwordTBRegisterMenu.UseSystemPasswordChar = true;
-            this.passwordTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // emailTBRegisterMenu
             // 
@@ -552,7 +547,6 @@ namespace Yad.UI.Client
             this.emailTBRegisterMenu.Name = "emailTBRegisterMenu";
             this.emailTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.emailTBRegisterMenu.TabIndex = 4;
-            this.emailTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // repeatPasswordTBRegisterMenu
             // 
@@ -562,7 +556,6 @@ namespace Yad.UI.Client
             this.repeatPasswordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.repeatPasswordTBRegisterMenu.TabIndex = 3;
             this.repeatPasswordTBRegisterMenu.UseSystemPasswordChar = true;
-            this.repeatPasswordTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // passwordLRegisterMenu
             // 
@@ -854,7 +847,6 @@ namespace Yad.UI.Client
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(179, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 2;
             this.gameNameTBCreateGameMenu.Text = "test_game_";
-            this.gameNameTBCreateGameMenu.Validating += new System.ComponentModel.CancelEventHandler(this.createGameMenu_Validating);
             // 
             // privateCreateGameMenu
             // 
