@@ -46,6 +46,7 @@ namespace Yad.UI.Client {
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.flowLayoutPanel1.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -81,6 +82,7 @@ namespace Yad.UI.Client {
             // 
             // contentPanel
             // 
+            this.contentPanel.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
             this.contentPanel.Controls.Add(this.scrollingPanel);
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentPanel.Location = new System.Drawing.Point(3, 23);
@@ -113,6 +115,7 @@ namespace Yad.UI.Client {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
             this.Controls.Add(this.tableLayoutPanelMain);
+            this.DoubleBuffered = true;
             this.Name = "BuildStripe";
             this.Size = new System.Drawing.Size(78, 267);
             this.scrollingPanel.ResumeLayout(false);
