@@ -34,6 +34,14 @@ namespace Yad.Net.Client
             { return instance; }
         }
 
+        public void InitConnection(string hostnameWithPort)
+        {
+            string hostname = hostnameWithPort.Substring(0, hostnameWithPort.Length - 5);
+            int port = int.Parse(hostnameWithPort.Substring(hostnameWithPort.Length - 4));
+
+            this.InitConnection(hostname, port);
+        }
+
         public void InitConnection(string hostname, int port)
         {
             if (tcpClient.Connected)

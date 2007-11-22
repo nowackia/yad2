@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using Yad.Net.Common;
 using Yad.Engine.Common;
@@ -33,6 +34,9 @@ namespace Yad.Net.Messaging.Common {
                 WriteString(pi.Name, writer);
                 writer.Write(pi.TeamID);
                 writer.Write(pi.House);
+                writer.Write(pi.Color.R);
+                writer.Write(pi.Color.G);
+                writer.Write(pi.Color.B);
             }
         }
 
@@ -46,8 +50,8 @@ namespace Yad.Net.Messaging.Common {
                 pi.Name = ReadString(reader);
                 pi.TeamID = reader.ReadInt16();
                 pi.House = reader.ReadInt16();
+                pi.Color = Color.FromArgb(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                 _playerList.Add(pi);
-
             }
            
         }

@@ -106,6 +106,8 @@ namespace Yad.UI.Client
 
             DirectoryInfo directoryInfo = new DirectoryInfo(Settings.Default.Maps);
             listBox.Items.AddRange(directoryInfo.GetFiles("*.map"));
+            if(listBox.Items.Count > 0)
+                listBox.SelectedIndex = 0;
         }
 
         public void ManageControlState(Control[] control, bool state)
@@ -144,9 +146,12 @@ namespace Yad.UI.Client
                 DataGridViewRow row = dataGridViewPlayers.Rows[index];
                 PlayerInfo playerInfoObject = objects[i] as PlayerInfo;
                 row.Cells[0].Value = playerInfoObject.Id;
-                row.Cells[1].Value = playerInfoObject.Name;
-                row.Cells[2].Value = GlobalSettings.Instance.GetHouseName(playerInfoObject.House);
-                row.Cells[3].Value = playerInfoObject.TeamID.ToString();
+                row.Cells[1].Style.BackColor = playerInfoObject.Color;
+                row.Cells[2].Value = playerInfoObject.Name;
+                row.Cells[3].Value = GlobalSettings.Instance.GetHouseName(playerInfoObject.House);
+                row.Cells[4].Value = playerInfoObject.TeamID.ToString();
+
+                row.Cells[1].Selected = false;
                 row.ReadOnly = true;
             }
         }
@@ -177,8 +182,9 @@ namespace Yad.UI.Client
 
                 if ((short)row.Cells[0].Value == playerInfoObject.Id)
                 {
-                    row.Cells[2].Value = GlobalSettings.Instance.GetHouseName(playerInfoObject.House);
-                    row.Cells[3].Value = playerInfoObject.TeamID.ToString();
+                    row.Cells[1].Style.BackColor = playerInfoObject.Color;
+                    row.Cells[3].Value = GlobalSettings.Instance.GetHouseName(playerInfoObject.House);
+                    row.Cells[4].Value = playerInfoObject.TeamID.ToString();
                     break;
                 }
             }
@@ -206,6 +212,11 @@ namespace Yad.UI.Client
         {
             control.Text = text;
         }
+
+        public void ManageControlBackColor(Control control, Color backColor)
+        {
+            control.BackColor = backColor;
+        }
         #endregion
 
         #region Main menu
@@ -228,14 +239,6 @@ namespace Yad.UI.Client
         private void creditsMainMenu_Click(object sender, EventArgs e)
         {
             MessageBoxEx.Show(this, "Pay Us :)", "Credits", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        }
-
-        private void haxxx_Click(object sender, EventArgs e)
-        {
-            GameMessageHandler.Instance.Suspend();
-            Connection.Instance.MessageHandler = GameMessageHandler.Instance;
-            //Connection.Instance.InitConnection("127.0.0.1", 1734);
-            OnMenuOptionChange(MenuOption.Game);
         }
         #endregion
         #endregion
@@ -264,7 +267,7 @@ namespace Yad.UI.Client
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
             try
-            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+            { Connection.Instance.InitConnection(serverLoginMenu.Text); }
             catch (Exception)
             {
                 ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
@@ -274,7 +277,7 @@ namespace Yad.UI.Client
             LoginMessage loginMessage = (LoginMessage)Utils.CreateMessageWithSenderId(MessageType.Login);
             loginMessage.Login = loginTBLoginMenu.Text;
             loginMessage.Password = passwordLoginMenu.Text;
-            ClientPlayerInfo.Login = loginTBLoginMenu.Text;
+            ClientPlayerInfo.Player.Name = loginTBLoginMenu.Text;
             Connection.Instance.SendMessage(loginMessage);
         }
 
@@ -289,7 +292,7 @@ namespace Yad.UI.Client
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
             try
-            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+            { Connection.Instance.InitConnection(serverLoginMenu.Text); }
             catch (Exception)
             {
                 ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
@@ -309,8 +312,7 @@ namespace Yad.UI.Client
 
             if (textBox == serverLoginMenu)
             {
-                //TODO (AN) : Also with :PORT
-                Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}$");
+                Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}\b:\d{4}\b$");
                 validated = ipAddressPattern.IsMatch(textBox.Text);
                 errorText =  "Not proper ip address and port , e.g. 127.0.0.1:1734";
             }
@@ -334,7 +336,6 @@ namespace Yad.UI.Client
         void menuMessageHandler_LoginRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Login Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
 
@@ -352,6 +353,8 @@ namespace Yad.UI.Client
 
                 Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.ChatEntry));
             }
+            else
+                MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
@@ -388,7 +391,7 @@ namespace Yad.UI.Client
                 ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
 
                 try
-                { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+                { Connection.Instance.InitConnection(serverLoginMenu.Text); }
                 catch (Exception)
                 {
                     ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
@@ -663,11 +666,10 @@ namespace Yad.UI.Client
         void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Join Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (e.successful)
             {
-                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu, changeWaitingForPlayersMenu, startWaitingForPlayersMenu };
                 if (InvokeRequired)
                 {
                     /* Block the possibility to change tha race and team before receiving them from server */
@@ -681,6 +683,8 @@ namespace Yad.UI.Client
                     OnMenuOptionChange(MenuOption.Join);
                 }
             }
+            else
+                MessageBoxEx.Show(this, e.reason, "Join Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
         #endregion
@@ -743,10 +747,9 @@ namespace Yad.UI.Client
         void menuMessageHandler_CreateGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Create Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (e.successful)
             {
-                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu, changeWaitingForPlayersMenu, startWaitingForPlayersMenu };
                 if (InvokeRequired)
                 {
                     /* Block the possibility to change tha race and team before receiving them from server */                    
@@ -760,6 +763,8 @@ namespace Yad.UI.Client
                     OnMenuOptionChange(MenuOption.Create);
                 }
             }
+            else
+                MessageBoxEx.Show(this, e.reason, "Create Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
         #endregion
@@ -797,17 +802,23 @@ namespace Yad.UI.Client
             PlayerInfo playerInfo = new PlayerInfo();
 
             playerInfo.Id = ClientPlayerInfo.SenderId;
-            playerInfo.Name = ClientPlayerInfo.Login;
+            playerInfo.Name = ClientPlayerInfo.Player.Name;
             playerInfo.House = ((ItemValue)houseCBWaitingForPlayersMenu.SelectedItem).Value;
             playerInfo.TeamID = (short)teamCBWaitingForPlayersMenu.SelectedItem;
-
+            playerInfo.Color = colorWaitingForPlayersMenu.BackColor;
             playersMessage.PlayerList.Add(playerInfo);
 
-            houseCBWaitingForPlayersMenu.Enabled = false;
-            teamCBWaitingForPlayersMenu.Enabled = false;
-            changeWaitingForPlayersMenu.Enabled = false;
+            ManageControlState(new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu, changeWaitingForPlayersMenu, startWaitingForPlayersMenu }, false);
 
             Connection.Instance.SendMessage(playersMessage);
+        }
+
+        private void colorWaitingForPlayersMenu_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            if (colorDialog.ShowDialog(this) == DialogResult.OK)
+                colorWaitingForPlayersMenu.BackColor = colorDialog.Color;
         }
         #endregion
         #region MenuMessageHandler Events
@@ -876,20 +887,35 @@ namespace Yad.UI.Client
 
             if (e.players[0].Id == ClientPlayerInfo.SenderId)
             {
-                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, changeWaitingForPlayersMenu };
+                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu ,changeWaitingForPlayersMenu, startWaitingForPlayersMenu };
+
+                string infoText = "Login: " + e.players[0].Name + Environment.NewLine
+                                + "House: " + GlobalSettings.Instance.GetHouseName(e.players[0].House) + Environment.NewLine
+                                + "TeamID: " + e.players[0].TeamID.ToString();
 
                 /* Modify current player */
                 if (InvokeRequired)
                 {
+                    /* Update controls */
                     this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, new ItemValue(e.players[0].House, string.Empty) });
                     this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
+                    this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { colorWaitingForPlayersMenu, e.players[0].Color });
+                    /* Set Information */
+                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { infoLWaitingForPlayersMenu, infoText });
+                    this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { infoColorWaitingForPlayersMenu, e.players[0].Color });
+                    /* Enable controls */
                     this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
                 }
                 else
                 {
-                    /* Enable controls */
+                    /* Update controls */
                     UpdateComboBox(houseCBWaitingForPlayersMenu, new ItemValue(e.players[0].House, string.Empty));
                     UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[0].TeamID);
+                    ManageControlBackColor(colorWaitingForPlayersMenu, e.players[0].Color);
+                    /* Set Information */
+                    ManageControlText(infoLWaitingForPlayersMenu, infoText);
+                    ManageControlBackColor(infoColorWaitingForPlayersMenu, e.players[0].Color);
+                    /* Enable controls */
                     ManageControlState(controls, true);
                 }
             }
@@ -907,7 +933,6 @@ namespace Yad.UI.Client
         void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)
         {
             InfoLog.WriteInfo("Start Game Event", EPrefix.UIManager);
-            MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if(this.InvokeRequired)
                 this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { new Control[] { startWaitingForPlayersMenu }, true });
@@ -924,6 +949,8 @@ namespace Yad.UI.Client
                 else
                     OnMenuOptionChange(MenuOption.StartGame);
             }
+            else
+                MessageBoxEx.Show(this, e.reason, "Start Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
         #endregion

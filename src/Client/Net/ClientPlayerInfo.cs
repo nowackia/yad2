@@ -14,18 +14,13 @@ namespace Yad.Net.Client {
 			set { playerInfo.Id = value; }
 		}
 
-		public static string Login {
-			get { return playerInfo.Name; }
-			set { playerInfo.Name = value; }
-		}
-
 		public static PlayerInfo Player {
 			get { return playerInfo; }
             set { playerInfo = value; }
 		}
 
 		public static string ChatPrefix {
-			get { return "[" + Login + "] : "; }
+			get { return "[" + playerInfo.Name + "] : "; }
 		}
 
 		public static GameInfo GameInfo {

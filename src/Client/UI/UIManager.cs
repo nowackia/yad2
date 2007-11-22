@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,6 +12,7 @@ namespace Yad.UI.Client
 {
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ManageControlTextEventHandler(Control control, string text);
+    public delegate void ManageControlBackColorEventHandler(Control control, Color backColor);
     public delegate void ManageControlStateEventHandler(Control[] option, bool state);
     public delegate void ManageComboBoxItemsEventHandler(ComboBox comboBox, Array array);
     public delegate void ManageComboBoxItemsEventHandlerDefaultItem(ComboBox comboBox, Array array, object defaultItem);

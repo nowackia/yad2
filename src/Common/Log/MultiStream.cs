@@ -27,7 +27,8 @@ namespace Yad.Log.Common
             }
             catch (IOException)
             {
-                MessageBoxEx.Show("Cannot open ErrorLog.txt file");
+                //MessageBoxEx.Show("Cannot open ErrorLog.txt file");
+                Console.Out.WriteLine("ERROR: Cannot open ErrorLog.txt file, output only on screen");
             }
         }
 
@@ -44,7 +45,6 @@ namespace Yad.Log.Common
                 _writer.Flush();
             }
 
-			//KŒ:
 			Console.Out.WriteLine(s);
         }
 
