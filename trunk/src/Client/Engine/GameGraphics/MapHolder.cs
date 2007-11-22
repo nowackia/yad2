@@ -168,34 +168,36 @@ namespace Yad.Engine.GameGraphics.Client {
 			return (int)Math.Pow(2, y);
 		}
 
-		private static int FindFogFrame(Map map, int x, int y) {
+		public static int FindFogFrame(bool[,] FogOfWar, int x, int y) {
 			int result;
-			if (x < 0 || y < 0 || x >= map.Width || y >= map.Height)
+			int width = FogOfWar.GetLength(0),
+				height = FogOfWar.GetLength(1);
+			if (x < 0 || y < 0 || x >= width || y >= height)
 				throw new MapHolderException("Incorrect map position");
 
 			bool fogLeft, fogRight, fogUpper, fogLower;
 
 			if (x > 0)
-				fogLeft = map.FogOfWar[x - 1, y];
+				fogLeft = FogOfWar[x - 1, y];
 			else
-				fogLeft = map.FogOfWar[x, y];
+				fogLeft = FogOfWar[x, y];
 
-			if (x < map.Width - 1)
-				fogRight = map.FogOfWar[x + 1, y];
+			if (x < width - 1)
+				fogRight = FogOfWar[x + 1, y];
 			else
-				fogRight = map.FogOfWar[x, y];
+				fogRight = FogOfWar[x, y];
 
-			if (y < map.Height - 1)
-				fogUpper = map.FogOfWar[x, y + 1];
+			if (y < height - 1)
+				fogUpper = FogOfWar[x, y + 1];
 			else
-				fogUpper = map.FogOfWar[x, y];
+				fogUpper = FogOfWar[x, y];
 
 			if (y > 0)
-				fogLower = map.FogOfWar[x, y - 1];
+				fogLower = FogOfWar[x, y - 1];
 			else
-				fogLower = map.FogOfWar[x, y];
+				fogLower = FogOfWar[x, y];
 			for (int i = 0; i < tileFrameMap.Length; i++) {
-				if ((result = MatchFog(fogFrameMap[i], map.FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
+				if ((result = MatchFog(fogFrameMap[i], FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
 					return result;
 			}
 			throw new MapHolderException("Bitmap frame not found");

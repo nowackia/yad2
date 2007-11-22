@@ -17,6 +17,9 @@ using Yad.Config.Common;
 using Yad.Config;
 using Yad.Properties;
 using Yad.Properties.Client;
+using System.Collections;
+using Yad.Net.Common;
+using Yad.Net.Client;
 
 namespace Yad.Engine.Client {
 	static partial class GameGraphics {
@@ -101,8 +104,8 @@ namespace Yad.Engine.Client {
 		/// <param name="color"></param>
 		/// <param name="bmp"></param>
 		/// <returns></returns>
-		public static Bitmap convertColour(Color color, Bitmap bmp)
-		{
+		public static Bitmap convertColour(Color color, Bitmap sourceBmp) {
+			Bitmap bmp = new Bitmap(sourceBmp);
 			byte a = 3, r = 2, g = 1, b = 0, temp;
 			//Graphics g = Graphics.FromImage(bmp);
 			Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
@@ -115,10 +118,8 @@ namespace Yad.Engine.Client {
 			System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
 
 			//color conversion
-			for (int counter = 0; counter < rgbValues.Length; counter += 4)
-			{
-				if (rgbValues[counter + a] != 0 && rgbValues[counter + g] == 0 && rgbValues[counter + b] == 0)
-				{
+			for (int counter = 0; counter < rgbValues.Length; counter += 4) {
+				if (rgbValues[counter + a] != 0 && rgbValues[counter + g] == 0 && rgbValues[counter + b] == 0) {
 					temp = rgbValues[counter + r];
 					rgbValues[counter + r] = (byte)((double)temp / 255 * color.R);
 					rgbValues[counter + g] = (byte)((double)temp / 255 * color.G);
@@ -317,20 +318,88 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region texture init
+
+		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3 }
+
 		public static void InitTextures(Simulation simulation) {
-			Create32bTexture(1, MapTextureGenerator.GenerateBitmap(simulation.Map));
-			Create32bTexture(2, LoadBitmap(Path.Combine(Settings.Default.UI, "Selection.png")));
+			//Map
+			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));
+			//Selection rectangle
+			Bitmap selectionRect = new Bitmap(Path.Combine(Settings.Default.UI, "Selection.png"));
+			Create32bTexture((int)MainTextures.SelectionRectangle, LoadBitmap(selectionRect));
+			//FogOfWar texture
+			Bitmap fow = new Bitmap(Path.Combine(Settings.Default.Terrain, "Hidden.png"));
+			Create32bTexture((int)MainTextures.FogOfWar, LoadBitmap(fow));
 
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
-			foreach (AmmoData o in gameSettings.Ammos) {
+
+			#region player-color specific
+			List<PlayerInfo> players = ClientPlayerInfo.GetAllPlayers();
+
+			foreach (UnitTankData o in gameSettings.Tanks) {
+				String tankBasePath = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
+				Bitmap tankBaseSource = new Bitmap(tankBasePath);
+
+				foreach (PlayerInfo p in players) {
+					Bitmap tankBaseColoured = GameGraphics.convertColour(p.Color, tankBaseSource);
+					Bitmap tankBaseColouredCorrected = LoadBitmap(tankBaseColoured);
+					Create32bTexture(o.TypeID + p.Id * _offsetTexture, tankBaseColouredCorrected);
+				}
+				//lets assume that turrets are non-coloured ;p
+				String tankTurretPath = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap tankTurretSource = new Bitmap(tankTurretPath);
+				Bitmap tankTurretTexture = LoadBitmap(tankTurretSource);
+				Create32bTexture(o.TypeID + _offsetTurret, tankTurretTexture);
+
+			}
+
+			foreach (UnitTrooperData o in gameSettings.Troopers) {
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap source = new Bitmap(file);
+
+				foreach (PlayerInfo p in players) {
+					Bitmap colouredBmp = GameGraphics.convertColour(p.Color, source);
+					Bitmap texture = LoadBitmap(colouredBmp);
+					Create32bTexture(o.TypeID + p.Id * _offsetTexture, texture);
+				}
+			}
+
+			foreach (UnitHarvesterData o in gameSettings.Harvesters) {
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap source = new Bitmap(file);
+
+				foreach (PlayerInfo p in players) {
+					Bitmap colouredBmp = GameGraphics.convertColour(p.Color, source);
+					Bitmap texture = LoadBitmap(colouredBmp);
+					Create32bTexture(o.TypeID + p.Id * _offsetTexture, texture);
+				}
+
+				file = Path.Combine(Settings.Default.Units, o.Name + "Sand.png");
+				Bitmap specialTexture = LoadBitmap(source);
+				Create32bTexture(o.TypeID + _offsetSpecialAnimation, specialTexture);
+			}
+
+			foreach (UnitMCVData o in gameSettings.MCVs) {
+				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap source = new Bitmap(file);
+
+				foreach (PlayerInfo p in players) {
+					Bitmap colouredBmp = GameGraphics.convertColour(p.Color, source);
+					Bitmap texture = LoadBitmap(colouredBmp);
+					Create32bTexture(o.TypeID + p.Id * _offsetTexture, texture);
+				}
 			}
 
 			foreach (BuildingData o in gameSettings.Buildings) {
 				//Load texture for map
 				String file = Path.Combine(Settings.Default.Structures, o.Name + ".png");
-				Bitmap texture = LoadBitmap(file);
-				
-				Create32bTexture(o.TypeID + _offsetTexture, texture);
+				Bitmap source = new Bitmap(file);
+
+				foreach (PlayerInfo p in players) {
+					Bitmap colouredBmp = GameGraphics.convertColour(p.Color, source);
+					Bitmap texture = LoadBitmap(colouredBmp);
+					Create32bTexture(o.TypeID + p.Id * _offsetTexture, texture);
+				}
 
 				//Load picture (currently not needed)
 				/*
@@ -339,49 +408,25 @@ namespace Yad.Engine.Client {
 				Create32bTexture(o.TypeID + _pictureOffset, texture);
 				 */
 			}
+			#endregion
+
+
+			foreach (AmmoData o in gameSettings.Ammos) {
+			}
 
 			foreach (RaceData o in gameSettings.Races) {
 				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
-				Bitmap texture = LoadBitmap(file);
+				Bitmap source = new Bitmap(file);
+				Bitmap texture = LoadBitmap(source);
 				Create32bTexture(o.TypeID + _offsetPicture, texture);
 			}
 
-			foreach (UnitHarvesterData o in gameSettings.Harvesters) {
-				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetTexture, texture);
-
-				file = Path.Combine(Settings.Default.Units, o.Name + "Sand.png");
-				texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetSpecialAnimation, texture);
-			}
-
-			foreach (UnitMCVData o in gameSettings.MCVs) {
-				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetTexture, texture);
-			}
 
 			foreach (UnitSandwormData o in gameSettings.Sandworms) {
 				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap texture = LoadBitmap(file);
+				Bitmap source = new Bitmap(file);
+				Bitmap texture = LoadBitmap(source);
 				Create32bTexture(o.TypeID + _offsetTexture, texture);
-			}
-
-			foreach (UnitTankData o in gameSettings.Tanks) {
-				String file = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
-				Bitmap texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetTexture, texture);
-
-				file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				texture = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetTurret, texture);
-			}
-
-			foreach (UnitTrooperData o in gameSettings.Troopers) {
-				String file = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap bmp = LoadBitmap(file);
-				Create32bTexture(o.TypeID + _offsetTexture, bmp);
 			}
 		}
 
@@ -390,8 +435,7 @@ namespace Yad.Engine.Client {
 			return (int)Math.Pow(2, y);
 		}
 
-		public static Bitmap LoadBitmap(String path) {
-			Bitmap tmp = new Bitmap(path);
+		public static Bitmap LoadBitmap(Bitmap tmp) {
 			Bitmap bmp = new Bitmap(Correct(tmp.Width), Correct(tmp.Height), PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
 			g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
@@ -412,7 +456,17 @@ namespace Yad.Engine.Client {
 			Gl.glLoadIdentity();
 
 			#region fow
-			//TODO
+			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
+			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
+				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
+					if (fogOfWar[x, y] == false) {
+						continue;
+					}
+					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
+					RectangleF fowUV = new RectangleF(oneEight * fogIndex, 0, oneEight, 1);
+					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
+				}
+			}
 			#endregion
 
 			#region map
@@ -511,7 +565,7 @@ namespace Yad.Engine.Client {
 				uv.X = 3 * oneFourth;
 			}
 
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + _offsetTexture, uv);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 
 		private static void DrawTank(UnitTank o) {
@@ -519,7 +573,7 @@ namespace Yad.Engine.Client {
 			Direction d = o.Direction;
 
 			RectangleF uvBase = VehicleUVChooser(d);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uvBase);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase);
 
 			//TODO: add separate turret direction
 			RectangleF uvTurret = VehicleUVChooser(d);
@@ -566,21 +620,21 @@ namespace Yad.Engine.Client {
 			Direction d = o.Direction;
 
 			RectangleF uv = VehicleUVChooser(d);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 
 		private static void DrawHarvester(UnitHarvester o) {
 			PointF realPos = CountRealPosition(o);
 			Direction d = o.Direction;
 			RectangleF uv = VehicleUVChooser(d);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 
 			//TODO: draw sand animation
 		}
 
 		private static void DrawBuilding(Building o) {
 			//PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Size.X, o.Size.Y, o.TypeID + _offsetTexture, _defaultUV);
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Size.X, o.Size.Y, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, _defaultUV);
 		}
 		#endregion
 

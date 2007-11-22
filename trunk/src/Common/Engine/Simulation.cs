@@ -93,11 +93,9 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// (short id, Player player)
 		/// </summary>
-		protected Dictionary<short, Player> players = new Dictionary<short, Player>();
+		protected Dictionary<short, Player> players;
 
 		protected Map map;
-
-		protected GameSettingsWrapper gameSettingsWrapper;
 
 		protected Player currentPlayer;
 
@@ -106,9 +104,9 @@ namespace Yad.Engine.Common {
 		#endregion
 
 		#region constructor
-		public Simulation(GameSettingsWrapper settingsWrapper, Map map, Player currPlayer, bool useFastTurnProcessing) {
-			this.gameSettingsWrapper = settingsWrapper;
+		public Simulation(Map map, Player currPlayer, bool useFastTurnProcessing) {
 			this.map = map;
+			this.players = new Dictionary<short, Player>();
 			this.currentPlayer = currPlayer;
 			this.fastTurnProcessing = useFastTurnProcessing;
 			turns = new List<GameMessage>[bufferLength];
@@ -274,7 +272,7 @@ namespace Yad.Engine.Common {
 
 		#region public methods
 		public void AddPlayer(Player p) {
-			players.Add(p.ID, p);
+			players.Add(p.Id, p);
 		}
 
 		public void AddGameMessage(GameMessage gameMessage) {
@@ -336,10 +334,6 @@ namespace Yad.Engine.Common {
 					this.speedUpLength = delta;
 				}
 			}
-		}
-
-		public GameSettingsWrapper GameSettingsWrapper {
-			get { return this.gameSettingsWrapper; }
 		}
 
 		public Map Map {

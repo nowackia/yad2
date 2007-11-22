@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Board.Common;
 using System.Collections;
+using System.Drawing;
+using Yad.Net.Common;
 
 namespace Yad.Engine.Common {
 	/// <summary>
@@ -10,23 +12,7 @@ namespace Yad.Engine.Common {
 	/// his buildings, units, id, race, etc...
 	/// Each player must have unique ID.
 	/// </summary>
-	public class Player {
-
-		#region private members
-		/// <summary>
-		/// Player id assigned by server.
-		/// </summary>
-		short _playerID = -1;
-
-		/// <summary>
-		/// Player name assigned by player.
-		/// </summary>
-		string _playerName;
-
-		/// <summary>
-		/// Player race assigned by player.
-		/// </summary>
-		short _race;
+	public class Player : PlayerInfo {
 
 		int _objectID = 0;
 
@@ -38,27 +24,20 @@ namespace Yad.Engine.Common {
 		//but pretty useful for a turn processing
 		private List<Building> _buildings = new List<Building>();
 		private List<Unit> _units = new List<Unit>();
-		#endregion
 
 		#region constructor
-		public Player(short playerID, string playerName, short raceID) {
-			this._playerID = playerID;
-			this._race = raceID;
-			this._playerName = playerName;
-		}
-		#endregion
-
-		#region accessors
-		public short ID {
-			get { return _playerID; }
-		}		
-
-		public string Name {
-			get { return this._playerName; }
+		public Player(short playerID, string playerName, short raceID, Color playerColor) {
+			this.Id = playerID;
+			this.House = raceID;
+			this.Name = playerName;
+			this.Color = playerColor;
 		}
 
-		public short Race {
-			get { return this._race; }
+		public Player(PlayerInfo pi) {
+			this.Id = pi.Id;
+			this.House = pi.House;
+			this.Name = pi.Name;
+			this.Color = pi.Color;
 		}
 		#endregion
 

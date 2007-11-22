@@ -71,8 +71,10 @@ namespace Yad.UI.Client {
 			this.openGLView.InitializeContexts();
 
 			//First: set appropriate properties
+			InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
 			GameGraphics.InitGL(_gameLogic);
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+			InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
 			GameGraphics.InitTextures(_gameLogic.Simulation);
 
 			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
@@ -291,7 +293,7 @@ namespace Yad.UI.Client {
 		*/
 
 		public void AddBuildingToStripe(short id) {
-			String name = _gameLogic.GameSettingsWrapper.buildingsMap[id].Name;
+			String name = GlobalSettings.Wrapper.buildingsMap[id].Name;
 			leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
 		}
 
@@ -302,8 +304,8 @@ namespace Yad.UI.Client {
 			if (leftStripe.Ids.Contains(idB)) {
 				BuildingData data = GlobalSettings.Wrapper.buildingsMap[idB];
 				foreach (String name in data.BuildingsCanProduce) {
+					short id = GlobalSettings.Wrapper.namesToIds[name];
                     InfoLog.WriteInfo(name, EPrefix.ClientInformation);
-					short id = _gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
 					if (rightStripe.Ids.Contains(id)) continue;
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
 					if (CheckDependencies(name)) {
@@ -311,7 +313,7 @@ namespace Yad.UI.Client {
 					}
 				}
 				foreach (String name in data.UnitsCanProduce) {
-					short id = _gameLogic.Simulation.GameSettingsWrapper.namesToIds[name];
+					short id = GlobalSettings.Wrapper.namesToIds[name];
 					if (rightStripe.Ids.Contains(id)) continue;
 
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
@@ -321,11 +323,11 @@ namespace Yad.UI.Client {
 		}
 
 		private bool CheckDependencies(string name) {
-			TechnologyDependences deps = _gameLogic.GameSettingsWrapper.racesMap[_gameLogic.CurrentPlayer.Race].TechnologyDependences;
+			TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
 			foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
 				if (dep.BuildingName.Equals(name)) {
 					foreach (string n in dep.RequiredBuildings) {
-						short id = _gameLogic.GameSettingsWrapper.namesToIds[n];
+						short id = GlobalSettings.Wrapper.namesToIds[n];
 						if (_gameLogic.hasBuilding(id) == false) return false;
 					}
 				}
