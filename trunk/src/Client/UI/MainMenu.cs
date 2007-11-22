@@ -5,16 +5,17 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Yad.Net.Client;
+using Yad.Config;
 using Yad.Engine.Common;
+using Yad.Log.Common;
+using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Properties;
-using Yad.Log.Common;
-using Yad.UI.Common;
 using Yad.Properties.Common;
-using Yad.Config;
+using Yad.UI.Common;
 
 
 namespace Yad.UI.Client
@@ -27,6 +28,11 @@ namespace Yad.UI.Client
         public MainMenuForm()
         {
             InitializeComponent();
+
+            #region Appearance Initialization
+            this.tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.Size = new Size(Width, 373);
+            #endregion
 
             #region Controls Initialization
             views.Add(Views.ChatForm, chatMenu);
@@ -248,6 +254,13 @@ namespace Yad.UI.Client
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
+            CancelEventArgs cancel = new CancelEventArgs(false);
+            loginMenu_Validating(serverLoginMenu, cancel);
+            loginMenu_Validating(loginTBLoginMenu, cancel);
+            loginMenu_Validating(passwordLoginMenu, cancel);
+            if (cancel.Cancel)
+                return;
+
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
             try
@@ -267,6 +280,12 @@ namespace Yad.UI.Client
 
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
         {
+            CancelEventArgs cancel = new CancelEventArgs(false);
+            loginMenu_Validating(serverLoginMenu, cancel);
+            loginMenu_Validating(loginTBLoginMenu, cancel);
+            if (cancel.Cancel)
+                return;
+
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
             try
@@ -280,6 +299,34 @@ namespace Yad.UI.Client
 			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.Remind);
             remindMessage.Text = loginTBRegisterMenu.Text;
             Connection.Instance.SendMessage(remindMessage);
+        }
+
+        private void loginMenu_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            bool validated = true;
+            string errorText = string.Empty;
+
+            if (textBox == serverLoginMenu)
+            {
+                Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}$");
+                validated = ipAddressPattern.IsMatch(textBox.Text);
+                errorText =  "Not proper ip address";
+            }
+            else
+            {
+                validated = (textBox.Text.Length > 0);
+                errorText =  "Empty field";
+            }
+
+            if (!validated)
+            {
+                errorProvider.SetError(textBox, errorText);
+                e.Cancel = true;
+            }
+            else
+                errorProvider.SetError(textBox, string.Empty);
+
         }
         #endregion
         #region MenuMessageHandler Events
@@ -327,18 +374,26 @@ namespace Yad.UI.Client
         #region Control Events
         private void registerRegisterMenu_Click(object sender, EventArgs e)
         {
-            ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
-
-            try
-            { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
-            catch (Exception)
-            {
-                ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
+            CancelEventArgs cancel = new CancelEventArgs(false);
+            registerMenu_Validating(loginTBRegisterMenu, cancel);
+            registerMenu_Validating(passwordTBRegisterMenu, cancel);
+            registerMenu_Validating(repeatPasswordTBRegisterMenu, cancel);
+            registerMenu_Validating(emailTBRegisterMenu, cancel);
+            if (cancel.Cancel)
                 return;
-            }
 
             if (passwordTBRegisterMenu.Text == repeatPasswordTBRegisterMenu.Text)
             {
+                ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
+
+                try
+                { Connection.Instance.InitConnection(serverLoginMenu.Text, 1734); }
+                catch (Exception)
+                {
+                    ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
+                    return;
+                }
+
                 RegisterMessage registerMessage = new RegisterMessage();
                 registerMessage.Login = loginTBRegisterMenu.Text;
                 registerMessage.Password = passwordTBRegisterMenu.Text;
@@ -352,6 +407,33 @@ namespace Yad.UI.Client
         private void backRegisterMenu_Click(object sender, EventArgs e)
         {
             OnMenuOptionChange(MenuOption.Back);
+        }
+
+        private void registerMenu_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            bool validated = true;
+            string errorText = string.Empty;
+
+            if (textBox == emailTBRegisterMenu)
+            {
+                Regex mailPattern = new Regex(@"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$");
+                validated = mailPattern.IsMatch(textBox.Text);
+                errorText = "Not proper e-mail address";
+            }
+            else
+            {
+                validated = (textBox.Text.Length > 0);
+                errorText = "Empty field";
+            }
+
+            if (!validated)
+            {
+                errorProvider.SetError(textBox, errorText);
+                e.Cancel = true;
+            }
+            else
+                errorProvider.SetError(textBox, string.Empty);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -384,8 +466,10 @@ namespace Yad.UI.Client
 
         private void sendChatMenu_Click(object sender, EventArgs e)
         {
-            TextMessage chatTextMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.ChatText);
+            if (chatInputTBChatMenu.Text == string.Empty)
+                return;
 
+            TextMessage chatTextMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.ChatText);
             chatTextMessage.Text = chatInputTBChatMenu.Text;
 
             chatInputTBChatMenu.Text = string.Empty;
@@ -501,6 +585,9 @@ namespace Yad.UI.Client
 
         private void joinChooseGameMenu_Click(object sender, EventArgs e)
         {
+            if (textBoxTBGameName.Text == string.Empty)
+                return;
+
             TextMessage textMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.JoinGame);
             textMessage.Text = textBoxTBGameName.Text;
             Connection.Instance.SendMessage(textMessage);
@@ -606,6 +693,11 @@ namespace Yad.UI.Client
 
         private void createCreateGameMenu_Click(object sender, EventArgs e)
         {
+            CancelEventArgs cancel = new CancelEventArgs(false);
+            createGameMenu_Validating(gameNameTBCreateGameMenu, cancel);
+            if(cancel.Cancel)
+                return;
+
             GameInfoMessage createGameMessage = (GameInfoMessage)Utils.CreateMessageWithSenderId(MessageType.CreateGame);
 
             GameInfo gameInfo = new GameInfo();
@@ -626,6 +718,24 @@ namespace Yad.UI.Client
             }
             else
                 MessageBoxEx.Show(this, "No map selected", "Create Game error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void createGameMenu_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            bool validated = true;
+            string errorText = string.Empty;
+
+            validated = (textBox.Text.Length > 0);
+            errorText = "Empty field";
+
+            if (!validated)
+            {
+                errorProvider.SetError(textBox, errorText);
+                e.Cancel = true;
+            }
+            else
+                errorProvider.SetError(textBox, string.Empty);
         }
         #endregion
         #region MenuMessageHandler Events
@@ -676,11 +786,6 @@ namespace Yad.UI.Client
         private void CBWaitingForPlayersMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-        }
-
-        private void CBWaitingForPlayersMenu_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.Handled = true;
         }
 
         private void changeWaitingForPlayersMenu_Click(object sender, EventArgs e)
