@@ -19,9 +19,9 @@ namespace Yad.Net.Client {
 			set { playerInfo.Name = value; }
 		}
 
-		//KŒ
 		public static PlayerInfo Player {
 			get { return playerInfo; }
+            set { playerInfo = value; }
 		}
 
 		public static string ChatPrefix {
@@ -39,7 +39,6 @@ namespace Yad.Net.Client {
 			get { return enemies; }
 		}
 
-		//KŒ
 		public static List<PlayerInfo> GetAllPlayers() {
 			List<PlayerInfo> result = new List<PlayerInfo>();
 			result.Add(playerInfo);

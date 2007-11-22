@@ -309,9 +309,10 @@ namespace Yad.UI.Client
 
             if (textBox == serverLoginMenu)
             {
+                //TODO (AN) : Also with :PORT
                 Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}$");
                 validated = ipAddressPattern.IsMatch(textBox.Text);
-                errorText =  "Not proper ip address";
+                errorText =  "Not proper ip address and port , e.g. 127.0.0.1:1734";
             }
             else
             {
