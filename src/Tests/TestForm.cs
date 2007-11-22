@@ -50,10 +50,9 @@ namespace Tests {
 
 		public void TestSimulaton() {
 			Simulation sim;
-			GameSettingsWrapper gameSettingsWrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine("Resources/Maps", "test.map"));
-			sim = new ClientSimulation(gameSettingsWrapper, map, new Player(0, "test1", gameSettingsWrapper.Races[0].TypeID));
+			sim = new ClientSimulation(map, new Player(0, "test1", GlobalSettings.Wrapper.Races[0].TypeID, Color.HotPink));
 			sim.onTurnEnd += new SimulationHandler(sim_onTurnEnd);
 			sim.StartSimulation();
 

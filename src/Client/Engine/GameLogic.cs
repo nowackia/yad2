@@ -17,6 +17,7 @@ using System.IO;
 using Yad.Utilities.Common;
 using Yad.Properties.Common;
 using Yad.Net.Common;
+using System.Drawing;
 
 namespace Yad.Engine.Client {
 	/// <summary>
@@ -47,16 +48,18 @@ namespace Yad.Engine.Client {
 
 		#region constructor
 		public GameLogic() {
-			GameSettingsWrapper gameSettingsWrapper = XMLLoader.get(Settings.Default.ConfigFile, Settings.Default.ConfigFileXSD);
+			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			//TODO: use proper race
-			_currPlayer = new Player(ClientPlayerInfo.SenderId, ClientPlayerInfo.Login, gameSettingsWrapper.Races[0].TypeID);
+			PlayerInfo pi = ClientPlayerInfo.Player;
+			//TODO: poprawić gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
+			pi.House = wrapper.Races[0].TypeID;
+			_currPlayer = new Player(pi.Id, pi.Name, pi.House, pi.Color);
 
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
-			_sim = new ClientSimulation(gameSettingsWrapper, map, _currPlayer);
+			_sim = new ClientSimulation(map, _currPlayer);
 			_sim.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(_sim_OnBuildingCompleted);
 
 
@@ -75,13 +78,13 @@ namespace Yad.Engine.Client {
 
 			foreach (PositionData pd in aPd) {
 				//TODO: get info
-				Player p = new Player(pd.PlayerId, "???", GameSettingsWrapper.Races[0].TypeID);
+				Player p = new Player(pd.PlayerId, "???", GlobalSettings.Wrapper.Races[0].TypeID, Color.Green);
 				_sim.AddPlayer(p);
-				UnitMCV mcv = new UnitMCV(p.ID, p.GenerateObjectID(), GameSettingsWrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
+				UnitMCV mcv = new UnitMCV(p.Id, p.GenerateObjectID(), GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
 				p.AddUnit(mcv);
 
 				// vjust for fun ;p
-				UnitTank u = new UnitTank(p.ID, p.GenerateObjectID(), _sim.GameSettingsWrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map);
+				UnitTank u = new UnitTank(p.Id, p.GenerateObjectID(), GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map);
 				p.AddUnit(u);
 				// ^
 
@@ -115,10 +118,6 @@ namespace Yad.Engine.Client {
 
 		public ClientSimulation Simulation {
 			get { return this._sim; }
-		}
-
-		public GameSettingsWrapper GameSettingsWrapper {
-			get { return this._sim.GameSettingsWrapper; }
 		}
 
 		public Player CurrentPlayer {
@@ -206,7 +205,7 @@ namespace Yad.Engine.Client {
 
 			BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.Build);
 			bm.BuildingID = _currPlayer.GenerateObjectID();
-			bm.IdPlayer = _currPlayer.ID;
+			bm.IdPlayer = _currPlayer.Id;
 			bm.BuildingType = buildingId;
 			bm.Type = MessageType.Build;
 			bm.Position = pos;
@@ -233,7 +232,7 @@ namespace Yad.Engine.Client {
 
 
 		private bool checkBuildingPosition(Position pos, short buildingTypeId) {
-			BuildingData bd = _sim.GameSettingsWrapper.buildingsMap[buildingTypeId];
+			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingTypeId];
 
 			Map map = _sim.Map;
 

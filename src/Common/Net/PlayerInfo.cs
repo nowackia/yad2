@@ -12,7 +12,7 @@ namespace Yad.Net.Common {
 		private short _house;
 		private short _teamID;
 		private string _name;
-		private Color _color;
+		private Color _color = Color.Blue;
 
 		public short Id {
 			get { return _id; }
@@ -34,7 +34,7 @@ namespace Yad.Net.Common {
 			set { _teamID = value; }
 		}
 
-		public Color PlayerColor {
+		public Color Color {
 			get { return _color; }
 			set { _color = value; }
 		}

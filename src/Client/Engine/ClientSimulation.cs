@@ -25,8 +25,8 @@ namespace Yad.Engine.Client {
 		public event UnitCompletedHandler OnUnitCompleted;
 		#endregion
 
-		public ClientSimulation(GameSettingsWrapper settings, Map map, Player currPlayer)
-			: base(settings, map, currPlayer, false) {
+		public ClientSimulation(Map map, Player currPlayer)
+			: base(map, currPlayer, false) {
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
 		}
@@ -44,12 +44,12 @@ namespace Yad.Engine.Client {
 		protected override void OnMessageBuild(BuildMessage bm) {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 
-			BuildingData bd = base.GameSettingsWrapper.buildingsMap[bm.BuildingType];
+			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			Building b = new Building(bm.IdPlayer, bm.BuildingID, bm.BuildingType, this.map, bm.Position, new Position(bd.Size));
 
 			players[b.ObjectID.PlayerID].AddBuilding(b);
 
-			if (b.ObjectID.PlayerID.Equals(currentPlayer.ID)) {
+			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {
 				if (OnBuildingCompleted != null) {
 					this.OnBuildingCompleted(b);
 				}
@@ -84,13 +84,13 @@ namespace Yad.Engine.Client {
 			Unit u = null;
 
 			if (boc == BoardObjectClass.UnitTank) {
-				u = new UnitTank(cum.IdPlayer, cum.UnitID, gameSettingsWrapper.tanksMap[cum.UnitType], cum.Position, this.map);
+				u = new UnitTank(cum.IdPlayer, cum.UnitID, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this.map);
 			} else if (boc == BoardObjectClass.UnitTrooper) {
-				u = new UnitTrooper(cum.IdPlayer, cum.UnitID, gameSettingsWrapper.troopersMap[cum.UnitType], cum.Position, this.map);
+				u = new UnitTrooper(cum.IdPlayer, cum.UnitID, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this.map);
 			}
 			players[cum.IdPlayer].AddUnit(u);
 
-			if (u.ObjectID.PlayerID == currentPlayer.ID) {
+			if (u.ObjectID.PlayerID == currentPlayer.Id) {
 				if (OnUnitCompleted != null) {
 					this.OnUnitCompleted(u);
 				}

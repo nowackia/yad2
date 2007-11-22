@@ -86,6 +86,8 @@ namespace Yad.Board.Common {
 				} else if (dy < 0) {
 					direction |= Direction.South;
 				}
+
+				this.ClearFogOfWar();
 			}
 
 			//move unit
@@ -237,10 +239,23 @@ namespace Yad.Board.Common {
 		public bool PlaceOnMap() {
 			if (!_alreadyOnMap) {
 				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				ClearFogOfWar();
+				
 				_alreadyOnMap = true;
 				return true;
 			}
 			return false;
+		}
+
+		public void ClearFogOfWar() {
+			for (int x = -viewRange + Position.X; x <= viewRange + Position.X; x++) {
+				for (int y = -viewRange + Position.Y; y <= viewRange + Position.Y; y++) {
+					if (x < 0 || y < 0 || x > map.Width - 1 || y > map.Height - 1) {
+						continue;
+					}
+					map.FogOfWar[x, y] = false;
+				}
+			}				
 		}
 	}
 }

@@ -10,6 +10,11 @@ namespace Yad.Board.Common {
 			: base(playerID, unitID, ud.TypeID, BoardObjectClass.UnitMCV, pos, map) {
 			this.Speed = ud.Speed;
 			//fill other properties
+			this.viewRange = ud.ViewRange;
+			this.damageDestroy = ud.DamageDestroy;
+			//ud.BuildSpeed
+			this.health = ud.Health;
+			this.rotationSpeed = ud.RotationSpeed;
 		}
 
 		public override void Destroy() {
