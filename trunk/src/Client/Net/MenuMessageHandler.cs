@@ -251,9 +251,18 @@ namespace Yad.Net.Client
                                 break;
 
                             case MessageOperation.Modify:
-                                ClientPlayerInfo.Enemies.Modify(playersMessage.PlayerList.ToArray());
-                                if (UpdatePlayers != null)
-                                    UpdatePlayers(this, new PlayerEventArgs(playersMessage.PlayerList.ToArray()));
+                                {
+                                    PlayerInfo[] players = playersMessage.PlayerList.ToArray();
+                                    for (int i = 0; i < players.Length; i++)
+                                    {
+                                        if (ClientPlayerInfo.Player.Id == players[i].Id)
+                                            ClientPlayerInfo.Player = players[i];
+                                        break;
+                                    }
+                                    ClientPlayerInfo.Enemies.Modify(players);
+                                    if (UpdatePlayers != null)
+                                        UpdatePlayers(this, new PlayerEventArgs(players));
+                                }
                                 break;
 
                             case MessageOperation.List:
