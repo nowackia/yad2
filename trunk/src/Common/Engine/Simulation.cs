@@ -343,6 +343,10 @@ namespace Yad.Engine.Common {
 		public ICollection<Player> GetPlayers() {
 			return players.Values;
 		}
+
+		public Dictionary<short, Player> Players {
+			get { return this.players; }
+		}
 		#endregion
 	}
 }

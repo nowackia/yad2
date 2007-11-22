@@ -113,7 +113,7 @@ namespace Yad.Engine.Client {
 				bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
 				bmp.PixelFormat);
 			IntPtr ptr = bmpData.Scan0;
-			int bytes = bmp.Width * bmp.Height * 3;
+			int bytes = bmp.Width * bmp.Height * 4;
 			byte[] rgbValues = new byte[bytes];
 			System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
 
@@ -438,6 +438,11 @@ namespace Yad.Engine.Client {
 		public static Bitmap LoadBitmap(Bitmap tmp) {
 			Bitmap bmp = new Bitmap(Correct(tmp.Width), Correct(tmp.Height), PixelFormat.Format32bppArgb);
 			Graphics g = Graphics.FromImage(bmp);
+			/*
+			g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			 */
 			g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
 			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -483,6 +488,11 @@ namespace Yad.Engine.Client {
 			#region players' data (units & buildings)
 			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
+				
+				List<Building> buildings = p.GetAllBuildings();
+				foreach (Building b in buildings) {
+					DrawBuilding(b);
+				}
 
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
@@ -503,11 +513,6 @@ namespace Yad.Engine.Client {
 							DrawTrooper((UnitTrooper)u);
 							break;
 					}
-				}
-
-				List<Building> buildings = p.GetAllBuildings();
-				foreach (Building b in buildings) {
-					DrawBuilding(b);
 				}
 			}
 			#endregion
