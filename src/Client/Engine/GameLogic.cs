@@ -51,15 +51,27 @@ namespace Yad.Engine.Client {
 			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
-			PlayerInfo pi = ClientPlayerInfo.Player;
-			//TODO: poprawić gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
-			pi.House = wrapper.Races[0].TypeID;
-			_currPlayer = new Player(pi.Id, pi.Name, pi.House, pi.Color);
+			
+			PlayerInfo currPI = ClientPlayerInfo.Player;
+			//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
+			currPI.House = wrapper.Races[0].TypeID;
+			//
+			_currPlayer = new Player(currPI.Id, currPI.Name, currPI.House, currPI.Color);
 
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			_sim = new ClientSimulation(map, _currPlayer);
+			
+			//Add all players
+			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
+				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
+				//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
+				p.House = wrapper.Races[0].TypeID;
+				//
+				_sim.AddPlayer(p);
+			}
+
 			_sim.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(_sim_OnBuildingCompleted);
 
 
@@ -75,11 +87,10 @@ namespace Yad.Engine.Client {
 		#region message handling
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PositionData[] aPd = e.gameInitInfo;
-
+			
 			foreach (PositionData pd in aPd) {
 				//TODO: get info
-				Player p = new Player(pd.PlayerId, "???", GlobalSettings.Wrapper.Races[0].TypeID, Color.Green);
-				_sim.AddPlayer(p);
+				Player p = _sim.Players[pd.PlayerId];
 				UnitMCV mcv = new UnitMCV(p.Id, p.GenerateObjectID(), GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
 				p.AddUnit(mcv);
 
