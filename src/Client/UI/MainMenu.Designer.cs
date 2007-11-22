@@ -30,6 +30,7 @@ namespace Yad.UI.Client
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -40,6 +41,9 @@ namespace Yad.UI.Client
             this.haxxx = new System.Windows.Forms.Button();
             this.loginMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxServer = new System.Windows.Forms.GroupBox();
+            this.serverLoginMenu = new System.Windows.Forms.TextBox();
+            this.serverLabel = new System.Windows.Forms.Label();
             this.groupBoxLogin = new System.Windows.Forms.GroupBox();
             this.loginLabel = new System.Windows.Forms.Label();
             this.loginTBLoginMenu = new System.Windows.Forms.TextBox();
@@ -50,9 +54,6 @@ namespace Yad.UI.Client
             this.loginBTLoginMenu = new System.Windows.Forms.Button();
             this.remindPasswordLoginMenu = new System.Windows.Forms.Button();
             this.cancelLoginMenu = new System.Windows.Forms.Button();
-            this.groupBoxServer = new System.Windows.Forms.GroupBox();
-            this.serverLabel = new System.Windows.Forms.Label();
-            this.serverLoginMenu = new System.Windows.Forms.TextBox();
             this.registerMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -133,14 +134,15 @@ namespace Yad.UI.Client
             this.continuePauseMenu = new System.Windows.Forms.Button();
             this.exitPauseMenu = new System.Windows.Forms.Button();
             this.optionsPauseMenu = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.loginMenu.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.groupBoxServer.SuspendLayout();
             this.groupBoxLogin.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBoxServer.SuspendLayout();
             this.registerMenu.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -160,6 +162,7 @@ namespace Yad.UI.Client
             this.tableLayoutPanel3.SuspendLayout();
             this.pauseMenu.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -291,7 +294,7 @@ namespace Yad.UI.Client
             this.loginMenu.Location = new System.Drawing.Point(4, 4);
             this.loginMenu.Name = "loginMenu";
             this.loginMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.loginMenu.Size = new System.Drawing.Size(527, 338);
+            this.loginMenu.Size = new System.Drawing.Size(527, 356);
             this.loginMenu.TabIndex = 1;
             this.loginMenu.Text = "LoginMenu";
             this.loginMenu.UseVisualStyleBackColor = true;
@@ -302,9 +305,9 @@ namespace Yad.UI.Client
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.Controls.Add(this.groupBoxServer, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.groupBoxLogin, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.groupBoxServer, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -313,8 +316,36 @@ namespace Yad.UI.Client
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(521, 350);
             this.tableLayoutPanel4.TabIndex = 10;
+            // 
+            // groupBoxServer
+            // 
+            this.groupBoxServer.Controls.Add(this.serverLoginMenu);
+            this.groupBoxServer.Controls.Add(this.serverLabel);
+            this.groupBoxServer.Location = new System.Drawing.Point(81, 3);
+            this.groupBoxServer.Name = "groupBoxServer";
+            this.groupBoxServer.Size = new System.Drawing.Size(358, 74);
+            this.groupBoxServer.TabIndex = 0;
+            this.groupBoxServer.TabStop = false;
+            // 
+            // serverLoginMenu
+            // 
+            this.serverLoginMenu.Location = new System.Drawing.Point(93, 29);
+            this.serverLoginMenu.Name = "serverLoginMenu";
+            this.serverLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.serverLoginMenu.TabIndex = 11;
+            this.serverLoginMenu.Text = "127.0.0.1";
+            this.serverLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
+            // 
+            // serverLabel
+            // 
+            this.serverLabel.AutoSize = true;
+            this.serverLabel.Location = new System.Drawing.Point(6, 32);
+            this.serverLabel.Name = "serverLabel";
+            this.serverLabel.Size = new System.Drawing.Size(36, 13);
+            this.serverLabel.TabIndex = 10;
+            this.serverLabel.Text = "server";
             // 
             // groupBoxLogin
             // 
@@ -325,7 +356,7 @@ namespace Yad.UI.Client
             this.groupBoxLogin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxLogin.Location = new System.Drawing.Point(81, 83);
             this.groupBoxLogin.Name = "groupBoxLogin";
-            this.groupBoxLogin.Size = new System.Drawing.Size(358, 110);
+            this.groupBoxLogin.Size = new System.Drawing.Size(358, 119);
             this.groupBoxLogin.TabIndex = 1;
             this.groupBoxLogin.TabStop = false;
             // 
@@ -346,6 +377,7 @@ namespace Yad.UI.Client
             this.loginTBLoginMenu.Size = new System.Drawing.Size(105, 20);
             this.loginTBLoginMenu.TabIndex = 2;
             this.loginTBLoginMenu.Text = "test_player_";
+            this.loginTBLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
             // 
             // passwordLoginMenu
             // 
@@ -354,7 +386,9 @@ namespace Yad.UI.Client
             this.passwordLoginMenu.Name = "passwordLoginMenu";
             this.passwordLoginMenu.Size = new System.Drawing.Size(105, 20);
             this.passwordLoginMenu.TabIndex = 3;
+            this.passwordLoginMenu.Text = "yad2";
             this.passwordLoginMenu.UseSystemPasswordChar = true;
+            this.passwordLoginMenu.Validating += new System.ComponentModel.CancelEventHandler(this.loginMenu_Validating);
             // 
             // passwordLabel
             // 
@@ -372,9 +406,9 @@ namespace Yad.UI.Client
             this.panel1.Controls.Add(this.remindPasswordLoginMenu);
             this.panel1.Controls.Add(this.cancelLoginMenu);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(81, 199);
+            this.panel1.Location = new System.Drawing.Point(81, 208);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(358, 110);
+            this.panel1.Size = new System.Drawing.Size(358, 119);
             this.panel1.TabIndex = 2;
             // 
             // registerLoginMenu
@@ -417,34 +451,6 @@ namespace Yad.UI.Client
             this.cancelLoginMenu.UseVisualStyleBackColor = true;
             this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
             // 
-            // groupBoxServer
-            // 
-            this.groupBoxServer.Controls.Add(this.serverLabel);
-            this.groupBoxServer.Controls.Add(this.serverLoginMenu);
-            this.groupBoxServer.Location = new System.Drawing.Point(81, 3);
-            this.groupBoxServer.Name = "groupBoxServer";
-            this.groupBoxServer.Size = new System.Drawing.Size(358, 74);
-            this.groupBoxServer.TabIndex = 0;
-            this.groupBoxServer.TabStop = false;
-            // 
-            // serverLabel
-            // 
-            this.serverLabel.AutoSize = true;
-            this.serverLabel.Location = new System.Drawing.Point(6, 32);
-            this.serverLabel.Name = "serverLabel";
-            this.serverLabel.Size = new System.Drawing.Size(36, 13);
-            this.serverLabel.TabIndex = 10;
-            this.serverLabel.Text = "server";
-            // 
-            // serverLoginMenu
-            // 
-            this.serverLoginMenu.Location = new System.Drawing.Point(93, 29);
-            this.serverLoginMenu.MaxLength = 15;
-            this.serverLoginMenu.Name = "serverLoginMenu";
-            this.serverLoginMenu.Size = new System.Drawing.Size(105, 20);
-            this.serverLoginMenu.TabIndex = 1;
-            this.serverLoginMenu.Text = "127.0.0.1";
-            // 
             // registerMenu
             // 
             this.registerMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -452,7 +458,7 @@ namespace Yad.UI.Client
             this.registerMenu.Location = new System.Drawing.Point(4, 4);
             this.registerMenu.Name = "registerMenu";
             this.registerMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.registerMenu.Size = new System.Drawing.Size(527, 338);
+            this.registerMenu.Size = new System.Drawing.Size(527, 356);
             this.registerMenu.TabIndex = 2;
             this.registerMenu.Text = "RegisterMenu";
             this.registerMenu.UseVisualStyleBackColor = true;
@@ -473,7 +479,7 @@ namespace Yad.UI.Client
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(521, 332);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(521, 350);
             this.tableLayoutPanel5.TabIndex = 10;
             // 
             // groupBox2
@@ -518,6 +524,7 @@ namespace Yad.UI.Client
             this.loginTBRegisterMenu.Name = "loginTBRegisterMenu";
             this.loginTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.loginTBRegisterMenu.TabIndex = 1;
+            this.loginTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // repeatPasswordLRegisterMenu
             // 
@@ -536,6 +543,7 @@ namespace Yad.UI.Client
             this.passwordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.passwordTBRegisterMenu.TabIndex = 2;
             this.passwordTBRegisterMenu.UseSystemPasswordChar = true;
+            this.passwordTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // emailTBRegisterMenu
             // 
@@ -544,6 +552,7 @@ namespace Yad.UI.Client
             this.emailTBRegisterMenu.Name = "emailTBRegisterMenu";
             this.emailTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.emailTBRegisterMenu.TabIndex = 4;
+            this.emailTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // repeatPasswordTBRegisterMenu
             // 
@@ -553,6 +562,7 @@ namespace Yad.UI.Client
             this.repeatPasswordTBRegisterMenu.Size = new System.Drawing.Size(166, 20);
             this.repeatPasswordTBRegisterMenu.TabIndex = 3;
             this.repeatPasswordTBRegisterMenu.UseSystemPasswordChar = true;
+            this.repeatPasswordTBRegisterMenu.Validating += new System.ComponentModel.CancelEventHandler(this.registerMenu_Validating);
             // 
             // passwordLRegisterMenu
             // 
@@ -604,7 +614,7 @@ namespace Yad.UI.Client
             this.chatMenu.Location = new System.Drawing.Point(4, 4);
             this.chatMenu.Name = "chatMenu";
             this.chatMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.chatMenu.Size = new System.Drawing.Size(527, 338);
+            this.chatMenu.Size = new System.Drawing.Size(527, 356);
             this.chatMenu.TabIndex = 3;
             this.chatMenu.Text = "ChatMenu";
             this.chatMenu.UseVisualStyleBackColor = true;
@@ -672,7 +682,7 @@ namespace Yad.UI.Client
             this.playerInfoMenu.Location = new System.Drawing.Point(4, 4);
             this.playerInfoMenu.Name = "playerInfoMenu";
             this.playerInfoMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.playerInfoMenu.Size = new System.Drawing.Size(527, 338);
+            this.playerInfoMenu.Size = new System.Drawing.Size(527, 356);
             this.playerInfoMenu.TabIndex = 4;
             this.playerInfoMenu.Text = "PlayerInfoMenu";
             this.playerInfoMenu.UseVisualStyleBackColor = true;
@@ -708,7 +718,7 @@ namespace Yad.UI.Client
             this.chooseGameMenu.Location = new System.Drawing.Point(4, 4);
             this.chooseGameMenu.Name = "chooseGameMenu";
             this.chooseGameMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.chooseGameMenu.Size = new System.Drawing.Size(527, 338);
+            this.chooseGameMenu.Size = new System.Drawing.Size(527, 356);
             this.chooseGameMenu.TabIndex = 5;
             this.chooseGameMenu.Text = "ChooseGameMenu";
             this.chooseGameMenu.UseVisualStyleBackColor = true;
@@ -841,9 +851,10 @@ namespace Yad.UI.Client
             // 
             this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(272, 129);
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
-            this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(217, 20);
+            this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(179, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 2;
             this.gameNameTBCreateGameMenu.Text = "test_game_";
+            this.gameNameTBCreateGameMenu.Validating += new System.ComponentModel.CancelEventHandler(this.createGameMenu_Validating);
             // 
             // privateCreateGameMenu
             // 
@@ -955,16 +966,17 @@ namespace Yad.UI.Client
             // 
             // teamCBWaitingForPlayersMenu
             // 
+            this.teamCBWaitingForPlayersMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.teamCBWaitingForPlayersMenu.FormattingEnabled = true;
             this.teamCBWaitingForPlayersMenu.Location = new System.Drawing.Point(80, 54);
             this.teamCBWaitingForPlayersMenu.Name = "teamCBWaitingForPlayersMenu";
             this.teamCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
             this.teamCBWaitingForPlayersMenu.TabIndex = 4;
             this.teamCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
-            this.teamCBWaitingForPlayersMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBWaitingForPlayersMenu_KeyDown);
             // 
             // houseCBWaitingForPlayersMenu
             // 
+            this.houseCBWaitingForPlayersMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.houseCBWaitingForPlayersMenu.FormattingEnabled = true;
             this.houseCBWaitingForPlayersMenu.Location = new System.Drawing.Point(80, 27);
             this.houseCBWaitingForPlayersMenu.MaxDropDownItems = 10;
@@ -972,7 +984,6 @@ namespace Yad.UI.Client
             this.houseCBWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
             this.houseCBWaitingForPlayersMenu.TabIndex = 3;
             this.houseCBWaitingForPlayersMenu.SelectedIndexChanged += new System.EventHandler(this.CBWaitingForPlayersMenu_SelectedIndexChanged);
-            this.houseCBWaitingForPlayersMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBWaitingForPlayersMenu_KeyDown);
             // 
             // dataGridViewPlayers
             // 
@@ -1339,6 +1350,12 @@ namespace Yad.UI.Client
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
             this.optionsPauseMenu.Click += new System.EventHandler(this.optionsPauseMenu_Click);
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkRate = 0;
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1354,11 +1371,11 @@ namespace Yad.UI.Client
             this.tableLayoutPanel1.ResumeLayout(false);
             this.loginMenu.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.groupBoxServer.ResumeLayout(false);
+            this.groupBoxServer.PerformLayout();
             this.groupBoxLogin.ResumeLayout(false);
             this.groupBoxLogin.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.groupBoxServer.ResumeLayout(false);
-            this.groupBoxServer.PerformLayout();
             this.registerMenu.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1385,6 +1402,7 @@ namespace Yad.UI.Client
             this.tableLayoutPanel3.ResumeLayout(false);
             this.pauseMenu.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1415,7 +1433,6 @@ namespace Yad.UI.Client
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label loginLabel;
         private System.Windows.Forms.Label serverLabel;
-        private System.Windows.Forms.TextBox serverLoginMenu;
         private System.Windows.Forms.Button remindPasswordLoginMenu;
         private System.Windows.Forms.Button backRegisterMenu;
         private System.Windows.Forms.Button registerRegisterMenu;
@@ -1494,5 +1511,7 @@ namespace Yad.UI.Client
         private DataGridViewTextBoxColumn PlayersName;
         private DataGridViewTextBoxColumn House;
         private DataGridViewTextBoxColumn Team;
+        private ErrorProvider errorProvider;
+        private TextBox serverLoginMenu;
     }
 }
