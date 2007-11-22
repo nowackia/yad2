@@ -51,8 +51,7 @@ namespace Yad.Log.Common {
 
         private InfoLog(MultiStream writer) {
             _writer = writer;
-            _infoLogPrefix = new InfoLogPrefix();
-            
+            _infoLogPrefix = new InfoLogPrefix();      
         }
 
         #endregion
