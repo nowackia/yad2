@@ -33,6 +33,8 @@ namespace Yad.UI.Client
 			this.panelUITop_E = new System.Windows.Forms.Panel();
 			this.panelUITop_W = new System.Windows.Forms.Panel();
 			this.panelUIControl = new System.Windows.Forms.Panel();
+			this.rightStripe = new Yad.UI.Client.BuildStripe();
+			this.leftStripe = new Yad.UI.Client.BuildStripe();
 			this.panelUIBall_W2 = new System.Windows.Forms.Panel();
 			this.panelUIBall_E = new System.Windows.Forms.Panel();
 			this.panelUIBall_W1 = new System.Windows.Forms.Panel();
@@ -43,8 +45,6 @@ namespace Yad.UI.Client
 			this.panelUILine_WE1 = new System.Windows.Forms.Panel();
 			this.panelUILine_WE2 = new System.Windows.Forms.Panel();
 			this.panelUILine_NS = new System.Windows.Forms.Panel();
-			this.rightStripe = new BuildStripe();
-			this.leftStripe = new BuildStripe();
 			this.openGLView = new Tao.Platform.Windows.SimpleOpenGlControl();
 			this.panelUIControl.SuspendLayout();
 			this.SuspendLayout();
@@ -92,6 +92,7 @@ namespace Yad.UI.Client
 			this.rightStripe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.rightStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("rightStripe.Ids")));
 			this.rightStripe.Location = new System.Drawing.Point(91, 6);
 			this.rightStripe.Name = "rightStripe";
 			this.rightStripe.Size = new System.Drawing.Size(90, 283);
@@ -102,6 +103,7 @@ namespace Yad.UI.Client
 			this.leftStripe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.leftStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("leftStripe.Ids")));
 			this.leftStripe.Location = new System.Drawing.Point(0, 6);
 			this.leftStripe.Name = "leftStripe";
 			this.leftStripe.Size = new System.Drawing.Size(90, 283);
@@ -252,7 +254,6 @@ namespace Yad.UI.Client
 			this.Controls.Add(this.panelUILine_WE2);
 			this.Controls.Add(this.panelUILine_NS);
 			this.DoubleBuffered = true;
-			this.MaximizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(800, 600);
 			this.Name = "GameForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
