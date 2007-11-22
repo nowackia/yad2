@@ -63,7 +63,7 @@ namespace Yad.Engine.Client {
 		/// <summary>
 		/// These are just stupid, very often used constants.
 		/// </summary>
-		const float oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f;
+		const float oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f, oneSixteenth = 0.0625f;
 		#endregion
 
 		#region drawing-related members
@@ -460,20 +460,6 @@ namespace Yad.Engine.Client {
 
 			Gl.glLoadIdentity();
 
-			#region fow
-			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
-			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
-				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
-					if (fogOfWar[x, y] == false) {
-						continue;
-					}
-					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
-					RectangleF fowUV = new RectangleF(oneEight * fogIndex, 0, oneEight, 1);
-					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
-				}
-			}
-			#endregion
-
 			#region map
 			DrawElementFromLeftBottom(0, 0, _depthMap, _gameLogic.Simulation.Map.Width, _gameLogic.Simulation.Map.Height, 1, _defaultUV);
 			#endregion
@@ -526,6 +512,21 @@ namespace Yad.Engine.Client {
 			Building selB = _gameLogic.SelectedBuilding;
 			if (selB != null) {
 				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Size.X, selB.Size.Y, 2, _defaultUV);
+			}
+			#endregion
+
+
+			#region fow
+			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
+			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
+				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
+					if (fogOfWar[x, y] == false) {
+						continue;
+					}
+					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
+					RectangleF fowUV = new RectangleF(oneSixteenth * fogIndex, 0, oneSixteenth, 1);
+					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
+				}
 			}
 			#endregion
 		}
