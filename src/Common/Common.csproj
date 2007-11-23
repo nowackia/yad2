@@ -42,6 +42,7 @@
     <Compile Include="Board\Building.cs" />
     <Compile Include="Board\Direction.cs" />
     <Compile Include="Board\Map.cs" />
+    <Compile Include="Board\ObjectID.cs" />
     <Compile Include="Board\Position.cs" />
     <Compile Include="Board\TileType.cs" />
     <Compile Include="Board\Unit.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Net\Messaging\GameNumericMessage.cs" />
     <Compile Include="Net\Messaging\GamesMessage.cs" />
     <Compile Include="Net\Messaging\GameType.cs" />
+    <Compile Include="Net\Messaging\GMDeployMCV.cs" />
     <Compile Include="Net\Messaging\MessageOperation.cs" />
     <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
     <Compile Include="Net\Messaging\PlayersMessage.cs" />

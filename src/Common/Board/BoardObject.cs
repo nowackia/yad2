@@ -11,40 +11,7 @@ namespace Yad.Board.Common {
 	/// </summary>
     /// 
 
-    public class ObjectID {
-        protected int objectID;
-        protected short playerID;
-        public int ObjectId {
-            get { return objectID; }
-        }
-        public short PlayerID {
-            get { return playerID; }
-        }
-        public ObjectID(int objectID, short playerID) {
-            this.objectID = objectID;
-            this.playerID = playerID;
-        }
-        public static ObjectID From(int objectID, short playerID) {
-            return new ObjectID(objectID, playerID);
-        }
-
-        public override bool Equals(object obj) {
-            if ((obj is ObjectID) == false) return false;
-            ObjectID ob = (ObjectID)obj;
-            return this.playerID == ob.playerID && this.objectID == ob.objectID;
-        }
-
-        public override int GetHashCode() {
-            return objectID +  1000 * this.PlayerID;
-        }
-
-    }
-
 	public class BoardObject {
-
-		protected static GameSettings gameSettings = new GameSettings();
-
-
         ObjectID objectID;
 		Position position;
 
@@ -61,8 +28,8 @@ namespace Yad.Board.Common {
 		/// <param name="pID">playerID</param>
 		/// <param name="oID">objectID</param>
 		/// <param name="pos">position</param>
-		public BoardObject(short pID, int oID, BoardObjectClass ot, Position pos) {
-            this.objectID = new ObjectID(oID, pID);
+		public BoardObject(ObjectID objectID, BoardObjectClass ot, Position pos) {
+            this.objectID = objectID;
 			this.position = pos;
 			this.boardObjectClass = ot;
 		}
@@ -71,9 +38,7 @@ namespace Yad.Board.Common {
 			get {
 				return this.boardObjectClass;
 			}
-		}
-
-		
+		}		
 
 		public ObjectID ObjectID {
 			get { return this.objectID; }

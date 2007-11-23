@@ -5,27 +5,28 @@ using Yad.Config.Common;
 
 namespace Yad.Board.Common {
 	public class UnitSandworm : Unit {
-		public UnitSandworm(short playerID, int unitID, UnitSandwormData ud, Position pos, Map map, int speed)
-			: base(playerID, unitID, ud.TypeID, Yad.Config.BoardObjectClass.UnitSandworm, pos, map) {
-			this.Speed = ud.Speed;
-			//fill other properties
-			this.damageDestroy = ud.DamageDestroy;
-			//ud.BuildSpeed
-			this.health = ud.Health;
-			this.rotationSpeed = ud.RotationSpeed;
+		UnitSandwormData _sandwormData;
 
+		public UnitSandworm(ObjectID id, UnitSandwormData ud, Position pos, Map map, int speed)
+			: base(id, ud.TypeID, Yad.Config.BoardObjectClass.UnitSandworm, pos, map) {
+			_sandwormData = ud;
+			this.Speed = ud.Speed;
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 		}
 
-		public override void Move() {
-			base.Move();
+		public override bool Move() {
+			return base.Move();
 		}
 
 		public override void DoAI() {
 			base.DoAI();
+		}
+
+		public UnitSandwormData SandwormData {
+			get { return _sandwormData; }
 		}
 	}
 }

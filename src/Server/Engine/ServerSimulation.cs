@@ -44,8 +44,21 @@ namespace Yad.Engine.Server {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 		}
 
-		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
-			throw new Exception("The method or operation is not implemented.");
+		protected override void onMessageDeployMCV(Yad.Net.Messaging.GMDeployMCV dmcv) {
+			InfoLog.WriteInfo("onMessageDeployMCV: not implemented");
 		}
+
+		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
+			InfoLog.WriteInfo("onInvalidMove: not implemented");
+		}
+
+
+		protected override void handleUnit(Unit u) {
+			//u.Move();
+		}
+
+		protected override void handleBuilding(Building b) {
+			InfoLog.WriteInfo("handleBuilding: not implemented");
+		}		
 	}
 }

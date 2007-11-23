@@ -13,11 +13,15 @@ using Yad.Config;
 using System.Windows.Forms;
 using Yad.Utilities.Common;
 using Yad.UI.Common;
+using Yad.Net.Messaging;
 
 namespace Yad.Engine.Common {
 
 	public delegate void SimulationHandler();
 
+	/// <summary>
+	/// Try not to modify this class...
+	/// </summary>
 	public abstract class Simulation {
 
 		#region static members
@@ -161,6 +165,8 @@ namespace Yad.Engine.Common {
 						this.onMessageDestroy((DestroyMessage)gm);
 					} else if (gm.Type == MessageType.Harvest) {
 						this.onMessageHarvest((HarvestMessage)gm);
+					} else if (gm.Type == MessageType.DeployMCV) {
+						this.onMessageDeployMCV((GMDeployMCV)gm);
 					} else {
 						throw new NotImplementedException("This message type is not supported! Refer to Simulation.cs");
 					}
@@ -221,11 +227,7 @@ namespace Yad.Engine.Common {
 		/// from within this function then use destroyX() functions.
 		/// </summary>
 		/// <param name="u"></param>
-		private void handleUnit(Unit u) {
-			u.Move();
-
-			
-		}
+		protected abstract void handleUnit(Unit u);
 
 		/// <summary>
 		/// Handles building. If you need to destroy another unit or building
@@ -233,15 +235,13 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		/// <param name="b"></param>
 		//any ideas how?
-		private void handleBuilding(Building b) {
-
-		}
+		protected abstract void handleBuilding(Building b);
 
 		/// <summary>
 		/// this should only be used from within handleX() functions
 		/// </summary>
 		/// <param name="u"></param>
-		private void destroyUnit(Unit u) {
+		protected void destroyUnit(Unit u) {
 			this.unitsToProcess.Remove(u);
 			this.UnitsProcessed.Remove(u);
 			this.players[u.ObjectID.PlayerID].RemoveUnit(u);
@@ -251,7 +251,7 @@ namespace Yad.Engine.Common {
 		/// this should only be used from within handleX() functions
 		/// </summary>
 		/// <param name="u"></param>
-		private void destroyBuilding(Building b) {
+		protected void destroyBuilding(Building b) {
 			this.buildingsToProcess.Remove(b);
 			this.buildingsProcessed.Remove(b);
 			this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
@@ -266,6 +266,7 @@ namespace Yad.Engine.Common {
 		protected abstract void onMessageDestroy(DestroyMessage dm);
 		protected abstract void onMessageHarvest(HarvestMessage hm);
 		protected abstract void onMessageCreate(CreateUnitMessage cum);
+		protected abstract void onMessageDeployMCV(GMDeployMCV dmcv);
 
 		protected abstract void onInvalidMove(Unit unit);
 		#endregion

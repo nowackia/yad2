@@ -47,7 +47,7 @@ namespace Yad.Net.Messaging.Common {
                     return new ControlMessage();
 
                 case MessageType.TurnAsk:
-                    return new TurnAskMessage();
+                    return new MessageTurnAsk();
 
                 case MessageType.DoTurn:
                     return new DoTurnMessage();

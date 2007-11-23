@@ -11,50 +11,49 @@ namespace Yad.Board.Common {
 	/// </summary>
 	public abstract class Unit : BoardObject {
 		//common fields for all units - except sandworm
-		protected short damageDestroy;
-		protected String name;
-		protected short fireRange;
-		protected AmmoType ammoType;
-		private short speed;
-		protected short reloadTime;
-		protected short health;
-		protected short viewRange;
-		protected short rotationSpeed;
-		protected Direction direction;
+		protected short _damageDestroy;
+		protected String _name;
+		protected short _fireRange;
+		protected AmmoType _ammoType;
+		protected short _reloadTime;
+		private short _speed;
+		protected short _maxHealth;
+		protected short _viewRange;
+		protected short _rotationSpeed;
+		protected Direction _direction;
 
 		//used for moving
-		protected bool canCrossMountain = false, canCrossBuildings = false, canCrossRock = true, canCrossTrooper = false, canCrossTank = false;
+		protected bool _canCrossMountain = false, _canCrossBuildings = false, _canCrossRock = true, _canCrossTrooper = false, _canCrossTank = false;
 
 		protected short _remainingTurnsInMove = 0;
-		protected Position lastPosition; //used while moving to remember last pos
-		protected Queue<Position> currentPath;
+		protected Position _lastPosition; //used while moving to remember last pos
+		protected Queue<Position> _currentPath;
 		//BoardObject.Position - current position, while moving unit is always at this coordinates
 
-		protected short typeID;
+		protected short _typeID;
 
 		//map-related
-		protected Map map;
+		protected Map _map;
 		bool _alreadyOnMap = false;
 
 		//TODO : RS implement some base AI?
-		//KŒ: yes ;P
 		public virtual void Destroy() {
 			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
 		}
 		public virtual void DoAI() {
 			InfoLog.WriteInfo("Unit:DoAI() Not implemented", EPrefix.SimulationInfo);
 		}
-		public virtual void Move() {
+		public virtual bool Move() {
 			if (!this.Moving) {
-				return;
+				return false;
 			}
 
 			if (_remainingTurnsInMove == 0) {
 				//unit starts to move
 				//so we set a new position
-				this._remainingTurnsInMove = this.speed;
+				this._remainingTurnsInMove = this._speed;
 
-				Position newPos = currentPath.Dequeue();
+				Position newPos = _currentPath.Dequeue();
 
 				//TODO: check newPos;
 				/*
@@ -65,26 +64,26 @@ namespace Yad.Board.Common {
 				}
 				*/
 
-				this.map.Units[this.Position.X, this.Position.Y].Remove(this);
+				this._map.Units[this.Position.X, this.Position.Y].Remove(this);
 
-				this.lastPosition = Position;
+				this._lastPosition = Position;
 				this.Position = newPos;
 
-				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
 
 				//set new direction
-				short dx = (short)(newPos.X - lastPosition.X);
-				short dy = (short)(newPos.Y - lastPosition.Y);
-				this.direction = Direction.None;
+				short dx = (short)(newPos.X - _lastPosition.X);
+				short dy = (short)(newPos.Y - _lastPosition.Y);
+				this._direction = Direction.None;
 				if (dx > 0) {
-					direction |= Direction.East;
+					_direction |= Direction.East;
 				} else if (dx < 0) {
-					direction |= Direction.West;
+					_direction |= Direction.West;
 				}
 				if (dy > 0) {
-					direction |= Direction.North;
+					_direction |= Direction.North;
 				} else if (dy < 0) {
-					direction |= Direction.South;
+					_direction |= Direction.South;
 				}
 
 				this.ClearFogOfWar();
@@ -93,70 +92,70 @@ namespace Yad.Board.Common {
 			//move unit
 			this._remainingTurnsInMove--;
 
-			return;
+			return true;
 		}
 
-		public Unit(short playerID, int unitID, short typeID, BoardObjectClass boc, Position pos, Map map)
-			: base(playerID, unitID, boc, pos) {
-			this.typeID = typeID;
-			this.map = map;
-			this.lastPosition = pos;
-			this.direction = Direction.North;
-			this.currentPath = new Queue<Position>();
+		public Unit(ObjectID id, short typeID, BoardObjectClass boc, Position pos, Map map)
+			: base(id, boc, pos) {
+			this._typeID = typeID;
+			this._map = map;
+			this._lastPosition = pos;
+			this._direction = Direction.North;
+			this._currentPath = new Queue<Position>();
 		}
 
 		public AmmoType AmmoType {
-			get { return ammoType; }
+			get { return _ammoType; }
 		}
 
 		public int FireRange {
-			get { return fireRange; }
+			get { return _fireRange; }
 		}
 
 		public int ReloadTime {
-			get { return reloadTime; }
+			get { return _reloadTime; }
 		}
 
 		public int Health {
-			get { return health; }
+			get { return _maxHealth; }
 		}
 
 		public int ViewRange {
-			get { return viewRange; }
+			get { return _viewRange; }
 		}
 
 		public int RotationSpeed {
-			get { return rotationSpeed; }
+			get { return _rotationSpeed; }
 		}
 
 		public String Name {
-			get { return name; }
+			get { return _name; }
 		}
 
 		public int DamageDestroy {
-			get { return damageDestroy; }
+			get { return _damageDestroy; }
 		}
 
 		public Position DestinationPoint {
 			get {
-				if (this.currentPath.Count == 0) {
+				if (this._currentPath.Count == 0) {
 					return this.Position;
 				}
 
-				return this.currentPath.ToArray()[currentPath.Count - 1];
+				return this._currentPath.ToArray()[_currentPath.Count - 1];
 			}
 			//set { destinationPoint = value; }
 		}
 
 		public short TypeID {
-			get { return this.typeID; }
+			get { return this._typeID; }
 		}
 
 		public void MoveTo(Position destination) {
 			//we can override old path
-			this.currentPath = FindPath(this.Position, destination, this.map,
-										this.canCrossMountain, this.canCrossBuildings,
-										this.canCrossRock, this.canCrossTrooper, this.canCrossRock);
+			this._currentPath = FindPath(this.Position, destination, this._map,
+										this._canCrossMountain, this._canCrossBuildings,
+										this._canCrossRock, this._canCrossTrooper, this._canCrossRock);
 
 			//this._remainingTurnsInMove = this.speed;
 		}
@@ -168,7 +167,7 @@ namespace Yad.Board.Common {
 		/// - have destination queued
 		/// </summary>
 		public bool Moving {
-			get { return (this._remainingTurnsInMove != 0) || (this.currentPath.Count != 0); }
+			get { return (this._remainingTurnsInMove != 0) || (this._currentPath.Count != 0); }
 		}
 
 		public static Queue<Position> FindPath(Position source, Position dest, Map map,
@@ -210,21 +209,21 @@ namespace Yad.Board.Common {
 		}
 
 		public void StopMoving() {
-			this.currentPath.Clear();
+			this._currentPath.Clear();
 		}
 
 		public short Speed {
-			get { return this.speed; }
+			get { return this._speed; }
 			set {
 				if (value == 0) {
 					throw new ArgumentOutOfRangeException("Speed must be greater than 0");
 				}
-				this.speed = value;
+				this._speed = value;
 			}
 		}
 
 		public Position LastPosition {
-			get { return this.lastPosition; }
+			get { return this._lastPosition; }
 		}
 
 		public int RemainingTurnsInMove {
@@ -232,13 +231,13 @@ namespace Yad.Board.Common {
 		}
 
 		public Direction Direction {
-			get { return direction; }
-			set { direction = value; }
+			get { return _direction; }
+			set { _direction = value; }
 		}
 
 		public bool PlaceOnMap() {
 			if (!_alreadyOnMap) {
-				this.map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
 				ClearFogOfWar();
 				
 				_alreadyOnMap = true;
@@ -248,12 +247,12 @@ namespace Yad.Board.Common {
 		}
 
 		public void ClearFogOfWar() {
-			for (int x = -viewRange + Position.X; x <= viewRange + Position.X; x++) {
-				for (int y = -viewRange + Position.Y; y <= viewRange + Position.Y; y++) {
-					if (x < 0 || y < 0 || x > map.Width - 1 || y > map.Height - 1) {
+			for (int x = -_viewRange + Position.X; x <= _viewRange + Position.X; x++) {
+				for (int y = -_viewRange + Position.Y; y <= _viewRange + Position.Y; y++) {
+					if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1) {
 						continue;
 					}
-					map.FogOfWar[x, y] = false;
+					_map.FogOfWar[x, y] = false;
 				}
 			}				
 		}

@@ -24,6 +24,7 @@ namespace Yad.Net.Messaging.Common
         Control,
 		TurnAsk,
 		DoTurn,
+		DeployMCV,
         PlayerDisconnected,
         EndGame,
         #endregion

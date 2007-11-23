@@ -54,7 +54,7 @@ namespace Yad.Engine.Client {
 			
 			PlayerInfo currPI = ClientPlayerInfo.Player;
 			//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
-			currPI.House = wrapper.Races[0].TypeID;
+			//currPI.House = wrapper.Races[0].TypeID;
 			//
 			_currPlayer = new Player(currPI.Id, currPI.Name, currPI.House, currPI.Color);
 
@@ -67,12 +67,12 @@ namespace Yad.Engine.Client {
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
 				//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
-				p.House = wrapper.Races[0].TypeID;
+				//p.House = wrapper.Races[0].TypeID;
 				//
 				_sim.AddPlayer(p);
 			}
 
-			_sim.OnBuildingCompleted += new ClientSimulation.BuildingCompletedHandler(_sim_OnBuildingCompleted);
+			_sim.OnBuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
 
 
 			//GameMessageHandler.Instance.Resume();
@@ -91,11 +91,13 @@ namespace Yad.Engine.Client {
 			foreach (PositionData pd in aPd) {
 				//TODO: get info
 				Player p = _sim.Players[pd.PlayerId];
-				UnitMCV mcv = new UnitMCV(p.Id, p.GenerateObjectID(), GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
+				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
+				UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
 				p.AddUnit(mcv);
 
 				// vjust for fun ;p
-				UnitTank u = new UnitTank(p.Id, p.GenerateObjectID(), GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map);
+				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
+				UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map);
 				p.AddUnit(u);
 				// ^
 
