@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing;
 
 namespace Yad.Board.Common {
 	public class Map {
@@ -90,13 +92,20 @@ namespace Yad.Board.Common {
 
 			width = (short)tempList[0].Length;
 			height = (short)tempList.Count;
+            /*
+            FileStream fs = File.Open(name, FileMode.Open);
+            BinaryFormatter bf = new BinaryFormatter();
+            List<Point> lp = (List<Point>)bf.Deserialize(fs);
+            MapData md = (MapData)bf.Deserialize(fs);
 
+            width = (short)md.Width;
+            height = (short)md.Height;
 			tiles = new TileType[width, height];
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
-					tiles[x, y] = (TileType)tempList[y][x];
+                    tiles[x, y] = md[x][y].Type;
 				}
-			}
+			}*/
 
 			fogOfWar = new bool[width, height];
 			slabs = new bool[width, height];
