@@ -14,6 +14,7 @@ namespace Yad.Board.Common {
 			_tankData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
+            this._fireRange = ud.FireRange;
 
 		}
 

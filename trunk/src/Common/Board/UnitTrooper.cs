@@ -13,6 +13,7 @@ namespace Yad.Board.Common {
 			_trooperData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
+            this._fireRange = ud.FireRange;
 		}
 
 		public override void Destroy() {

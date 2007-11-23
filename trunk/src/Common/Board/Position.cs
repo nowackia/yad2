@@ -59,5 +59,17 @@ namespace Yad.Board {
             _x = reader.ReadInt16();
             _y = reader.ReadInt16();
         }
+
+        public override bool Equals(object obj) {
+            if (obj is Position) {
+                Position ob = (Position)obj;
+                return _x == ob._x && _y == ob._y;
+            }
+            return false;
+        }
+
+        public override int GetHashCode() {
+            return (_x*10000 + _y).GetHashCode();
+        }
 	}
 }

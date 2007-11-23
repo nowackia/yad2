@@ -32,6 +32,17 @@ namespace Yad.Board.Common {
 
 		protected short _typeID;
 
+        protected BoardObject attackedObject;
+        protected bool attackingBuilding; // -- need to proper cast.
+        public enum UnitState {
+            moving,
+            chacing,
+            stopped,
+            attacking,
+            destroyed
+        }
+
+        protected UnitState state = UnitState.stopped;
 		//map-related
 		protected Map _map;
 		bool _alreadyOnMap = false;
@@ -39,10 +50,254 @@ namespace Yad.Board.Common {
 		//TODO : RS implement some base AI?
 		public virtual void Destroy() {
 			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
+            state = UnitState.destroyed;
 		}
-		public virtual void DoAI() {
-			InfoLog.WriteInfo("Unit:DoAI() Not implemented", EPrefix.SimulationInfo);
+
+
+        private static Position[] rangeSpiral;
+        private static Dictionary<int, int> lenghts = new Dictionary<int,int>();
+
+        private static void GenerateSpiral(int range) {
+
+
+            List<Position> spiral = new List<Position>();
+            spiral.Add(new Position(0, 0));
+            lenghts[0] = 1;
+            for (int i = 1; i <= range; ++i) {
+                // for each radius
+                double delta = 1.0 / range;
+                for (double alfa = 0; alfa < 2 * Math.PI; alfa += delta) {
+                    // alfa
+                    int x = (int)(i * Math.Cos(alfa));
+                    int y = (int)(i * Math.Sin(alfa));
+                    Position p = new Position(x, y);
+                    if (spiral.Contains(p) == false) spiral.Add(p);
+                }
+                lenghts[i] = spiral.Count;
+            }
+            rangeSpiral = spiral.ToArray();
+        }
+
+        protected static Position[] RangeSpiral(int range,out int max) {
+
+            if (lenghts.ContainsKey(range)) {
+                max = lenghts[range];
+                return rangeSpiral;
+            } else {
+                GenerateSpiral(range);
+                max = lenghts[range];
+                return rangeSpiral;
+            }
+        }
+
+        public virtual void DoAI() {
+			InfoLog.WriteInfo("Unit:DoAI()", EPrefix.SimulationInfo);
+            
+            switch (state) {
+                case UnitState.moving:
+                    BoardObject nearest;
+                    //if (FindNearestTargetInFireRange(out nearest)) {
+                    //    InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
+                    //    state = UnitState.stopped;
+                    //    StopMoving();
+                    //} else 
+                        if (Move() == false) {
+                        InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
+                        state = UnitState.stopped;
+                    } else {
+                        InfoLog.WriteInfo("Unit:AI: move -> move ", EPrefix.SimulationInfo);
+                    }
+                    //TODO RS: modify to find way each time? - chasing another unit
+                    break;
+                case UnitState.chacing:
+                    BoardObject nearest1;
+                    if (FindNearestTargetInFireRange(out nearest1)) {
+                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        state = UnitState.stopped;
+                        StopMoving();
+                    } else 
+                    if (Move() == false) {
+                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        state = UnitState.stopped;
+                    } 
+                    break;
+                case UnitState.stopped:
+                    if (FindNearestTargetInFireRange(out attackedObject)) {
+                        state = UnitState.attacking;
+                        InfoLog.WriteInfo("Unit:AI: stop -> attack ", EPrefix.SimulationInfo);
+                        break;
+                    }
+                    BoardObject ob;
+                    if (FindNearestTargetInViewRange(out ob)) {
+                        InfoLog.WriteInfo("Unit:AI: stop -> chace ", EPrefix.SimulationInfo);
+                        state = UnitState.chacing;
+                        MoveTo(ob.Position);
+                        state = UnitState.chacing;
+                        break;
+                    }
+                    break;
+                case UnitState.attacking:
+                    if (CheckIfStillExistTarget(attackedObject) == false) {
+                        // unit destroyed, find another one.
+                        FindNearestTargetInFireRange(out attackedObject);
+                    }
+                    if (attackedObject == null) {
+                        //unit/ building destroyed - stop
+                        InfoLog.WriteInfo("Unit:AI: attack -> stop ", EPrefix.SimulationInfo);
+                        state = UnitState.stopped;
+                        break;
+                    }
+                    if (CheckRangeToShoot(attackedObject)) {
+                        InfoLog.WriteInfo("Unit:AI: attack -> attack ", EPrefix.SimulationInfo);
+                        Attack(attackedObject);
+                        //attack, reload etc
+                    } else {
+                        // out of range - chase
+                        InfoLog.WriteInfo("Unit:AI: attack -> chace ", EPrefix.SimulationInfo);
+                        state = UnitState.chacing;
+                        MoveTo(attackedObject.Position);
+                        //override state
+                        state = UnitState.chacing;
+                    }
+                    break;
+            }
+
+
 		}
+
+        private bool FindNearestTargetInViewRange(out BoardObject ob) {
+
+            int count;
+            Position[] viewSpiral = RangeSpiral(this.ViewRange, out count);
+            Map m = this._map;
+            Position p = this.Position;
+            BoardObject target;
+            Position spiralPos;
+            LinkedList<Unit> units;
+            LinkedList<Building> buildings;
+            for (int i = 0; i < count; ++i) {
+
+                spiralPos = viewSpiral[i];
+                if (p.X + spiralPos.X >= 0 
+                    && p.X + spiralPos.X < m.Width
+                    && p.Y + spiralPos.Y >= 0
+                    && p.Y + spiralPos.Y < m.Height) {
+
+                    units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    foreach (Unit unit in units) {
+                        //TODO erase true;)
+                        if (unit.Equals(this)) continue;
+                        if (true || unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                            ob = unit;
+                            InfoLog.WriteInfo("Unit:AI: found unit in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
+                            return true;
+                        }
+                    }
+
+                    buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    foreach (Building building in buildings) {
+                        //TODO erase true;)
+                        if (true || building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                            attackingBuilding = true;
+                            ob = building;
+                            InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
+                            return true;
+                        }
+                    }
+                    
+                }
+            }
+
+
+            ob = null;
+            return false;
+        }
+
+        private bool FindNearestTargetInFireRange(out BoardObject nearest) {
+            int count;
+            Position[] viewSpiral = RangeSpiral(this.FireRange, out count);
+            Map m = this._map;
+            Position p = this.Position;
+            BoardObject target;
+            Position spiralPos;
+            LinkedList<Unit> units;
+            LinkedList<Building> buildings;
+            for (int i = 0; i < count; ++i) {
+
+                spiralPos = viewSpiral[i];
+                if (p.X + spiralPos.X >= 0
+                    && p.X + spiralPos.X < m.Width
+                    && p.Y + spiralPos.Y >= 0
+                    && p.Y + spiralPos.Y < m.Height) {
+
+                    units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    foreach (Unit unit in units) {
+                        if (unit.Equals(this)) continue;
+                        if (true || unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                            // target
+
+                            //TODO RS: bresenham to check if there is a way to shoot.
+                            // else - continue -> move
+                            attackingBuilding = false;
+                            InfoLog.WriteInfo("Unit:AI: found unit in fire range < " + this.FireRange, EPrefix.SimulationInfo);
+                            nearest = unit;
+                            return true;
+                        }
+                    }
+
+                    buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    foreach (Building building in buildings) {
+                        // erase true;)
+                        if (true || building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                            attackingBuilding = true;
+                            nearest = building;
+                            InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+
+            nearest = null;
+            return false;
+        }
+
+        /// <summary>
+        /// checks what type of object to attack; manage reload, destroying units, turret rotation
+        /// </summary>
+        /// <param name="ob"></param>
+        private void Attack(BoardObject ob) {
+            
+        }
+        /// <summary>
+        /// checks if object is in shooting range
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <returns></returns>
+        private bool CheckRangeToShoot(BoardObject ob) {
+            int r = (int)(Math.Sqrt(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2)));
+            int range = this.FireRange;
+            InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
+            return r< range;
+        }
+
+        /// <summary>
+        /// checks if object exists on map.
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <returns></returns>
+        private bool CheckIfStillExistTarget(BoardObject ob) {
+            if (attackingBuilding) {
+                Building b = (Building)ob;
+                return b.State == Building.BuildingState.destroyed;
+
+            } else {
+                Unit u = (Unit)ob;
+                return u.state != UnitState.destroyed;
+            }
+        }
+
 		public virtual bool Move() {
 			if (!this.Moving) {
 				return false;
@@ -156,7 +411,7 @@ namespace Yad.Board.Common {
 			this._currentPath = FindPath(this.Position, destination, this._map,
 										this._canCrossMountain, this._canCrossBuildings,
 										this._canCrossRock, this._canCrossTrooper, this._canCrossRock);
-
+            state = UnitState.moving;
 			//this._remainingTurnsInMove = this.speed;
 		}
 
@@ -256,5 +511,14 @@ namespace Yad.Board.Common {
 				}
 			}				
 		}
-	}
+        /// <summary>
+        /// Sets object to attack (building or unit) by this unit.
+        /// </summary>
+        /// <param name="objectID"></param>
+        public void OrderAttack(BoardObject boardObject,bool isBuilding) {
+            attackedObject = boardObject;
+            state = UnitState.attacking;
+            this.attackingBuilding = isBuilding;
+        }
+    }
 }
