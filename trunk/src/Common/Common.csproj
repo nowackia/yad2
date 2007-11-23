@@ -133,10 +133,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
     </None>
-    <None Include="Resources\Maps\test.map">
+    <None Include="Resources\Maps\mala.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Maps\ttt.map">
+    <None Include="Resources\Maps\wielka.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -10,6 +10,9 @@ using Yad.Properties;
 using Yad.Database.Server;
 using System.Threading;
 using Yad.Properties.Server;
+using System.IO;
+using System.Drawing;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Yad.Net.GameServer.Server {
 
@@ -24,8 +27,8 @@ namespace Yad.Net.GameServer.Server {
         private object _gameEndEventLock = new object();
         private IServerSimulation _simulation;
         private Semaphore _gameEndSemaphore = new Semaphore(0, 1);
-        private Thread _serverThread; 
-
+        private Thread _serverThread;
+        private Random _rand = new Random((int)DateTime.Now.Ticks);
         #endregion
 
         #region Properties 
@@ -212,10 +215,20 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void SetStartPositions(PositionData[] PosData) {
-            for (short i = 0; i < PosData.Length; ++i) {
-                PosData[i].X = i;
-                PosData[i].Y = i;
-            }     
+            string filePath = Path.Combine(Yad.Properties.Common.Settings.Default.Maps, _serverGameInfo.MapName);
+            FileStream fs = File.Open(filePath, FileMode.Open);
+            BinaryFormatter bformatter = new BinaryFormatter();
+            List<Point> listPoint = (List<Point>)bformatter.Deserialize(fs);
+            fs.Close();
+            int no = listPoint.Count;
+            for (short i = 0; i < PosData.Length; ++i)
+            {
+                int index = _rand.Next(listPoint.Count);
+                Point pt = listPoint[index];
+                PosData[i].X = (short)pt.X;
+                PosData[i].Y = (short)pt.Y;
+                listPoint.Remove(pt);
+            }
         }
 
         private void BroadcastInitMessage() {

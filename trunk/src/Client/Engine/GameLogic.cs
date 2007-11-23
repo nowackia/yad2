@@ -50,7 +50,7 @@ namespace Yad.Engine.Client {
 		public GameLogic() {
 			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
-			map.LoadMap(Path.Combine(Settings.Default.Maps, "test.map"));
+			map.LoadMap(Path.Combine(Settings.Default.Maps, ClientPlayerInfo.GameInfo.MapName));
 			
 			PlayerInfo currPI = ClientPlayerInfo.Player;
 			//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
