@@ -39,6 +39,8 @@ namespace Yad.Log.Common
         ServerSendMessageInfo,
 		[Description(" #SIM: ")]
 		SimulationInfo,
+		[Description(" #CLI_SIM: ")]
+		ClientSimulation,
         [Description(" #STR: ")]
         Stripe,
         [Description(" #SPI: ")]

@@ -5,9 +5,9 @@ using Yad.Net.Messaging.Common;
 
 namespace Yad.Net.Messaging
 {
-    public class TurnAskMessage : Message
+    public class MessageTurnAsk : Message
     {
-        public TurnAskMessage()
+        public MessageTurnAsk()
             : base(MessageType.TurnAsk)
         { }
     }

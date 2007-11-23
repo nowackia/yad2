@@ -511,7 +511,7 @@ namespace Yad.Engine.Client {
 
 			Building selB = _gameLogic.SelectedBuilding;
 			if (selB != null) {
-				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Size.X, selB.Size.Y, 2, _defaultUV);
+				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, 2, _defaultUV);
 			}
 			#endregion
 
@@ -570,7 +570,7 @@ namespace Yad.Engine.Client {
 			} else if (Test(d, Direction.South)) {
 				uv.X = 3 * oneFourth;
 			}
-
+			
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 
@@ -640,7 +640,7 @@ namespace Yad.Engine.Client {
 
 		private static void DrawBuilding(Building o) {
 			//PointF realPos = CountRealPosition(o);
-			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Size.X, o.Size.Y, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, _defaultUV);
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, _defaultUV);
 		}
 		#endregion
 

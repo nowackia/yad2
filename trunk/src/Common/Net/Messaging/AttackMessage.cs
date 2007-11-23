@@ -1,55 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yad.Board.Common;
+using Yad.Board;
 
 namespace Yad.Net.Messaging.Common
 {
     public class AttackMessage : GameMessage
     {
-		private int attackingPlayerID;
-		private short attackingObjectID;
-		private int attackedPlayerID;
-		private short attackedObjectID;
+		private ObjectID _attackingObject, _attackedObject;
 
         public AttackMessage()
             : base(MessageType.Attack)
         { }
 
-		public short AttackedObjectID {
-			get { return attackedObjectID; }
-			set { attackedObjectID = value; }
+		public ObjectID Attacker {
+			get { return this._attackingObject; }
 		}
 
-		public int AttackedPlayerID {
-			get { return attackedPlayerID; }
-			set { attackedPlayerID = value; }
-		}
-
-		public short AttackingObjectID {
-			get { return attackingObjectID; }
-			set { attackingObjectID = value; }
-		}
-
-		public int AttackerID {
-			get { return attackingPlayerID; }
-			set { attackingPlayerID = value; }
+		public ObjectID Attacked {
+			get { return this._attackedObject; }
 		}
 
 		public override void Deserialize(System.IO.BinaryReader reader) {
             base.Deserialize(reader);
-            attackingPlayerID = reader.ReadInt32();
-            attackingObjectID = reader.ReadInt16();
-            attackedPlayerID = reader.ReadInt32();
-            attackedObjectID = reader.ReadInt16();
+			_attackingObject.Deserialize(reader);
+			_attackedObject.Deserialize(reader);
         }
 
         public override void Serialize(System.IO.BinaryWriter writer) {
             base.Serialize(writer);
-            writer.Write(attackingPlayerID);
-            writer.Write(attackingObjectID);
-            writer.Write(attackedPlayerID);
-            writer.Write(attackedObjectID);
-           
+			_attackingObject.Serialize(writer);
+			_attackedObject.Serialize(writer);
         }
     }
 }

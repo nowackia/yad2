@@ -5,6 +5,7 @@ using Yad.Board.Common;
 using System.Collections;
 using System.Drawing;
 using Yad.Net.Common;
+using Yad.Board;
 
 namespace Yad.Engine.Common {
 	/// <summary>

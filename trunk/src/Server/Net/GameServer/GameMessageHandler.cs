@@ -35,7 +35,7 @@ namespace Yad.Net.GameServer.Server {
                 EPrefix.GameMessageProccesing);
             switch (item.Type) {
                 case MessageType.TurnAsk:
-                    ProcessTurnAsk((TurnAskMessage)item);
+                    ProcessTurnAsk((MessageTurnAsk)item);
                     break;
                 case MessageType.Move:
                 case MessageType.Destroy:
@@ -64,20 +64,15 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
                 " from player: " + _gameServer.GetPlayer(gameMessage.SenderId).Login, 
                 EPrefix.GameMessageProccesing);
-			//ja pierdolê, kolejne pó³ godziny w plecy :P
-            //gameMessage.IdTurn += _gameServer.Simulation.Delta;
-
 			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.SenderId) + _gameServer.Simulation.Delta + 1;
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
 
-        private void ProcessTurnAsk(TurnAskMessage turnAskMessage) {
+        private void ProcessTurnAsk(MessageTurnAsk turnAskMessage) {
             InfoLog.WriteInfo("Processing Turn Ask message from player: " +
                  _gameServer.GetPlayer(turnAskMessage.SenderId).Login,
                EPrefix.GameMessageProccesing);
-			//KŒ: ;( kolejne 45 minut ;(
-			//if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.PlayerId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta)
             if (_gameServer.Simulation.GetPlayerTurn(turnAskMessage.SenderId) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta - 1)
                 IncreaseTurn(turnAskMessage.SenderId);
             else

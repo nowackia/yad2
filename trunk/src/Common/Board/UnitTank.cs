@@ -7,24 +7,15 @@ using Yad.Config.Common;
 namespace Yad.Board.Common {
 	public class UnitTank : Unit {
 		private Animation turretAnimation;
-		private int turretRotationSpeed;
+		UnitTankData _tankData;
 
-		public UnitTank(short playerID, int unitID, UnitTankData ud, Position pos, Map map)
-			: base(playerID, unitID, ud.TypeID, BoardObjectClass.UnitTank, pos, map) {
+		public UnitTank(ObjectID id, UnitTankData ud, Position pos, Map map)
+			: base(id, ud.TypeID, BoardObjectClass.UnitTank, pos, map) {
+			_tankData = ud;
 			this.Speed = ud.Speed;
-			//fill other properties
-			this.viewRange = ud.ViewRange;
-			this.damageDestroy = ud.DamageDestroy;
-			//ud.BuildSpeed
-			this.health = ud.Health;
-			this.rotationSpeed = ud.RotationSpeed;
+			this._viewRange = ud.ViewRange;
 
 		}
-
-		public int TurretRotationSpeed {
-			get { return turretRotationSpeed; }
-		}
-
 
 		public Animation TurretAnimation {
 			get { return turretAnimation; }
@@ -34,12 +25,16 @@ namespace Yad.Board.Common {
 			base.Destroy();
 		}
 
-		public override void Move() {
-			base.Move();
+		public override bool Move() {
+			return base.Move();
 		}
 
 		public override void DoAI() {
 			base.DoAI();
+		}
+
+		public UnitTankData TankData {
+			get { return _tankData; }
 		}
 	}
 }

@@ -7,34 +7,30 @@ using Yad.Config.Common;
 namespace Yad.Board.Common {
 	public class UnitHarvester : Unit {
 
-		private int capacity;
 
-		public UnitHarvester(short playerID, int unitID, UnitHarvesterData ud, Position pos, Map map, int speed)
-			: base(playerID, unitID, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map) {
+		UnitHarvesterData _harvesterData;	
+
+		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, int speed)
+			: base(id, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map) {
+			_harvesterData = ud;
 			this.Speed = ud.Speed;
-			//fill other properties
-			this.viewRange = ud.ViewRange;
-			this.damageDestroy = ud.DamageDestroy;
-			//ud.BuildSpeed
-			this.health = ud.Health;
-			this.rotationSpeed = ud.RotationSpeed;
-
-		}
-
-		public int Capacity {
-			get { return capacity; }
+			this._viewRange = ud.ViewRange;
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 		}
 
-		public override void Move() {
-			base.Move();
+		public override bool Move() {
+			return base.Move();
 		}
 
 		public override void DoAI() {
 			base.DoAI();
+		}
+
+		public UnitHarvesterData HarvesterData {
+			get { return _harvesterData; }
 		}
 	}
 }

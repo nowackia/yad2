@@ -6,31 +6,29 @@ using Yad.Config.Common;
 
 namespace Yad.Board.Common {
 	public class UnitTrooper : Unit {
-		public UnitTrooper(short playerID, int unitID, UnitTrooperData ud, Position pos, Map map)
-			: base(playerID, unitID, ud.TypeID, BoardObjectClass.UnitTrooper, pos, map) {
-			this.Speed = ud.Speed;
-			//fill other properties
-			this.viewRange = ud.ViewRange;
-			this.damageDestroy = ud.DamageDestroy;
-			//ud.BuildSpeed
-			this.health = ud.Health;
-			this.rotationSpeed = ud.RotationSpeed;
+		UnitTrooperData _trooperData;
 
+		public UnitTrooper(ObjectID id, UnitTrooperData ud, Position pos, Map map)
+			: base(id, ud.TypeID, BoardObjectClass.UnitTrooper, pos, map) {
+			_trooperData = ud;
+			this.Speed = ud.Speed;
+			this._viewRange = ud.ViewRange;
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public override void Move() {
-			base.Move();
+		public override bool Move() {
+			return base.Move();
 		}
 
 		public override void DoAI() {
 			base.DoAI();
+		}
+
+		public UnitTrooperData TrooperData {
+			get { return _trooperData; }
 		}
 	}
 }
