@@ -107,6 +107,15 @@ namespace Yad.Board.Common {
 				}
 			}*/
 
+            tiles = new TileType[width, height];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    tiles[x, y] = (TileType)tempList[y][x];
+                }
+            }
+
 			fogOfWar = new bool[width, height];
 			slabs = new bool[width, height];
 
