@@ -128,13 +128,16 @@
       <DependentUpon>dune.xsd</DependentUpon>
     </None>
     <None Include="Config\generate.bat" />
-    <None Include="Resources\Maps\test.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
+    </None>
+    <None Include="Resources\Maps\test.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Maps\ttt.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -8,11 +8,25 @@ namespace Yad.Board.Common
     public class MapData
     {
         TileData[][] _data;
+        int width;
 
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+        int height;
+
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
         public MapData(int width, int height)
         {
             _data = new TileData[width][];
-
+            this.width = width;
+            this.height = height;
             for (int i = 0; i < width; ++i)
             {
                 _data[i] = new TileData[height];

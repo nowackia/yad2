@@ -35,15 +35,15 @@ namespace Yad.MapEditor
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.rockButton = new System.Windows.Forms.ToolStripButton();
             this.sandButton = new System.Windows.Forms.ToolStripButton();
             this.mountainButton = new System.Windows.Forms.ToolStripButton();
             this.btnStartPoint = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.btnThinSpice = new System.Windows.Forms.ToolStripButton();
             this.btnThickSpice = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -81,6 +81,7 @@ namespace Yad.MapEditor
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -104,6 +105,12 @@ namespace Yad.MapEditor
             this.toolStrip1.Size = new System.Drawing.Size(563, 38);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(51, 35);
+            this.toolStripLabel1.Text = "Brushes:";
             // 
             // rockButton
             // 
@@ -146,6 +153,26 @@ namespace Yad.MapEditor
             this.btnStartPoint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnStartPoint.Click += new System.EventHandler(this.btnStartPoint_Click);
             // 
+            // btnThinSpice
+            // 
+            this.btnThinSpice.Image = ((System.Drawing.Image)(resources.GetObject("btnThinSpice.Image")));
+            this.btnThinSpice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnThinSpice.Name = "btnThinSpice";
+            this.btnThinSpice.Size = new System.Drawing.Size(66, 35);
+            this.btnThinSpice.Text = "Thin Spice";
+            this.btnThinSpice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnThinSpice.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // btnThickSpice
+            // 
+            this.btnThickSpice.Image = ((System.Drawing.Image)(resources.GetObject("btnThickSpice.Image")));
+            this.btnThickSpice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnThickSpice.Name = "btnThickSpice";
+            this.btnThickSpice.Size = new System.Drawing.Size(71, 35);
+            this.btnThickSpice.Text = "Thick Spice";
+            this.btnThickSpice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnThickSpice.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
@@ -167,32 +194,6 @@ namespace Yad.MapEditor
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(563, 405);
             this.panel1.TabIndex = 3;
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(51, 35);
-            this.toolStripLabel1.Text = "Brushes:";
-            // 
-            // btnThinSpice
-            // 
-            this.btnThinSpice.Image = ((System.Drawing.Image)(resources.GetObject("btnThinSpice.Image")));
-            this.btnThinSpice.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnThinSpice.Name = "btnThinSpice";
-            this.btnThinSpice.Size = new System.Drawing.Size(66, 35);
-            this.btnThinSpice.Text = "Thin Spice";
-            this.btnThinSpice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnThinSpice.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // btnThickSpice
-            // 
-            this.btnThickSpice.Image = ((System.Drawing.Image)(resources.GetObject("btnThickSpice.Image")));
-            this.btnThickSpice.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnThickSpice.Name = "btnThickSpice";
-            this.btnThickSpice.Size = new System.Drawing.Size(71, 35);
-            this.btnThickSpice.Text = "Thick Spice";
-            this.btnThickSpice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnThickSpice.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // MapEditor
             // 

@@ -66,16 +66,25 @@ namespace Yad.MapEditor
                 height = createDialog.MapHeight;
 
                 map = new MapData(width, height);
-                mapWidth = width * tileWidth;
-                mapHeight = height * tileWidth;
-                bmp = new Bitmap(tileWidth * width, tileWidth * height);
-                this.pictureBox1.Width = mapWidth;
-                this.pictureBox1.Height = mapHeight;
-                this.pictureBox1.Image = bmp;
 
-                Graphics g = Graphics.FromImage(bmp);
-                g.Clear(Color.Yellow);
+                InitUI();
+
+                //Graphics g = Graphics.FromImage(bmp);
+                //g.Clear(Color.Yellow);
             }
+        }
+
+        private void InitUI()
+        {
+            mapWidth = width * tileWidth;
+            mapHeight = height * tileWidth;
+            bmp = new Bitmap(tileWidth * width, tileWidth * height);
+            this.pictureBox1.Width = mapWidth;
+            this.pictureBox1.Height = mapHeight;
+            this.pictureBox1.Image = bmp;
+            for (int x = 0; x < width; ++x)
+                for (int y = 0; y < height; ++y)
+                    DrawTile(x, y);
         }
 
         private void SetTile(int x, int y, TileType tt)
@@ -87,10 +96,12 @@ namespace Yad.MapEditor
             //g.Dispose();
             this.pictureBox1.Invalidate(rc);
         }
-
+        Font ft = new Font("Arial", 10);
         private void DrawTile(int x, int y)
         {
-            Rectangle rc = new Rectangle(tileWidth * x, tileWidth * y, tileWidth, tileWidth);
+            int left = tileWidth * x;
+            int top = tileWidth * y;
+            Rectangle rc = new Rectangle(left, top, tileWidth, tileWidth);
             Graphics g = Graphics.FromImage(bmp);
             g.FillRectangle(GetBrush(map[x][y].Type), rc);
             if (map[x][y].IsSpiceThin)
@@ -98,6 +109,8 @@ namespace Yad.MapEditor
             else
                 if (map[x][y].IsSpiceThick)
                     g.FillRectangle(ThickSpiceBrush, rc);
+            if (map[x][y].IsSpice)
+                g.DrawString(map[x][y].SpiceNo.ToString(), ft, Brushes.Black, new PointF(left, top)); 
             if (startPoints.Contains(new Point(x,y)))
                 g.FillEllipse(StartPointBrush, rc);
                 
@@ -318,6 +331,23 @@ namespace Yad.MapEditor
             currentTileTypeButton = tsb;
             currentMode = Mode.SpiceAdding;
 
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = ofd.FileName;
+                FileStream fs = File.Open(fileName, FileMode.Open);
+                BinaryFormatter bf = new BinaryFormatter();
+                startPoints = (List<Point>)bf.Deserialize(fs);
+                map = (MapData)bf.Deserialize(fs);
+                width = map.Width;
+                height = map.Height;
+                InitUI();
+            }
+            
         }
      
 
