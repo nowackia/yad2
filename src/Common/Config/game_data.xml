@@ -22,13 +22,13 @@
 		<tns:UnitTankData>
 			<tns:Name>Tank</tns:Name>
 			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>10</tns:FireRange>
+			<tns:FireRange>5</tns:FireRange>
 			<tns:FirePower>100</tns:FirePower>
 			<tns:Speed>3</tns:Speed>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:Health>100</tns:Health>
-			<tns:ViewRange>3</tns:ViewRange>
+			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>10</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>

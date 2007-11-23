@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Config;
 using Yad.Config.Common;
+using Yad.Log.Common;
 
 namespace Yad.Board.Common {
 	public class UnitMCV : Unit {
@@ -25,8 +26,21 @@ namespace Yad.Board.Common {
 		}
 
 		public override void DoAI() {
-			base.DoAI();
-		}
+            switch (state) {
+                case UnitState.moving:
+                    BoardObject nearest;
+                    if (Move() == false) {
+                        InfoLog.WriteInfo("MCV:AI: move -> stop ", EPrefix.SimulationInfo);
+                        state = UnitState.stopped;
+                    } else {
+                        InfoLog.WriteInfo("MCV:AI: move -> move ", EPrefix.SimulationInfo);
+                    }
+                    break;
+                case UnitState.stopped:
+                        break;
+                    }
+            }
+		
 
 		public UnitMCVData MCVData {
 			get { return _mcvData; }

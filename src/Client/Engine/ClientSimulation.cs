@@ -72,6 +72,26 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageAttack(AttackMessage am) {
 			InfoLog.WriteInfo("MessageAttack", EPrefix.SimulationInfo);
+            // set attacked object in attacker unit
+            Unit attacker = players[am.Attacker.PlayerID].GetUnit(am.Attacker);
+            Player p = players[am.Attacked.PlayerID];
+            BoardObject b;
+            bool isBuilding = false;
+            b = p.GetBuilding(am.Attacked);
+            if(b!=null){
+                isBuilding = true;
+            }else
+            {
+                b = p.GetUnit(am.Attacked);
+                if(b!=null)
+                {
+                    throw new NotImplementedException("attacked unit does not exist");
+                }
+            }
+
+            attacker.OrderAttack(b,isBuilding);
+
+
 		}
 
 		protected override void onMessageDestroy(DestroyMessage dm) {
@@ -109,9 +129,13 @@ namespace Yad.Engine.Client {
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
 			throw new Exception("The method or operation is not implemented.");
 		}	
+        /// <summary>
+        /// in this method unit should choose whether to move or attack - deterministic AI
+        /// </summary>
+        /// <param name="u"></param>
+		protected override void handleUnit(Unit u) {            
 
-		protected override void handleUnit(Unit u) {
-			u.Move();
+			u.DoAI();
 
 		}
 

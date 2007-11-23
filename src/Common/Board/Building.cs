@@ -9,6 +9,21 @@ namespace Yad.Board.Common {
 		private BuildingData _buildingData;
 		private int _currentHealth;
 
+        public enum BuildingState{
+            constructing,
+            normal,
+            creating,
+            destroyed
+        }
+
+        private BuildingState state;
+
+        public BuildingState State {
+            get { return state; }
+            set { state = value; }
+        }
+
+
 		Map _map;
 		bool _alreadyOnMap = false;
 
@@ -17,6 +32,10 @@ namespace Yad.Board.Common {
 			this._buildingData = bd;
 			this._map = map;
 		}
+
+        public void Destroy() {
+            state = BuildingState.destroyed;
+        }
 
 		public short TypeID {
 			get { return this._buildingData.TypeID; }
