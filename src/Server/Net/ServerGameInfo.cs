@@ -4,6 +4,7 @@ using System.Text;
 using Yad.Net.Common;
 using System.Collections;
 using Yad.Net.Messaging.Common;
+using System.Drawing;
 
 namespace Yad.Net.Server {
     public class ServerGameInfo : GameRoom {
@@ -91,10 +92,25 @@ namespace Yad.Net.Server {
                 if (IsTeamModificationValid(pi.TeamID, id)) {
                     spi.TeamID = pi.TeamID;
                 }
+                if (IsColorModificationValid(pi.Color, id)) {
+                    spi.Color = pi.Color;
+                }
                 pmsg = CreatePlayerMessage(MessageOperation.Modify, spi);
             }
             BroadcastExcl(pmsg, -1);
         }
+
+        private bool IsColorModificationValid(Color color, short id) {
+            if (_players.Count == 1)
+                return true;
+            foreach (ServerPlayerInfo spi in _players.Values) {
+                if (spi.Id != id)
+                    if (spi.Color!= color)
+                        return true;
+            }
+            return false;
+        }
+
 
         public bool IsAddPosible() {
             lock (((ICollection)_players).SyncRoot) {
@@ -194,11 +210,27 @@ namespace Yad.Net.Server {
             return change;
                 
         }
+
         private short GetTeamForPlayer() {
             for (short i = 0; i < this.GetGameInfo().MaxPlayerNumber; ++i)
                 if (IsTeamIDValid(i+1))
                     return (short)(i+1);
             return -1; //This should never happen!
+        }
+
+        private Color GetColorForPlayer() {
+            for (short i = 0; i < this.GetGameInfo().MaxPlayerNumber; ++i) {
+                if (IsColorValid(ServerPlayerInfo.StartColors[i]))
+                    return ServerPlayerInfo.StartColors[i];
+            }
+            return Color.Pink; //This should never happen!
+        }
+
+        private bool IsColorValid(Color color) {
+            foreach (ServerPlayerInfo spi in _players.Values)
+                if (spi.Color != color)
+                    return true;
+            return false;
         }
 
         private bool IsTeamModificationValid(short teamid, short playerid) {
@@ -238,12 +270,15 @@ namespace Yad.Net.Server {
             Player p = player as Player;
             ServerPlayerInfo svp = new ServerPlayerInfo(p);
             short teamId = 1;
+            Color baseColor = Color.Pink;
             if (_players.Count > 0) {
                 lock (((ICollection)_players).SyncRoot) {
                     teamId = GetTeamForPlayer();
+                    baseColor = GetColorForPlayer();
                 }
             }
             svp.TeamID = teamId;
+            svp.Color = baseColor;
             return svp;
         }
 

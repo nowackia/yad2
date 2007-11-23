@@ -4,6 +4,7 @@ using System.Text;
 using Yad.Net.Common;
 using Yad.Config.Common;
 using Yad.Config;
+using System.Drawing;
 
 
 namespace Yad.Net.Server {
@@ -11,6 +12,19 @@ namespace Yad.Net.Server {
 
         private bool _startedClicked = false;
         private Player _player;
+        private static readonly Color[] _startColors = new Color[]{ Color.Red, 
+                                                             Color.Blue, 
+                                                             Color.Yellow, 
+                                                             Color.Green, 
+                                                             Color.Brown,
+                                                             Color.Violet,
+                                                             Color.Silver,
+                                                             Color.Orange };
+
+        public static Color[] StartColors {
+            get { return _startColors; }
+        }
+
 
         public Player Player {
             get { return _player; }
@@ -27,7 +41,7 @@ namespace Yad.Net.Server {
             this.Name = player.Login;
             this.House = GlobalSettings.Instance.DefaultHouse;
             _player = player;
-            
+
         }
 
         public PlayerInfo GePlayerInfo() {
@@ -36,6 +50,7 @@ namespace Yad.Net.Server {
             mi.Name = this.Name;
             mi.TeamID = this.TeamID;
             mi.House = this.House;
+            mi.Color = this.Color;
             return mi;
         }
 
