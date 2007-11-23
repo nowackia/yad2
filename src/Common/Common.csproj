@@ -42,8 +42,10 @@
     <Compile Include="Board\Building.cs" />
     <Compile Include="Board\Direction.cs" />
     <Compile Include="Board\Map.cs" />
+    <Compile Include="Board\MapData.cs" />
     <Compile Include="Board\ObjectID.cs" />
     <Compile Include="Board\Position.cs" />
+    <Compile Include="Board\TileData.cs" />
     <Compile Include="Board\TileType.cs" />
     <Compile Include="Board\Unit.cs" />
     <Compile Include="Board\UnitHarvester.cs" />
@@ -120,8 +122,7 @@
     <None Include="app.config" />
     <None Include="Config\dune.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Config\dune.xsx">
       <DependentUpon>dune.xsd</DependentUpon>

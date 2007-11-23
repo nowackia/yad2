@@ -23,6 +23,11 @@ namespace Yad.Board.Common {
 			get { return height; }
 		}
 
+        private void DrawTile(int x, int y)
+        {
+
+        }
+
 		public LinkedList<Building>[,] Buildings {
 			get {
 				return buildings;
