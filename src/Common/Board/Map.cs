@@ -71,7 +71,7 @@ namespace Yad.Board.Common {
 		}
 
 		public void LoadMap(String name) {
-			string c;
+			/*string c;
 			int len = -1;
 			List<byte[]> tempList = new List<byte[]>();
 			byte[] tempRow = null;
@@ -91,8 +91,8 @@ namespace Yad.Board.Common {
 			}
 
 			width = (short)tempList[0].Length;
-			height = (short)tempList.Count;
-            /*
+			height = (short)tempList.Count;*/
+            
             FileStream fs = File.Open(name, FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             List<Point> lp = (List<Point>)bf.Deserialize(fs);
@@ -101,12 +101,12 @@ namespace Yad.Board.Common {
             width = (short)md.Width;
             height = (short)md.Height;
 			tiles = new TileType[width, height];
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-                    tiles[x, y] = md[x][y].Type;
+			for (int y = 0; y < height; ++y) {
+				for (int x = 0; x < width; ++x) {
+                    tiles[x, y] = md[x][height-1-y].Type;
 				}
-			}*/
-
+			}
+            /*
             tiles = new TileType[width, height];
             for (int y = 0; y < height; y++)
             {
@@ -115,6 +115,7 @@ namespace Yad.Board.Common {
                     tiles[x, y] = (TileType)tempList[y][x];
                 }
             }
+             */
 
 			fogOfWar = new bool[width, height];
 			slabs = new bool[width, height];
