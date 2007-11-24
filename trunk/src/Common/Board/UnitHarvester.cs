@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.Config;
 using Yad.Config.Common;
+using Yad.Engine.Common;
 
 namespace Yad.Board.Common {
 	public class UnitHarvester : Unit {
@@ -10,11 +11,13 @@ namespace Yad.Board.Common {
 
 		UnitHarvesterData _harvesterData;	
 
-		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, int speed)
-			: base(id, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map) {
+		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, Simulation sim,int speed)
+			: base(id, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map,sim) {
 			_harvesterData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
+
+            this.MaxHealth = this.Health = ud.__Health;
 		}
 
 		public override void Destroy() {

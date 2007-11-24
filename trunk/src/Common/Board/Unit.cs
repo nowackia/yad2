@@ -4,6 +4,7 @@ using System.Text;
 using Yad.Config;
 using System.Windows.Forms;
 using Yad.Log.Common;
+using Yad.Engine.Common;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -14,10 +15,12 @@ namespace Yad.Board.Common {
 		protected short _damageDestroy;
 		protected String _name;
 		protected short _fireRange;
+        protected short _firePower;
 		protected AmmoType _ammoType;
 		protected short _reloadTime;
 		private short _speed;
 		protected short _maxHealth;
+        protected short _currentHealth;
 		protected short _viewRange;
 		protected short _rotationSpeed;
 		protected Direction _direction;
@@ -47,6 +50,7 @@ namespace Yad.Board.Common {
         protected UnitState state = UnitState.stopped;
 		//map-related
 		protected Map _map;
+        protected Simulation _simulation;
 		bool _alreadyOnMap = false;
 
 		//TODO : RS implement some base AI?
@@ -288,9 +292,12 @@ namespace Yad.Board.Common {
             if (_remainingTurnsToReload == 0) {
                 if (attackingBuilding) {
                     Building b = (Building)ob;
-
+                    _simulation.handleAttackBuilding(b, this);
+                    _remainingTurnsToReload = _reloadTime;
                 } else {
                     Unit u = (Unit)ob;
+                    _simulation.handleAttackUnit(u, this);
+                    _remainingTurnsToReload = _reloadTime;
                 }
             }
             //TODO RS: Attack method in unit/building? or thru simulation?
@@ -375,10 +382,11 @@ namespace Yad.Board.Common {
 			return true;
 		}
 
-		public Unit(ObjectID id, short typeID, BoardObjectClass boc, Position pos, Map map)
+		public Unit(ObjectID id, short typeID, BoardObjectClass boc, Position pos, Map map, Simulation sim)
 			: base(id, boc, pos) {
 			this._typeID = typeID;
 			this._map = map;
+            this._simulation = sim;
 			this._lastPosition = pos;
 			this._direction = Direction.North;
 			this._currentPath = new Queue<Position>();
@@ -392,13 +400,25 @@ namespace Yad.Board.Common {
 			get { return _fireRange; }
 		}
 
+        public short FirePower {
+            get { return _firePower; }
+        }
+
 		public int ReloadTime {
 			get { return _reloadTime; }
 		}
 
-		public int Health {
-			get { return _maxHealth; }
+		public short Health {
+			get { return _currentHealth; }
+            set { _currentHealth = value; }
+
 		}
+
+        public short MaxHealth {
+            get { return _maxHealth; }
+            set { _maxHealth = value; }
+
+        }
 
 		public int ViewRange {
 			get { return _viewRange; }

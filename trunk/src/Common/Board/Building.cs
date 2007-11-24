@@ -32,6 +32,7 @@ namespace Yad.Board.Common {
 			this._buildingData = bd;
 			this._map = map;
             this.state = BuildingState.constructing;
+            this.Health = bd.__Health;
 		}
 
         public void Destroy() {
@@ -46,6 +47,9 @@ namespace Yad.Board.Common {
 			get {
 				return _currentHealth;
 			}
+            set {
+                _currentHealth = value;
+            }
 		}
 
 		public BuildingData BuildingData {
