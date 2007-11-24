@@ -154,7 +154,7 @@
 
     <tns:BuildingData>
       <tns:Name>WindTrap</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>255</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -175,7 +175,7 @@
 
     <tns:BuildingData>
       <tns:Name>Refinery</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>1500</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -199,7 +199,7 @@
 
     <tns:BuildingData>
       <tns:Name>Starport</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>1500</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -221,7 +221,7 @@
 
     <tns:BuildingData>
       <tns:Name>IX</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>1300</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -238,7 +238,7 @@
 
     <tns:BuildingData>
       <tns:Name>Silo</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>300</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -255,7 +255,7 @@
 
     <tns:BuildingData>
       <tns:Name>LightFactory</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>700</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -275,7 +275,7 @@
 
     <tns:BuildingData>
       <tns:Name>HeavyFactory</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>1300</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -292,7 +292,7 @@
 
     <tns:BuildingData>
       <tns:Name>Radar</tns:Name>
-      <tns:Cost>100</tns:Cost>
+      <tns:Cost>1500</tns:Cost>
       <tns:Health>1000</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
@@ -314,7 +314,7 @@
 
 		<tns:BuildingData>
 			<tns:Name>GunTurret</tns:Name>
-			<tns:Cost>100</tns:Cost>
+			<tns:Cost>1200</tns:Cost>
 			<tns:Health>1000</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
@@ -334,7 +334,7 @@
 
 		<tns:BuildingData>
 			<tns:Name>RocketTurret</tns:Name>
-			<tns:Cost>100</tns:Cost>
+			<tns:Cost>1400</tns:Cost>
 			<tns:Health>1000</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
@@ -371,7 +371,7 @@
 
 		<tns:BuildingData>
 			<tns:Name>Barracks</tns:Name>
-			<tns:Cost>100</tns:Cost>
+			<tns:Cost>225</tns:Cost>
 			<tns:Health>1000</tns:Health>
 			<tns:ViewRange>10</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
