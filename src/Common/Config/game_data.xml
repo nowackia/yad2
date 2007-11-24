@@ -97,6 +97,9 @@
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>0</tns:IsTurret>
 			<tns:FireRange>1</tns:FireRange>
 			<tns:FirePower>10</tns:FirePower>
 			<tns:ReloadTime>3</tns:ReloadTime>
@@ -135,6 +138,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>0</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>0</tns:IsTurret>
 			<tns:RideableFields>
 				<tns:index>0</tns:index>
 			</tns:RideableFields>
@@ -153,6 +159,9 @@
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>0</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>0</tns:IsTurret>
 			<tns:RideableFields>
 				<tns:index>0</tns:index>
 				<tns:index>1</tns:index>
@@ -174,6 +183,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -191,6 +203,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>4</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
         <tns:index>2</tns:index>
         <tns:index>5</tns:index>
@@ -210,6 +225,9 @@
         <tns:Y>3</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
         <tns:index>0</tns:index>
         <tns:index>1</tns:index>
@@ -232,6 +250,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -249,6 +270,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -266,6 +290,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -283,6 +310,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -300,6 +330,9 @@
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		<tns:TextureSpecialActionFramesCount>4</tns:TextureSpecialActionFramesCount>
+		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		<tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
@@ -317,6 +350,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>1</tns:IsTurret>
 			<tns:FireRange>5</tns:FireRange>
 			<tns:FirePower>50</tns:FirePower>
 			<tns:ReloadTime>15</tns:ReloadTime>
@@ -337,6 +373,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>1</tns:IsTurret>
 			<tns:FireRange>10</tns:FireRange>
 			<tns:FirePower>80</tns:FirePower>
 			<tns:ReloadTime>20</tns:ReloadTime>
@@ -357,6 +396,9 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>11</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>0</tns:IsTurret>
 			<tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
@@ -374,6 +416,9 @@
 				<tns:Y>2</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+			<tns:IsTurret>0</tns:IsTurret>
 			<tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>

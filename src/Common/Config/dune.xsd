@@ -91,7 +91,10 @@
 			<element name="BuildSpeed" type="short" />
 			<element name="Size" type="tns:Size" />
 			<element name="EnergyConsumption" type="int" />
+			<element name="TextureSpecialActionFramesCount" type="short" />
+			<element name="TextureAnimationFramesCount" type="short" />
 			<!--  For buildings with firing capability -->
+			<element name="IsTurret" type="boolean" />
 			<element name="FireRange" type="short" minOccurs="0" maxOccurs="1" default="0"/>
 			<element name="FirePower" type="short" minOccurs="0" maxOccurs="1" default="0"/>
 			<element name="ReloadTime" type="short" minOccurs="0" maxOccurs="1" default="0"/>
