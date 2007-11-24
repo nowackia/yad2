@@ -337,5 +337,17 @@ namespace Yad.Properties.Client {
                 return ((string)(this["CreditsDigitsBitmap"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2500")]
+        public int CreditsAtStart {
+            get {
+                return ((int)(this["CreditsAtStart"]));
+            }
+            set {
+                this["CreditsAtStart"] = value;
+            }
+        }
     }
 }

@@ -274,7 +274,49 @@ namespace Yad.UI.Client {
 
 		void rightStripe_onBuildingChosen(short id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-			PlaceBuilding(id);
+			if(UpdateCredits(id))
+				PlaceBuilding(id);
+		}
+
+		private bool UpdateCredits(short id) {
+			bool result = false;
+			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings) {
+				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
+					creditsPictureBox.Value -= b.Cost;
+					result = true;
+				}
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
+			foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters) {
+				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
+					creditsPictureBox.Value -= b.Cost;
+					result = true;
+				}
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
+			foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs) {
+				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
+					creditsPictureBox.Value -= b.Cost;
+					result = true;
+				}
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
+			foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks) {
+				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
+					creditsPictureBox.Value -= b.Cost;
+					result = true;
+				}
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
+
+			foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers) {
+				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
+					creditsPictureBox.Value -= b.Cost;
+					result = true;
+				}
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
+			return result;
 		}
 
 		void leftStripe_onBuildingChosen(short id) {

@@ -104,6 +104,11 @@ namespace Yad.UI.Client {
 
 		#endregion
 
+		public void Enabled(short id, bool isEnabled) {
+			//budynki o podanym id wyszarza, jeœli isEnabled jest false
+			//odszarza, jeœli isEnabled jest true
+		}
+
 		public void Insert(short id, String name, String pictureName, bool building) {
             OwnerDrawPictureButton pictureButton = new OwnerDrawPictureButton(ResourceFactory.GetPicture(name), ResourceFactory.GetPicture(name));
 			isBuilding[id] = building;
