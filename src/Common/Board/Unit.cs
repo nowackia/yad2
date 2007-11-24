@@ -248,7 +248,7 @@ namespace Yad.Board.Common {
         /// checks what type of object to attack; manage reload, destroying units, turret rotation
         /// </summary>
         /// <param name="ob"></param>
-        private void Attack(BoardObject ob) {
+        protected virtual void Attack(BoardObject ob) {
 
             if (_remainingTurnsToReload == 0) {
                 if (attackingBuilding) {
@@ -261,7 +261,6 @@ namespace Yad.Board.Common {
                     _remainingTurnsToReload = _reloadTime;
                 }
             }
-            //TODO RS: Attack method in unit/building? or thru simulation?
         }
         /// <summary>
         /// checks if object is in shooting range
@@ -434,40 +433,15 @@ namespace Yad.Board.Common {
 		public static Queue<Position> FindPath(Position source, Position dest, Map map,
 												bool canCrossMountain, bool canCrossBuildings,
 												bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
-			Queue<Position> path = new Queue<Position>();
-			
-			//TODO Go-Go-Gadget!
-
-			//remove
-
-			int diffX = dest.X - source.X;
-			int diffY = dest.Y - source.Y;
-			float x = source.X, y = source.Y;
-			int m;
-
-			if (Math.Abs(diffX) > Math.Abs(diffY)) {
-				m = (diffX > 0)?1:-1;
-				float dy = (float)diffY / (float)Math.Abs(diffX);
-				for (int i = 0; i < Math.Abs(diffX); i++) {
-					x += m;
-					y += dy;
-					path.Enqueue(new Position((short)x, (short)y));
-				}
-			} else {
-				m = (diffY > 0) ? 1 : -1;
-				float dx = diffX / (float)Math.Abs(diffY);
-				for (int i = 0; i < Math.Abs(diffY); i++) {
-					x += dx;
-					y += m;
-					path.Enqueue(new Position((short)x, (short)y));
-				}
-			}
+            Queue<Position> path = Bresenham(ref source, ref dest);
 
 			//path.Enqueue(dest);
 			//end remove
 
 			return path;
 		}
+
+        
 
 		public void StopMoving() {
 			this._currentPath.Clear();
