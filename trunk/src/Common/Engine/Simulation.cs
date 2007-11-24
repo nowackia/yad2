@@ -237,59 +237,52 @@ namespace Yad.Engine.Common {
 		//any ideas how?
 		protected abstract void handleBuilding(Building b);
 
-		/// <summary>
-		/// this should only be used from within handleX() functions
-		/// </summary>
-		/// <param name="u"></param>
-		protected void destroyUnit(Unit u) {
+        /// <summary>
+        /// this should only be used from within handleX() functions
+        /// </summary>
+        /// <param name="u"></param>
+        protected void destroyUnit(Unit u) {
             u.Destroy();
-			this.unitsToProcess.Remove(u);
-			this.UnitsProcessed.Remove(u);
-			this.players[u.ObjectID.PlayerID].RemoveUnit(u);
+            this.unitsToProcess.Remove(u);
+            this.UnitsProcessed.Remove(u);
+            this.players[u.ObjectID.PlayerID].RemoveUnit(u);
             this.map.Units[u.Position.X, u.Position.Y].Remove(u);
-		}
 
-		/// <summary>
-		/// this should only be used from within handleX() functions
-		/// </summary>
-		/// <param name="u"></param>
-		protected void destroyBuilding(Building b) {
+        }
+
+        /// <summary>
+        /// this should only be used from within handleX() functions
+        /// </summary>
+        /// <param name="u"></param>
+        protected void destroyBuilding(Building b) {
             b.Destroy();
-			this.buildingsToProcess.Remove(b);
-			this.buildingsProcessed.Remove(b);
-			this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
+            this.buildingsToProcess.Remove(b);
+            this.buildingsProcessed.Remove(b);
+            this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
             for (int i = b.Position.X; i < b.BuildingData.Size.X + b.Position.X; ++i) {
-                for (int j = b.Position.Y; j <b.Position.Y +  b.BuildingData.Size.Y; ++j) {
+                for (int j = b.Position.Y; j < b.Position.Y + b.BuildingData.Size.Y; ++j) {
                     this.map.Buildings[i, j].Remove(b);
                 }
             }
-            
-		}
+
+        }
 
         /// <summary>
         /// handles attack - counts damage, destroy unit
         /// </summary>
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
-        public void handleAttackUnit(Unit attacked, Unit attacker) {
-            attacked.Health -= attacker.FirePower;
-            if (attacked.Health <= 0) {
-                InfoLog.WriteInfo("destroying unit ", EPrefix.SimulationInfo);
-                destroyUnit(attacked);
-            }
-        }
+        public abstract void handleAttackUnit(Unit attacked, Unit attacker);
         /// <summary>
         /// handles attack - counts damage, destroy building
         /// </summary>
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
-        public void handleAttackBuilding(Building attacked, Unit attacker) {
-            attacked.Health -= attacker.FirePower;
-            if (attacked.Health <= 0) {
-                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
-                destroyBuilding(attacked);
-            }
-        }
+        public abstract void handleAttackBuilding(Building attacked, Unit attacker);
+
+        public abstract void handleAttackBuilding(Building attacked, Building attacker);
+
+        public abstract void handleAttackUnit(Unit attacked, Building attacker);
 
 		#endregion
 

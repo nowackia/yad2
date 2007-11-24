@@ -72,7 +72,7 @@ namespace Yad.Engine.Client {
 				_sim.AddPlayer(p);
 			}
 
-			_sim.OnBuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
+			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
 
 
 			//GameMessageHandler.Instance.Resume();
@@ -148,6 +148,8 @@ namespace Yad.Engine.Client {
             foreach (Unit unit in SelectedUnits) {
                 if (unit.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
             }
+            if (SelectedBuilding.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
+            
             return false;
         }
 
@@ -223,9 +225,19 @@ namespace Yad.Engine.Client {
 		}
 
         internal void AttackOrder(BoardObject attacked) {
-            if (_selectedUnits.Count == 0) {
+            if (_selectedUnits.Count == 0 && _selectedBuilding == null) {
                 return;
             }
+            if (_selectedBuilding != null) {
+                return;
+                //TODO RS: user can order building to attack?
+                AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);
+                am.Attacker = _selectedBuilding.ObjectID;
+                am.Attacked = attacked.ObjectID;
+                am.IdPlayer = _selectedBuilding.ObjectID.PlayerID;
+                Connection.Instance.SendMessage(am);
+            }
+
             foreach (Unit u in _selectedUnits) {
                 if (u.ObjectID.PlayerID != CurrentPlayer.Id) continue;
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);

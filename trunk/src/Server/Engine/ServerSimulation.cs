@@ -59,6 +59,24 @@ namespace Yad.Engine.Server {
 
 		protected override void handleBuilding(Building b) {
 			InfoLog.WriteInfo("handleBuilding: not implemented");
-		}		
-	}
+		}
+
+        
+
+        public override void handleAttackUnit(Unit attacked, Unit attacker) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public override void handleAttackBuilding(Building attacked, Unit attacker) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public override void handleAttackBuilding(Building attacked, Building attacker) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public override void handleAttackUnit(Unit attacked, Building attacker) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+    }
 }

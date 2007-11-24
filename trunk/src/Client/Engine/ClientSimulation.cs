@@ -25,12 +25,12 @@ namespace Yad.Engine.Client {
 		public delegate void BuildingHandler (Building b);
 		public delegate void UnitHandler (Unit u);
 
-		public event BuildingHandler OnBuildingCompleted;
-		public event UnitHandler OnUnitCompleted;
-		public event BuildingHandler OnBuildingDestroyed;
-		public event UnitHandler OnUnitDestroyed;
-		public event BuildingHandler OnBuildingStarted;
-		public event UnitHandler OnUnitStarted;
+		public event BuildingHandler BuildingCompleted;
+		public event UnitHandler UnitCompleted;
+		public event BuildingHandler BuildingDestroyed;
+		public event UnitHandler UnitDestroyed;
+		public event BuildingHandler BuildingStarted;
+		public event UnitHandler UnitStarted;
 		#endregion
 
 		public ClientSimulation(Map map, Player currPlayer)
@@ -50,16 +50,16 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
-			Building b = new Building(new ObjectID(bm.IdPlayer, bm.BuildingID), bd, this.map, bm.Position);
+			Building b = new Building(new ObjectID(bm.IdPlayer, bm.BuildingID), bd, this.map, bm.Position,this);
 
 			players[b.ObjectID.PlayerID].AddBuilding(b);
 
 			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {
-				if (OnBuildingCompleted != null) {
-					this.OnBuildingCompleted(b);
-				}
+                OnBuildingCompleted(b);
 			}
 		}
+
+        
 
 		protected override void onMessageMove(MoveMessage gm)
 		{
@@ -117,11 +117,11 @@ namespace Yad.Engine.Client {
 			players[cum.IdPlayer].AddUnit(u);
 
 			if (u.ObjectID.PlayerID == currentPlayer.Id) {
-				if (OnUnitCompleted != null) {
-					this.OnUnitCompleted(u);
-				}
+                OnUnitCompleted(u);
 			}
 		}
+
+        
 
 		protected override void onMessageDeployMCV(Yad.Net.Messaging.GMDeployMCV dmcv) {
 			InfoLog.WriteInfo("onMessageDeployMCV: not implemented");
@@ -142,6 +142,80 @@ namespace Yad.Engine.Client {
 
 		protected override void handleBuilding(Building b) {
 			InfoLog.WriteInfo("handleBuilding: not implemented");
-		}		
-	}
+            b.DoAI();
+		}
+
+        
+
+        /// <summary>
+        /// handles attack - counts damage, destroy unit
+        /// </summary>
+        /// <param name="attacked"></param>
+        /// <param name="attacker"></param>
+        public override void handleAttackUnit(Unit attacked, Unit attacker) {
+            attacked.Health -= attacker.FirePower;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying unit ", EPrefix.SimulationInfo);
+                destroyUnit(attacked);
+            }
+        }
+        /// <summary>
+        /// handles attack - counts damage, destroy building
+        /// </summary>
+        /// <param name="attacked"></param>
+        /// <param name="attacker"></param>
+        public override void handleAttackBuilding(Building attacked, Unit attacker) {
+            attacked.Health -= attacker.FirePower;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyBuilding(attacked);
+            }
+        }
+
+        public override void handleAttackBuilding(Building attacked, Building attacker) {
+            attacked.Health -= attacker.BuildingData.FirePower;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyBuilding(attacked);
+            }
+        }
+
+        public override void handleAttackUnit(Unit attacked, Building attacker) {
+            attacked.Health -= attacker.BuildingData.FirePower;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyUnit(attacked);
+            }
+        }
+
+        private void OnUnitCompleted(Unit u) {
+            if (UnitCompleted != null) {
+                //TODO RS: run in different thread
+                this.UnitCompleted(u);
+            }
+        }
+
+        private void OnBuildingDestroyed(Building b) {
+            if (BuildingDestroyed != null) {
+                //TODO RS: run in different thread
+                BuildingDestroyed(b);
+            }
+        }
+
+        private void OnUnitDestroyed(Unit u) {
+            if (UnitDestroyed != null) {
+                //TODO RS: run in different thread
+                UnitDestroyed(u);
+            }
+        }
+
+        private void OnBuildingCompleted(Building b) {
+            if (BuildingCompleted != null) {
+                //TODO RS: run in different thread
+                this.BuildingCompleted(b);
+            }
+        }
+
+        
+    }
 }

@@ -389,7 +389,10 @@
 			<tns:TypeID>0</tns:TypeID>
 			<tns:Name>Atreides</tns:Name>
 			<tns:TechnologyDependences>
+        
+        
 				<tns:TechnologyDependence>
+          
 					<tns:BuildingName>Slab1</tns:BuildingName>
 					<tns:RequiredBuildings>
 						<tns:Name>ConstructionYard</tns:Name>
