@@ -12,15 +12,24 @@ namespace Yad.Board.Common {
 		UnitTankData _tankData;
         // delta direction to tank direction
         Direction turretDirectionFromTankDirection;
-
+        Direction lastCountedDirection = Direction.None;
+        Direction lastCountedTurretDirection = Direction.None;
+        Direction lastTurretDirectionFromTankDirection = Direction.None;
         public Direction TurretDirection {
             get {
+                // only way to check - remember last value - less operations.
+                if ((this.Direction == lastCountedDirection) && 
+                    (lastTurretDirectionFromTankDirection == turretDirectionFromTankDirection))
+                    return lastCountedTurretDirection;
+
                 int tankRotation = ConvertToNumber(Direction);
                 int turretRotationDelta = ConvertToNumber(turretDirectionFromTankDirection);
                 int turretRotation = turretRotationDelta + tankRotation;
                 turretRotation %= 360;
-                InfoLog.WriteInfo("####### " + turretRotation);
-                return ConvertToDirection(turretRotation);            
+                lastTurretDirectionFromTankDirection = turretDirectionFromTankDirection;
+                lastCountedDirection = this.Direction;
+                lastCountedTurretDirection = ConvertToDirection(turretRotation);
+                return lastCountedTurretDirection;            
             }
         }
 
@@ -34,7 +43,7 @@ namespace Yad.Board.Common {
             this._firePower = ud.FirePower;
             this.MaxHealth = this.Health = ud.__Health;
             this._rotationSpeed = ud.RotationSpeed;
-            turretDirectionFromTankDirection =  Direction.West;
+            turretDirectionFromTankDirection =  Direction.East;
 		}
 
 		public Animation TurretAnimation {
@@ -76,29 +85,38 @@ namespace Yad.Board.Common {
              
 
             int alfaTarget = GetAlfa(ob.Position.X - this.Position.X, ob.Position.Y - this.Position.Y);
-
-
-
             int tankRotation = ConvertToNumber(Direction);
             int turretRotationDelta = ConvertToNumber(turretDirectionFromTankDirection);
 
             int turretRotation = turretRotationDelta + tankRotation;
+
+
             turretRotation %= 360;
-            
-            
-            int turn;
-            int delta = alfaTarget - turretRotation;
-            int adelta = Math.Abs(delta);
-            if (adelta > 22) {
-                // need to rotate - rotation = 45dg.
-                //
-                turn = delta > 0 ? 45 : -45;
+            int delta = turretRotation - alfaTarget;
+            delta += 360;
+            delta %= 360;
+            InfoLog.WriteInfo("## turret rot " + turretRotationDelta + " tank rot: " + tankRotation + "# target: " +alfaTarget + "### " + delta);
+            int turn = 0;
+            if (delta < 360 - 23 && delta >=180) {
+                // rotate clockwise
+                turn = 45;
                 turretRotationDelta += turn;
+                turretRotationDelta += 360;
+                turretRotationDelta %= 360;
+                turretDirectionFromTankDirection = ConvertToDirection(turretRotationDelta);
+                return true;
+            }
+            else if (delta > 23 && delta < 180) {
+                // rotate counterclockwise
+                turn = -45;
+                turretRotationDelta += turn;
+                turretRotationDelta += 360;
                 turretRotationDelta %= 360;
                 turretDirectionFromTankDirection = ConvertToDirection(turretRotationDelta);
 
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -112,12 +130,20 @@ namespace Yad.Board.Common {
             y /= norm;
             double al = Math.Asin(y);
             al *= 180.0/Math.PI;
-            al += 360;
-            al %= 360;
-            if (x >= 0) {
-                return (int)al;
+            if (y >= 0) {
+                //1 | 2 quater
+                if (x >= 0) {
+                    return (int)al % 360;
+                } else {
+                    return 180 - (int)al % 360;
+                }
             } else {
-                return (int)al + 180;
+                // 3 | 4 quater
+                if (x >= 0) {
+                    return (int)(360 + al)%360;
+                } else {
+                    return (int)(270 + al) % 360;
+                }
             }
 
         }
