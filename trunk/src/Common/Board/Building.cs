@@ -15,6 +15,8 @@ namespace Yad.Board.Common {
         private BoardObject attacked;
         private short roundToReload;
 
+		Direction _direction;
+
         public enum BuildingState{
             constructing,
             normal,
@@ -36,6 +38,7 @@ namespace Yad.Board.Common {
 
         public Building(ObjectID id, BuildingData bd, Map map, Position pos, Simulation sim)
 			: base(id, BoardObjectClass.Building, pos) {
+			this._direction = Direction.North;
 			this._buildingData = bd;
 			this._map = map;
             this.state = BuildingState.constructing;
