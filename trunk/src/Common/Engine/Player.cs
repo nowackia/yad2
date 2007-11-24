@@ -18,8 +18,8 @@ namespace Yad.Engine.Common {
 		int _objectID = 0;
 
 		//used for fast access to an object
-        private Dictionary<ObjectID, Building> _buildingsDict = new Dictionary<ObjectID, Building>();
-        private Dictionary<ObjectID, Unit> _unitsDict = new Dictionary<ObjectID, Unit>();
+		private Dictionary<ObjectID, Building> _buildingsDict = new Dictionary<ObjectID, Building>();
+		private Dictionary<ObjectID, Unit> _unitsDict = new Dictionary<ObjectID, Unit>();
 
 		//used for slow access to an object :D
 		//but pretty useful for a turn processing
@@ -62,13 +62,9 @@ namespace Yad.Engine.Common {
 		}
 
 		public void AddBuilding(Building b) {
-            try {
-                _buildingsDict.Add(b.ObjectID, b);
-                _buildings.Add(b);
-                b.PlaceOnMap();
-            } catch (ArgumentException ae) {
-                //RS TODO - sometimes duplicated id happens :| 
-            }
+			_buildingsDict.Add(b.ObjectID, b);
+			_buildings.Add(b);
+			b.PlaceOnMap();
 		}
 
 		public void RemoveBuilding(Building b) {
