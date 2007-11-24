@@ -4,16 +4,18 @@ using System.Text;
 using Yad.Config;
 using Yad.Config.Common;
 using Yad.Log.Common;
+using Yad.Engine.Common;
 
 namespace Yad.Board.Common {
 	public class UnitMCV : Unit {
 		UnitMCVData _mcvData;
 
-		public UnitMCV(ObjectID id, UnitMCVData ud, Position pos, Map map)
-			: base(id, ud.TypeID, BoardObjectClass.UnitMCV, pos, map) {
+		public UnitMCV(ObjectID id, UnitMCVData ud, Position pos, Map map, Simulation sim )
+			: base(id, ud.TypeID, BoardObjectClass.UnitMCV, pos, map,sim) {
 			_mcvData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
+            this.MaxHealth = this.Health = ud.__Health;
 
 		}
 

@@ -110,9 +110,9 @@ namespace Yad.Engine.Client {
 			Unit u = null;
 			ObjectID id = new ObjectID(cum.IdPlayer, cum.UnitID);
 			if (boc == BoardObjectClass.UnitTank) {
-				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this.map);
+				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this.map,this);
 			} else if (boc == BoardObjectClass.UnitTrooper) {
-				u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this.map);
+                u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this.map, this);
 			}
 			players[cum.IdPlayer].AddUnit(u);
 

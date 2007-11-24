@@ -41,7 +41,7 @@
 			<tns:Name>Harvester</tns:Name>
 			<tns:Cost>300</tns:Cost>
 			<tns:Speed>7</tns:Speed>
-			<tns:Health>100</tns:Health>
+			<tns:Health>1000</tns:Health>
 			<tns:ViewRange>2</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
@@ -56,7 +56,7 @@
 			<tns:Name>MCV</tns:Name>
 			<tns:Cost>400</tns:Cost>
 			<tns:Speed>7</tns:Speed>
-			<tns:Health>150</tns:Health>
+			<tns:Health>1500</tns:Health>
 			<tns:ViewRange>3</tns:ViewRange>
 			<tns:BuildSpeed>15</tns:BuildSpeed>
 			<tns:DamageDestroy>20</tns:DamageDestroy>

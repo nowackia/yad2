@@ -92,12 +92,12 @@ namespace Yad.Engine.Client {
 				//TODO: get info
 				Player p = _sim.Players[pd.PlayerId];
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
-				UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map);
+                UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map, this._sim);
 				p.AddUnit(mcv);
 
 				// vjust for fun ;p
 				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
-				UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map);
+                UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map, this._sim);
 				p.AddUnit(u);
 				// ^
 
