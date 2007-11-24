@@ -34,5 +34,13 @@ namespace Yad.Board.Common {
 		public UnitSandwormData SandwormData {
 			get { return _sandwormData; }
 		}
+
+		public override float getSize() {
+			return _sandwormData.Size;
+		}
+
+		public override float getMaxHealth() {
+			return _sandwormData.Health;
+		}
 	}
 }

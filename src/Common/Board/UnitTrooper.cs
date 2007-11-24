@@ -35,5 +35,13 @@ namespace Yad.Board.Common {
 		public UnitTrooperData TrooperData {
 			get { return _trooperData; }
 		}
+
+		public override float getSize() {
+			return _trooperData.Size;
+		}
+
+		public override float getMaxHealth() {
+			return _trooperData.Health;
+		}
 	}
 }

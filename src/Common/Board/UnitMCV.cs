@@ -47,5 +47,13 @@ namespace Yad.Board.Common {
 		public UnitMCVData MCVData {
 			get { return _mcvData; }
 		}
+
+		public override float getSize() {
+			return _mcvData.Size;
+		}
+
+		public override float getMaxHealth() {
+			return _mcvData.Health;
+		}
 	}
 }

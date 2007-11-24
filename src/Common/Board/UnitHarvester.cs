@@ -35,5 +35,13 @@ namespace Yad.Board.Common {
 		public UnitHarvesterData HarvesterData {
 			get { return _harvesterData; }
 		}
+
+		public override float getSize() {
+			return _harvesterData.Size;
+		}
+
+		public override float getMaxHealth() {
+			return _harvesterData.Health;
+		}
 	}
 }
