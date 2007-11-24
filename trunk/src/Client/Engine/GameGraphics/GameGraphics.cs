@@ -602,12 +602,12 @@ namespace Yad.Engine.Client {
 				return;
 			}
 			Direction d = o.Direction;
-
+            Direction t = o.TurretDirection;
 			RectangleF uvBase = VehicleUVChooser(d);
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase);
 
 			//TODO: add separate turret direction
-			RectangleF uvTurret = VehicleUVChooser(d);
+			RectangleF uvTurret = VehicleUVChooser(t);
 			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret);
 		}
 

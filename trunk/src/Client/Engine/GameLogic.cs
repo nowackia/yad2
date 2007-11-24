@@ -148,7 +148,7 @@ namespace Yad.Engine.Client {
             foreach (Unit unit in SelectedUnits) {
                 if (unit.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
             }
-            if (SelectedBuilding.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
+            //if (SelectedBuilding.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
             
             return false;
         }

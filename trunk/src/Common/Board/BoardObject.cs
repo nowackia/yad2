@@ -52,6 +52,38 @@ namespace Yad.Board.Common {
         private static Position[] rangeSpiral;
         private static Dictionary<int, int> lenghts = new Dictionary<int, int>();
 
+        protected static Queue<Position> Bresenham(ref Position source, ref Position dest) {
+            Queue<Position> path = new Queue<Position>();
+
+            //TODO Go-Go-Gadget!
+
+            //remove
+
+            int diffX = dest.X - source.X;
+            int diffY = dest.Y - source.Y;
+            float x = source.X, y = source.Y;
+            int m;
+
+            if (Math.Abs(diffX) > Math.Abs(diffY)) {
+                m = (diffX > 0) ? 1 : -1;
+                float dy = (float)diffY / (float)Math.Abs(diffX);
+                for (int i = 0; i < Math.Abs(diffX); i++) {
+                    x += m;
+                    y += dy;
+                    path.Enqueue(new Position((short)x, (short)y));
+                }
+            } else {
+                m = (diffY > 0) ? 1 : -1;
+                float dx = diffX / (float)Math.Abs(diffY);
+                for (int i = 0; i < Math.Abs(diffY); i++) {
+                    x += dx;
+                    y += m;
+                    path.Enqueue(new Position((short)x, (short)y));
+                }
+            }
+            return path;
+        }
+
         private static void GenerateSpiral(int range) {
 
 
