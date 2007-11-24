@@ -181,6 +181,7 @@ namespace Yad.Engine.Client {
 			Gl.glViewport(0, 0, viewport.Width, viewport.Height);
 
 			minimumZoom = Math.Max((float)viewport.Width / (float)_gameLogic.Simulation.Map.Width, (float)viewport.Height / (float)_gameLogic.Simulation.Map.Height);
+			minimumZoom = Math.Max(minimumZoom, 16f);
 
 			UpdateZoom();
 			UpdateClip();
