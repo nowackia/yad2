@@ -52,7 +52,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			new ETextures[]{ETextures.Rock, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, (ETextures)0}, //left, right, upper, lower
 			new ETextures[]{ETextures.Sand, ETextures.Whatever,ETextures.Whatever,ETextures.Whatever,ETextures.Whatever, (ETextures)0}
 			};
-		private static short[][] fogFrameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
+		private static short[][] frameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
 			new short[]{(short)1, (short)0, (short)0, (short)0, (short)0, (short)1},
 			new short[]{(short)1, (short)1, (short)1, (short)0, (short)0, (short)2},
 			new short[]{(short)1, (short)1,(short)0, (short)0,(short)0, (short)3},
@@ -197,11 +197,53 @@ namespace Yad.Engine.GameGraphics.Client {
 			else
 				fogLower = FogOfWar[x, y];
 			for (int i = 0; i < tileFrameMap.Length; i++) {
-				if ((result = MatchFog(fogFrameMap[i], FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
+				if ((result = MatchFog(frameMap[i], FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
 					return result;
 			}
 			throw new MapHolderException("Bitmap frame not found");
 
+		}
+
+		public static int FindSpiceFrame(int[,] map, int x, int y) {
+			int result;
+			int width = map.GetLength(0),
+				height = map.GetLength(1);
+			if (x < 0 || y < 0 || x >= width || y >= height)
+				throw new MapHolderException("Incorrect map position");
+
+			int left, right, upper, lower;
+
+			if (x > 0)
+				left = map[x - 1, y];
+			else
+				left = map[x, y];
+
+			if (x < width - 1)
+				right = map[x + 1, y];
+			else
+				right = map[x, y];
+
+			if (y < height - 1)
+				upper = map[x, y + 1];
+			else
+				upper = map[x, y];
+
+			if (y > 0)
+				lower = map[x, y - 1];
+			else
+				lower = map[x, y];
+			for (int i = 0; i < tileFrameMap.Length; i++) {
+				if ((result = MatchSpice(frameMap[i], map[x, y], left, right, lower, upper)) >= 0)
+					return result;
+			}
+			throw new MapHolderException("Bitmap frame not found");
+
+		}
+
+		private static short MatchSpice(short[] spiceFrameMap, int center, int left, int right, int lower, int upper) {
+			if ((center>0) == (spiceFrameMap[0]>0) && (left>0) == (spiceFrameMap[1]>0) && (right>0) == (spiceFrameMap[2]>0) && (upper>0) == (spiceFrameMap[3]>0) && (lower>0) == (spiceFrameMap[4]>0))
+				return spiceFrameMap[5];
+			return -1;
 		}
 
 		private static short MatchFog(short[] fogFrameMap, bool center, bool fogLeft, bool fogRight, bool fogLower, bool fogUpper) {
