@@ -60,48 +60,12 @@ namespace Yad.Board.Common {
 		}
 
 
-        private static Position[] rangeSpiral;
-        private static Dictionary<int, int> lenghts = new Dictionary<int,int>();
-
-        private static void GenerateSpiral(int range) {
-
-
-            List<Position> spiral = new List<Position>();
-            spiral.Add(new Position(0, 0));
-            lenghts[0] = 1;
-            for (int i = 1; i <= range; ++i) {
-                // for each radius
-                double delta = 1.0 / range;
-                for (double alfa = 0; alfa < 2 * Math.PI; alfa += delta) {
-                    // alfa
-                    int x = (int)(i * Math.Cos(alfa));
-                    int y = (int)(i * Math.Sin(alfa));
-                    Position p = new Position(x, y);
-                    if (spiral.Contains(p) == false) spiral.Add(p);
-                }
-                lenghts[i] = spiral.Count;
-            }
-            rangeSpiral = spiral.ToArray();
-        }
-
-        protected static Position[] RangeSpiral(int range,out int max) {
-
-            if (lenghts.ContainsKey(range)) {
-                max = lenghts[range];
-                return rangeSpiral;
-            } else {
-                GenerateSpiral(range);
-                max = lenghts[range];
-                return rangeSpiral;
-            }
-        }
-
         public virtual void DoAI() {
 			InfoLog.WriteInfo("Unit:DoAI()", EPrefix.SimulationInfo);
             if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
             switch (state) {
                 case UnitState.moving:
-                    BoardObject nearest;
+                    //BoardObject nearest;
                     //if (FindNearestTargetInFireRange(out nearest)) {
                     //    InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
                     //    state = UnitState.stopped;
@@ -238,7 +202,6 @@ namespace Yad.Board.Common {
             Position[] viewSpiral = RangeSpiral(this.FireRange, out count);
             Map m = this._map;
             Position p = this.Position;
-            BoardObject target;
             Position spiralPos;
             LinkedList<Unit> units;
             LinkedList<Building> buildings;
@@ -271,7 +234,7 @@ namespace Yad.Board.Common {
                         if (building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
                             attackingBuilding = true;
                             nearest = building;
-                            InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
+                            InfoLog.WriteInfo("Unit:AI: found building fire range < " + this.FireRange, EPrefix.SimulationInfo);
                             return true;
                         }
                     }

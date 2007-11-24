@@ -48,5 +48,42 @@ namespace Yad.Board.Common {
 			get { return position; }
 			set { position = value; }
 		}
+
+        private static Position[] rangeSpiral;
+        private static Dictionary<int, int> lenghts = new Dictionary<int, int>();
+
+        private static void GenerateSpiral(int range) {
+
+
+            List<Position> spiral = new List<Position>();
+            spiral.Add(new Position(0, 0));
+            lenghts[0] = 1;
+            for (int i = 1; i <= range; ++i) {
+                // for each radius
+                double delta = 1.0 / range;
+                for (double alfa = 0; alfa < 2 * Math.PI; alfa += delta) {
+                    // alfa
+                    int x = (int)(i * Math.Cos(alfa));
+                    int y = (int)(i * Math.Sin(alfa));
+                    Position p = new Position(x, y);
+                    if (spiral.Contains(p) == false) spiral.Add(p);
+                }
+                lenghts[i] = spiral.Count;
+            }
+            rangeSpiral = spiral.ToArray();
+        }
+
+        protected static Position[] RangeSpiral(int range, out int max) {
+
+            if (lenghts.ContainsKey(range)) {
+                max = lenghts[range];
+                return rangeSpiral;
+            } else {
+                GenerateSpiral(range);
+                max = lenghts[range];
+                return rangeSpiral;
+            }
+        }
+
 	}
 }

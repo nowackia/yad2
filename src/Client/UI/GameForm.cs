@@ -56,8 +56,8 @@ namespace Yad.UI.Client {
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
 			_gameLogic = new GameLogic();
-			_gameLogic.Simulation.OnBuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
-			_gameLogic.Simulation.OnUnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
+			_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
+			_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 
 			leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
