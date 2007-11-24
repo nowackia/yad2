@@ -62,6 +62,9 @@
   <ItemGroup>
     <Compile Include="Engine\AudioEngine.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
+    <Compile Include="Engine\CreditsPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
     <Compile Include="Engine\GameGraphics\MapHolder.cs" />
     <Compile Include="Engine\GameGraphics\MapHolderException.cs" />
@@ -761,6 +764,7 @@
     <Content Include="Resources\Graphics\Terrain\ThickSpice.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Graphics\UI\CreditsDigits.png" />
     <Content Include="Resources\Graphics\UI\Cursor.png" />
     <Content Include="Resources\Graphics\UI\InvalidPlace.png" />
     <Content Include="Resources\Graphics\UI\Menu.png" />

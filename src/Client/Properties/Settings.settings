@@ -98,5 +98,8 @@
     <Setting Name="MusicWin" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Audio/Music/Win</Value>
     </Setting>
+    <Setting Name="CreditsDigitsBitmap" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CreditsDigits.png</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

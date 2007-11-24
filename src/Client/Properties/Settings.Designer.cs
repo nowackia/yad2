@@ -328,5 +328,14 @@ namespace Yad.Properties.Client {
                 return ((string)(this["MusicWin"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CreditsDigits.png")]
+        public string CreditsDigitsBitmap {
+            get {
+                return ((string)(this["CreditsDigitsBitmap"]));
+            }
+        }
     }
 }
