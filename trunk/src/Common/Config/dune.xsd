@@ -17,6 +17,7 @@
 			<element name="BuildSpeed" type="short" />
 			<element name="DamageDestroy" type="short" />
 			<element name="RotationSpeed" type="short" />
+			<element name="Size" type="float" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitTankData">
@@ -36,6 +37,7 @@
 			<element name="DamageDestroy" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="TurretRotationSpeed" type="short" />
+			<element name="Size" type="float" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitHarvesterData">
@@ -52,6 +54,7 @@
 			<element name="RotationSpeed" type="short" />
 			<element name="Capacity" type="short" />
 			<element name="HarvestingSpeed" type="short" />
+			<element name="Size" type="float" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitMCVData">
@@ -67,6 +70,7 @@
 			<element name="DamageDestroy" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="BuildingCanProduce" type="string" />
+			<element name="Size" type="float" />
 		</sequence>
 	</complexType>
 	<complexType name="UnitSandwormData">
@@ -79,6 +83,7 @@
 			<element name="FirePower" type="short" />
 			<element name="DamageDestroy" type="short" />
 			<element name="RotationSpeed" type="short" />
+			<element name="Size" type="float" />
 		</sequence>
 	</complexType>
 	<complexType name="BuildingData">

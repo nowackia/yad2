@@ -15,6 +15,7 @@
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
+			<tns:Size>0.5</tns:Size>
 		</tns:UnitTrooperData>
 	</tns:UnitTroopersData>
 
@@ -33,6 +34,7 @@
 			<tns:DamageDestroy>10</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
+			<tns:Size>1</tns:Size>
 		</tns:UnitTankData>
 	</tns:UnitTanksData>
 
@@ -48,6 +50,7 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:Capacity>150</tns:Capacity>
 			<tns:HarvestingSpeed>20</tns:HarvestingSpeed>
+			<tns:Size>1.5</tns:Size>
 		</tns:UnitHarvesterData>
 	</tns:UnitHarvestersData>
 
@@ -62,6 +65,7 @@
 			<tns:DamageDestroy>20</tns:DamageDestroy>
 			<tns:RotationSpeed>4</tns:RotationSpeed>
 			<tns:BuildingCanProduce>ConstructionYard</tns:BuildingCanProduce>
+			<tns:Size>1.5</tns:Size>
 		</tns:UnitMCVData>
 	</tns:UnitMCVsData>
 
@@ -73,6 +77,7 @@
 			<tns:FirePower>10000</tns:FirePower>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>0</tns:RotationSpeed>
+			<tns:Size>1</tns:Size>
 		</tns:UnitSandwormData>
 	</tns:UnitSandwormsData>
 

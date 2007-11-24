@@ -63,7 +63,7 @@ namespace Yad.Engine.Client {
 		/// <summary>
 		/// These are just stupid, very often used constants.
 		/// </summary>
-		const float oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f, oneSixteenth = 0.0625f;
+		const float half = 1.0f / 2.0f, oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f, oneSixteenth = 0.0625f;
 		#endregion
 
 		#region drawing-related members
@@ -87,6 +87,7 @@ namespace Yad.Engine.Client {
 		/// </summary>
 		static float minimumZoom = 1;
 		static float zoom = 1.0f, zoomStep = 3.5f;
+		static float relativeZoom;
 
 		/// <summary>
 		/// Used for drawing textures
@@ -188,8 +189,11 @@ namespace Yad.Engine.Client {
 		}
 
 		private static void UpdateZoom() {
-			if (zoom < minimumZoom)
+			if (zoom < minimumZoom) {
 				zoom = minimumZoom;
+			}
+
+			relativeZoom = zoom / minimumZoom;
 
 			mapClip.Left = -viewport.Width / zoom / 2;
 			mapClip.Width = viewport.Width / zoom;
@@ -461,6 +465,26 @@ namespace Yad.Engine.Client {
 
 			Gl.glLoadIdentity();
 
+			#region selected objects - needs to be drawn first (fuck intel 945)
+			foreach (Unit u in _gameLogic.SelectedUnits) {
+				PointF realPos = CountRealPosition(u);
+				float size = u.getSize();
+				if (!NeedsDrawing(realPos.X, realPos.Y, size, size)) {
+					continue;
+				}
+				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size);
+				DrawHealthBar(realPos.X, realPos.Y, _depthSelection, size, size, u.Health / u.getMaxHealth());
+			}
+
+			Building selB = _gameLogic.SelectedBuilding;
+			if (selB != null) {
+				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
+					DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height);
+					DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth());
+				}
+			}
+			#endregion
+
 			#region map
 			DrawElementFromLeftBottom(0, 0, _depthMap, _gameLogic.Simulation.Map.Width, _gameLogic.Simulation.Map.Height, 1, _defaultUV);
 			#endregion
@@ -468,9 +492,6 @@ namespace Yad.Engine.Client {
 			#region slabs
 			//TODO
 			#endregion
-
-			//Gl.glColor4f(1, 1, 1, (float)(signal + AntHillConfig.signalInitialAlpha) / AntHillConfig.signalHighestDensity);
-			//DrawElement(x, y, (int)AHGraphics.Texture.MessageQueenInDanger, offsetX, offsetY, 1, 1, 0.01f);
 
 			#region players' data (units & buildings)
 			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
@@ -504,24 +525,6 @@ namespace Yad.Engine.Client {
 			}
 			#endregion
 
-			#region selected objects
-			foreach (Unit u in _gameLogic.SelectedUnits) {
-				PointF realPos = CountRealPosition(u);
-				if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
-					continue;
-				}
-				DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthSelection, 1, 1, 2, _defaultUV);
-			}
-
-			Building selB = _gameLogic.SelectedBuilding;
-			if (selB != null) {
-				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
-					DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, 2, _defaultUV);
-				}
-			}
-			#endregion
-
-
 			#region fow
 			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
@@ -535,6 +538,132 @@ namespace Yad.Engine.Client {
 				}
 			}
 			#endregion
+		}
+
+		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height) {
+			float w2 = width / 2.0f;
+			float h2 = height / 2.0f;
+
+			//left bottom
+			vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneSixteenth;
+			vertexData.vertex[1] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+			vertexData.vertex[2] = z;
+
+			//right bottom
+			vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneSixteenth;
+			vertexData.vertex[4] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+			vertexData.vertex[5] = z;
+
+			//right top
+			vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneSixteenth;
+			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+			vertexData.vertex[8] = z;
+
+
+			vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneSixteenth;
+			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+			vertexData.vertex[11] = z;
+
+			Gl.glColor3f(0, 1f, 0);
+			if (Settings.Default.UseSafeRendering) {
+				Gl.glLineWidth(relativeZoom);
+				Gl.glBegin(Gl.GL_LINE_LOOP);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
+			} else {
+				Gl.glDrawElements(Gl.GL_LINE_LOOP, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+			}
+			Gl.glColor3f(1, 1, 1);
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <param name="health">Between 0 and 1</param>
+		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health) {
+			float w2 = width / 2.0f;
+			float h2 = height / 2.0f;
+
+			//left bottom
+			vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneEight;
+			vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + oneEight;
+			vertexData.vertex[2] = z;
+
+			//right bottom
+			vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneEight;
+			vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + oneEight;
+			vertexData.vertex[5] = z;
+
+			//right top
+			vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneEight;
+			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneThird;
+			vertexData.vertex[8] = z;
+
+			//left top
+			vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneEight;
+			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneThird;
+			vertexData.vertex[11] = z;
+
+			Gl.glColor3f(0, 0, 0);
+			if (Settings.Default.UseSafeRendering) {
+				Gl.glBegin(Gl.GL_LINE_LOOP);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
+			} else {
+				Gl.glDrawElements(Gl.GL_LINE_LOOP, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+			}
+
+
+			//left bottom
+			vertexData.vertex[0]+= 0.01f;
+			vertexData.vertex[1] += 0.01f;
+
+			//right bottom
+			vertexData.vertex[3] -= 0.01f;
+			vertexData.vertex[4] += 0.01f;
+
+			//right top
+			vertexData.vertex[6] -= 0.01f;
+			vertexData.vertex[7] -= 0.01f;
+
+			//left top
+			vertexData.vertex[9] += 0.01f;
+			vertexData.vertex[10] -= 0.01f;
+
+			Gl.glColor3f(0, 1, 0);
+			if (Settings.Default.UseSafeRendering) {
+				Gl.glBegin(Gl.GL_POLYGON);
+				Gl.glColor3f(0, 1.0f, 0);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
+			} else {
+				Gl.glDrawElements(Gl.GL_POLYGON, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+			}
+			Gl.glColor3f(1, 1, 1);
 		}
 
 		#region helpers

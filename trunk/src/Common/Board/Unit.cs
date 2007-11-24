@@ -5,6 +5,7 @@ using Yad.Config;
 using System.Windows.Forms;
 using Yad.Log.Common;
 using Yad.Engine.Common;
+using System.Drawing;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -502,5 +503,8 @@ namespace Yad.Board.Common {
             this.attackingBuilding = isBuilding;
             InfoLog.WriteInfo("Unit:AI: attacking!!!! ", EPrefix.SimulationInfo);
         }
+
+		public abstract float getSize();
+		public abstract float getMaxHealth();
     }
 }

@@ -183,5 +183,9 @@ namespace Yad.Board.Common {
             nearest = null;
             return false;
         }
-    }
+
+		public float getMaxHealth() {
+			return _buildingData.Health;
+		}
+	}
 }

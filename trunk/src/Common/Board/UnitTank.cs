@@ -66,6 +66,14 @@ namespace Yad.Board.Common {
 			get { return _tankData; }
 		}
 
+		public override float getSize() {
+			return _tankData.Size;
+		}
+
+		public override float getMaxHealth() {
+			return _tankData.Health;
+		}
+
         protected bool RotateIfNeeded(BoardObject ob) {
             // check first rotation
             if (RotationSpeed!=0 && RotateIfNeededInternal(ob) == false) return false;
