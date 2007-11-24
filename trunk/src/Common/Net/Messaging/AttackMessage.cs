@@ -16,10 +16,12 @@ namespace Yad.Net.Messaging.Common
 
 		public ObjectID Attacker {
 			get { return this._attackingObject; }
+            set { _attackingObject = value; }
 		}
 
 		public ObjectID Attacked {
 			get { return this._attackedObject; }
+            set { _attackedObject = value; }
 		}
 
 		public override void Deserialize(System.IO.BinaryReader reader) {

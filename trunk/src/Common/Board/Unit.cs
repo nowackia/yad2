@@ -26,6 +26,7 @@ namespace Yad.Board.Common {
 		protected bool _canCrossMountain = false, _canCrossBuildings = false, _canCrossRock = true, _canCrossTrooper = false, _canCrossTank = false;
 
 		protected short _remainingTurnsInMove = 0;
+        protected short _remainingTurnsToReload = 0;
 		protected Position _lastPosition; //used while moving to remember last pos
 		protected Queue<Position> _currentPath;
 		//BoardObject.Position - current position, while moving unit is always at this coordinates
@@ -36,9 +37,10 @@ namespace Yad.Board.Common {
         protected bool attackingBuilding; // -- need to proper cast.
         public enum UnitState {
             moving,
-            chacing,
+            chasing,
             stopped,
             attacking,
+            orderedAttack,
             destroyed
         }
 
@@ -92,7 +94,7 @@ namespace Yad.Board.Common {
 
         public virtual void DoAI() {
 			InfoLog.WriteInfo("Unit:DoAI()", EPrefix.SimulationInfo);
-            
+            if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
             switch (state) {
                 case UnitState.moving:
                     BoardObject nearest;
@@ -109,7 +111,7 @@ namespace Yad.Board.Common {
                     }
                     //TODO RS: modify to find way each time? - chasing another unit
                     break;
-                case UnitState.chacing:
+                case UnitState.chasing:
                     BoardObject nearest1;
                     if (FindNearestTargetInFireRange(out nearest1)) {
                         InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
@@ -121,6 +123,19 @@ namespace Yad.Board.Common {
                         state = UnitState.stopped;
                     } 
                     break;
+                case UnitState.orderedAttack:
+                    if (Move() == false) {
+                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        if (CheckIfStillExistTarget(attackedObject) == false) {
+                            state = UnitState.stopped;
+                            break;
+                        }
+                        
+                    }
+                    if (CheckRangeToShoot(attackedObject) ) {
+                        state = UnitState.attacking;
+                    }
+                    break;
                 case UnitState.stopped:
                     if (FindNearestTargetInFireRange(out attackedObject)) {
                         state = UnitState.attacking;
@@ -130,9 +145,9 @@ namespace Yad.Board.Common {
                     BoardObject ob;
                     if (FindNearestTargetInViewRange(out ob)) {
                         InfoLog.WriteInfo("Unit:AI: stop -> chace ", EPrefix.SimulationInfo);
-                        state = UnitState.chacing;
+                        state = UnitState.chasing;
                         MoveTo(ob.Position);
-                        state = UnitState.chacing;
+                        state = UnitState.chasing;
                         break;
                     }
                     break;
@@ -154,10 +169,10 @@ namespace Yad.Board.Common {
                     } else {
                         // out of range - chase
                         InfoLog.WriteInfo("Unit:AI: attack -> chace ", EPrefix.SimulationInfo);
-                        state = UnitState.chacing;
+                        state = UnitState.chasing;
                         MoveTo(attackedObject.Position);
                         //override state
-                        state = UnitState.chacing;
+                        state = UnitState.chasing;
                     }
                     break;
             }
@@ -175,6 +190,7 @@ namespace Yad.Board.Common {
             Position spiralPos;
             LinkedList<Unit> units;
             LinkedList<Building> buildings;
+           
             for (int i = 0; i < count; ++i) {
 
                 spiralPos = viewSpiral[i];
@@ -187,7 +203,7 @@ namespace Yad.Board.Common {
                     foreach (Unit unit in units) {
                         //TODO erase true;)
                         if (unit.Equals(this)) continue;
-                        if (true || unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
                             ob = unit;
                             InfoLog.WriteInfo("Unit:AI: found unit in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
                             return true;
@@ -197,7 +213,7 @@ namespace Yad.Board.Common {
                     buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Building building in buildings) {
                         //TODO erase true;)
-                        if (true || building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if ( building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
                             attackingBuilding = true;
                             ob = building;
                             InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
@@ -233,7 +249,7 @@ namespace Yad.Board.Common {
                     units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Unit unit in units) {
                         if (unit.Equals(this)) continue;
-                        if (true || unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
                             // target
 
                             //TODO RS: bresenham to check if there is a way to shoot.
@@ -248,7 +264,7 @@ namespace Yad.Board.Common {
                     buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Building building in buildings) {
                         // erase true;)
-                        if (true || building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
                             attackingBuilding = true;
                             nearest = building;
                             InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
@@ -268,7 +284,16 @@ namespace Yad.Board.Common {
         /// </summary>
         /// <param name="ob"></param>
         private void Attack(BoardObject ob) {
-            
+
+            if (_remainingTurnsToReload == 0) {
+                if (attackingBuilding) {
+                    Building b = (Building)ob;
+
+                } else {
+                    Unit u = (Unit)ob;
+                }
+            }
+            //TODO RS: Attack method in unit/building? or thru simulation?
         }
         /// <summary>
         /// checks if object is in shooting range
@@ -290,7 +315,7 @@ namespace Yad.Board.Common {
         private bool CheckIfStillExistTarget(BoardObject ob) {
             if (attackingBuilding) {
                 Building b = (Building)ob;
-                return b.State == Building.BuildingState.destroyed;
+                return b.State != Building.BuildingState.destroyed;
 
             } else {
                 Unit u = (Unit)ob;
@@ -517,8 +542,10 @@ namespace Yad.Board.Common {
         /// <param name="objectID"></param>
         public void OrderAttack(BoardObject boardObject,bool isBuilding) {
             attackedObject = boardObject;
-            state = UnitState.attacking;
+            MoveTo(boardObject.Position);
+            state = UnitState.orderedAttack;
             this.attackingBuilding = isBuilding;
+            InfoLog.WriteInfo("Unit:AI: attacking!!!! ", EPrefix.SimulationInfo);
         }
     }
 }
