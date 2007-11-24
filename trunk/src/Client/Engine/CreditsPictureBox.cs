@@ -73,7 +73,7 @@ namespace Yad.Engine.Client {
 			if (bmp != null) {
 				if (value == 0) {
 					pe.Graphics.DrawImage(bmp, new Rectangle(tmpx, ypos, dstDim, dstDim), new Rectangle(0, 0, srcDim, bmp.Height), GraphicsUnit.Pixel);
-					xpos -= dstDim;
+					tmpx -= dstDim;
 				} else {
 					int tmp = value;
 					while (xpos >= 0 && tmp > 0) {
