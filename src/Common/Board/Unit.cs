@@ -70,7 +70,7 @@ namespace Yad.Board.Common {
                     //    InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
                     //    state = UnitState.stopped;
                     //    StopMoving();
-                    //} else 
+                    //} else
                         if (Move() == false) {
                         InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
@@ -144,8 +144,6 @@ namespace Yad.Board.Common {
                     }
                     break;
             }
-
-
 		}
 
         private bool FindNearestTargetInViewRange(out BoardObject ob) {

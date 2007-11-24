@@ -50,7 +50,8 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
-			Building b = new Building(new ObjectID(bm.IdPlayer, bm.BuildingID), bd, this.map, bm.Position,this);
+			ObjectID id = new ObjectID(bm.IdPlayer, bm.BuildingID);
+			Building b = new Building(id, bd, this.map, bm.Position, this);
 
 			players[b.ObjectID.PlayerID].AddBuilding(b);
 

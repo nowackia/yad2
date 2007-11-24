@@ -48,42 +48,46 @@ namespace Yad.UI.Client {
 
 		#region constructor
 		public GameForm() {
-			InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
+			try {
+				InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
-			InitializeComponent();
+				InitializeComponent();
 
-			this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
-			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+				this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
 			_gameLogic = new GameLogic();
 			_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
 			_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 
-			leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
-			//leftStripe.onUnitChosen //there should be no units there...
-			rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
-			rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
+				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
+				//leftStripe.onUnitChosen //there should be no units there...
+				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
+				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
 
-			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
+				InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
-			//initializes GameGraphics
-			this.openGLView.InitializeContexts();
+				//initializes GameGraphics
+				this.openGLView.InitializeContexts();
 
-			//First: set appropriate properties
-			InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
-			GameGraphics.InitGL(_gameLogic);
-			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
-			InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
-			GameGraphics.InitTextures(_gameLogic.Simulation);
+				//First: set appropriate properties
+				InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
+				GameGraphics.InitGL(_gameLogic);
+				GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+				InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
+				GameGraphics.InitTextures(_gameLogic.Simulation);
 
-			InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
+				InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
-			GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
+				GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
-			this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
+				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 
-			GameMessageHandler.Instance.Resume();
+				GameMessageHandler.Instance.Resume();
+			} catch (Exception e) {
+				Console.Out.WriteLine(e);
+			}
 		}
 		#endregion
 
