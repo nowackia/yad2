@@ -12,6 +12,7 @@ using Yad.Net.Client;
 using Yad.UI.Client;
 using System.Windows.Forms;
 using Yad.Engine.Common;
+using Yad.Properties.Client;
 
 namespace Yad.Engine.Client {
 	/// <summary>
