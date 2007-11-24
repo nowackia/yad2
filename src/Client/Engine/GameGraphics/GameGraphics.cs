@@ -506,12 +506,17 @@ namespace Yad.Engine.Client {
 			#region selected objects
 			foreach (Unit u in _gameLogic.SelectedUnits) {
 				PointF realPos = CountRealPosition(u);
+				if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
+					continue;
+				}
 				DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthSelection, 1, 1, 2, _defaultUV);
 			}
 
 			Building selB = _gameLogic.SelectedBuilding;
 			if (selB != null) {
-				DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, 2, _defaultUV);
+				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
+					DrawElementFromLeftBottom(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, 2, _defaultUV);
+				}
 			}
 			#endregion
 
@@ -520,7 +525,7 @@ namespace Yad.Engine.Client {
 			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
 				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
-					if (fogOfWar[x, y] == false) {
+					if (fogOfWar[x, y] == false || !NeedsDrawing(x, y, 1, 1)) {
 						continue;
 					}
 					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
@@ -551,10 +556,26 @@ namespace Yad.Engine.Client {
 		private static bool Test(Direction s, Direction t) {
 			return ((s & t) != 0);
 		}
+
+		private static bool NeedsDrawing(float x, float y, float width, float height) {
+			if (x + width < mapClip.Left + offset.X)
+				return false;
+			if (x > mapClip.Right + offset.X)
+				return false;
+			if (y > mapClip.Top + offset.Y)
+				return false;
+			if (y + height < mapClip.Bottom + offset.Y)
+				return false;
+			return true;
+		}
+
 		#endregion
 
 		private static void DrawTrooper(UnitTrooper o) {
 			PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(realPos.X, realPos.Y, 0.5f, 0.5f)) {
+				return;
+			}
 			float frame = o.RemainingTurnsInMove % 3;
 
 			// >^<v
@@ -576,6 +597,9 @@ namespace Yad.Engine.Client {
 
 		private static void DrawTank(UnitTank o) {
 			PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
+				return;
+			}
 			Direction d = o.Direction;
 
 			RectangleF uvBase = VehicleUVChooser(d);
@@ -616,6 +640,9 @@ namespace Yad.Engine.Client {
 
 		private static void DrawSandworm(UnitSandworm o) {
 			PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
+				return;
+			}
 			float frame = o.RemainingTurnsInMove % 5;
 			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneFifth, 1, oneFifth);
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv);
@@ -623,6 +650,9 @@ namespace Yad.Engine.Client {
 
 		private static void DrawMCV(UnitMCV o) {
 			PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(realPos.X, realPos.Y, 1.5f, 1.5f)) {
+				return;
+			}
 			Direction d = o.Direction;
 
 			RectangleF uv = VehicleUVChooser(d);
@@ -631,6 +661,9 @@ namespace Yad.Engine.Client {
 
 		private static void DrawHarvester(UnitHarvester o) {
 			PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(realPos.X, realPos.Y, 1.5f, 1.5f)) {
+				return;
+			}
 			Direction d = o.Direction;
 			RectangleF uv = VehicleUVChooser(d);
 			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
@@ -640,6 +673,9 @@ namespace Yad.Engine.Client {
 
 		private static void DrawBuilding(Building o) {
 			//PointF realPos = CountRealPosition(o);
+			if (!NeedsDrawing(o.Position.X, o.Position.Y, o.Width, o.Health)) {
+				return;
+			}
 			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, _defaultUV);
 		}
 		#endregion
