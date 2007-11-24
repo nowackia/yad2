@@ -31,6 +31,7 @@ namespace Yad.Board.Common {
 			: base(id, BoardObjectClass.Building, pos) {
 			this._buildingData = bd;
 			this._map = map;
+            this.state = BuildingState.constructing;
 		}
 
         public void Destroy() {

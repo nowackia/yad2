@@ -85,11 +85,19 @@ namespace Yad.Engine.Common {
 		}
 
 		public Unit GetUnit(ObjectID id) {
-			return this._unitsDict[id];
+            Unit u;
+            if (this._unitsDict.TryGetValue(id, out u)) {
+                return u;
+            }
+            return null ;
 		}
 
 		public Building GetBuilding(ObjectID id) {
-			return this._buildingsDict[id];
+            Building b;
+            if (this._buildingsDict.TryGetValue(id, out b)) {
+                return b;
+            }
+            return null;
 		}
 		#endregion
 	}

@@ -183,7 +183,15 @@ namespace Yad.UI.Client {
 		private void HandleRightButtonDown(MouseEventArgs e) {
 			_isCreatingBuilding = _isCreatingUnit = false;
 
-			_gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
+            if (_gameLogic.CanGiveOrders()) {
+                BoardObject bo = _gameLogic.SimpleSelectAttack(GameGraphics.TranslateMousePosition(e.Location));
+                if (bo != null) {
+                    _gameLogic.AttackOrder(bo);
+                } else {
+                    _gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
+                }
+
+            }
 		}
 
 		private void HandleMiddleButtonDown(MouseEventArgs e) {

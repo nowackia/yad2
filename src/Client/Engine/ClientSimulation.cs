@@ -77,13 +77,14 @@ namespace Yad.Engine.Client {
             Player p = players[am.Attacked.PlayerID];
             BoardObject b;
             bool isBuilding = false;
+            
             b = p.GetBuilding(am.Attacked);
             if(b!=null){
                 isBuilding = true;
             }else
             {
                 b = p.GetUnit(am.Attacked);
-                if(b!=null)
+                if(b==null)
                 {
                     throw new NotImplementedException("attacked unit does not exist");
                 }
