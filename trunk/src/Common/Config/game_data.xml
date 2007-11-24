@@ -110,6 +110,17 @@
 				<tns:Name>Slab1</tns:Name>
 				<tns:Name>Slab4</tns:Name>
 				<tns:Name>WindTrap</tns:Name>
+        <tns:Name>Refinery</tns:Name>
+        <tns:Name>HeavyFactory</tns:Name>
+        <tns:Name>LightFactory</tns:Name>
+        <tns:Name>Silo</tns:Name>
+        <tns:Name>Wall</tns:Name>
+        <tns:Name>IX</tns:Name>
+        <tns:Name>GunTurret</tns:Name>
+        <tns:Name>RocketTurret</tns:Name>
+        <tns:Name>Radar</tns:Name>
+        <tns:Name>Starport</tns:Name>
+        <tns:Name>Barracks</tns:Name>
 			</tns:BuildingsCanProduce>
 		</tns:BuildingData>
 
@@ -167,10 +178,6 @@
       </tns:RideableFields>
       <tns:UnitsCanProduce>
       </tns:UnitsCanProduce>
-      <tns:BuildingsCanProduce>
-        <tns:Name>Radar</tns:Name>
-        <tns:Name>Refinery</tns:Name>
-      </tns:BuildingsCanProduce>
     </tns:BuildingData>
 
     <tns:BuildingData>
@@ -190,11 +197,6 @@
       </tns:RideableFields>
       <tns:UnitsCanProduce>
       </tns:UnitsCanProduce>
-      <tns:BuildingsCanProduce>
-        <tns:Name>Silo</tns:Name>
-        <tns:Name>LightFactory</tns:Name>
-        <tns:Name>Starport</tns:Name>
-      </tns:BuildingsCanProduce>
     </tns:BuildingData>
 
     <tns:BuildingData>
@@ -268,9 +270,6 @@
       </tns:RideableFields>
       <tns:UnitsCanProduce>
       </tns:UnitsCanProduce>
-      <tns:BuildingsCanProduce>
-        <tns:Name>HeavyFactory</tns:Name>
-      </tns:BuildingsCanProduce>
     </tns:BuildingData>
 
     <tns:BuildingData>
@@ -305,11 +304,6 @@
       </tns:RideableFields>
       <tns:UnitsCanProduce>
       </tns:UnitsCanProduce>
-      <tns:BuildingsCanProduce>
-        <tns:Name>GunTurret</tns:Name>
-        <tns:Name>RocketTurret</tns:Name>
-        <tns:Name>Barracks</tns:Name>
-      </tns:BuildingsCanProduce>
 		</tns:BuildingData>
 
 		<tns:BuildingData>
