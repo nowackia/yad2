@@ -56,10 +56,10 @@ namespace Yad.UI.Client {
 				this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
-			_gameLogic = new GameLogic();
-			_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
-			_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
-			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
+				_gameLogic = new GameLogic();
+				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
+				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
+				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				//leftStripe.onUnitChosen //there should be no units there...
@@ -188,15 +188,15 @@ namespace Yad.UI.Client {
 		private void HandleRightButtonDown(MouseEventArgs e) {
 			_isCreatingBuilding = _isCreatingUnit = false;
 
-            if (_gameLogic.CanGiveOrders()) {
-                BoardObject bo = _gameLogic.SimpleSelectAttack(GameGraphics.TranslateMousePosition(e.Location));
-                if (bo != null) {
-                    _gameLogic.AttackOrder(bo);
-                } else {
-                    _gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
-                }
+			if (_gameLogic.CanGiveOrders()) {
+				BoardObject bo = _gameLogic.SimpleSelectAttack(GameGraphics.TranslateMousePosition(e.Location));
+				if (bo != null) {
+					_gameLogic.AttackOrder(bo);
+				} else {
+					_gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
+				}
 
-            }
+			}
 		}
 
 		private void HandleMiddleButtonDown(MouseEventArgs e) {
@@ -362,7 +362,7 @@ namespace Yad.UI.Client {
 				BuildingData data = GlobalSettings.Wrapper.buildingsMap[idB];
 				foreach (String name in data.BuildingsCanProduce) {
 					short id = GlobalSettings.Wrapper.namesToIds[name];
-                    InfoLog.WriteInfo(name, EPrefix.ClientInformation);
+					InfoLog.WriteInfo(name, EPrefix.ClientInformation);
 					if (rightStripe.Ids.Contains(id)) continue;
 					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
 					if (CheckDependencies(name)) {
