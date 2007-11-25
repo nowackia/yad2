@@ -169,6 +169,8 @@ namespace Yad.Engine.GameGraphics.Client {
 		}
 
 		public static int FindFogFrame(bool[,] FogOfWar, int x, int y) {
+			if (FogOfWar[x, y] == false)
+				return -1;
 			int result;
 			int width = FogOfWar.GetLength(0),
 				height = FogOfWar.GetLength(1);
@@ -196,7 +198,7 @@ namespace Yad.Engine.GameGraphics.Client {
 				fogLower = FogOfWar[x, y - 1];
 			else
 				fogLower = FogOfWar[x, y];
-			for (int i = 0; i < tileFrameMap.Length; i++) {
+			for (int i = 0; i < frameMap.Length; i++) {
 				if ((result = MatchFog(frameMap[i], FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
 					return result;
 			}

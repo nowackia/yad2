@@ -27,7 +27,9 @@ namespace Yad.Engine.Client {
 		public delegate void UnitHandler (Unit u);
 		public delegate void OnLowPowerHandler();
 		public delegate void OnNoPowerHandler();
+		public delegate void OnCreditsHandler(short id);
 
+		public event OnCreditsHandler OnCreditsUpdate;
 		public event OnLowPowerHandler OnLowPowerResources;
 		public event OnNoPowerHandler OnNoPowerResources; 
 		public event BuildingHandler BuildingCompleted;
@@ -64,6 +66,8 @@ namespace Yad.Engine.Client {
 
 			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {
                 OnBuildingCompleted(b);
+				UpdatePowerManagement(b.TypeID);
+				OnCreditsUpdate(b.TypeID);
 			}
 		}
 

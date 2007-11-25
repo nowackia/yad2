@@ -60,6 +60,8 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
+			_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
+
 
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				//leftStripe.onUnitChosen //there should be no units there...
@@ -275,39 +277,31 @@ namespace Yad.UI.Client {
 
 		void rightStripe_onBuildingChosen(short id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-			if (UpdateCredits(id)) {
 				PlaceBuilding(id);
-				_gameLogic.Simulation.UpdatePowerManagement(id);
-			}
 		}
 
-		private bool UpdateCredits(short id) {
-			bool result = false;
+		private void UpdateCredits(short id) {
 			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings) {
 				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
 					creditsPictureBox.Value -= b.Cost;
-					result = true;
 				}
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 			}
 			foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters) {
 				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
 					creditsPictureBox.Value -= b.Cost;
-					result = true;
 				}
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 			}
 			foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs) {
 				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
 					creditsPictureBox.Value -= b.Cost;
-					result = true;
 				}
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 			}
 			foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks) {
 				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
 					creditsPictureBox.Value -= b.Cost;
-					result = true;
 				}
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 			}
@@ -315,11 +309,9 @@ namespace Yad.UI.Client {
 			foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers) {
 				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
 					creditsPictureBox.Value -= b.Cost;
-					result = true;
 				}
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 			}
-			return result;
 		}
 
 		void leftStripe_onBuildingChosen(short id) {
