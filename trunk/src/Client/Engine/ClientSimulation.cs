@@ -165,6 +165,7 @@ namespace Yad.Engine.Client {
             if (attacked.Health <= 0) {
                 InfoLog.WriteInfo("destroying unit ", EPrefix.SimulationInfo);
                 destroyUnit(attacked);
+				OnUnitDestroyed(attacked);
             }
         }
         /// <summary>
@@ -177,6 +178,7 @@ namespace Yad.Engine.Client {
             if (attacked.Health <= 0) {
                 InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
                 destroyBuilding(attacked);
+				OnBuildingDestroyed(attacked);
             }
         }
 
@@ -185,6 +187,7 @@ namespace Yad.Engine.Client {
             if (attacked.Health <= 0) {
                 InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
                 destroyBuilding(attacked);
+				OnBuildingDestroyed(attacked);
             }
         }
 
@@ -193,6 +196,7 @@ namespace Yad.Engine.Client {
             if (attacked.Health <= 0) {
                 InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
                 destroyUnit(attacked);
+				OnUnitDestroyed(attacked);
             }
         }
 
