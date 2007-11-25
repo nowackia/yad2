@@ -107,6 +107,7 @@ namespace Yad.Engine.Client {
                 if(b==null)
                 {
                     InfoLog.WriteInfo("MessageMove: PlayerID:" + am.Attacked.PlayerID + " attacked object does not exist", EPrefix.SimulationInfo);
+                   return;
                 }
             }
 
