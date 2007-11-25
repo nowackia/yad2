@@ -13,6 +13,7 @@ using Yad.UI.Client;
 using System.Windows.Forms;
 using Yad.Engine.Common;
 using Yad.Properties.Client;
+using Yad.Net.Common;
 
 namespace Yad.Engine.Client {
 	/// <summary>
@@ -41,9 +42,22 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		private int credits = Settings.Default.CreditsAtStart;
+		private Player currentPlayer;
 
-		public ClientSimulation(Map map, Player currPlayer)
-			: base(map, currPlayer, false) {
+		public ClientSimulation(Map map)
+			: base(map, false) {
+
+			PlayerInfo currPI = ClientPlayerInfo.Player;
+
+			//Add all players
+			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
+				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
+				players.Add(p.Id, p);
+				if (p.Id == currPI.Id) { //jeœli jest aktualnym graczem to dodatkowo ustawiamy zmienn¹
+					currentPlayer = p;
+				}
+			}
+
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
 			this.OnLowPowerResources += new OnLowPowerHandler(ClientSimulation_OnLowPowerResources);
@@ -52,6 +66,9 @@ namespace Yad.Engine.Client {
 			this.UnitCompleted += new UnitHandler(ClientSimulation_UnitCompleted);
 		}
 
+		public Player CurrentPlayer {
+			get { return this.currentPlayer; }
+		}
 
 		void ClientSimulation_onTurnBegin() {
 			Connection.Instance.SendMessage(tam);

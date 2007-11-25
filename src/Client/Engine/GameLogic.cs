@@ -18,6 +18,7 @@ using Yad.Utilities.Common;
 using Yad.Properties.Common;
 using Yad.Net.Common;
 using System.Drawing;
+using Yad.Net.Messaging;
 
 namespace Yad.Engine.Client {
 	/// <summary>
@@ -34,7 +35,6 @@ namespace Yad.Engine.Client {
 
 		#region private members
 		ClientSimulation _sim;
-		Player _currPlayer;
 
 		private Dictionary<short, short> _buildingCounter = new Dictionary<short, short>();
 		private List<Unit> _selectedUnits = new List<Unit>();
@@ -52,25 +52,10 @@ namespace Yad.Engine.Client {
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, ClientPlayerInfo.GameInfo.MapName));
 			
-			PlayerInfo currPI = ClientPlayerInfo.Player;
-			//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
-			//currPI.House = wrapper.Races[0].TypeID;
-			//
-			_currPlayer = new Player(currPI.Id, currPI.Name, currPI.House, currPI.Color);
-
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
-			_sim = new ClientSimulation(map, _currPlayer);
-			
-			//Add all players
-			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
-				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
-				//TODO: usunąć gdy Adam/Piotrek dodadzą ustawianie rasy do ClientPlayerInfo
-				//p.House = wrapper.Races[0].TypeID;
-				//
-				_sim.AddPlayer(p);
-			}
+			_sim = new ClientSimulation(map);
 
 			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
 
@@ -86,12 +71,14 @@ namespace Yad.Engine.Client {
 
 		#region message handling
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
+			PlayerInfo pi = ClientPlayerInfo.Player;
+			//_currPlayer = new Player(pi.
 			PositionData[] aPd = e.gameInitInfo;
 			
 			foreach (PositionData pd in aPd) {
 				//TODO: get info
 
-				_currPlayer = _sim.Players[pd.PlayerId];
+				//_currPlayer = _sim.Players[pd.PlayerId];
 				Player p = _sim.Players[pd.PlayerId];
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
                 UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map, this._sim);
@@ -112,8 +99,12 @@ namespace Yad.Engine.Client {
 			 */
 		}
 
-		void Instance_DoTurnPermission(object sender, EventArgs e) {
+		void Instance_DoTurnPermission(object sender, DoTurnMessage dtm) {
 			//InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
+			if (dtm.SpeedUp) {
+				_sim.SpeedUp = true;
+				InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
+			}
 			_sim.DoTurn();
 		}
 
@@ -136,7 +127,7 @@ namespace Yad.Engine.Client {
 		}
 
 		public Player CurrentPlayer {
-			get { return this._currPlayer; }
+			get { return this._sim.CurrentPlayer; }
 		}
 		#endregion
 
@@ -272,8 +263,8 @@ namespace Yad.Engine.Client {
 			}
 			
 			BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.Build);
-			bm.BuildingID = _currPlayer.GenerateObjectID();
-			bm.IdPlayer = _currPlayer.Id;
+			bm.BuildingID = CurrentPlayer.GenerateObjectID();
+			bm.IdPlayer = CurrentPlayer.Id;
 			bm.BuildingType = buildingId;
 			bm.Type = MessageType.Build;
 			bm.Position = pos;
@@ -424,8 +415,8 @@ namespace Yad.Engine.Client {
 
 
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
-			um.UnitID =  _currPlayer.GenerateObjectID();
-			um.IdPlayer = _currPlayer.Id;
+			um.UnitID = CurrentPlayer.GenerateObjectID();
+			um.IdPlayer = CurrentPlayer.Id;
 			um.UnitType = id;
 			um.UnitKind = BoardObjectClass.UnitTrooper;
 			um.Type = MessageType.CreateUnit;

@@ -30,6 +30,7 @@ namespace Tests {
 			this.rbFight = new System.Windows.Forms.RadioButton();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnRandom = new System.Windows.Forms.Button();
+			this.btnTestDict = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -110,11 +111,22 @@ namespace Tests {
 			this.btnRandom.UseVisualStyleBackColor = true;
 			this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
 			// 
+			// btnTestDict
+			// 
+			this.btnTestDict.Location = new System.Drawing.Point(163, 25);
+			this.btnTestDict.Name = "btnTestDict";
+			this.btnTestDict.Size = new System.Drawing.Size(124, 23);
+			this.btnTestDict.TabIndex = 1;
+			this.btnTestDict.Text = "Test Dictionary< >";
+			this.btnTestDict.UseVisualStyleBackColor = true;
+			this.btnTestDict.Click += new System.EventHandler(this.btnTestDict_Click);
+			// 
 			// TestForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(618, 417);
+			this.Controls.Add(this.btnTestDict);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "TestForm";
 			this.Text = "Test Form";
@@ -134,6 +146,7 @@ namespace Tests {
 		private System.Windows.Forms.RadioButton rbFight;
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnRandom;
+		private System.Windows.Forms.Button btnTestDict;
 	}
 }
 

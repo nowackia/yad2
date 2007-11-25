@@ -6,12 +6,13 @@ using Yad.Log.Common;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.UI.Client;
+using Yad.Net.Messaging;
 
 namespace Yad.Net.Client
 {
     public delegate void GameInitEventHandler(object sender, GameInitEventArgs e);
     public delegate void GameMessageEventHandler(object sender, GameMessageEventArgs e);
-    public delegate void DoTurnEventHandler(object sender, EventArgs e);
+    public delegate void DoTurnEventHandler(object sender, DoTurnMessage dtm);
 
     public class GameInitEventArgs : EventArgs
     {
@@ -106,7 +107,7 @@ namespace Yad.Net.Client
 
                 case MessageType.DoTurn:
                     if (DoTurnPermission != null)
-                        DoTurnPermission(this, EventArgs.Empty);
+                        DoTurnPermission(this, (DoTurnMessage)message);
                     break;
 
                 default:

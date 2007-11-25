@@ -4,7 +4,7 @@ using System.Text;
 using Yad.Net.Common;
 
 namespace Yad.Net.Client {
-	static class ClientPlayerInfo {
+	public static class ClientPlayerInfo {
 		private static GameInfo gameInfo = null;
 		private static PlayerInfo playerInfo = new PlayerInfo();
 		private static Players enemies = new Players();

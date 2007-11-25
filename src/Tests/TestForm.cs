@@ -14,6 +14,7 @@ using Yad.Config;
 using Yad.Board.Common;
 using Yad.Config.XMLLoader.Common;
 using System.IO;
+using Yad.Net.Client;
 
 namespace Tests {
 	public partial class TestForm : Form {
@@ -52,7 +53,7 @@ namespace Tests {
 			Simulation sim;
 			Map map = new Map();
 			map.LoadMap(Path.Combine("Resources/Maps", "test.map"));
-			sim = new ClientSimulation(map, new Player(0, "test1", GlobalSettings.Wrapper.Races[0].TypeID, Color.HotPink));
+			sim = new ClientSimulation(map);
 			sim.onTurnEnd += new SimulationHandler(sim_onTurnEnd);
 			sim.StartSimulation();
 
@@ -126,5 +127,48 @@ namespace Tests {
 
 		#endregion
 
+		#region dictionary & enums
+		public void testDictionary() {
+			Dictionary<int, Object> testDict = new Dictionary<int, object>();
+			int len = 1000000;
+			for (int i = 0; i < len; i++) {
+				testDict.Add(i, new Object());
+			}
+
+			Object[] a = new Object[len];
+			int beg = Environment.TickCount;
+			int c = 0;
+			Dictionary<int, Object>.Enumerator en = testDict.GetEnumerator();
+			while (en.MoveNext()) {
+				a[c] = en.Current.Value;
+				c++;
+			}
+			int end = Environment.TickCount;
+			en.Dispose();
+			Console.Out.WriteLine((end - beg).ToString());
+			beg = Environment.TickCount;
+			c = 0;
+			foreach (Object o in testDict.Values) {
+				a[c] = o;
+				c++;
+			}
+			end = Environment.TickCount;
+			Console.Out.WriteLine((end - beg).ToString());
+
+			for (int z = 0; z < 1000; z++) {
+				c = 0;
+				foreach (Object o in testDict.Values) {
+					if (a[c] != o) {
+						Console.Out.WriteLine("Difference");
+					}
+					c++;
+				}
+			}
+		}
+		#endregion
+
+		private void btnTestDict_Click(object sender, EventArgs e) {
+			this.testDictionary();
+		}
 	}
 }

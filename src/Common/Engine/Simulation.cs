@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Yad.Utilities.Common;
 using Yad.UI.Common;
 using Yad.Net.Messaging;
+using Yad.Net.Common;
 
 namespace Yad.Engine.Common {
 
@@ -59,15 +60,11 @@ namespace Yad.Engine.Common {
 		Semaphore nextTurn = new Semaphore(1, 1);
 
 		/// <summary>
+		/// SpeedUp length in turns
 		/// When server sends MessageTurn it can state that the client needs to speed up a little bit
 		/// and ignore standard turn length
 		/// </summary>
-		bool speedUp = false;
-
-		/// <summary>
-		/// SpeedUp length in turns
-		/// </summary>
-		int speedUpLength = delta;
+		int speedUpLength = 0;
 
 		int currentTurn = 0;
 
@@ -101,17 +98,16 @@ namespace Yad.Engine.Common {
 
 		protected Map map;
 
-		protected Player currentPlayer;
-
 		//animations
 
 		#endregion
 
 		#region constructor
-		public Simulation(Map map, Player currPlayer, bool useFastTurnProcessing) {
+		public Simulation(Map map, bool useFastTurnProcessing) {
 			this.map = map;
+
 			this.players = new Dictionary<short, Player>();
-			this.currentPlayer = currPlayer;
+
 			this.fastTurnProcessing = useFastTurnProcessing;
 			turns = new List<GameMessage>[bufferLength];
 			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
@@ -174,8 +170,6 @@ namespace Yad.Engine.Common {
 
 				//process all units & building & animations
 
-				//TODO: Does dictionary and foreach/enumerator imply proper order??
-
 				Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
 
 
@@ -202,16 +196,13 @@ namespace Yad.Engine.Common {
 				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart);
 				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
 
-					if (!this.SpeedUp) { // client
+					if (SpeedUp) {
+						--speedUpLength;
+					} else {
 						if (remainingTime > 0) {
 							Thread.Sleep(remainingTime);
 						}
-					} else {
-						if (--speedUpLength == 0) {
-							SpeedUp = false;
-						}
 					}
-
 				}
 
 				//InfoLog.WriteInfo((Environment.TickCount - turnStart).ToString(), EPrefix.SimulationInfo);
@@ -299,10 +290,6 @@ namespace Yad.Engine.Common {
 		#endregion
 
 		#region public methods
-		public void AddPlayer(Player p) {
-			players.Add(p.Id, p);
-		}
-
 		public void AddGameMessage(GameMessage gameMessage) {
 			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
 			lock (turns.SyncRoot) {
@@ -353,13 +340,12 @@ namespace Yad.Engine.Common {
 		}
 
 		public bool SpeedUp {
-			get {
-				return this.speedUp;
-			}
+			get { return this.speedUpLength > 0; }
 			set {
-				speedUp = value;
-				if (speedUp) {
+				if (value) {
 					this.speedUpLength = delta;
+				} else {
+					this.speedUpLength = 0;
 				}
 			}
 		}
