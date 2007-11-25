@@ -12,7 +12,7 @@ using Yad.Properties.Client;
 namespace Yad.Engine.Client {
 
     public delegate void BuildingChosenHandler(short id);
-    public delegate void UnitChosenHandler(short id);
+    public delegate void UnitChosenHandler(short id, string name);
 
     public interface IManageableStripe {
 		event Yad.UI.Client.BuildStripe.ChoiceHandler OnChoice;

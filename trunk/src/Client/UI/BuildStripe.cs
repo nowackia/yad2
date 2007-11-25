@@ -149,7 +149,7 @@ namespace Yad.UI.Client {
 			if (b) {
 				OnBuildChosen(id);
 			} else {
-				OnUnitChosen(id);
+				OnUnitChosen(id, ((OwnerDrawPictureButton)sender).Name);
 			}
 		}
 
@@ -158,9 +158,9 @@ namespace Yad.UI.Client {
 				onBuildingChosen(id);
 			}
 		}
-		private void OnUnitChosen(short id) {
+		private void OnUnitChosen(short id, string name) {
 			if (onUnitChosen != null) {
-				onUnitChosen(id);
+				onUnitChosen(id, name);
 			}
 		}
 		#endregion

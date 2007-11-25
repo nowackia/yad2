@@ -402,5 +402,43 @@ namespace Yad.Engine.Client {
 			this.CreateBuilding(newPos, constructionYardId);
 			// ^
 		}
+
+		internal void createUnit(short id, string name) {
+			Position p = new Position(0,0);
+			bool found = false;
+			List<Building> bs = Simulation.Players[CurrentPlayer.Id].GetAllBuildings();
+			foreach(Building b in bs){
+				if(b.BuildingData.UnitsCanProduce.NameCollection.Contains(name)){
+					//pierwsze wystapnienie budynku
+					p = b.Position;
+					found = true;
+				}
+			}
+			if (found == false)
+				throw new Exception("No buildings that cam produce that kind of units");
+			Position pos = FindFreeLocation(p);
+			//Simulation.CreateUnit(id, pos);
+			//GlobalSettings.Wrapper.
+
+
+			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
+			um.UnitID =  _currPlayer.GenerateObjectID()+2;
+			um.IdPlayer = _currPlayer.Id;
+			um.UnitType = id;
+			um.UnitKind = BoardObjectClass.UnitTrooper;
+			um.Type = MessageType.CreateUnit;
+			um.Position = pos;
+			Connection.Instance.SendMessage(um);
+
+		}
+
+		/// <summary>
+		/// Finds location on which can be placed new unit
+		/// </summary>
+		/// <param name="p"></param>
+		private Position FindFreeLocation(Position p) {
+			Position s = new Position(p.X-1, p.Y);
+			return s;
+		}
 	}
 }
