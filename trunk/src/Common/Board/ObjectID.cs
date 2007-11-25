@@ -48,5 +48,10 @@ namespace Yad.Board {
 			_playerID = reader.ReadInt16();
 			_objectID = reader.ReadInt32();
 		}
+
+        public static ObjectID CreateNull(){
+            return new ObjectID(-1,-1);
+            
+        }
 	}
 }

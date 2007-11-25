@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\AudioEngine.cs" />
+    <Compile Include="Engine\BuildManager.cs" />
+    <Compile Include="Engine\BuildStatus.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
     <Compile Include="Engine\CreditsPictureBox.cs">
       <SubType>Component</SubType>
@@ -113,6 +115,10 @@
     <EmbeddedResource Include="UI\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OwnerDrawPictureButton.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OwnerDrawPictureButton.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

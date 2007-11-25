@@ -51,6 +51,7 @@ namespace Yad.Net.Messaging.Common
             unitID = reader.ReadInt32();
             unitType = reader.ReadInt16();
             unitKind = (BoardObjectClass)reader.ReadInt16();
+            
 
         }
 

@@ -22,6 +22,7 @@ using Yad.Net.Client;
 using Yad.Utilities.Common;
 using Yad.Properties;
 using Yad.Properties.Client;
+using Yad.Engine;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -34,7 +35,10 @@ namespace Yad.UI.Client {
 		Position _selectionStart;
 		Position _selectionEnd;
 		GameLogic _gameLogic;
-
+        /// <summary>
+        /// Dictionary of bulding id -> List of items that can be build in that building
+        /// </summary>
+        Dictionary<short, List<short>> dependDic = new Dictionary<short, List<short>>();
 		/// <summary>
 		/// True after player clicks strip
 		/// </summary>
@@ -44,11 +48,13 @@ namespace Yad.UI.Client {
 		/// </summary>
 		private short _objectToCreateId;
 
+        private BuildManager _buildManager;
 		#endregion
 
 		#region constructor
 		public GameForm() {
 			try {
+                
 				InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 				InitializeComponent();
@@ -85,8 +91,10 @@ namespace Yad.UI.Client {
 				GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
-
+                _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
 				GameMessageHandler.Instance.Resume();
+
+                //CreateBuildingButtonsOnStripe();
 			} catch (Exception e) {
 				Console.Out.WriteLine(e);
 				MessageBox.Show(e.ToString());
@@ -106,7 +114,7 @@ namespace Yad.UI.Client {
 		void Simulation_OnBuildingCompleted(Building b) {
 			//this.rightStripe.RemovePercentCounter(buildingType);
 			//TODO: add building type, update tech-tree
-			AddBuildingToStripe(b.TypeID);
+			AddBuildingToStripe(b.ObjectID, b.TypeID);
 		}
 		#endregion
 
@@ -270,14 +278,15 @@ namespace Yad.UI.Client {
 		#endregion
 
 		#region stripes-related
-		void rightStripe_onUnitChosen(short id, string name) {
+		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-			PlaceUnit(id, name);
+			PlaceUnit((short)id, name);
 		}
 
-		void rightStripe_onBuildingChosen(short id) {
+		void rightStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-				PlaceBuilding(id);
+            if (_buildManager.RightBuildingClick(id))
+		        PlaceBuilding((short)id);
 		}
 
 		private void UpdateCredits(short id) {
@@ -306,10 +315,11 @@ namespace Yad.UI.Client {
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 		}
 
-		void leftStripe_onBuildingChosen(short id) {
+		void leftStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
+            _buildManager.SwitchCurrentBuilding(id);
 			// show building on rightStripe
-			ShowPossibilitiesForBuilding(id);
+			//ShowPossibilitiesForBuilding(id);
 		}
 
 		private void PlaceUnit(short id, string name) {
@@ -332,12 +342,63 @@ namespace Yad.UI.Client {
 			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);//TODO add picture name to xsd.
 		}
 		*/
-
+        /* RS
 		public void AddBuildingToStripe(short id) {
 			String name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-			leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
-		}
+            leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
+		}*/
 
+        public void AddBuildingToStripe(ObjectID objectid, short typeId) {
+            _buildManager.AddBuilding(objectid, typeId);
+            //string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+            //leftStripe.Add(id, name, name, true);
+        }
+
+        Dictionary<short, OwnerDrawPictureButton> stripLeftItems = new Dictionary<short, OwnerDrawPictureButton>();
+        /*public void CreateBuildingButtonsOnStripe() {
+            foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys){
+                List<short> dep = new List<short>();
+                string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+                //leftStripe.Add(id, name, name, true);
+                BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
+                foreach (String bname in bdata.BuildingsCanProduce) {
+                    short idb = GlobalSettings.Wrapper.namesToIds[bname];
+                    ObjectID obid = new ObjectID();
+                    obid.ObjectId = -1;
+                    rightStripe.Add(idb, obid, bname, bname, true);
+                    dep.Add(idb);
+                    
+                }
+                foreach (String uname in bdata.UnitsCanProduce) {
+                    short idu = GlobalSettings.Wrapper.namesToIds[uname];
+                    ObjectID obid = new ObjectID();
+                    obid.ObjectId = -1;
+                    rightStripe.Add(idu, obid, uname, uname, false);
+                    dep.Add(idu);
+                }
+                dependDic.Add(id, dep);
+            }
+            //leftStripe.HideAll();
+            rightStripe.HideAll();
+         
+        }*/
+        /*public void ShowPossibilitiesForBuilding(short idB) {
+			rightStripe.HideAll();
+            List<short> itemsToShow = new List<short>();
+
+            foreach (short id in dependDic[idB]) {
+                if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
+                    string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+                    if (CheckDependencies(name))
+                        itemsToShow.Add(id);
+                }
+                else
+                    itemsToShow.Add(id);
+                    
+            }
+            rightStripe.ShowRange(itemsToShow.ToArray());
+		}*/
+        /*
 		public void ShowPossibilitiesForBuilding(short idB) {
 			rightStripe.RemoveAll(); // flush the stripe
 
@@ -361,7 +422,7 @@ namespace Yad.UI.Client {
 					rightStripe.Add(id, name, name, false);
 				}
 			}
-		}
+		}*/
 
 		private bool CheckDependencies(string name) {
 			TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
