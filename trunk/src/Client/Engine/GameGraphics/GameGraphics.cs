@@ -777,7 +777,7 @@ namespace Yad.Engine.Client {
 				uv.X = 3 * oneFourth;
 			}
 
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 
 		private static void DrawTank(UnitTank o) {
