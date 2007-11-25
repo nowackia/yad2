@@ -64,6 +64,9 @@ namespace Yad.Board.Common {
         public virtual void DoAI() {
 			InfoLog.WriteInfo("Unit:DoAI()", EPrefix.SimulationInfo);
             if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
+            if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
+                Move();
+            }
             switch (state) {
                 case UnitState.moving:
                     //BoardObject nearest;
@@ -75,6 +78,7 @@ namespace Yad.Board.Common {
                         if (Move() == false) {
                         InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
+                        StopMoving();
                     } else {
                         InfoLog.WriteInfo("Unit:AI: move -> move ", EPrefix.SimulationInfo);
                     }
@@ -90,6 +94,7 @@ namespace Yad.Board.Common {
                     if (Move() == false) {
                         InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
+                        StopMoving();
                     } 
                     break;
                 case UnitState.orderedAttack:
@@ -97,6 +102,7 @@ namespace Yad.Board.Common {
                         InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
                         if (CheckIfStillExistTarget(attackedObject) == false) {
                             state = UnitState.stopped;
+                            StopMoving();
                             break;
                         }
                         
@@ -129,6 +135,7 @@ namespace Yad.Board.Common {
                         //unit/ building destroyed - stop
                         InfoLog.WriteInfo("Unit:AI: attack -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
+                        StopMoving();
                         break;
                     }
                     if (CheckRangeToShoot(attackedObject)) {
