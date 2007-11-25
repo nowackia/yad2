@@ -90,6 +90,8 @@ namespace Yad.Engine.Client {
 			
 			foreach (PositionData pd in aPd) {
 				//TODO: get info
+
+				_currPlayer = _sim.Players[pd.PlayerId];
 				Player p = _sim.Players[pd.PlayerId];
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
                 UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map, this._sim);
@@ -415,14 +417,14 @@ namespace Yad.Engine.Client {
 				}
 			}
 			if (found == false)
-				throw new Exception("No buildings that cam produce that kind of units");
+				return;
 			Position pos = FindFreeLocation(p);
 			//Simulation.CreateUnit(id, pos);
 			//GlobalSettings.Wrapper.
 
 
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
-			um.UnitID =  _currPlayer.GenerateObjectID()+2;
+			um.UnitID =  _currPlayer.GenerateObjectID();
 			um.IdPlayer = _currPlayer.Id;
 			um.UnitType = id;
 			um.UnitKind = BoardObjectClass.UnitTrooper;
