@@ -524,15 +524,23 @@ namespace Yad.Engine.Client {
 				if (!NeedsDrawing(realPos.X, realPos.Y, size, size)) {
 					continue;
 				}
-				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true);
+				Player p;
+				if (!_gameLogic.Simulation.Players.TryGetValue(u.ObjectID.PlayerID, out p)) {
+					continue;
+				}
+				Color playerColor = p.Color;
+				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true, playerColor);
 				DrawHealthBar(realPos.X, realPos.Y, _depthSelection, size, size, u.Health / u.getMaxHealth(), true);
 			}
 
 			Building selB = _gameLogic.SelectedBuilding;
 			if (selB != null) {
 				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
-					DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false);
-					DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth(), false);
+					Player p;
+					if (_gameLogic.Simulation.Players.TryGetValue(selB.ObjectID.PlayerID, out p)) {
+						DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false, p.Color);
+						DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth(), false);
+					}
 				}
 			}
 			#endregion
@@ -566,7 +574,7 @@ namespace Yad.Engine.Client {
 			}
 		}
 
-		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool forUnit) {
+		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool forUnit, Color color) {
 
 			if (forUnit) {
 				float w2 = width / 2.0f;
@@ -613,7 +621,7 @@ namespace Yad.Engine.Client {
 
 			//Gl.glBindTexture(Gl.GL_TEXTURE_2D, (int)MainTextures.MalaPierdolonaKropka);
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(0, 1f, 0);
+			Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
 
 			Gl.glLineWidth(relativeZoom);
 
@@ -645,88 +653,55 @@ namespace Yad.Engine.Client {
 		/// <param name="height"></param>
 		/// <param name="health">Between 0 and 1</param>
 		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health, bool forUnit) {
-			float healthBarWidth;
-			if (forUnit) {
-				float w2 = (width + oneFourth) / 2.0f;
-				float h2 = height / 2.0f;
-				healthBarWidth = (width + oneFourth - 0.05f) * health;
 
+			float healthBarWidth = (width + oneFourth) * health;
+			float healthBarWidth2 = healthBarWidth / 2;
+			float h2 = height / 2.0f;
+
+			if (forUnit) {
 				//left bottom
-				vertexData.vertex[0] = x + 0.5f - w2 - offset.X;
+				vertexData.vertex[0] = x + 0.5f - healthBarWidth2 - offset.X;
 				vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + oneEight;
 				vertexData.vertex[2] = z;
 
 				//right bottom
-				vertexData.vertex[3] = x + 0.5f + w2 - offset.X;
+				vertexData.vertex[3] = x + 0.5f + healthBarWidth2 - offset.X;
 				vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + oneEight;
 				vertexData.vertex[5] = z;
 
 				//right top
-				vertexData.vertex[6] = x + 0.5f + w2 - offset.X;
+				vertexData.vertex[6] = x + 0.5f + healthBarWidth2 - offset.X;
 				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneThird;
 				vertexData.vertex[8] = z;
 
 				//left top
-				vertexData.vertex[9] = x + 0.5f - w2 - offset.X;
+				vertexData.vertex[9] = x + 0.5f - healthBarWidth2 - offset.X;
 				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneThird;
 				vertexData.vertex[11] = z;
 			} else {
-				healthBarWidth = (width - 0.05f) * health;
+				float w2 = width / 2.0f;
 
-				vertexData.vertex[0] = x - offset.X;
-				vertexData.vertex[1] = y - offset.Y + height;
+				//left bottom
+				vertexData.vertex[0] = x + w2 - healthBarWidth2 - offset.X;
+				vertexData.vertex[1] = y + height - offset.Y + oneEight;
 				vertexData.vertex[2] = z;
-				vertexData.vertex[3] = x + width - offset.X;
-				vertexData.vertex[4] = y - offset.Y + height;
-				vertexData.vertex[5] = z;
-				vertexData.vertex[6] = x + width - offset.X;
-				vertexData.vertex[7] = y + height - offset.Y + oneFourth;
-				vertexData.vertex[8] = z;
-				vertexData.vertex[9] = x - offset.X;
-				vertexData.vertex[10] = y + height - offset.Y + oneFourth;
-				vertexData.vertex[11] = z;
-			}
 
-			vertexData.uv[0] = 0; vertexData.uv[1] = 0;
-			vertexData.uv[2] = 1; vertexData.uv[3] = 0;
-			vertexData.uv[4] = 1; vertexData.uv[5] = 1;
-			vertexData.uv[6] = 0; vertexData.uv[7] = 1;
+				//right bottom
+				vertexData.vertex[3] = x + w2 + healthBarWidth2 - offset.X;
+				vertexData.vertex[4] = y + height - offset.Y + oneEight;
+				vertexData.vertex[5] = z;
+
+				//right top
+				vertexData.vertex[6] = x + w2 + healthBarWidth2 - offset.X;
+				vertexData.vertex[7] = y + height - offset.Y + oneThird;
+				vertexData.vertex[8] = z;
+
+				//left top
+				vertexData.vertex[9] = x + w2 - healthBarWidth2 - offset.X;
+				vertexData.vertex[10] = y + height - offset.Y + oneThird;
+			}
 
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(1, 1, 1);
-
-			if (Settings.Default.UseSafeRendering) {
-				Gl.glBegin(Gl.GL_POLYGON);
-				int i2 = 0, i3 = 0;
-				for (int i = 0; i < 4; i++) {
-					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
-					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
-					i2 += 2;
-					i3 += 3;
-				}
-				Gl.glEnd();
-			} else {
-				Gl.glDrawElements(Gl.GL_LINE_LOOP, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
-			}
-			//Gl.glEnable(Gl.GL_TEXTURE_2D);
-
-			//left bottom
-			vertexData.vertex[0] += 0.025f;
-			vertexData.vertex[1] += 0.025f;
-			vertexData.vertex[2] += 0.05f;
-			//right bottom
-			vertexData.vertex[3] = vertexData.vertex[0] + healthBarWidth;
-			vertexData.vertex[4] += 0.025f;
-			vertexData.vertex[5] += 0.05f;
-			//right top
-			vertexData.vertex[6] = vertexData.vertex[3];
-			vertexData.vertex[7] -= 0.025f;
-			vertexData.vertex[8] += 0.05f;
-			//left top
-			vertexData.vertex[9] += 0.025f;
-			vertexData.vertex[10] -= 0.025f;
-			vertexData.vertex[11] += 0.05f;
-
 			Gl.glColor3f(1 - health, health, 0);
 
 			if (Settings.Default.UseSafeRendering) {
