@@ -187,7 +187,7 @@
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>-100</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
 		<tns:IsTurret>0</tns:IsTurret>
@@ -439,8 +439,7 @@
 			<tns:TypeID>0</tns:TypeID>
 			<tns:Name>Atreides</tns:Name>
 			<tns:TechnologyDependences>
-        
-        
+       
 				<tns:TechnologyDependence>
           
 					<tns:BuildingName>Slab1</tns:BuildingName>
@@ -541,6 +540,9 @@
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
 			</tns:TechnologyDependences>
+			<tns:UnitsCanProduce>
+				<tns:Name>Infantry</tns:Name>	 
+			</tns:UnitsCanProduce>
 		</tns:RaceData>
 		<tns:RaceData>
 			<tns:Name>Harkonnen</tns:Name>
@@ -644,6 +646,9 @@
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
 			</tns:TechnologyDependences>
+			<tns:UnitsCanProduce>
+				<tns:Name>Infantry</tns:Name>
+			</tns:UnitsCanProduce>
 		</tns:RaceData>
 	</tns:RacesData>
 </tns:GameSettings>
