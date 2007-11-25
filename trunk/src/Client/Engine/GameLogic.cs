@@ -268,7 +268,7 @@ namespace Yad.Engine.Client {
 				}
 				return;
 			}
-
+			
 			BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.Build);
 			bm.BuildingID = _currPlayer.GenerateObjectID();
 			bm.IdPlayer = _currPlayer.Id;

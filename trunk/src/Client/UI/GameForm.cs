@@ -274,8 +274,10 @@ namespace Yad.UI.Client {
 
 		void rightStripe_onBuildingChosen(short id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-			if(UpdateCredits(id))
+			if (UpdateCredits(id)) {
 				PlaceBuilding(id);
+				_gameLogic.Simulation.UpdatePowerManagement(id);
+			}
 		}
 
 		private bool UpdateCredits(short id) {

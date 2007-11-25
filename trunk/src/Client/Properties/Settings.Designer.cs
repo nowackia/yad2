@@ -340,13 +340,37 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("25000")]
         public int CreditsAtStart {
             get {
                 return ((int)(this["CreditsAtStart"]));
             }
             set {
                 this["CreditsAtStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int PowerAtStart {
+            get {
+                return ((int)(this["PowerAtStart"]));
+            }
+            set {
+                this["PowerAtStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int PowerLowBorder {
+            get {
+                return ((int)(this["PowerLowBorder"]));
+            }
+            set {
+                this["PowerLowBorder"] = value;
             }
         }
     }
