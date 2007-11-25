@@ -477,16 +477,7 @@ namespace Yad.Engine.Client {
 			#endregion
 
 			#region spice
-			for (int x = 0; x < map.Width; x++) {
-				for (int y = 0; y < map.Height; y++) {
-					if (!NeedsDrawing(x, y, 1,1)) {
-						continue;
-					}
-					int index = MapTextureGenerator.FindSpiceFrame(map.Spice, x, y);
-					int texture = (map.Spice[x, y] >= 10) ? (int)MainTextures.ThickSpice : (int)MainTextures.ThinSpice;
-					DrawElementFromLeftBottom(x, y, _depthSpice, 1, 1, texture, _defaultUV);
-				}
-			}
+			DrawSpice(map);
 			#endregion
 
 
@@ -559,6 +550,20 @@ namespace Yad.Engine.Client {
 				}
 			}
 			#endregion
+		}
+
+		private static void DrawSpice(Map map) {
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					if (!NeedsDrawing(x, y, 1, 1) || map.Spice[x,y] == 0) {
+						continue;
+					}
+					int index = MapTextureGenerator.FindSpiceFrame(map.Spice, x, y);
+					int texture = (map.Spice[x, y] >= 10) ? (int)MainTextures.ThickSpice : (int)MainTextures.ThinSpice;
+					RectangleF spiceUV = new RectangleF(oneSixteenth * index, 0, oneSixteenth, 1);
+					DrawElementFromLeftBottom(x, y, _depthSpice, 1, 1, texture, spiceUV);
+				}
+			}
 		}
 
 		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool forUnit) {
