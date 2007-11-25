@@ -102,7 +102,13 @@
       <Value Profile="(Default)">CreditsDigits.png</Value>
     </Setting>
     <Setting Name="CreditsAtStart" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2500</Value>
+      <Value Profile="(Default)">25000</Value>
+    </Setting>
+    <Setting Name="PowerAtStart" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="PowerLowBorder" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">200</Value>
     </Setting>
   </Settings>
 </SettingsFile>

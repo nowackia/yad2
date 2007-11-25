@@ -21,11 +21,15 @@ namespace Yad.Engine.Client {
 	/// </summary>
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
 		MessageTurnAsk tam = new MessageTurnAsk();
-	
+		private int power = Settings.Default.PowerAtStart;
 		#region events
 		public delegate void BuildingHandler (Building b);
 		public delegate void UnitHandler (Unit u);
+		public delegate void OnLowPowerHandler();
+		public delegate void OnNoPowerHandler();
 
+		public event OnLowPowerHandler OnLowPowerResources;
+		public event OnNoPowerHandler OnNoPowerResources; 
 		public event BuildingHandler BuildingCompleted;
 		public event UnitHandler UnitCompleted;
 		public event BuildingHandler BuildingDestroyed;
@@ -38,6 +42,8 @@ namespace Yad.Engine.Client {
 			: base(map, currPlayer, false) {
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
+			this.OnLowPowerResources += new OnLowPowerHandler(ClientSimulation_OnLowPowerResources);
+			this.OnNoPowerResources += new OnNoPowerHandler(ClientSimulation_OnNoPowerResources);
 		}
 
 		void ClientSimulation_onTurnBegin() {
@@ -218,6 +224,27 @@ namespace Yad.Engine.Client {
             }
         }
 
-        
-    }
+
+
+		internal void UpdatePowerManagement(short id) {
+			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings) {
+				if(b.TypeID == id){
+					power -= b.EnergyConsumption;
+					if (power < Settings.Default.PowerLowBorder)
+						OnLowPowerResources();
+					else if (power < 0)
+						OnNoPowerResources();
+						
+				}
+			}
+		}
+
+		void ClientSimulation_OnLowPowerResources() {
+			//TODO: Stub metody do obsluzenia sytuacji kiedy jest malo energii
+		}
+
+		void ClientSimulation_OnNoPowerResources() {
+			//TODO: Stub metody do obsluzenia sytuacji kiedy zapotrzebowanie na energie przekroczylo jej produkcje
+		}
+	}
 }
