@@ -101,14 +101,14 @@
     <Setting Name="CreditsDigitsBitmap" Type="System.String" Scope="Application">
       <Value Profile="(Default)">CreditsDigits.png</Value>
     </Setting>
-    <Setting Name="CreditsAtStart" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">25000</Value>
-    </Setting>
     <Setting Name="PowerAtStart" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="PowerLowBorder" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="CreditsAtStart" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2000</Value>
     </Setting>
   </Settings>
 </SettingsFile>
