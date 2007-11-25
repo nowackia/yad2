@@ -232,11 +232,11 @@ namespace Yad.Engine.GameGraphics.Client {
 				lower = map[x, y - 1];
 			else
 				lower = map[x, y];
-			for (int i = 0; i < tileFrameMap.Length; i++) {
+			for (int i = 0; i < frameMap.Length; i++) {
 				if ((result = MatchSpice(frameMap[i], map[x, y], left, right, lower, upper)) >= 0)
 					return result;
 			}
-			throw new MapHolderException("Bitmap frame not found");
+			return -1;
 
 		}
 
