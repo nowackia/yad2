@@ -48,7 +48,10 @@ namespace Yad.Engine.Client {
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
 			this.OnLowPowerResources += new OnLowPowerHandler(ClientSimulation_OnLowPowerResources);
 			this.OnNoPowerResources += new OnNoPowerHandler(ClientSimulation_OnNoPowerResources);
+			this.UnitStarted += new UnitHandler(ClientSimulation_UnitStarted);
+			this.UnitCompleted += new UnitHandler(ClientSimulation_UnitCompleted);
 		}
+
 
 		void ClientSimulation_onTurnBegin() {
 			Connection.Instance.SendMessage(tam);
@@ -241,6 +244,9 @@ namespace Yad.Engine.Client {
             }
         }
 
+		void ClientSimulation_UnitStarted(Unit u) {
+			throw new Exception("The method or operation is not implemented.");
+		}
 
 
 		internal void UpdatePowerManagement(short id) {
@@ -262,6 +268,18 @@ namespace Yad.Engine.Client {
 
 		void ClientSimulation_OnNoPowerResources() {
 			//TODO: Stub metody do obsluzenia sytuacji kiedy zapotrzebowanie na energie przekroczylo jej produkcje
+		}
+
+		internal void CreateUnit(short id, Position pos) {
+			throw new Exception("The method or operation is not implemented.");
+		}
+
+
+		void ClientSimulation_UnitCompleted(Unit u) {
+			//if (UnitCompleted != null) {
+				//TODO RS: run in different thread
+				//this.UnitCompleted(u);
+			//}
 		}
 	}
 }

@@ -270,9 +270,9 @@ namespace Yad.UI.Client {
 		#endregion
 
 		#region stripes-related
-		void rightStripe_onUnitChosen(short id) {
+		void rightStripe_onUnitChosen(short id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-			PlaceUnit(id);
+			PlaceUnit(id, name);
 		}
 
 		void rightStripe_onBuildingChosen(short id) {
@@ -312,10 +312,10 @@ namespace Yad.UI.Client {
 			ShowPossibilitiesForBuilding(id);
 		}
 
-		private void PlaceUnit(short id) {
+		private void PlaceUnit(short id, string name) {
 			//create or let user choose where to place unit?
 			//this.isCreatingUnit = true;
-			//gameLogic.createUnit(short unitID, Building!!)
+			_gameLogic.createUnit(id, name);
 			_objectToCreateId = id;
 		}
 
