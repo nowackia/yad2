@@ -281,37 +281,29 @@ namespace Yad.UI.Client {
 		}
 
 		private void UpdateCredits(short id) {
-			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings) {
-				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
-					creditsPictureBox.Value -= b.Cost;
-				}
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			}
-			foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters) {
-				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
-					creditsPictureBox.Value -= b.Cost;
-				}
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			}
-			foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs) {
-				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
-					creditsPictureBox.Value -= b.Cost;
-				}
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			}
-			foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks) {
-				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
-					creditsPictureBox.Value -= b.Cost;
-				}
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
+				creditsPictureBox.Value -= GlobalSettings.Wrapper.buildingsMap[id].Cost;
+			} else if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id)) {
+				creditsPictureBox.Value -= GlobalSettings.Wrapper.harvestersMap[id].Cost;
+			} else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(id)) {
+				creditsPictureBox.Value -= GlobalSettings.Wrapper.mcvsMap[id].Cost;
+			} else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id)) {
+				creditsPictureBox.Value -= GlobalSettings.Wrapper.tanksMap[id].Cost;
+			} else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id)) {
+				creditsPictureBox.Value -= GlobalSettings.Wrapper.troopersMap[id].Cost;
 			}
 
-			foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers) {
-				if (b.TypeID == id && creditsPictureBox.Value > b.Cost) {
-					creditsPictureBox.Value -= b.Cost;
-				}
+			//strip's update
+			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
 				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			}
+			foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters)
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs) 
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks)
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers)
+				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
 		}
 
 		void leftStripe_onBuildingChosen(short id) {

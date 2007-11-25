@@ -40,6 +40,8 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitStarted;
 		#endregion
 
+		private int credits = Settings.Default.CreditsAtStart;
+
 		public ClientSimulation(Map map, Player currPlayer)
 			: base(map, currPlayer, false) {
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
@@ -61,10 +63,12 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			ObjectID id = new ObjectID(bm.IdPlayer, bm.BuildingID);
 			Building b = new Building(id, bd, this.map, bm.Position, this);
-
+			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id) && GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost > credits)
+				return;
 			players[b.ObjectID.PlayerID].AddBuilding(b);
 
 			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {
+				credits -= GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost;
                 OnBuildingCompleted(b);
 				UpdatePowerManagement(b.TypeID);
 				OnCreditsUpdate(b.TypeID);
