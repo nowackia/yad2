@@ -97,7 +97,7 @@ namespace Yad.UI.Client
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.rightStripe.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
-			this.rightStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("rightStripe.Ids")));
+			//this.rightStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("rightStripe.Ids")));
 			this.rightStripe.Location = new System.Drawing.Point(91, 6);
 			this.rightStripe.Name = "rightStripe";
 			this.rightStripe.Size = new System.Drawing.Size(90, 283);
@@ -109,7 +109,7 @@ namespace Yad.UI.Client
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.leftStripe.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
-			this.leftStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("leftStripe.Ids")));
+			//this.leftStripe.Ids = ((System.Collections.Generic.List<short>)(resources.GetObject("leftStripe.Ids")));
 			this.leftStripe.Location = new System.Drawing.Point(0, 6);
 			this.leftStripe.Name = "leftStripe";
 			this.leftStripe.Size = new System.Drawing.Size(90, 283);
