@@ -205,6 +205,8 @@ namespace Yad.Engine.GameGraphics.Client {
 		}
 
 		public static int FindSpiceFrame(int[,] map, int x, int y) {
+			if (map[x, y] < 1)
+				return -1;
 			int result;
 			int width = map.GetLength(0),
 				height = map.GetLength(1);
