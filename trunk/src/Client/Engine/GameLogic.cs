@@ -108,8 +108,8 @@ namespace Yad.Engine.Client {
 			_sim.DoTurn();
 		}
 
-		void Instance_GameMessageReceive(object sender, GameMessageEventArgs e) {
-			this._sim.AddGameMessage(e.gameMessage);
+		void Instance_GameMessageReceive(object sender, GameMessage gameMessage) {
+			this._sim.AddGameMessage(gameMessage);
 		}
 		#endregion
 
