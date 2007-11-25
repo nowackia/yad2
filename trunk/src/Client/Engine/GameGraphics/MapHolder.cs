@@ -10,6 +10,7 @@ using Yad.Properties;
 using Yad.Properties.Client;
 using Yad.UI.Client;
 using Yad.Engine.Client;
+using Yad.Log.Common;
 
 namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {
@@ -202,8 +203,10 @@ namespace Yad.Engine.GameGraphics.Client {
 				if ((result = MatchFog(frameMap[i], FogOfWar[x, y], fogLeft, fogRight, fogLower, fogUpper)) >= 0)
 					return result;
 			}
-			throw new MapHolderException("Bitmap frame not found");
 
+			//throw new MapHolderException("Bitmap frame not found");
+			InfoLog.WriteInfo("Fog Frame Not Found!", EPrefix.GameGraphics);
+			return 0;
 		}
 
 		public static int FindSpiceFrame(int[,] map, int x, int y) {

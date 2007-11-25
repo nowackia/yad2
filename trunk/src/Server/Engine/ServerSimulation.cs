@@ -14,8 +14,8 @@ namespace Yad.Engine.Server {
 	/// </summary>
 	[Obsolete("Don't do anything in here! It might be useless ;P")]
 	class ServerSimulation : Yad.Engine.Common.Simulation {
-		public ServerSimulation(Map map, Player currPlayer)
-			: base(map, currPlayer, true) {
+		public ServerSimulation(Map map)
+			: base(map, true) {
 			//this.onTurnBegin
 			//this.onTurnEnd
 		}

@@ -482,7 +482,7 @@ namespace Yad.Engine.Client {
 
 
 			#region slabs
-			//TODO
+			//TODO: when slabs are not buildings anymore - draw'em like fog of war
 			#endregion
 
 			#region players' data (units & buildings)
@@ -789,7 +789,6 @@ namespace Yad.Engine.Client {
 			RectangleF uvBase = VehicleUVChooser(d);
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase);
 
-			//TODO: add separate turret direction
 			RectangleF uvTurret = VehicleUVChooser(t);
 			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret);
 		}

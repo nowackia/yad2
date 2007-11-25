@@ -83,7 +83,13 @@ namespace Yad.Net.GameServer.Server {
             int minTurnBefore = _gameServer.Simulation.GetMinTurn();
             _gameServer.Simulation.IncPlayerTurn(id);
             int minTurn = _gameServer.Simulation.GetMinTurn();
-            SendMessage(MessageFactory.Create(MessageType.DoTurn), id);
+			// if this is slowest player then tell him to speed up
+			DoTurnMessage dtm = (DoTurnMessage)MessageFactory.Create(MessageType.DoTurn);
+			if (minTurn != minTurnBefore) {
+				dtm.SpeedUp = true;
+			}
+			//
+            SendMessage(dtm, id);
             if (minTurn != minTurnBefore) {
                 short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
                 for (int i = 0; i < stoppedWaiting.Length; ++i){
