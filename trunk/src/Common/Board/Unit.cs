@@ -490,6 +490,7 @@ namespace Yad.Board.Common {
 		}
 
 		public void ClearFogOfWar() {
+			/*
 			for (int x = -_viewRange + Position.X; x <= _viewRange + Position.X; x++) {
 				for (int y = -_viewRange + Position.Y; y <= _viewRange + Position.Y; y++) {
 					if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1) {
@@ -497,7 +498,20 @@ namespace Yad.Board.Common {
 					}
 					_map.FogOfWar[x, y] = false;
 				}
-			}				
+			}	
+			 */
+			int max;
+			Position[] tiles = BoardObject.RangeSpiral(_viewRange, out max);
+			for (int i=0; i < max; i++) {
+				Position p = tiles[i];
+				int x = p.X + Position.X;
+				int y = p.Y + Position.Y;
+
+				if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1) {
+					continue;
+				}
+				_map.FogOfWar[x, y] = false;
+			}
 		}
         /// <summary>
         /// Sets object to attack (building or unit) by this unit.

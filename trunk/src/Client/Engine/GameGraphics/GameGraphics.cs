@@ -144,16 +144,7 @@ namespace Yad.Engine.Client {
 		/// <param name="filename"></param>
 		private static void Create32bTexture(int id, string filename) {
 			Bitmap bitmap = new Bitmap(filename);
-			Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-			BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-
-			Gl.glBindTexture(Gl.GL_TEXTURE_2D, id);
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);//_MIPMAP_NEAREST);
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
-			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, bitmap.Width, bitmap.Height, 0, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
-			//Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, 4, bitmap.Width, bitmap.Height, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
-
-			bitmap.UnlockBits(bitmapData);
+			Create32bTexture(id, bitmap);
 		}
 
 		/// <summary>
@@ -476,11 +467,6 @@ namespace Yad.Engine.Client {
 			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
 			#endregion
 
-			#region spice
-			DrawSpice(map);
-			#endregion
-
-
 			#region slabs
 			//TODO: when slabs are not buildings anymore - draw'em like fog of war
 			#endregion
@@ -553,10 +539,14 @@ namespace Yad.Engine.Client {
 						continue;
 					}
 					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
-					RectangleF fowUV = new RectangleF(oneSixteenth * fogIndex, 0, oneSixteenth, 1);
+					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex, 0, oneSixteenth, 1);
 					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
 				}
 			}
+			#endregion
+
+			#region spice
+			DrawSpice(map);
 			#endregion
 		}
 
@@ -885,7 +875,7 @@ namespace Yad.Engine.Client {
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
 			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
 			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
-			//Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
 			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do
 			Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
