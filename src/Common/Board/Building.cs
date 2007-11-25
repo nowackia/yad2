@@ -187,5 +187,9 @@ namespace Yad.Board.Common {
 		public float getMaxHealth() {
 			return _buildingData.Health;
 		}
+
+		public Direction Direction {
+			get { return _direction; }
+		}
 	}
 }

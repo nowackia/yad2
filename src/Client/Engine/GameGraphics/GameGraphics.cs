@@ -763,7 +763,6 @@ namespace Yad.Engine.Client {
 			}
 			float frame = o.RemainingTurnsInMove % 3;
 
-			// >^<v
 			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneThird, oneFourth, oneThird);
 			Direction d = o.Direction;
 
@@ -857,11 +856,20 @@ namespace Yad.Engine.Client {
 		}
 
 		private static void DrawBuilding(Building o) {
-			//PointF realPos = CountRealPosition(o);
 			if (!NeedsDrawing(o.Position.X, o.Position.Y, o.Width, o.Health)) {
 				return;
 			}
-			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, _defaultUV);
+			BuildingData bd = o.BuildingData;
+			float y = bd.TextureAnimationFramesCount;
+			float x = bd.TextureSpecialActionFramesCount;
+			RectangleF uv;
+			if (bd.IsTurret) {
+				uv = VehicleUVChooser(o.Direction);
+			} else {
+				uv = new RectangleF(0, 1.0f / y, 1.0f / x, 1.0f / y);
+			}
+
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 		#endregion
 
