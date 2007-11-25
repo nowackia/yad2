@@ -87,6 +87,7 @@ namespace Yad.UI.Client {
 				GameMessageHandler.Instance.Resume();
 			} catch (Exception e) {
 				Console.Out.WriteLine(e);
+				MessageBox.Show(e.ToString());
 			}
 		}
 		#endregion

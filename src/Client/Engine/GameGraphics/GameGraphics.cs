@@ -36,12 +36,13 @@ namespace Yad.Engine.Client {
 		/// Defines z-depth of an object type.
 		/// </summary>
 		const float _depthMap = 0.0f,
-					_depthSlab = 0.1f,
-					_depthBuilding = 0.2f,
-					_depthUnit = 0.3f,
-					_depthUnitAddons = 0.4f,
-					_depthSelection = 0.5f,
-					_depthFogOfWar = 0.6f;
+					_depthSpice = 0.1f,
+					_depthSlab = 0.2f,
+					_depthBuilding = 0.3f,
+					_depthUnit = 0.4f,
+					_depthUnitAddons = 0.5f,
+					_depthSelection = 0.6f,
+					_depthFogOfWar = 0.7f;
 		#endregion
 
 		static RectangleF _defaultUV = new RectangleF(0, 0, 1, 1);
@@ -324,7 +325,7 @@ namespace Yad.Engine.Client {
 
 		#region texture init
 
-		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3 }
+		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3, ThinSpice = 4, ThickSpice = 5 }
 
 		public static void InitTextures(Simulation simulation) {
 			//Map
@@ -335,7 +336,11 @@ namespace Yad.Engine.Client {
 			//FogOfWar texture
 			Bitmap fow = new Bitmap(Path.Combine(Settings.Default.Terrain, "Hidden.png"));
 			Create32bTexture((int)MainTextures.FogOfWar, LoadBitmap(fow));
-
+			Bitmap thinSpice = new Bitmap(Path.Combine(Settings.Default.Terrain, "Spice.png"));
+			Create32bTexture((int)MainTextures.ThinSpice, LoadBitmap(thinSpice));
+			Bitmap thickSpice = new Bitmap(Path.Combine(Settings.Default.Terrain, "ThickSpice.png"));
+			Create32bTexture((int)MainTextures.ThickSpice, LoadBitmap(thickSpice));
+			
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
 
 			#region player-color specific
@@ -460,34 +465,30 @@ namespace Yad.Engine.Client {
 
 		#region drawing
 		public static void Draw() {
-			Gl.glClearColor(0, 0, 0, 0);
+			//Gl.glClearColor(0, 0, 0, 0);
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
 			Gl.glLoadIdentity();
 
-			#region selected objects - needs to be drawn first (fuck intel 945)
-			foreach (Unit u in _gameLogic.SelectedUnits) {
-				PointF realPos = CountRealPosition(u);
-				float size = u.getSize();
-				if (!NeedsDrawing(realPos.X, realPos.Y, size, size)) {
-					continue;
-				}
-				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size);
-				DrawHealthBar(realPos.X, realPos.Y, _depthSelection, size, size, u.Health / u.getMaxHealth());
-			}
-
-			Building selB = _gameLogic.SelectedBuilding;
-			if (selB != null) {
-				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
-					DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height);
-					DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth());
-				}
-			}
-			#endregion
+			Map map = _gameLogic.Simulation.Map;
 
 			#region map
-			DrawElementFromLeftBottom(0, 0, _depthMap, _gameLogic.Simulation.Map.Width, _gameLogic.Simulation.Map.Height, 1, _defaultUV);
+			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
 			#endregion
+
+			#region spice
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					if (!NeedsDrawing(x, y, 1,1)) {
+						continue;
+					}
+					int index = MapTextureGenerator.FindSpiceFrame(map.Spice, x, y);
+					int texture = (map.Spice[x, y] >= 10) ? (int)MainTextures.ThickSpice : (int)MainTextures.ThinSpice;
+					DrawElementFromLeftBottom(x, y, _depthSpice, 1, 1, texture, _defaultUV);
+				}
+			}
+			#endregion
+
 
 			#region slabs
 			//TODO
@@ -496,7 +497,7 @@ namespace Yad.Engine.Client {
 			#region players' data (units & buildings)
 			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
-				
+
 				List<Building> buildings = p.GetAllBuildings();
 				foreach (Building b in buildings) {
 					DrawBuilding(b);
@@ -525,6 +526,26 @@ namespace Yad.Engine.Client {
 			}
 			#endregion
 
+			#region selected objects
+			foreach (Unit u in _gameLogic.SelectedUnits) {
+				PointF realPos = CountRealPosition(u);
+				float size = u.getSize();
+				if (!NeedsDrawing(realPos.X, realPos.Y, size, size)) {
+					continue;
+				}
+				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true);
+				DrawHealthBar(realPos.X, realPos.Y, _depthSelection, size, size, u.Health / u.getMaxHealth(), true);
+			}
+
+			Building selB = _gameLogic.SelectedBuilding;
+			if (selB != null) {
+				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
+					DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false);
+					DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth(), false);
+				}
+			}
+			#endregion
+
 			#region fow
 			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
@@ -540,33 +561,58 @@ namespace Yad.Engine.Client {
 			#endregion
 		}
 
-		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height) {
-			float w2 = width / 2.0f;
-			float h2 = height / 2.0f;
+		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool forUnit) {
 
-			//left bottom
-			vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneSixteenth;
-			vertexData.vertex[1] = y + 0.5f - h2 - offset.Y - oneSixteenth;
-			vertexData.vertex[2] = z;
+			if (forUnit) {
+				float w2 = width / 2.0f;
+				float h2 = height / 2.0f;
 
-			//right bottom
-			vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneSixteenth;
-			vertexData.vertex[4] = y + 0.5f - h2 - offset.Y - oneSixteenth;
-			vertexData.vertex[5] = z;
+				//left bottom
+				vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneSixteenth;
+				vertexData.vertex[1] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+				vertexData.vertex[2] = z;
 
-			//right top
-			vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneSixteenth;
-			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneSixteenth;
-			vertexData.vertex[8] = z;
+				//right bottom
+				vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneSixteenth;
+				vertexData.vertex[4] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+				vertexData.vertex[5] = z;
+
+				//right top
+				vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneSixteenth;
+				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+				vertexData.vertex[8] = z;
 
 
-			vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneSixteenth;
-			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneSixteenth;
-			vertexData.vertex[11] = z;
+				vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneSixteenth;
+				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+				vertexData.vertex[11] = z;
+			} else {
+				vertexData.vertex[0] = x - offset.X;
+				vertexData.vertex[1] = y - offset.Y;
+				vertexData.vertex[2] = z;
+				vertexData.vertex[3] = x + width - offset.X;
+				vertexData.vertex[4] = y - offset.Y;
+				vertexData.vertex[5] = z;
+				vertexData.vertex[6] = x + width - offset.X;
+				vertexData.vertex[7] = y + height - offset.Y;
+				vertexData.vertex[8] = z;
+				vertexData.vertex[9] = x - offset.X;
+				vertexData.vertex[10] = y + height - offset.Y;
+				vertexData.vertex[11] = z;
+			}
 
+			vertexData.uv[0] = 0; vertexData.uv[1] = 0;
+			vertexData.uv[2] = 1; vertexData.uv[3] = 0;
+			vertexData.uv[4] = 1; vertexData.uv[5] = 1;
+			vertexData.uv[6] = 0; vertexData.uv[7] = 1;
+
+			//Gl.glBindTexture(Gl.GL_TEXTURE_2D, (int)MainTextures.MalaPierdolonaKropka);
+			Gl.glDisable(Gl.GL_TEXTURE_2D);
 			Gl.glColor3f(0, 1f, 0);
+
+			Gl.glLineWidth(relativeZoom);
+
 			if (Settings.Default.UseSafeRendering) {
-				Gl.glLineWidth(relativeZoom);
 				Gl.glBegin(Gl.GL_LINE_LOOP);
 				int i2 = 0, i3 = 0;
 				for (int i = 0; i < 4; i++) {
@@ -579,8 +625,9 @@ namespace Yad.Engine.Client {
 			} else {
 				Gl.glDrawElements(Gl.GL_LINE_LOOP, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 			}
-			Gl.glColor3f(1, 1, 1);
 
+			Gl.glEnable(Gl.GL_TEXTURE_2D);
+			Gl.glColor3f(1, 1, 1);
 		}
 
 		/// <summary>
@@ -592,33 +639,59 @@ namespace Yad.Engine.Client {
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="health">Between 0 and 1</param>
-		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health) {
-			float w2 = width / 2.0f;
-			float h2 = height / 2.0f;
+		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health, bool forUnit) {
+			float healthBarWidth;
+			if (forUnit) {
+				float w2 = (width + oneFourth) / 2.0f;
+				float h2 = height / 2.0f;
+				healthBarWidth = (width + oneFourth - 0.05f) * health;
 
-			//left bottom
-			vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneEight;
-			vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + oneEight;
-			vertexData.vertex[2] = z;
+				//left bottom
+				vertexData.vertex[0] = x + 0.5f - w2 - offset.X;
+				vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + oneEight;
+				vertexData.vertex[2] = z;
 
-			//right bottom
-			vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneEight;
-			vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + oneEight;
-			vertexData.vertex[5] = z;
+				//right bottom
+				vertexData.vertex[3] = x + 0.5f + w2 - offset.X;
+				vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + oneEight;
+				vertexData.vertex[5] = z;
 
-			//right top
-			vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneEight;
-			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneThird;
-			vertexData.vertex[8] = z;
+				//right top
+				vertexData.vertex[6] = x + 0.5f + w2 - offset.X;
+				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneThird;
+				vertexData.vertex[8] = z;
 
-			//left top
-			vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneEight;
-			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneThird;
-			vertexData.vertex[11] = z;
+				//left top
+				vertexData.vertex[9] = x + 0.5f - w2 - offset.X;
+				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneThird;
+				vertexData.vertex[11] = z;
+			} else {
+				healthBarWidth = (width - 0.05f) * health;
 
-			Gl.glColor3f(0, 0, 0);
+				vertexData.vertex[0] = x - offset.X;
+				vertexData.vertex[1] = y - offset.Y + height;
+				vertexData.vertex[2] = z;
+				vertexData.vertex[3] = x + width - offset.X;
+				vertexData.vertex[4] = y - offset.Y + height;
+				vertexData.vertex[5] = z;
+				vertexData.vertex[6] = x + width - offset.X;
+				vertexData.vertex[7] = y + height - offset.Y + oneFourth;
+				vertexData.vertex[8] = z;
+				vertexData.vertex[9] = x - offset.X;
+				vertexData.vertex[10] = y + height - offset.Y + oneFourth;
+				vertexData.vertex[11] = z;
+			}
+
+			vertexData.uv[0] = 0; vertexData.uv[1] = 0;
+			vertexData.uv[2] = 1; vertexData.uv[3] = 0;
+			vertexData.uv[4] = 1; vertexData.uv[5] = 1;
+			vertexData.uv[6] = 0; vertexData.uv[7] = 1;
+
+			Gl.glDisable(Gl.GL_TEXTURE_2D);
+			Gl.glColor3f(1, 1, 1);
+
 			if (Settings.Default.UseSafeRendering) {
-				Gl.glBegin(Gl.GL_LINE_LOOP);
+				Gl.glBegin(Gl.GL_POLYGON);
 				int i2 = 0, i3 = 0;
 				for (int i = 0; i < 4; i++) {
 					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
@@ -630,31 +703,31 @@ namespace Yad.Engine.Client {
 			} else {
 				Gl.glDrawElements(Gl.GL_LINE_LOOP, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 			}
-
+			//Gl.glEnable(Gl.GL_TEXTURE_2D);
 
 			//left bottom
-			vertexData.vertex[0]+= 0.01f;
-			vertexData.vertex[1] += 0.01f;
-
+			vertexData.vertex[0] += 0.025f;
+			vertexData.vertex[1] += 0.025f;
+			vertexData.vertex[2] += 0.05f;
 			//right bottom
-			vertexData.vertex[3] -= 0.01f;
-			vertexData.vertex[4] += 0.01f;
-
+			vertexData.vertex[3] = vertexData.vertex[0] + healthBarWidth;
+			vertexData.vertex[4] += 0.025f;
+			vertexData.vertex[5] += 0.05f;
 			//right top
-			vertexData.vertex[6] -= 0.01f;
-			vertexData.vertex[7] -= 0.01f;
-
+			vertexData.vertex[6] = vertexData.vertex[3];
+			vertexData.vertex[7] -= 0.025f;
+			vertexData.vertex[8] += 0.05f;
 			//left top
-			vertexData.vertex[9] += 0.01f;
-			vertexData.vertex[10] -= 0.01f;
+			vertexData.vertex[9] += 0.025f;
+			vertexData.vertex[10] -= 0.025f;
+			vertexData.vertex[11] += 0.05f;
 
-			Gl.glColor3f(0, 1, 0);
+			Gl.glColor3f(1 - health, health, 0);
+
 			if (Settings.Default.UseSafeRendering) {
 				Gl.glBegin(Gl.GL_POLYGON);
-				Gl.glColor3f(0, 1.0f, 0);
 				int i2 = 0, i3 = 0;
 				for (int i = 0; i < 4; i++) {
-					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
 					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
 					i2 += 2;
 					i3 += 3;
@@ -663,6 +736,8 @@ namespace Yad.Engine.Client {
 			} else {
 				Gl.glDrawElements(Gl.GL_POLYGON, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 			}
+
+			Gl.glEnable(Gl.GL_TEXTURE_2D);
 			Gl.glColor3f(1, 1, 1);
 		}
 
@@ -721,7 +796,7 @@ namespace Yad.Engine.Client {
 			} else if (Test(d, Direction.South)) {
 				uv.X = 3 * oneFourth;
 			}
-			
+
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
 		}
 
@@ -731,7 +806,7 @@ namespace Yad.Engine.Client {
 				return;
 			}
 			Direction d = o.Direction;
-            Direction t = o.TurretDirection;
+			Direction t = o.TurretDirection;
 			RectangleF uvBase = VehicleUVChooser(d);
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase);
 
@@ -815,13 +890,17 @@ namespace Yad.Engine.Client {
 			_gameLogic = gLogic;
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
 
+			//Gl.glEnable(Gl.GL_LINE_SMOOTH);
+			Gl.glDisable(Gl.GL_LIGHTING);
+
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
 			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
 			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
-			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
-			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do                        
+			//Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do
+			Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 
 			vertexData.indices[0] = 0;

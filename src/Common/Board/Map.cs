@@ -10,6 +10,7 @@ namespace Yad.Board.Common {
 		TileType[,] tiles;
 		bool[,] fogOfWar;
 		bool[,] slabs; // they don't work as normal buildings
+		int[,] spice;
 
 		short width, height;
 
@@ -25,21 +26,14 @@ namespace Yad.Board.Common {
 			get { return height; }
 		}
 
-        private void DrawTile(int x, int y)
-        {
-
-        }
-
 		public LinkedList<Building>[,] Buildings {
 			get {
 				return buildings;
 			}
 		}
 
-		public bool[,] FogOfWar
-		{
-			get
-			{
+		public bool[,] FogOfWar {
+			get {
 				return fogOfWar;
 			}
 		}
@@ -53,6 +47,10 @@ namespace Yad.Board.Common {
 
 		public TileType[,] Tiles {
 			get { return tiles; }
+		}
+
+		public int[,] Spice {
+			get { return spice; }
 		}
 
 		public bool CheckConststency() {
@@ -71,64 +69,31 @@ namespace Yad.Board.Common {
 		}
 
 		public void LoadMap(String name) {
-			/*string c;
-			int len = -1;
-			List<byte[]> tempList = new List<byte[]>();
-			byte[] tempRow = null;
 
-			StreamReader sr = new StreamReader(name);
-			while (!sr.EndOfStream) {
-				c = sr.ReadLine();
-				if (len == -1)
-					len = c.Length;
-				else if (c.Length != len)
-					throw new Exception("Wrong map format");
-				tempRow = new byte[c.Length];
-				for (int i = 0; i < c.Length; i++) {
-					tempRow[i] = (byte)(c[i] - '0');
-				}
-				tempList.Insert(0, tempRow);
-			}
+			FileStream fs = File.Open(name, FileMode.Open);
+			BinaryFormatter bf = new BinaryFormatter();
+			List<Point> lp = (List<Point>)bf.Deserialize(fs);
+			MapData md = (MapData)bf.Deserialize(fs);
 
-			width = (short)tempList[0].Length;
-			height = (short)tempList.Count;*/
-            
-            FileStream fs = File.Open(name, FileMode.Open);
-            BinaryFormatter bf = new BinaryFormatter();
-            List<Point> lp = (List<Point>)bf.Deserialize(fs);
-            MapData md = (MapData)bf.Deserialize(fs);
-
-            width = (short)md.Width;
-            height = (short)md.Height;
+			width = (short)md.Width;
+			height = (short)md.Height;
 			tiles = new TileType[width, height];
-			for (int y = 0; y < height; ++y) {
-				for (int x = 0; x < width; ++x) {
-                    tiles[x, y] = md[x][height-1-y].Type;
-				}
-			}
-            /*
-            tiles = new TileType[width, height];
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    tiles[x, y] = (TileType)tempList[y][x];
-                }
-            }
-             */
-
+			spice = new int[width, height];
 			fogOfWar = new bool[width, height];
 			slabs = new bool[width, height];
-
 			buildings = new LinkedList<Building>[width, height];
 			units = new LinkedList<Unit>[width, height];
 
-			for (int i = 0; i < width; i++) {
-				for (int j = 0; j < height; j++) {
-					fogOfWar[i, j] = true;
-					slabs[i, j] = false;
-					buildings[i, j] = new LinkedList<Building>();
-					units[i, j] = new LinkedList<Unit>();
+			for (int y = 0; y < height; ++y) {
+				for (int x = 0; x < width; ++x) {
+					TileData td= md[x][height - 1 - y];
+					tiles[x, y] = td.Type;
+					spice[x, y] = td.SpiceNo;
+
+					fogOfWar[x, y] = true;
+					slabs[x, y] = false;
+					buildings[x, y] = new LinkedList<Building>();
+					units[x, y] = new LinkedList<Unit>();
 				}
 			}
 		}
