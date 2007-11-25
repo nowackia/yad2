@@ -83,6 +83,10 @@ namespace Yad.Engine.Client {
 
 			Player p = this.players[gm.IdPlayer];
 			Unit u = p.GetUnit(ObjectID.From(gm.IdUnit,gm.IdPlayer));
+            if (u == null) {
+                InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " unit has been already destroyed", EPrefix.SimulationInfo);
+                return;
+            }
 			u.MoveTo(gm.Destination);			
 		}
 
@@ -102,7 +106,7 @@ namespace Yad.Engine.Client {
                 b = p.GetUnit(am.Attacked);
                 if(b==null)
                 {
-                    throw new NotImplementedException("attacked unit does not exist");
+                    InfoLog.WriteInfo("MessageMove: PlayerID:" + am.Attacked.PlayerID + " attacked object does not exist", EPrefix.SimulationInfo);
                 }
             }
 
