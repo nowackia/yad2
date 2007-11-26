@@ -409,7 +409,7 @@ namespace Yad.Engine.Client {
 			}
 			if (found == false)
 				return;
-			Position pos = FindFreeLocation(p);
+			Position pos = FindFreeLocation(p, this._sim.Map);
 			//Simulation.CreateUnit(id, pos);
 			//GlobalSettings.Wrapper.
 
@@ -429,9 +429,39 @@ namespace Yad.Engine.Client {
 		/// Finds location on which can be placed new unit
 		/// </summary>
 		/// <param name="p"></param>
-		private Position FindFreeLocation(Position p) {
-			Position s = new Position(p.X-1, p.Y);
-			return s;
+		private Position FindFreeLocation(Position p, Map map) {
+			short radius = 3;
+			int dotsCounter;
+			int dotsInSquare;
+			Position loop = new Position();
+			int nearestBorder = Math.Min(Math.Min(p.X, p.Y), Math.Min(map.Width - p.X, map.Height - p.Y));
+			for (; radius < nearestBorder; radius += 2 ) {
+				loop.X = (short)(p.X - radius / 2); loop.Y = (short)(p.Y + radius / 2);  /////albo -
+
+				dotsInSquare = radius * radius - (radius - 2) * (radius - 2);
+				for (dotsCounter = 0; dotsCounter < dotsInSquare; ) {
+					if (checkFreeLocation(loop, map))
+						return loop;
+					dotsCounter++;
+					if (dotsCounter < radius)
+						loop.X++;
+					else if (dotsCounter < 2 * radius - 1)
+						loop.Y--; //albo wlasnie ++
+					else if (dotsCounter < 3 * radius - 2)
+						loop.X--;
+					else
+						loop.Y++; //albo wlasnie --
+
+				}
+			}
+			return new Position(-1,-1);
+		}
+
+		private bool checkFreeLocation(Position loop, Map map) {
+			if (map.Tiles[loop.X, loop.Y] != TileType.Mountain && map.Buildings[loop.X, loop.Y].Count == 0 && map.Units[loop.X, loop.Y].Count == 0)
+				return true;
+			else
+				return false;
 		}
 	}
 }
