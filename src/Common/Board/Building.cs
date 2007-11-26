@@ -17,6 +17,13 @@ namespace Yad.Board.Common {
 
 		Direction _direction;
 
+        private AmmoType ammoType;
+
+        public AmmoType AmmoType {
+            get { return ammoType; }
+        }
+
+
         public enum BuildingState{
             constructing,
             normal,
@@ -45,6 +52,16 @@ namespace Yad.Board.Common {
             this.Health = bd.__Health;
             this.roundToReload = 0;
             this._simulation = sim;
+            String ammo = bd.AmmoType;
+            if (ammo == "Bullet") {
+                this.ammoType = AmmoType.Bullet;
+            } else if (ammo == "Rocket") {
+                this.ammoType = AmmoType.Rocket;
+            } else if (ammo == "Sonic") {
+                this.ammoType = AmmoType.Sonic;
+            } else {
+                this.ammoType = AmmoType.None;
+            }
 		}
 
         public void Destroy() {
@@ -101,6 +118,8 @@ namespace Yad.Board.Common {
 			}
 		}
 
+
+
         /// <summary>
         /// manage building
         /// there are buildings which can shoot - some ai
@@ -124,12 +143,73 @@ namespace Yad.Board.Common {
                  * actions for looking for target, shooting
                  * 
                  */
+                TryAttack(attacked);
                 roundToReload = BuildingData.__ReloadTime;
-                if (attackingBuilding) {
-                    _simulation.handleAttackBuilding((Building)attacked, this);
+                
+            }
+        }
+
+        /// <summary>
+        /// attacks region - manage ammo type.
+        /// </summary>
+        /// <param name="ob"></param>
+        protected void AttackRegion(BoardObject ob) {
+            Position s = ob.Position;
+            List<BoardObject> objectsInRange = GetObjectsInRange(s);
+
+            foreach (BoardObject boardObject in objectsInRange) {
+                if (boardObject.BoardObjectClass == BoardObjectClass.Building) {
+                    _simulation.handleAttackBuilding((Building)boardObject, this);
                 } else {
-                    _simulation.handleAttackUnit((Unit)attacked, this);
+                    _simulation.handleAttackUnit((Unit)boardObject, this);
                 }
+            }
+        }
+
+        private List<BoardObject> GetObjectsInRange(Position p) {
+            List<BoardObject> objects = new List<BoardObject>();
+            List<Position> positions = new List<Position>();
+            switch (ammoType) {
+                case AmmoType.Bullet:
+                    // object in same position as target
+                    positions.Add(p);
+                    break;
+
+                case AmmoType.Rocket:
+                    // objects in radius from target
+                    int max;
+                    Position[] tab = Unit.RangeSpiral(this.BuildingData.AmmoDamageRange, out max);
+                    for (int i = 0; i < max; ++i) {
+                        positions.Add(tab[i]);
+                    }
+                    break;
+                case AmmoType.Sonic:
+                    // objects from attacker to target
+                    Position tmp = this.Position;
+                    Queue<Position> path = Unit.Bresenham(ref tmp, ref p);
+                    positions.AddRange(path);
+                    break;
+            }
+            foreach (Position position in positions) {
+                foreach (BoardObject building in _map.Buildings[position.X, position.Y]) {
+                    objects.Add(building);
+                }
+                foreach (BoardObject unit in _map.Units[position.X, position.Y]) {
+                    objects.Add(unit);
+                }
+            }
+
+            return objects;
+        }
+
+        /// <summary>
+        /// checks what type of object to attack; manage reload, destroying units, turret rotation
+        /// </summary>
+        /// <param name="ob"></param>
+        protected virtual void TryAttack(BoardObject ob) {
+
+            if (roundToReload == 0) {
+                AttackRegion(ob);
             }
         }
 
@@ -184,7 +264,122 @@ namespace Yad.Board.Common {
             return false;
         }
 
-		public float getMaxHealth() {
+        private int GetAlfa(double x, double y) {
+            if (x == y && x == 0)
+                return 0;// teoretically wont happen
+            double norm = x * x + y * y;
+            norm = Math.Sqrt(norm);
+            x /= norm;
+            y /= norm;
+            double al = Math.Asin(y);
+            al *= 180.0 / Math.PI;
+            if (y >= 0) {
+                //1 | 2 quater
+                if (x >= 0) {
+                    return (int)al % 360;
+                } else {
+                    return 180 - (int)al % 360;
+                }
+            } else {
+                // 3 | 4 quater
+                if (x >= 0) {
+                    return (int)(360 + al) % 360;
+                } else {
+                    return (int)(270 + al) % 360;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// rotate if target is out of range
+        /// </summary>
+        /// <param name="ob">target</param>
+        /// <returns>if rotation was needed</returns>
+        protected bool RotateIfNeededInternal(BoardObject ob) {
+
+
+            int alfaTarget = GetAlfa(ob.Position.X - this.Position.X, ob.Position.Y - this.Position.Y);
+            int turretRotationDelta = ConvertToNumber(Direction);
+
+
+            int delta = turretRotationDelta - alfaTarget;
+            delta += 360;
+            delta %= 360;
+            int turn = 0;
+            if (delta < 360 - 23 && delta >= 180) {
+                // rotate clockwise
+                turn = 45;
+                turretRotationDelta += turn;
+                turretRotationDelta += 360;
+                turretRotationDelta %= 360;
+                _direction = ConvertToDirection(turretRotationDelta);
+                return true;
+            } else if (delta > 23 && delta < 180) {
+                // rotate counterclockwise
+                turn = -45;
+                turretRotationDelta += turn;
+                turretRotationDelta += 360;
+                turretRotationDelta %= 360;
+                _direction = ConvertToDirection(turretRotationDelta);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        private int ConvertToNumber(Direction dir) {
+            switch (dir) {
+                case Direction.East:
+                    return 0;
+                case Direction.East | Direction.North:
+                    return 45;
+                case Direction.North:
+                    return 90;
+                case Direction.North | Direction.West:
+                    return 135;
+                case Direction.West:
+                    return 180;
+                case Direction.West | Direction.South:
+                    return 225;
+                case Direction.South:
+                    return 270;
+                case Direction.South | Direction.East:
+                    return 315;
+                default:
+                    return 0; // never happen.
+
+            }
+        }
+
+        private Direction ConvertToDirection(int number) {
+            switch (number) {
+                case 0:
+                    return Direction.East;
+                case 45:
+                    return Direction.East | Direction.North;
+                case 90:
+                    return Direction.North;
+                case 135:
+                    return Direction.North | Direction.West;
+                case 180:
+                    return Direction.West;
+                case 225:
+                    return Direction.West | Direction.South;
+                case 270:
+                    return Direction.South;
+                case 315:
+                    return Direction.South | Direction.East;
+                default:
+                    return Direction.East; // never happen.
+            }
+
+        }
+        
+        
+        public float getMaxHealth() {
 			return _buildingData.Health;
 		}
 

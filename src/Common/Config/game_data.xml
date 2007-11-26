@@ -378,10 +378,12 @@
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
 			<tns:IsTurret>1</tns:IsTurret>
-			<tns:FireRange>10</tns:FireRange>
-			<tns:FirePower>80</tns:FirePower>
-			<tns:ReloadTime>20</tns:ReloadTime>
-			<tns:RideableFields>
+      <tns:FireRange>10</tns:FireRange>
+      <tns:FirePower>80</tns:FirePower>
+      <tns:ReloadTime>20</tns:ReloadTime>
+      <tns:AmmoType>Rocket</tns:AmmoType>
+      <tns:AmmoDamageRange>2</tns:AmmoDamageRange>
+      <tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
 			</tns:UnitsCanProduce>
