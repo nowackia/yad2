@@ -64,7 +64,7 @@
     <Compile Include="Engine\BuildManager.cs" />
     <Compile Include="Engine\BuildStatus.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
-    <Compile Include="Engine\CreditsPictureBox.cs">
+    <Compile Include="UI\CreditsPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Engine\GameGraphics\ClipRectangle.cs" />
