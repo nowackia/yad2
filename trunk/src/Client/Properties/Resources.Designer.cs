@@ -123,6 +123,13 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap UI_Credits_Background {
+            get {
+                object obj = ResourceManager.GetObject("UI_Credits_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Down {
             get {
                 object obj = ResourceManager.GetObject("UI_Down", resourceCulture);

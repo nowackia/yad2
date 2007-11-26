@@ -37,7 +37,7 @@ namespace Yad.UI.Client {
             // 
             // scrollingPanel
             // 
-            this.scrollingPanel.BackColor = System.Drawing.SystemColors.ControlText;
+            this.scrollingPanel.BackColor = System.Drawing.Color.Transparent;
             this.scrollingPanel.Controls.Add(this.flowLayoutPanel1);
             this.scrollingPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollingPanel.Name = "scrollingPanel";
@@ -83,7 +83,6 @@ namespace Yad.UI.Client {
             // 
             // contentPanel
             // 
-            this.contentPanel.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
             this.contentPanel.Controls.Add(this.scrollingPanel);
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentPanel.Location = new System.Drawing.Point(3, 23);
@@ -94,7 +93,7 @@ namespace Yad.UI.Client {
             // 
             // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.BackgroundImage = global::Yad.Properties.Resources.UI_Background;
+            this.tableLayoutPanelMain.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMain.Controls.Add(this.contentPanel, 0, 1);

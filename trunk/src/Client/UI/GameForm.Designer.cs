@@ -31,6 +31,7 @@ namespace Yad.UI.Client
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.panelUIMap = new System.Windows.Forms.Panel();
+            this.openGLView = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.panelUITop_E = new System.Windows.Forms.Panel();
             this.panelUITop_W = new System.Windows.Forms.Panel();
             this.panelUIControl = new System.Windows.Forms.Panel();
@@ -47,7 +48,6 @@ namespace Yad.UI.Client
             this.panelUILine_WE1 = new System.Windows.Forms.Panel();
             this.panelUILine_WE2 = new System.Windows.Forms.Panel();
             this.panelUILine_NS = new System.Windows.Forms.Panel();
-            this.openGLView = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.panelUIControl.SuspendLayout();
             this.panelUITop_MAIN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.creditsPictureBox)).BeginInit();
@@ -61,6 +61,31 @@ namespace Yad.UI.Client
             this.panelUIMap.Name = "panelUIMap";
             this.panelUIMap.Size = new System.Drawing.Size(185, 193);
             this.panelUIMap.TabIndex = 2;
+            // 
+            // openGLView
+            // 
+            this.openGLView.AccumBits = ((byte)(0));
+            this.openGLView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLView.AutoCheckErrors = false;
+            this.openGLView.AutoFinish = false;
+            this.openGLView.AutoMakeCurrent = true;
+            this.openGLView.AutoSwapBuffers = true;
+            this.openGLView.BackColor = System.Drawing.Color.Black;
+            this.openGLView.ColorBits = ((byte)(32));
+            this.openGLView.DepthBits = ((byte)(32));
+            this.openGLView.Location = new System.Drawing.Point(0, 64);
+            this.openGLView.Name = "openGLView";
+            this.openGLView.Size = new System.Drawing.Size(594, 502);
+            this.openGLView.StencilBits = ((byte)(0));
+            this.openGLView.TabIndex = 14;
+            this.openGLView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
+            this.openGLView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
+            this.openGLView.Resize += new System.EventHandler(this.openGLView_Resize);
+            this.openGLView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
+            this.openGLView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseUp);
+            this.openGLView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLView_KeyDown);
             // 
             // panelUITop_E
             // 
@@ -180,11 +205,15 @@ namespace Yad.UI.Client
             // 
             this.creditsPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.creditsPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.creditsPictureBox.BackgroundImage = global::Yad.Properties.Resources.UI_Credits_Background;
+            this.creditsPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.creditsPictureBox.DestinationHeight = 25;
             this.creditsPictureBox.DigitsBitmap = global::Yad.Properties.Resources.CreditsDigits;
-            this.creditsPictureBox.Location = new System.Drawing.Point(603, 8);
+            this.creditsPictureBox.DrawingOffsetX = 2;
+            this.creditsPictureBox.DrawingOffsetY = 2;
+            this.creditsPictureBox.Location = new System.Drawing.Point(622, 7);
             this.creditsPictureBox.Name = "creditsPictureBox";
-            this.creditsPictureBox.Size = new System.Drawing.Size(179, 35);
+            this.creditsPictureBox.Size = new System.Drawing.Size(157, 35);
             this.creditsPictureBox.TabIndex = 0;
             this.creditsPictureBox.TabStop = false;
             this.creditsPictureBox.Value = global::Yad.Properties.Client.Settings.Default.CreditsAtStart;
@@ -227,31 +256,6 @@ namespace Yad.UI.Client
             this.panelUILine_NS.Name = "panelUILine_NS";
             this.panelUILine_NS.Size = new System.Drawing.Size(14, 489);
             this.panelUILine_NS.TabIndex = 7;
-            // 
-            // openGLView
-            // 
-            this.openGLView.AccumBits = ((byte)(0));
-            this.openGLView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.openGLView.AutoCheckErrors = false;
-            this.openGLView.AutoFinish = false;
-            this.openGLView.AutoMakeCurrent = true;
-            this.openGLView.AutoSwapBuffers = true;
-            this.openGLView.BackColor = System.Drawing.Color.Black;
-            this.openGLView.ColorBits = ((byte)(32));
-            this.openGLView.DepthBits = ((byte)(32));
-            this.openGLView.Location = new System.Drawing.Point(0, 64);
-            this.openGLView.Name = "openGLView";
-            this.openGLView.Size = new System.Drawing.Size(594, 502);
-            this.openGLView.StencilBits = ((byte)(0));
-            this.openGLView.TabIndex = 14;
-            this.openGLView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
-            this.openGLView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
-            this.openGLView.Resize += new System.EventHandler(this.openGLView_Resize);
-            this.openGLView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
-            this.openGLView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseUp);
-            this.openGLView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLView_KeyDown);
             // 
             // GameForm
             // 
