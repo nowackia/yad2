@@ -13,6 +13,7 @@ namespace Yad.Board.Common {
 	/// </summary>
 	public abstract class Unit : BoardObject {
 		//common fields for all units - except sandworm
+
 		protected short _damageDestroy;
 		protected String _name;
 		protected short _fireRange;
@@ -47,6 +48,22 @@ namespace Yad.Board.Common {
             orderedAttack,
             destroyed
         }
+
+        private short ammoDamageRange = 0;
+
+        public short AmmoDamageRange {
+            get { return ammoDamageRange; }
+            set { ammoDamageRange = value; }
+        }
+
+
+        private short damageDestroyRange = 0;
+
+        public short DamageDestroyRange {
+            get { return damageDestroyRange; }
+            set { damageDestroyRange = value; }
+        }
+
 
         protected UnitState state = UnitState.stopped;
 		//map-related
@@ -140,7 +157,7 @@ namespace Yad.Board.Common {
                     }
                     if (CheckRangeToShoot(attackedObject)) {
                         InfoLog.WriteInfo("Unit:AI: attack -> attack ", EPrefix.SimulationInfo);
-                        Attack(attackedObject);
+                        TryAttack(attackedObject);
                         //attack, reload etc
                     } else {
                         // out of range - chase
@@ -253,23 +270,71 @@ namespace Yad.Board.Common {
         }
 
         /// <summary>
-        /// checks what type of object to attack; manage reload, destroying units, turret rotation
+        /// attacks region - manage ammo type.
         /// </summary>
         /// <param name="ob"></param>
-        protected virtual void Attack(BoardObject ob) {
+        protected void AttackRegion(BoardObject ob) {
+            Position s = ob.Position;
+            List<BoardObject> objectsInRange = GetObjectsInRange(s);
 
-            if (_remainingTurnsToReload == 0) {
-                if (attackingBuilding) {
-                    Building b = (Building)ob;
-                    _simulation.handleAttackBuilding(b, this);
-                    _remainingTurnsToReload = _reloadTime;
+            foreach (BoardObject boardObject in objectsInRange) {
+                if (boardObject.BoardObjectClass == BoardObjectClass.Building) {
+                    _simulation.handleAttackBuilding((Building)boardObject, this);
                 } else {
-                    Unit u = (Unit)ob;
-                    _simulation.handleAttackUnit(u, this);
-                    _remainingTurnsToReload = _reloadTime;
+                    _simulation.handleAttackUnit((Unit)boardObject, this);
                 }
             }
         }
+
+        private List<BoardObject> GetObjectsInRange(Position p) {
+            List<BoardObject> objects = new List<BoardObject>();
+            List<Position> positions = new List<Position>();
+            switch (AmmoType) {
+                case AmmoType.Bullet:
+                    // object in same position as target
+                    positions.Add(p);
+                    break;
+                    
+                case AmmoType.Rocket:
+                    // objects in radius from target
+                    int max;
+                    Position[] tab = Unit.RangeSpiral(this.damageDestroyRange, out max);
+                    for (int i = 0; i < max;++i ) {
+                        positions.Add(tab[i]);
+                    }
+                    break;
+                case AmmoType.Sonic:
+                    // objects from attacker to target
+                    Position tmp = this.Position;
+                    Queue<Position> path = Unit.Bresenham(ref tmp,ref p);
+                    positions.AddRange(path);
+                    break;
+            }
+            foreach (Position position in positions) {
+                foreach (BoardObject building in _map.Buildings[position.X, position.Y]) {
+                    objects.Add(building);
+                }
+                foreach (BoardObject unit in _map.Units[position.X, position.Y]) {
+                    objects.Add(unit);
+                }
+            }
+
+            return objects;
+        }
+
+        /// <summary>
+        /// checks what type of object to attack; manage reload, destroying units, turret rotation
+        /// </summary>
+        /// <param name="ob"></param>
+        protected virtual void TryAttack(BoardObject ob) {
+
+            if (_remainingTurnsToReload == 0) {
+                AttackRegion(ob);
+            }
+        }
+
+
+
         /// <summary>
         /// checks if object is in shooting range
         /// </summary>
@@ -350,7 +415,7 @@ namespace Yad.Board.Common {
 			return true;
 		}
 
-		public Unit(ObjectID id, short typeID, BoardObjectClass boc, Position pos, Map map, Simulation sim)
+		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy)
 			: base(id, boc, pos) {
 			this._typeID = typeID;
 			this._map = map;
@@ -358,6 +423,17 @@ namespace Yad.Board.Common {
 			this._lastPosition = pos;
 			this._direction = Direction.North;
 			this._currentPath = new Queue<Position>();
+            
+            if(ammo=="Bullet"){
+                this._ammoType = AmmoType.Bullet;
+            }
+            else if(ammo=="Rocket"){
+                this._ammoType = AmmoType.Rocket;
+            } else if (ammo=="Sonic") {
+                this._ammoType = AmmoType.Sonic;
+            } else {
+                this._ammoType = AmmoType.None;
+            }
 		}
 
 		public AmmoType AmmoType {

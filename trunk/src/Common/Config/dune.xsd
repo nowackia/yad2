@@ -12,25 +12,29 @@
 			<element name="Speed" type="short" />
 			<element name="ReloadTime" type="short" />
 			<element name="AmmoType" type="string" />
-			<element name="Health" type="short" />
-			<element name="ViewRange" type="short" />
-			<element name="BuildSpeed" type="short" />
-			<element name="DamageDestroy" type="short" />
-			<element name="RotationSpeed" type="short" />
-			<element name="Size" type="float" />
-		</sequence>
-	</complexType>
-	<complexType name="UnitTankData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1" />
-			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1" />
-			<element name="Name" type="string" />
-			<element name="Cost" type="short" />
-			<element name="FireRange" type="short" />
-			<element name="FirePower" type="short" />
-			<element name="Speed" type="short" />
-			<element name="ReloadTime" type="short" />
-			<element name="AmmoType" type="string" />
+      <element name="AmmoDamageRange" type="short" />
+      <element name="DamageDestroyRange" type="short" />
+      <element name="Health" type="short" />
+      <element name="ViewRange" type="short" />
+      <element name="BuildSpeed" type="short" />
+      <element name="DamageDestroy" type="short" />
+      <element name="RotationSpeed" type="short" />
+      <element name="Size" type="float" />
+    </sequence>
+  </complexType>
+  <complexType name="UnitTankData">
+    <sequence maxOccurs="1" minOccurs="1">
+      <element name="TypeID" type="short" minOccurs="0" maxOccurs="1" />
+      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1" />
+      <element name="Name" type="string" />
+      <element name="Cost" type="short" />
+      <element name="FireRange" type="short" />
+      <element name="FirePower" type="short" />
+      <element name="Speed" type="short" />
+      <element name="ReloadTime" type="short" />
+      <element name="AmmoType" type="string" />
+      <element name="AmmoDamageRange" type="short" />
+      <element name="DamageDestroyRange" type="short" />
 			<element name="Health" type="short" />
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
@@ -51,6 +55,7 @@
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
 			<element name="DamageDestroy" type="short" />
+      <element name="DamageDestroyRange" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="Capacity" type="short" />
 			<element name="HarvestingSpeed" type="short" />
@@ -68,6 +73,7 @@
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
 			<element name="DamageDestroy" type="short" />
+      <element name="DamageDestroyRange" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="BuildingCanProduce" type="string" />
 			<element name="Size" type="float" />
@@ -103,18 +109,13 @@
 			<element name="FireRange" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<element name="FirePower" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<element name="ReloadTime" type="short" minOccurs="0" maxOccurs="1" default="0" />
+      <element name="AmmoType" type="string" minOccurs="0" maxOccurs="1" default="0"  />
+      <element name="AmmoDamageRange" type="string"  minOccurs="0" maxOccurs="1" default="0" />
+      
 			<!-- -->
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
 			<element name="UnitsCanProduce" type="tns:UnitsNames" minOccurs="0" maxOccurs="1" />
 			<element name="BuildingsCanProduce" type="tns:BuildingsNames" minOccurs="0" maxOccurs="1" />
-		</sequence>
-	</complexType>
-	<complexType name="AmmoData">
-		<sequence maxOccurs="1" minOccurs="1">
-			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1" />
-			<element name="Name" type="string" />
-			<element name="Speed" type="short" />
-			<element name="DamageDestroyRange" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="RaceData">
@@ -154,11 +155,6 @@
 	<complexType name="BuildingsData">
 		<sequence>
 			<element name="BuildingData" type="tns:BuildingData" minOccurs="0" maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-	<complexType name="AmmosData">
-		<sequence>
-			<element name="AmmoData" type="tns:AmmoData" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="RacesData">
@@ -208,7 +204,6 @@
 			<element name="UnitHarvestersData" type="tns:UnitHarvestersData" />
 			<element name="UnitMCVsData" type="tns:UnitMCVsData" />
 			<element name="UnitSandwormsData" type="tns:UnitSandwormsData" />
-			<element name="AmmosData" type="tns:AmmosData" />
 			<element name="BuildingsData" type="tns:BuildingsData" />
 			<element name="RacesData" type="tns:RacesData" />
 		</sequence>

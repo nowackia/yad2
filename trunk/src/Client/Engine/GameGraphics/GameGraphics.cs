@@ -412,8 +412,8 @@ namespace Yad.Engine.Client {
 			#endregion
 
 
-			foreach (AmmoData o in gameSettings.Ammos) {
-			}
+			/*foreach (AmmoData o in gameSettings.Ammos) {
+			}*/
 
 			foreach (RaceData o in gameSettings.Races) {
 				String file = Path.Combine(Settings.Default.Pictures, o.Name + ".png");
