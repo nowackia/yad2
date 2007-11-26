@@ -51,6 +51,8 @@ namespace Yad.Net.Messaging.Common
             unitID = reader.ReadInt32();
             unitType = reader.ReadInt16();
             unitKind = (BoardObjectClass)reader.ReadInt16();
+            position = new Position();
+            position.Deserialize(reader);
             
 
         }
@@ -60,6 +62,7 @@ namespace Yad.Net.Messaging.Common
             writer.Write(unitID);
             writer.Write(unitType);
             writer.Write((short)unitKind);
+            position.Serialize(writer);
         }
     }
 }

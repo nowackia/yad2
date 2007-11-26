@@ -5,10 +5,19 @@ using Yad.UI;
 using Yad.Board;
 
 namespace Yad.Engine {
-    
+
+    public enum BuildType {
+        Unit,
+        Building
+    }
     public class BuildStatus {
         StripButtonState _state;
+        BuildType _buildType;
 
+        public BuildType BuildType {
+            get { return _buildType; }
+            set { _buildType = value; }
+        }
         public StripButtonState State {
             get { return _state; }
             set { _state = value; }
