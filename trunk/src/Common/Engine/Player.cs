@@ -25,6 +25,7 @@ namespace Yad.Engine.Common {
 		//but pretty useful for a turn processing
 		private List<Building> _buildings = new List<Building>();
 		private List<Unit> _units = new List<Unit>();
+		private int _credits;
 
 		#region constructor
 		public Player(short playerID, string playerName, short raceID, Color playerColor) {
@@ -94,6 +95,11 @@ namespace Yad.Engine.Common {
                 return b;
             }
             return null;
+		}
+
+		public int Credits {
+			get { return _credits; }
+			set { _credits = value; }
 		}
 		#endregion
 	}

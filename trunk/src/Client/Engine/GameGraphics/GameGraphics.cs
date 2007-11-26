@@ -532,6 +532,15 @@ namespace Yad.Engine.Client {
 			#endregion
 
 			#region fow
+			DrawFogOfWar();
+			#endregion
+
+			#region spice
+			DrawSpice(map);
+			#endregion
+		}
+
+		private static void DrawFogOfWar() {
 			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
 				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
@@ -539,15 +548,10 @@ namespace Yad.Engine.Client {
 						continue;
 					}
 					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
-					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex + oneSixteenth, oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, 1 - oneEight);
+					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex + oneSixteenth * oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, 1 - oneEight);
 					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
 				}
 			}
-			#endregion
-
-			#region spice
-			DrawSpice(map);
-			#endregion
 		}
 
 		private static void DrawSpice(Map map) {

@@ -38,7 +38,7 @@ namespace Yad.Engine.Client {
 
 		private Dictionary<short, short> _buildingCounter = new Dictionary<short, short>();
 		private List<Unit> _selectedUnits = new List<Unit>();
-
+		private Player _currentPlayer;
 		/// <summary>
 		/// Defined groups: Ctrl+1 - Ctrl+4
 		/// </summary>
@@ -57,10 +57,10 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			_sim = new ClientSimulation(map);
 
+			//pobranie obiektu aktualnego gracza z symulacji - do obsługi w GameLogic
+			_currentPlayer = _sim.getPlayer(ClientPlayerInfo.Player.Id);
+
 			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
-
-
-			//GameMessageHandler.Instance.Resume();
 		}
 
 		void _sim_OnBuildingCompleted(Building b) {
@@ -127,7 +127,7 @@ namespace Yad.Engine.Client {
 		}
 
 		public Player CurrentPlayer {
-			get { return this._sim.CurrentPlayer; }
+			get { return this._currentPlayer; }
 		}
 		#endregion
 

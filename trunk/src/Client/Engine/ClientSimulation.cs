@@ -41,10 +41,6 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitStarted;
 		#endregion
 
-		private int credits = Settings.Default.CreditsAtStart;
-		[Obsolete("To wyleci, nie u¿ywaæ")]
-		private Player currentPlayer;
-
 		public ClientSimulation(Map map)
 			: base(map, false) {
 
@@ -53,10 +49,8 @@ namespace Yad.Engine.Client {
 			//Add all players
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
+				p.Credits = Settings.Default.CreditsAtStart;
 				players.Add(p.Id, p);
-				if (p.Id == currPI.Id) { //jeœli jest aktualnym graczem to dodatkowo ustawiamy zmienn¹
-					currentPlayer = p;
-				}
 			}
 
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
@@ -65,10 +59,6 @@ namespace Yad.Engine.Client {
 			this.OnNoPowerResources += new OnNoPowerHandler(ClientSimulation_OnNoPowerResources);
 			this.UnitStarted += new UnitHandler(ClientSimulation_UnitStarted);
 			this.UnitCompleted += new UnitHandler(ClientSimulation_UnitCompleted);
-		}
-
-		public Player CurrentPlayer {
-			get { return this.currentPlayer; }
 		}
 
 		void ClientSimulation_onTurnBegin() {
@@ -84,20 +74,19 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			ObjectID id = new ObjectID(bm.IdPlayer, bm.BuildingID);
 			Building b = new Building(id, bd, this.map, bm.Position, this);
+
 			//TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
 			//if (b.ObjectID.PlayerID.Equals(currentPlayer.Id) && GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost > credits)
 			//	return;
-			players[b.ObjectID.PlayerID].AddBuilding(b);
 
-			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {
-				credits -= GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost;
-                OnBuildingCompleted(b);
-				UpdatePowerManagement(b.TypeID);
-				OnCreditsUpdate(b.TypeID);
-			}
+			Player p = players[b.ObjectID.PlayerID];
+			p.AddBuilding(b);
+			p.Credits -= GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost;
+
+            OnBuildingCompleted(b);
+			UpdatePowerManagement(b.TypeID);
+			OnCreditsUpdate(b.TypeID);
 		}
-
-        
 
 		protected override void onMessageMove(MoveMessage gm)
 		{
@@ -159,9 +148,7 @@ namespace Yad.Engine.Client {
 			}
 			players[cum.IdPlayer].AddUnit(u);
 
-			if (u.ObjectID.PlayerID == currentPlayer.Id) {
-                OnUnitCompleted(u);
-			}
+            OnUnitCompleted(u);
 		}
 
         
@@ -299,6 +286,10 @@ namespace Yad.Engine.Client {
 				//TODO RS: run in different thread
 				//this.UnitCompleted(u);
 			//}
+		}
+
+		public Player getPlayer(short id) {
+			return this.players[id];
 		}
 	}
 }
