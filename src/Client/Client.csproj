@@ -840,6 +840,7 @@
     <Content Include="Resources\Graphics\Units\Trooper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\UI_Credits_Background.png" />
     <Content Include="TaoFramework\Tao.OpenGl.dll">
     </Content>
     <Content Include="TaoFramework\Tao.Platform.Windows.dll">
