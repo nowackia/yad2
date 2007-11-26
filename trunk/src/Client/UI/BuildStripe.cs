@@ -80,6 +80,18 @@ namespace Yad.UI.Client {
 
         }
 
+        public void Update(BuildStatus buildStatus) {
+            SuspendFlowLayout();
+            if (buildStatus.State == StripButtonState.Percantage)
+                buttons[buildStatus.Typeid].Percentage = buildStatus.Percent;
+            buttons[buildStatus.Typeid].State = buildStatus.State;
+            InvokeShow(buildStatus.Typeid);
+
+            //ShowUpper(int.MaxValue);
+            UpdateFlowLayoutPanelSize();
+            ResumeFlowLayout();
+        }
+
         public void HideButton(int id) {
             SuspendFlowLayout();
             if (buttons[id].IsVisible) {
@@ -413,6 +425,7 @@ namespace Yad.UI.Client {
 
 		public void Remove(int id) {
 			OwnerDrawPictureButton but = buttons[id];
+            SuspendFlowLayout();
 			if (but != null) {
 				//this.flowLayoutPanel1.Controls.Remove(but);
                 RemoveButton(but);
@@ -422,9 +435,10 @@ namespace Yad.UI.Client {
 				ids.Remove(id);
 			}
 			InfoLog.WriteInfo("Remove", EPrefix.Stripe);
-			num = 0;
-			this.scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
-			this.flowLayoutPanel1.Size = new Size(WIDTH, num * HEIGHT);
+            num--;
+            UpdateFlowLayoutPanelSize();
+            ResumeFlowLayout();
+			
 		}
 
         private void RemoveButton(OwnerDrawPictureButton but) {

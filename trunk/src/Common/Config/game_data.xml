@@ -14,7 +14,7 @@
       <tns:DamageDestroyRange>1</tns:DamageDestroyRange>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>1</tns:ViewRange>
-			<tns:BuildSpeed>10</tns:BuildSpeed>
+			<tns:BuildSpeed>20</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>

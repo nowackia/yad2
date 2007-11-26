@@ -15,6 +15,7 @@ namespace Yad.UI {
         Ready
     }
     delegate void SetTextCallBack(string text);
+    delegate void SetMouseOverEffectCallback(bool value);
 	public class OwnerDrawPictureButton : PictureButton {
 		private int percentage = 50;
         private StripButtonState state = StripButtonState.Active;
@@ -55,18 +56,18 @@ namespace Yad.UI {
 			}
 		}*/
 
-
+        
         private void OnStateChange(StripButtonState state) {
             switch (state) {
                 case StripButtonState.Inactive:
-                    base.MouseOverEffect = false;
+                    InvokeSetMouseOverEffect(false);
                     break;
                 case StripButtonState.Ready:
-                    this.Text = this.textReady;
+                    InvokeSetText(this.textReady);
                     break;
                 case StripButtonState.Active:
-                    base.MouseOverEffect = true;
-                    this.Text = this.Name;
+                    InvokeSetMouseOverEffect(true);
+                    InvokeSetText(this.Name);
                     break;
             }
             InvokeRefresh();
@@ -77,6 +78,20 @@ namespace Yad.UI {
 		}
 
 
+        private void InvokeSetText(string text) {
+            if (this.InvokeRequired) {
+                this.Invoke(new SetTextCallBack(SetText), new object[] { text });
+            }
+            else
+                SetText(text);
+        }
+
+        private void InvokeSetMouseOverEffect(bool value) {
+            if (this.InvokeRequired)
+                this.Invoke(new SetMouseOverEffectCallback(SetMouseOverEffect), new object[] { value });
+            else
+                SetMouseOverEffect(value);
+        }
         public void InvokeRefresh() {
             if (this.InvokeRequired) {
                 this.Invoke(new ThreadStart(Refresh));
@@ -85,6 +100,13 @@ namespace Yad.UI {
             }
         }
 
+        private void SetText(string text) {
+            this.Text = text;
+        }
+
+        private void SetMouseOverEffect(bool value) {
+            this.MouseOverEffect = value;
+        }
 		protected override void OnPaint(System.Windows.Forms.PaintEventArgs e) {
 			base.OnPaint(e);
             switch (state) {
