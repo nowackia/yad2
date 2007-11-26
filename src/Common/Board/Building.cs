@@ -180,7 +180,13 @@ namespace Yad.Board.Common {
                     int max;
                     Position[] tab = Unit.RangeSpiral(this.BuildingData.AmmoDamageRange, out max);
                     for (int i = 0; i < max; ++i) {
-                        positions.Add(tab[i]);
+                        Position spiralPos = tab[i];
+                        if (p.X + spiralPos.X >= 0
+                    && p.X + spiralPos.X < _map.Width
+                    && p.Y + spiralPos.Y >= 0
+                    && p.Y + spiralPos.Y < _map.Height) {
+                            positions.Add(new Position(p.X + spiralPos.X,p.Y + spiralPos.Y));
+                        }
                     }
                     break;
                 case AmmoType.Sonic:
