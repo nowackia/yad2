@@ -63,6 +63,7 @@ namespace Yad.Engine.Client {
 			_currentPlayer = _sim.getPlayer(ClientPlayerInfo.Player.Id);
 
 			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
+
 		}
 
 		void _sim_OnBuildingCompleted(Building b) {
@@ -402,11 +403,18 @@ namespace Yad.Engine.Client {
 			// ^
 		}
 
-		internal void createUnit(short id, string name) {
-			Position p = new Position(0, 0);
-			if (defaultBuildings.ContainsKey(id))
-				p = defaultBuildings[id].Position;
-			else
+		internal void createUnit(short id, int objectID) {
+			Position p = new Position(0,0);
+			bool found = false;
+			List<Building> bs = Simulation.Players[CurrentPlayer.Id].GetAllBuildings();
+			foreach(Building b in bs){
+				if(b.ObjectID.ObjectId == objectID){
+					//pierwsze wystapnienie budynku
+					p = b.Position;
+					found = true;
+				}
+			}
+			if (found == false)
 				return;
 			Position pos = FindFreeLocation(p, _sim.Map);
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);

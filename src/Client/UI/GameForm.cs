@@ -92,7 +92,10 @@ namespace Yad.UI.Client {
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-				GameMessageHandler.Instance.Resume();
+				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
+                _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+                _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+                GameMessageHandler.Instance.Resume();
 
                 //CreateBuildingButtonsOnStripe();
 			} catch (Exception e) {
@@ -100,6 +103,12 @@ namespace Yad.UI.Client {
 				MessageBox.Show(e.ToString());
 			}
 		}
+
+        void Simulation_BuildingDestroyed(Building b) {
+            if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+                _buildManager.RemoveBuilding(b.ObjectID, b.TypeID);
+            }
+        }
 		#endregion
 
 		#region simulation events handling
@@ -282,7 +291,8 @@ namespace Yad.UI.Client {
 		#region stripes-related
 		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-			PlaceUnit((short)id, name);
+            _buildManager.RightBuildingClick(id);
+			//PlaceUnit((short)id, name);
 		}
 
 		void rightStripe_onBuildingChosen(int id) {
@@ -314,10 +324,10 @@ namespace Yad.UI.Client {
 			//ShowPossibilitiesForBuilding(id);
 		}
 
-		private void PlaceUnit(short id, string name) {
+		private void PlaceUnit(int objectID, short id) {
 			//create or let user choose where to place unit?
 			//this.isCreatingUnit = true;
-			_gameLogic.createUnit(id, name);
+			_gameLogic.createUnit(id, objectID);
 			_objectToCreateId = id;
 		}
 

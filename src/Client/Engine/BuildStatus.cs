@@ -23,6 +23,11 @@ namespace Yad.Engine {
             set { _state = value; }
         }
         int _objectId;
+
+        public int ObjectId {
+            get { return _objectId; }
+            set { _objectId = value; }
+        }
         short _typeid;
 
         public short Typeid {
@@ -36,12 +41,25 @@ namespace Yad.Engine {
             }
         }
         short _turnsToBuild;
-        short _actualTurn;
+        short _actualTurn = 0;
 
-        public BuildStatus(int objectid, short typeid) {
+        public BuildStatus(int objectid, short typeid, short turnsToBuild, BuildType type) {
             _objectId = objectid;
             _typeid = typeid;
             _state = StripButtonState.Active;
+            _buildType = type;
+            _turnsToBuild = turnsToBuild;
+        }
+
+        public bool DoTurn() {
+            if (_actualTurn == _turnsToBuild) {
+                _actualTurn = 0;
+                return true;
+            }
+            else {
+                ++_actualTurn;
+                return false;
+            }
         }
     }
 }
