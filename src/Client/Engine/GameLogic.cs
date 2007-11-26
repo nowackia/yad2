@@ -44,6 +44,8 @@ namespace Yad.Engine.Client {
 		/// </summary>
 		private List<Unit>[] _definedGroups = new List<Unit>[4];
 		private Building _selectedBuilding = null;
+		private Dictionary<short, Building> defaultBuildings = new Dictionary<short, Building>();
+
 		#endregion
 
 		#region constructor
@@ -65,6 +67,10 @@ namespace Yad.Engine.Client {
 
 		void _sim_OnBuildingCompleted(Building b) {
 			IncreaseBuildingCounter(b.TypeID);
+			foreach (string s in b.BuildingData.UnitsCanProduce.NameCollection) {
+				if (!defaultBuildings.ContainsKey(GlobalSettings.Wrapper.namesToIds[s]))
+					defaultBuildings[GlobalSettings.Wrapper.namesToIds[s]] = b;
+			}
 		}
 
 		#endregion
@@ -397,23 +403,12 @@ namespace Yad.Engine.Client {
 		}
 
 		internal void createUnit(short id, string name) {
-			Position p = new Position(0,0);
-			bool found = false;
-			List<Building> bs = Simulation.Players[CurrentPlayer.Id].GetAllBuildings();
-			foreach(Building b in bs){
-				if(b.BuildingData.UnitsCanProduce.NameCollection.Contains(name)){
-					//pierwsze wystapnienie budynku
-					p = b.Position;
-					found = true;
-				}
-			}
-			if (found == false)
+			Position p = new Position(0, 0);
+			if (defaultBuildings.ContainsKey(id))
+				p = defaultBuildings[id].Position;
+			else
 				return;
-			Position pos = FindFreeLocation(p, this._sim.Map);
-			//Simulation.CreateUnit(id, pos);
-			//GlobalSettings.Wrapper.
-
-
+			Position pos = FindFreeLocation(p, _sim.Map);
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
 			um.UnitID = CurrentPlayer.GenerateObjectID();
 			um.IdPlayer = CurrentPlayer.Id;
@@ -424,6 +419,7 @@ namespace Yad.Engine.Client {
 			Connection.Instance.SendMessage(um);
 
 		}
+
 
 		/// <summary>
 		/// Finds location on which can be placed new unit
