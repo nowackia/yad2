@@ -212,11 +212,22 @@ namespace Yad.Board.Common {
         /// checks what type of object to attack; manage reload, destroying units, turret rotation
         /// </summary>
         /// <param name="ob"></param>
-        protected virtual void TryAttack(BoardObject ob) {
-
-            if (roundToReload == 0) {
+        protected  void TryAttack(BoardObject ob) {
+            // rotate turret
+            if (RotateIfNeeded(ob) == true) return;
+            if (this.roundToReload == 0) {
                 AttackRegion(ob);
             }
+        }
+
+        protected bool RotateIfNeeded(BoardObject ob) {
+            // check first rotation
+            if (this.BuildingData.IsTurret && RotateIfNeededInternal(ob) == false) return false;
+            //for (int i = 1; i < RotationSpeed; ++i) {
+            //    if (RotateIfNeededInternal(ob) == false) break;
+            //}
+            // rotated more than once.
+            return true;
         }
 
 
