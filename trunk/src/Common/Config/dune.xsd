@@ -110,7 +110,7 @@
 			<element name="FirePower" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<element name="ReloadTime" type="short" minOccurs="0" maxOccurs="1" default="0" />
       <element name="AmmoType" type="string" minOccurs="0" maxOccurs="1" default="0"  />
-      <element name="AmmoDamageRange" type="string"  minOccurs="0" maxOccurs="1" default="0" />
+      <element name="AmmoDamageRange" type="short"  minOccurs="0" maxOccurs="1" default="0" />
       
 			<!-- -->
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
