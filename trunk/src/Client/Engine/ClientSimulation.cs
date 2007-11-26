@@ -42,6 +42,7 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		private int credits = Settings.Default.CreditsAtStart;
+		[Obsolete("To wyleci, nie u¿ywaæ")]
 		private Player currentPlayer;
 
 		public ClientSimulation(Map map)
@@ -83,8 +84,9 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			ObjectID id = new ObjectID(bm.IdPlayer, bm.BuildingID);
 			Building b = new Building(id, bd, this.map, bm.Position, this);
-			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id) && GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost > credits)
-				return;
+			//TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
+			//if (b.ObjectID.PlayerID.Equals(currentPlayer.Id) && GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost > credits)
+			//	return;
 			players[b.ObjectID.PlayerID].AddBuilding(b);
 
 			if (b.ObjectID.PlayerID.Equals(currentPlayer.Id)) {

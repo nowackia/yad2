@@ -162,8 +162,8 @@ namespace Yad.Engine.Client {
 
 			//Gl.glEnable(Gl.GL_TEXTURE_2D);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, id);
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);//_MIPMAP_NEAREST);
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
+			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);//_MIPMAP_NEAREST);
+			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
 			Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_RGBA8, width, height, 0, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 			//Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, 4, bitmap.Width, bitmap.Height, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, bitmapData.Scan0);
 
@@ -539,7 +539,7 @@ namespace Yad.Engine.Client {
 						continue;
 					}
 					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
-					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex, 0, oneSixteenth, 1);
+					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex + oneSixteenth, oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, 1 - oneEight);
 					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
 				}
 			}
