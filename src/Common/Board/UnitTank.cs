@@ -34,7 +34,7 @@ namespace Yad.Board.Common {
         }
 
 		public UnitTank(ObjectID id, UnitTankData ud, Position pos, Map map, Simulation sim)
-			: base(id, ud.TypeID, BoardObjectClass.UnitTank, pos, map, sim) {
+			: base(id, ud.TypeID, ud.__AmmoType, BoardObjectClass.UnitTank, pos, map, sim,ud.__AmmoDamageRange,ud.__DamageDestroyRange,ud.__DamageDestroy) {
 			_tankData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
@@ -204,19 +204,11 @@ namespace Yad.Board.Common {
 
         }
 
-        protected override void Attack(BoardObject ob) {
+        protected override void TryAttack(BoardObject ob) {
             // rotate turret
             if (RotateIfNeeded(ob) == true) return;
             if (_remainingTurnsToReload == 0) {
-                if (attackingBuilding) {
-                    Building b = (Building)ob;
-                    _simulation.handleAttackBuilding(b, this);
-                    _remainingTurnsToReload = _reloadTime;
-                } else {
-                    Unit u = (Unit)ob;
-                    _simulation.handleAttackUnit(u, this);
-                    _remainingTurnsToReload = _reloadTime;
-                }
+                AttackRegion(ob);
             }
         }
 	}

@@ -11,7 +11,7 @@ namespace Yad.Board.Common {
 		UnitMCVData _mcvData;
 
 		public UnitMCV(ObjectID id, UnitMCVData ud, Position pos, Map map, Simulation sim )
-			: base(id, ud.TypeID, BoardObjectClass.UnitMCV, pos, map,sim) {
+			: base(id, ud.TypeID,null, BoardObjectClass.UnitMCV, pos, map,sim,0,ud.__DamageDestroyRange,ud.__DamageDestroy) {
 			_mcvData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;

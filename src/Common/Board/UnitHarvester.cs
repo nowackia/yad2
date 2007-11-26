@@ -12,7 +12,7 @@ namespace Yad.Board.Common {
 		UnitHarvesterData _harvesterData;	
 
 		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, Simulation sim,int speed)
-			: base(id, ud.TypeID, BoardObjectClass.UnitHarvester, pos, map,sim) {
+			: base(id, ud.TypeID,null, BoardObjectClass.UnitHarvester, pos, map,sim,0,ud.__DamageDestroyRange,ud.__DamageDestroy) {
 			_harvesterData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;

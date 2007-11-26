@@ -9,7 +9,7 @@ namespace Yad.Board.Common {
 		UnitSandwormData _sandwormData;
 
 		public UnitSandworm(ObjectID id, UnitSandwormData ud, Position pos, Map map, Simulation sim, int speed)
-			: base(id, ud.TypeID, Yad.Config.BoardObjectClass.UnitSandworm, pos, map,sim) {
+			: base(id, ud.TypeID,null, Yad.Config.BoardObjectClass.UnitSandworm, pos, map,sim,0,0,0) {
 			_sandwormData = ud;
 			this.Speed = ud.Speed;
             this.MaxHealth = this.Health = ud.__Health;

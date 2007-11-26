@@ -14,7 +14,7 @@ namespace Yad.Config {
 
 		private GameSettings gameSettings;
         public Dictionary<String, short> namesToIds = new Dictionary<string, short>();
-		public Dictionary<short, AmmoData> ammosMap = new Dictionary<short, AmmoData>();
+		//public Dictionary<short, AmmoData> ammosMap = new Dictionary<short, AmmoData>();
 		public Dictionary<short, BuildingData> buildingsMap = new Dictionary<short, BuildingData>();
 		public Dictionary<short, RaceData> racesMap = new Dictionary<short, RaceData>();
 		public Dictionary<short, UnitHarvesterData> harvestersMap = new Dictionary<short, UnitHarvesterData>();
@@ -36,11 +36,11 @@ namespace Yad.Config {
 
 		private void GameSettingsInitializer(GameSettings gameSettings) {
 
-			foreach (AmmoData ad in gameSettings.AmmosData.AmmoDataCollection) {
+			/*foreach (AmmoData ad in gameSettings.AmmosData.AmmoDataCollection) {
 				ad.TypeID = GetTypeID();
                 namesToIds.Add(ad.Name, ad.TypeID);
                 ammosMap.Add(ad.TypeID, ad);
-			}
+			}*/
 
 			foreach (BuildingData bd in gameSettings.BuildingsData.BuildingDataCollection) {
 				bd.TypeID = GetTypeID();
@@ -85,9 +85,9 @@ namespace Yad.Config {
 			}
 		}
 
-		public AmmoDataCollection Ammos {
+		/*public AmmoDataCollection Ammos {
 			get { return this.gameSettings.AmmosData.AmmoDataCollection; }
-		}
+		}*/
 
 		public BuildingDataCollection Buildings {
 			get { return this.gameSettings.BuildingsData.BuildingDataCollection; }
