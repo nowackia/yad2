@@ -66,7 +66,7 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
-			_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
+				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
 
 
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
@@ -114,7 +114,9 @@ namespace Yad.UI.Client {
 		void Simulation_OnBuildingCompleted(Building b) {
 			//this.rightStripe.RemovePercentCounter(buildingType);
 			//TODO: add building type, update tech-tree
-			AddBuildingToStripe(b.ObjectID, b.TypeID);
+			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+				AddBuildingToStripe(b.ObjectID, b.TypeID);
+			}
 		}
 		#endregion
 
@@ -289,18 +291,8 @@ namespace Yad.UI.Client {
 		        PlaceBuilding((short)id);
 		}
 
-		private void UpdateCredits(short id) {
-			if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
-				creditsPictureBox.Value -= GlobalSettings.Wrapper.buildingsMap[id].Cost;
-			} else if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id)) {
-				creditsPictureBox.Value -= GlobalSettings.Wrapper.harvestersMap[id].Cost;
-			} else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(id)) {
-				creditsPictureBox.Value -= GlobalSettings.Wrapper.mcvsMap[id].Cost;
-			} else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id)) {
-				creditsPictureBox.Value -= GlobalSettings.Wrapper.tanksMap[id].Cost;
-			} else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id)) {
-				creditsPictureBox.Value -= GlobalSettings.Wrapper.troopersMap[id].Cost;
-			}
+		private void UpdateCredits(int cost) {
+			creditsPictureBox.Value -= cost;
 
 			//strip's update
 			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
