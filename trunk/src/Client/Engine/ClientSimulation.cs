@@ -22,13 +22,12 @@ namespace Yad.Engine.Client {
 	/// </summary>
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
 		MessageTurnAsk tam = new MessageTurnAsk();
-		private int power = Settings.Default.PowerAtStart;
 		#region events
 		public delegate void BuildingHandler (Building b);
 		public delegate void UnitHandler (Unit u);
-		public delegate void OnLowPowerHandler();
-		public delegate void OnNoPowerHandler();
-		public delegate void OnCreditsHandler(short id);
+		public delegate void OnLowPowerHandler(Player p);
+		public delegate void OnNoPowerHandler(Player p);
+		public delegate void OnCreditsHandler(int cost);
 
 		public event OnCreditsHandler OnCreditsUpdate;
 		public event OnLowPowerHandler OnLowPowerResources;
@@ -50,6 +49,7 @@ namespace Yad.Engine.Client {
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
 				p.Credits = Settings.Default.CreditsAtStart;
+				p.Power = Settings.Default.PowerAtStart;
 				players.Add(p.Id, p);
 			}
 
@@ -81,11 +81,11 @@ namespace Yad.Engine.Client {
 
 			Player p = players[b.ObjectID.PlayerID];
 			p.AddBuilding(b);
-			p.Credits -= GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost;
+			p.Credits -= b.BuildingData.Cost;
 
             OnBuildingCompleted(b);
-			UpdatePowerManagement(b.TypeID);
-			OnCreditsUpdate(b.TypeID);
+			UpdatePowerManagement(b);
+			OnCreditsUpdate(b.BuildingData.Cost);
 		}
 
 		protected override void onMessageMove(MoveMessage gm)
@@ -255,24 +255,21 @@ namespace Yad.Engine.Client {
 		}
 
 
-		internal void UpdatePowerManagement(short id) {
-			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings) {
-				if(b.TypeID == id){
-					power -= b.EnergyConsumption;
-					if (power < Settings.Default.PowerLowBorder)
-						OnLowPowerResources();
-					else if (power < 0)
-						OnNoPowerResources();
-						
-				}
+		internal void UpdatePowerManagement(Building b) {
+			Player p = players[b.ObjectID.PlayerID];
+			p.Power -= b.BuildingData.EnergyConsumption;
+			if (p.Power < Settings.Default.PowerLowBorder) {
+				OnLowPowerResources(p);
+			} else if (p.Power < 0) {
+				OnNoPowerResources(p);
 			}
 		}
 
-		void ClientSimulation_OnLowPowerResources() {
+		void ClientSimulation_OnLowPowerResources(Player p) {
 			//TODO: Stub metody do obsluzenia sytuacji kiedy jest malo energii
 		}
 
-		void ClientSimulation_OnNoPowerResources() {
+		void ClientSimulation_OnNoPowerResources(Player p) {
 			//TODO: Stub metody do obsluzenia sytuacji kiedy zapotrzebowanie na energie przekroczylo jej produkcje
 		}
 
