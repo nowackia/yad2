@@ -18,11 +18,12 @@ namespace Yad.UI.Client
     public delegate void ManageComboBoxItemsEventHandlerDefaultItem(ComboBox comboBox, Array array, object defaultItem);
     public delegate void UpdateComboBoxEventHandler(ComboBox comboBox, object updateObject);
     public delegate void ManageListBoxEventHandler(ListBox listBox, object[] objects, bool reset);
-    public delegate void RemoveListBoxEventHandler(ListBox listBox, object removeObject);
+    public delegate void RemoveListBoxMonoEventHandler(ListBox listBox, object removeObject);
+    public delegate void RemoveListBoxEventHandler(ListBox listBox, object[] removeObjects);
     public delegate object GetListBoxSelectedItemEventHandler(ListBox listBox);
     public delegate void ManageDataGridViewEventHandler(DataGridView gridView, object[] objects, bool reset);
-    public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object removeObject);
-    public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObject);
+    public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object[] removeObjects);
+    public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObjects);
 
     public class UIManager
     {
