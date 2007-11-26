@@ -125,9 +125,15 @@ namespace Yad.UI.Client
                 listBox.Items.Add(objects[i]);
         }
 
-        public void RemoveListBox(ListBox listBox, object removeObject)
+        public void RemoveListBoxMono(ListBox listBox, object removeObject)
         {
             listBox.Items.Remove(removeObject);
+        }
+
+        public void RemoveListBox(ListBox listBox, object[] removeObject)
+        {
+            for(int i = 0; i < removeObject.Length; i++)
+                listBox.Items.Remove(removeObject[i]);
         }
 
         public object GetListBoxSelectedItem(ListBox listBox)
@@ -156,18 +162,21 @@ namespace Yad.UI.Client
             }
         }
 
-        public void RemoveDataGridView(DataGridView gridView, object removeObject)
+        public void RemoveDataGridView(DataGridView gridView, object[] removeObjects)
         {
-            PlayerInfo playerInfoObject = removeObject as PlayerInfo;
-
-            for (int i = 0; i < gridView.Rows.Count; i++)
+            for (int i = 0; i < removeObjects.Length; i++)
             {
-                DataGridViewRow row = dataGridViewPlayers.Rows[i];
+                PlayerInfo playerInfoObject = removeObjects[i] as PlayerInfo;
 
-                if ((short)row.Cells[0].Value == playerInfoObject.Id)
+                for (int j = 0; i < gridView.Rows.Count; j++)
                 {
-                    gridView.Rows.RemoveAt(i);
-                    break;
+                    DataGridViewRow row = dataGridViewPlayers.Rows[j];
+
+                    if ((short)row.Cells[0].Value == playerInfoObject.Id)
+                    {
+                        gridView.Rows.RemoveAt(j);
+                        break;
+                    }
                 }
             }
         }
@@ -642,25 +651,28 @@ namespace Yad.UI.Client
             if (InvokeRequired) gameInfo = (GameInfo)this.Invoke(new GetListBoxSelectedItemEventHandler(GetListBoxSelectedItem), new object[] { listOfGames });
             else gameInfo = (GameInfo)GetListBoxSelectedItem(listOfGames);
 
-            if (gameInfo == e.games[0])
+            for (int i = 0; i < e.games.Length; i++)
             {
+                if (gameInfo == e.games[i])
+                {
+                    if (InvokeRequired)
+                    {
+                        this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameName, string.Empty });
+                        this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameDescription, string.Empty });
+
+                    }
+                    else
+                    {
+                        ManageControlText(textBoxTBGameName, string.Empty);
+                        ManageControlText(textBoxTBGameDescription, string.Empty);
+                    }
+                }
+
                 if (InvokeRequired)
-                {
-                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameName, string.Empty });
-                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { textBoxTBGameDescription, string.Empty });
-
-                }
+                    this.Invoke(new RemoveListBoxMonoEventHandler(RemoveListBoxMono), new object[] { listOfGames, e.games[i] });
                 else
-                {
-                    ManageControlText(textBoxTBGameName, string.Empty);
-                    ManageControlText(textBoxTBGameDescription, string.Empty);
-                }
+                    RemoveListBoxMono(listOfGames, e.games[i]);
             }
-
-            if (InvokeRequired)
-                this.Invoke(new RemoveListBoxEventHandler(RemoveListBox), new object[] { listOfGames, e.games[0] });
-            else
-                RemoveListBox(listOfGames, e.games[0]);
         }
 
         void menuMessageHandler_JoinGameRequestReply(object sender, RequestReplyEventArgs e)
@@ -876,58 +888,60 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
             if (InvokeRequired)
-                this.Invoke(new RemoveDataGridViewEventHandler(RemoveDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
+                this.Invoke(new RemoveDataGridViewEventHandler(RemoveDataGridView), new object[] { dataGridViewPlayers, e.players });
             else
-                RemoveDataGridView(dataGridViewPlayers, e.players[0]);
+                RemoveDataGridView(dataGridViewPlayers, e.players);
         }
 
         void menuMessageHandler_UpdatePlayers(object sender, PlayerEventArgs e)
         {
             InfoLog.WriteInfo("Players Event", EPrefix.UIManager);
 
-            if (e.players[0].Id == ClientPlayerInfo.SenderId)
+            for (int i = 0; i < e.players.Length; i++)
             {
-                Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu ,changeWaitingForPlayersMenu, startWaitingForPlayersMenu };
-
-                string infoText = "Login: " + e.players[0].Name + Environment.NewLine
-                                + "House: " + GlobalSettings.Instance.GetHouseName(e.players[0].House) + Environment.NewLine
-                                + "TeamID: " + e.players[0].TeamID.ToString();
-
-                /* Modify current player */
-                if (InvokeRequired)
+                if (e.players[i].Id == ClientPlayerInfo.SenderId)
                 {
-                    /* Update controls */
-                    this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, new ItemValue(e.players[0].House, string.Empty) });
-                    this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[0].TeamID });
-                    this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { colorWaitingForPlayersMenu, e.players[0].Color });
-                    /* Set Information */
-                    this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { infoLWaitingForPlayersMenu, infoText });
-                    this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { infoColorWaitingForPlayersMenu, e.players[0].Color });
-                    /* Enable controls */
-                    this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                    Control[] controls = new Control[] { houseCBWaitingForPlayersMenu, teamCBWaitingForPlayersMenu, colorWaitingForPlayersMenu, changeWaitingForPlayersMenu, startWaitingForPlayersMenu };
+
+                    string infoText = "Login: " + e.players[i].Name + Environment.NewLine
+                                    + "House: " + GlobalSettings.Instance.GetHouseName(e.players[i].House) + Environment.NewLine
+                                    + "TeamID: " + e.players[i].TeamID.ToString();
+
+                    /* Modify current player */
+                    if (InvokeRequired)
+                    {
+                        /* Update controls */
+                        this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, new ItemValue(e.players[i].House, string.Empty) });
+                        this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[i].TeamID });
+                        this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { colorWaitingForPlayersMenu, e.players[i].Color });
+                        /* Set Information */
+                        this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { infoLWaitingForPlayersMenu, infoText });
+                        this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { infoColorWaitingForPlayersMenu, e.players[i].Color });
+                        /* Enable controls */
+                        this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+                    }
+                    else
+                    {
+                        /* Update controls */
+                        UpdateComboBox(houseCBWaitingForPlayersMenu, new ItemValue(e.players[i].House, string.Empty));
+                        UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[i].TeamID);
+                        ManageControlBackColor(colorWaitingForPlayersMenu, e.players[i].Color);
+                        /* Set Information */
+                        ManageControlText(infoLWaitingForPlayersMenu, infoText);
+                        ManageControlBackColor(infoColorWaitingForPlayersMenu, e.players[i].Color);
+                        /* Enable controls */
+                        ManageControlState(controls, true);
+                    }
                 }
                 else
                 {
-                    /* Update controls */
-                    UpdateComboBox(houseCBWaitingForPlayersMenu, new ItemValue(e.players[0].House, string.Empty));
-                    UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[0].TeamID);
-                    ManageControlBackColor(colorWaitingForPlayersMenu, e.players[0].Color);
-                    /* Set Information */
-                    ManageControlText(infoLWaitingForPlayersMenu, infoText);
-                    ManageControlBackColor(infoColorWaitingForPlayersMenu, e.players[0].Color);
-                    /* Enable controls */
-                    ManageControlState(controls, true);
+                    /* Modify different player */
+                    if (InvokeRequired)
+                        this.Invoke(new UpdateDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[i] });
+                    else
+                        UpdateDataGridView(dataGridViewPlayers, e.players[i]);
                 }
             }
-            else
-            {
-                /* Modify different player */
-                if (InvokeRequired)
-                    this.Invoke(new RemoveDataGridViewEventHandler(UpdateDataGridView), new object[] { dataGridViewPlayers, e.players[0] });
-                else
-                    UpdateDataGridView(dataGridViewPlayers, e.players[0]);
-            }
-
         }
 
         void menuMessageHandler_StartGameRequestReply(object sender, RequestReplyEventArgs e)
