@@ -31,7 +31,7 @@ namespace Yad.UI.Client
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabControl = new MenuTabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.newGameMainMenu = new System.Windows.Forms.Button();
@@ -1495,7 +1495,7 @@ namespace Yad.UI.Client
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl;
+        private MenuTabControl tabControl;
         private System.Windows.Forms.TabPage mainMenu;
         private System.Windows.Forms.TabPage loginMenu;
         private System.Windows.Forms.TabPage registerMenu;
