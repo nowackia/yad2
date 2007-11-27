@@ -49,6 +49,10 @@ namespace Yad.Board.Common {
             destroyed
         }
 
+        public UnitState State {
+            get { return state; }
+        }
+
         private short ammoDamageRange = 0;
 
         public short AmmoDamageRange {
@@ -70,11 +74,36 @@ namespace Yad.Board.Common {
 		protected Map _map;
         protected Simulation _simulation;
 		bool _alreadyOnMap = false;
-
-		//TODO : RS implement some base AI?
 		public virtual void Destroy() {
-			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
             state = UnitState.destroyed;
+			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
+            
+            Position p = this.Position;
+            int count;
+            Position[] viewSpiral = RangeSpiral(this.DamageDestroyRange, out count);
+            for (int i = 0; i < count; ++i) {
+
+                Position spiralPos = viewSpiral[i];
+                if (p.X + spiralPos.X >= 0
+                    && p.X + spiralPos.X < _map.Width
+                    && p.Y + spiralPos.Y >= 0
+                    && p.Y + spiralPos.Y < _map.Height) {
+
+                    ICollection<Unit> units = _map.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    Unit [] unitsArr = new Unit[units.Count];
+                    units.CopyTo(unitsArr, 0);
+                    foreach (Unit unit in unitsArr) {
+                        _simulation.handleAttackUnit(unit, this,this._damageDestroy);
+                    }
+
+                    ICollection<Building> buildings = _map.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    Building[] buildingsArr = new Building[buildings.Count];
+                    buildings.CopyTo(buildingsArr, 0);
+                    foreach (Building building in buildingsArr) {
+                        _simulation.handleAttackBuilding(building, this, this._damageDestroy);
+                    }
+                }
+            }
 		}
 
 
@@ -423,6 +452,9 @@ namespace Yad.Board.Common {
 			this._lastPosition = pos;
 			this._direction = Direction.North;
 			this._currentPath = new Queue<Position>();
+            this._damageDestroy = damageDestroy;
+            this.damageDestroyRange = damageDestroyRange;
+            this.ammoDamageRange = ammoDamageRange;
             
             if(ammo=="Bullet"){
                 this._ammoType = AmmoType.Bullet;

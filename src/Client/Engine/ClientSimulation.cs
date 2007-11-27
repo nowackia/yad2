@@ -156,7 +156,7 @@ namespace Yad.Engine.Client {
 			players[cum.IdPlayer].AddUnit(u);
 
             OnUnitCompleted(u);
-		}
+		} 
 
         
 
@@ -190,12 +190,7 @@ namespace Yad.Engine.Client {
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
         public override void handleAttackUnit(Unit attacked, Unit attacker) {
-            attacked.Health -= attacker.FirePower;
-            if (attacked.Health <= 0) {
-                InfoLog.WriteInfo("destroying unit ", EPrefix.SimulationInfo);
-                destroyUnit(attacked);
-				OnUnitDestroyed(attacked);
-            }
+           handleAttackUnit(attacked,attacker, attacker.FirePower);
         }
         /// <summary>
         /// handles attack - counts damage, destroy building
@@ -203,29 +198,66 @@ namespace Yad.Engine.Client {
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
         public override void handleAttackBuilding(Building attacked, Unit attacker) {
-            attacked.Health -= attacker.FirePower;
-            if (attacked.Health <= 0) {
-                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
-                destroyBuilding(attacked);
-				OnBuildingDestroyed(attacked);
-            }
+            handleAttackBuilding(attacked,attacker, attacker.FirePower);
         }
 
         public override void handleAttackBuilding(Building attacked, Building attacker) {
-            attacked.Health -= attacker.BuildingData.FirePower;
-            if (attacked.Health <= 0) {
-                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
-                destroyBuilding(attacked);
-				OnBuildingDestroyed(attacked);
-            }
+            handleAttackBuilding(attacked,attacker, attacker.BuildingData.FirePower);
         }
 
         public override void handleAttackUnit(Unit attacked, Building attacker) {
-            attacked.Health -= attacker.BuildingData.FirePower;
+            handleAttackUnit(attacked,attacker, attacker.BuildingData.FirePower);
+        }
+
+        public override void handleAttackUnit(Unit attacked, Unit attacker, short count) {
+            if (attacked.State == Unit.UnitState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= count;
             if (attacked.Health <= 0) {
                 InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
                 destroyUnit(attacked);
-				OnUnitDestroyed(attacked);
+                OnUnitDestroyed(attacked);
+            }
+        }
+
+        public override void handleAttackBuilding(Building attacked, Unit attacker, short count) {
+            if (attacked.State == Building.BuildingState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= count;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyBuilding(attacked);
+                OnBuildingDestroyed(attacked);
+            }
+        }
+
+        public override void handleAttackBuilding(Building attacked, Building attacker, short count) {
+            if (attacked.State == Building.BuildingState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= count;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyBuilding(attacked);
+                OnBuildingDestroyed(attacked);
+            }
+        }
+
+        public override void handleAttackUnit(Unit attacked, Building attacker, short count) {
+            if (attacked.State == Unit.UnitState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= count;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying unit ", EPrefix.SimulationInfo);
+                destroyUnit(attacked);
+                OnUnitDestroyed(attacked);
             }
         }
 
@@ -302,5 +334,7 @@ namespace Yad.Engine.Client {
 		public Player GetPlayer(short id) {
 			return this.players[id];
 		}
-	}
+
+        
+    }
 }
