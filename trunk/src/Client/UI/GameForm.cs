@@ -23,6 +23,7 @@ using Yad.Utilities.Common;
 using Yad.Properties;
 using Yad.Properties.Client;
 using Yad.Engine;
+using Yad.UI.Common;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -35,6 +36,7 @@ namespace Yad.UI.Client {
 		Position _selectionStart;
 		Position _selectionEnd;
 		GameLogic _gameLogic;
+        bool gameFormClose;
         /// <summary>
         /// Dictionary of bulding id -> List of items that can be build in that building
         /// </summary>
@@ -51,7 +53,7 @@ namespace Yad.UI.Client {
         private BuildManager _buildManager;
 		#endregion
 
-		#region constructor
+		#region Constructor
 		public GameForm() {
 			try {
                 
@@ -59,7 +61,7 @@ namespace Yad.UI.Client {
 
 				InitializeComponent();
 
-				this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+                this.gameFormClose = false;
 				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
 				_gameLogic = new GameLogic();
@@ -68,9 +70,7 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
 
-
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
-				//leftStripe.onUnitChosen //there should be no units there...
 				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
 
@@ -98,7 +98,6 @@ namespace Yad.UI.Client {
                 _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
                 GameMessageHandler.Instance.Resume();
 
-                //CreateBuildingButtonsOnStripe();
 			} catch (Exception e) {
 				Console.Out.WriteLine(e);
 				MessageBox.Show(e.ToString());
@@ -107,7 +106,9 @@ namespace Yad.UI.Client {
 
         void Simulation_GameEnd(int winTeamId)
         {
-            /* Sending message to sever */
+            InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
+
+            /* Sending message to server */
             bool isWinner = false;
 
             if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
@@ -116,10 +117,25 @@ namespace Yad.UI.Client {
             GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
             gameEndMessage.HasWon = isWinner;
 
+            /* Managing the UI */
+            MainMenuForm mainMenuForm = FormPool.GetForm(Views.MainMenuForm) as MainMenuForm;
+            if (mainMenuForm != null)
+                mainMenuForm.MenuMessageHandler.Suspend();
+
+            Connection.Instance.MessageHandler = mainMenuForm.MenuMessageHandler;
             Connection.Instance.SendMessage(gameEndMessage);
 
-            /* Managing the UI */
-            //TODO (AN) Managing the UI
+            MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            this.GameFormClose = true;
+            if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
+            else this.Close();
+
+            if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.GameFormToChat });
+            else OnMenuOptionChange(MenuOption.GameFormToChat);
+
+            if (mainMenuForm != null)
+                mainMenuForm.MenuMessageHandler.Resume();
         }
 
         void Simulation_BuildingDestroyed(Building b) {
@@ -129,7 +145,7 @@ namespace Yad.UI.Client {
         }
 		#endregion
 
-		#region simulation events handling
+		#region Simulation events handling
 		void Simulation_onTurnEnd() {
 			this.openGLView.Invalidate();
 		}
@@ -147,14 +163,18 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
-		#region form events
+		#region Form events
+        public bool GameFormClose
+        {
+            get
+            { return gameFormClose; }
+            set
+            { gameFormClose = value; }
+        }
+
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			OnMenuOptionChange(MenuOption.Options);
-			e.Cancel = true;
-		}
-
-		void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
-			OnMenuOptionChange(MenuOption.Options);
+            e.Cancel = !this.gameFormClose;
 		}
 		#endregion
 
@@ -169,14 +189,12 @@ namespace Yad.UI.Client {
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
-			//InfoLog.WriteInfo("Resizing...", EPrefix.UIManager);
-
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
 
 		#endregion
 
-		#region ui control
+		#region UI control
 		private void openGLView_KeyDown(object sender, KeyEventArgs e) {
 			InfoLog.WriteInfo(e.KeyCode.ToString());
 			if (e.KeyCode == Keys.Z) {
@@ -306,7 +324,7 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
-		#region stripes-related
+		#region Stripes-related
 		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
             _buildManager.RightBuildingClick(id);

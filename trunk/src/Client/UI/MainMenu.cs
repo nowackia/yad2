@@ -24,6 +24,7 @@ namespace Yad.UI.Client
     {
         private Dictionary<Views, TabPage> views = new Dictionary<Views, TabPage>();
         private Views lastView;
+        private MenuMessageHandler menuMessageHandler;
 
         public MainMenuForm()
         {
@@ -51,7 +52,8 @@ namespace Yad.UI.Client
             #endregion
 
             #region MenuMessageHandler Settings
-            MenuMessageHandler menuMessageHandler = new MenuMessageHandler();
+            menuMessageHandler = new MenuMessageHandler();
+            menuMessageHandler.Suspend();
 
             menuMessageHandler.LoginRequestReply += new RequestReplyEventHandler(menuMessageHandler_LoginRequestReply);
             menuMessageHandler.RegisterRequestReply += new RequestReplyEventHandler(menuMessageHandler_RegisterRequestReply);
@@ -81,10 +83,17 @@ namespace Yad.UI.Client
             menuMessageHandler.StartGameRequestReply += new RequestReplyEventHandler(menuMessageHandler_StartGameRequestReply);
 
             Connection.Instance.MessageHandler = menuMessageHandler;
+            menuMessageHandler.Resume();
             #endregion
         }
 
         #region Controls managment
+        public MenuMessageHandler MenuMessageHandler
+        {
+            get { return menuMessageHandler; }
+            set { menuMessageHandler = value; }
+        }
+
         public Views LastView
         {
             get { return lastView; }
@@ -96,8 +105,11 @@ namespace Yad.UI.Client
             TabPage page = views[view];
             if (page == null)
                 throw new NotImplementedException("View " + view + " not exist");
-
-            this.tabControl.SelectTab(page.Name);
+            
+            if(this.InvokeRequired)
+                this.Invoke(new SelectTabEventHandler(tabControl.SelectTab), new object[] { page.Name });
+            else
+                tabControl.SelectTab(page.Name);
         }
 
         public void ResetMapFileNames(ListBox listBox)

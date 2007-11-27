@@ -24,7 +24,7 @@ namespace Yad.Net.Client
         }
     }
 
-    public class GameMessageHandler : IMessageHandler
+    public class GameMessageHandler : IMessageHandler, ISuspender
     {
         /// <summary>
         /// Event excecuted on game initialization message.

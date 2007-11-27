@@ -15,8 +15,6 @@ namespace Yad.UI.Client {
 
         static FormPool() {
             UIManageable form = null;
-            //form = new GameForm();
-            //pool.Add(Views.GameForm, form);
 
             form = new MainMenuForm();
             InitMainMenu(form);
@@ -36,11 +34,12 @@ namespace Yad.UI.Client {
             pool.Add(Views.PauseForm, form);
             pool.Add(Views.GameMenuForm, form);
         }
-        public static UIManageable createForm(Views view) {
+
+        public static UIManageable GetForm(Views view) {
             UIManageable form = null;
             if (pool.ContainsKey(view)) {
                 form = pool[view];
-                form = initForm(form, view);
+                form = InitForm(form, view);
                 return form;
             }
             switch (view) {
@@ -68,13 +67,15 @@ namespace Yad.UI.Client {
             return form;
         }
 
+
+
         /// <summary>
-        /// inits form into proper form - set groupbox name
+        /// Inits form into proper form - set groupbox name
         /// </summary>
         /// <param name="form"></param>
         /// <param name="initInto"></param>
         /// <returns></returns>
-        public static UIManageable initForm(UIManageable form, Views initInto) {
+        public static UIManageable InitForm(UIManageable form, Views initInto) {
             switch (initInto) {
                 case Views.MainMenuForm:
                     ((MainMenuForm)form).SwitchToTab(initInto);
