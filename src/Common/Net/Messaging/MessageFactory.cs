@@ -51,8 +51,10 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.DoTurn:
                     return new DoTurnMessage();
+
                 case MessageType.PlayerDisconnected:
                     return new GameNumericMessage(MessageType.PlayerDisconnected);
+
                 case MessageType.EndGame:
                     return new GameEndMessage();
                 #endregion

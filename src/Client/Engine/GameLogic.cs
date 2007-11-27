@@ -28,9 +28,11 @@ namespace Yad.Engine.Client {
 		#region events
 		public delegate void NewUnitDelegate(string name, short key);
 		public delegate void BadLocationHandler();
+        public delegate void GameEndHandler(int winTeamId);
 
 		public event NewUnitDelegate OnNewUnit;
 		public event BadLocationHandler OnBadLocation;
+        public event GameEndHandler GameEnd;
 		#endregion
 
 		#region private members
@@ -60,10 +62,12 @@ namespace Yad.Engine.Client {
 			_sim = new ClientSimulation(map);
 
 			//pobranie obiektu aktualnego gracza z symulacji - do obsługi w GameLogic
-			_currentPlayer = _sim.getPlayer(ClientPlayerInfo.Player.Id);
+			_currentPlayer = _sim.GetPlayer(ClientPlayerInfo.Player.Id);
 
 			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
 
+            _sim.BuildingDestroyed += new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
+            _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
 		}
 
 		void _sim_OnBuildingCompleted(Building b) {
@@ -74,12 +78,18 @@ namespace Yad.Engine.Client {
 			}
 		}
 
+        void _sim_UnitDestroyed(Unit u) {
+            this.CheckGameEndCondition();
+        }
+
+        void _sim_BuildingDestroyed(Building b) {
+            this.CheckGameEndCondition();
+        }
 		#endregion
 
 		#region message handling
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PlayerInfo pi = ClientPlayerInfo.Player;
-			//_currPlayer = new Player(pi.
 			PositionData[] aPd = e.gameInitInfo;
 			
 			foreach (PositionData pd in aPd) {
@@ -296,6 +306,41 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
+
+        /// <summary>
+        /// Checks if the game has ended - if any team has any objects left on map
+        /// </summary>
+        public void CheckGameEndCondition()
+        {
+            int[] teamGameObjectCount = new int[_sim.TeamCount];
+
+            ICollection<Player> playerColl = _sim.GetPlayers();
+
+            int index = 0;
+            foreach (Player player in playerColl)
+                teamGameObjectCount[index++] += player.GameObjectsCount;
+
+            short anyObjectOwningTeamsCount = 0;
+            short anyObjectOwningTeamId = 0;
+
+            for (int i = 0; i < teamGameObjectCount.Length; i++)
+            {
+                if (teamGameObjectCount[i] != 0)
+                    anyObjectOwningTeamsCount += 1;
+
+                /* Two or more teams still fighting */
+                if (anyObjectOwningTeamsCount > 1)
+                    break;
+            }
+
+            /* Only one team left */
+            if (playerColl.Count > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null)
+                GameEnd(anyObjectOwningTeamId);
+
+            /* No teams left */
+            if (playerColl.Count == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null)
+                GameEnd(anyObjectOwningTeamId);
+        }
 
 		private bool checkBuildingPosition(Position pos, short buildingTypeId) {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingTypeId];

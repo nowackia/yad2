@@ -98,6 +98,11 @@ namespace Yad.Engine.Common {
             return null;
 		}
 
+        public int GameObjectsCount {
+            get {
+                return (_buildings.Count + _units.Count); }
+        }
+
 		public int Credits {
 			get { return _credits; }
 			set { _credits = value; }

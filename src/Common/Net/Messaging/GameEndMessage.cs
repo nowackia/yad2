@@ -10,9 +10,7 @@ namespace Yad.Net.Messaging.Common {
             get { return _hasWon; }
             set { _hasWon = value; }
         }
-
-       
-
+   
         public GameEndMessage()
             : base(MessageType.EndGame) {
         }
@@ -26,7 +24,5 @@ namespace Yad.Net.Messaging.Common {
             base.Serialize(writer);
             writer.Write(_hasWon);
         }
-
-
     }
 }
