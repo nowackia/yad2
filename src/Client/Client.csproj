@@ -144,6 +144,9 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MenuOption.cs" />
+    <Compile Include="UI\MenuTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\MiniForm.cs">
       <SubType>Form</SubType>
     </Compile>
