@@ -110,6 +110,8 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageAttack", EPrefix.SimulationInfo);
             // set attacked object in attacker unit
             Unit attacker = players[am.Attacker.PlayerID].GetUnit(am.Attacker);
+            if (attacker == null) return;
+            
             Player p = players[am.Attacked.PlayerID];
             BoardObject b;
             bool isBuilding = false;
