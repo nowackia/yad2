@@ -264,17 +264,20 @@ namespace Yad.Engine.Common {
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
         public abstract void handleAttackUnit(Unit attacked, Unit attacker);
+        public abstract void handleAttackUnit(Unit attacked, Unit attacker, short count);
         /// <summary>
         /// handles attack - counts damage, destroy building
         /// </summary>
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
         public abstract void handleAttackBuilding(Building attacked, Unit attacker);
+        public abstract void handleAttackBuilding(Building attacked, Unit attacker, short count);
 
         public abstract void handleAttackBuilding(Building attacked, Building attacker);
+        public abstract void handleAttackBuilding(Building attacked, Building attacker, short count);
 
         public abstract void handleAttackUnit(Unit attacked, Building attacker);
-
+        public abstract void handleAttackUnit(Unit attacked, Building attacker, short count);
 		#endregion
 
 		#region protected methods
