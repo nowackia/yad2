@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Tao.Platform.Windows;
-using System.IO;
 using Yad.Log;
 using Yad.Log.Common;
 using Yad.Config.XMLLoader.Common;
@@ -64,6 +64,8 @@ namespace Yad.UI.Client {
                 this.gameFormClose = false;
 				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
+                Connection.Instance.ConnectionLost += new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
+
 				_gameLogic = new GameLogic();
 				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
@@ -103,6 +105,13 @@ namespace Yad.UI.Client {
 				MessageBox.Show(e.ToString());
 			}
 		}
+
+        void ConnectionInstance_ConnectionLost(object sender, EventArgs e)
+        {
+            GameFormClose = true;
+            if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
+            else this.Close();
+        }
 
         void Simulation_GameEnd(int winTeamId)
         {
