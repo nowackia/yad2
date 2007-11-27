@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Yad.UI.Client {
     public enum MenuOption {
+        MainMenu,
         Exit,
         Ok,
         OkToGameMenu,
@@ -22,6 +23,7 @@ namespace Yad.UI.Client {
         Create,
         StartGame,
         Pause,
-        Continue
+        Continue,
+        GameFormToChat
     }
 }

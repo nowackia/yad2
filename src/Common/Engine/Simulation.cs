@@ -326,7 +326,6 @@ namespace Yad.Engine.Common {
 			this.turnProcessor.Abort();
 		}
 
-
 		public int CurrentTurn {
 			get {
 				lock (turns.SyncRoot) {

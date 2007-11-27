@@ -10,6 +10,7 @@ using Yad.Net.Common;
 
 namespace Yad.UI.Client
 {
+    public delegate void SelectTabEventHandler(String tabName);
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ManageControlTextEventHandler(Control control, string text);
     public delegate void ManageControlBackColorEventHandler(Control control, Color backColor);
@@ -31,6 +32,7 @@ namespace Yad.UI.Client
         UIManageable actualForm;
         private MenuEventHandler menuEventHandler = null;
         MiniForm mainForm;
+
         public UIManager(MiniForm mainForm)
         {
             actualView = Views.MainMenuForm;
@@ -45,7 +47,7 @@ namespace Yad.UI.Client
 
         private void ThreadStartFunction()
         {
-            actualForm = FormPool.createForm(Views.MainMenuForm);
+            actualForm = FormPool.GetForm(Views.MainMenuForm);
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
@@ -61,6 +63,13 @@ namespace Yad.UI.Client
         void form_optionChoosed(MenuOption option)
         {
             InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + option, EPrefix.UIManager);
+
+            if (option == MenuOption.MainMenu)
+            {
+                switchView(Views.MainMenuForm);
+                return;
+            }
+
             switch (actualView)
             {
                 case Views.MainMenuForm:
@@ -94,6 +103,7 @@ namespace Yad.UI.Client
                 case Views.GameForm:
                     ManageGameForm(option);
                     break;
+
                 case Views.CreateGameForm:
                     ManageCreateGameForm(option);
                     break;
@@ -241,7 +251,6 @@ namespace Yad.UI.Client
 
                 case MenuOption.Create:
                     switchView(Views.WaitingForPlayersForm);
-                    //TODO RS: inform form that player has admin rights.
                     break;
 
                 default:
@@ -283,7 +292,7 @@ namespace Yad.UI.Client
                     break;
 
                 default:
-                    throw new NotImplementedException("bad option from " + actualView + ": " + option);
+                    throw new NotImplementedException("Bad option from " + actualView + ": " + option);
             }
         }
 
@@ -305,6 +314,11 @@ namespace Yad.UI.Client
 
                 case MenuOption.Pause:
                     switchView(Views.PauseForm);
+                    break;
+
+                case MenuOption.GameFormToChat:
+                    switchView(Views.ChatForm);
+                    ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
                     break;
 
                 default:
@@ -340,12 +354,11 @@ namespace Yad.UI.Client
                 case MenuOption.Exit:
                     Stop();
                     break;
+
                 case MenuOption.NewGame:
                     switchView(Views.LoginForm);
                     break;
-                case MenuOption.Game:
-                    switchView(Views.GameForm, true);
-                    break;
+
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
                     ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
@@ -365,11 +378,14 @@ namespace Yad.UI.Client
         {
             if (hideLast)
                 actualForm.Hide();
+
             actualView = viewToSwitch;
-            actualForm = FormPool.createForm(viewToSwitch);
+            actualForm = FormPool.GetForm(viewToSwitch);
+
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
+
             if (actualForm.Visible == false)
                 actualForm.Show(mainForm);
 

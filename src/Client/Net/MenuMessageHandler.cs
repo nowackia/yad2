@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Yad.Log.Common;
 using Yad.Net.Client;
 using Yad.Net.Common;
@@ -88,7 +89,7 @@ namespace Yad.Net.Client
         }
     }
 
-    public class MenuMessageHandler : IMessageHandler
+    public class MenuMessageHandler : IMessageHandler, ISuspender
     {
         public event RequestReplyEventHandler LoginRequestReply;
         public event RequestReplyEventHandler RegisterRequestReply;
@@ -113,8 +114,21 @@ namespace Yad.Net.Client
         public event PlayersEventHandler UpdatePlayers;
         public event PlayersEventHandler ResetPlayers;
 
+        private Semaphore handlerSuspender = new Semaphore(1, 1);
+
+        public void Suspend()
+        {
+            handlerSuspender.WaitOne();
+        }
+
+        public void Resume()
+        {
+            handlerSuspender.Release();
+        }
+
         public void ProcessMessage(Message message)
         {
+            handlerSuspender.WaitOne();
             switch (message.Type)
             {
                 case MessageType.Result:
@@ -279,6 +293,7 @@ namespace Yad.Net.Client
                     InfoLog.WriteInfo("MenuMessageHandler received unknown message type: " + message.Type, EPrefix.ClientInformation);
                     break;
             }
+            handlerSuspender.Release();
         }
     }
 }
