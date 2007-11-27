@@ -22,10 +22,9 @@ namespace Yad.Net.Client
 
         private Connection()
         {
-            receiver = new MessageReceiver();
             sender = new MessageSender();
-            tcpClient = new TcpClient();
-            tcpClient.NoDelay = true;
+            receiver = new MessageReceiver();
+            receiver.ConnectionLost += new ConnectionLostEventHandler(receiver_ConnectionLost);
         }
 
         public static Connection Instance
@@ -44,51 +43,53 @@ namespace Yad.Net.Client
 
         public void InitConnection(string hostname, int port)
         {
-            if (tcpClient.Connected)
-                InfoLog.WriteInfo("Already connected", EPrefix.ClientInformation);
-            else
+            try
             {
-                try
-                {
-                    InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation);
-                    tcpClient.Connect(hostname, port);
-                    NetUtils.SetKeepAlive(tcpClient);
-                    InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
+                tcpClient = new TcpClient();
+                tcpClient.NoDelay = true;
 
-                    sender.Stream = tcpClient.GetStream();
-                    sender.Start();
-                    InfoLog.WriteInfo("Sender run succesfully", EPrefix.ClientInformation);
+                InfoLog.WriteInfo("Connecting to " + hostname + " on port " + port + " ...", EPrefix.ClientInformation);
+                tcpClient.Connect(hostname, port);
+                NetUtils.SetKeepAlive(tcpClient);
+                InfoLog.WriteInfo("Connected succesfully", EPrefix.ClientInformation);
 
-                    receiver.Stream = tcpClient.GetStream();
-                    receiver.Start();
-                }
-                catch (Exception ex)
-                {
-                    InfoLog.WriteException(ex);
-                    if (ex is SocketException)
-                        throw new Exception("Connection exception", ex);
-                }
+                sender.Stream = tcpClient.GetStream();
+                sender.Start();
+                InfoLog.WriteInfo("Sender run succesfully", EPrefix.ClientInformation);
+
+                receiver.Stream = tcpClient.GetStream();
+                receiver.Start();
+            }
+            catch (Exception ex)
+            {
+                InfoLog.WriteException(ex);
+                if (ex is SocketException)
+                    throw new Exception("Connection exception", ex);
             }
         }
        
         public bool Connected
         {
             get
-            { return tcpClient.Connected; }
+            {
+                if (tcpClient != null)
+                    return tcpClient.Connected;
+                else
+                    return false;
+            }
+        }
+
+        void receiver_ConnectionLost(object sender, EventArgs e)
+        {
+            //this.CloseConnection();
         }
 
         public event ConnectionLostEventHandler ConnectionLost
         {
             add
-            {
-                sender.ConnectionLost += value;
-                receiver.ConnectionLost += value;
-            }
+            { receiver.ConnectionLost += value; }
             remove
-            {
-                sender.ConnectionLost -= value;
-                receiver.ConnectionLost -= value;
-            }
+            { receiver.ConnectionLost -= value; }
         }
 
         public event MessageEventHandler MessageReceive
@@ -109,12 +110,11 @@ namespace Yad.Net.Client
 
         public void CloseConnection()
         {
-            if (tcpClient.Connected)
+            if (tcpClient != null && tcpClient.Connected)
             {
                 sender.Stop();
                 receiver.Stop();
                 tcpClient.Close();
-                tcpClient = new TcpClient();
             }
         }
 

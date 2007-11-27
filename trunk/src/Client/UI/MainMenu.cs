@@ -84,6 +84,8 @@ namespace Yad.UI.Client
 
             Connection.Instance.MessageHandler = menuMessageHandler;
             menuMessageHandler.Resume();
+
+            Connection.Instance.ConnectionLost += new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
             #endregion
         }
 
@@ -237,6 +239,15 @@ namespace Yad.UI.Client
         public void ManageControlBackColor(Control control, Color backColor)
         {
             control.BackColor = backColor;
+        }
+
+        void ConnectionInstance_ConnectionLost(object sender, EventArgs e)
+        {
+            MessageBoxEx.Show(this, "Connection with server lost", "Connection lost", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if(this.InvokeRequired)
+                this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.MainMenu });
+            else
+                OnMenuOptionChange(MenuOption.MainMenu);
         }
         #endregion
 

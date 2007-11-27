@@ -388,7 +388,6 @@ namespace Yad.UI.Client
 
             if (actualForm.Visible == false)
                 actualForm.Show(mainForm);
-
         }
     }
 }
