@@ -40,14 +40,19 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitStarted;
 		#endregion
 
+        private int teamCount;
+
 		public ClientSimulation(Map map)
 			: base(map, false) {
 
 			PlayerInfo currPI = ClientPlayerInfo.Player;
 
+            teamCount = int.MinValue;
 			//Add all players
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
+                teamCount = Math.Max(teamCount, pi.TeamID);
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color);
+                p.TeamID = pi.TeamID;
 				p.Credits = Settings.Default.CreditsAtStart;
 				p.Power = Settings.Default.PowerAtStart;
 				players.Add(p.Id, p);
@@ -222,7 +227,8 @@ namespace Yad.Engine.Client {
             }
         }
 
-        private void OnUnitCompleted(Unit u) {
+        private void OnUnitCompleted(Unit u)
+        {
             if (UnitCompleted != null) {
                 //TODO RS: run in different thread
                 this.UnitCompleted(u);
@@ -285,7 +291,13 @@ namespace Yad.Engine.Client {
 			//}
 		}
 
-		public Player getPlayer(short id) {
+        public int TeamCount {
+            get {
+                return this.teamCount;
+            }
+        }
+
+		public Player GetPlayer(short id) {
 			return this.players[id];
 		}
 	}

@@ -94,6 +94,7 @@ namespace Yad.UI.Client {
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
                 _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+                _gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
                 _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
                 GameMessageHandler.Instance.Resume();
 
@@ -103,6 +104,23 @@ namespace Yad.UI.Client {
 				MessageBox.Show(e.ToString());
 			}
 		}
+
+        void Simulation_GameEnd(int winTeamId)
+        {
+            /* Sending message to sever */
+            bool isWinner = false;
+
+            if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
+                isWinner = true;
+
+            GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
+            gameEndMessage.HasWon = isWinner;
+
+            Connection.Instance.SendMessage(gameEndMessage);
+
+            /* Managing the UI */
+            //TODO (AN) Managing the UI
+        }
 
         void Simulation_BuildingDestroyed(Building b) {
             if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
