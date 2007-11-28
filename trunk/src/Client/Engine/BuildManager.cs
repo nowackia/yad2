@@ -248,6 +248,8 @@ namespace Yad.Engine {
                 return GlobalSettings.Wrapper.troopersMap[id].BuildSpeed;
             if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id))
                 return GlobalSettings.Wrapper.tanksMap[id].BuildSpeed;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))
+                return GlobalSettings.Wrapper.harvestersMap[id].BuildSpeed;
             return 0;
         }
 
