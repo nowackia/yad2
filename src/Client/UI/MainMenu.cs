@@ -533,6 +533,7 @@ namespace Yad.UI.Client
             EntryMessage entryMessage = (EntryMessage)Utils.CreateMessageWithSenderId(MessageType.ChooseGameEntry);
             Connection.Instance.SendMessage(entryMessage);
 
+            ManageControlText(textBoxTBGameName, string.Empty);
             OnMenuOptionChange(MenuOption.Game);
         }
 
