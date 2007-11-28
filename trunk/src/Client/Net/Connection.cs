@@ -79,9 +79,10 @@ namespace Yad.Net.Client
             }
         }
 
-        void receiver_ConnectionLost(object sender, EventArgs e)
+        void receiver_ConnectionLost(object objectSender, EventArgs e)
         {
-            //this.CloseConnection();
+            receiver.Stop();
+            sender.Stop();
         }
 
         public event ConnectionLostEventHandler ConnectionLost

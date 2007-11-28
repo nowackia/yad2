@@ -10,6 +10,7 @@ using Yad.Net.Common;
 
 namespace Yad.UI.Client
 {
+    public delegate void FormShowEventHandler(Form form);
     public delegate void SelectTabEventHandler(String tabName);
     public delegate void MenuEventHandler(MenuOption option);
     public delegate void ManageControlTextEventHandler(Control control, string text);
@@ -236,6 +237,11 @@ namespace Yad.UI.Client
                     switchView(Views.GameMenuForm, false);
                     break;
 
+                case MenuOption.GameFormToChat:
+                    switchView(Views.ChatForm);
+                    ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
+                    break;
+
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
             }
@@ -316,11 +322,6 @@ namespace Yad.UI.Client
                     switchView(Views.PauseForm);
                     break;
 
-                case MenuOption.GameFormToChat:
-                    switchView(Views.ChatForm);
-                    ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
-                    break;
-
                 default:
                     throw new NotImplementedException("bad option from " + actualView + ": " + option);
             }
@@ -387,7 +388,12 @@ namespace Yad.UI.Client
             actualForm.MenuOptionChange += menuEventHandler;
 
             if (actualForm.Visible == false)
-                actualForm.Show(mainForm);
+            {
+                if(actualForm.InvokeRequired)
+                    actualForm.Invoke(new FormShowEventHandler(actualForm.Show), new object[] { mainForm });
+                else
+                    actualForm.Show(mainForm);
+            }
         }
     }
 }

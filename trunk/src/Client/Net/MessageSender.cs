@@ -59,7 +59,6 @@ namespace Yad.Net.Client
         {
             writeStream.Close();
             this.EndThread();
-            thread.Join();
         }
 
         public override void ProcessItem(Message msg)

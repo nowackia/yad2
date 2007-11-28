@@ -28,7 +28,7 @@ using Yad.UI.Common;
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
 
-		#region private members
+		#region Private members
 		bool _scrolling = false;
 		bool _selecting = false;
 		bool _wasScrolled = false;
@@ -104,6 +104,34 @@ namespace Yad.UI.Client {
 				Console.Out.WriteLine(e);
 				MessageBox.Show(e.ToString());
 			}
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+        #endregion
+
+		#region Simulation events handling
+		void Simulation_onTurnEnd() {
+			this.openGLView.Invalidate();
+		}
+
+		void Simulation_OnUnitCompleted(Unit u) {
+			//TODO
+			//this.rightStripe.RemovePercentCounter(unitType);
+		}
+		void Simulation_OnBuildingCompleted(Building b) {
+			//this.rightStripe.RemovePercentCounter(buildingType);
+			//TODO: add building type, update tech-tree
+			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+				AddBuildingToStripe(b.ObjectID, b.TypeID);
+			}
 		}
 
         void ConnectionInstance_ConnectionLost(object sender, EventArgs e)
@@ -140,36 +168,17 @@ namespace Yad.UI.Client {
             if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
             else this.Close();
 
-            if (InvokeRequired) this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.GameFormToChat });
-            else OnMenuOptionChange(MenuOption.GameFormToChat);
+            OnMenuOptionChange(MenuOption.GameFormToChat);
 
             if (mainMenuForm != null)
                 mainMenuForm.MenuMessageHandler.Resume();
         }
 
-        void Simulation_BuildingDestroyed(Building b) {
-            if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+        void Simulation_BuildingDestroyed(Building b)
+        {
+            if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id)
                 _buildManager.RemoveBuilding(b.ObjectID, b.TypeID);
-            }
         }
-		#endregion
-
-		#region Simulation events handling
-		void Simulation_onTurnEnd() {
-			this.openGLView.Invalidate();
-		}
-
-		void Simulation_OnUnitCompleted(Unit u) {
-			//TODO
-			//this.rightStripe.RemovePercentCounter(unitType);
-		}
-		void Simulation_OnBuildingCompleted(Building b) {
-			//this.rightStripe.RemovePercentCounter(buildingType);
-			//TODO: add building type, update tech-tree
-			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
-				AddBuildingToStripe(b.ObjectID, b.TypeID);
-			}
-		}
 		#endregion
 
 		#region Form events
@@ -182,7 +191,6 @@ namespace Yad.UI.Client {
         }
 
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-			OnMenuOptionChange(MenuOption.Options);
             e.Cancel = !this.gameFormClose;
 		}
 		#endregion
