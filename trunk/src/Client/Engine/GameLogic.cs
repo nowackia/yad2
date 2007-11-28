@@ -312,11 +312,13 @@ namespace Yad.Engine.Client {
         /// </summary>
         public void CheckGameEndCondition()
         {
+            return;
             int[] teamGameObjectCount = new int[_sim.TeamCount];
 
             ICollection<Player> playerColl = _sim.GetPlayers();
 
             int index = 0;
+            // for 3 player game i 2 teams this line will add 3 ints to table of lenght 2.
             foreach (Player player in playerColl)
                 teamGameObjectCount[index++] += player.GameObjectsCount;
 
