@@ -83,7 +83,7 @@ namespace Yad.UI.Client {
 
 				//First: set appropriate properties
 				InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
-				GameGraphics.InitGL(_gameLogic);
+				GameGraphics.InitGL(_gameLogic, this);
 				GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 				InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
 				GameGraphics.InitTextures(_gameLogic.Simulation);
@@ -292,8 +292,8 @@ namespace Yad.UI.Client {
 				return;
 			}
 
-			this._selecting = true;
-			this._selectionStart = GameGraphics.TranslateMousePosition(e.Location);
+			//this._selecting = true;
+			_selectionStart = _selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 		}
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
@@ -332,6 +332,7 @@ namespace Yad.UI.Client {
 				_wasScrolled = false;
 				return;
 			}
+
 			if (_scrolling) {
 				int dx = e.X - _mousePos.X;
 				int dy = e.Y - _mousePos.Y;
@@ -341,6 +342,15 @@ namespace Yad.UI.Client {
 
 				_wasScrolled = true;
 				Cursor.Position = openGLView.PointToScreen(_mousePos);
+			}
+
+			if (e.Button == MouseButtons.Left) {
+				if (!_selecting) {
+					_selectionStart = GameGraphics.TranslateMousePosition(e.Location);
+					_selecting = true;
+				} else {
+					_selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
+				}
 			}
 		}
 		#endregion
@@ -499,6 +509,21 @@ namespace Yad.UI.Client {
 		internal bool IsStripContainingBuilding(short ids) {
 			return leftStripe.Ids.Contains(ids);
 		}
+		#endregion
+
+		#region public methods
+		public bool Selecting {
+			get { return _selecting; }
+		}
+
+		public Position SelectionStart {
+			get { return _selectionStart; }
+		}
+
+		public Position SelectionEnd {
+			get { return _selectionEnd; }
+		}
+
 		#endregion
 	}
 }
