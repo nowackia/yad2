@@ -68,7 +68,7 @@ namespace Yad.Board.Common {
                             }
                         } else {
                             // collect spise
-                            ++this.spiceCounter;
+                            this.spiceCounter+=10;
                             _map.Spice[Position.X, Position.Y]--;
                         }
                         break;
