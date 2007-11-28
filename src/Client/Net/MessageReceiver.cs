@@ -64,10 +64,9 @@ namespace Yad.Net.Client
         public void Stop()
         {
             isProcessing = false;
-
             readStream.Close();
 
-            thread.Join();
+            InfoLog.WriteInfo("Receiver stopped", EPrefix.ClientInformation);
         }
 
         public bool IsProcessing
@@ -126,35 +125,35 @@ namespace Yad.Net.Client
 
                 Message msg = MessageFactory.Create((MessageType)type);
                 if (msg == null)
-                {
                     InfoLog.WriteInfo("Received unknown message", EPrefix.MessageReceivedInfo);
-                    continue;
-                }
-
-               InfoLog.WriteInfo("Client received msg with type: " + msg.Type, EPrefix.ClientInformation);
-
-                try
-                { msg.Deserialize(readStream); }
-                catch (Exception ex)
+                else
                 {
-                    InfoLog.WriteException(ex);
-                    if (ConnectionLost != null)
+                    InfoLog.WriteInfo("Client received msg with type: " + msg.Type, EPrefix.ClientInformation);
+
+                    try
+                    { msg.Deserialize(readStream); }
+                    catch (Exception ex)
                     {
-                        lock (ConnectionLost)
-                        { ConnectionLost(this, EventArgs.Empty); }
+                        InfoLog.WriteException(ex);
+                        if (ConnectionLost != null)
+                        {
+                            lock (ConnectionLost)
+                            { ConnectionLost(this, EventArgs.Empty); }
+                        }
+                        return;
                     }
-                    return;
-                }
 
-                if(messageHandler != null)
-                    messageHandler.ProcessMessage(msg);
+                    if (messageHandler != null)
+                        messageHandler.ProcessMessage(msg);
 
-                if (MessageReceive != null)
-                {
-                    lock (MessageReceive)
-                    { MessageReceive(this, new MessageEventArgs((byte)msg.Type, msg)); }
+                    if (MessageReceive != null)
+                    {
+                        lock (MessageReceive)
+                        { MessageReceive(this, new MessageEventArgs((byte)msg.Type, msg)); }
+                    }
                 }
             }
+            InfoLog.WriteInfo("Receiver finished its work", EPrefix.ClientInformation);
         }
 	}
 }
