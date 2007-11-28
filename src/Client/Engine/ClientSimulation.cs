@@ -152,6 +152,17 @@ namespace Yad.Engine.Client {
 				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this.map,this);
 			} else if (boc == BoardObjectClass.UnitTrooper) {
                 u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this.map, this);
+			} else if (boc == BoardObjectClass.UnitHarvester) {
+				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[cum.UnitType], cum.Position, this.map, this, GlobalSettings.Wrapper.harvestersMap[cum.UnitType].__Speed);
+			} else if (boc == BoardObjectClass.UnitMCV) {
+				u = new UnitMCV(id, GlobalSettings.Wrapper.mcvsMap[cum.UnitType], cum.Position, this.map, this);
+			} else if (boc == BoardObjectClass.UnitSandworm) {
+				u = new UnitSandworm(id, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType], cum.Position, this.map, this, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType].__Speed);
+			} else if (boc == BoardObjectClass.UnitTank) {
+				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this.map, this);
+			} else if (boc == BoardObjectClass.UnitTrooper) {
+				u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this.map, this);
+
 			}
 			players[cum.IdPlayer].AddUnit(u);
 
