@@ -50,6 +50,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tao.OpenAl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a7579dda88828311, processorArchitecture=MSIL" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.4, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files\Tao\bin\Tao.OpenGl.dll</HintPath>
@@ -847,6 +848,7 @@
     <None Include="Resources\UI_Credits_Background.png" />
     <None Include="Resources\UI_Options_Pressed.png" />
     <None Include="Resources\UI_Options.png" />
+    <Content Include="TaoFramework\Tao.OpenAl.dll" />
     <Content Include="TaoFramework\Tao.OpenGl.dll">
     </Content>
     <Content Include="TaoFramework\Tao.Platform.Windows.dll">
