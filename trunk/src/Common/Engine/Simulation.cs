@@ -198,10 +198,10 @@ namespace Yad.Engine.Common {
 
 					if (SpeedUp) {
 						--speedUpLength;
-					} else {
-						if (remainingTime > 0) {
-							Thread.Sleep(remainingTime);
-						}
+						remainingTime /= 3.0f;
+					}
+					if (remainingTime > 0) {
+						Thread.Sleep(remainingTime);
 					}
 				}
 

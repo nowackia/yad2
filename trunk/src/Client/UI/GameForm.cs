@@ -505,7 +505,7 @@ namespace Yad.UI.Client {
 		#endregion
 
 		#region Public methods
-		public bool Selecting {
+		public bool IsSelecting {
 			get { return _selecting; }
 		}
 
@@ -515,6 +515,18 @@ namespace Yad.UI.Client {
 
 		public Position SelectionEnd {
 			get { return _selectionEnd; }
+		}
+
+		public bool IsCreatingBuilding {
+			get { return _isCreatingBuilding; }
+		}
+
+		public short CreatingBuildingId {
+			get { return _objectToCreateId; }
+		}
+
+		public Point MousePositionInOpenGL() {
+			return openGLView.PointToClient(Cursor.Position);
 		}
 
 		#endregion
