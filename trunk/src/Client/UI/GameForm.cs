@@ -259,6 +259,10 @@ namespace Yad.UI.Client {
 			}
 		}
 
+		void optionsButton_Click(object sender, System.EventArgs e) {
+			//TODO: zaimplementowaæ menu
+		}
+
 		private void HandleRightButtonDown(MouseEventArgs e) {
 			_isCreatingBuilding = _isCreatingUnit = false;
 
