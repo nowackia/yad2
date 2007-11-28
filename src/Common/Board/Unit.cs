@@ -46,6 +46,7 @@ namespace Yad.Board.Common {
             stopped,
             attacking,
             orderedAttack,
+            harvesting,
             destroyed
         }
 
