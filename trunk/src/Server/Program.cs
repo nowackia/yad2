@@ -27,13 +27,7 @@ namespace Yad.Server
             InfoLog.Instance.OnWriteLine += owd;
             
             InfoLog.WriteStart();
-            InfoLog.Disable();
-
-            /* Server Fake only for client testing reasons, change output type to Console Application
-             * in project properties */
-            //ServerFake.Process();
-            /* Uncomment this if you want original server, change output type to Windows Application
-             * in project properties */
+            //InfoLog.Disable();
             Application.Run(consoleForm);
 
 

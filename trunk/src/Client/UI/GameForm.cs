@@ -162,6 +162,8 @@ namespace Yad.UI.Client {
 
             if (mainMenuForm != null)
                 mainMenuForm.MenuMessageHandler.Resume();
+
+            _gameLogic.Simulation.AbortSimulation();
         }
 
         void Simulation_BuildingDestroyed(Building b)

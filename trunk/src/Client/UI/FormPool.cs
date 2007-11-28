@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.UI.Client;
 
-namespace Yad.UI.Client {
-    class FormPool {
+namespace Yad.UI.Client
+{
+    class FormPool
+    {
 
         public static Dictionary<Views, UIManageable> pool = new Dictionary<Views, UIManageable>();
         /// <summary>
@@ -13,7 +15,8 @@ namespace Yad.UI.Client {
         /// <param name="view"></param>
         /// <returns></returns>
 
-        static FormPool() {
+        static FormPool()
+        {
             UIManageable form = null;
 
             form = new MainMenuForm();
@@ -21,7 +24,8 @@ namespace Yad.UI.Client {
 
         }
 
-        private static void InitMainMenu(UIManageable form) {
+        private static void InitMainMenu(UIManageable form)
+        {
             pool.Add(Views.MainMenuForm, form);
             pool.Add(Views.LoginForm, form);
             pool.Add(Views.RegistrationForm, form);
@@ -35,14 +39,24 @@ namespace Yad.UI.Client {
             pool.Add(Views.GameMenuForm, form);
         }
 
-        public static UIManageable GetForm(Views view) {
+        public static UIManageable GetForm(Views view)
+        {
             UIManageable form = null;
-            if (pool.ContainsKey(view)) {
+            if (pool.ContainsKey(view))
+            {
                 form = pool[view];
-                form = InitForm(form, view);
-                return form;
+
+                if (form.IsDisposed)
+                    pool.Remove(view);
+                else
+                {
+                    form = InitForm(form, view);
+                    return form;
+                }
             }
-            switch (view) {
+
+            switch (view)
+            {
                 case Views.MainMenuForm:
                 case Views.LoginForm:
                 case Views.RegistrationForm:
@@ -57,17 +71,17 @@ namespace Yad.UI.Client {
                     form = new MainMenuForm();
                     InitMainMenu(form);
                     break;
+
                 case Views.GameForm:
                     form = new GameForm();
                     pool.Add(view, form);
                     break;
+
                 default:
                     break;
             }
             return form;
         }
-
-
 
         /// <summary>
         /// Inits form into proper form - set groupbox name
@@ -75,8 +89,10 @@ namespace Yad.UI.Client {
         /// <param name="form"></param>
         /// <param name="initInto"></param>
         /// <returns></returns>
-        public static UIManageable InitForm(UIManageable form, Views initInto) {
-            switch (initInto) {
+        public static UIManageable InitForm(UIManageable form, Views initInto)
+        {
+            switch (initInto)
+            {
                 case Views.MainMenuForm:
                     ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
@@ -98,8 +114,6 @@ namespace Yad.UI.Client {
                 case Views.ChooseGameForm:
                     ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
-                case Views.GameForm:
-                    break;
                 case Views.CreateGameForm:
                     ((MainMenuForm)form).SwitchToTab(initInto);
                     break;
@@ -111,6 +125,8 @@ namespace Yad.UI.Client {
                     break;
                 case Views.GameMenuForm:
                     ((MainMenuForm)form).SwitchToTab(initInto);
+                    break;
+                case Views.GameForm:
                     break;
                 default:
                     break;
