@@ -91,36 +91,17 @@ namespace Yad.Net.Server {
                     lock (((ICollection)_games).SyncRoot) {
                         if (_games.ContainsKey(name)) {
                             if (_games[name].StartClick(playerid)) {
+                                PreparePlayersForServerGame(_games[name]);
                                 CreateServerGame(_games[name]);
+                                _games.Remove(name);
                             }
                         }
                     }
                 }
             }
         }
-
-        private void CreateServerGame(ServerGameInfo sgi) {
-            Serv.GameServer gs = new Yad.Net.GameServer.Server.GameServer(sgi);
-            gs.EnterMsgHandlerChange(this._server);
-            lock (((ICollection)_gameServerList).SyncRoot) {
-                _gameServerList.Add(gs);
-            }
-            gs.OnGameEnd += new GameEndDelegate(OnGameServerEnd);
-            gs.StartGameServer();
-        }
-
-        private void OnGameServerEnd(object sender, GameEndEventArgs args) {
-            Serv.GameServer gs = sender as Serv.GameServer;
-            Player[] players = gs.GetPlayersArray();
-            for (int i = 0; i < players.Length; ++i) {
-                players[i].State = PlayerStateMachine.Transform(MenuState.Game, MenuAction.GameEnd);
-                _server.Chat.AddPlayer(players[i]);
-            }
-            gs.LeaveMsgHandlerChange(this._server);
-            _games.Remove(gs.Name);
-        }
-
         
+       
         public void StopGames() {
             lock (((ICollection)_gameServerList).SyncRoot) {
                 foreach (Serv.GameServer gs in _gameServerList)
@@ -129,6 +110,42 @@ namespace Yad.Net.Server {
         }
 
         #endregion
+
+        private void PreparePlayersForServerGame(ServerGameInfo sgi) {
+            lock (((ICollection)_players).SyncRoot) {
+                foreach (IPlayerID pid in sgi.Players.Values) {
+                    Player p = _players[pid.GetID()];
+                    p.State = PlayerStateMachine.Transform(p.State, MenuAction.GameStart);
+                    _players.Remove(p.Id);
+                }
+            }
+        }
+        private void CreateServerGame(ServerGameInfo sgi)
+        {
+           
+            Serv.GameServer gs = new Yad.Net.GameServer.Server.GameServer(sgi);
+            gs.EnterMsgHandlerChange(this._server);
+            lock (((ICollection)_gameServerList).SyncRoot)
+            {
+                _gameServerList.Add(gs);
+            }
+            gs.OnGameEnd += new GameEndDelegate(OnGameServerEnd);
+            gs.StartGameServer();
+        }
+
+        private void OnGameServerEnd(object sender, GameEndEventArgs args)
+        {
+            Serv.GameServer gs = sender as Serv.GameServer;
+            Player[] players = gs.GetPlayersArray();
+            gs.LeaveMsgHandlerChange(this._server);
+            for (int i = 0; i < players.Length; ++i)
+            {
+                players[i].State = PlayerStateMachine.Transform(players[i].State,
+                    MenuAction.GameEnd);
+                _server.Chat.AddPlayer(players[i]);
+            }
+            _gameServerList.Remove(gs);
+        }
 
         private void RemoveGame(ServerGameInfo sgi) {
             lock (((ICollection)_games).SyncRoot) {

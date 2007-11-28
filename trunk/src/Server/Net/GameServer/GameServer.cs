@@ -13,6 +13,7 @@ using Yad.Properties.Server;
 using System.IO;
 using System.Drawing;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace Yad.Net.GameServer.Server {
 
@@ -115,7 +116,14 @@ namespace Yad.Net.GameServer.Server {
         }
 
         public void StopGameServer() {
-            _gameEndSemaphore.Release(1);
+            InfoLog.WriteInfo("Stopping game server: " + this.Name, EPrefix.ServerAction);
+            try {
+                _gameEndSemaphore.Release(1);
+            }
+            catch (Exception) {
+                InfoLog.WriteInfo("Game end semaphore realeased unsuccessfully", EPrefix.ServerAction);
+            }
+            InfoLog.WriteInfo("Game end semaphore realeased unsuccessfully", EPrefix.ServerAction);
         }
         public void JoinGameServer() {
             _serverThread.Join();
@@ -167,8 +175,8 @@ namespace Yad.Net.GameServer.Server {
                         p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
                     }
                     else {
-                        p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
-                        p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                        p.OnReceiveMessage += new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
+                        p.OnReceiveMessage -= new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
                     }
                     p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
                 }
@@ -192,7 +200,7 @@ namespace Yad.Net.GameServer.Server {
                 if (_playerCollection.ContainsKey(id))
                         _playerCollection[id].SetData((PlayerData)gp.Clone());
         }
-        private Message CreateInitMessage(){
+        private Yad.Net.Messaging.Common.Message CreateInitMessage(){
             GameInitMessage giMsg = (GameInitMessage)MessageFactory.Create(MessageType.GameInit);
             int count = -1;
             PositionData[] arrPd = null;

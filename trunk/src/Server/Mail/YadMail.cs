@@ -23,7 +23,7 @@ namespace Yad.Mail {
             try {
                 System.Web.Mail.SmtpMail.Send(message);
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 return false;
             }
             return true;

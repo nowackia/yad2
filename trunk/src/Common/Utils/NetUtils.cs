@@ -9,7 +9,8 @@ namespace Yad.Utilities.Common {
         public static void SetKeepAlive(TcpClient client) {
             Socket s = client.Client;
             s.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-            SetKeepAlive(s, true, 1000, 1000);
+            SetKeepAlive(s, true, Properties.Common.Settings.Default.KeepAliveTime,
+                Properties.Common.Settings.Default.KeepAliveInterval);
         }
 
         private static void SetKeepAlive(Socket s, bool on, uint time, uint interval) {

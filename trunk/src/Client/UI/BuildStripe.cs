@@ -65,7 +65,7 @@ namespace Yad.UI.Client {
 			scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
 		}
 
-        public void SwitchUpdate(List<BuildStatus> statusList){
+        public void SwitchUpdate(List<BuildStatus> statusList, bool rewind){
             SuspendFlowLayout();
             HideAll();
             foreach (BuildStatus bs in statusList) {
@@ -74,7 +74,8 @@ namespace Yad.UI.Client {
                 buttons[bs.Typeid].State = bs.State;
                 InvokeShow(bs.Typeid);
             }
-            ShowUpper(int.MaxValue);
+            if (rewind)
+                ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
             ResumeFlowLayout();
 
