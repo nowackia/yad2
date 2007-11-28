@@ -217,7 +217,6 @@ namespace Yad.UI.Client
 
                 case MenuOption.Join:
                     switchView(Views.WaitingForPlayersForm);
-                    //TODO RS: inform form that player dont have admin rights.
                     break;
 
                 case MenuOption.Create:
@@ -234,7 +233,7 @@ namespace Yad.UI.Client
             switch (option)
             {
                 case MenuOption.Options:
-                    switchView(Views.GameMenuForm, false);
+                    switchView(Views.GameMenuForm, false, true);
                     break;
 
                 case MenuOption.GameFormToChat:
@@ -377,6 +376,11 @@ namespace Yad.UI.Client
 
         private void switchView(Views viewToSwitch, bool hideLast)
         {
+            switchView(viewToSwitch, hideLast, false);
+        }
+
+        private void switchView(Views viewToSwitch, bool hideLast, bool modal)
+        {
             if (hideLast)
                 actualForm.Hide();
 
@@ -387,9 +391,10 @@ namespace Yad.UI.Client
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
 
+            actualForm.TopMost = modal;
             if (actualForm.Visible == false)
             {
-                if(actualForm.InvokeRequired)
+                if (actualForm.InvokeRequired)
                     actualForm.Invoke(new FormShowEventHandler(actualForm.Show), new object[] { mainForm });
                 else
                     actualForm.Show(mainForm);
