@@ -20,6 +20,7 @@ using Yad.Properties.Client;
 using System.Collections;
 using Yad.Net.Common;
 using Yad.Net.Client;
+using Yad.UI.Client;
 
 namespace Yad.Engine.Client {
 	static partial class GameGraphics {
@@ -30,6 +31,7 @@ namespace Yad.Engine.Client {
 
 		#region private members
 		static GameLogic _gameLogic;
+		static GameForm _gameForm;
 
 		#region z-constants
 		/// <summary>
@@ -42,7 +44,8 @@ namespace Yad.Engine.Client {
 					_depthUnit = 0.4f,
 					_depthUnitAddons = 0.5f,
 					_depthSelection = 0.6f,
-					_depthFogOfWar = 0.7f;
+					_depthFogOfWar = 0.7f,
+					_depthMouseSelection = 0.8f;
 		#endregion
 
 		static RectangleF _defaultUV = new RectangleF(0, 0, 1, 1);
@@ -331,7 +334,7 @@ namespace Yad.Engine.Client {
 			Create32bTexture((int)MainTextures.ThinSpice, LoadBitmap(thinSpice));
 			Bitmap thickSpice = new Bitmap(Path.Combine(Settings.Default.Terrain, "ThickSpice.png"));
 			Create32bTexture((int)MainTextures.ThickSpice, LoadBitmap(thickSpice));
-			
+
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
 
 			#region player-color specific
@@ -538,6 +541,23 @@ namespace Yad.Engine.Client {
 			#region spice
 			DrawSpice(map);
 			#endregion
+
+			#region selection
+			DrawMouseSelection();
+			#endregion
+		}
+
+		private static void DrawMouseSelection() {
+			if (!_gameForm.Selecting) {
+				return;
+			}
+			Position start = _gameForm.SelectionStart;
+			Position end = _gameForm.SelectionEnd;
+			short xMin = Math.Min(start.X, end.X);
+			short xMax = Math.Max(start.X, end.X);
+			short yMin = Math.Min(start.Y, end.Y);
+			short yMax = Math.Max(start.Y, end.Y);
+			DrawSelectionRectangle(xMin, yMin, _depthMouseSelection, xMax - xMin + 1, yMax - yMin + 1, false, _gameLogic.CurrentPlayer.Color);
 		}
 
 		private static void DrawFogOfWar() {
@@ -557,7 +577,7 @@ namespace Yad.Engine.Client {
 		private static void DrawSpice(Map map) {
 			for (int x = 0; x < map.Width; x++) {
 				for (int y = 0; y < map.Height; y++) {
-					if (!NeedsDrawing(x, y, 1, 1) || map.Spice[x,y] == 0) {
+					if (!NeedsDrawing(x, y, 1, 1) || map.Spice[x, y] == 0) {
 						continue;
 					}
 					int index = MapTextureGenerator.FindSpiceFrame(map.Spice, x, y);
@@ -867,8 +887,9 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region public methods
-		public static void InitGL(GameLogic gLogic) {
+		public static void InitGL(GameLogic gLogic, GameForm gForm) {
 			_gameLogic = gLogic;
+			_gameForm = gForm;
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
 
 			//Gl.glEnable(Gl.GL_LINE_SMOOTH);
