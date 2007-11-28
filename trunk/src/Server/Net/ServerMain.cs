@@ -11,7 +11,7 @@ using Yad.Properties.Server;
 
 namespace Yad.Net.Server
 {
-    class ServerMain
+    public class ServerMain
     {
         #region Pola prywatne
 

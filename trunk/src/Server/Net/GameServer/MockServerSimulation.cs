@@ -4,18 +4,21 @@ using System.Text;
 using System.Collections;
 using Yad.Net.Common;
 using Yad.Engine.Common;
+using Yad.Log.Common;
+using Yad.DataStructures;
 
 namespace Yad.Net.GameServer.Server {
     public class MockServerSimulation : IServerSimulation {
-        
+
         private Dictionary<short, GamePlayer> _gamePlayers;
         static int _Delta = Yad.Properties.Common.Settings.Default.Delta;
-
+        List<short> _waitingList = new List<short>();
         public int Delta {
             get { return _Delta; }
         }
-        public MockServerSimulation()  {
+        public MockServerSimulation() {
             _gamePlayers = new Dictionary<short, GamePlayer>();
+            
         }
 
         public void AddPlayer(short id, PlayerData pd) {
@@ -41,36 +44,34 @@ namespace Yad.Net.GameServer.Server {
 
         public void IncPlayerTurn(short id) {
             lock (((ICollection)_gamePlayers).SyncRoot) {
-                if (_gamePlayers.ContainsKey(id))
+                if (_gamePlayers.ContainsKey(id)) {
+                    int oldno = _gamePlayers[id].TurnNo;
                     _gamePlayers[id].TurnNo++;
+                    InfoLog.WriteInfo("Increased playerTurn for player: " + _gamePlayers[id].Login +
+                " from: " + oldno + " to: " + _gamePlayers[id].TurnNo);
+                }
             }
         }
 
         public bool IsPlayerWaiting(short id) {
-            lock (((ICollection)_gamePlayers).SyncRoot) {
-                if (_gamePlayers.ContainsKey(id))
-                    return _gamePlayers[id].IsWaiting;
-                return false;
+            lock (((ICollection)_waitingList).SyncRoot) {
+                return _waitingList.Contains(id);
             }
         }
 
         public void SetWaiting(short id) {
-            lock (((ICollection)_gamePlayers).SyncRoot) {
-                if (_gamePlayers.ContainsKey(id))
-                    _gamePlayers[id].IsWaiting = true;
+            lock (((ICollection)_waitingList).SyncRoot){
+                _waitingList.Add(id);
             }
         }
 
         public short[] StopWaiting() {
-            List<short> waitingList = new List<short>();
-            lock (((ICollection)_gamePlayers).SyncRoot) {
-                foreach (KeyValuePair<short, GamePlayer> kgp in _gamePlayers)
-                    if (kgp.Value.IsWaiting) {
-                        waitingList.Add(kgp.Key);
-                        kgp.Value.IsWaiting = false;
-                    }
+            short[] resultArray = null;
+            lock (((ICollection)_waitingList).SyncRoot) {
+                resultArray = _waitingList.ToArray();
+                _waitingList.Clear();
             }
-            return waitingList.ToArray();
+            return resultArray;
         }
 
         public void AddMessage(Yad.Net.Messaging.Common.Message msg) {
@@ -86,9 +87,9 @@ namespace Yad.Net.GameServer.Server {
         }
 
         public bool HasGameEnded() {
-            bool result =  true;
+            bool result = true;
             lock (((ICollection)_gamePlayers).SyncRoot)
-                foreach(GamePlayer gp in _gamePlayers.Values)
+                foreach (GamePlayer gp in _gamePlayers.Values)
                     if (!gp.HasEnded) {
                         result = false;
                         break;
@@ -138,11 +139,10 @@ namespace Yad.Net.GameServer.Server {
 
         public PlayerData[] GetPlayerData() {
             PlayerData[] arrPd = null;
-            lock(((ICollection)_gamePlayers).SyncRoot)
-            {
+            lock (((ICollection)_gamePlayers).SyncRoot) {
                 arrPd = new PlayerData[_gamePlayers.Count];
                 int index = 0;
-                foreach(GamePlayer gp in _gamePlayers.Values)
+                foreach (GamePlayer gp in _gamePlayers.Values)
                     arrPd[index++] = (PlayerData)gp.Clone();
             }
             return arrPd;

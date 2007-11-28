@@ -58,6 +58,9 @@ namespace Yad.Log.Common {
         private InfoLog(MultiStream writer) {
             _writer = writer;
             _infoLogPrefix = new InfoLogPrefix();
+            _infoLogPrefix.AddFilter(EPrefix.ServerSendMessageInfo);
+            _infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
+            _infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
         }
 
         #endregion
