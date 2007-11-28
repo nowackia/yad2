@@ -342,13 +342,13 @@ namespace Yad.Engine.Client {
                 GameEnd(anyObjectOwningTeamId);
         }
 
-		private bool checkBuildingPosition(Position pos, short buildingTypeId) {
+		public bool checkBuildingPosition(Position pos, short buildingTypeId) {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingTypeId];
 
 			Map map = _sim.Map;
 
 			if ((pos.X + bd.Size.X - 1 >= map.Width)
-				|| (pos.Y + bd.Size.Y >= map.Height)) {
+				|| (pos.Y + bd.Size.Y - 1 >= map.Height)) {
 				return false;
 			}
 

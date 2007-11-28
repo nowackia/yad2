@@ -45,7 +45,8 @@ namespace Yad.Engine.Client {
 					_depthUnitAddons = 0.5f,
 					_depthSelection = 0.6f,
 					_depthFogOfWar = 0.7f,
-					_depthMouseSelection = 0.8f;
+					_depthMouseSelection = 0.8f,
+					_depthPlacingBuilding = 0.9f;
 		#endregion
 
 		static RectangleF _defaultUV = new RectangleF(0, 0, 1, 1);
@@ -474,6 +475,21 @@ namespace Yad.Engine.Client {
 			//TODO: when slabs are not buildings anymore - draw'em like fog of war
 			#endregion
 
+			#region placing building
+			if (_gameForm.IsCreatingBuilding) {
+				short id = _gameForm.CreatingBuildingId;
+				BuildingData bd = GlobalSettings.Wrapper.buildingsMap[id];
+				Position p = TranslateMousePosition(_gameForm.MousePositionInOpenGL());
+				if (_gameLogic.checkBuildingPosition(p, id)) {
+					Gl.glColor4f(0, 1, 0, 0.75f);
+				} else {
+					Gl.glColor4f(1, 0, 0, 0.75f);
+				}
+				DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
+				Gl.glColor4f(1, 1, 1, 1);
+			}
+			#endregion
+
 			#region players' data (units & buildings)
 			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
@@ -548,7 +564,7 @@ namespace Yad.Engine.Client {
 		}
 
 		private static void DrawMouseSelection() {
-			if (!_gameForm.Selecting) {
+			if (!_gameForm.IsSelecting) {
 				return;
 			}
 			Position start = _gameForm.SelectionStart;
@@ -869,7 +885,7 @@ namespace Yad.Engine.Client {
 		}
 
 		private static void DrawBuilding(Building o) {
-			if (!NeedsDrawing(o.Position.X, o.Position.Y, o.Width, o.Health)) {
+			if (!NeedsDrawing(o.Position.X, o.Position.Y, o.Width, o.Height)) {
 				return;
 			}
 			BuildingData bd = o.BuildingData;
@@ -883,6 +899,22 @@ namespace Yad.Engine.Client {
 			}
 
 			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+		}
+
+		private static void DrawBuilding(BuildingData bd, float x, float y, float depth, short playerID) {
+			if (!NeedsDrawing(x, y, bd.Size.X, bd.Size.Y)) {
+				return;
+			}
+			float cy = bd.TextureAnimationFramesCount;
+			float cx = bd.TextureSpecialActionFramesCount;
+			RectangleF uv;
+			if (bd.IsTurret) {
+				uv = VehicleUVChooser(Direction.North);
+			} else {
+				uv = new RectangleF(0, 1.0f / cy, 1.0f / cx, 1.0f / cy);
+			}
+
+			DrawElementFromLeftBottom(x, y, depth, bd.Size.X, bd.Size.Y, bd.TypeID + playerID * _offsetTexture, uv);
 		}
 		#endregion
 
