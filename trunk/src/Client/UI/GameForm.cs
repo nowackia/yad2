@@ -105,16 +105,6 @@ namespace Yad.UI.Client {
 				MessageBox.Show(e.ToString());
 			}
         }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | 0x200;
-                return myCp;
-            }
-        } 
         #endregion
 
 		#region Simulation events handling
@@ -259,10 +249,6 @@ namespace Yad.UI.Client {
 			}
 		}
 
-		void optionsButton_Click(object sender, System.EventArgs e) {
-			//TODO: zaimplementowaæ menu
-		}
-
 		private void HandleRightButtonDown(MouseEventArgs e) {
 			_isCreatingBuilding = _isCreatingUnit = false;
 
@@ -353,6 +339,11 @@ namespace Yad.UI.Client {
 				}
 			}
 		}
+
+        private void pictureButtonOptions_Click(object sender, EventArgs e)
+        {
+            OnMenuOptionChange(MenuOption.Options);
+        }
 		#endregion
 
 		#region Stripes-related
@@ -511,7 +502,7 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
-		#region public methods
+		#region Public methods
 		public bool Selecting {
 			get { return _selecting; }
 		}
