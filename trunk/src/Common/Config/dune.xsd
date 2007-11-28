@@ -104,6 +104,7 @@
 			<element name="EnergyConsumption" type="int" />
 			<element name="TextureSpecialActionFramesCount" type="short" />
 			<element name="TextureAnimationFramesCount" type="short" />
+      <element name="IsRefinery" type="boolean" />
 			<!--  For buildings with firing capability -->
 			<element name="IsTurret" type="boolean" />
 			<element name="FireRange" type="short" minOccurs="0" maxOccurs="1" default="0" />
