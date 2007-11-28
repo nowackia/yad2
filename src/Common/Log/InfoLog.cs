@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 
 namespace Yad.Log.Common {
+
     public class InfoLog {
 
         #region Pola prywatne
@@ -45,13 +46,18 @@ namespace Yad.Log.Common {
         /// </summary>
         private static InfoLogPrefix _infoLogPrefix = null;
 
+        /// <summary>
+        /// Czy jest aktywny
+        /// </summary>
+        private bool _isEnabled = true;
+
         #endregion
 
         #region Konstruktory
 
         private InfoLog(MultiStream writer) {
             _writer = writer;
-            _infoLogPrefix = new InfoLogPrefix();      
+            _infoLogPrefix = new InfoLogPrefix();
         }
 
         #endregion
@@ -86,51 +92,70 @@ namespace Yad.Log.Common {
         }
 
         private void WriteSingleExceptionIns(Exception ex) {
-            _writer.WriteLine("Message: " + (ex.Message == null ? "null" : ex.Message));
-            _writer.WriteLine("Stack:");
-            _writer.WriteLine(ex.StackTrace == null ? "null" : ex.StackTrace);
+            if (_isEnabled) {
+                _writer.WriteLine("Message: " + (ex.Message == null ? "null" : ex.Message));
+                _writer.WriteLine("Stack:");
+                _writer.WriteLine(ex.StackTrace == null ? "null" : ex.StackTrace);
+            }
         }
 
         private void WriteExceptionIns(Exception ex) {
-            _writer.WriteLine("-- EXCEPTION ---" + DateTime.Now.ToString() + "--------------");
-            WriteSingleExceptionIns(ex);
-            if (ex.InnerException != null) {
-                _writer.WriteLine("---- InnerException: " + ex.InnerException.ToString());
-                WriteSingleExceptionIns(ex.InnerException);
+            if (_isEnabled) {
+                _writer.WriteLine("-- EXCEPTION ---" + DateTime.Now.ToString() + "--------------");
+                WriteSingleExceptionIns(ex);
+                if (ex.InnerException != null) {
+                    _writer.WriteLine("---- InnerException: " + ex.InnerException.ToString());
+                    WriteSingleExceptionIns(ex.InnerException);
+                }
+                _writer.WriteLine("------------------------------------------------------------");
             }
-            _writer.WriteLine("------------------------------------------------------------");
         }
 
         private void WriteErrorIns(string s) {
-            _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
-            _writer.WriteLine("Message: " + s);
-            _writer.WriteLine("------------------------------------------------------------");
-        }
-
-        private void WriteErrorIns(string s, EPrefix prefix)
-        {
-            if (!_infoLogPrefix.IsFiltred(prefix)) {
+            if (_isEnabled) {
                 _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
-                s = _infoLogPrefix.AddFilterString(s, prefix);
                 _writer.WriteLine("Message: " + s);
                 _writer.WriteLine("------------------------------------------------------------");
             }
         }
 
+        private void WriteErrorIns(string s, EPrefix prefix) {
+            if (_isEnabled) {
+                if (!_infoLogPrefix.IsFiltred(prefix)) {
+                    _writer.WriteLine("-- ERROR ---" + DateTime.Now.ToString() + "-----------------");
+                    s = _infoLogPrefix.AddFilterString(s, prefix);
+                    _writer.WriteLine("Message: " + s);
+                    _writer.WriteLine("------------------------------------------------------------");
+                }
+            }
+        }
+
         private void WriteInfoIns(string s) {
-            _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
+            if (_isEnabled) {
+                _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
+            }
         }
 
         private void WriteInfoIns(string s, EPrefix prefix) {
-            if (!_infoLogPrefix.IsFiltred(prefix)) {
-                s = _infoLogPrefix.AddFilterString(s, prefix);
-                _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
+            if (_isEnabled) {
+                if (!_infoLogPrefix.IsFiltred(prefix)) {
+                    s = _infoLogPrefix.AddFilterString(s, prefix);
+                    _writer.WriteLine("#I:# " + DateTime.Now.ToString() + "  " + s);
+                }
             }
         }
 
         private void CloseIns() {
             _writer.Close();
             TruncFileBeginning();
+        }
+
+        private void DisableIns() {
+            _isEnabled = false;
+        }
+
+        private void EnableIns() {
+            _isEnabled = true;
         }
 
         private static void TruncFileBeginning() {
@@ -206,18 +231,6 @@ namespace Yad.Log.Common {
                 + Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
 
-        /*public static OnWriteLineDelegate OnWriteLine
-        {
-            get
-            {
-                return _writer.OnWriteLine;
-            }
-            set
-            {
-                _writer.OnWriteLine = value;
-            }
-        }*/
-
         public static void WriteEnd() {
             InfoLog.Write("Application END");
             InfoLog.Write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
@@ -247,11 +260,18 @@ namespace Yad.Log.Common {
             Instance.WriteInfoIns(s);
         }
 
+        public static void Enable() {
+            Instance.EnableIns();
+        }
+
+        public static void Disable() {
+            Instance.DisableIns();
+        }
         public static void Close() {
             Instance.CloseIns();
         }
 
         #endregion
-
     }
+
 }

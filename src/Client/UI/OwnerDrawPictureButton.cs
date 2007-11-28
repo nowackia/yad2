@@ -16,6 +16,7 @@ namespace Yad.UI {
     }
     delegate void SetTextCallBack(string text);
     delegate void SetMouseOverEffectCallback(bool value);
+    delegate void SetFontCallback(Font font);
 	public class OwnerDrawPictureButton : PictureButton {
 		private int percentage = 50;
         private StripButtonState state = StripButtonState.Active;
@@ -23,6 +24,8 @@ namespace Yad.UI {
         private static Brush inActiveBrush = new SolidBrush(Color.FromArgb(150, 150, 150, 150));
         private readonly string textReady = "Place";
         private bool isVisible = true;
+        private Font readyFont = new Font("Arial", 12, FontStyle.Bold);
+        private Font normalFont;
         private int id;
   
         public int Id {
@@ -42,10 +45,18 @@ namespace Yad.UI {
             }
         }
 
-		public OwnerDrawPictureButton() : base() { }
-		public OwnerDrawPictureButton(Image backgroundImage, Image pressedImage) : base(backgroundImage, pressedImage) { }
-		public OwnerDrawPictureButton(string name, string text) : base(name, text) { }
-		public OwnerDrawPictureButton(string name, string text, Image backgroundImage, Image pressedImage) : base(name, text, backgroundImage, pressedImage) { }
+		public OwnerDrawPictureButton() : base() {
+            this.normalFont = this.Font;
+        }
+		public OwnerDrawPictureButton(Image backgroundImage, Image pressedImage) : base(backgroundImage, pressedImage) {
+            this.normalFont = this.Font;
+        }
+		public OwnerDrawPictureButton(string name, string text) : base(name, text) {
+            this.normalFont = this.Font;
+        }
+		public OwnerDrawPictureButton(string name, string text, Image backgroundImage, Image pressedImage) : base(name, text, backgroundImage, pressedImage) {
+            this.normalFont = this.Font;
+        }
 
 
 		/*public bool DrawPercentage {
@@ -61,13 +72,16 @@ namespace Yad.UI {
             switch (state) {
                 case StripButtonState.Inactive:
                     InvokeSetMouseOverEffect(false);
+                    InvokeSetFont(normalFont);
                     break;
                 case StripButtonState.Ready:
                     InvokeSetText(this.textReady);
+                    InvokeSetFont(readyFont);
                     break;
                 case StripButtonState.Active:
                     InvokeSetMouseOverEffect(true);
                     InvokeSetText(this.Name);
+                    InvokeSetFont(normalFont);
                     break;
             }
             InvokeRefresh();
@@ -86,6 +100,12 @@ namespace Yad.UI {
                 SetText(text);
         }
 
+        private void InvokeSetFont(Font font) {
+            if (this.InvokeRequired)
+                this.Invoke(new SetFontCallback(SetFont), new object[] { font });
+            else
+                SetFont(font);
+        }
         private void InvokeSetMouseOverEffect(bool value) {
             if (this.InvokeRequired)
                 this.Invoke(new SetMouseOverEffectCallback(SetMouseOverEffect), new object[] { value });
@@ -102,6 +122,10 @@ namespace Yad.UI {
 
         private void SetText(string text) {
             this.Text = text;
+        }
+
+        private void SetFont(Font font) {
+            this.Font = font;
         }
 
         private void SetMouseOverEffect(bool value) {

@@ -191,7 +191,7 @@ namespace Yad.Net.Server {
                     client.NoDelay = true;
                     NetUtils.SetKeepAlive(client);
                 }
-                catch (Exception ex) {
+                catch (Exception) {
                     _serverEnd = true;
                     return;
                 }

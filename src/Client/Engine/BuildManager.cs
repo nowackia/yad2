@@ -85,7 +85,7 @@ namespace Yad.Engine {
                 }
                 ActivateForObject(bstatus.ObjectId);
                 if (_currentObjectID == bstatus.ObjectId)
-                    UpdateView(_currentObjectID);
+                    UpdateView(_currentObjectID, false);
             }
             if (bstatus.BuildType == BuildType.Building) {
                 bstatus.State = StripButtonState.Ready;
@@ -119,7 +119,7 @@ namespace Yad.Engine {
                 }
                 if (_currentObjectID == objectID.ObjectId) {
                     _currentObjectID = -1;
-                    UpdateView(_currentObjectID);
+                    UpdateView(_currentObjectID, false);
                 }
             }
             
@@ -140,24 +140,24 @@ namespace Yad.Engine {
                     UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
             }
             if (_currentObjectID != -1)
-                UpdateView(_currentObjectID);
+                UpdateView(_currentObjectID, false);
         }
 
         public void SwitchCurrentBuilding(int id) {
             if (_currentObjectID != id) {
                 _currentObjectID = id;
-                UpdateView(id);
+                UpdateView(id, true);
                
             }
         }
 
-        public void UpdateView(int id) {
+        public void UpdateView(int id, bool rewind) {
             if (id == -1) {
                 _rightStripe.HideAll();
                 return;
             }
             List<BuildStatus> listStatus = new List<BuildStatus>(_stripData[id].Values);
-            _rightStripe.SwitchUpdate(listStatus);
+            _rightStripe.SwitchUpdate(listStatus, rewind);
         }
         public bool RightBuildingClick(int id) {
             StripButtonState state = _stripData[_currentObjectID][(short)id].State;
@@ -189,7 +189,7 @@ namespace Yad.Engine {
                 DeactivateOther(bs.Typeid);
             }
            
-            UpdateView(_currentObjectID);
+            UpdateView(_currentObjectID,false);
         }
 
         private void DeactivateOther(short typeid) {
@@ -202,7 +202,7 @@ namespace Yad.Engine {
             foreach (BuildStatus bs in _stripData[_currentObjectID].Values) {
                 bs.State = Yad.UI.StripButtonState.Active;
             }
-            UpdateView(_currentObjectID);
+            UpdateView(_currentObjectID,false);
         }
         private void UpdateDependencies(ObjectID objectID, short typeID) {
             BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[typeID];
