@@ -119,6 +119,7 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void IncreaseTurn(short id) {
+            InfoLog.WriteInfo("Increasing turn for player: " + id);
             int minTurnBefore = _gameServer.Simulation.GetMinTurn();
             _gameServer.Simulation.IncPlayerTurn(id);
             int minTurn = _gameServer.Simulation.GetMinTurn();
@@ -130,7 +131,9 @@ namespace Yad.Net.GameServer.Server {
 			//
             SendMessage(dtm, id);
             if (minTurn != minTurnBefore) {
+                InfoLog.WriteInfo("Waking waiting players");
                 short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
+                InfoLog.WriteInfo("Players to wake: " + stoppedWaiting.ToString());
                 for (int i = 0; i < stoppedWaiting.Length; ++i){
                     _gameServer.Simulation.IncPlayerTurn(stoppedWaiting[i]);
                     SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
@@ -139,6 +142,7 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void WaitPlayer(short id) {
+            InfoLog.WriteInfo("Adding player: " + id + "to waiting queue");
             _gameServer.Simulation.SetWaiting(id);
         }
     }
