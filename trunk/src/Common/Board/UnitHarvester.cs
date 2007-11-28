@@ -168,7 +168,7 @@ namespace Yad.Board.Common {
                     ICollection<Building> buildings = _map.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     Building refinery = null;
                     foreach (Building building in buildings) {
-                        if (building.BuildingData.IsRefinery == true) {
+                        if (building.BuildingData.IsRefinery == true && building.ObjectID.PlayerID == this.ObjectID.PlayerID) {
                             refinery = building;
                             break;
                         }
