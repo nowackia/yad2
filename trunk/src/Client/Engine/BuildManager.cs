@@ -61,6 +61,7 @@ namespace Yad.Engine {
         }
 
         public void ProcessTurn() {
+            Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn start");
             lock (((ICollection)_buildList).SyncRoot) {
                 for (int i = 0; i < _buildList.Count; ++i) {
                     BuildStatus bs = _buildList[i];
@@ -72,9 +73,9 @@ namespace Yad.Engine {
                     else
                         if (bs.ObjectId == _currentObjectID)
                             _rightStripe.Update(bs);
-
                 }
             }
+            Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn end");
         }
 
         public void OnBuildEnd(BuildStatus bstatus) {
