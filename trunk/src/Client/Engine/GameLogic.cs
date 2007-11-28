@@ -466,7 +466,16 @@ namespace Yad.Engine.Client {
 			um.UnitID = CurrentPlayer.GenerateObjectID();
 			um.IdPlayer = CurrentPlayer.Id;
 			um.UnitType = id;
-			um.UnitKind = BoardObjectClass.UnitTrooper;
+			if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))
+				um.UnitKind = BoardObjectClass.UnitHarvester;
+			else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(id))
+				um.UnitKind = BoardObjectClass.UnitMCV;
+			else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id))
+				um.UnitKind = BoardObjectClass.UnitTank;
+			else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id))
+				um.UnitKind = BoardObjectClass.UnitTrooper;
+			
+
 			um.Type = MessageType.CreateUnit;
 			um.Position = pos;
 			Connection.Instance.SendMessage(um);

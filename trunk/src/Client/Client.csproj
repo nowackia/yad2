@@ -554,6 +554,15 @@
     <Content Include="Resources\Graphics\Pictures\ConstructionYard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Graphics\Pictures\CombatTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\RocketLauncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Pictures\HeavyTrooper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Pictures\DeathHand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -587,7 +596,7 @@
     <Content Include="Resources\Graphics\Pictures\HighTechFactory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Pictures\Infantry.png">
+    <Content Include="Resources\Graphics\Pictures\LightInfantry.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Pictures\IX.png">
@@ -617,7 +626,7 @@
     <Content Include="Resources\Graphics\Pictures\Radar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Pictures\Raider.png">
+    <Content Include="Resources\Graphics\Pictures\RaiderTrike.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Pictures\Refinery.png">
@@ -787,6 +796,39 @@
     <Content Include="Resources\Graphics\Units\Carryall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Graphics\Units\CombatTank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\CombatTankBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\RocketLauncherBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\RocketLauncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Deviator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\RaiderTrikeBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\DeviatorBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\SonicTankBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Quad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\RaiderTrike.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Units\Trike.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Graphics\Units\Devastator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -802,10 +844,10 @@
     <Content Include="Resources\Graphics\Units\HarvesterSand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Units\Infantry.png">
+    <Content Include="Resources\Graphics\Units\Launcher.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Units\Launcher.png">
+    <Content Include="Resources\Graphics\Units\LightInfantry.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Units\MCV.png">
@@ -814,7 +856,7 @@
     <Content Include="Resources\Graphics\Units\Ornithopter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Units\Quad.png">
+    <Content Include="Resources\Graphics\Units\QuadBase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\Units\_READ-ME.txt" />
@@ -839,10 +881,10 @@
     <Content Include="Resources\Graphics\Units\TankBase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Units\Trike.png">
+    <Content Include="Resources\Graphics\Units\TrikeBase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Graphics\Units\Trooper.png">
+    <Content Include="Resources\Graphics\Units\HeavyTrooper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\UI_Credits_Background.png" />
