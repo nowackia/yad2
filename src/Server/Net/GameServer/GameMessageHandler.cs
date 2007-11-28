@@ -63,11 +63,11 @@ namespace Yad.Net.GameServer.Server {
 
        public override void OnReceivePlayerMessage(object sender, ReceiveMessageEventArgs args)
         {
-            if (args.Message.Type == MessageType.TurnAsk) {
+            /*if (args.Message.Type == MessageType.TurnAsk) {
                 ///Player p = sender as Player;
                 //ProcessFast(p);
             }
-            else
+            else*/
                 base.OnReceivePlayerMessage(sender, args);
         }
 
