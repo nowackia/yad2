@@ -36,7 +36,7 @@ namespace Yad.Net.GameServer.Server {
                 EPrefix.GameMessageProccesing);
             switch (item.Type) {
                 case MessageType.TurnAsk:
-                    //ProcessTurnAsk((MessageTurnAsk)item);
+                    ProcessTurnAsk((MessageTurnAsk)item);
                     break;
                 case MessageType.Move:
                 case MessageType.Destroy:
@@ -64,8 +64,8 @@ namespace Yad.Net.GameServer.Server {
        public override void OnReceivePlayerMessage(object sender, ReceiveMessageEventArgs args)
         {
             if (args.Message.Type == MessageType.TurnAsk) {
-                Player p = sender as Player;
-                ProcessFast(p);
+                ///Player p = sender as Player;
+                //ProcessFast(p);
             }
             else
                 base.OnReceivePlayerMessage(sender, args);
