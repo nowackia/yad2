@@ -11,7 +11,7 @@ using Yad.Log.Common;
 
 namespace Yad.Net.Client
 {
-    class MessageSender : ListProcessor<Message>
+    public class MessageSender : ListProcessor<Message>
     {
         private Thread thread = null;
         private BinaryWriter writeStream;

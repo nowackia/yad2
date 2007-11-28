@@ -9,6 +9,7 @@ using Yad.Log;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
+using Yad.Net.Utils;
 
 namespace Yad.Net.Server {
     
@@ -29,6 +30,7 @@ namespace Yad.Net.Server {
         private PlayerData _data;
         private string _gameName;
         private bool _isDisconnected = false;
+        private TurnAskProcessCounter _tac = new TurnAskProcessCounter();
 
         private readonly object _rcvMsgLock = new object();
         private readonly object _clMsgLock = new object();
@@ -135,6 +137,9 @@ namespace Yad.Net.Server {
             try {
                 if (!_isDisconnected) {
                     msg.Serialize(_writeStream);
+                    _writeStream.Flush();
+                    if (msg.Type == MessageType.DoTurn)
+                        _tac.Unset(this.Login);
                 }
             }
             catch (Exception) {
@@ -169,7 +174,12 @@ namespace Yad.Net.Server {
                     return;
                     
                 }
-                InfoLog.WriteInfo("Player sent message");
+                if (type == (byte)MessageType.TurnAsk)
+                    _tac.Set();
+                if (_data != null)
+                    InfoLog.WriteInfo("Player " + this.Login + " sent message", EPrefix.MessageReceivedInfo);
+                else
+                    InfoLog.WriteInfo("Player unknown sent message", EPrefix.MessageReceivedInfo);
                 Message msg = MessageFactory.Create((MessageType)type);
                 InfoLog.WriteInfo("Received message with type " + type, EPrefix.MessageReceivedInfo);
                 if (null == msg) {
@@ -183,9 +193,10 @@ namespace Yad.Net.Server {
                     ExecuteOnConnectionLost();
                     return;
                 }
-
+               
                 msg.SenderId = Id;
                 ExecuteOnReceiveMessage(msg);
+                Thread.Sleep(0);
             }
         }
 

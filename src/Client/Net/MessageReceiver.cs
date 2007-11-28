@@ -26,7 +26,7 @@ namespace Yad.Net.Client
         }
     }
 
-    class MessageReceiver
+    public class MessageReceiver
     {
         private Thread thread = null;
         private BinaryReader readStream;

@@ -7,6 +7,7 @@ using Yad.Engine.Server;
 using Yad.Properties;
 using Yad.Net.Server;
 using Yad.Net.Messaging;
+using Yad.Net.Utils;
 
 namespace Yad.Net.GameServer.Server {
 
@@ -35,7 +36,7 @@ namespace Yad.Net.GameServer.Server {
                 EPrefix.GameMessageProccesing);
             switch (item.Type) {
                 case MessageType.TurnAsk:
-                    ProcessTurnAsk((MessageTurnAsk)item);
+                    //ProcessTurnAsk((MessageTurnAsk)item);
                     break;
                 case MessageType.Move:
                 case MessageType.Destroy:
@@ -60,6 +61,16 @@ namespace Yad.Net.GameServer.Server {
                 _gameServer.StopGameServer();
         }
 
+       public override void OnReceivePlayerMessage(object sender, ReceiveMessageEventArgs args)
+        {
+            if (args.Message.Type == MessageType.TurnAsk) {
+                Player p = sender as Player;
+                ProcessFast(p);
+            }
+            else
+                base.OnReceivePlayerMessage(sender, args);
+        }
+
         private void ProcessGameMessage(GameMessage gameMessage) {
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
                 " from player: " + _gameServer.GetPlayer(gameMessage.SenderId).Login, 
@@ -68,7 +79,35 @@ namespace Yad.Net.GameServer.Server {
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
+        private void ProcessFast(Player p) {
+            if (_gameServer.Simulation.GetPlayerTurn(p.Id) < _gameServer.Simulation.GetMinTurn() + _gameServer.Simulation.Delta - 1){
+                IncreaseTurn(p);
+            }
+            else {
+                WaitPlayer(p.Id);
+            }
+        }
 
+        private void IncreaseTurn(Player p) {
+            int minTurnBefore = _gameServer.Simulation.GetMinTurn();
+            _gameServer.Simulation.IncPlayerTurn(p.Id);
+            int minTurn = _gameServer.Simulation.GetMinTurn();
+            // if this is slowest player then tell him to speed up
+            DoTurnMessage dtm = (DoTurnMessage)MessageFactory.Create(MessageType.DoTurn);
+            if (minTurn != minTurnBefore) {
+                dtm.SpeedUp = true;
+            }
+            //
+            p.SendMessage(dtm);
+            if (minTurn != minTurnBefore) {
+                short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
+                for (int i = 0; i < stoppedWaiting.Length; ++i) {
+                    _gameServer.Simulation.IncPlayerTurn(stoppedWaiting[i]);
+                    SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
+                }
+            }
+        }
+        
         private void ProcessTurnAsk(MessageTurnAsk turnAskMessage) {
             InfoLog.WriteInfo("Processing Turn Ask message from player: " +
                  _gameServer.GetPlayer(turnAskMessage.SenderId).Login,

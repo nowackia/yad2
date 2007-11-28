@@ -5,6 +5,7 @@ using Yad.Log;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
+using Yad.Net.Utils;
 
 namespace Yad.Net.Server {
     public class ServerMessageSender : ThreadListProcessor<PostMessage>, IMessageSender {
