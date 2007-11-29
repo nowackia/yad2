@@ -79,7 +79,7 @@ namespace Yad.Engine.Client {
 			//InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
 
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
-			if (!_map.CheckSpace(bm.Position, bd.Size.X, bd.Size.Y)) {
+			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidLocation != null) {
 					InvalidLocation();
 				}

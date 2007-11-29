@@ -485,7 +485,7 @@ namespace Yad.Engine.Client {
 				BuildingData bd;
 				if (GlobalSettings.Wrapper.buildingsMap.TryGetValue(id, out bd)) {
 					Position p = TranslateMousePosition(_gameForm.MousePositionInOpenGL());
-					if (_gameLogic.checkBuildingPosition(p, id)) {
+					if (Building.CheckBuildPosition(bd, p, _gameLogic.Simulation.Map, _gameLogic.CurrentPlayer.Id)) {
 						Gl.glColor4f(0, 1, 0, 0.75f);
 					} else {
 						Gl.glColor4f(1, 0, 0, 0.75f);
