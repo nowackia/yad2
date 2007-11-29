@@ -105,10 +105,10 @@ namespace Yad.Net.Server {
                 return true;
             foreach (ServerPlayerInfo spi in _players.Values) {
                 if (spi.Id != id)
-                    if (spi.Color!= color)
-                        return true;
+                    if (spi.Color == color)
+                        return false;
             }
-            return false;
+            return true;
         }
 
 
@@ -270,7 +270,7 @@ namespace Yad.Net.Server {
             Player p = player as Player;
             ServerPlayerInfo svp = new ServerPlayerInfo(p);
             short teamId = 1;
-            Color baseColor = Color.Pink;
+            Color baseColor = ServerPlayerInfo.StartColors[0];
             if (_players.Count > 0) {
                 lock (((ICollection)_players).SyncRoot) {
                     teamId = GetTeamForPlayer();
