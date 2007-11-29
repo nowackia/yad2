@@ -274,7 +274,8 @@ namespace Yad.Engine.Client {
 		}
 
 		public void CreateBuilding(Position pos, short buildingId) {
-			if (!checkBuildingPosition(pos, buildingId)) {
+			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingId];
+			if (!Building.CheckBuildPosition(bd, pos, _sim.Map, CurrentPlayer.Id)) {
 				if (OnBadLocation != null) {
 					OnBadLocation();
 				}
@@ -346,6 +347,7 @@ namespace Yad.Engine.Client {
                 GameEnd(anyObjectOwningTeamId);
         }
 
+		/*
 		public bool checkBuildingPosition(Position pos, short buildingTypeId) {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingTypeId];
 
@@ -368,6 +370,7 @@ namespace Yad.Engine.Client {
 			}
 			return true;
 		}
+		 */
 
 		private void IncreaseBuildingCounter(short buildingId) {
 			if (_buildingCounter.ContainsKey(buildingId)) {

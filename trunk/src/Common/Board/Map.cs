@@ -90,6 +90,11 @@ namespace Yad.Board.Common {
 		}
 
 		public bool CheckSpace(Position pos, short width, short height) {
+			if ((pos.X + width - 1 >= _width)
+				|| (pos.Y + height - 1 >= this._height)) {
+				return false;
+			}
+
 			for (int x = pos.X; x < pos.X + width; x++) {
 				for (int y = pos.Y; y < pos.Y + height; y++) {
 					if (_buildings[x, y].Count != 0 || _units[x, y].Count != 0) {
