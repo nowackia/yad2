@@ -209,7 +209,7 @@
 			<tns:Cost>300</tns:Cost>
 			<tns:Speed>1</tns:Speed>
 			<tns:Health>1000</tns:Health>
-			<tns:ViewRange>2</tns:ViewRange>
+			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
       <tns:DamageDestroyRange>2</tns:DamageDestroyRange>
