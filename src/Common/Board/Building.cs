@@ -105,6 +105,7 @@ namespace Yad.Board.Common {
 			return false;
 		}
 
+		/*
 		public void ClearFogOfWar() {
 			int viewRange = _buildingData.ViewRange;
 
@@ -117,7 +118,7 @@ namespace Yad.Board.Common {
 				}
 			}
 		}
-
+		*/
 
 
         /// <summary>

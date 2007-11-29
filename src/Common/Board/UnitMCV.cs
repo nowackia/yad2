@@ -19,14 +19,6 @@ namespace Yad.Board.Common {
 
 		}
 
-		public override void Destroy() {
-			base.Destroy();
-		}
-
-		public override bool Move() {
-			return base.Move();			
-		}
-
 		public override void DoAI() {
             switch (state) {
                 case UnitState.moving:

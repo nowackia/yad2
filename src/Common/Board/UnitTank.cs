@@ -50,18 +50,6 @@ namespace Yad.Board.Common {
 			get { return turretAnimation; }
 		}
 
-		public override void Destroy() {
-			base.Destroy();
-		}
-
-		public override bool Move() {
-			return base.Move();
-		}
-
-		public override void DoAI() {
-			base.DoAI();
-		}
-
 		public UnitTankData TankData {
 			get { return _tankData; }
 		}

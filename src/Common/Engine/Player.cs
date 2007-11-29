@@ -16,6 +16,8 @@ namespace Yad.Engine.Common {
 	public class Player : PlayerInfo {
 
 		int _objectID = 0;
+		bool[,] fogOfWar;
+		bool[,] slabs; // they don't work as normal buildings
 
 		//used for fast access to an object
 		private Dictionary<ObjectID, Building> _buildingsDict = new Dictionary<ObjectID, Building>();
@@ -29,7 +31,15 @@ namespace Yad.Engine.Common {
 		private int _power;
 
 		#region constructor
-		public Player(short playerID, string playerName, short raceID, Color playerColor) {
+		public Player(short playerID, string playerName, short raceID, Color playerColor, Map map) {
+			fogOfWar = new bool[map.Width, map.Height];
+			slabs = new bool[map.Width, map.Height];
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					fogOfWar[x, y] = true;
+					slabs[x, y] = false;
+				}
+			}
 			this.Id = playerID;
 			this.House = raceID;
 			this.Name = playerName;
@@ -48,6 +58,8 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Used for generating id's for player-created objects (units/buildings)
 		/// </summary>
+		/// 
+		Object idLock = new Object();
 		public int GenerateObjectID() {
 			return ++_objectID;
 		}
@@ -83,25 +95,26 @@ namespace Yad.Engine.Common {
 		}
 
 		public Unit GetUnit(ObjectID id) {
-            Unit u;
-            if (this._unitsDict.TryGetValue(id, out u)) {
-                return u;
-            }
-            return null ;
+			Unit u;
+			if (this._unitsDict.TryGetValue(id, out u)) {
+				return u;
+			}
+			return null;
 		}
 
 		public Building GetBuilding(ObjectID id) {
-            Building b;
-            if (this._buildingsDict.TryGetValue(id, out b)) {
-                return b;
-            }
-            return null;
+			Building b;
+			if (this._buildingsDict.TryGetValue(id, out b)) {
+				return b;
+			}
+			return null;
 		}
 
-        public int GameObjectsCount {
-            get {
-                return (_buildings.Count + _units.Count); }
-        }
+		public int GameObjectsCount {
+			get {
+				return (_buildings.Count + _units.Count);
+			}
+		}
 
 		public int Credits {
 			get { return _credits; }
@@ -111,6 +124,14 @@ namespace Yad.Engine.Common {
 		public int Power {
 			get { return _power; }
 			set { _power = value; }
+		}
+
+		public bool[,] FogOfWar {
+			get { return fogOfWar; }
+		}
+
+		public bool[,] Slabs {
+			get { return slabs; }
 		}
 		#endregion
 	}

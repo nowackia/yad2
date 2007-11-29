@@ -20,18 +20,6 @@ namespace Yad.Board.Common {
             this.MaxHealth = this.Health = ud.__Health;
 		}
 
-		public override void Destroy() {
-			base.Destroy();
-		}
-
-		public override bool Move() {
-			return base.Move();
-		}
-
-		public override void DoAI() {
-			base.DoAI();
-		}
-
 		public UnitTrooperData TrooperData {
 			get { return _trooperData; }
 		}
