@@ -105,7 +105,7 @@ namespace Yad.Board.Common {
 			rangeSpiral = spiral.ToArray();
 		}
 
-		protected static Position[] RangeSpiral(int range, out int max) {
+		public static Position[] RangeSpiral(int range, out int max) {
 			if (!lenghts.ContainsKey(range)) {
 				GenerateSpiral(range);
 			}

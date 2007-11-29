@@ -12,6 +12,8 @@ namespace Yad.Engine.Server {
 	/// <summary>
 	/// 
 	/// </summary>
+
+	/*
 	[Obsolete("Don't do anything in here! It might be useless ;P")]
 	class ServerSimulation : Yad.Engine.Common.Simulation {
 		public ServerSimulation(Map map)
@@ -95,4 +97,5 @@ namespace Yad.Engine.Server {
             throw new Exception("The method or operation is not implemented.");
         }
     }
+	 * */
 }

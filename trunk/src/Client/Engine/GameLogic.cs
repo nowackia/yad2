@@ -100,11 +100,13 @@ namespace Yad.Engine.Client {
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
                 UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map, this._sim);
 				p.AddUnit(mcv);
+				_sim.ClearFogOfWar(mcv);
 
 				// vjust for fun ;p
 				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
                 UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map, this._sim);
 				p.AddUnit(u);
+				_sim.ClearFogOfWar(u);
 				// ^
 
 				//this.sim.Map.Units[u.Position.X, u.Position.Y].AddLast(u);
@@ -280,7 +282,7 @@ namespace Yad.Engine.Client {
 			}
 			
 			BuildMessage bm = (BuildMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.Build);
-			bm.BuildingID = CurrentPlayer.GenerateObjectID();
+			//bm.BuildingID = CurrentPlayer.GenerateObjectID();//don't set object id here! it's not reflected in other simulations
 			bm.IdPlayer = CurrentPlayer.Id;
 			bm.BuildingType = buildingId;
 			bm.Type = MessageType.Build;
@@ -465,7 +467,7 @@ namespace Yad.Engine.Client {
 				return;
 			Position pos = FindFreeLocation(p, _sim.Map);
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
-			um.UnitID = CurrentPlayer.GenerateObjectID();
+			//um.UnitID = CurrentPlayer.GenerateObjectID();//do not generate id here - it's not reflected in other simulations
 			um.IdPlayer = CurrentPlayer.Id;
 			um.UnitType = id;
 			if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))

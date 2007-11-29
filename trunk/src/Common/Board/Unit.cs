@@ -50,25 +50,8 @@ namespace Yad.Board.Common {
             destroyed
         }
 
-        public UnitState State {
-            get { return state; }
-        }
-
         private short ammoDamageRange = 0;
-
-        public short AmmoDamageRange {
-            get { return ammoDamageRange; }
-            set { ammoDamageRange = value; }
-        }
-
-
         private short damageDestroyRange = 0;
-
-        public short DamageDestroyRange {
-            get { return damageDestroyRange; }
-            set { damageDestroyRange = value; }
-        }
-
 
         protected UnitState state = UnitState.stopped;
 		//map-related
@@ -134,19 +117,19 @@ namespace Yad.Board.Common {
                 case UnitState.chasing:
                     BoardObject nearest1;
                     if (FindNearestTargetInFireRange(out nearest1)) {
-                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
                         StopMoving();
                     } else 
                     if (Move() == false) {
-                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;
                         StopMoving();
                     } 
                     break;
                 case UnitState.orderedAttack:
                     if (Move() == false) {
-                        InfoLog.WriteInfo("Unit:AI: chacing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
                         if (CheckIfStillExistTarget(attackedObject) == false) {
                             state = UnitState.stopped;
                             StopMoving();
@@ -191,7 +174,7 @@ namespace Yad.Board.Common {
                         //attack, reload etc
                     } else {
                         // out of range - chase
-                        InfoLog.WriteInfo("Unit:AI: attack -> chace ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo("Unit:AI: attack -> chase ", EPrefix.SimulationInfo);
                         state = UnitState.chasing;
                         MoveTo(attackedObject.Position);
                         //override state
@@ -371,10 +354,10 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         /// <returns></returns>
         private bool CheckRangeToShoot(BoardObject ob) {
-            int r = (int)(Math.Sqrt(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2)));
-            int range = this.FireRange;
-            InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
-            return r< range;
+            int r = (int)(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2));
+            int range = this.FireRange * this.FireRange;
+            //InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
+            return r <= range;
         }
 
         /// <summary>
@@ -418,8 +401,9 @@ namespace Yad.Board.Common {
 
 				this._lastPosition = Position;
 				this.Position = newPos;
-
 				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+				_simulation.ClearFogOfWar(this);
+
 
 				//set new direction
 				short dx = (short)(newPos.X - _lastPosition.X);
@@ -435,8 +419,6 @@ namespace Yad.Board.Common {
 				} else if (dy < 0) {
 					_direction |= Direction.South;
 				}
-
-				this.ClearFogOfWar();
 			}
 
 			//move unit
@@ -590,7 +572,7 @@ namespace Yad.Board.Common {
 		public bool PlaceOnMap() {
 			if (!_alreadyOnMap) {
 				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
-				ClearFogOfWar();
+				//ClearFogOfWar();
 				
 				_alreadyOnMap = true;
 				return true;
@@ -598,30 +580,6 @@ namespace Yad.Board.Common {
 			return false;
 		}
 
-		public void ClearFogOfWar() {
-			/*
-			for (int x = -_viewRange + Position.X; x <= _viewRange + Position.X; x++) {
-				for (int y = -_viewRange + Position.Y; y <= _viewRange + Position.Y; y++) {
-					if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1) {
-						continue;
-					}
-					_map.FogOfWar[x, y] = false;
-				}
-			}	
-			 */
-			int max;
-			Position[] tiles = BoardObject.RangeSpiral(_viewRange, out max);
-			for (int i=0; i < max; i++) {
-				Position p = tiles[i];
-				int x = p.X + Position.X;
-				int y = p.Y + Position.Y;
-
-				if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1) {
-					continue;
-				}
-				_map.FogOfWar[x, y] = false;
-			}
-		}
         /// <summary>
         /// Sets object to attack (building or unit) by this unit.
         /// </summary>
@@ -636,5 +594,19 @@ namespace Yad.Board.Common {
 
 		public abstract float getSize();
 		public abstract float getMaxHealth();
+
+		public UnitState State {
+			get { return state; }
+		}
+
+		public short AmmoDamageRange {
+			get { return ammoDamageRange; }
+			set { ammoDamageRange = value; }
+		}
+
+		public short DamageDestroyRange {
+			get { return damageDestroyRange; }
+			set { damageDestroyRange = value; }
+		}
     }
 }

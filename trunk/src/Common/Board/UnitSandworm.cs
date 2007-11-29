@@ -19,18 +19,6 @@ namespace Yad.Board.Common {
             //this._reloadTime = ud.ReloadTime;
 		}
 
-		public override void Destroy() {
-			base.Destroy();
-		}
-
-		public override bool Move() {
-			return base.Move();
-		}
-
-		public override void DoAI() {
-			base.DoAI();
-		}
-
 		public UnitSandwormData SandwormData {
 			get { return _sandwormData; }
 		}

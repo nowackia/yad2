@@ -471,6 +471,10 @@ namespace Yad.Engine.Client {
 			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
 			#endregion
 
+			#region spice
+			DrawSpice(map);
+			#endregion
+
 			#region slabs
 			//TODO: when slabs are not buildings anymore - draw'em like fog of war
 			#endregion
@@ -556,10 +560,6 @@ namespace Yad.Engine.Client {
 			DrawFogOfWar();
 			#endregion
 
-			#region spice
-			DrawSpice(map);
-			#endregion
-
 			#region selection
 			DrawMouseSelection();
 			#endregion
@@ -579,7 +579,8 @@ namespace Yad.Engine.Client {
 		}
 
 		private static void DrawFogOfWar() {
-			bool[,] fogOfWar = GameGraphics._gameLogic.Simulation.Map.FogOfWar;
+			Player p =_gameLogic.Simulation.Players[_gameLogic.CurrentPlayer.Id];
+			bool[,] fogOfWar = p.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
 				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
 					if (fogOfWar[x, y] == false || !NeedsDrawing(x, y, 1, 1)) {

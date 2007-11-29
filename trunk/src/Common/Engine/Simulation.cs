@@ -96,7 +96,7 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		protected Dictionary<short, Player> players;
 
-		protected Map map;
+		protected Map _map;
 
 		//animations
 
@@ -104,7 +104,7 @@ namespace Yad.Engine.Common {
 
 		#region constructor
 		public Simulation(Map map, bool useFastTurnProcessing) {
-			this.map = map;
+			this._map = map;
 
 			this.players = new Dictionary<short, Player>();
 
@@ -240,7 +240,7 @@ namespace Yad.Engine.Common {
             this.unitsToProcess.Remove(u);
             this.UnitsProcessed.Remove(u);
             this.players[u.ObjectID.PlayerID].RemoveUnit(u);
-            this.map.Units[u.Position.X, u.Position.Y].Remove(u);
+            this._map.Units[u.Position.X, u.Position.Y].Remove(u);
 
         }
 
@@ -255,7 +255,7 @@ namespace Yad.Engine.Common {
             this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
             for (int i = b.Position.X; i < b.BuildingData.Size.X + b.Position.X; ++i) {
                 for (int j = b.Position.Y; j < b.Position.Y + b.BuildingData.Size.Y; ++j) {
-                    this.map.Buildings[i, j].Remove(b);
+                    this._map.Buildings[i, j].Remove(b);
                 }
             }
 
@@ -291,6 +291,8 @@ namespace Yad.Engine.Common {
 		protected abstract void onMessageHarvest(HarvestMessage hm);
 		protected abstract void onMessageCreate(CreateUnitMessage cum);
 		protected abstract void onMessageDeployMCV(GMDeployMCV dmcv);
+		public abstract void ClearFogOfWar(Building b);
+		public abstract void ClearFogOfWar(Unit u);
 
 		protected abstract void onInvalidMove(Unit unit);
 		#endregion
@@ -356,7 +358,7 @@ namespace Yad.Engine.Common {
 		}
 
 		public Map Map {
-			get { return this.map; }
+			get { return this._map; }
 		}
 
 		public ICollection<Player> GetPlayers() {
