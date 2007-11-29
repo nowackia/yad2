@@ -149,27 +149,40 @@ namespace Yad.Engine.Client {
 
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
-
+			int cost=0;
 			Player p = players[cum.IdPlayer];
 			BoardObjectClass boc = cum.UnitKind;
 			Unit u = null;
 			ObjectID id = new ObjectID(cum.IdPlayer, p.GenerateObjectID());
 			if (boc == BoardObjectClass.UnitTank) {
+				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.tanksMap[cum.UnitType].Cost))
+					return;
 				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this._map, this);
+				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.tanksMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitTrooper) {
+				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.troopersMap[cum.UnitType].Cost))
+					return;
 				u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this._map, this);
+				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.troopersMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitHarvester) {
+				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.harvestersMap[cum.UnitType].Cost))
+					return;
 				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[cum.UnitType], cum.Position, this._map, this, GlobalSettings.Wrapper.harvestersMap[cum.UnitType].__Speed);
+				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.harvestersMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitMCV) {
+				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.mcvsMap[cum.UnitType].Cost))
+					return;
 				u = new UnitMCV(id, GlobalSettings.Wrapper.mcvsMap[cum.UnitType], cum.Position, this._map, this);
+				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.mcvsMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitSandworm) {
 				u = new UnitSandworm(id, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType], cum.Position, this._map, this, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType].__Speed);
-			} else if (boc == BoardObjectClass.UnitTank) {
-				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this._map, this);
-			} else if (boc == BoardObjectClass.UnitTrooper) {
-				u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this._map, this);
+			//} else if (boc == BoardObjectClass.UnitTank) {
+			//    u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this._map, this);
+			//} else if (boc == BoardObjectClass.UnitTrooper) {
+			//    u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this._map, this);
 
 			}
+			OnCreditsUpdate(cost);
 			p.AddUnit(u);
 			ClearFogOfWar(u);
 
