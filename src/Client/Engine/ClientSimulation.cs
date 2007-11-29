@@ -91,8 +91,8 @@ namespace Yad.Engine.Client {
 			Building b = new Building(id, bd, this._map, bm.Position, this);
 
 			//TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
-			//if (b.ObjectID.PlayerID.Equals(currentPlayer.Id) && GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost > credits)
-			//	return;
+			if (players[bm.IdPlayer].Credits< GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost)
+				return;
 
 			p.AddBuilding(b);
 			p.Credits -= b.BuildingData.Cost;
