@@ -20,7 +20,10 @@ namespace Yad.Board.Common {
 
         int refineryFindingCounter = 10;
 
-		UnitHarvesterData _harvesterData;	
+		UnitHarvesterData _harvesterData;
+
+        bool knowsLastKnownPosition = false;
+        Position lastKnownSpicePosition;
 
 		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, Simulation sim,int speed)
 			: base(id, ud.TypeID,null, BoardObjectClass.UnitHarvester, pos, map,sim,0,ud.__DamageDestroyRange,ud.__DamageDestroy) {
@@ -61,12 +64,15 @@ namespace Yad.Board.Common {
                             if (FindNearestSpice(this.Position, out loc)) {
                                 // found spice
                                 state = UnitState.moving;
+                                knowsLastKnownPosition = true;
+                                lastKnownSpicePosition = loc;
                                 MoveTo(loc);
                             } else {
                                 // no spice visible - stopping but still seeking for spice
                                 state = UnitState.stopped;
+                               
                             }
-                        } else {
+                        } else if( spiceOnLocaltion > 0) {
                             // collect spise
                             this.spiceCounter+=10;
                             _map.Spice[Position.X, Position.Y]--;
@@ -80,7 +86,18 @@ namespace Yad.Board.Common {
                         if (FindNearestSpice(this.Position, out loc)) {
                             // found spice
                             state = UnitState.moving;
+                            knowsLastKnownPosition = true;
+                            lastKnownSpicePosition = loc;
                             MoveTo(loc);
+                            break;
+                        }
+                        if (this.Position.X == lastKnownSpicePosition.X &&
+                                   this.Position.Y == lastKnownSpicePosition.Y) {
+                            knowsLastKnownPosition = false;
+                        }
+                        if (knowsLastKnownPosition) {
+                            state = UnitState.moving;
+                            MoveTo(lastKnownSpicePosition);
                         }
                         break;
 
@@ -111,7 +128,7 @@ namespace Yad.Board.Common {
                             harvestingState = HarvestingState.unloading;
                         } else {
                             bool canFind;
-                            if (this.refineryFindingCounter == 9) {
+                            if (this.refineryFindingCounter >= 9) {
                                 canFind = true;
                             } else {
                                 if (this.refineryFindingCounter == 0)
@@ -154,35 +171,62 @@ namespace Yad.Board.Common {
             Position[] veryBigSpiral;
             int count;
 
-            veryBigSpiral = RangeSpiral(_map.Width > _map.Height ? _map.Width : _map.Height, out count);
+            //veryBigSpiral = RangeSpiral(_map.Width > _map.Height ? _map.Width : _map.Height, out count);
+            veryBigSpiral = RangeSpiral(this.HarvesterData.ViewRange, out count);
             Position spiralPos;
             Position p = this.Position;
-            for (int i = 0; i < count; ++i) {
-                spiralPos = veryBigSpiral[i];
 
-                if (p.X + spiralPos.X >= 0
-                        && p.X + spiralPos.X < _map.Width
-                        && p.Y + spiralPos.Y >= 0
-                        && p.Y + spiralPos.Y < _map.Height) {
-                    // check if spiral exits
-                    ICollection<Building> buildings = _map.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
-                    Building refinery = null;
-                    foreach (Building building in buildings) {
-                        if (building.BuildingData.IsRefinery == true && building.ObjectID.PlayerID == this.ObjectID.PlayerID) {
-                            refinery = building;
-                            break;
-                        }
-                    }
-                    if (refinery != null) {
-                        Position rideableField;
-                        if (GetRideableField(refinery, out rideableField)) {
-                            loc = rideableField;
-                            return true;
-                        }
-                    }
+            ICollection<Building> buildings = this._simulation.Players[this.ObjectID.PlayerID].GetAllBuildings();
 
+
+            Building min = null;
+            double minRange = double.MaxValue;
+            foreach (Building b in buildings) {
+                if (b.BuildingData.IsRefinery == true) {
+                    double tmp = Math.Sqrt(Math.Pow(b.Position.X - this.Position.X, 2) + Math.Pow(b.Position.Y - this.Position.Y,2));
+                    if (tmp < minRange) {
+                        tmp = minRange;
+                        min = b;
+                    }
                 }
+
             }
+
+            if (min != null) {
+                Position rideableField;
+                if (GetRideableField(min, out rideableField)) {
+                    loc = rideableField;
+                    return true;
+                }
+
+            }
+
+            //for (int i = 0; i < count; ++i) {
+            //    spiralPos = veryBigSpiral[i];
+
+            //    if (p.X + spiralPos.X >= 0
+            //            && p.X + spiralPos.X < _map.Width
+            //            && p.Y + spiralPos.Y >= 0
+            //            && p.Y + spiralPos.Y < _map.Height) {
+            //        // check if spiral exits
+            //        ICollection<Building> buildings = _map.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
+            //        Building refinery = null;
+            //        foreach (Building building in buildings) {
+            //            if (building.BuildingData.IsRefinery == true && building.ObjectID.PlayerID == this.ObjectID.PlayerID) {
+            //                refinery = building;
+            //                break;
+            //            }
+            //        }
+            //        if (refinery != null) {
+            //            Position rideableField;
+            //            if (GetRideableField(refinery, out rideableField)) {
+            //                loc = rideableField;
+            //                return true;
+            //            }
+            //        }
+
+            //    }
+            //}
             loc = p;
             return false;
         }
@@ -193,8 +237,8 @@ namespace Yad.Board.Common {
                 return false;
             }
             short field = refinery.BuildingData.RideableFields[0];
-            int rowY = (field+1) / refinery.Height;
-            int rowX = (field + 1) % refinery.Width;
+            int rowY = (field) / refinery.Width;
+            int rowX = (field) % refinery.Width;
             rideableField = new Position(refinery.Position.X + rowX, refinery.Position.Y + rowY);
             return true;
         }
@@ -221,7 +265,8 @@ namespace Yad.Board.Common {
             Position[] veryBigSpiral;
             int count;
 
-            veryBigSpiral = RangeSpiral(_map.Width > _map.Height ? _map.Width : _map.Height, out count);
+            //veryBigSpiral = RangeSpiral(_map.Width > _map.Height ? _map.Width : _map.Height, out count);
+            veryBigSpiral = RangeSpiral(this.HarvesterData.ViewRange, out count);
             Position spiralPos;
             Position p = this.Position;
             for(int i =0;i< count ;++i){
