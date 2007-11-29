@@ -478,15 +478,17 @@ namespace Yad.Engine.Client {
 			#region placing building
 			if (_gameForm.IsCreatingBuilding) {
 				short id = _gameForm.CreatingBuildingId;
-				BuildingData bd = GlobalSettings.Wrapper.buildingsMap[id];
-				Position p = TranslateMousePosition(_gameForm.MousePositionInOpenGL());
-				if (_gameLogic.checkBuildingPosition(p, id)) {
-					Gl.glColor4f(0, 1, 0, 0.75f);
-				} else {
-					Gl.glColor4f(1, 0, 0, 0.75f);
+				BuildingData bd;
+				if (GlobalSettings.Wrapper.buildingsMap.TryGetValue(id, out bd)) {
+					Position p = TranslateMousePosition(_gameForm.MousePositionInOpenGL());
+					if (_gameLogic.checkBuildingPosition(p, id)) {
+						Gl.glColor4f(0, 1, 0, 0.75f);
+					} else {
+						Gl.glColor4f(1, 0, 0, 0.75f);
+					}
+					DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
+					Gl.glColor4f(1, 1, 1, 1);
 				}
-				DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
-				Gl.glColor4f(1, 1, 1, 1);
 			}
 			#endregion
 

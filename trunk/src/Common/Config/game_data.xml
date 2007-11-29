@@ -4,35 +4,35 @@
 	<tns:UnitTroopersData>
 		<tns:UnitTrooperData>
 			<tns:Name>LightInfantry</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
-			<tns:FirePower>5</tns:FirePower>
-			<tns:Speed>8</tns:Speed>
-			<tns:ReloadTime>2</tns:ReloadTime>
+			<tns:Cost>50</tns:Cost>
+			<tns:FireRange>2</tns:FireRange>
+			<tns:FirePower>1</tns:FirePower>
+			<tns:Speed>10</tns:Speed>
+			<tns:ReloadTime>8</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
-      <tns:AmmoDamageRange>1</tns:AmmoDamageRange>
-      <tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
-			<tns:ViewRange>13</tns:ViewRange>
-			<tns:BuildSpeed>20</tns:BuildSpeed>
-			<tns:DamageDestroy>5</tns:DamageDestroy>
+      <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+      <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+			<tns:Health>50</tns:Health>
+			<tns:ViewRange>3</tns:ViewRange>
+			<tns:BuildSpeed>30</tns:BuildSpeed>
+			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
 		</tns:UnitTrooperData>
 		<tns:UnitTrooperData>
 			<tns:Name>HeavyTrooper</tns:Name>
 			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
+			<tns:FireRange>4</tns:FireRange>
 			<tns:FirePower>5</tns:FirePower>
-			<tns:Speed>8</tns:Speed>
-			<tns:ReloadTime>2</tns:ReloadTime>
+			<tns:Speed>11</tns:Speed>
+			<tns:ReloadTime>8</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
-			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
-			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
-			<tns:ViewRange>13</tns:ViewRange>
+			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+			<tns:Health>70</tns:Health>
+			<tns:ViewRange>4</tns:ViewRange>
 			<tns:BuildSpeed>20</tns:BuildSpeed>
-			<tns:DamageDestroy>5</tns:DamageDestroy>
+			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
 		</tns:UnitTrooperData>
@@ -41,18 +41,18 @@
 	<tns:UnitTanksData>
 		<tns:UnitTankData>
 			<tns:Name>Trike</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
-			<tns:FirePower>100</tns:FirePower>
-			<tns:Speed>3</tns:Speed>
-			<tns:ReloadTime>3</tns:ReloadTime>      
+			<tns:Cost>120</tns:Cost>
+			<tns:FireRange>4</tns:FireRange>
+			<tns:FirePower>10</tns:FirePower>
+			<tns:Speed>5</tns:Speed>
+			<tns:ReloadTime>10</tns:ReloadTime>      
       <tns:AmmoType>Bullet</tns:AmmoType>			
-      <tns:AmmoDamageRange>1</tns:AmmoDamageRange>
-      <tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-      <tns:Health>100</tns:Health>
-			<tns:ViewRange>4</tns:ViewRange>
-			<tns:BuildSpeed>10</tns:BuildSpeed>
-			<tns:DamageDestroy>10</tns:DamageDestroy>
+      <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+      <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+      <tns:Health>90</tns:Health>
+			<tns:ViewRange>5</tns:ViewRange>
+			<tns:BuildSpeed>40</tns:BuildSpeed>
+			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
@@ -60,14 +60,14 @@
 		<tns:UnitTankData>
 			<tns:Name>RaiderTrike</tns:Name>
 			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
+			<tns:FireRange>4</tns:FireRange>
 			<tns:FirePower>100</tns:FirePower>
-			<tns:Speed>3</tns:Speed>
-			<tns:ReloadTime>3</tns:ReloadTime>
+			<tns:Speed>4</tns:Speed>
+			<tns:ReloadTime>9</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
+			<tns:Health>80</tns:Health>
 			<tns:ViewRange>4</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>10</tns:DamageDestroy>
@@ -80,15 +80,15 @@
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>5</tns:FireRange>
 			<tns:FirePower>100</tns:FirePower>
-			<tns:Speed>3</tns:Speed>
+			<tns:Speed>10</tns:Speed>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
 			<tns:Health>100</tns:Health>
-			<tns:ViewRange>4</tns:ViewRange>
-			<tns:BuildSpeed>10</tns:BuildSpeed>
-			<tns:DamageDestroy>10</tns:DamageDestroy>
+			<tns:ViewRange>3</tns:ViewRange>
+      <tns:BuildSpeed>20</tns:BuildSpeed>
+			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
@@ -97,15 +97,15 @@
 			<tns:Name>CombatTank</tns:Name>
 			<tns:Cost>100</tns:Cost>
 			<tns:FireRange>5</tns:FireRange>
-			<tns:FirePower>100</tns:FirePower>
-			<tns:Speed>3</tns:Speed>
-			<tns:ReloadTime>3</tns:ReloadTime>
+			<tns:FirePower>20</tns:FirePower>
+			<tns:Speed>7</tns:Speed>
+			<tns:ReloadTime>15</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>4</tns:ViewRange>
-			<tns:BuildSpeed>10</tns:BuildSpeed>
+			<tns:BuildSpeed>50</tns:BuildSpeed>
 			<tns:DamageDestroy>10</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
@@ -113,7 +113,7 @@
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>Devastator</tns:Name>
-			<tns:Cost>100</tns:Cost>
+			<tns:Cost>500</tns:Cost>
 			<tns:FireRange>5</tns:FireRange>
 			<tns:FirePower>100</tns:FirePower>
 			<tns:Speed>3</tns:Speed>
