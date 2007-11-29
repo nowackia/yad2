@@ -388,12 +388,12 @@ namespace Yad.UI.Client {
 			//create or let user choose where to place unit?
 			//this.isCreatingUnit = true;
 			_gameLogic.createUnit(id, objectID);
-			_objectToCreateId = id;
+			//_objectToCreateId = id;
 		}
 
 		private void PlaceBuilding(short id) {
-			this._isCreatingBuilding = true;
 			_objectToCreateId = id;
+			this._isCreatingBuilding = true;
 		}
 
 		/*
