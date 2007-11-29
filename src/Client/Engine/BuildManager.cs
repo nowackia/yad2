@@ -9,6 +9,7 @@ using Yad.Board;
 using Yad.Net.Client;
 using Yad.UI;
 using System.Collections;
+using Yad.Log.Common;
 
 namespace Yad.Engine {
     public delegate void CreateUnitHandler(int createObjectID, short typeID);
@@ -62,24 +63,38 @@ namespace Yad.Engine {
 
         public void ProcessTurn() {
             Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn start");
+            List<BuildStatus> _bsToEnd = new List<BuildStatus>();
             lock (((ICollection)_buildList).SyncRoot) {
                 for (int i = 0; i < _buildList.Count; ++i) {
                     BuildStatus bs = _buildList[i];
                     if (bs.DoTurn()) {
                         _buildList.Remove(bs);
                         --i;
+                        _bsToEnd.Add(bs);
+                        /* OLD--> InfoLog.WriteInfo("Before OnBuildEnd");
                         OnBuildEnd(bs);
+                        InfoLog.WriteInfo("After OnBuildEnd");*/
                     }
                     else
-                        if (bs.ObjectId == _currentObjectID)
+                        if (bs.ObjectId == _currentObjectID) {
+                            InfoLog.WriteInfo("Before _rightStripe.Update");
                             _rightStripe.Update(bs);
+                            InfoLog.WriteInfo("After _rightStripe.Update");
+                        }
                 }
+            }
+            //NEW
+            foreach (BuildStatus bs in _bsToEnd) {
+                InfoLog.WriteInfo("Before OnBuildEnd");
+                OnBuildEnd(bs);
+                InfoLog.WriteInfo("After OnBuildEnd");
             }
             Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn end");
         }
 
         public void OnBuildEnd(BuildStatus bstatus) {
             if (bstatus.BuildType == BuildType.Unit) {
+                InfoLog.WriteInfo("Creating unit");
                 lock (cuLock) {
                     if (_createUnit != null)
                         _createUnit(bstatus.ObjectId, bstatus.Typeid);
@@ -90,6 +105,7 @@ namespace Yad.Engine {
             }
             if (bstatus.BuildType == BuildType.Building) {
                 bstatus.State = StripButtonState.Ready;
+                InfoLog.WriteInfo("Create Building");
                 if (_currentObjectID == bstatus.ObjectId)
                     _rightStripe.Update(bstatus);
             }
@@ -153,6 +169,7 @@ namespace Yad.Engine {
         }
 
         public void UpdateView(int id, bool rewind) {
+            InfoLog.WriteInfo("UpdateView");
             if (id == -1) {
                 _rightStripe.HideAll();
                 return;
