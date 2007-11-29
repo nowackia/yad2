@@ -207,7 +207,7 @@
 		<tns:UnitHarvesterData>
 			<tns:Name>Harvester</tns:Name>
 			<tns:Cost>300</tns:Cost>
-			<tns:Speed>1</tns:Speed>
+			<tns:Speed>10</tns:Speed>
 			<tns:Health>1000</tns:Health>
 			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>10</tns:BuildSpeed>
