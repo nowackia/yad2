@@ -496,13 +496,13 @@ namespace Yad.Engine.Client {
 			int dotsCounter;
 			int dotsInSquare;
 			Position loop = new Position();
-			int nearestBorder = Math.Min(Math.Min(p.X, p.Y), Math.Min(map.Width - p.X, map.Height - p.Y));
+			int nearestBorder = Math.Max(Math.Max(p.X, p.Y), Math.Max(map.Width - p.X, map.Height - p.Y));
 			for (; radius < nearestBorder; radius += 2 ) {
 				loop.X = (short)(p.X - radius / 2); loop.Y = (short)(p.Y + radius / 2);  /////albo -
 
 				dotsInSquare = radius * radius - (radius - 2) * (radius - 2);
 				for (dotsCounter = 0; dotsCounter < dotsInSquare; ) {
-					if (checkFreeLocation(loop, map))
+					if (loop.X>=0 && loop.X<map.Width & loop.Y>=0 && loop.Y<map.Height && checkFreeLocation(loop, map))
 						return loop;
 					dotsCounter++;
 					if (dotsCounter < radius)
@@ -516,7 +516,7 @@ namespace Yad.Engine.Client {
 
 				}
 			}
-			return new Position(-1,-1);
+			return p;
 		}
 
 		private bool checkFreeLocation(Position loop, Map map) {
