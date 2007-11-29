@@ -65,7 +65,6 @@ namespace Yad.Engine.Client {
 			_currentPlayer = _sim.GetPlayer(ClientPlayerInfo.Player.Id);
 
 			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
-
             _sim.BuildingDestroyed += new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
             _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
 		}
@@ -79,10 +78,15 @@ namespace Yad.Engine.Client {
 		}
 
         void _sim_UnitDestroyed(Unit u) {
+			_selectedUnits.Remove(u);
+
             this.CheckGameEndCondition();
         }
 
         void _sim_BuildingDestroyed(Building b) {
+			if (_selectedBuilding == b) {
+				_selectedBuilding = null;
+			}
             this.CheckGameEndCondition();
         }
 		#endregion
