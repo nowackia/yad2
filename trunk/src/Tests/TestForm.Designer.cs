@@ -31,6 +31,7 @@ namespace Tests {
             this.btnNext = new System.Windows.Forms.Button();
             this.btnRandom = new System.Windows.Forms.Button();
             this.btnTestDict = new System.Windows.Forms.Button();
+            this.buttonTestMidi = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,16 +122,26 @@ namespace Tests {
             this.btnTestDict.UseVisualStyleBackColor = true;
             this.btnTestDict.Click += new System.EventHandler(this.btnTestDict_Click);
             // 
+            // buttonTestMidi
+            // 
+            this.buttonTestMidi.Location = new System.Drawing.Point(14, 165);
+            this.buttonTestMidi.Name = "buttonTestMidi";
+            this.buttonTestMidi.Size = new System.Drawing.Size(124, 23);
+            this.buttonTestMidi.TabIndex = 2;
+            this.buttonTestMidi.Text = "Play Example Midi";
+            this.buttonTestMidi.UseVisualStyleBackColor = true;
+            this.buttonTestMidi.Click += new System.EventHandler(this.buttonTestMidi_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(618, 417);
+            this.Controls.Add(this.buttonTestMidi);
             this.Controls.Add(this.btnTestDict);
             this.Controls.Add(this.groupBox1);
             this.Name = "TestForm";
             this.Text = "Test Form";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TestForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -147,6 +158,7 @@ namespace Tests {
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnRandom;
 		private System.Windows.Forms.Button btnTestDict;
+        private System.Windows.Forms.Button buttonTestMidi;
 	}
 }
 

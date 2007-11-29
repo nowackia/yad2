@@ -16,7 +16,6 @@ using Yad.Board.Common;
 using Yad.Config.XMLLoader.Common;
 using Yad.Net.Client;
 using Yad.UI.Common;
-using Tao.OpenAl;
 
 namespace Tests
 {
@@ -26,19 +25,9 @@ namespace Tests
         {
             InitializeComponent();
 
-            // Initialize OpenAL and clear the error bit.
-            Alut.alutInit();
-            Al.alGetError();
-
-            // Load the wav data.
-            if (!LoadALData())
-            {
-                Console.WriteLine("Error loading data.");
-                return;
-            }
-
-            // Initialize the listener in OpenAL.
-            SetListenerValues();
+            InitFMod();
+            LoadSounds();
+            LoadMidi();
         }
 
         #region Direction
@@ -118,87 +107,63 @@ namespace Tests
         #endregion
 
         #region Sound
-        private static int buffer; // Buffers to hold sound data.
-        private static int source; // Sources are points of emitting sound.
+        private FMOD.System system = null;
+        private FMOD.Sound[] sounds = new FMOD.Sound[2];
+        private FMOD.Channel channel = null;
+        private uint ms = 0;
+        private uint lenms = 0;
+        private bool playing = false;
+        private bool paused = false;
+        private int channelsplaying = 0;
 
-        private static float[] sourcePosition = { 0, 0, 0 }; // Position of the source sound.
-        private static float[] sourceVelocity = { 0, 0, 0 }; // Velocity of the source sound.
-        private static float[] listenerPosition = { 0, 0, 0 }; // Position of the Listener.
-        private static float[] listenerVelocity = { 0, 0, 0 }; // Velocity of the Listener.
-
-        private static float[] listenerOrientation = { 0, 0, -1, 0, 1, 0 };
-
-        /*
-        * We have allocated memory for our buffers and sources which needs
-        * to be returned to the system. This function frees that memory.
-        */
-        private static void KillALData()
+        private void InitFMod()
         {
-            Al.alDeleteBuffers(1, ref buffer);
-            Al.alDeleteSources(1, ref source);
-            Alut.alutExit();
+            uint version = 0;
+            FMOD.RESULT result;
+
+            /*
+                Create a System object and initialize.
+            */
+            result = FMOD.Factory.System_Create(ref system);
+            ERRCHECK(result);
+
+            result = system.getVersion(ref version);
+            ERRCHECK(result);
+            if (version < FMOD.VERSION.number)
+            {
+                MessageBox.Show("Error!  You are using an old version of FMOD " + version.ToString("X") + ".  This program requires " + FMOD.VERSION.number.ToString("X") + ".");
+                Application.Exit();
+            }
+
+            result = system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null);
+            ERRCHECK(result);
         }
 
-        /*
-         * This function will load our sample data from the disk using the Alut
-         * utility and send the data into OpenAL as a buffer. A source is then
-         * also created to play that buffer.
-         */
-        private static bool LoadALData()
+        private void LoadSounds()
         {
-            // Variables to load into.
-            int format;
-            int size;
-            IntPtr data = IntPtr.Zero;
-            float frequency;
+            FMOD.RESULT result;
 
-            // Generate an OpenAL buffer.
-            Al.alGenBuffers(1, out buffer);
-            if (Al.alGetError() != Al.AL_NO_ERROR)
-                return false;
-
-            // Attempt to locate the file.
-            string fileName = "OpenAlExamples.Lesson01.FancyPants.wav";
-            if (!File.Exists(fileName))
-                return false;
-
-            // Load wav.
-            data = Alut.alutLoadMemoryFromFile(fileName, out format, out size, out frequency);
-            if (data == IntPtr.Zero)
-                return false;
-
-            // Load wav data into the generated buffer.
-            Al.alBufferData(buffer, format, data, size, (int)frequency);
-
-            // Generate an OpenAL source.
-            Al.alGenSources(1, out source);
-            if (Al.alGetError() != Al.AL_NO_ERROR)
-                return false;
-
-            // Bind the buffer with the source.
-            Al.alSourcei(source, Al.AL_BUFFER, buffer);
-            Al.alSourcef(source, Al.AL_PITCH, 1.0f);
-            Al.alSourcef(source, Al.AL_GAIN, 1.0f);
-            Al.alSourcefv(source, Al.AL_POSITION, sourcePosition);
-            Al.alSourcefv(source, Al.AL_VELOCITY, sourceVelocity);
-            Al.alSourcei(source, Al.AL_LOOPING, 0);
-
-            // Do a final error check and then return.
-            if (Al.alGetError() == Al.AL_NO_ERROR)
-                return true;
-
-            return false;
+            sounds[0] = new FMOD.Sound();
+            result = system.createSound("FancyPants.wav", FMOD.MODE.HARDWARE, ref sounds[0]);
+            ERRCHECK(result);
         }
 
-        /*
-         * We already defined certain values for the Listener, but we need
-         * to tell OpenAL to use that data. This function does just that.
-         */
-        private static void SetListenerValues()
+        private void LoadMidi()
         {
-            Al.alListenerfv(Al.AL_POSITION, listenerPosition);
-            Al.alListenerfv(Al.AL_VELOCITY, listenerVelocity);
-            Al.alListenerfv(Al.AL_ORIENTATION, listenerOrientation);
+            FMOD.RESULT result;
+
+            sounds[1] = new FMOD.Sound();
+            result = system.createSound("dune_win_01.MID", FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sounds[1]);
+            ERRCHECK(result);
+        }
+
+        private void ERRCHECK(FMOD.RESULT result)
+        {
+            if (result != FMOD.RESULT.OK)
+            {
+                MessageBox.Show("FMOD error! " + result + " - " + FMOD.Error.String(result));
+                Environment.Exit(-1);
+            }
         }
         #endregion
 
@@ -298,13 +263,18 @@ namespace Tests
 
         private void btnTestDict_Click(object sender, EventArgs e)
         {
-            MessageBoxEx.Show(this, "test");
-            Al.alSourcePlay(source);
+            FMOD.RESULT result;
+
+            result = system.playSound(FMOD.CHANNELINDEX.FREE, sounds[0], false, ref channel);
+            ERRCHECK(result);
         }
 
-        private void TestForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void buttonTestMidi_Click(object sender, EventArgs e)
         {
-            KillALData();
+            FMOD.RESULT result;
+
+            result = system.playSound(FMOD.CHANNELINDEX.FREE, sounds[1], false, ref channel);
+            ERRCHECK(result);
         }
     }
 }
