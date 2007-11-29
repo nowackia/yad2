@@ -157,7 +157,9 @@ namespace Yad.Board.Common {
 
             } else {
                 // unloading
+                _simulation.Players[this.ObjectID.PlayerID].Credits += spiceCounter;
                 this.spiceCounter = 0;
+                
                 this.harvestingState = HarvestingState.harvesting;
                 this.state = UnitState.stopped;
             }
