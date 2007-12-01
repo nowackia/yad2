@@ -50,6 +50,11 @@ namespace Yad.UI.Client {
 		/// </summary>
 		private short _objectToCreateId;
 
+        /// <summary>
+        /// Id of building creator
+        /// </summary>
+        private int _objectCreatorId;
+
         private BuildManager _buildManager;
 		#endregion
 
@@ -67,7 +72,7 @@ namespace Yad.UI.Client {
                 Connection.Instance.ConnectionLost += new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
 
 				_gameLogic = new GameLogic();
-				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingHandler(Simulation_OnBuildingCompleted);
+				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingCreationHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
@@ -116,10 +121,12 @@ namespace Yad.UI.Client {
 			//TODO
 			//this.rightStripe.RemovePercentCounter(unitType);
 		}
-		void Simulation_OnBuildingCompleted(Building b) {
+		void Simulation_OnBuildingCompleted(Building b, int creatorID) {
 			//this.rightStripe.RemovePercentCounter(buildingType);
 			//TODO: add building type, update tech-tree
 			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+                if (creatorID != -1)
+                    BuildEndStripViewUpdate(creatorID);
 				AddBuildingToStripe(b.ObjectID, b.TypeID);
 			}
 		}
@@ -275,7 +282,7 @@ namespace Yad.UI.Client {
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
 
 			if (this._isCreatingBuilding) {
-				_gameLogic.CreateBuilding(pos, _objectToCreateId);
+				_gameLogic.CreateBuilding(pos, _objectToCreateId, _objectCreatorId);
 				this._isCreatingBuilding = false;
 				return;
 			}
@@ -357,8 +364,9 @@ namespace Yad.UI.Client {
 
 		void rightStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            if (_buildManager.RightBuildingClick(id))
-		        PlaceBuilding((short)id);
+            int creator = _buildManager.RightBuildingClick(id);
+            if (creator != -1)
+		        PlaceBuilding((short)id, creator);
 		}
 
 		private void UpdateCredits(int cost) {
@@ -391,6 +399,11 @@ namespace Yad.UI.Client {
 			//_objectToCreateId = id;
 		}
 
+        private void PlaceBuilding(short id, int creatorID) {
+            _objectToCreateId = id;
+            _objectCreatorId = creatorID;
+            this._isCreatingBuilding = true;
+        }
 		private void PlaceBuilding(short id) {
 			_objectToCreateId = id;
 			this._isCreatingBuilding = true;
@@ -410,6 +423,9 @@ namespace Yad.UI.Client {
             leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
 		}*/
 
+        public void BuildEndStripViewUpdate(int creatorID) {
+            _buildManager.ReadyReset(creatorID);
+        }
         public void AddBuildingToStripe(ObjectID objectid, short typeId) {
             _buildManager.AddBuilding(objectid, typeId);
             //string name = GlobalSettings.Wrapper.buildingsMap[id].Name;

@@ -64,12 +64,12 @@ namespace Yad.Engine.Client {
 			//pobranie obiektu aktualnego gracza z symulacji - do obsługi w GameLogic
 			_currentPlayer = _sim.GetPlayer(ClientPlayerInfo.Player.Id);
 
-			_sim.BuildingCompleted += new ClientSimulation.BuildingHandler(_sim_OnBuildingCompleted);
+			_sim.BuildingCompleted += new ClientSimulation.BuildingCreationHandler(_sim_OnBuildingCompleted);
             _sim.BuildingDestroyed += new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
             _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
 		}
 
-		void _sim_OnBuildingCompleted(Building b) {
+		void _sim_OnBuildingCompleted(Building b, int creatorID) {
 			IncreaseBuildingCounter(b.TypeID);
 			foreach (string s in b.BuildingData.UnitsCanProduce.NameCollection) {
 				if (!defaultBuildings.ContainsKey(GlobalSettings.Wrapper.namesToIds[s]))
@@ -277,7 +277,7 @@ namespace Yad.Engine.Client {
 			}
 		}
 
-		public void CreateBuilding(Position pos, short buildingId) {
+		public void CreateBuilding(Position pos, short buildingId, int creatorID) {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingId];
 			if (!Building.CheckBuildPosition(bd, pos, _sim.Map, CurrentPlayer.Id)) {
 				if (OnBadLocation != null) {
@@ -290,6 +290,7 @@ namespace Yad.Engine.Client {
 			//bm.BuildingID = CurrentPlayer.GenerateObjectID();//don't set object id here! it's not reflected in other simulations
 			bm.IdPlayer = CurrentPlayer.Id;
 			bm.BuildingType = buildingId;
+            bm.CreatorID = creatorID;
 			bm.Type = MessageType.Build;
 			bm.Position = pos;
 			Connection.Instance.SendMessage(bm);
@@ -456,7 +457,7 @@ namespace Yad.Engine.Client {
 			// v remove (workaround), send MessageDeployMCV instead
 			short constructionYardId = GlobalSettings.Wrapper.namesToIds["ConstructionYard"];
 			Position newPos = new Position(u.Position.X + 1, u.Position.Y);
-			this.CreateBuilding(newPos, constructionYardId);
+			this.CreateBuilding(newPos, constructionYardId,-1);
 			// ^
 		}
 
