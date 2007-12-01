@@ -28,7 +28,6 @@ namespace Tests
         public TestForm()
         {
             InitializeComponent();
-            TestAStar();
             InitFMod();
             LoadSounds();
             LoadMidi();

@@ -6,6 +6,7 @@ using Yad.Board;
 using Yad.Board.Common;
 
 namespace Yad.AI {
+
     /// <summary>
     /// Class that represents AStarInput related to YAD map
     /// </summary>
