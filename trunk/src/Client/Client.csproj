@@ -169,23 +169,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\przenieście to do Graphics UI" />
-    <None Include="Resources\UI_Ball_ENS.png" />
-    <None Include="Resources\UI_Ball_N.png" />
-    <None Include="Resources\UI_Ball_NS.png" />
-    <None Include="Resources\UI_Ball_WES.png" />
-    <None Include="Resources\UI_Line_NS.png" />
-    <None Include="Resources\UI_Ball_E.png" />
-    <None Include="Resources\UI_Ball_W.png" />
-    <None Include="Resources\UI_Line_WE.png" />
-    <None Include="Resources\UI_Background.png" />
-    <None Include="Resources\UI_Down.png" />
-    <None Include="Resources\UI_Down_Pressed.png" />
-    <None Include="Resources\UI_Up_Pressed.png" />
-    <None Include="Resources\UI_Up.png" />
-    <None Include="Resources\UI_TopMenu_MAIN.png" />
-    <None Include="Resources\UI_TopMenu_E.png" />
-    <None Include="Resources\UI_TopMenu_W.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_ENS.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_N.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_NS.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_WES.png" />
+    <None Include="Resources\Graphics\UI\UI_Line_NS.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_E.png" />
+    <None Include="Resources\Graphics\UI\UI_Ball_W.png" />
+    <None Include="Resources\Graphics\UI\UI_Line_WE.png" />
+    <None Include="Resources\Graphics\UI\UI_Background.png" />
+    <None Include="Resources\Graphics\UI\UI_Down.png" />
+    <None Include="Resources\Graphics\UI\UI_Down_Pressed.png" />
+    <None Include="Resources\Graphics\UI\UI_Up_Pressed.png" />
+    <None Include="Resources\Graphics\UI\UI_Up.png" />
+    <None Include="Resources\Graphics\UI\UI_TopMenu_MAIN.png" />
+    <None Include="Resources\Graphics\UI\UI_TopMenu_E.png" />
+    <None Include="Resources\Graphics\UI\UI_TopMenu_W.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Audio\FX\Atreides\apprch.wav" />
@@ -887,9 +886,9 @@
     <Content Include="Resources\Graphics\Units\HeavyTrooper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\UI_Credits_Background.png" />
-    <None Include="Resources\UI_Options_Pressed.png" />
-    <None Include="Resources\UI_Options.png" />
+    <None Include="Resources\Graphics\UI\UI_Credits_Background.png" />
+    <None Include="Resources\Graphics\UI\UI_Options_Pressed.png" />
+    <None Include="Resources\Graphics\UI\UI_Options.png" />
     <Content Include="TaoFramework\Tao.OpenAl.dll" />
     <Content Include="TaoFramework\Tao.OpenGl.dll">
     </Content>

@@ -118,67 +118,67 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="UI_Ball_E" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_E.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_TopMenu_MAIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_TopMenu_MAIN.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Line_NS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Line_NS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Ball_W" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_W.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Ball_NS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_NS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Ball_ENS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_ENS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Up_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Up_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_TopMenu_W" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_TopMenu_W.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\UI\Menu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Ball_WES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_WES.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_TopMenu_E" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_TopMenu_E.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Line_WE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Line_WE.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Down_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Down_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Background.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UI_Ball_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Ball_N.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CreditsDigits" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\UI\CreditsDigits.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="UI_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Background.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_E" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_E.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_ENS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_ENS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_N.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_NS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_NS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_W" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_W.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Ball_WES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Ball_WES.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="UI_Credits_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Credits_Background.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Graphics\UI\UI_Credits_Background.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Down_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Down_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Line_NS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Line_NS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Line_WE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Line_WE.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UI_Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Graphics\UI\UI_Options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UI_Options_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UI_Options_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Graphics\UI\UI_Options_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_TopMenu_E" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_TopMenu_E.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_TopMenu_MAIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_TopMenu_MAIN.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_TopMenu_W" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_TopMenu_W.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Up_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\UI\UI_Up_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

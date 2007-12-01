@@ -320,6 +320,7 @@ namespace Yad.Engine.Client {
         public void CheckGameEndCondition()
         {
             return;
+
             int[] teamGameObjectCount = new int[_sim.TeamCount];
 
             ICollection<Player> playerColl = _sim.GetPlayers();
