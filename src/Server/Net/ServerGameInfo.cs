@@ -197,7 +197,13 @@ namespace Yad.Net.Server {
         private bool RepairTeams() {
             if (_players.Count < 2)
                 return false;
-            int id = ((ServerPlayerInfo)_players.Values.GetEnumerator().Current).TeamID;
+            ServerPlayerInfo firstSpi = null;
+            foreach (IPlayerID pid in _players.Values)
+            {
+                firstSpi = (ServerPlayerInfo)pid;
+                break;
+            }
+            int id = firstSpi.TeamID;
             bool change = true;
             foreach (ServerPlayerInfo spi in _players.Values) {
                 if (spi.TeamID != id) {
@@ -228,9 +234,9 @@ namespace Yad.Net.Server {
 
         private bool IsColorValid(Color color) {
             foreach (ServerPlayerInfo spi in _players.Values)
-                if (spi.Color != color)
-                    return true;
-            return false;
+                if (spi.Color == color)
+                    return false;
+            return true;
         }
 
         private bool IsTeamModificationValid(short teamid, short playerid) {
