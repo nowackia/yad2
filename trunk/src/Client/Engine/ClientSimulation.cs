@@ -23,7 +23,8 @@ namespace Yad.Engine.Client {
 	public class ClientSimulation : Yad.Engine.Common.Simulation {
 		MessageTurnAsk tam = new MessageTurnAsk();
 		#region events
-		public delegate void BuildingHandler(Building b);
+		public delegate void BuildingCreationHandler(Building b, int creatorID);
+        public delegate void BuildingHandler(Building b);
 		public delegate void UnitHandler(Unit u);
 		public delegate void OnLowPowerHandler(Player p);
 		public delegate void OnNoPowerHandler(Player p);
@@ -33,7 +34,7 @@ namespace Yad.Engine.Client {
 		public event OnCreditsHandler OnCreditsUpdate;
 		public event OnLowPowerHandler OnLowPowerResources;
 		public event OnNoPowerHandler OnNoPowerResources;
-		public event BuildingHandler BuildingCompleted;
+		public event BuildingCreationHandler BuildingCompleted;
 		public event UnitHandler UnitCompleted;
 		public event BuildingHandler BuildingDestroyed;
 		public event UnitHandler UnitDestroyed;
@@ -100,7 +101,7 @@ namespace Yad.Engine.Client {
 
 			UpdatePowerManagement(b);
 			OnCreditsUpdate(b.BuildingData.Cost);
-			OnBuildingCompleted(b);
+			OnBuildingCompleted(b, bm.CreatorID);
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
@@ -313,10 +314,10 @@ namespace Yad.Engine.Client {
 			}
 		}
 
-		private void OnBuildingCompleted(Building b) {
+		private void OnBuildingCompleted(Building b, int creator_id) {
 			if (BuildingCompleted != null) {
 				//TODO RS: run in different thread
-				this.BuildingCompleted(b);
+				this.BuildingCompleted(b, creator_id);
 			}
 		}
 

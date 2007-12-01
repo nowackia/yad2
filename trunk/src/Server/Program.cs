@@ -24,8 +24,7 @@ namespace Yad.Server
             Application.EnableVisualStyles();
             consoleForm consoleForm = new consoleForm();
             OnWriteLineDelegate owd = new OnWriteLineDelegate(consoleForm.AppendText);
-            InfoLog.Instance.OnWriteLine += owd;
-            
+            //InfoLog.Instance.OnWriteLine += owd;
             InfoLog.WriteStart();
             //InfoLog.Disable();
             Application.Run(consoleForm);
