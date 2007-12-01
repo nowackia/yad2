@@ -36,6 +36,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\General\AStar.cs" />
+    <Compile Include="AI\General\AStarInput.cs" />
+    <Compile Include="AI\General\AStarNode.cs" />
+    <Compile Include="AI\MapInput.cs" />
+    <Compile Include="AI\TrooperInput.cs" />
     <Compile Include="Board\AmmoType.cs" />
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />

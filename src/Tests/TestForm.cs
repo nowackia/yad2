@@ -16,6 +16,10 @@ using Yad.Board.Common;
 using Yad.Config.XMLLoader.Common;
 using Yad.Net.Client;
 using Yad.UI.Common;
+using Yad.DataStructures;
+using Yad.AI;
+using Yad.AI.General;
+using Yad.Config.Common;
 
 namespace Tests
 {
@@ -24,7 +28,7 @@ namespace Tests
         public TestForm()
         {
             InitializeComponent();
-
+            TestAStar();
             InitFMod();
             LoadSounds();
             LoadMidi();
@@ -54,6 +58,45 @@ namespace Tests
         Random rnd = new Random();
         Semaphore s = new Semaphore(0, 1);
 
+        public void TestAStar() {
+            Map map = new Map();
+            map.LoadMap(Path.Combine("Resources/Maps", "mala.map"));
+            Simulation sim = new ClientSimulation(map);
+            Unit u = new UnitTrooper(new ObjectID(1, 1), GlobalSettings.Wrapper.Troopers[0], new Position(0, 0), map, sim);
+            map.Units[0, 1].AddFirst(u);
+            map.Units[1, 1].AddFirst(u);
+            map.Units[2, 1].AddFirst(u);
+            map.Units[3, 0].AddFirst(u);
+            map.Units[4, 1].AddFirst(u);
+            map.Units[3, 2].AddFirst(u);
+            map.Units[4, 2].AddFirst(u);
+            map.Units[3, 3].AddFirst(u);
+            TrooperInput ti = new TrooperInput(new Position(0, 0), new Position(5, 5), 10, map);
+            LinkedList<Position> path = AStar.Search<Position>(ti);
+            if (path.First.Value.X == 0)
+                Console.WriteLine("OK");
+        }
+
+        public void TestPriorityQueue() {
+            PriorityQueue<int> queue = new PriorityQueue<int>(5);
+            int[] values = new int[5];
+            values[0] = 1;
+            values[1] = 2;
+            values[2] = 5;
+            values[3] = 4;
+            values[4] = 3;
+
+            for (int i = 0; i < values.Length; ++i) {
+                queue.Insert(values[i]);
+            }
+            Array.Sort(values);
+            for (int i = 0; i < values.Length; ++i) {
+                if (values[i] == queue.Remove())
+                    Console.WriteLine("Ok");
+                else
+                    Console.WriteLine("Error");
+            }
+        }
         public void TestSimulaton()
         {
             Simulation sim;
