@@ -83,6 +83,9 @@ namespace Yad.Engine.Client {
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidLocation != null) {
 					InvalidLocation();
+                    /*int cost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
+                    p.Credits += cost;
+                    OnCreditsUpdate(cost);*/
 				}
 				return;
 			}
@@ -97,10 +100,11 @@ namespace Yad.Engine.Client {
 
 			p.AddBuilding(b);
 			p.Credits -= b.BuildingData.Cost;
+            OnCreditsUpdate(cost);
 			ClearFogOfWar(b);
 
 			UpdatePowerManagement(b);
-			OnCreditsUpdate(b.BuildingData.Cost);
+			//OnCreditsUpdate(b.BuildingData.Cost);
 			OnBuildingCompleted(b, bm.CreatorID);
 		}
 

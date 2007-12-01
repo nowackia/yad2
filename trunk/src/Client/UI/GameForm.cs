@@ -364,9 +364,14 @@ namespace Yad.UI.Client {
 
 		void rightStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            int creator = _buildManager.RightBuildingClick(id);
-            if (creator != -1)
-		        PlaceBuilding((short)id, creator);
+            int playerCredits = _gameLogic.CurrentPlayer.Credits;
+            int cost = GlobalSettings.Wrapper.buildingsMap[(short)id].Cost;
+            if (playerCredits >= cost) {
+                //playerCredits -= cost;
+                int creator = _buildManager.RightBuildingClick(id);
+                if (creator != -1)
+                    PlaceBuilding((short)id, creator);
+            }
 		}
 
 		private void UpdateCredits(int cost) {
