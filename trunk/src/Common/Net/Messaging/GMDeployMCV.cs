@@ -7,10 +7,15 @@ using Yad.Board;
 namespace Yad.Net.Messaging {
 	public class GMDeployMCV : GameMessage {
 
-		private ObjectID mcvID;
+        private ObjectID mcvID;
+
+        public ObjectID McvID {
+            get { return mcvID; }
+            set { mcvID = value; }
+        }
 
 		public GMDeployMCV()
-            : base(MessageType.Move)
+            : base(MessageType.DeployMCV)
         { }
 
         public override void Deserialize(System.IO.BinaryReader reader) {

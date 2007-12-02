@@ -460,10 +460,15 @@ namespace Yad.Engine.Client {
 			 */
 
 			// v remove (workaround), send MessageDeployMCV instead
-			short constructionYardId = GlobalSettings.Wrapper.namesToIds["ConstructionYard"];
+			/*short constructionYardId = GlobalSettings.Wrapper.namesToIds["ConstructionYard"];
 			Position newPos = new Position(u.Position.X + 1, u.Position.Y);
-			this.CreateBuilding(newPos, constructionYardId,-1);
+			this.CreateBuilding(newPos, constructionYardId,-1);*/
+            
 			// ^
+            GMDeployMCV msgMVC = (GMDeployMCV)MessageFactory.Create(MessageType.DeployMCV);
+            msgMVC.IdPlayer = CurrentPlayer.Id;
+            msgMVC.McvID = u.ObjectID;
+            Connection.Instance.SendMessage(msgMVC); 
 		}
 
 		internal void createUnit(short id, int objectID) {

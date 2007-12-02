@@ -57,6 +57,9 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.EndGame:
                     return new GameEndMessage();
+
+                case MessageType.DeployMCV:
+                    return new GMDeployMCV();
                 #endregion
 
                 #region Chat
