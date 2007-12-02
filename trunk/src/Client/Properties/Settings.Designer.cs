@@ -385,5 +385,29 @@ namespace Yad.Properties.Client {
                 this["OptionsTexture"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        public short MusicDefaultVolume {
+            get {
+                return ((short)(this["MusicDefaultVolume"]));
+            }
+            set {
+                this["MusicDefaultVolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        public short SoundDefaultVolume {
+            get {
+                return ((short)(this["SoundDefaultVolume"]));
+            }
+            set {
+                this["SoundDefaultVolume"] = value;
+            }
+        }
     }
 }
