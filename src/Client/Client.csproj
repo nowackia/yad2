@@ -65,6 +65,8 @@
     <Compile Include="Engine\BuildManager.cs" />
     <Compile Include="Engine\BuildStatus.cs" />
     <Compile Include="Engine\ClientSimulation.cs" />
+    <Compile Include="Engine\Music.cs" />
+    <Compile Include="Engine\Sound.cs" />
     <Compile Include="FMod\fmod.cs" />
     <Compile Include="FMod\fmod_dsp.cs" />
     <Compile Include="FMod\fmod_errors.cs" />
@@ -900,6 +902,11 @@
       <Project>{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FMod\fmodex.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

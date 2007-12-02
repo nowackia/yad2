@@ -5,12 +5,11 @@ using System.Reflection;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
-using Yad.Log;
-using Yad.Net;
+using Yad.Engine.Client;
+using Yad.Log.Common;
 using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
-using Yad.Log.Common;
 using Yad.UI.Client;
 
 namespace Yad.Client
@@ -25,8 +24,13 @@ namespace Yad.Client
         {
             InfoLog.WriteStart();
 
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            AudioEngine.Instance.Init();
+            AudioEngine.Instance.Music.LoadMusic();
+            AudioEngine.Instance.Sound.LoadSounds();
 
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
@@ -37,6 +41,7 @@ namespace Yad.Client
             Application.Run(miniForm);
 
             Connection.Instance.CloseConnection();
+
 
             InfoLog.WriteEnd();
             InfoLog.Close();
