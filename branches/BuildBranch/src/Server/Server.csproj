@@ -1,0 +1,128 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yad</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
+    <StartupObject>Yad.Server.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.ADOX, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Interop.ADOX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\IQueryReader.cs" />
+    <Compile Include="Database\LoginQueryReader.cs" />
+    <Compile Include="Database\RemindQueryReader.cs" />
+    <Compile Include="Database\YadDB.cs" />
+    <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="Mail\YadMail.cs" />
+    <Compile Include="Net\GameManager.cs" />
+    <Compile Include="Net\GameServer\GameEndEventArgs.cs" />
+    <Compile Include="Net\GameServer\GameMessageHandler.cs" />
+    <Compile Include="Net\GameRoom.cs" />
+    <Compile Include="Net\GameServer\GamePlayer.cs" />
+    <Compile Include="Net\GameServer\GameServer.cs" />
+    <Compile Include="Net\GameServer\IServerSimulation.cs" />
+    <Compile Include="Net\GameServer\MockServerSimulation.cs" />
+    <Compile Include="Net\GameServer\PlayerTurn.cs" />
+    <Compile Include="Net\MessageHandler.cs" />
+    <Compile Include="Net\BaseServer.cs" />
+    <Compile Include="Net\IPlayerProvider.cs" />
+    <Compile Include="Net\PlayerStateMachine.cs" />
+    <Compile Include="Net\PostMessage.cs" />
+    <Compile Include="Net\Chat.cs" />
+    <Compile Include="Net\ConnectionLostEventArgs.cs" />
+    <Compile Include="Net\MenuMessageHandler.cs" />
+    <Compile Include="Net\Player.cs" />
+    <Compile Include="Net\ReceiveMessageEventArgs.cs" />
+    <Compile Include="Net\Server.cs" />
+    <Compile Include="Net\ServerMain.cs" />
+    <Compile Include="Net\ServerMessageSender.cs" />
+    <Compile Include="Net\ServerGameInfo.cs" />
+    <Compile Include="Net\ServerPlayerInfo.cs" />
+    <Compile Include="Net\Utils.cs" />
+    <Compile Include="Net\Utils\TurnAskProcessCounter.cs" />
+    <Compile Include="UI\ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ConsoleForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Yad.Properties.Server</CustomToolNamespace>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Resources\tray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

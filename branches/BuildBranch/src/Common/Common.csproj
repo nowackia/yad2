@@ -1,0 +1,162 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yad</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI\General\AStar.cs" />
+    <Compile Include="AI\General\AStarInput.cs" />
+    <Compile Include="AI\General\AStarNode.cs" />
+    <Compile Include="AI\MapInput.cs" />
+    <Compile Include="AI\TrooperInput.cs" />
+    <Compile Include="Board\AmmoType.cs" />
+    <Compile Include="Board\Animation.cs" />
+    <Compile Include="Board\BoardObject.cs" />
+    <Compile Include="Board\Building.cs" />
+    <Compile Include="Board\Direction.cs" />
+    <Compile Include="Board\Map.cs" />
+    <Compile Include="Board\MapData.cs" />
+    <Compile Include="Board\ObjectID.cs" />
+    <Compile Include="Board\Position.cs" />
+    <Compile Include="Board\TileData.cs" />
+    <Compile Include="Board\TileType.cs" />
+    <Compile Include="Board\Unit.cs" />
+    <Compile Include="Board\UnitHarvester.cs" />
+    <Compile Include="Board\UnitMCV.cs" />
+    <Compile Include="Board\UnitSandworm.cs" />
+    <Compile Include="Board\UnitTank.cs" />
+    <Compile Include="Board\UnitTrooper.cs" />
+    <Compile Include="Config\DataType.cs" />
+    <Compile Include="Config\GameSettingsHelper.cs" />
+    <Compile Include="Config\GlobalSettings.cs" />
+    <Compile Include="Config\XMLLoader\XMLLoader.cs" />
+    <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
+    <Compile Include="Config\Yad.Config.Common.cs" />
+    <Compile Include="DataStructures\PriorityQueue.cs" />
+    <Compile Include="Engine\Player.cs" />
+    <Compile Include="Net\IPlayerID.cs" />
+    <Compile Include="Net\CreateGameResult.cs" />
+    <Compile Include="Net\GameInfo.cs" />
+    <Compile Include="Net\IMessageSender.cs" />
+    <Compile Include="Net\Messaging\DoTurnMessage.cs" />
+    <Compile Include="Net\Messaging\EntryMessage.cs" />
+    <Compile Include="Net\Messaging\GameEndMessage.cs" />
+    <Compile Include="Net\Messaging\GameInfoMessage.cs" />
+    <Compile Include="Net\Messaging\GameNumericMessage.cs" />
+    <Compile Include="Net\Messaging\GamesMessage.cs" />
+    <Compile Include="Net\Messaging\GameType.cs" />
+    <Compile Include="Net\Messaging\GMDeployMCV.cs" />
+    <Compile Include="Net\Messaging\MessageOperation.cs" />
+    <Compile Include="Net\Messaging\PlayerInfoMessage.cs" />
+    <Compile Include="Net\Messaging\PlayersMessage.cs" />
+    <Compile Include="Net\Messaging\RegisterMessage.cs" />
+    <Compile Include="Net\Messaging\ResultMessage.cs" />
+    <Compile Include="Net\Messaging\ResultTypes.cs" />
+    <Compile Include="Net\Messaging\ServerRoom.cs" />
+    <Compile Include="Net\Messaging\TurnAskMessage.cs" />
+    <Compile Include="Net\PlayerData.cs" />
+    <Compile Include="Net\PlayerInfo.cs" />
+    <Compile Include="Net\PositionData.cs" />
+    <Compile Include="Net\ThreadListProcessor.cs" />
+    <Compile Include="UI\MessageBoxEx.cs" />
+    <Compile Include="Utils\NetUtils.cs" />
+    <Compile Include="Utils\Randomizer.cs" />
+    <Compile Include="Engine\Simulation.cs" />
+    <Compile Include="Log\InfoLog.cs" />
+    <Compile Include="Log\InfoLogPrefix.cs" />
+    <Compile Include="Log\MultiStream.cs" />
+    <Compile Include="Net\ChatUser.cs" />
+    <Compile Include="Net\ConsumerSync.cs" />
+    <Compile Include="Net\IMessageHandler.cs" />
+    <Compile Include="Net\ListProcessor.cs" />
+    <Compile Include="Net\Messaging\AttackMessage.cs" />
+    <Compile Include="Net\Messaging\BuildMessage.cs" />
+    <Compile Include="Net\Messaging\ChatUsersMessage.cs" />
+    <Compile Include="Net\Messaging\ControlMessage.cs" />
+    <Compile Include="Net\Messaging\CreateUnitMessage.cs" />
+    <Compile Include="Net\Messaging\DestroyMessage.cs" />
+    <Compile Include="Net\Messaging\GameInitMessage.cs" />
+    <Compile Include="Net\Messaging\GameMessage.cs" />
+    <Compile Include="Net\Messaging\HarvestMessage.cs" />
+    <Compile Include="Net\Messaging\LoginMessage.cs" />
+    <Compile Include="Net\Messaging\Message.cs" />
+    <Compile Include="Net\Messaging\MessageFactory.cs" />
+    <Compile Include="Net\Messaging\MessageType.cs" />
+    <Compile Include="Net\Messaging\MoveMessage.cs" />
+    <Compile Include="Net\Messaging\NumericMessage.cs" />
+    <Compile Include="Net\Messaging\TextMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Config\dune.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Config\dune.xsx">
+      <DependentUpon>dune.xsd</DependentUpon>
+    </None>
+    <None Include="Config\generate.bat" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
+    </None>
+    <None Include="Resources\Maps\mala.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Maps\wielka.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\game_data.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

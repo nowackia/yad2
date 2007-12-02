@@ -1,0 +1,117 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Yad.Properties.Client" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Animations" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Animations</Value>
+    </Setting>
+    <Setting Name="Bullets" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Bullets</Value>
+    </Setting>
+    <Setting Name="Pictures" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Pictures</Value>
+    </Setting>
+    <Setting Name="Structures" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Structures</Value>
+    </Setting>
+    <Setting Name="Terrain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Terrain</Value>
+    </Setting>
+    <Setting Name="Units" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/Units</Value>
+    </Setting>
+    <Setting Name="Graphics" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics</Value>
+    </Setting>
+    <Setting Name="AudioFX" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/FX</Value>
+    </Setting>
+    <Setting Name="Maps" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Maps</Value>
+    </Setting>
+    <Setting Name="UseSafeRendering" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ScrollingSpeed" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0.6</Value>
+    </Setting>
+    <Setting Name="AudioMusic" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Resources/Audio/Music</Value>
+    </Setting>
+    <Setting Name="PlayerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DunePlayer</Value>
+    </Setting>
+    <Setting Name="TextureDunes" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Dunes.png</Value>
+    </Setting>
+    <Setting Name="TextureMountain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Mountain.png</Value>
+    </Setting>
+    <Setting Name="TextureRock" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Rock.png</Value>
+    </Setting>
+    <Setting Name="TextureRockDamage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RockDamage.png</Value>
+    </Setting>
+    <Setting Name="TextureRockExt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RockExt.png</Value>
+    </Setting>
+    <Setting Name="TextureSand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Sand.png</Value>
+    </Setting>
+    <Setting Name="TextureHidden" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Hidden.png</Value>
+    </Setting>
+    <Setting Name="TextureSandDamage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SandDamage.png</Value>
+    </Setting>
+    <Setting Name="TextureSandExt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SandExt.png</Value>
+    </Setting>
+    <Setting Name="TextureSpice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Spice.png</Value>
+    </Setting>
+    <Setting Name="TextureThickSpice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ThickSpice.png</Value>
+    </Setting>
+    <Setting Name="UI" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Graphics/UI</Value>
+    </Setting>
+    <Setting Name="Music" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music</Value>
+    </Setting>
+    <Setting Name="MusicFight" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Fight</Value>
+    </Setting>
+    <Setting Name="MusicPeace" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Peace</Value>
+    </Setting>
+    <Setting Name="MusicLose" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Lose</Value>
+    </Setting>
+    <Setting Name="MusicWin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/Music/Win</Value>
+    </Setting>
+    <Setting Name="CreditsDigitsBitmap" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CreditsDigits.png</Value>
+    </Setting>
+    <Setting Name="PowerAtStart" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="PowerLowBorder" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="CreditsAtStart" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="OptionsTexture" Type="System.String" Scope="User">
+      <Value Profile="(Default)">options.png</Value>
+    </Setting>
+    <Setting Name="SoundDefaultVolume" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="MusicDefaultVolume" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

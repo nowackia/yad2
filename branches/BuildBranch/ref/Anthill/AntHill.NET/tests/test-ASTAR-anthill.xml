@@ -1,0 +1,31 @@
+<Anthill>
+
+<WorldMap rowCount="10" colCount="10">
+  <Map row="ssssssssss" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="sxooooooxs" />
+  <Map row="ssssssssss" />
+</WorldMap>
+<CreaturesAbilities>
+- <Ant maxLife="100" maxLifeWithoutFood="100" turnNumberToBecomeHungry="3" strength="3" forgettingTime="5" sightRadius="2">
+- <Citizen>
+  <Warrior startCount="0" /> 
+  <Worker startCount="0" /> 
+  </Citizen>
+  <Queen layEggProbability="0.0" xPosition="5" yPosition="6" /> 
+  <Egg hatchWarriorProbability="0.2" hatchTime="10" /> 
+  </Ant>
+  <Spider maxHealth="10" probability="0.5" foodQuantityAfterDeath="5" /> 
+  </CreaturesAbilities>
+- <EnvironmentCharacteristics>
+  <Rain cloudWidth="3" probability="0.1" maxDuration="20" /> 
+  <Food probability="0.2" /> 
+  <Signal lifeTime="10" radius="3" /> 
+  </EnvironmentCharacteristics>
+</Anthill>

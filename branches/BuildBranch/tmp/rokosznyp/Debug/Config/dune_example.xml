@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:GameSettings xmlns:tns="http://www.example.org/dune" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/dune dune.xsd ">
+
+  <tns:UnitTroopersData>
+    <tns:UnitTrooperData>
+      <tns:Name>Infantry</tns:Name>
+      <tns:Cost>100</tns:Cost>
+      <tns:FireRange>5</tns:FireRange>
+      <tns:Speed>2</tns:Speed>
+      <tns:ReloadTime>2</tns:ReloadTime>
+      <tns:AmmoType>Bullet</tns:AmmoType>
+      <tns:Health>100</tns:Health>
+      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Power>50</tns:Power>
+      <tns:BuildSpeed>10</tns:BuildSpeed>
+      <tns:DamageDestroy>5</tns:DamageDestroy>
+      <tns:RotationSpeed>1</tns:RotationSpeed>
+    </tns:UnitTrooperData>
+  </tns:UnitTroopersData>
+  
+  <tns:UnitTanksData>
+    <tns:UnitTankData>
+      <tns:Name>Tank</tns:Name>
+      <tns:Cost>100</tns:Cost>
+      <tns:FireRange>10</tns:FireRange>
+      <tns:Speed>4</tns:Speed>
+      <tns:ReloadTime>3</tns:ReloadTime>
+      <tns:AmmoType>Bullet</tns:AmmoType>
+      <tns:Health>100</tns:Health>
+      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Power>30</tns:Power>
+      <tns:BuildSpeed>10</tns:BuildSpeed>
+      <tns:DamageDestroy>10</tns:DamageDestroy>
+      <tns:RotationSpeed>2</tns:RotationSpeed>
+      <tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
+    </tns:UnitTankData>
+  </tns:UnitTanksData>
+  
+  <tns:UnitHarvestersData>
+    <tns:UnitHarvesterData>
+      <tns:Name>Harvester</tns:Name>
+      <tns:Cost>300</tns:Cost>
+      <tns:Speed>3</tns:Speed>
+      <tns:Health>100</tns:Health>
+      <tns:ViewRange>5</tns:ViewRange>
+      <tns:BuildSpeed>10</tns:BuildSpeed>
+      <tns:DamageDestroy>5</tns:DamageDestroy>
+      <tns:RotationSpeed>2</tns:RotationSpeed>
+      <tns:Capacity>150</tns:Capacity>
+      <tns:GatheringSpeed>20</tns:GatheringSpeed>
+    </tns:UnitHarvesterData>
+  </tns:UnitHarvestersData>
+  
+  <tns:UnitMCVsData>
+    <tns:UnitMCVData>
+      <tns:Name>MCV</tns:Name>
+      <tns:Cost>400</tns:Cost>
+      <tns:Speed>10</tns:Speed>
+      <tns:Health>150</tns:Health>
+      <tns:ViewRange>5</tns:ViewRange>
+      <tns:BuildSpeed>15</tns:BuildSpeed>
+      <tns:DamageDestroy>20</tns:DamageDestroy>
+      <tns:RotationSpeed>4</tns:RotationSpeed>
+      <tns:BuildingCanProduce>Barracks</tns:BuildingCanProduce>
+    </tns:UnitMCVData>
+  </tns:UnitMCVsData>
+  
+  <tns:UnitSandwormsData>
+    <tns:UnitSandwormData>
+      <tns:Name>Sandworm</tns:Name>
+      <tns:Speed>1</tns:Speed>
+      <tns:Health>100</tns:Health>
+      <tns:Power>5000</tns:Power>
+      <tns:DamageDestroy>0</tns:DamageDestroy>
+      <tns:RotationSpeed>0</tns:RotationSpeed>
+    </tns:UnitSandwormData>
+  </tns:UnitSandwormsData>
+  
+  <tns:AmmosData>
+    <tns:AmmoData>
+      <tns:Name>Bullet</tns:Name>
+      <tns:Speed>0</tns:Speed>
+      <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+    </tns:AmmoData>
+  </tns:AmmosData>
+  
+  <tns:BuildingsData>
+	  
+    <tns:BuildingData>
+      <tns:Name>Barracks</tns:Name>
+      <tns:Cost>100</tns:Cost>
+      <tns:Health>1000</tns:Health>
+      <tns:ViewRange>10</tns:ViewRange>
+      <tns:BuildSpeed>25</tns:BuildSpeed>
+      <tns:Size>
+        <tns:X>2</tns:X>
+        <tns:Y>2</tns:Y>
+      </tns:Size>
+      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:RideableFields>
+        <tns:index>3</tns:index>
+      </tns:RideableFields>
+      <tns:UnitsCanProduce>
+        <tns:Name>Infantry</tns:Name>
+      </tns:UnitsCanProduce>
+    </tns:BuildingData>
+	  
+	<tns:BuildingData>
+		  <tns:Name>ConstructionYard</tns:Name>
+		  <tns:Cost>0</tns:Cost>
+		  <tns:Health>1000</tns:Health>
+		  <tns:ViewRange>15</tns:ViewRange>
+		  <tns:BuildSpeed>30</tns:BuildSpeed>
+		  <tns:Size>
+			  <tns:X>2</tns:X>
+			  <tns:Y>2</tns:Y>
+		  </tns:Size>
+		  <tns:EnergyConsumption>100</tns:EnergyConsumption>
+		  <tns:RideableFields>
+			  <tns:index>3</tns:index>
+		  </tns:RideableFields>
+		  <tns:UnitsCanProduce>
+			  <tns:Name>Infantry</tns:Name>
+		  </tns:UnitsCanProduce>
+	  </tns:BuildingData>
+  </tns:BuildingsData>
+  
+  <tns:RacesData>
+    <tns:RaceData>
+      <tns:Name>Atreides</tns:Name>
+    </tns:RaceData>
+    <tns:RaceData>
+      <tns:Name>Harkonnen</tns:Name>
+    </tns:RaceData>
+  </tns:RacesData>
+</tns:GameSettings>

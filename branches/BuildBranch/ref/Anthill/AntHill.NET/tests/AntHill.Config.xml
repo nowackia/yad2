@@ -1,0 +1,46 @@
+<Anthill>
+	<!-- world structure description -->
+	<WorldMap rowCount="5" colCount="5">			
+		<!-- a single row of the world 
+		 o – corridor in the anthill, where ants can walk
+		 x – a wall in the anthill
+		 s – outdoor -->
+ 		<Map row = "ox"/>	
+		<Map row = "oo"/>
+    <Map row = "oo"/>
+    <Map row = "oo"/>
+    <Map row = "oo"/>
+
+  </WorldMap>
+	<CreaturesAbilities>
+	<!--maximum lenght of life, starvation resistence of every ant, 
+	and number of turns after which an ant become hungry -->
+    <!--slesinskik: I've added maxHealth for ants, it'll work same as for spiders,
+    in order to comply with specification maxHealth == 1 -->
+		<Ant maxLife="20" maxLifeWithoutFood="5" turnNumberToBecomeHungry="10" 
+			strength="6" forgettingTime="6" sightRadius="5" >			
+			<Citizen>					
+				<!--initial number of warriors-->
+				<Warrior startCount="3" />	
+				<!--initial number of workers -->
+				<Worker startCount="6" />
+			</Citizen>
+			<!--position of the queen, which cannot be changed during simulation 
+			 probability of laying egg in a turn -->
+			<Queen layEggProbability="20" xPosition="2" yPosition="8"/>
+			<!--probability of hatching the warrior and time, which an egg needs to	become an ant -->
+			<Egg hatchWarriorProbability="0,25" hatchTime="5"/>
+		</Ant>
+		<!--resistence to ants attack and probability of appear in simulated world 
+		quantity of food, which a living creature becomes after its death -->
+		<Spider maxHealth="5" probability="0,10"  foodQuantityAfterDeath="12"/>
+	</CreaturesAbilities>
+	<EnvironmentCharacteristics>
+		<!--width of the cloud, probability of rain in a turn and duration of the 			rain -->
+		<Rain cloudWidth="4" probability="0,10" maxDuration="5"/>
+		<!--maximal density of food on a single outside world and probability of its 		appearance -->
+		<Food probability="0,20"/>
+		<!--signals characteristics -->
+		<Signal lifeTime="5" radius="2"/>
+	</EnvironmentCharacteristics>
+</Anthill>

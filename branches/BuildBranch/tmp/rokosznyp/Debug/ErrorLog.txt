@@ -1,0 +1,2314 @@
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-07 23:06:18   #UIM: OptionChoosed - view: MainMenuForm, option: NewGame
+#I:# 2007-11-07 23:06:18   #UIM: Switched to View: LoginForm
+#I:# 2007-11-07 23:06:39   #UIM: OptionChoosed - view: LoginForm, option: Login
+#I:# 2007-11-07 23:06:39   #UIM: Switched to View: ChatForm
+#I:# 2007-11-07 23:06:40   #UIM: OptionChoosed - view: ChatForm, option: Game
+#I:# 2007-11-07 23:06:40   #UIM: Switched to View: ChooseGameForm
+#I:# 2007-11-07 23:06:42   #UIM: OptionChoosed - view: ChooseGameForm, option: Join
+#I:# 2007-11-07 23:06:42   #UIM: Switched to View: WaitingForPlayersForm
+#I:# 2007-11-07 23:06:43   #UIM: OptionChoosed - view: WaitingForPlayersForm, option: StartGame
+#I:# 2007-11-07 23:06:43   #MENU: MainForm constructor starts
+#I:# 2007-11-07 23:06:44   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-07 23:06:45   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-07 23:06:45   #UIM: Switched to View: GameForm
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 52,5625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 18,5625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 10,0625
+#I:# 2007-11-07 23:06:47   #GRF: Zooming: 10,0625
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-07 23:44:18   #UIM: OptionChoosed - view: MainMenuForm, option: Exit
+#I:# 2007-11-07 23:44:18   #UIM: Switched to View: MainMenuForm
+Application END
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-07 23:51:59   #UIM: OptionChoosed - view: MainMenuForm, option: NewGame
+#I:# 2007-11-07 23:51:59   #UIM: Switched to View: LoginForm
+#I:# 2007-11-07 23:52:01   #UIM: OptionChoosed - view: LoginForm, option: Login
+#I:# 2007-11-07 23:52:01   #UIM: Switched to View: ChatForm
+#I:# 2007-11-07 23:52:02   #UIM: OptionChoosed - view: ChatForm, option: Game
+#I:# 2007-11-07 23:52:02   #UIM: Switched to View: ChooseGameForm
+#I:# 2007-11-07 23:52:03   #UIM: OptionChoosed - view: ChooseGameForm, option: Join
+#I:# 2007-11-07 23:52:03   #UIM: Switched to View: WaitingForPlayersForm
+#I:# 2007-11-07 23:52:04   #UIM: OptionChoosed - view: WaitingForPlayersForm, option: StartGame
+#I:# 2007-11-07 23:52:04   #MENU: MainForm constructor starts
+#I:# 2007-11-07 23:52:05   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-07 23:52:09   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-07 23:52:09   #UIM: Switched to View: GameForm
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 52,5625
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 61,0625
+#I:# 2007-11-07 23:52:16   #GRF: Zooming: 69,5625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 78,0625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 86,5625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 95,0625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 103,5625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 112,0625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 120,5625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 129,0625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 137,5625
+#I:# 2007-11-07 23:52:17   #GRF: Zooming: 146,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 154,5625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 146,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 137,5625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 129,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 120,5625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 112,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 103,5625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 95,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 86,5625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 78,0625
+#I:# 2007-11-07 23:52:18   #GRF: Zooming: 69,5625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 61,0625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 52,5625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 18,5625
+#I:# 2007-11-07 23:52:19   #GRF: Zooming: 10,0625
+#I:# 2007-11-07 23:52:20   #GRF: Zooming: 10,0625
+#I:# 2007-11-07 23:52:20   #GRF: Zooming: 10,0625
+#I:# 2007-11-07 23:52:20   #GRF: Zooming: 10,0625
+#I:# 2007-11-07 23:52:20   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:52:21   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:52:21   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 52,5625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 61,0625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 69,5625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 61,0625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 52,5625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 44,0625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 35,5625
+#I:# 2007-11-07 23:52:22   #GRF: Zooming: 27,0625
+#I:# 2007-11-07 23:52:24   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-07 23:52:24   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-07 23:52:25   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-07 23:52:55   #UIM: OptionChoosed - view: MainMenuForm, option: NewGame
+#I:# 2007-11-07 23:52:55   #UIM: Switched to View: LoginForm
+#I:# 2007-11-07 23:52:58   #UIM: OptionChoosed - view: LoginForm, option: Login
+#I:# 2007-11-07 23:52:58   #UIM: Switched to View: ChatForm
+#I:# 2007-11-07 23:52:59   #UIM: OptionChoosed - view: ChatForm, option: Game
+#I:# 2007-11-07 23:52:59   #UIM: Switched to View: ChooseGameForm
+#I:# 2007-11-07 23:53:00   #UIM: OptionChoosed - view: ChooseGameForm, option: Join
+#I:# 2007-11-07 23:53:00   #UIM: Switched to View: WaitingForPlayersForm
+#I:# 2007-11-07 23:53:01   #UIM: OptionChoosed - view: WaitingForPlayersForm, option: StartGame
+#I:# 2007-11-07 23:53:01   #MENU: MainForm constructor starts
+#I:# 2007-11-07 23:53:01   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-07 23:55:37   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-07 23:55:37   #MENU: MainForm constructor starts
+#I:# 2007-11-07 23:55:37   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 01:02:02   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 01:02:02   #MENU: MainForm constructor starts
+#I:# 2007-11-08 01:02:02   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-08 01:02:04   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-08 01:02:04   #UIM: Switched to View: GameForm
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 27,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 35,5625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 44,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 52,5625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 44,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 35,5625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 27,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 18,5625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:06   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+#I:# 2007-11-08 01:02:07   #GRF: Zooming: 10,0625
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 21:47:07   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 21:47:07   #MENU: MainForm constructor starts
+#I:# 2007-11-08 21:47:07   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-08 21:49:51   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-08 21:49:51   #UIM: Switched to View: GameForm
+#I:# 2007-11-08 21:49:52   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:52   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:52   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:52   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:52   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 12,1875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 19,1875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 22,6875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 26,1875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 29,6875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 33,1875
+#I:# 2007-11-08 21:49:53   #GRF: Zooming: 36,6875
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:01   #UIM: Resizing...
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 33,1875
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 29,6875
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 26,1875
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 22,6875
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:02   #GRF: Zooming: 43,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 25,9375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:03   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 25,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 43,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 46,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 50,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 53,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 57,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 60,9375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 64,4375
+#I:# 2007-11-08 21:50:04   #GRF: Zooming: 67,9375
+#I:# 2007-11-08 21:50:05   #GRF: Zooming: 71,4375
+#I:# 2007-11-08 21:50:05   #GRF: Zooming: 74,9375
+#I:# 2007-11-08 21:50:05   #GRF: Zooming: 78,4375
+#I:# 2007-11-08 21:50:05   #GRF: Zooming: 81,9375
+#I:# 2007-11-08 21:50:05   #GRF: Zooming: 85,4375
+#I:# 2007-11-08 21:50:06  NumPad1
+#I:# 2007-11-08 21:50:06  NumPad5
+#I:# 2007-11-08 21:50:06  NumPad6
+#I:# 2007-11-08 21:50:07  NumPad4
+#I:# 2007-11-08 21:50:07  NumPad6
+#I:# 2007-11-08 21:50:07  NumPad4
+#I:# 2007-11-08 21:50:07  NumPad1
+#I:# 2007-11-08 21:50:07  NumPad6
+#I:# 2007-11-08 21:50:07  NumPad5
+#I:# 2007-11-08 21:50:07  NumPad1
+#I:# 2007-11-08 21:50:08  K
+#I:# 2007-11-08 21:50:08  Oemcomma
+#I:# 2007-11-08 21:50:08  I
+#I:# 2007-11-08 21:50:08  H
+#I:# 2007-11-08 21:50:08  D
+#I:# 2007-11-08 21:50:08   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:09  C
+#I:# 2007-11-08 21:50:09  Capital
+#I:# 2007-11-08 21:50:09  C
+#I:# 2007-11-08 21:50:11  Capital
+#I:# 2007-11-08 21:50:12  D
+#I:# 2007-11-08 21:50:12   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:12  S
+#I:# 2007-11-08 21:50:12   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:12  D
+#I:# 2007-11-08 21:50:12   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:13  S
+#I:# 2007-11-08 21:50:13   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:13  S
+#I:# 2007-11-08 21:50:13   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:13  S
+#I:# 2007-11-08 21:50:13   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:13  S
+#I:# 2007-11-08 21:50:13   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:14  D
+#I:# 2007-11-08 21:50:14   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:14  S
+#I:# 2007-11-08 21:50:14   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:15  S
+#I:# 2007-11-08 21:50:15   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:16  X
+#I:# 2007-11-08 21:50:17  D
+#I:# 2007-11-08 21:50:17   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:17  S
+#I:# 2007-11-08 21:50:17   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:18  F
+#I:# 2007-11-08 21:50:18  S
+#I:# 2007-11-08 21:50:18   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:18  A
+#I:# 2007-11-08 21:50:18   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:19  A
+#I:# 2007-11-08 21:50:19   #GRF: TranslatingX: -3,476225
+#I:# 2007-11-08 21:50:20  S
+#I:# 2007-11-08 21:50:20   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:21  X
+#I:# 2007-11-08 21:50:22  W
+#I:# 2007-11-08 21:50:22   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:22  W
+#I:# 2007-11-08 21:50:22   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:23  S
+#I:# 2007-11-08 21:50:23   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:23  W
+#I:# 2007-11-08 21:50:23   #GRF: TranslatingY: -4,857352
+#I:# 2007-11-08 21:50:24  E
+#I:# 2007-11-08 21:50:24   #GRF: Zooming: 88,9375
+#I:# 2007-11-08 21:50:24  A
+#I:# 2007-11-08 21:50:24   #GRF: TranslatingX: -3,339424
+#I:# 2007-11-08 21:50:24  E
+#I:# 2007-11-08 21:50:24   #GRF: Zooming: 92,4375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 95,9375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 99,4375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 102,9375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 106,4375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 109,9375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 113,4375
+#I:# 2007-11-08 21:50:25  E
+#I:# 2007-11-08 21:50:25   #GRF: Zooming: 116,9375
+#I:# 2007-11-08 21:50:25  W
+#I:# 2007-11-08 21:50:25   #GRF: TranslatingY: -3,548904
+#I:# 2007-11-08 21:50:26  R
+#I:# 2007-11-08 21:50:26  Q
+#I:# 2007-11-08 21:50:26   #GRF: Zooming: 113,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 109,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 106,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 102,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 99,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 95,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 92,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 88,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 85,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 81,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 78,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 74,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 71,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 67,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 64,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 60,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 57,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 53,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 50,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 46,9375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 43,4375
+#I:# 2007-11-08 21:50:27  Q
+#I:# 2007-11-08 21:50:27   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 25,9375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:28  Q
+#I:# 2007-11-08 21:50:28   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:29  A
+#I:# 2007-11-08 21:50:29   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  A
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:30  D
+#I:# 2007-11-08 21:50:30   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  D
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:31  A
+#I:# 2007-11-08 21:50:31   #GRF: TranslatingX: -11,4506
+#I:# 2007-11-08 21:50:32  S
+#I:# 2007-11-08 21:50:32   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:32  S
+#I:# 2007-11-08 21:50:32   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:32  S
+#I:# 2007-11-08 21:50:32   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:32  S
+#I:# 2007-11-08 21:50:32   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:32  S
+#I:# 2007-11-08 21:50:32   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:32  X
+#I:# 2007-11-08 21:50:33  W
+#I:# 2007-11-08 21:50:33   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:33  E
+#I:# 2007-11-08 21:50:33   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:34  E
+#I:# 2007-11-08 21:50:34   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:34  E
+#I:# 2007-11-08 21:50:34   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:34  E
+#I:# 2007-11-08 21:50:34   #GRF: Zooming: 39,9375
+#I:# 2007-11-08 21:50:34  W
+#I:# 2007-11-08 21:50:34   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:35  W
+#I:# 2007-11-08 21:50:35   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:35  W
+#I:# 2007-11-08 21:50:35   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:35  W
+#I:# 2007-11-08 21:50:35   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:35  R
+#I:# 2007-11-08 21:50:36  F
+#I:# 2007-11-08 21:50:36  V
+#I:# 2007-11-08 21:50:37  C
+#I:# 2007-11-08 21:50:37  X
+#I:# 2007-11-08 21:50:37  X
+#I:# 2007-11-08 21:50:37  Z
+#I:# 2007-11-08 21:50:38  A
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:38  S
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:38  S
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:38  A
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:38  W
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:38  A
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:38  W
+#I:# 2007-11-08 21:50:38   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:39  A
+#I:# 2007-11-08 21:50:39   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:39  W
+#I:# 2007-11-08 21:50:39   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:39  A
+#I:# 2007-11-08 21:50:39   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:39  S
+#I:# 2007-11-08 21:50:39   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:39  Z
+#I:# 2007-11-08 21:50:39  X
+#I:# 2007-11-08 21:50:39  Z
+#I:# 2007-11-08 21:50:39  X
+#I:# 2007-11-08 21:50:39  ShiftKey
+#I:# 2007-11-08 21:50:39  Z
+#I:# 2007-11-08 21:50:40  Z
+#I:# 2007-11-08 21:50:40  ShiftKey
+#I:# 2007-11-08 21:50:40  ShiftKey
+#I:# 2007-11-08 21:50:40  Z
+#I:# 2007-11-08 21:50:40  ShiftKey
+#I:# 2007-11-08 21:50:40  A
+#I:# 2007-11-08 21:50:40   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:40  A
+#I:# 2007-11-08 21:50:40   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:40  S
+#I:# 2007-11-08 21:50:40   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:41  W
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:41  A
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingX: -7,43662
+#I:# 2007-11-08 21:50:41  W
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingY: -10,39124
+#I:# 2007-11-08 21:50:41  Q
+#I:# 2007-11-08 21:50:41   #GRF: Zooming: 36,4375
+#I:# 2007-11-08 21:50:41  W
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingY: -11,38937
+#I:# 2007-11-08 21:50:41  Q
+#I:# 2007-11-08 21:50:41   #GRF: Zooming: 32,9375
+#I:# 2007-11-08 21:50:41  W
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingY: -12,59962
+#I:# 2007-11-08 21:50:41  Q
+#I:# 2007-11-08 21:50:41   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:41  W
+#I:# 2007-11-08 21:50:41   #GRF: TranslatingY: -14,09766
+#I:# 2007-11-08 21:50:42  Q
+#I:# 2007-11-08 21:50:42   #GRF: Zooming: 25,9375
+#I:# 2007-11-08 21:50:42  W
+#I:# 2007-11-08 21:50:42   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:42  Q
+#I:# 2007-11-08 21:50:42   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:42  W
+#I:# 2007-11-08 21:50:42   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:42  Q
+#I:# 2007-11-08 21:50:42   #GRF: Zooming: 22,4375
+#I:# 2007-11-08 21:50:42  W
+#I:# 2007-11-08 21:50:42   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:42  W
+#I:# 2007-11-08 21:50:42   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:42  D1
+#I:# 2007-11-08 21:50:43  W
+#I:# 2007-11-08 21:50:43   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:43  D2
+#I:# 2007-11-08 21:50:43  D4
+#I:# 2007-11-08 21:50:44  W
+#I:# 2007-11-08 21:50:44   #GRF: TranslatingY: -16
+#I:# 2007-11-08 21:50:44  E
+#I:# 2007-11-08 21:50:44   #GRF: Zooming: 29,4375
+#I:# 2007-11-08 21:50:44  S
+#I:# 2007-11-08 21:50:44   #GRF: TranslatingY: -14,09766
+#I:# 2007-11-08 21:50:44  F
+#I:# 2007-11-08 21:50:44  X
+#I:# 2007-11-08 21:50:44  D
+#I:# 2007-11-08 21:50:44   #GRF: TranslatingX: -10,08917
+#I:# 2007-11-08 21:50:48   #UIM: Resizing...
+#I:# 2007-11-08 21:50:48   #UIM: Resizing...
+#I:# 2007-11-08 21:50:48   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:49   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:50   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:51   #UIM: Resizing...
+#I:# 2007-11-08 21:50:52   #UIM: Resizing...
+#I:# 2007-11-08 21:50:52   #UIM: Resizing...
+#I:# 2007-11-08 21:50:52   #UIM: Resizing...
+#I:# 2007-11-08 21:50:52   #UIM: Resizing...
+#I:# 2007-11-08 21:50:52   #UIM: Resizing...
+#I:# 2007-11-08 21:50:53   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-08 21:50:53   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 22:58:43   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 22:58:43   #MENU: MainForm constructor starts
+#I:# 2007-11-08 22:58:44   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 22:59:07   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 22:59:07   #MENU: MainForm constructor starts
+#I:# 2007-11-08 22:59:07   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 22:59:43   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 22:59:43   #MENU: MainForm constructor starts
+#I:# 2007-11-08 22:59:44   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 23:00:49   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 23:00:49   #MENU: MainForm constructor starts
+#I:# 2007-11-08 23:00:49   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 23:01:43   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 23:01:43   #MENU: MainForm constructor starts
+#I:# 2007-11-08 23:01:44   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 23:02:47   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 23:02:47   #MENU: MainForm constructor starts
+#I:# 2007-11-08 23:02:47   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 23:03:57   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 23:03:57   #MENU: MainForm constructor starts
+#I:# 2007-11-08 23:03:58   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-08 23:04:31   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-08 23:04:31   #UIM: Switched to View: GameForm
+#I:# 2007-11-08 23:04:41   #UIM: Resizing...
+#I:# 2007-11-08 23:05:05   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:20   #UIM: Resizing...
+#I:# 2007-11-08 23:05:21   #UIM: Resizing...
+#I:# 2007-11-08 23:05:21   #UIM: Resizing...
+#I:# 2007-11-08 23:05:21   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:23   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:24   #UIM: Resizing...
+#I:# 2007-11-08 23:05:25   #UIM: Resizing...
+#I:# 2007-11-08 23:05:25   #UIM: Resizing...
+#I:# 2007-11-08 23:05:25   #UIM: Resizing...
+#I:# 2007-11-08 23:05:25   #UIM: Resizing...
+#I:# 2007-11-08 23:05:25   #GRF: Zooming: 19,8125
+#I:# 2007-11-08 23:05:25   #GRF: Zooming: 23,3125
+#I:# 2007-11-08 23:05:25   #GRF: Zooming: 26,8125
+#I:# 2007-11-08 23:05:25   #GRF: Zooming: 30,3125
+#I:# 2007-11-08 23:05:28  NumPad4
+#I:# 2007-11-08 23:05:28  NumPad8
+#I:# 2007-11-08 23:05:28  NumPad6
+#I:# 2007-11-08 23:05:28  NumPad4
+#I:# 2007-11-08 23:05:29  NumPad4
+#I:# 2007-11-08 23:05:29  NumPad5
+#I:# 2007-11-08 23:05:29  NumPad3
+#I:# 2007-11-08 23:05:29  NumPad1
+#I:# 2007-11-08 23:05:29  NumPad5
+#I:# 2007-11-08 23:05:30  A
+#I:# 2007-11-08 23:05:30   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:30  A
+#I:# 2007-11-08 23:05:30   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  A
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:31  D
+#I:# 2007-11-08 23:05:31   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:32  D
+#I:# 2007-11-08 23:05:32   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:33  A
+#I:# 2007-11-08 23:05:33   #GRF: TranslatingX: -14,92784
+#I:# 2007-11-08 23:05:33  W
+#I:# 2007-11-08 23:05:33   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:34  W
+#I:# 2007-11-08 23:05:34   #GRF: TranslatingY: -8,280413
+#I:# 2007-11-08 23:05:35  X
+#I:# 2007-11-08 23:05:35  Z
+#I:# 2007-11-08 23:05:36  D2
+#I:# 2007-11-08 23:05:36  D3
+#I:# 2007-11-08 23:05:37  D1
+#I:# 2007-11-08 23:05:38   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-08 23:05:38   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-08 23:07:02   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-08 23:07:02   #MENU: MainForm constructor starts
+#I:# 2007-11-08 23:07:03   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-08 23:07:05   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-08 23:07:05   #UIM: Switched to View: GameForm
+#I:# 2007-11-08 23:07:14   #UIM: Resizing...
+#I:# 2007-11-08 23:07:14   #UIM: Resizing...
+#I:# 2007-11-08 23:07:14   #UIM: Resizing...
+#I:# 2007-11-08 23:07:14   #UIM: Resizing...
+#I:# 2007-11-08 23:07:14   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:15   #UIM: Resizing...
+#I:# 2007-11-08 23:07:16   #UIM: Resizing...
+#I:# 2007-11-08 23:07:16   #UIM: Resizing...
+#I:# 2007-11-08 23:07:16   #UIM: Resizing...
+#I:# 2007-11-08 23:07:16   #UIM: Resizing...
+#I:# 2007-11-08 23:07:16   #UIM: Resizing...
+#I:# 2007-11-08 23:07:24   #UIM: Resizing...
+#I:# 2007-11-08 23:07:24   #UIM: Resizing...
+#I:# 2007-11-08 23:07:24   #UIM: Resizing...
+#I:# 2007-11-08 23:07:26   #UIM: Resizing...
+#I:# 2007-11-08 23:07:26   #UIM: Resizing...
+#I:# 2007-11-08 23:07:26   #UIM: Resizing...
+#I:# 2007-11-08 23:07:26   #UIM: Resizing...
+#I:# 2007-11-08 23:07:26   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:27   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:28   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:29   #UIM: Resizing...
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 31,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 35,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 38,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 42,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 45,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 49,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 52,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 56,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 59,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 63,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 66,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 70,09375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 73,59375
+#I:# 2007-11-08 23:07:30   #GRF: Zooming: 77,09375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 80,59375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 84,09375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 87,59375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 91,09375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 94,59375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 98,09375
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 101,5938
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 105,0938
+#I:# 2007-11-08 23:07:31   #GRF: Zooming: 108,5938
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 105,0938
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 101,5938
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 98,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 94,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 91,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 87,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 84,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 80,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 77,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 73,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 70,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 66,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 63,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 59,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 56,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 52,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 49,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 45,59375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 42,09375
+#I:# 2007-11-08 23:07:32   #GRF: Zooming: 38,59375
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 35,09375
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 31,59375
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 28,09375
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 24,59375
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:33   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:37   #GRF: Zooming: 30,25
+#I:# 2007-11-08 23:07:37   #GRF: Zooming: 33,75
+#I:# 2007-11-08 23:07:37   #GRF: Zooming: 37,25
+#I:# 2007-11-08 23:07:37   #GRF: Zooming: 40,75
+#I:# 2007-11-08 23:07:37   #GRF: Zooming: 44,25
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 47,75
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 51,25
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 54,75
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 58,25
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 61,75
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 65,25
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 68,75
+#I:# 2007-11-08 23:07:38   #GRF: Zooming: 72,25
+#I:# 2007-11-08 23:07:39   #GRF: Zooming: 68,75
+#I:# 2007-11-08 23:07:39   #GRF: Zooming: 65,25
+#I:# 2007-11-08 23:07:39   #GRF: Zooming: 61,75
+#I:# 2007-11-08 23:07:39   #GRF: Zooming: 58,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 54,75
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 51,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 47,75
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 44,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 40,75
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 37,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 33,75
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 30,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 26,75
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:40   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:41   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 30,25
+#I:# 2007-11-08 23:07:43   #GRF: Zooming: 33,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 37,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 40,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 44,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 47,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 51,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 54,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 58,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 61,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 65,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 68,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 72,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 75,75
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 79,25
+#I:# 2007-11-08 23:07:44   #GRF: Zooming: 82,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 86,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 89,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 93,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 96,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 100,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 103,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 107,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 110,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 114,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 117,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 121,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 124,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 128,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 131,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 135,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 138,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 142,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 145,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 149,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 152,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 156,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 159,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 163,25
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 166,75
+#I:# 2007-11-08 23:07:45   #GRF: Zooming: 170,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 173,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 177,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 180,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 184,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 187,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 191,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 194,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 198,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 201,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 205,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 208,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 212,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 215,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 219,25
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 222,75
+#I:# 2007-11-08 23:07:46   #GRF: Zooming: 226,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 229,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 233,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 236,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 240,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 243,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 247,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 250,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 254,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 257,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 261,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 264,75
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 268,25
+#I:# 2007-11-08 23:07:48   #GRF: Zooming: 271,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 268,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 264,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 261,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 257,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 254,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 250,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 247,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 243,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 240,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 236,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 233,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 229,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 226,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 222,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 219,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 215,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 212,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 208,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 205,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 201,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 198,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 194,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 191,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 187,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 184,25
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 180,75
+#I:# 2007-11-08 23:07:49   #GRF: Zooming: 177,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 173,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 170,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 166,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 163,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 159,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 156,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 152,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 149,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 145,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 142,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 138,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 135,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 131,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 128,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 124,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 121,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 117,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 114,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 110,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 107,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 103,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 100,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 96,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 93,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 89,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 86,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 82,75
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 79,25
+#I:# 2007-11-08 23:07:50   #GRF: Zooming: 75,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 72,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 68,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 65,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 61,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 58,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 54,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 51,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 47,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 44,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 40,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 37,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 33,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 30,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 26,75
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:51   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:52   #GRF: Zooming: 23,25
+#I:# 2007-11-08 23:07:55   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-08 23:07:55   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-09 14:26:49   #CLIENT_INFO: Connecting to 127.0.0.1 on port 1734 ...
+-- EXCEPTION ---2007-11-09 14:26:50--------------
+Message: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia
+Stack:
+   w System.Net.Sockets.TcpClient.Connect(String hostname, Int32 port)
+   w Client.Net.Connection.InitConnection(String hostname, Int32 port) w C:\Users\Paweł\Desktop\Yad22\src\Client\Net\Connection.cs:wiersz 32
+------------------------------------------------------------
+#I:# 2007-11-09 14:26:52   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-09 14:26:52   #MENU: MainForm constructor starts
+#I:# 2007-11-09 14:26:53   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-09 14:26:55   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-09 14:26:55   #UIM: Switched to View: GameForm
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 19,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 22,6875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 26,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 29,6875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 33,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 36,6875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 40,1875
+#I:# 2007-11-09 14:26:58   #GRF: Zooming: 43,6875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 40,1875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 36,6875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 33,1875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 29,6875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 26,1875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 22,6875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 19,1875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 15,6875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:26:59   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:27:04   #GRF: Zooming: 19,1875
+#I:# 2007-11-09 14:27:04   #GRF: Zooming: 22,6875
+#I:# 2007-11-09 14:27:04   #GRF: Zooming: 26,1875
+#I:# 2007-11-09 14:27:04   #GRF: Zooming: 29,6875
+#I:# 2007-11-09 14:27:04   #GRF: Zooming: 33,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 36,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 40,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 43,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 47,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 50,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 54,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 57,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 61,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 64,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 68,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 71,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 75,1875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 78,6875
+#I:# 2007-11-09 14:27:05   #GRF: Zooming: 82,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 78,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 75,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 71,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 68,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 64,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 61,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 57,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 54,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 50,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 47,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 43,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 40,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 36,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 33,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 29,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 26,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 22,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 19,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 15,6875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:27:06   #GRF: Zooming: 12,1875
+#I:# 2007-11-09 14:27:09   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-09 14:27:09   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 12:32:39   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 12:32:39   #MENU: MainForm constructor starts
+#I:# 2007-11-10 12:32:40   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 12:32:42   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 12:32:42   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 12:32:43   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 12:32:43   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 12:32:43   #GRF: Zooming: 26,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 15,6875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:44   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 26,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 29,6875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 33,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 36,6875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 40,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 43,6875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 47,1875
+#I:# 2007-11-10 12:32:45   #GRF: Zooming: 50,6875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 47,1875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 43,6875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 40,1875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 36,6875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 33,1875
+#I:# 2007-11-10 12:32:46   #GRF: Zooming: 29,6875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 26,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 15,6875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:47   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 12:32:48   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 12:32:48   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 13:54:20   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 13:54:20   #MENU: MainForm constructor starts
+#I:# 2007-11-10 13:54:20   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:09:20   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:09:20   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:09:20   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:12:21   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:12:21   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:12:21   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:14:34   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:14:34   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:14:34   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:38:11   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:38:11   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:38:12   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:40:18   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:40:18   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:40:19   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:41:14   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:41:14   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:41:15   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:42:22   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:42:22   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:42:22   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:55:48   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:55:48   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:55:49   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 14:55:50   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 14:55:50   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 14:55:52   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:55:52   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:55:52   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:55:52   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:55:53   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:55:53   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:55:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:56:17   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 14:56:17   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:56:48   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:56:48   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:56:48   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 14:56:50   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 14:56:50   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 14:56:51   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:56:51   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:56:52   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:56:55  NumPad8
+#I:# 2007-11-10 14:56:55  NumPad1
+#I:# 2007-11-10 14:56:55  NumPad4
+#I:# 2007-11-10 14:56:55  NumPad3
+#I:# 2007-11-10 14:56:55  NumPad8
+#I:# 2007-11-10 14:56:57  Scroll
+#I:# 2007-11-10 14:57:00  Scroll
+#I:# 2007-11-10 14:57:01  W
+#I:# 2007-11-10 14:57:01   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:02  W
+#I:# 2007-11-10 14:57:02   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:03  S
+#I:# 2007-11-10 14:57:03   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:04  D
+#I:# 2007-11-10 14:57:04   #GRF: TranslatingX: -16
+#I:# 2007-11-10 14:57:04  A
+#I:# 2007-11-10 14:57:04   #GRF: TranslatingX: -16
+#I:# 2007-11-10 14:57:05  Q
+#I:# 2007-11-10 14:57:05   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:05  E
+#I:# 2007-11-10 14:57:05   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:57:06  E
+#I:# 2007-11-10 14:57:06   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:57:06  E
+#I:# 2007-11-10 14:57:06   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 14:57:06  Q
+#I:# 2007-11-10 14:57:06   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:57:06  Q
+#I:# 2007-11-10 14:57:06   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:07  Q
+#I:# 2007-11-10 14:57:07   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:08  D2
+#I:# 2007-11-10 14:57:08  D1
+#I:# 2007-11-10 14:57:09  A
+#I:# 2007-11-10 14:57:09   #GRF: TranslatingX: -16
+#I:# 2007-11-10 14:57:09  Z
+#I:# 2007-11-10 14:57:10  A
+#I:# 2007-11-10 14:57:10   #GRF: TranslatingX: -16
+#I:# 2007-11-10 14:57:10  Z
+#I:# 2007-11-10 14:57:11  W
+#I:# 2007-11-10 14:57:11   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:11  E
+#I:# 2007-11-10 14:57:11   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:57:12  W
+#I:# 2007-11-10 14:57:12   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:12  W
+#I:# 2007-11-10 14:57:12   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:12  W
+#I:# 2007-11-10 14:57:12   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:13  S
+#I:# 2007-11-10 14:57:13   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:13  S
+#I:# 2007-11-10 14:57:13   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:13  S
+#I:# 2007-11-10 14:57:13   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:13  S
+#I:# 2007-11-10 14:57:13   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:13  W
+#I:# 2007-11-10 14:57:13   #GRF: TranslatingY: -11,37677
+#I:# 2007-11-10 14:57:14  X
+#I:# 2007-11-10 14:57:15  F
+#I:# 2007-11-10 14:57:15  T
+#I:# 2007-11-10 14:57:16  D5
+#I:# 2007-11-10 14:57:16  D4
+#I:# 2007-11-10 14:57:16  D3
+#I:# 2007-11-10 14:57:16  D3
+#I:# 2007-11-10 14:57:17  D2
+#I:# 2007-11-10 14:57:17  D1
+#I:# 2007-11-10 14:57:17  Oemtilde
+#I:# 2007-11-10 14:57:17  D1
+#I:# 2007-11-10 14:57:19  D1
+#I:# 2007-11-10 14:57:19  Q
+#I:# 2007-11-10 14:57:19   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:57:19  Q
+#I:# 2007-11-10 14:57:19   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:20  Q
+#I:# 2007-11-10 14:57:20   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:20  Q
+#I:# 2007-11-10 14:57:20   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:20  Q
+#I:# 2007-11-10 14:57:20   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:20  D1
+#I:# 2007-11-10 14:57:21  Q
+#I:# 2007-11-10 14:57:21   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:21  W
+#I:# 2007-11-10 14:57:21   #GRF: TranslatingY: -13,52189
+#I:# 2007-11-10 14:57:21  E
+#I:# 2007-11-10 14:57:21   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:57:21  E
+#I:# 2007-11-10 14:57:21   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:57:21  W
+#I:# 2007-11-10 14:57:21   #GRF: TranslatingY: -9,819071
+#I:# 2007-11-10 14:57:21  E
+#I:# 2007-11-10 14:57:21   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 14:57:22  W
+#I:# 2007-11-10 14:57:22   #GRF: TranslatingY: -8,636559
+#I:# 2007-11-10 14:57:22  W
+#I:# 2007-11-10 14:57:22   #GRF: TranslatingY: -8,636559
+#I:# 2007-11-10 14:57:22  W
+#I:# 2007-11-10 14:57:22   #GRF: TranslatingY: -8,636559
+#I:# 2007-11-10 14:57:22  W
+#I:# 2007-11-10 14:57:22   #GRF: TranslatingY: -8,636559
+#I:# 2007-11-10 14:57:22  W
+#I:# 2007-11-10 14:57:22   #GRF: TranslatingY: -8,636559
+#I:# 2007-11-10 14:57:22  E
+#I:# 2007-11-10 14:57:22   #GRF: Zooming: 32,5625
+#I:# 2007-11-10 14:57:23  R
+#I:# 2007-11-10 14:57:24  F
+#I:# 2007-11-10 14:57:24  D
+#I:# 2007-11-10 14:57:24   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:24  D
+#I:# 2007-11-10 14:57:24   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  D
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  D
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  D
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  D
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  D
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:25  S
+#I:# 2007-11-10 14:57:25   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  S
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingY: -7,708253
+#I:# 2007-11-10 14:57:26  A
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:26  A
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:26  A
+#I:# 2007-11-10 14:57:26   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  A
+#I:# 2007-11-10 14:57:27   #GRF: TranslatingX: -9,120921
+#I:# 2007-11-10 14:57:27  Q
+#I:# 2007-11-10 14:57:27   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:28  Q
+#I:# 2007-11-10 14:57:28   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 14:57:31   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 14:57:31   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:57:58   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:57:59   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:57:59   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 14:59:32   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 14:59:32   #MENU: MainForm constructor starts
+#I:# 2007-11-10 14:59:33   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:03:40   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:03:40   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:03:40   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:03:42   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:03:42   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 15:03:44   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:48   #UIM: Resizing...
+#I:# 2007-11-10 15:03:49   #UIM: Resizing...
+#I:# 2007-11-10 15:03:49   #UIM: Resizing...
+#I:# 2007-11-10 15:03:49   #UIM: Resizing...
+#I:# 2007-11-10 15:03:49   #UIM: Resizing...
+#I:# 2007-11-10 15:03:49   #UIM: Resizing...
+#I:# 2007-11-10 15:03:51   #UIM: Resizing...
+#I:# 2007-11-10 15:03:51   #UIM: Resizing...
+#I:# 2007-11-10 15:03:51   #UIM: Resizing...
+#I:# 2007-11-10 15:03:52   #UIM: Resizing...
+#I:# 2007-11-10 15:03:52   #UIM: Resizing...
+#I:# 2007-11-10 15:03:52   #UIM: Resizing...
+#I:# 2007-11-10 15:03:52   #UIM: Resizing...
+#I:# 2007-11-10 15:03:52  Subtract
+#I:# 2007-11-10 15:03:53  Subtract
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 28,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 32,125
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 35,625
+#I:# 2007-11-10 15:03:55   #GRF: Zooming: 39,125
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 35,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 32,125
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 28,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 25,125
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:03:56   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:23   #UIM: Resizing...
+#I:# 2007-11-10 15:04:31   #UIM: Resizing...
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 28,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 32,125
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 35,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 39,125
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 42,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 46,125
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 49,625
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 53,125
+#I:# 2007-11-10 15:04:32   #GRF: Zooming: 56,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 60,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 63,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 67,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 70,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 74,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 77,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 81,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 84,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 88,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 91,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 95,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 98,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 102,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 105,625
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 109,125
+#I:# 2007-11-10 15:04:33   #GRF: Zooming: 112,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 116,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 119,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 123,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 126,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 130,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 133,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 137,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 140,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 144,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 147,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 151,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 154,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 158,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 161,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 165,125
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 168,625
+#I:# 2007-11-10 15:04:34   #GRF: Zooming: 172,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 175,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 179,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 182,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 186,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 189,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 186,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 182,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 179,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 175,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 172,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 168,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 165,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 161,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 158,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 154,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 151,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 147,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 144,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 140,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 137,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 133,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 130,125
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 126,625
+#I:# 2007-11-10 15:04:35   #GRF: Zooming: 123,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 119,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 116,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 112,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 109,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 105,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 102,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 98,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 95,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 91,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 88,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 84,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 81,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 77,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 74,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 70,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 67,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 63,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 60,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 56,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 53,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 49,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 46,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 42,625
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 39,125
+#I:# 2007-11-10 15:04:36   #GRF: Zooming: 35,625
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 32,125
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 28,625
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 25,125
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:37   #GRF: Zooming: 21,625
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:43   #UIM: Resizing...
+#I:# 2007-11-10 15:04:44   #UIM: Resizing...
+#I:# 2007-11-10 15:04:44   #UIM: Resizing...
+#I:# 2007-11-10 15:04:44   #UIM: Resizing...
+#I:# 2007-11-10 15:04:44   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:47   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:48   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:49   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:50   #UIM: Resizing...
+#I:# 2007-11-10 15:04:51   #GRF: Zooming: 31,0625
+#I:# 2007-11-10 15:04:51   #GRF: Zooming: 34,5625
+#I:# 2007-11-10 15:04:51   #GRF: Zooming: 38,0625
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 34,5625
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 31,0625
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 27,5625
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 24,0625
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:52   #GRF: Zooming: 23,9375
+#I:# 2007-11-10 15:04:54   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 15:04:54   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-10 15:04:55   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+#I:# 2007-11-10 15:04:57   #UIM: OptionChoosed - view: GameMenuForm, option: Options
+#I:# 2007-11-10 15:04:57   #UIM: Switched to View: OptionsForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:14:00   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:14:00   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:14:00   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:14:02   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:14:02   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 15:14:03   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:14:04   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:14:06   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 15:14:06   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-10 15:14:07   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+#I:# 2007-11-10 15:14:08   #UIM: OptionChoosed - view: GameMenuForm, option: Options
+#I:# 2007-11-10 15:14:08   #UIM: Switched to View: OptionsForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:14:19   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:14:19   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:14:19   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:14:21   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:14:21   #UIM: Switched to View: GameForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:22:20   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:22:20   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:22:21   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:22:23   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:22:23   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 15:22:24   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:22:24   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:22:24   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:22:24   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:22:27   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 15:22:27   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:26:42   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:26:42   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:26:43   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:26:45   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:26:45   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:46   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 32,5625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 36,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 32,5625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:47   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:48   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:48   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:48   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:48   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:26:48   #GRF: Zooming: 15,0625
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:27:15   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:27:15   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:27:16   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 15:27:39   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 15:27:39   #MENU: MainForm constructor starts
+#I:# 2007-11-10 15:27:39   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 15:27:41   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 15:27:41   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 15:27:42   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:27:42   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 15:27:42   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 15:27:42   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 15:27:42   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:27:43   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:27:43   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:27:43   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:27:43   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 15:27:43   #GRF: Zooming: 15,0625
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:48:11   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:48:11   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:48:11   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 18:48:13   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 18:48:13   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 18:48:15   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 18:48:15   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:49:01   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:49:01   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:49:01   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:49:11   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:49:11   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:49:11   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:53:38   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:53:38   #MENU: MainForm constructor starts
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:56:16   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:56:16   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:56:21   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:58:18   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:58:18   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:58:19   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 18:58:46   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 18:58:46   #MENU: MainForm constructor starts
+#I:# 2007-11-10 18:58:47   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 18:58:48   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 18:58:48   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 18:58:49   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:49   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:49   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 26,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 29,6875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 26,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 22,6875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 19,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 15,6875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:50   #GRF: Zooming: 12,1875
+#I:# 2007-11-10 18:58:52   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 18:58:52   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-10 18:58:54   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:11:52   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:11:52   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:11:52   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 19:11:54   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 19:11:54   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 19:11:57   #UIM: Resizing...
+#I:# 2007-11-10 19:11:57   #UIM: Resizing...
+#I:# 2007-11-10 19:11:57   #UIM: Resizing...
+#I:# 2007-11-10 19:11:57   #UIM: Resizing...
+#I:# 2007-11-10 19:11:57   #UIM: Resizing...
+#I:# 2007-11-10 19:11:58   #UIM: Resizing...
+#I:# 2007-11-10 19:11:58   #UIM: Resizing...
+#I:# 2007-11-10 19:11:58   #UIM: Resizing...
+#I:# 2007-11-10 19:12:07   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 19:12:07   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:27:55   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:27:55   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:27:56   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 19:27:57   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 19:27:57   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 19:27:59   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 19:27:59   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:28:41   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:28:42   #MENU: MainForm constructor starts
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:33:54   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:33:54   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:33:55   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 19:33:57   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 19:33:57   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:33:59   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:00   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:04   #UIM: Resizing...
+#I:# 2007-11-10 19:34:05   #UIM: Resizing...
+#I:# 2007-11-10 19:34:05   #UIM: Resizing...
+#I:# 2007-11-10 19:34:05   #UIM: Resizing...
+#I:# 2007-11-10 19:34:05   #UIM: Resizing...
+#I:# 2007-11-10 19:34:05   #UIM: Resizing...
+#I:# 2007-11-10 19:34:06   #UIM: Resizing...
+#I:# 2007-11-10 19:34:06   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:07   #UIM: Resizing...
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 26,4375
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 29,9375
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 33,4375
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 36,9375
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 40,4375
+#I:# 2007-11-10 19:34:08   #GRF: Zooming: 43,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 47,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 50,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 54,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 57,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 61,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 64,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 68,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 71,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 75,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 78,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 82,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 85,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 89,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 85,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 82,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 78,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 75,4375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 71,9375
+#I:# 2007-11-10 19:34:09   #GRF: Zooming: 68,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 64,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 61,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 57,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 54,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 50,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 47,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 43,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 40,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 36,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 33,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 29,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 26,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 22,9375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:10   #GRF: Zooming: 19,4375
+#I:# 2007-11-10 19:34:14   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 19:34:14   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:47:08   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:47:08   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:47:08   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:47:26   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:47:26   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:47:27   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 19:47:29   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 19:47:29   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 19:47:34   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 19:47:34   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:48:59   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:48:59   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:48:59   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 19:49:01   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 19:49:01   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 19:49:03   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 19:49:03   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-10 19:49:04   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+#I:# 2007-11-10 19:49:06   #UIM: OptionChoosed - view: GameMenuForm, option: Options
+#I:# 2007-11-10 19:49:06   #UIM: Switched to View: OptionsForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:49:35   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:49:35   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:49:36   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 19:50:05   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 19:50:05   #MENU: MainForm constructor starts
+#I:# 2007-11-10 19:50:05   #GRF: MainForm constructor: initializing OpenGL
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-10 23:19:49   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-10 23:19:49   #MENU: MainForm constructor starts
+#I:# 2007-11-10 23:19:50   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-10 23:19:52   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-10 23:19:52   #UIM: Switched to View: GameForm
+#I:# 2007-11-10 23:19:53   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 23:19:53   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 23:19:53   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 23:19:53   #GRF: Zooming: 32,5625
+#I:# 2007-11-10 23:19:53   #GRF: Zooming: 36,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 32,5625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 29,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 25,5625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 22,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 18,5625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:54   #GRF: Zooming: 15,0625
+#I:# 2007-11-10 23:19:55   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-10 23:19:55   #UIM: Switched to View: GameMenuForm
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-11 13:51:44   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-11 13:51:44   #MENU: MainForm constructor starts
+#I:# 2007-11-11 13:51:46   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-11 13:51:49   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-11 13:51:49   #UIM: Switched to View: GameForm
+#I:# 2007-11-11 13:51:51   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-11 13:51:51   #UIM: Switched to View: GameMenuForm
+#I:# 2007-11-11 13:51:52   #UIM: OptionChoosed - view: GameMenuForm, option: Exit
+____________________________________________
+Application BEGIN Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null : 1.0.0.0
+#I:# 2007-11-11 13:52:40   #UIM: OptionChoosed - view: MainMenuForm, option: Game
+#I:# 2007-11-11 13:52:41   #MENU: MainForm constructor starts
+#I:# 2007-11-11 13:52:41   #GRF: MainForm constructor: initializing OpenGL
+#I:# 2007-11-11 13:52:43   #GRF: MainForm constructor: initializing OpenGL finished
+#I:# 2007-11-11 13:52:43   #UIM: Switched to View: GameForm
+#I:# 2007-11-11 13:53:04   #UIM: OptionChoosed - view: GameForm, option: Options
+#I:# 2007-11-11 13:53:04   #UIM: Switched to View: GameMenuForm
