@@ -115,7 +115,7 @@ namespace Yad.Net.Client
                 catch (Exception ex)
                 {
                     InfoLog.WriteException(ex);
-                    if (ConnectionLost != null)
+                    if (ConnectionLost != null && isProcessing)
                     {
                         lock (ConnectionLost)
                         { ConnectionLost(this, EventArgs.Empty); }
