@@ -66,6 +66,9 @@ namespace Yad.UI.Client {
 
 				InitializeComponent();
 
+                /* Play peaceful music */
+                AudioEngine.Instance.Music.PlayNext(MusicType.Peace);
+
                 this.gameFormClose = false;
 				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
@@ -133,6 +136,7 @@ namespace Yad.UI.Client {
 
         void ConnectionInstance_ConnectionLost(object sender, EventArgs e)
         {
+            AudioEngine.Instance.Music.Stop();
             GameFormClose = true;
             if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
             else this.Close();
@@ -142,12 +146,17 @@ namespace Yad.UI.Client {
         {
             InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
 
-            /* Sending message to server */
             bool isWinner = false;
-
             if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
                 isWinner = true;
 
+            /* Playing proper music */
+            if (isWinner)
+                AudioEngine.Instance.Music.Play(MusicType.Win);
+            else
+                AudioEngine.Instance.Music.Play(MusicType.Lose);
+
+            /* Sending message to server */
             GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
             gameEndMessage.HasWon = isWinner;
 

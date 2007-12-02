@@ -6,9 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Yad.UI.Client {
-    public partial class MiniForm : Form {
-        public MiniForm() {
+namespace Yad.UI.Client
+{
+    public partial class MiniForm : Form
+    {
+        public MiniForm()
+        {
             InitializeComponent();
             this.Hide();
             this.Visible = false;
@@ -16,14 +19,14 @@ namespace Yad.UI.Client {
             this.VisibleChanged += new EventHandler(MiniForm_VisibleChanged);
         }
 
-        void MiniForm_Shown(object sender, EventArgs e) {
+        void MiniForm_Shown(object sender, EventArgs e)
+        {
             this.Visible = false;
         }
 
-        void MiniForm_VisibleChanged(object sender, EventArgs e) {
+        void MiniForm_VisibleChanged(object sender, EventArgs e)
+        {
             this.Visible = false;
         }
-
-        
     }
 }
