@@ -322,36 +322,39 @@ namespace Yad.Engine.Client {
         /// </summary>
         public void CheckGameEndCondition()
         {
-            return;
+            Dictionary<short, int> teamGameObjectCount = new Dictionary<short, int>();
 
-            int[] teamGameObjectCount = new int[_sim.TeamCount];
-
-            ICollection<Player> playerColl = _sim.GetPlayers();
-
-            int index = 0;
-            // for 3 player game in 2 teams this line will add 3 ints to table of lenght 2.
-            foreach (Player player in playerColl)
-                teamGameObjectCount[index++] += player.GameObjectsCount;
+            foreach (Player player in _sim.GetPlayers())
+            {
+                if(teamGameObjectCount.ContainsKey(player.TeamID))
+                    teamGameObjectCount[player.TeamID] += player.GameObjectsCount;
+                else
+                    teamGameObjectCount.Add(player.TeamID, player.GameObjectsCount);
+            }
 
             short anyObjectOwningTeamsCount = 0;
             short anyObjectOwningTeamId = 0;
 
-            for (int i = 0; i < teamGameObjectCount.Length; i++)
+            foreach(short teamId in teamGameObjectCount.Keys)
             {
-                if (teamGameObjectCount[i] != 0)
+                if (teamGameObjectCount[teamId] != 0)
+                {
                     anyObjectOwningTeamsCount += 1;
+                    anyObjectOwningTeamId = teamId;
+                }
 
                 /* Two or more teams still fighting */
                 if (anyObjectOwningTeamsCount > 1)
                     break;
             }
 
+            int playersCount = _sim.GetPlayers().Count;
             /* Only one team left */
-            if (playerColl.Count > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null)
+            if (playersCount > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null)
                 GameEnd(anyObjectOwningTeamId);
 
             /* No teams left */
-            if (playerColl.Count == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null)
+            if (playersCount == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null)
                 GameEnd(anyObjectOwningTeamId);
         }
 

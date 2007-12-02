@@ -130,30 +130,6 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float SoundVolume {
-            get {
-                return ((float)(this["SoundVolume"]));
-            }
-            set {
-                this["SoundVolume"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float MusicVolume {
-            get {
-                return ((float)(this["MusicVolume"]));
-            }
-            set {
-                this["MusicVolume"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music")]
         public string AudioMusic {
             get {
@@ -388,25 +364,25 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("75")]
-        public short MusicDefaultVolume {
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public decimal SoundDefaultVolume {
             get {
-                return ((short)(this["MusicDefaultVolume"]));
+                return ((decimal)(this["SoundDefaultVolume"]));
             }
             set {
-                this["MusicDefaultVolume"] = value;
+                this["SoundDefaultVolume"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("75")]
-        public short SoundDefaultVolume {
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public decimal MusicDefaultVolume {
             get {
-                return ((short)(this["SoundDefaultVolume"]));
+                return ((decimal)(this["MusicDefaultVolume"]));
             }
             set {
-                this["SoundDefaultVolume"] = value;
+                this["MusicDefaultVolume"] = value;
             }
         }
     }

@@ -1212,6 +1212,7 @@ namespace Yad.UI.Client
             // 
             // musicVolumeNMOptionsMenu
             // 
+            this.musicVolumeNMOptionsMenu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yad.Properties.Client.Settings.Default, "MusicDefaultVolume", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.musicVolumeNMOptionsMenu.Increment = new decimal(new int[] {
             5,
             0,
@@ -1221,11 +1222,7 @@ namespace Yad.UI.Client
             this.musicVolumeNMOptionsMenu.Name = "musicVolumeNMOptionsMenu";
             this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.musicVolumeNMOptionsMenu.TabIndex = 2;
-            this.musicVolumeNMOptionsMenu.Value = new decimal(new int[] {
-            75,
-            0,
-            0,
-            0});
+            this.musicVolumeNMOptionsMenu.Value = global::Yad.Properties.Client.Settings.Default.MusicDefaultVolume;
             // 
             // muteSoundOptionsMenu
             // 
@@ -1240,6 +1237,7 @@ namespace Yad.UI.Client
             // 
             // soundVolumeNMOptionsMenu
             // 
+            this.soundVolumeNMOptionsMenu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yad.Properties.Client.Settings.Default, "SoundDefaultVolume", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.soundVolumeNMOptionsMenu.Increment = new decimal(new int[] {
             5,
             0,
@@ -1249,11 +1247,7 @@ namespace Yad.UI.Client
             this.soundVolumeNMOptionsMenu.Name = "soundVolumeNMOptionsMenu";
             this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.soundVolumeNMOptionsMenu.TabIndex = 3;
-            this.soundVolumeNMOptionsMenu.Value = new decimal(new int[] {
-            75,
-            0,
-            0,
-            0});
+            this.soundVolumeNMOptionsMenu.Value = global::Yad.Properties.Client.Settings.Default.SoundDefaultVolume;
             // 
             // muteMusicOptionsMenu
             // 

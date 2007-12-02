@@ -35,12 +35,6 @@
     <Setting Name="ScrollingSpeed" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.6</Value>
     </Setting>
-    <Setting Name="SoundVolume" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
-    </Setting>
-    <Setting Name="MusicVolume" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
-    </Setting>
     <Setting Name="AudioMusic" Type="System.String" Scope="User">
       <Value Profile="(Default)">Resources/Audio/Music</Value>
     </Setting>
@@ -113,11 +107,11 @@
     <Setting Name="OptionsTexture" Type="System.String" Scope="User">
       <Value Profile="(Default)">options.png</Value>
     </Setting>
-    <Setting Name="MusicDefaultVolume" Type="System.Int16" Scope="User">
-      <Value Profile="(Default)">75</Value>
+    <Setting Name="SoundDefaultVolume" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
-    <Setting Name="SoundDefaultVolume" Type="System.Int16" Scope="User">
-      <Value Profile="(Default)">75</Value>
+    <Setting Name="MusicDefaultVolume" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

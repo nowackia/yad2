@@ -66,10 +66,7 @@ namespace Yad.Engine.Client
         public int Volume
         {
             get
-            {
-                channel.getVolume(ref volume);
-                return (int)Math.Round(volume * 100.0f);
-            }
+            { return (int)Math.Round(volume * 100.0f); }
             set
             {
                 isMuted = false;
@@ -92,7 +89,7 @@ namespace Yad.Engine.Client
             FMOD.RESULT result;
             music = new List<FMOD.Sound>[Enum.GetValues(typeof(MusicType)).Length];
             indices = new short[music.Length];
-            this.Volume = Settings.Default.MusicDefaultVolume;
+            this.Volume = (int)Settings.Default.MusicDefaultVolume;
 
             for (int i = 0; i < music.Length; i++)
             {
