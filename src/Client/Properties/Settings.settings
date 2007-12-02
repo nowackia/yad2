@@ -113,5 +113,11 @@
     <Setting Name="OptionsTexture" Type="System.String" Scope="User">
       <Value Profile="(Default)">options.png</Value>
     </Setting>
+    <Setting Name="MusicDefaultVolume" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
+    <Setting Name="SoundDefaultVolume" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
