@@ -43,17 +43,13 @@ namespace Yad.Engine.Client {
 		public event InvalidLocationHandler InvalidLocation;
 		#endregion
 
-		private int teamCount;
-
 		public ClientSimulation(Map map)
 			: base(map, false) {
 
 			PlayerInfo currPI = ClientPlayerInfo.Player;
 
-			teamCount = int.MinValue;
 			//Add all players
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
-				teamCount = Math.Max(teamCount, pi.TeamID);
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color, map);
 				p.TeamID = pi.TeamID;
 				p.Credits = Settings.Default.CreditsAtStart;
@@ -100,7 +96,7 @@ namespace Yad.Engine.Client {
 
 			p.AddBuilding(b);
 			p.Credits -= b.BuildingData.Cost;
-            OnCreditsUpdate(cost);
+            OnCreditsUpdate(b.BuildingData.Cost);
 			ClearFogOfWar(b);
 
 			UpdatePowerManagement(b);
@@ -360,12 +356,6 @@ namespace Yad.Engine.Client {
 			//TODO RS: run in different thread
 			//this.UnitCompleted(u);
 			//}
-		}
-
-		public int TeamCount {
-			get {
-				return this.teamCount;
-			}
 		}
 
 		public Player GetPlayer(short id) {

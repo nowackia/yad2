@@ -31,10 +31,7 @@ namespace Yad.Engine
         public int Volume
         {
             get
-            {
-                channel.getVolume(ref volume);
-                return (int)Math.Round(volume * 100.0f);
-            }
+            { return (int)Math.Round(volume * 100.0f); }
             set
             {
                 isMuted = false;
@@ -48,7 +45,7 @@ namespace Yad.Engine
 
         public void LoadSounds()
         {
-            this.Volume = Settings.Default.SoundDefaultVolume;
+            this.Volume = (int)Settings.Default.SoundDefaultVolume;
 
             InfoLog.WriteInfo("Sounds loaded successfully", EPrefix.AudioEngine);
         }
