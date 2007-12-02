@@ -40,9 +40,9 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PictureButton, Version=1.0.2858.39135, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PictureButton, Version=1.0.2892.20801, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\tmp\nowackia\PictureButton\PictureButton\bin\Debug\PictureButton.dll</HintPath>
+      <HintPath>..\lib\PictureButton.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
