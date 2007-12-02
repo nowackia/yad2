@@ -203,6 +203,7 @@ namespace Yad.Engine.Client {
             this._map.Units[mcv.Position.X, mcv.Position.Y].Remove(mcv);
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[btype];
             if (!Building.CheckBuildPosition(bd, mcv.Position, _map, dmcv.McvID.PlayerID)) {
+                this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
                 if (InvalidLocation != null) {
                     InvalidLocation();
                 }
