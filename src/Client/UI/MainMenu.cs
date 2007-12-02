@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Yad.Config;
+using Yad.Engine.Client;
 using Yad.Engine.Common;
 using Yad.Log.Common;
 using Yad.Net.Client;
@@ -997,6 +998,13 @@ namespace Yad.UI.Client
         #region Control Events
         private void cancelOptionsMenu_Click(object sender, EventArgs e)
         {
+            /* Return to audio engine settings */
+            muteMusicOptionsMenu.Checked = AudioEngine.Instance.Music.IsMuted;
+            musicVolumeNMOptionsMenu.Value = AudioEngine.Instance.Music.Volume;
+
+            muteSoundOptionsMenu.Checked = AudioEngine.Instance.Music.IsMuted;
+            soundVolumeNMOptionsMenu.Value = AudioEngine.Instance.Sound.Volume;
+
             if (this.lastView == Views.GameMenuForm)
                 OnMenuOptionChange(MenuOption.CancelToGameMenu);
             else if (this.lastView == Views.PauseForm)
@@ -1007,12 +1015,35 @@ namespace Yad.UI.Client
 
         private void okOptionsMenu_Click(object sender, EventArgs e)
         {
+            /* Change audio engine settings */
+            if (muteMusicOptionsMenu.Checked)
+                AudioEngine.Instance.Music.Mute();
+            else
+                AudioEngine.Instance.Music.Volume = (int)musicVolumeNMOptionsMenu.Value;
+
+            if (muteSoundOptionsMenu.Checked)
+                AudioEngine.Instance.Sound.Mute();
+            else
+                AudioEngine.Instance.Sound.Volume = (int)musicVolumeNMOptionsMenu.Value;
+
             if (this.lastView == Views.GameMenuForm)
                 OnMenuOptionChange(MenuOption.OkToGameMenu);
             else if (this.lastView == Views.PauseForm)
                 OnMenuOptionChange(MenuOption.OkToPauseMenu);
             else
                 OnMenuOptionChange(MenuOption.Ok);
+        }
+
+        private void muteMusicOptionsMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            musicVolumeNMOptionsMenu.Enabled = !checkBox.Checked;
+        }
+
+        private void muteSoundOptionsMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            soundVolumeNMOptionsMenu.Enabled = !checkBox.Checked;
         }
         #endregion
         #region MenuMessageHandler Events
