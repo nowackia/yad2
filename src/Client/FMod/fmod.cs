@@ -17,7 +17,7 @@ namespace FMOD
     public class VERSION
     {
         public const int    number = 0x00040809;
-        public const string dll    = "fmodex.dll";
+        public const string dll    = "Fmod\\fmodex.dll";
     }
 
     /*
@@ -1157,7 +1157,7 @@ namespace FMOD
         public SPEAKERMAPTYPE              speakermap;             /* [in] Optional. Specify 0 to ignore. Use this to differ the way fmod maps multichannel sounds to speakers.  See FMOD_SPEAKERMAPTYPE for more. */
         public IntPtr                      initialsoundgroup;      /* [in] Optional. Specify 0 to ignore. Specify a sound group if required, to put sound in as it is created. */
         public uint                        initialseekposition;    /* [in] Optional. Specify 0 to ignore. For streams. Specify an initial position to seek the stream to. */
-        //public FMOD_TIMEUNIT               initialseekpostype;     /* [in] Optional. Specify 0 to ignore. For streams. Specify the time unit for the position set in initialseekposition. */
+        public TIMEUNIT                    initialseekpostype;     /* [in] Optional. Specify 0 to ignore. For streams. Specify the time unit for the position set in initialseekposition. */
     }
 
 
