@@ -163,9 +163,7 @@ namespace Tests
             uint version = 0;
             FMOD.RESULT result;
 
-            /*
-                Create a System object and initialize.
-            */
+            /* Create a System object and initialize. */
             result = FMOD.Factory.System_Create(ref system);
             ERRCHECK(result);
 
@@ -203,7 +201,7 @@ namespace Tests
         {
             if (result != FMOD.RESULT.OK)
             {
-                MessageBox.Show("FMOD error! " + result + " - " + FMOD.Error.String(result));
+                MessageBox.Show("FMOD error! " + result + " - " + FMOD.ERROR.String(result));
                 Environment.Exit(-1);
             }
         }
@@ -212,46 +210,44 @@ namespace Tests
         #region Audio
         private void btnRandom_Click(object sender, EventArgs e)
         {
-            AudioEngine.MusicType mt;
+            MusicType mt;
             if (rbFight.Checked)
             {
-                mt = Yad.Engine.Client.AudioEngine.MusicType.Fight;
+                mt = Yad.Engine.Client.MusicType.Fight;
             }
             else if (rbLose.Checked)
             {
-                mt = AudioEngine.MusicType.Lose;
+                mt = MusicType.Lose;
             }
             else if (rbPeace.Checked)
             {
-                mt = AudioEngine.MusicType.Peace;
+                mt = MusicType.Peace;
             }
             else
             {
-                mt = AudioEngine.MusicType.Win;
+                mt = MusicType.Win;
             }
-            AudioEngine.PlayRandom(mt);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            AudioEngine.MusicType mt;
+            MusicType mt;
             if (rbFight.Checked)
             {
-                mt = Yad.Engine.Client.AudioEngine.MusicType.Fight;
+                mt = Yad.Engine.Client.MusicType.Fight;
             }
             else if (rbLose.Checked)
             {
-                mt = AudioEngine.MusicType.Lose;
+                mt = MusicType.Lose;
             }
             else if (rbPeace.Checked)
             {
-                mt = AudioEngine.MusicType.Peace;
+                mt = MusicType.Peace;
             }
             else
             {
-                mt = AudioEngine.MusicType.Win;
+                mt = MusicType.Win;
             }
-            AudioEngine.PlayNext(mt);
         }
 
         #endregion
