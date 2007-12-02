@@ -5,8 +5,8 @@ using Yad.Board;
 
 namespace Yad.Utilities.Common {
 	/// <summary>
-	/// DO NOT USE IN SIMULATION!
-	/// </summary>
+	/// Do not use in simulation, as this will cause non deterministic behaviour.
+    /// </summary>
 	public static class Randomizer {
 		static Random rnd = new Random();
 
