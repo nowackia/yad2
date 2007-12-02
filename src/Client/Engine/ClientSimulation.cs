@@ -86,22 +86,15 @@ namespace Yad.Engine.Client {
 				return;
 			}
 
-			Player p = players[bm.IdPlayer];
-			ObjectID id = new ObjectID(bm.IdPlayer, p.GenerateObjectID());
-			Building b = new Building(id, bd, this._map, bm.Position, this);
-
-			//TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
-			if (players[bm.IdPlayer].Credits< GlobalSettings.Wrapper.buildingsMap[b.TypeID].Cost)
-				return;
-
-			p.AddBuilding(b);
-			p.Credits -= b.BuildingData.Cost;
-            OnCreditsUpdate(b.BuildingData.Cost);
-			ClearFogOfWar(b);
-
-			UpdatePowerManagement(b);
-			//OnCreditsUpdate(b.BuildingData.Cost);
-			OnBuildingCompleted(b, bm.CreatorID);
+            //TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
+            int playerCredits = players[bm.IdPlayer].Credits;
+            int buildingCost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
+            if (playerCredits < buildingCost)
+                return;
+            players[bm.IdPlayer].Credits -= buildingCost;
+            if (OnCreditsUpdate != null)
+                OnCreditsUpdate(buildingCost);
+            AddBuilding(bm.IdPlayer, bm.CreatorID, bm.BuildingType, bm.Position);
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
@@ -191,9 +184,33 @@ namespace Yad.Engine.Client {
 		}
 
 
+        private void AddBuilding(short playerID, int creatorID, short buildingType, Position pos) {
+            Player p = players[playerID];
+            ObjectID id = new ObjectID(playerID, p.GenerateObjectID());
+            BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingType];
+            Building b = new Building(id, bd, this._map, pos, this);
+            p.AddBuilding(b);
+            ClearFogOfWar(b);
+            UpdatePowerManagement(b);
+            OnBuildingCompleted(b, creatorID);    
+        }
 
 		protected override void onMessageDeployMCV(Yad.Net.Messaging.GMDeployMCV dmcv) {
-			InfoLog.WriteInfo("onMessageDeployMCV: not implemented");
+            Player p = players[dmcv.IdPlayer];
+            UnitMCV mcv = (UnitMCV)p.GetUnit(ObjectID.From(dmcv.McvID.ObjectId, dmcv.McvID.PlayerID));
+            string bName = mcv.MCVData.BuildingCanProduce;
+            short btype = GlobalSettings.Wrapper.namesToIds[bName];
+            this._map.Units[mcv.Position.X, mcv.Position.Y].Remove(mcv);
+            BuildingData bd = GlobalSettings.Wrapper.buildingsMap[btype];
+            if (!Building.CheckBuildPosition(bd, mcv.Position, _map, dmcv.McvID.PlayerID)) {
+                if (InvalidLocation != null) {
+                    InvalidLocation();
+                }
+                return;
+            }
+            this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
+            destroyUnit(mcv);
+            AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
