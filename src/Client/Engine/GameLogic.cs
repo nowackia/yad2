@@ -79,7 +79,8 @@ namespace Yad.Engine.Client {
 
         void _sim_UnitDestroyed(Unit u) {
 			_selectedUnits.Remove(u);
-
+            /* Play fight music */
+            AudioEngine.Instance.Music.Play(MusicType.Fight);
             this.CheckGameEndCondition();
         }
 
@@ -87,6 +88,8 @@ namespace Yad.Engine.Client {
 			if (_selectedBuilding == b) {
 				_selectedBuilding = null;
 			}
+            /* Play fight music */
+            AudioEngine.Instance.Music.Play(MusicType.Fight);
             this.CheckGameEndCondition();
         }
 		#endregion
@@ -314,7 +317,6 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
-
         /// <summary>
         /// Checks if the game has ended - if any team has any objects left on map
         /// </summary>
@@ -327,7 +329,7 @@ namespace Yad.Engine.Client {
             ICollection<Player> playerColl = _sim.GetPlayers();
 
             int index = 0;
-            // for 3 player game i 2 teams this line will add 3 ints to table of lenght 2.
+            // for 3 player game in 2 teams this line will add 3 ints to table of lenght 2.
             foreach (Player player in playerColl)
                 teamGameObjectCount[index++] += player.GameObjectsCount;
 

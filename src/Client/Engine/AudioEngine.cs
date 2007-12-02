@@ -1,75 +1,91 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
+using System.Windows.Forms;
 using Yad.Properties.Client;
 using Yad.Utilities.Common;
 using Yad.Log.Common;
-using System.Threading;
+using Yad.UI.Common;
 
-namespace Yad.Engine.Client {
-	public static class AudioEngine {
-		public enum MusicType : int { Fight = 0, Lose = 1, Win = 2, Peace = 3 };
+namespace Yad.Engine.Client
+{
+    public class AudioEngine
+    {
+        private static AudioEngine instance = new AudioEngine();
 
-		static int musicTypesCount;
-		static int[] indices;
-		static List<String>[] music;
+        private FMOD.System system;
+        private FMOD.Channel musicChannel;
+        private FMOD.Channel soundChannel;
 
+        private Timer timer;
 
-		public static void Init() {
-			musicTypesCount = Enum.GetValues(typeof(MusicType)).Length;
-			music = new List<String>[musicTypesCount];
-			indices = new int[musicTypesCount];
-			for (int i = 0; i < musicTypesCount; i++) {
-				music[i] = new List<String>();
-			}
-			DirectoryInfo di;
-			di = new DirectoryInfo(Settings.Default.MusicFight);
-			foreach (FileInfo fi in di.GetFiles()) {
-				music[(int)MusicType.Fight].Add(fi.FullName);
-			}
-			di = new DirectoryInfo(Settings.Default.MusicLose);
-			foreach (FileInfo fi in di.GetFiles()) {
-					music[(int)MusicType.Lose].Add(fi.FullName);
-			}
-			di = new DirectoryInfo(Settings.Default.MusicPeace);
-			foreach (FileInfo fi in di.GetFiles()) {
-					music[(int)MusicType.Peace].Add(fi.FullName);
-			}
-			di = new DirectoryInfo(Settings.Default.MusicWin);
-			foreach (FileInfo fi in di.GetFiles()) {
-					music[(int)MusicType.Win].Add(fi.FullName);
-			}
-			for (int i = 0; i < musicTypesCount; i++) {
-				indices[i] = 0;
-			}
-		}
+        private Sound sound;
+        private Music music;
 
-		public static bool PlayNext(MusicType mt) {
-			List<String> tracks = music[(short)mt];
-			if (tracks.Count == 0) {
-				return false;
-			}
+        public AudioEngine()
+        {
+            timer = new Timer();
+            timer.Interval = 100;
+            timer.Tick += new EventHandler(timer_Tick);
+        }
 
-			int idx = indices[(int)mt] % tracks.Count;
-			//play
-			return true;
-		}
+        void timer_Tick(object sender, EventArgs e)
+        {
+            system.update();
+        }
 
-		public static bool PlayRandom(MusicType mt) {
-			List<String> tracks = music[(int)mt];
-			if (tracks.Count == 0) {
-				return false;
-			}
+        public void Init()
+        {
+            uint version = 0;
+            FMOD.RESULT result;
 
-			int idx = indices[(int)mt] = Randomizer.Next(tracks.Count);
-			//play
-			return true;
-		}
+            /* Create a System object and initialize. */
+            result = FMOD.Factory.System_Create(ref system);
+            if (!FMOD.ERROR.ERRCHECK(result))
+                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
 
-		static void PlayTrack(object filename) {
-			string s = filename as string;
-			//play
-		}
-	}
+            result = system.getVersion(ref version);
+            if (!FMOD.ERROR.ERRCHECK(result))
+                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+            if (version < FMOD.VERSION.number)
+                MessageBoxEx.Show("Error!  You are using an old version of FMOD " + version.ToString("X") + ".  This program requires " + FMOD.VERSION.number.ToString("X") + ".");
+
+            result = system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null);
+            if (!FMOD.ERROR.ERRCHECK(result))
+                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+
+            music = new Music(system, musicChannel);
+            sound = new Sound(system, soundChannel);
+
+            timer.Start();
+
+            music.MusicEnd += new MusicEndEventHandler(music_MusicEnd);
+
+            InfoLog.WriteInfo("Audio initialized successfully", EPrefix.AudioEngine);
+        }
+
+        void music_MusicEnd(object sender, MusicEndEventArgs e)
+        {
+            music.PlayNext();
+        }
+
+        public static AudioEngine Instance
+        {
+            get
+            { return instance; }
+        }
+
+        public Music Music
+        {
+            get
+            { return music; }
+        }
+
+        public Sound Sound
+        {
+            get
+            { return sound; }
+        }
+    }
 }
