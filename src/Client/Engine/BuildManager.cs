@@ -10,6 +10,8 @@ using Yad.Net.Client;
 using Yad.UI;
 using System.Collections;
 using Yad.Log.Common;
+using Yad.Net.Messaging;
+using Yad.Net.Messaging.Common;
 
 namespace Yad.Engine {
     public delegate void CreateUnitHandler(int createObjectID, short typeID);
@@ -17,15 +19,20 @@ namespace Yad.Engine {
         Building,
         Normal
     }
+
+    public class StateWrapper {
+        public StripButtonState State = StripButtonState.Active;
+    }
     public class BuildManager {
 
         GameLogic _gameLogic;
         BuildStripe _leftStripe;
         BuildStripe _rightStripe;
-        Dictionary<int, Dictionary<short, BuildStatus>> _stripData = new Dictionary<int, Dictionary<short, BuildStatus>>();
+        Dictionary<int, Dictionary<short, StateWrapper>> _stripData = new Dictionary<int, Dictionary<short, StateWrapper>>();
         Dictionary<int, RightStripState> _leftState = new Dictionary<int, RightStripState>();
         int _currentObjectID=-1;
-        List<BuildStatus> _buildList=null;
+        object cObjLock = new object();
+
         object cuLock = new object();
 
         private event CreateUnitHandler _createUnit = null;
@@ -34,7 +41,6 @@ namespace Yad.Engine {
             _gameLogic = gameLogic;
             _leftStripe = leftStripe;
             _rightStripe = rightStripe;
-            _buildList = new List<BuildStatus>();
             InitRightStripe();
         }
 
@@ -65,7 +71,7 @@ namespace Yad.Engine {
             }
             _rightStripe.HideAll();
         }
-
+        /*
         public void ProcessTurn() {
             Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn start");
             List<BuildStatus> _bsToEnd = new List<BuildStatus>();
@@ -78,7 +84,7 @@ namespace Yad.Engine {
                         _bsToEnd.Add(bs);
                         /* OLD--> InfoLog.WriteInfo("Before OnBuildEnd");
                         OnBuildEnd(bs);
-                        InfoLog.WriteInfo("After OnBuildEnd");*/
+                        InfoLog.WriteInfo("After OnBuildEnd")
                     }
                     else
                         if (bs.ObjectId == _currentObjectID) {
@@ -115,11 +121,11 @@ namespace Yad.Engine {
                 if (_currentObjectID == bstatus.ObjectId)
                     _rightStripe.Update(bstatus);
             }
-        }
+        }*/
 
         private void ActivateForObject(int objectID) {
-            foreach (BuildStatus bs in _stripData[objectID].Values) {
-                bs.State = StripButtonState.Active;
+            foreach (StateWrapper sw in _stripData[objectID].Values) {
+                sw.State = StripButtonState.Active;
             }
         }
 
@@ -128,15 +134,7 @@ namespace Yad.Engine {
                 _leftStripe.Remove(objectID.ObjectId);
                 _leftState.Remove(objectID.ObjectId);
                 _stripData.Remove(objectID.ObjectId);
-                lock (((ICollection)_buildList).SyncRoot) {
-                    for (int i = 0; i < _buildList.Count; ++i) {
-                        BuildStatus bs = _buildList[i];
-                        if (bs.ObjectId == objectID.ObjectId) {
-                            _buildList.Remove(bs);
-                            --i;
-                        }
-                    }
-                }
+                
                 foreach (int key in _stripData.Keys) {
                     ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
                     UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
@@ -154,7 +152,7 @@ namespace Yad.Engine {
             if (bs.BuildingsCanProduce.Count != 0 || bs.UnitsCanProduce.Count != 0) {
                 _leftStripe.Add(objectID.ObjectId, name, name, true);
                 _leftState.Add(objectID.ObjectId, RightStripState.Normal);
-                _stripData.Add(objectID.ObjectId, new Dictionary<short, BuildStatus>());
+                _stripData.Add(objectID.ObjectId, new Dictionary<short, StateWrapper>());
             }
             
             foreach (int key in _stripData.Keys) {
@@ -182,94 +180,110 @@ namespace Yad.Engine {
                 _rightStripe.HideAll();
                 return;
             }
-            List<BuildStatus> listStatus = new List<BuildStatus>(_stripData[id].Values);
-            _rightStripe.SwitchUpdate(listStatus, rewind);
+            _rightStripe.SwitchUpdate(_stripData[id], rewind);
         }
-        public int RightBuildingClick(int id) {
+        public int RightBuildingClick(int id, bool isUnit) {
             StripButtonState state = _stripData[_currentObjectID][(short)id].State;
             switch (state) {
                 case StripButtonState.Active:
-                    RightBuildActiveClick(id);
-                    return -1;
-                case StripButtonState.Ready:
+                    RightBuildActiveClick(id, isUnit);
                     return _currentObjectID;
-
             }
             return -1;
         }
 
-        private void RightBuildActiveClick(int id) {
-            BuildStatus bs = _stripData[_currentObjectID][(short)id];
-            _leftState[id] = RightStripState.Building;
-            if (bs.BuildType == BuildType.Unit) {
-                bs.State = StripButtonState.Percantage;
-                lock(((ICollection)_buildList).SyncRoot)
-                    _buildList.Add(bs);
-                DeactivateOther(bs.Typeid);
+        private void RightBuildActiveClick(int id, bool isUnit) {
+            int current = -1;
+            lock (cObjLock)
+                current = _currentObjectID;
+            lock (((ICollection)_leftState).SyncRoot)
+                _leftState[current] = RightStripState.Building;
+            if (isUnit) {
+                DeactivateOther(-1);
+                BuildUnitMessage buMessage = (BuildUnitMessage) MessageFactory.Create(MessageType.BuildUnitMessage);
+                buMessage.UnitType = (short)id;
+                buMessage.CreatorID = current;
+                buMessage.IdPlayer = _gameLogic.CurrentPlayer.Id;
+                Connection.Instance.SendMessage(buMessage);
             }
-            if (bs.BuildType == BuildType.Building) {
-                //_stripData[_currentObjectID][(short)id].State = Yad.UI.StripButtonState.Ready;
-                bs.State = StripButtonState.Percantage;
-                lock (((ICollection)_buildList).SyncRoot)
-                    _buildList.Add(bs);
-                DeactivateOther(bs.Typeid);
+            else {
+                lock (((ICollection)_stripData).SyncRoot)
+                    _stripData[current][(short)id].State = StripButtonState.Ready;
+                DeactivateOther((short)id);
             }
            
             UpdateView(_currentObjectID,false);
         }
 
         private void DeactivateOther(short typeid) {
-            foreach (BuildStatus bs in _stripData[_currentObjectID].Values) {
-                if (typeid != bs.Typeid)
-                    bs.State = Yad.UI.StripButtonState.Inactive;
+            Dictionary<short, StateWrapper> toDeactivate = null;
+            int current = -1;
+            lock (cObjLock) {
+                current = _currentObjectID;
             }
+            lock (((ICollection)_stripData).SyncRoot) {
+                toDeactivate = _stripData[current];
+                foreach (short key in toDeactivate.Keys)
+                    if (key != typeid)
+                        toDeactivate[key].State = StripButtonState.Inactive;
+                _stripData[current] = toDeactivate;
+            }  
         }
+
         public void ReadyReset(int id) {
-            _leftState[id] = RightStripState.Normal;
-            foreach (BuildStatus bs in _stripData[id].Values) {
-                bs.State = Yad.UI.StripButtonState.Active;
+            lock (((ICollection)_leftState).SyncRoot)
+                _leftState[id] = RightStripState.Normal;
+            int current = -1;
+            lock (cObjLock)
+                current = _currentObjectID;
+            lock (((ICollection)_stripData).SyncRoot) {
+                foreach (short key in _stripData[current].Keys) {
+                    _stripData[id][key].State = Yad.UI.StripButtonState.Active;
+                }
             }
-            UpdateView(_currentObjectID,false);
+            UpdateView(current,false);
         }
         private void UpdateDependencies(ObjectID objectID, short typeID) {
             BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[typeID];
+            
             foreach (String bname in bdata.BuildingsCanProduce) {
                 short idb = GlobalSettings.Wrapper.namesToIds[bname];
                 if (CheckDependencies(bname)) {
-                    if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
-                        int buildSpeed = GlobalSettings.Wrapper.buildingsMap[idb].BuildSpeed;
-                        BuildStatus bs = new BuildStatus(objectID.ObjectId, idb, (short)buildSpeed, BuildType.Building);
-                        if (_leftState[objectID.ObjectId] == RightStripState.Building)
-                            bs.State = StripButtonState.Inactive;
-                        _stripData[objectID.ObjectId].Add(idb, bs);
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
+                            int buildSpeed = GlobalSettings.Wrapper.buildingsMap[idb].BuildSpeed;
+                            StateWrapper wrapper = new StateWrapper();
+                            if (_leftState[objectID.ObjectId] == RightStripState.Building)
+                                wrapper.State = StripButtonState.Inactive;
+                            _stripData[objectID.ObjectId].Add(idb, wrapper);
+                        }
                     }
                 }
                 else
-                    RemoveBuildStatus(objectID, idb);      
+                    lock (((ICollection)_stripData).SyncRoot)
+                        RemoveBuildStatus(objectID, idb);      
             }
             foreach (String uname in bdata.UnitsCanProduce) {
                 short idu = GlobalSettings.Wrapper.namesToIds[uname];
                 if (CheckDependencies(uname)) {
-                    if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
-                        int buildSpeed = GetUnitBuildSpeed(idu);
-                        BuildStatus bs = new BuildStatus(objectID.ObjectId, idu, (short)buildSpeed, BuildType.Unit);
-                        if (_leftState[objectID.ObjectId] == RightStripState.Building)
-                            bs.State = StripButtonState.Inactive;
-                        _stripData[objectID.ObjectId].Add(idu, bs);
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
+                            int buildSpeed = GetUnitBuildSpeed(idu);
+                            StateWrapper wrapper = new StateWrapper();
+                            if (_leftState[objectID.ObjectId] == RightStripState.Building)
+                                wrapper.State = StripButtonState.Inactive;
+                            _stripData[objectID.ObjectId].Add(idu, wrapper);
+                        }
                     }
                 }
                 else
-                    RemoveBuildStatus(objectID, idu);
+                    lock (((ICollection)_stripData).SyncRoot)
+                        RemoveBuildStatus(objectID, idu);
             }
         }
 
         private void RemoveBuildStatus(ObjectID objectID, short idb) {
             if (_stripData[objectID.ObjectId].ContainsKey(idb)) {
-                BuildStatus bs = _stripData[objectID.ObjectId][idb];
-                lock (((ICollection)_buildList).SyncRoot) {
-                    if (_buildList.Contains(bs))
-                        _buildList.Remove(bs);
-                }
                 _stripData[objectID.ObjectId].Remove(idb);
             }
         }
@@ -282,6 +296,22 @@ namespace Yad.Engine {
             if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))
                 return GlobalSettings.Wrapper.harvestersMap[id].BuildSpeed;
             return 0;
+        }
+
+        public void UpdateStrip(int id, short typeID, int percent) {
+            lock (((ICollection)_stripData).SyncRoot) {
+                if (_stripData.ContainsKey(id)) {
+                    if (percent == -1) {
+                        _leftState[id] = RightStripState.Normal;
+                        ActivateForObject(id);
+                        UpdateView(id, false);
+                    }
+                    else {
+                        _stripData[id][typeID].State = StripButtonState.Percantage;
+                        _rightStripe.UpdatePercent(typeID, percent);
+                    }
+                }
+            }
         }
 
         private bool CheckDependencies(string name) {

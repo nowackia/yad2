@@ -30,6 +30,7 @@ namespace Yad.Engine.Client {
 		public delegate void OnNoPowerHandler(Player p);
 		public delegate void OnCreditsHandler(int cost);
 		public delegate void InvalidLocationHandler();
+        public delegate void UpdateStripItemHandler(int playerID, int objectID, short typeID, int percent); 
 
 		public event OnCreditsHandler OnCreditsUpdate;
 		public event OnLowPowerHandler OnLowPowerResources;
@@ -41,6 +42,7 @@ namespace Yad.Engine.Client {
 		public event BuildingHandler BuildingStarted;
 		public event UnitHandler UnitStarted;
 		public event InvalidLocationHandler InvalidLocation;
+        public event UpdateStripItemHandler UpdateStripItem;
 		#endregion
 
 		public ClientSimulation(Map map)
@@ -94,7 +96,11 @@ namespace Yad.Engine.Client {
             players[bm.IdPlayer].Credits -= buildingCost;
             if (OnCreditsUpdate != null)
                 OnCreditsUpdate(buildingCost);
-            AddBuilding(bm.IdPlayer, bm.CreatorID, bm.BuildingType, bm.Position);
+            Building b = AddBuilding(bm.IdPlayer, bm.CreatorID, bm.BuildingType, bm.Position);
+            b.State = Building.BuildingState.constructing;
+            b.BuildStatus = new BuildStatus(bm.CreatorID, bm.BuildingType, b.BuildingData.BuildSpeed, BuildType.Building);
+            UpdatePowerManagement(b);
+            //OnBuildingCompleted(b, bm.CreatorID);
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
@@ -141,6 +147,31 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageHarvest", EPrefix.SimulationInfo);
 		}
 
+        private void createUnit(short playerId, short type, Position pos) {
+            InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+			int cost=0;
+			Player p = players[playerId];
+			Unit u = null;
+			ObjectID id = new ObjectID(playerId, p.GenerateObjectID());
+
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type)){
+				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[type], pos, this._map, this, GlobalSettings.Wrapper.harvestersMap[type].__Speed);
+            }
+			else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type)){
+				u = new UnitMCV(id, GlobalSettings.Wrapper.mcvsMap[type], pos, this._map, this);
+            }
+			else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type)){
+				u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[type], pos, this._map, this);
+            }
+			else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(type)){
+				u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[type], pos, this._map, this);
+            }
+
+			p.AddUnit(u);
+			ClearFogOfWar(u);
+            OnUnitCompleted(u);
+        }
+
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 			int cost=0;
@@ -184,15 +215,14 @@ namespace Yad.Engine.Client {
 		}
 
 
-        private void AddBuilding(short playerID, int creatorID, short buildingType, Position pos) {
+        private Building AddBuilding(short playerID, int creatorID, short buildingType, Position pos) {
             Player p = players[playerID];
             ObjectID id = new ObjectID(playerID, p.GenerateObjectID());
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingType];
             Building b = new Building(id, bd, this._map, pos, this);
             p.AddBuilding(b);
             ClearFogOfWar(b);
-            UpdatePowerManagement(b);
-            OnBuildingCompleted(b, creatorID);    
+            return b;
         }
 
 		protected override void onMessageDeployMCV(Yad.Net.Messaging.GMDeployMCV dmcv) {
@@ -210,7 +240,9 @@ namespace Yad.Engine.Client {
             }
             this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
             destroyUnit(mcv);
-            AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
+            Building b = AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
+            UpdatePowerManagement(b);
+            OnBuildingCompleted(b, -1);
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
@@ -228,8 +260,80 @@ namespace Yad.Engine.Client {
 
 		protected override void handleBuilding(Building b) {
 			InfoLog.WriteInfo("handleBuilding: not implemented");
+            Building.BuildingState bstate = b.State;
 			b.DoAI();
+            if (b.BuildStatus != null) {
+                switch (bstate) {
+                    case Building.BuildingState.constructing:
+                        if (b.State == Building.BuildingState.normal) {
+                            if (UpdateStripItem != null)
+                                UpdateStripItem(b.ObjectID.PlayerID, b.BuildStatus.ObjectId, b.BuildStatus.Typeid, -1);
+                            OnBuildingCompleted(b, b.BuildStatus.ObjectId);
+                            b.BuildStatus = null;
+
+                        }
+                        else {
+                            if (UpdateStripItem != null)
+                                UpdateStripItem(b.ObjectID.PlayerID,b.BuildStatus.ObjectId, b.BuildStatus.Typeid, b.BuildStatus.Percent);
+                        }
+                        break;
+                    case Building.BuildingState.creating:
+                        if (b.State == Building.BuildingState.normal) {
+                            if (UpdateStripItem != null)
+                                UpdateStripItem(b.ObjectID.PlayerID, b.BuildStatus.ObjectId, b.BuildStatus.Typeid, -1);
+                            Position pos = FindFreeLocation(b.Position, this.Map);
+                            createUnit(b.ObjectID.PlayerID, b.BuildStatus.Typeid, pos);
+                            b.BuildStatus = null;
+                            
+                            
+                        }
+                        else {
+                            if (UpdateStripItem != null)
+                                UpdateStripItem(b.ObjectID.PlayerID, b.BuildStatus.ObjectId, b.BuildStatus.Typeid, b.BuildStatus.Percent);
+                        }
+                        break;
+                }
+            }
 		}
+
+        /// <summary>
+        /// Finds location on which can be placed new unit
+        /// </summary>
+        /// <param name="p"></param>
+        private Position FindFreeLocation(Position p, Map map) {
+            short radius = 3;
+            int dotsCounter;
+            int dotsInSquare;
+            Position loop = new Position();
+            int nearestBorder = Math.Max(Math.Max(p.X, p.Y), Math.Max(map.Width - p.X, map.Height - p.Y));
+            for (; radius < nearestBorder; radius += 2) {
+                loop.X = (short)(p.X - radius / 2); loop.Y = (short)(p.Y + radius / 2);  /////albo -
+
+                dotsInSquare = radius * radius - (radius - 2) * (radius - 2);
+                for (dotsCounter = 0; dotsCounter < dotsInSquare; ) {
+                    if (loop.X >= 0 && loop.X < map.Width & loop.Y >= 0 && loop.Y < map.Height && checkFreeLocation(loop, map))
+                        return loop;
+                    dotsCounter++;
+                    if (dotsCounter < radius)
+                        loop.X++;
+                    else if (dotsCounter < 2 * radius - 1)
+                        loop.Y--; //albo wlasnie ++
+                    else if (dotsCounter < 3 * radius - 2)
+                        loop.X--;
+                    else
+                        loop.Y++; //albo wlasnie --
+
+                }
+            }
+            return p;
+        }
+
+        private bool checkFreeLocation(Position loop, Map map) {
+            if (map.Tiles[loop.X, loop.Y] != TileType.Mountain && map.Buildings[loop.X, loop.Y].Count == 0 && map.Units[loop.X, loop.Y].Count == 0)
+                return true;
+            else
+                return false;
+        }
 
 
 
@@ -409,5 +513,45 @@ namespace Yad.Engine.Client {
 				}
 			}
 		}
-	}
+
+        protected override void onMessageBuildUnit(BuildUnitMessage msg) {
+            ObjectID id = new ObjectID(msg.IdPlayer, msg.CreatorID);
+            Building b = players[msg.IdPlayer].GetBuilding(id);
+            if (null == b) {
+                InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.ClientSimulation);
+                return;
+            }
+            int cost = GetUnitCost(msg.UnitType);
+            if (players[msg.IdPlayer].Credits < cost)
+                return;
+            players[msg.IdPlayer].Credits -= cost;
+            OnCreditsUpdate(cost);
+            b.BuildStatus = new BuildStatus(msg.CreatorID, msg.UnitType, (short)GetUnitBuildTime(msg.UnitType), BuildType.Unit);
+            b.State = Building.BuildingState.creating;
+        }
+
+        private int GetUnitCost(short type) {
+            if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.tanksMap[type].Cost;
+            if (GlobalSettings.Wrapper.troopersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.troopersMap[type].Cost;
+            if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.mcvsMap[type].Cost;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.harvestersMap[type].Cost;
+            return 0;
+        }
+        private int GetUnitBuildTime(short type) {
+            if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.tanksMap[type].BuildSpeed;
+            if (GlobalSettings.Wrapper.troopersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.troopersMap[type].BuildSpeed;
+            if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.mcvsMap[type].BuildSpeed;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.harvestersMap[type].BuildSpeed;
+            return 0;
+
+        }
+    }
 }

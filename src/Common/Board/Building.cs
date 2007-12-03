@@ -5,10 +5,22 @@ using Yad.Config;
 using Yad.Config.Common;
 using Yad.Log.Common;
 using Yad.Engine.Common;
+using Yad.Engine;
 
 namespace Yad.Board.Common {
 	public class Building : BoardObject {
-		private BuildingData _buildingData;
+        #region Building 
+        
+        BuildStatus _bStatus;
+
+        public BuildStatus BuildStatus {
+            get { return _bStatus; }
+            set { _bStatus = value; }
+        }
+
+        #endregion
+
+        private BuildingData _buildingData;
 		private int _currentHealth;
 
 		private bool attackingBuilding;
@@ -126,12 +138,11 @@ namespace Yad.Board.Common {
 		/// there are buildings which can shoot - some ai
 		/// </summary>
 		public void DoAI() {
-			/*
-			 * common actions:
-			 * building units,
-			 * 
-			 * 
-			 */
+            if (_bStatus != null) {
+                if (_bStatus.DoTurn()) {
+                    this.state = BuildingState.normal;
+                }
+            }
 
 			if (this.BuildingData.FirePower == 0) return;
 			if (roundToReload > 0) {
