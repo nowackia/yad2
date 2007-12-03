@@ -16,13 +16,13 @@ namespace Yad.UI.Client {
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            //this.SuspendLayout();
             // 
             // UIManageable
             // 
-            this.ClientSize = new System.Drawing.Size(292, 273);
-            this.Name = "UIManageable";
-            this.ResumeLayout(false);
+            //this.ClientSize = new System.Drawing.Size(292, 273);
+            //this.Name = "UIManageable";
+            //this.ResumeLayout(false);
         }
     }
 }

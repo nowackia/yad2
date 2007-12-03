@@ -1452,6 +1452,7 @@ namespace Yad.UI.Client
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "MainMenuForm";
             this.Text = "MainMenu";
             this.tabControl.ResumeLayout(false);
