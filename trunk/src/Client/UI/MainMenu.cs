@@ -33,7 +33,7 @@ namespace Yad.UI.Client
 
             #region Appearance Initialization
             this.tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            this.Size = new Size(Width, 373);
+            this.MinimumSize = this.MaximumSize = this.Size = new Size(Width, 373);
             #endregion
 
             #region Controls Initialization
