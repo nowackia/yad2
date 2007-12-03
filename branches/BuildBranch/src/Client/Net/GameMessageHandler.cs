@@ -88,6 +88,7 @@ namespace Yad.Net.Client
                 case MessageType.Harvest:
                 case MessageType.Attack:
                 case MessageType.DeployMCV:
+                case MessageType.BuildUnitMessage:
                     if (GameMessageReceive != null)
                         GameMessageReceive(this, (GameMessage)message);
                     break;

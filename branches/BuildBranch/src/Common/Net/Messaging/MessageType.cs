@@ -27,6 +27,7 @@ namespace Yad.Net.Messaging.Common
 		DeployMCV,
         PlayerDisconnected,
         EndGame,
+        BuildUnitMessage,
         #endregion
 
         #region Chat

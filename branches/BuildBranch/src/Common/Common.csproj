@@ -65,11 +65,13 @@
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
     <Compile Include="Config\Yad.Config.Common.cs" />
     <Compile Include="DataStructures\PriorityQueue.cs" />
+    <Compile Include="Engine\BuildStatus.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\CreateGameResult.cs" />
     <Compile Include="Net\GameInfo.cs" />
     <Compile Include="Net\IMessageSender.cs" />
+    <Compile Include="Net\Messaging\BuildUnitMessage.cs" />
     <Compile Include="Net\Messaging\DoTurnMessage.cs" />
     <Compile Include="Net\Messaging\EntryMessage.cs" />
     <Compile Include="Net\Messaging\GameEndMessage.cs" />

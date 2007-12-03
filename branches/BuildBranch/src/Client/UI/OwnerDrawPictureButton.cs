@@ -83,6 +83,9 @@ namespace Yad.UI {
                     InvokeSetText(this.Name);
                     InvokeSetFont(normalFont);
                     break;
+                case StripButtonState.Percantage:
+                    InvokeSetText("");
+                    break;
             }
             InvokeRefresh();
         }

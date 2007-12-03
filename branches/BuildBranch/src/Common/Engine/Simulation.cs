@@ -164,6 +164,8 @@ namespace Yad.Engine.Common {
 						this.onMessageHarvest((HarvestMessage)gm);
 					} else if (gm.Type == MessageType.DeployMCV) {
 						this.onMessageDeployMCV((GMDeployMCV)gm);
+                    } else if (gm.Type == MessageType.BuildUnitMessage){
+                        this.onMessageBuildUnit((BuildUnitMessage)gm);
 					} else {
 						throw new NotImplementedException("This message type is not supported! Refer to Simulation.cs");
 					}
@@ -291,6 +293,7 @@ namespace Yad.Engine.Common {
 		protected abstract void onMessageHarvest(HarvestMessage hm);
 		protected abstract void onMessageCreate(CreateUnitMessage cum);
 		protected abstract void onMessageDeployMCV(GMDeployMCV dmcv);
+        protected abstract void onMessageBuildUnit(BuildUnitMessage msg);
 		public abstract void ClearFogOfWar(Building b);
 		public abstract void ClearFogOfWar(Unit u);
 

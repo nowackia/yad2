@@ -24,6 +24,7 @@ using Yad.Properties;
 using Yad.Properties.Client;
 using Yad.Engine;
 using Yad.UI.Common;
+using Yad.Net.Messaging;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -79,7 +80,7 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
-
+             
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
@@ -102,8 +103,10 @@ namespace Yad.UI.Client {
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
+
+				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
                 _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+                _gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
                 _gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
                 _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
                 GameMessageHandler.Instance.Resume();
@@ -365,10 +368,15 @@ namespace Yad.UI.Client {
 		#endregion
 
 		#region Stripes-related
+        void UpdateStrip(int playerID, int id, short typeID, int percent) {
+            if (playerID == _gameLogic.CurrentPlayer.Id)
+                _buildManager.UpdateStrip(id, typeID, percent);
+        }
 		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-            _buildManager.RightBuildingClick(id);
-			//PlaceUnit((short)id, name);
+            _buildManager.RightBuildingClick(id, true);
+            
+            //PlaceUnit((short)id, name);
 		}
 
 		void rightStripe_onBuildingChosen(int id) {
@@ -377,7 +385,7 @@ namespace Yad.UI.Client {
             int cost = GlobalSettings.Wrapper.buildingsMap[(short)id].Cost;
             if (playerCredits >= cost) {
                 //playerCredits -= cost;
-                int creator = _buildManager.RightBuildingClick(id);
+                int creator = _buildManager.RightBuildingClick(id, false);
                 if (creator != -1)
                     PlaceBuilding((short)id, creator);
             }
