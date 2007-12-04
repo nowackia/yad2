@@ -58,6 +58,9 @@ namespace Yad.Board.Common {
 			else
 				return false;
 		}
+         public bool ContainsPosition(Position p) {
+             return p.X >= 0 && p.Y >= 0 && p.X < this.Width && p.Y < this.Height;
+        }
 
 		public void LoadMap(String name) {
 
