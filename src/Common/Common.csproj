@@ -140,12 +140,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
     </None>
-    <None Include="Resources\Maps\mala.map">
+    <Content Include="Resources\Maps\Large.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Maps\wielka.map">
+    </Content>
+    <Content Include="Resources\Maps\Small.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\game_data.xml">
