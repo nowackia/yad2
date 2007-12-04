@@ -68,7 +68,7 @@ namespace Yad.Engine
         [FileName("scream5.wav")]
         Scream5,
         [FileName("smallExplosion.wav")]
-        smallExplosion,
+        SmallExplosion,
         [FileName("smallRocket.wav")]
         SmallRocket,
         [FileName("sonic.wav")]
@@ -94,7 +94,7 @@ namespace Yad.Engine
         [FileName("Atreides.wav")]
         Atreides,
         [FileName("attack.wav")]
-        Attacke,
+        Attack,
         [FileName("bloom.wav")]
         Bloom,
         [FileName("capture.wav")]

@@ -227,6 +227,9 @@ namespace Yad.Engine.Client {
 				}
 			}
 			if (_selectedUnits.Count != 0) {
+                /* Sound */
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Reporting);
+
 				return true;
 			}
 
@@ -265,6 +268,9 @@ namespace Yad.Engine.Client {
                 am.IdPlayer = u.ObjectID.PlayerID;
                 Connection.Instance.SendMessage(am);
             }
+
+            /* Sound */
+            AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.YesSir);
         }
 
 		internal void MoveOrder(Position newPos) {
@@ -278,6 +284,9 @@ namespace Yad.Engine.Client {
 				mm.IdPlayer = u.ObjectID.PlayerID;
 				Connection.Instance.SendMessage(mm);
 			}
+
+            /* Sound */
+            AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Acknowledged);
 		}
 
 		public void CreateBuilding(Position pos, short buildingId, int creatorID) {

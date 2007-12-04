@@ -124,6 +124,7 @@ namespace Yad.UI.Client {
 			//TODO
 			//this.rightStripe.RemovePercentCounter(unitType);
 		}
+
 		void Simulation_OnBuildingCompleted(Building b, int creatorID) {
 			//this.rightStripe.RemovePercentCounter(buildingType);
 			//TODO: add building type, update tech-tree
@@ -152,9 +153,15 @@ namespace Yad.UI.Client {
 
             /* Playing proper music */
             if (isWinner)
+            {
                 AudioEngine.Instance.Music.Play(MusicType.Win);
+                AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Win);
+            }
             else
+            {
                 AudioEngine.Instance.Music.Play(MusicType.Lose);
+                AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Lose);
+            }
 
             /* Sending message to server */
             GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
@@ -169,6 +176,8 @@ namespace Yad.UI.Client {
             Connection.Instance.SendMessage(gameEndMessage);
 
             MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            /* Stop playing music */
+            AudioEngine.Instance.Music.Stop();
 
             this.GameFormClose = true;
             if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));

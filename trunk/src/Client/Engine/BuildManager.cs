@@ -114,6 +114,9 @@ namespace Yad.Engine {
                 InfoLog.WriteInfo("Create Building");
                 if (_currentObjectID == bstatus.ObjectId)
                     _rightStripe.Update(bstatus);
+
+                /* Sound */
+                AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Deploy);
             }
         }
 
