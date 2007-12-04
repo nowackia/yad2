@@ -231,7 +231,7 @@ namespace Yad.Engine
                 sound = new FMOD.Sound();
                 result = system.createSound(Settings.Default.SoundMisc + GetFileName(miscType), FMOD.MODE.HARDWARE, ref sound);
                 if (!FMOD.ERROR.ERRCHECK(result))
-                    MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                    InfoLog.WriteError(GetFileName(miscType) + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 misc[(short)miscType] = sound;
             }
 
@@ -244,14 +244,14 @@ namespace Yad.Engine
                     sound = new FMOD.Sound();
                     result = system.createSound(Settings.Default.Sound + GlobalSettings.Instance.GetHouseName(houseId) + "/" + GetFileName(houseType), FMOD.MODE.HARDWARE, ref sound);
                     if (!FMOD.ERROR.ERRCHECK(result))
-                        MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                        InfoLog.WriteError(GetFileName(houseType) + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                     tableHouse[(short)houseType] = sound;
                 }
 
                 houses.Add(houseId, tableHouse);
             }
 
-            InfoLog.WriteInfo("Sounds loaded successfully", EPrefix.AudioEngine);
+            InfoLog.WriteInfo("Finished loading sounds", EPrefix.AudioEngine);
         }
 
         public bool PlayMisc(MiscSoundType miscSound)
