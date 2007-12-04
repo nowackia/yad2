@@ -70,6 +70,8 @@ namespace Yad.UI.Client {
             HideAll();
             foreach (short key in statusList.Keys) {
                 buttons[key].State = statusList[key].State;
+                if (statusList[key].State == StripButtonState.Percantage)
+                    buttons[key].Percentage = statusList[key].Percent;
                 InvokeShow(key);
             }
             if (rewind)

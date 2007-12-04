@@ -65,6 +65,18 @@ namespace Yad.Config {
             }
         }
 
+        public static int GetUnitCost(short type) {
+            if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.tanksMap[type].Cost;
+            if (GlobalSettings.Wrapper.troopersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.troopersMap[type].Cost;
+            if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.mcvsMap[type].Cost;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type))
+                return GlobalSettings.Wrapper.harvestersMap[type].Cost;
+            return 0;
+        }
+
        
     }
 }
