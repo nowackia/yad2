@@ -91,6 +91,7 @@
     <Compile Include="Net\PositionData.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
     <Compile Include="UI\MessageBoxEx.cs" />
+    <Compile Include="Utils\FileNameAttribute.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\Randomizer.cs" />
     <Compile Include="Engine\Simulation.cs" />
