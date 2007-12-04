@@ -60,6 +60,9 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.DeployMCV:
                     return new GMDeployMCV();
+
+                case MessageType.BuildUnitMessage:
+                    return new BuildUnitMessage();
                 #endregion
 
                 #region Chat
