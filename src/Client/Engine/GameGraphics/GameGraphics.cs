@@ -754,7 +754,7 @@ namespace Yad.Engine.Client {
 			Gl.glColor3f(1, 1, 1);
 		}
 
-		#region helpers
+		#region Helpers
 		private static PointF CountRealPosition(Unit u) {
 			float dx = u.Position.X - u.LastPosition.X;
 			float dy = u.Position.Y - u.LastPosition.Y;
