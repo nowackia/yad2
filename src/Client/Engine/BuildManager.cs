@@ -22,6 +22,12 @@ namespace Yad.Engine {
 
     public class StateWrapper {
         public StripButtonState State = StripButtonState.Active;
+        private int _percent = 0;
+
+        public int Percent {
+            get { return _percent; }
+            set { _percent = value; }
+        }
     }
     public class BuildManager {
 
@@ -122,7 +128,13 @@ namespace Yad.Engine {
                     _rightStripe.Update(bstatus);
             }
         }*/
-
+        public void OnBadLocation(int id) {
+            lock (((ICollection)_leftState).SyncRoot)
+                _leftState[id] = RightStripState.Normal;
+            lock (((ICollection)_stripData).SyncRoot)
+                ActivateForObject(id);
+            UpdateView(id, false);
+        }
         private void ActivateForObject(int objectID) {
             foreach (StateWrapper sw in _stripData[objectID].Values) {
                 sw.State = StripButtonState.Active;
@@ -238,7 +250,7 @@ namespace Yad.Engine {
                 current = _currentObjectID;
             lock (((ICollection)_stripData).SyncRoot) {
                 foreach (short key in _stripData[current].Keys) {
-                    _stripData[id][key].State = Yad.UI.StripButtonState.Active;
+                    _stripData[current][key].State = Yad.UI.StripButtonState.Active;
                 }
             }
             UpdateView(current,false);
@@ -304,11 +316,14 @@ namespace Yad.Engine {
                     if (percent == -1) {
                         _leftState[id] = RightStripState.Normal;
                         ActivateForObject(id);
-                        UpdateView(id, false);
+                        if (_currentObjectID == id)
+                            UpdateView(id, false);
                     }
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
-                        _rightStripe.UpdatePercent(typeID, percent);
+                        _stripData[id][typeID].Percent = percent;
+                        if (_currentObjectID == id)
+                            _rightStripe.UpdatePercent(typeID, percent);
                     }
                 }
             }

@@ -28,7 +28,7 @@ namespace Yad.Engine.Client {
 		public delegate void UnitHandler(Unit u);
 		public delegate void OnLowPowerHandler(Player p);
 		public delegate void OnNoPowerHandler(Player p);
-		public delegate void OnCreditsHandler(int cost);
+		public delegate void OnCreditsHandler(short playerNo, int cost);
 		public delegate void InvalidLocationHandler();
         public delegate void UpdateStripItemHandler(int playerID, int objectID, short typeID, int percent); 
 
@@ -95,7 +95,7 @@ namespace Yad.Engine.Client {
                 return;
             players[bm.IdPlayer].Credits -= buildingCost;
             if (OnCreditsUpdate != null)
-                OnCreditsUpdate(buildingCost);
+                OnCreditsUpdate(bm.IdPlayer, buildingCost);
             Building b = AddBuilding(bm.IdPlayer, bm.CreatorID, bm.BuildingType, bm.Position);
             b.State = Building.BuildingState.constructing;
             b.BuildStatus = new BuildStatus(bm.CreatorID, bm.BuildingType, b.BuildingData.BuildSpeed, BuildType.Building);
@@ -147,7 +147,7 @@ namespace Yad.Engine.Client {
 			InfoLog.WriteInfo("MessageHarvest", EPrefix.SimulationInfo);
 		}
 
-        private void createUnit(short playerId, short type, Position pos) {
+        private void CreateUnit(short playerId, short type, Position pos) {
             InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 			int cost=0;
 			Player p = players[playerId];
@@ -156,6 +156,7 @@ namespace Yad.Engine.Client {
 
             if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type)){
 				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[type], pos, this._map, this, GlobalSettings.Wrapper.harvestersMap[type].__Speed);
+                ((UnitHarvester)u).SpiceUnload += new SpiceUnloadDelegate(SpiceUnload);
             }
 			else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type)){
 				u = new UnitMCV(id, GlobalSettings.Wrapper.mcvsMap[type], pos, this._map, this);
@@ -171,7 +172,10 @@ namespace Yad.Engine.Client {
 			ClearFogOfWar(u);
             OnUnitCompleted(u);
         }
-
+        private void SpiceUnload(short idplayer, int credits){
+            if (OnCreditsUpdate != null)
+                OnCreditsUpdate(idplayer,-credits);
+        }
 		protected override void onMessageCreate(CreateUnitMessage cum) {
 			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
 			int cost=0;
@@ -193,6 +197,7 @@ namespace Yad.Engine.Client {
 				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.harvestersMap[cum.UnitType].Cost))
 					return;
 				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[cum.UnitType], cum.Position, this._map, this, GlobalSettings.Wrapper.harvestersMap[cum.UnitType].__Speed);
+                ((UnitHarvester)u).SpiceUnload += new SpiceUnloadDelegate(SpiceUnload);
 				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.harvestersMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitMCV) {
 				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.mcvsMap[cum.UnitType].Cost))
@@ -207,7 +212,7 @@ namespace Yad.Engine.Client {
 			//    u = new UnitTrooper(id, GlobalSettings.Wrapper.troopersMap[cum.UnitType], cum.Position, this._map, this);
 
 			}
-			OnCreditsUpdate(cost);
+			OnCreditsUpdate(cum.IdPlayer, cost);
 			p.AddUnit(u);
 			ClearFogOfWar(u);
 
@@ -228,6 +233,10 @@ namespace Yad.Engine.Client {
 		protected override void onMessageDeployMCV(Yad.Net.Messaging.GMDeployMCV dmcv) {
             Player p = players[dmcv.IdPlayer];
             UnitMCV mcv = (UnitMCV)p.GetUnit(ObjectID.From(dmcv.McvID.ObjectId, dmcv.McvID.PlayerID));
+            if (mcv == null) {
+                InfoLog.WriteInfo("No mcv to deploy found.", EPrefix.SimulationInfo);
+                return;
+            }
             string bName = mcv.MCVData.BuildingCanProduce;
             short btype = GlobalSettings.Wrapper.namesToIds[bName];
             this._map.Units[mcv.Position.X, mcv.Position.Y].Remove(mcv);
@@ -282,7 +291,7 @@ namespace Yad.Engine.Client {
                             if (UpdateStripItem != null)
                                 UpdateStripItem(b.ObjectID.PlayerID, b.BuildStatus.ObjectId, b.BuildStatus.Typeid, -1);
                             Position pos = FindFreeLocation(b.Position, this.Map);
-                            createUnit(b.ObjectID.PlayerID, b.BuildStatus.Typeid, pos);
+                            CreateUnit(b.ObjectID.PlayerID, b.BuildStatus.Typeid, pos);
                             b.BuildStatus = null;
                             
                             
@@ -521,26 +530,16 @@ namespace Yad.Engine.Client {
                 InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.ClientSimulation);
                 return;
             }
-            int cost = GetUnitCost(msg.UnitType);
+            int cost = GlobalSettings.GetUnitCost(msg.UnitType);
             if (players[msg.IdPlayer].Credits < cost)
                 return;
             players[msg.IdPlayer].Credits -= cost;
-            OnCreditsUpdate(cost);
+            OnCreditsUpdate(msg.IdPlayer,cost);
             b.BuildStatus = new BuildStatus(msg.CreatorID, msg.UnitType, (short)GetUnitBuildTime(msg.UnitType), BuildType.Unit);
             b.State = Building.BuildingState.creating;
         }
 
-        private int GetUnitCost(short type) {
-            if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type))
-                return GlobalSettings.Wrapper.tanksMap[type].Cost;
-            if (GlobalSettings.Wrapper.troopersMap.ContainsKey(type))
-                return GlobalSettings.Wrapper.troopersMap[type].Cost;
-            if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(type))
-                return GlobalSettings.Wrapper.mcvsMap[type].Cost;
-            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type))
-                return GlobalSettings.Wrapper.harvestersMap[type].Cost;
-            return 0;
-        }
+        
         private int GetUnitBuildTime(short type) {
             if (GlobalSettings.Wrapper.tanksMap.ContainsKey(type))
                 return GlobalSettings.Wrapper.tanksMap[type].BuildSpeed;

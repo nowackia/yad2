@@ -27,7 +27,7 @@ namespace Yad.Engine.Client {
 	public class GameLogic {
 		#region events
 		public delegate void NewUnitDelegate(string name, short key);
-		public delegate void BadLocationHandler();
+		public delegate void BadLocationHandler(int id);
         public delegate void GameEndHandler(int winTeamId);
 
 		public event NewUnitDelegate OnNewUnit;
@@ -284,7 +284,7 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingId];
 			if (!Building.CheckBuildPosition(bd, pos, _sim.Map, CurrentPlayer.Id)) {
 				if (OnBadLocation != null) {
-					OnBadLocation();
+					OnBadLocation(creatorID);
 				}
 				return;
 			}

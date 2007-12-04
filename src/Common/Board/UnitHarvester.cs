@@ -6,10 +6,12 @@ using Yad.Config.Common;
 using Yad.Engine.Common;
 
 namespace Yad.Board.Common {
+    public delegate void SpiceUnloadDelegate(short playerID, int credits);
+
 	public class UnitHarvester : Unit {
 
 
-
+        private event SpiceUnloadDelegate spiceUnload;
         int spiceCounter;
 
         // local states
@@ -25,6 +27,14 @@ namespace Yad.Board.Common {
         bool knowsLastKnownPosition = false;
         Position lastKnownSpicePosition;
 
+        public event SpiceUnloadDelegate SpiceUnload {
+            add {
+                spiceUnload += value;
+            }
+            remove {
+                spiceUnload -= value;
+            }
+        }
 		public UnitHarvester(ObjectID id, UnitHarvesterData ud, Position pos, Map map, Simulation sim,int speed)
 			: base(id, ud.TypeID,null, BoardObjectClass.UnitHarvester, pos, map,sim,0,ud.__DamageDestroyRange,ud.__DamageDestroy) {
 			_harvesterData = ud;
@@ -158,8 +168,9 @@ namespace Yad.Board.Common {
             } else {
                 // unloading
                 _simulation.Players[this.ObjectID.PlayerID].Credits += spiceCounter;
+                if (spiceUnload != null)
+                    spiceUnload(this.ObjectID.PlayerID, spiceCounter);
                 this.spiceCounter = 0;
-                
                 this.harvestingState = HarvestingState.harvesting;
                 this.state = UnitState.stopped;
             }

@@ -103,12 +103,14 @@ namespace Yad.UI.Client {
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-
+                _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
 				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
                 _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
                 _gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
+                _gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
                 _gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
-                _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+                
+                
                 GameMessageHandler.Instance.Resume();
 
 			} catch (Exception e) {
@@ -116,6 +118,8 @@ namespace Yad.UI.Client {
 				MessageBox.Show(e.ToString());
 			}
         }
+
+
         #endregion
 
 		#region Simulation events handling
@@ -374,37 +378,41 @@ namespace Yad.UI.Client {
         }
 		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-            _buildManager.RightBuildingClick(id, true);
-            
-            //PlaceUnit((short)id, name);
+            int playerCredits = _gameLogic.CurrentPlayer.Credits;
+            int cost = GlobalSettings.GetUnitCost((short)id);
+            if (playerCredits >= cost)
+                _buildManager.RightBuildingClick(id, true);
 		}
+
+
 
 		void rightStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
             int playerCredits = _gameLogic.CurrentPlayer.Credits;
             int cost = GlobalSettings.Wrapper.buildingsMap[(short)id].Cost;
             if (playerCredits >= cost) {
-                //playerCredits -= cost;
                 int creator = _buildManager.RightBuildingClick(id, false);
                 if (creator != -1)
                     PlaceBuilding((short)id, creator);
             }
 		}
 
-		private void UpdateCredits(int cost) {
-			creditsPictureBox.Value -= cost;
+		private void UpdateCredits(short idPlayer, int cost) {
+            if (idPlayer == _gameLogic.CurrentPlayer.Id) {
+                creditsPictureBox.Value -= cost;
 
-			//strip's update
-			foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters)
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs) 
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks)
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-			foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers)
-				rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+                //strip's update
+                foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
+                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+                foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters)
+                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+                foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs)
+                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+                foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks)
+                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+                foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers)
+                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+            }
 		}
 
 		void leftStripe_onBuildingChosen(int id) {
