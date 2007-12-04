@@ -106,7 +106,7 @@ namespace Yad.Engine.Client
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
                 if(!FMOD.ERROR.ERRCHECK(result))
-                    MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                    InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Fight].Add(sound);
             }
 
@@ -116,7 +116,7 @@ namespace Yad.Engine.Client
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
                 if(!FMOD.ERROR.ERRCHECK(result))
-                    MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                    InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Lose].Add(sound);
             }
 
@@ -126,7 +126,7 @@ namespace Yad.Engine.Client
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
                 if(!FMOD.ERROR.ERRCHECK(result))
-                    MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                    InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Peace].Add(sound);
             }
 
@@ -136,11 +136,11 @@ namespace Yad.Engine.Client
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
                 if(!FMOD.ERROR.ERRCHECK(result))
-                    MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                    InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Win].Add(sound);
             }
 
-            InfoLog.WriteInfo("Music loaded successfully", EPrefix.AudioEngine);
+            InfoLog.WriteInfo("Finished loading music", EPrefix.AudioEngine);
         }
 
         private FMOD.RESULT endPlayCallbackFunction(IntPtr channelRaw, FMOD.CHANNEL_CALLBACKTYPE tipo, int comando, uint datoComando1, uint datoComando2)
