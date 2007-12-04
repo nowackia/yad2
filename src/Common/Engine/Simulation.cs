@@ -371,6 +371,8 @@ namespace Yad.Engine.Common {
 		public Dictionary<short, Player> Players {
 			get { return this.players; }
 		}
+
+       
 		#endregion
 	}
 }

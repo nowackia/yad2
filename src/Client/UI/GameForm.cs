@@ -284,8 +284,9 @@ namespace Yad.UI.Client {
 		}
 
 		private void HandleRightButtonDown(MouseEventArgs e) {
-			_isCreatingBuilding = _isCreatingUnit = false;
-
+			_isCreatingUnit = false;
+            if (_isCreatingBuilding)
+                _buildManager.OnBadLocation(_objectCreatorId);
 			if (_gameLogic.CanGiveOrders()) {
 				BoardObject bo = _gameLogic.SimpleSelectAttack(GameGraphics.TranslateMousePosition(e.Location));
 				if (bo != null) {
