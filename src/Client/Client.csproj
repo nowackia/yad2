@@ -1212,7 +1212,6 @@
     <Content Include="Resources\Graphics\Units\HeavyTrooper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\Graphics\UI\UI_Credits_Background.png" />
     <None Include="Resources\Graphics\UI\UI_Options_Pressed.png" />
     <None Include="Resources\Graphics\UI\UI_Options.png" />
