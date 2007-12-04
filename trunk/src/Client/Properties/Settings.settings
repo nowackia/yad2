@@ -23,9 +23,6 @@
     <Setting Name="Graphics" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Graphics</Value>
     </Setting>
-    <Setting Name="AudioFX" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Resources/Audio/FX</Value>
-    </Setting>
     <Setting Name="Maps" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Maps</Value>
     </Setting>
@@ -34,9 +31,6 @@
     </Setting>
     <Setting Name="ScrollingSpeed" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.6</Value>
-    </Setting>
-    <Setting Name="AudioMusic" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Resources/Audio/Music</Value>
     </Setting>
     <Setting Name="PlayerName" Type="System.String" Scope="User">
       <Value Profile="(Default)">DunePlayer</Value>
@@ -112,6 +106,12 @@
     </Setting>
     <Setting Name="MusicDefaultVolume" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="Sound" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/FX/</Value>
+    </Setting>
+    <Setting Name="SoundMisc" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resources/Audio/FX/Misc/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

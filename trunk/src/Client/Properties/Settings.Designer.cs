@@ -88,15 +88,6 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/FX")]
-        public string AudioFX {
-            get {
-                return ((string)(this["AudioFX"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Resources/Maps")]
         public string Maps {
             get {
@@ -125,18 +116,6 @@ namespace Yad.Properties.Client {
             }
             set {
                 this["ScrollingSpeed"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/Music")]
-        public string AudioMusic {
-            get {
-                return ((string)(this["AudioMusic"]));
-            }
-            set {
-                this["AudioMusic"] = value;
             }
         }
         
@@ -383,6 +362,24 @@ namespace Yad.Properties.Client {
             }
             set {
                 this["MusicDefaultVolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/FX/")]
+        public string Sound {
+            get {
+                return ((string)(this["Sound"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources/Audio/FX/Misc/")]
+        public string SoundMisc {
+            get {
+                return ((string)(this["SoundMisc"]));
             }
         }
     }

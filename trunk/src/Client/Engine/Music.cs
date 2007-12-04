@@ -50,9 +50,9 @@ namespace Yad.Engine.Client
             this.system = system;
             this.channel = channel;
 
+            musicType = MusicType.Peace;
             manualMusicEnd = false;
             isMuted = false;
-            musicType = MusicType.Peace;
 
             endPlayCallback = new FMOD.CHANNEL_CALLBACK(endPlayCallbackFunction);
         }
@@ -145,8 +145,9 @@ namespace Yad.Engine.Client
 
         private FMOD.RESULT endPlayCallbackFunction(IntPtr channelRaw, FMOD.CHANNEL_CALLBACKTYPE tipo, int comando, uint datoComando1, uint datoComando2)
         {
-            if (MusicEnd != null && manualMusicEnd)
+            if (MusicEnd != null && !manualMusicEnd)
                 MusicEnd(this, new MusicEndEventArgs(musicType));
+            manualMusicEnd = false;
             return FMOD.RESULT.OK;
         }
 
@@ -161,7 +162,7 @@ namespace Yad.Engine.Client
 
             if (isPlaying && channel != null)
             {
-                manualMusicEnd = false;
+                manualMusicEnd = true;
                 channel.stop();
                 channel = null;
             }

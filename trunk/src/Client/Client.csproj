@@ -189,170 +189,494 @@
     <None Include="Resources\Graphics\UI\UI_TopMenu_W.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Audio\FX\Atreides\apprch.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\arrive.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\Atreides.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\attack.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\bloom.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\capture.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\const.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\deploy.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\destroy.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\east.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\enemy.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\field.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\five.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\four.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\fremen.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\frigate.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\Harkonnen.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\harvest.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\house.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\launch.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\located.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\lose.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\merc.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\missile.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\north.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\off.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\on.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\one.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\Ordos.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\radar.wav" />
+    <Content Include="Resources\Audio\FX\Atreides\apprch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\arrive.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\Atreides.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\attack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\bloom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\capture.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\const.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\deploy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\destroy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\east.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\enemy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\field.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\five.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\four.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\fremen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\frigate.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\Harkonnen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\harvest.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\house.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\launch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\located.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\lose.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\merc.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\missile.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\north.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\off.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\on.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\one.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\Ordos.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\radar.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Audio\FX\Atreides\_READ-ME.txt" />
-    <Content Include="Resources\Audio\FX\Atreides\repair.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\sabot.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\sard.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\south.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\struct.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\three.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\two.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\unit.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\vehicle.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\warning.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\west.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\win.wav" />
-    <Content Include="Resources\Audio\FX\Atreides\wormy.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\apprch.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\arrive.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\Atreides.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\attack.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\bloom.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\capture.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\const.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\deploy.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\destroy.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\east.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\enemy.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\field.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\five.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\four.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\fremen.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\frigate.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\Harkonnen.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\harvest.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\house.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\launch.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\located.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\lose.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\merc.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\missile.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\north.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\off.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\on.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\one.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\Ordos.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\radar.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\repair.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\sabot.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\sard.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\south.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\struct.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\three.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\two.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\unit.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\vehicle.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\warning.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\west.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\win.wav" />
-    <Content Include="Resources\Audio\FX\Harkonnen\wormy.wav" />
+    <Content Include="Resources\Audio\FX\Atreides\repair.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\sabot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\sard.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\south.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\struct.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\three.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\two.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\unit.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\vehicle.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\warning.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\west.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\win.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Atreides\wormy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\apprch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\arrive.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\Atreides.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\attack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\bloom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\capture.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\const.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\deploy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\destroy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\east.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\enemy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\field.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\five.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\four.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\fremen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\frigate.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\Harkonnen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\harvest.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\house.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\launch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\located.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\lose.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\merc.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\missile.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\north.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\off.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\on.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\one.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\Ordos.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\radar.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\repair.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\sabot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\sard.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\south.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\struct.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\three.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\two.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\unit.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\vehicle.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\warning.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\west.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\win.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Harkonnen\wormy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Audio\FX\Harkonnen\_READ-ME.txt" />
-    <Content Include="Resources\Audio\FX\Misc\acknowledged.wav" />
-    <Content Include="Resources\Audio\FX\Misc\affirmative.wav" />
-    <Content Include="Resources\Audio\FX\Misc\bloom.wav" />
-    <Content Include="Resources\Audio\FX\Misc\buttonClick.wav" />
-    <Content Include="Resources\Audio\FX\Misc\cannot.wav" />
-    <Content Include="Resources\Audio\FX\Misc\comeToPappa.wav" />
-    <Content Include="Resources\Audio\FX\Misc\credit.wav" />
-    <Content Include="Resources\Audio\FX\Misc\crush.wav" />
-    <Content Include="Resources\Audio\FX\Misc\drop.wav" />
-    <Content Include="Resources\Audio\FX\Misc\gas.wav" />
-    <Content Include="Resources\Audio\FX\Misc\gun.wav" />
-    <Content Include="Resources\Audio\FX\Misc\gunTurret.wav" />
-    <Content Include="Resources\Audio\FX\Misc\infantryOut.wav" />
-    <Content Include="Resources\Audio\FX\Misc\largeExplosion.wav" />
-    <Content Include="Resources\Audio\FX\Misc\machineGun.wav" />
-    <Content Include="Resources\Audio\FX\Misc\mediumExplosion.wav" />
-    <Content Include="Resources\Audio\FX\Misc\movingOut.wav" />
-    <Content Include="Resources\Audio\FX\Misc\placeStructure.wav" />
-    <Content Include="Resources\Audio\FX\Misc\radar.wav" />
-    <Content Include="Resources\Audio\FX\Misc\reporting.wav" />
-    <Content Include="Resources\Audio\FX\Misc\rocket.wav" />
-    <Content Include="Resources\Audio\FX\Misc\scream1.wav" />
-    <Content Include="Resources\Audio\FX\Misc\scream2.wav" />
-    <Content Include="Resources\Audio\FX\Misc\scream3.wav" />
-    <Content Include="Resources\Audio\FX\Misc\scream4.wav" />
-    <Content Include="Resources\Audio\FX\Misc\scream5.wav" />
-    <Content Include="Resources\Audio\FX\Misc\smallExplosion.wav" />
-    <Content Include="Resources\Audio\FX\Misc\smallRocket.wav" />
-    <Content Include="Resources\Audio\FX\Misc\sonic.wav" />
-    <Content Include="Resources\Audio\FX\Misc\structureExplosion.wav" />
-    <Content Include="Resources\Audio\FX\Misc\wormAttack.wav" />
-    <Content Include="Resources\Audio\FX\Misc\wormSign.wav" />
-    <Content Include="Resources\Audio\FX\Misc\yesSir.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\apprch.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\arrive.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\Atreides.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\attack.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\bloom.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\capture.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\const.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\deploy.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\destroy.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\east.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\enemy.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\field.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\five.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\four.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\fremen.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\frigate.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\Harkonnen.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\harvest.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\house.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\launch.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\located.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\lose.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\merc.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\missile.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\north.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\off.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\on.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\one.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\Ordos.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\radar.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\repair.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\sabot.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\sard.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\south.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\struct.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\three.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\two.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\unit.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\vehicle.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\warning.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\west.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\win.wav" />
-    <Content Include="Resources\Audio\FX\Ordos\wormy.wav" />
+    <Content Include="Resources\Audio\FX\Misc\acknowledged.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\affirmative.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\bloom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\buttonClick.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\cannot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\comeToPappa.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\credit.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\crush.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\drop.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\gas.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\gun.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\gunTurret.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\infantryOut.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\largeExplosion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\machineGun.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\mediumExplosion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\movingOut.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\placeStructure.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\radar.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\reporting.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\rocket.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\scream1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\scream2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\scream3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\scream4.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\scream5.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\smallExplosion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\smallRocket.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\sonic.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\structureExplosion.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\wormAttack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\wormSign.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Misc\yesSir.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\apprch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\arrive.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\Atreides.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\attack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\bloom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\capture.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\const.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\deploy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\destroy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\east.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\enemy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\field.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\five.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\four.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\fremen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\frigate.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\Harkonnen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\harvest.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\house.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\launch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\located.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\lose.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\merc.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\missile.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\north.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\off.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\on.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\one.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\Ordos.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\radar.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\repair.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\sabot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\sard.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\south.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\struct.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\three.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\two.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\unit.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\vehicle.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\warning.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\west.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\win.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\FX\Ordos\wormy.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Audio\FX\Ordos\_READ-ME.txt" />
     <Content Include="Resources\Audio\FX\Unused\3houses.wav" />
     <Content Include="Resources\Audio\FX\Unused\andnow.wav" />
