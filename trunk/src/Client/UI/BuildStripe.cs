@@ -65,14 +65,14 @@ namespace Yad.UI.Client {
 			scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
 		}
 
-        public void SwitchUpdate(List<BuildStatus> statusList, bool rewind){
+        public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
             SuspendFlowLayout();
             HideAll();
-            foreach (BuildStatus bs in statusList) {
-                if (bs.State == StripButtonState.Percantage)
-                    buttons[bs.Typeid].Percentage = bs.Percent;
-                buttons[bs.Typeid].State = bs.State;
-                InvokeShow(bs.Typeid);
+            foreach (short key in statusList.Keys) {
+                buttons[key].State = statusList[key].State;
+                if (statusList[key].State == StripButtonState.Percantage)
+                    buttons[key].Percentage = statusList[key].Percent;
+                InvokeShow(key);
             }
             if (rewind)
                 ShowUpper(int.MaxValue);
@@ -81,12 +81,20 @@ namespace Yad.UI.Client {
 
         }
 
-        public void Update(BuildStatus buildStatus) {
+        public void UpdatePercent(short type, int percent) {
             SuspendFlowLayout();
-            if (buildStatus.State == StripButtonState.Percantage)
-                buttons[buildStatus.Typeid].Percentage = buildStatus.Percent;
-            buttons[buildStatus.Typeid].State = buildStatus.State;
-            InvokeShow(buildStatus.Typeid);
+            buttons[type].State = StripButtonState.Percantage;
+            buttons[type].Percentage = percent;
+            InvokeShow(type);
+
+            //ShowUpper(int.MaxValue);
+            UpdateFlowLayoutPanelSize();
+            ResumeFlowLayout();
+        }
+        public void Update(StripButtonState buildStatus, short type) {
+            SuspendFlowLayout();
+            buttons[type].State = buildStatus;
+            InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();

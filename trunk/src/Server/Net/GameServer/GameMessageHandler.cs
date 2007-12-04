@@ -45,6 +45,7 @@ namespace Yad.Net.GameServer.Server {
                 case MessageType.Harvest:
                 case MessageType.Attack:
                 case MessageType.DeployMCV:
+                case MessageType.BuildUnitMessage:
                     ProcessGameMessage((GameMessage)item);
                     break;
                 case MessageType.EndGame:

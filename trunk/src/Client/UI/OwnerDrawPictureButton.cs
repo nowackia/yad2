@@ -83,6 +83,10 @@ namespace Yad.UI {
                     InvokeSetText(this.Name);
                     InvokeSetFont(normalFont);
                     break;
+                case StripButtonState.Percantage:
+                    InvokeSetText("");
+                    InvokeSetFont(readyFont);
+                    break;
             }
             InvokeRefresh();
         }
@@ -151,8 +155,8 @@ namespace Yad.UI {
             Rectangle r = new Rectangle(0, 0, Width, Height);
             float w = r.Width;
             r.Width = (int)(r.Width * (percentage / 100.0));
-            g.FillRectangle(new SolidBrush(Color.FromArgb(70, 255, 0, 0)), r);
-            g.DrawString(percentage + "%", Font, Brushes.Black, new RectangleF(r.X, r.Y, w, r.Height));
+            g.FillRectangle(new SolidBrush(Color.FromArgb(180, 70, 170, 70)), r);
+            g.DrawString(percentage + "%", Font, Brushes.Black, new RectangleF(r.X+1, r.Y+1, w-1, r.Height-1));
         }
 
         private void DrawInactive(Graphics g) {
