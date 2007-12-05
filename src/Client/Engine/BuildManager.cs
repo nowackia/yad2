@@ -363,12 +363,10 @@ namespace Yad.Engine {
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
                         _stripData[id][typeID].Percent = percent;
-                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
-                        lock (cObjLock) {
-                            if (_currentObjectID == id)
+                        //InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
+                        if (_currentObjectID == id)
                                 _rightStripe.UpdatePercent(typeID, percent);
-                        }
-                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
+                        //InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
                     }
                 }
             }
