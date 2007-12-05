@@ -58,7 +58,14 @@ namespace Yad.Log.Common {
         private InfoLog(MultiStream writer) {
             _writer = writer;
             _infoLogPrefix = new InfoLogPrefix();
-            //_infoLogPrefix.AddFilter(EPrefix.ServerSendMessageInfo);
+            /*_infoLogPrefix.AddFilter(EPrefix.AudioEngine);
+            _infoLogPrefix.AddFilter(EPrefix.ClientInformation);
+            _infoLogPrefix.AddFilter(EPrefix.ClientSimulation);
+            _infoLogPrefix.AddFilter(EPrefix.GameGraphics);
+            _infoLogPrefix.AddFilter(EPrefix.GameLogic);
+            _infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
+            _infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
+            _infoLogPrefix.AddFilter(EPrefix.SimulationInfo);*/
             //_infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
             //_infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
         }
