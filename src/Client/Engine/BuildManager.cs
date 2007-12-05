@@ -325,11 +325,12 @@ namespace Yad.Engine {
                     }
                     InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
                 }
-                else
+                else {
                     InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot)
                         RemoveBuildStatus(objectID, idu);
                     InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                }
             }
         }
 
