@@ -82,6 +82,7 @@ namespace Yad.UI.Client {
         }
 
         public void UpdatePercent(short type, int percent) {
+            InfoLog.WriteInfo("Enter Update percent in BuildStripe");
             SuspendFlowLayout();
             buttons[type].State = StripButtonState.Percantage;
             buttons[type].Percentage = percent;
@@ -90,6 +91,7 @@ namespace Yad.UI.Client {
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
             ResumeFlowLayout();
+            InfoLog.WriteInfo("Left Update percent in BuildStripe");
         }
         public void Update(StripButtonState buildStatus, short type) {
             SuspendFlowLayout();
