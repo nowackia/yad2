@@ -26,8 +26,8 @@ namespace Yad.Engine.Client
         public AudioEngine()
         {
             timer = new Timer();
-            timer.Interval = 100;
-            timer.Tick += new EventHandler(timer_Tick);
+            //timer.Interval = 100;
+            //timer.Tick += new EventHandler(timer_Tick);
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace Yad.Engine.Client
             music = new Music(system, musicChannel);
             sound = new Sound(system, soundChannel);
 
-            timer.Start();
+            //timer.Start();
 
             music.MusicEnd += new MusicEndEventHandler(music_MusicEnd);
 
