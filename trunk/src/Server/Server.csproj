@@ -56,6 +56,7 @@
     <Compile Include="Net\GameServer\GameServer.cs" />
     <Compile Include="Net\GameServer\IServerSimulation.cs" />
     <Compile Include="Net\GameServer\MockServerSimulation.cs" />
+    <Compile Include="Net\GameServer\PauseCtrl.cs" />
     <Compile Include="Net\GameServer\PlayerTurn.cs" />
     <Compile Include="Net\MessageHandler.cs" />
     <Compile Include="Net\BaseServer.cs" />

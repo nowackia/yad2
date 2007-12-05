@@ -110,6 +110,7 @@ namespace Yad.UI.Client {
                 _gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
                 _gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
                 _gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
+                _gameLogic.PauseResume += new GameLogic.PauseResumeHandler(this.onPauseResume);
                 
                 
                 GameMessageHandler.Instance.Resume();
@@ -233,6 +234,7 @@ namespace Yad.UI.Client {
 		private void openGLView_Resize(object sender, EventArgs e) {
 			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 		}
+
 
 		#endregion
 
@@ -379,6 +381,13 @@ namespace Yad.UI.Client {
         private void pictureButtonOptions_Click(object sender, EventArgs e)
         {
             OnMenuOptionChange(MenuOption.Options);
+        }
+
+        private void onPauseResume(bool isPause) {
+            if (isPause)
+                OnMenuOptionChange(MenuOption.Pause);
+            else
+                OnMenuOptionChange(MenuOption.Continue);
         }
 		#endregion
 

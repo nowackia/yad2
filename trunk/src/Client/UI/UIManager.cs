@@ -26,7 +26,7 @@ namespace Yad.UI.Client
     public delegate void ManageDataGridViewEventHandler(DataGridView gridView, object[] objects, bool reset);
     public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object[] removeObjects);
     public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObjects);
-
+    public delegate void TopMostEventHandler(Form f, bool value);
     public class UIManager
     {
         Views actualView;
@@ -235,7 +235,10 @@ namespace Yad.UI.Client
                 case MenuOption.Options:
                     switchView(Views.GameMenuForm, false, true);
                     break;
-
+                case MenuOption.Pause:
+                    switchView(Views.PauseForm, false, true);
+                    break;
+                
                 case MenuOption.GameFormToChat:
                     switchView(Views.ChatForm);
                     ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
@@ -294,6 +297,8 @@ namespace Yad.UI.Client
 
                 case MenuOption.Continue:
                     switchView(Views.GameForm, true);
+                    break;
+                case MenuOption.Pause:
                     break;
 
                 default:
@@ -379,6 +384,9 @@ namespace Yad.UI.Client
             switchView(viewToSwitch, hideLast, false);
         }
 
+        private void SetFormTopMost(Form fm, bool value) {
+            fm.TopMost = value;
+        }
         private void switchView(Views viewToSwitch, bool hideLast, bool modal)
         {
             if (hideLast)
@@ -391,7 +399,11 @@ namespace Yad.UI.Client
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
 
-            actualForm.TopMost = modal;
+            if (actualForm.InvokeRequired)
+                actualForm.Invoke(new TopMostEventHandler(SetFormTopMost), new object[] { actualForm, modal });
+            else
+                SetFormTopMost(actualForm, modal);
+
             if (actualForm.Visible == false)
             {
                 if (actualForm.InvokeRequired)

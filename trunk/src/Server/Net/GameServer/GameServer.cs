@@ -30,6 +30,8 @@ namespace Yad.Net.GameServer.Server {
         private Semaphore _gameEndSemaphore = new Semaphore(0, 1);
         private Thread _serverThread;
         private Random _rand = new Random((int)DateTime.Now.Ticks);
+        private PauseCtrl _pauseCtrl = new PauseCtrl();
+
         #endregion
 
         #region Properties 
@@ -37,6 +39,10 @@ namespace Yad.Net.GameServer.Server {
         public IServerSimulation Simulation {
             get { return _simulation; }
             set { _simulation = value; }
+        }
+
+        public PauseCtrl PauseCtrl {
+            get { return _pauseCtrl; }
         }
 
         public event GameEndDelegate OnGameEnd {
@@ -224,7 +230,16 @@ namespace Yad.Net.GameServer.Server {
 
         private void SetStartPositions(PositionData[] PosData) {
             string filePath = Path.Combine(Yad.Properties.Common.Settings.Default.Maps, _serverGameInfo.MapName);
-            FileStream fs = File.Open(filePath, FileMode.Open);
+
+            FileStream fs = null;
+            try {
+                fs = File.Open(filePath, FileMode.Open);
+            }
+            catch (FileNotFoundException ex) {
+                MessageBox.Show("Map: " + ex.FileName + " not found!");
+                InfoLog.WriteError("Map: " + ex.FileName + " not found");
+                return;
+            }
             BinaryFormatter bformatter = new BinaryFormatter();
             List<Point> listPoint = (List<Point>)bformatter.Deserialize(fs);
             fs.Close();

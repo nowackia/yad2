@@ -29,10 +29,13 @@ namespace Yad.Engine.Client {
 		public delegate void NewUnitDelegate(string name, short key);
 		public delegate void BadLocationHandler(int id);
         public delegate void GameEndHandler(int winTeamId);
+        public delegate void PauseResumeHandler(bool isPause);
 
 		public event NewUnitDelegate OnNewUnit;
 		public event BadLocationHandler OnBadLocation;
         public event GameEndHandler GameEnd;
+        public event PauseResumeHandler PauseResume;
+
 		#endregion
 
 		#region private members
@@ -47,7 +50,7 @@ namespace Yad.Engine.Client {
 		private List<Unit>[] _definedGroups = new List<Unit>[4];
 		private Building _selectedBuilding = null;
 		private Dictionary<short, Building> defaultBuildings = new Dictionary<short, Building>();
-
+        private bool _isPaused = false;
 		#endregion
 
 		#region constructor
@@ -132,11 +135,32 @@ namespace Yad.Engine.Client {
 
 		void Instance_DoTurnPermission(object sender, DoTurnMessage dtm) {
 			//InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
-			if (dtm.SpeedUp) {
-				_sim.SpeedUp = true;
-				InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
-			}
-			_sim.DoTurn();
+            PauseAction paction = (PauseAction)dtm.Pause;
+            switch (paction) {
+                case PauseAction.Resume:
+                    _isPaused = false;
+                    if (dtm.SpeedUp) {
+                        _sim.SpeedUp = true;
+                        InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
+                    }
+                    if (PauseResume != null)
+                        PauseResume(false);
+                    _sim.DoTurn();
+                    break;
+                case PauseAction.None:
+                    if (dtm.SpeedUp) {
+                        _sim.SpeedUp = true;
+                        InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
+                    }
+                    _sim.DoTurn();
+                    break;
+                case PauseAction.Pause:
+                    this._isPaused = true;
+                    if (PauseResume != null)
+                        PauseResume(true);
+                    break;
+            }
+			
 		}
 
 		void Instance_GameMessageReceive(object sender, GameMessage gameMessage) {
