@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.example.org/dune"
+	attributeFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.example.org/dune"
+	elementFormDefault="qualified">
+
+	<complexType name="TrooperUnitData">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="Name" type="string" />
+			<element name="Cost" type="string" />
+			<element name="FireRange" type="string" />
+			<element name="Speed" type="string" />
+			<element name="ReloadTime" type="string" />
+			<element name="AmmoType" type="string" />
+			<element name="Health" type="string" />
+			<element name="ViewRange" type="string" />
+			<element name="Power" type="string" />
+			<element name="BuildSpeed" type="string" />
+			<element name="DamageDestroy" type="string" />
+			<element name="RotationSpeed" type="string" />
+			<element name="Texture" type="string" />
+			<element name="Picture" type="string" />
+		</sequence>
+	</complexType>
+		<complexType name="TankUnitData">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="Name" type="string" />
+			<element name="Cost" type="string" />
+			<element name="FireRange" type="string" />
+			<element name="Speed" type="string" />
+			<element name="ReloadTime" type="string" />
+			<element name="AmmoType" type="string" />
+			<element name="Health" type="string" />
+			<element name="ViewRange" type="string" />
+			<element name="Power" type="string" />
+			<element name="BuildSpeed" type="string" />
+			<element name="DamageDestroy" type="string" />
+			<element name="RotationSpeed" type="string" />
+			<element name="TurretRotationSpeed" type="string" />
+			<element name="TurretTexture" type="string" />
+			<element name="Texture" type="string" />
+			<element name="Picture" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="BuildingData">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="Name" type="string" />
+			<element name="Cost" type="string" />
+			<element name="FireRange" type="string" />
+			<element name="ReloadTime" type="string" />
+			<element name="Health" type="string" />
+			<element name="ViewRange" type="string" />
+			<element name="Power" type="string" />
+			<element name="BuildSpeed" type="string" />
+			<element name="Texture" type="string" />
+			<element name="Picture" type="string" />
+			<element name="Size" type="tns:Size" />
+			<element name="EnergyConsumption" type="string" />
+			<element name="RideableFields" type="tns:RideableFields" />
+			<element name="CanProduceUnits" type="tns:CanProduceUnits" />
+			<element name="CanProduceBuilding" type="tns:CanProduceUnits" />
+		</sequence>
+	</complexType>
+	<complexType name="Size">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="X" type="string" />
+			<element name="Y" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="RideableFields">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="int" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="CanProduceUnits">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="name" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="CanProduceBuildings">
+		<sequence maxOccurs="unbounded" minOccurs="0">
+			<element name="name" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="UnitsData">
+		<sequence>
+			<element name="UnitData" type="tns:UnitData" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="BuildingsData">
+		<sequence>
+			<element name="BuildingData" type="tns:BuildingData"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<element name="GameSettings" type="tns:GameSettings" />
+	<complexType name="GameSettings">
+		<sequence minOccurs="1" maxOccurs="1">
+			<element name="UnitsData" type="tns:UnitsData" />
+			<element name="BuildingsData" type="tns:BuildingsData" />
+		</sequence>
+	</complexType>
+</schema>

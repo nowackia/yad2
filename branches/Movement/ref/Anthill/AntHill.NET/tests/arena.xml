@@ -1,0 +1,44 @@
+<Anthill>
+
+<WorldMap rowCount="20" colCount="20">
+  <Map row="xxxxxsssssssssssssss" />
+  <Map row="xoooxsssssssssssssss" />
+  <Map row="xoooosssssssssssssss" />
+  <Map row="xooxxsssssssssssssss" />
+  <Map row="xoxxsssxxxssssssssss" />
+  <Map row="xooxxxxxoxssssssssss" />
+  <Map row="xooxoooooxssssssssss" />
+  <Map row="xooxooxxoxssssssssss" />
+  <Map row="xooooooxoxssssssssss" />
+  <Map row="xxxooxxxxxsssssssssx" />
+  <Map row="xoooooooossssssssxxx" />
+  <Map row="xoooooooxssssssssxxx" />
+  <Map row="xoooxxxxxxoxxssssssx" />
+  <Map row="xoooxooxooooxsssssss" />
+  <Map row="xoooooooooooxsssssss" />
+  <Map row="xooxxxooxxxxxsssssss" />
+  <Map row="xoooxooooxxsssssssss" />
+  <Map row="xxooxooxxxxssssssssx" />
+  <Map row="xoooooooooxxssssssxx" />
+  <Map row="xxxxxxxxxxxxxsssxxxx" />
+</WorldMap>
+
+<CreaturesAbilities>
+  <Ant maxLife="1000" maxLifeWithoutFood="500" turnNumberToBecomeHungry="300" strength="300" forgettingTime="500" sightRadius="2">
+    <Citizen>
+      <Warrior startCount="10" />
+      <Worker startCount="30" />
+    </Citizen>
+    <Queen layEggProbability="0.4" xPosition="8" yPosition="5" /> 
+    <Egg hatchWarriorProbability="0.6" hatchTime="2" /> 
+  </Ant>
+  <Spider maxHealth="3" probability="0.02" foodQuantityAfterDeath="5" /> 
+</CreaturesAbilities>
+
+<EnvironmentCharacteristics>
+  <Rain cloudWidth="5" probability="0.02" maxDuration="10" /> 
+  <Food probability="0.02" /> 
+  <Signal lifeTime="10" radius="3" /> 
+</EnvironmentCharacteristics>
+
+</Anthill>

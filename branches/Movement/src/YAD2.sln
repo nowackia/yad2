@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{2A55C829-878F-4DC2-A317-35FBC423C524}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{C3915879-AB90-44EA-958A-C2A55C5133E4}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationTest", "CommunicationTest\CommunicationTest.csproj", "{FE378904-1898-436E-96AB-94CC39FC7D1C}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A55C829-878F-4DC2-A317-35FBC423C524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A55C829-878F-4DC2-A317-35FBC423C524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A55C829-878F-4DC2-A317-35FBC423C524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A55C829-878F-4DC2-A317-35FBC423C524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA827F36-4D91-4778-A0E1-70BB3FFF1A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5CE180-5CBD-49F2-8AE0-1EFD3008F7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3915879-AB90-44EA-958A-C2A55C5133E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3915879-AB90-44EA-958A-C2A55C5133E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3915879-AB90-44EA-958A-C2A55C5133E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3915879-AB90-44EA-958A-C2A55C5133E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
