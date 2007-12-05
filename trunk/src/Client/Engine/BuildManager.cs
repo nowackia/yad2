@@ -303,11 +303,12 @@ namespace Yad.Engine {
                     }
                     InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
                 }
-                else
+                else {
                     InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot)
                         RemoveBuildStatus(objectID, idb);
                     InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                }
             }
             foreach (String uname in bdata.UnitsCanProduce) {
                 short idu = GlobalSettings.Wrapper.namesToIds[uname];

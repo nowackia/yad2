@@ -102,7 +102,7 @@ namespace Yad.UI.Client {
         }
 
         public void HideButton(int id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             if (buttons[id].IsVisible) {
                 ProcessHideButton(id);
                 ResumeFlowLayout();
@@ -124,7 +124,7 @@ namespace Yad.UI.Client {
         }
 
         public void HideAll() {
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             
             foreach (int id in buttons.Keys) {
                 if (buttons[id].IsVisible)
@@ -137,7 +137,7 @@ namespace Yad.UI.Client {
             num = 0;*/
              
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout(); 
+            ResumeFlowLayout(); 
             
             
         }
