@@ -24,11 +24,13 @@ namespace Yad.Net.Utils
         public void Unset(string name)
         {
 
-            DateTime old;
+            DateTime old = DateTime.Now;
             lock (((ICollection)_receivedTime).SyncRoot)
             {
-                old = _receivedTime[0];
-                _receivedTime.RemoveAt(0);
+                if (_receivedTime.Count > 0) {
+                    old = _receivedTime[0];
+                    _receivedTime.RemoveAt(0);
+                }
             }
             TimeSpan ts = DateTime.Now - old;
             InfoLog.WriteInfo("Processing of TurnAsk for player: " + name + " lasted: " + ts.Milliseconds + " ms ");

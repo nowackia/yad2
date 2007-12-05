@@ -142,7 +142,8 @@ namespace Yad.Net.Server {
                         _tac.Unset(this.Login);
                 }
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                InfoLog.WriteException(ex);
                 ExecuteOnConnectionLost();
             }
         }

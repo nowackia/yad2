@@ -1055,6 +1055,7 @@ namespace Yad.UI.Client
         private void pauseGameMenu_Click(object sender, EventArgs e)
         {
             OnMenuOptionChange(MenuOption.Pause);
+            Connection.Instance.SendMessage(MessageFactory.Create(MessageType.Pause));
         }
 
         private void optionsGameMenu_Click(object sender, EventArgs e)
@@ -1080,7 +1081,9 @@ namespace Yad.UI.Client
         #region Control Events
         private void continuePauseMenu_Click(object sender, EventArgs e)
         {
-            OnMenuOptionChange(MenuOption.Continue);
+            Connection.Instance.SendMessage(MessageFactory.Create(MessageType.Resume));
+            //OnMenuOptionChange(MenuOption.Continue);
+            
         }
 
         private void optionsPauseMenu_Click(object sender, EventArgs e)

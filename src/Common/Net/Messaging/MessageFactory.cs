@@ -63,6 +63,13 @@ namespace Yad.Net.Messaging.Common {
 
                 case MessageType.BuildUnitMessage:
                     return new BuildUnitMessage();
+                
+                case MessageType.Pause:
+                    return new Message(MessageType.Pause);
+                
+                case MessageType.Resume:
+                    return new Message(MessageType.Resume);
+
                 #endregion
 
                 #region Chat

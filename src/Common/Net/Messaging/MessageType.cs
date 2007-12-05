@@ -28,6 +28,8 @@ namespace Yad.Net.Messaging.Common
         PlayerDisconnected,
         EndGame,
         BuildUnitMessage,
+        Pause,
+        Resume,
         #endregion
 
         #region Chat
