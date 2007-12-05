@@ -50,7 +50,9 @@ namespace Yad.Log.Common
         [Description(" #GMP: ")]
         GameMessageProccesing,
         [Description(" #DBI: ")]
-        DatebaseInfo
+        DatebaseInfo,
+        [Description(" #LOK: ")]
+        LockInfo
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES
