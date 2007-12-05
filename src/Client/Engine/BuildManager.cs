@@ -130,6 +130,8 @@ namespace Yad.Engine {
                 /* Sound */
 
         public void OnBadLocation(int id) {
+            if (id == -1)
+                return;
             lock (((ICollection)_leftState).SyncRoot)
                 _leftState[id] = RightStripState.Normal;
             lock (((ICollection)_stripData).SyncRoot)
@@ -180,10 +182,11 @@ namespace Yad.Engine {
         }
 
         public void SwitchCurrentBuilding(int id) {
-            if (_currentObjectID != id) {
-                _currentObjectID = id;
-                UpdateView(id, true);
-               
+            lock (cObjLock) {
+                if (_currentObjectID != id) {
+                    _currentObjectID = id;
+                    UpdateView(_currentObjectID, true);
+                }
             }
         }
 
@@ -323,8 +326,10 @@ namespace Yad.Engine {
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
                         _stripData[id][typeID].Percent = percent;
-                        if (_currentObjectID == id)
-                            _rightStripe.UpdatePercent(typeID, percent);
+                        lock (cObjLock) {
+                            if (_currentObjectID == id)
+                                _rightStripe.UpdatePercent(typeID, percent);
+                        }
                     }
                 }
             }

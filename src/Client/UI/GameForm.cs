@@ -80,7 +80,7 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
-             
+                
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
@@ -104,6 +104,7 @@ namespace Yad.UI.Client {
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
                 _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+                _gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
 				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
                 _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
                 _gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);

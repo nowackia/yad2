@@ -29,7 +29,7 @@ namespace Yad.Engine.Client {
 		public delegate void OnLowPowerHandler(Player p);
 		public delegate void OnNoPowerHandler(Player p);
 		public delegate void OnCreditsHandler(short playerNo, int cost);
-		public delegate void InvalidLocationHandler();
+		public delegate void InvalidLocationHandler(int objectCreatorId);
         public delegate void UpdateStripItemHandler(int playerID, int objectID, short typeID, int percent); 
 
 		public event OnCreditsHandler OnCreditsUpdate;
@@ -80,7 +80,7 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidLocation != null) {
-					InvalidLocation();
+					InvalidLocation(bm.CreatorID);
                     /*int cost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
                     p.Credits += cost;
                     OnCreditsUpdate(cost);*/
@@ -242,13 +242,15 @@ namespace Yad.Engine.Client {
             this._map.Units[mcv.Position.X, mcv.Position.Y].Remove(mcv);
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[btype];
             if (!Building.CheckBuildPosition(bd, mcv.Position, _map, dmcv.McvID.PlayerID)) {
+                this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
                 if (InvalidLocation != null) {
-                    InvalidLocation();
+                    InvalidLocation(-1);
                 }
                 return;
             }
             this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
             destroyUnit(mcv);
+            OnUnitDestroyed(mcv);
             Building b = AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
             UpdatePowerManagement(b);
             OnBuildingCompleted(b, -1);
