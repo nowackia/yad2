@@ -64,6 +64,7 @@ namespace Yad.Board.Common {
 
 		public void LoadMap(String name) {
 
+
 			FileStream fs = File.Open(name, FileMode.Open);
 			BinaryFormatter bf = new BinaryFormatter();
 			List<Point> lp = (List<Point>)bf.Deserialize(fs);

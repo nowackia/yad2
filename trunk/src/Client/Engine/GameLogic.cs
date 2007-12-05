@@ -70,11 +70,13 @@ namespace Yad.Engine.Client {
 		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {
-			IncreaseBuildingCounter(b.TypeID);
-			foreach (string s in b.BuildingData.UnitsCanProduce.NameCollection) {
-				if (!defaultBuildings.ContainsKey(GlobalSettings.Wrapper.namesToIds[s]))
-					defaultBuildings[GlobalSettings.Wrapper.namesToIds[s]] = b;
-			}
+            if (b.ObjectID.PlayerID == CurrentPlayer.Id) {
+                IncreaseBuildingCounter(b.TypeID);
+                foreach (string s in b.BuildingData.UnitsCanProduce.NameCollection) {
+                    if (!defaultBuildings.ContainsKey(GlobalSettings.Wrapper.namesToIds[s]))
+                        defaultBuildings[GlobalSettings.Wrapper.namesToIds[s]] = b;
+                }
+            }
 		}
 
         void _sim_UnitDestroyed(Unit u) {
@@ -89,6 +91,9 @@ namespace Yad.Engine.Client {
 				_selectedBuilding = null;
 			}
             /* Play fight music */
+            if (b.ObjectID.PlayerID == CurrentPlayer.Id) {
+                DecreaseBuildingCounter(b.TypeID);
+            }
             AudioEngine.Instance.Music.Play(MusicType.Fight);
             this.CheckGameEndCondition();
         }
@@ -105,13 +110,13 @@ namespace Yad.Engine.Client {
 				//_currPlayer = _sim.Players[pd.PlayerId];
 				Player p = _sim.Players[pd.PlayerId];
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
-                UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, pd.Y), _sim.Map, this._sim);
+                UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, _sim.Map.Height - pd.Y -1), _sim.Map, this._sim);
 				p.AddUnit(mcv);
 				_sim.ClearFogOfWar(mcv);
 
 				// vjust for fun ;p
 				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
-                UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), pd.Y), this._sim.Map, this._sim);
+                UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), _sim.Map.Height - pd.Y - 1), this._sim.Map, this._sim);
 				p.AddUnit(u);
 				_sim.ClearFogOfWar(u);
 				// ^
