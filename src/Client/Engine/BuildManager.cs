@@ -291,7 +291,7 @@ namespace Yad.Engine {
             foreach (String bname in bdata.BuildingsCanProduce) {
                 short idb = GlobalSettings.Wrapper.namesToIds[bname];
                 if (CheckDependencies(bname)) {
-                    InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot) {
                         if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
                             int buildSpeed = GlobalSettings.Wrapper.buildingsMap[idb].BuildSpeed;
@@ -301,19 +301,19 @@ namespace Yad.Engine {
                             _stripData[objectID.ObjectId].Add(idb, wrapper);
                         }
                     }
-                    InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [Udep]", EPrefix.LockInfo);
                 }
                 else {
-                    InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot)
                         RemoveBuildStatus(objectID, idb);
-                    InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                 }
             }
             foreach (String uname in bdata.UnitsCanProduce) {
                 short idu = GlobalSettings.Wrapper.namesToIds[uname];
                 if (CheckDependencies(uname)) {
-                    InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot) {
                         if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
                             int buildSpeed = GetUnitBuildSpeed(idu);
@@ -323,13 +323,13 @@ namespace Yad.Engine {
                             _stripData[objectID.ObjectId].Add(idu, wrapper);
                         }
                     }
-                    InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                 }
                 else {
-                    InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot)
                         RemoveBuildStatus(objectID, idu);
-                    InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                 }
             }
         }
@@ -351,7 +351,7 @@ namespace Yad.Engine {
         }
 
         public void UpdateStrip(int id, short typeID, int percent) {
-            InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+            InfoLog.WriteInfo("lock stripData [Update strip]", EPrefix.LockInfo);
             lock (((ICollection)_stripData).SyncRoot) {
                 if (_stripData.ContainsKey(id)) {
                     if (percent == -1) {
@@ -363,16 +363,16 @@ namespace Yad.Engine {
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
                         _stripData[id][typeID].Percent = percent;
-                        InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
                         lock (cObjLock) {
                             if (_currentObjectID == id)
                                 _rightStripe.UpdatePercent(typeID, percent);
                         }
-                        InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
                     }
                 }
             }
-            InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release stripData [Update strip]", EPrefix.LockInfo);
         }
 
         private bool CheckDependencies(string name) {
