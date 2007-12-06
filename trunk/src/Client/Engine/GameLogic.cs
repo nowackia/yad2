@@ -70,6 +70,7 @@ namespace Yad.Engine.Client {
 			_sim.BuildingCompleted += new ClientSimulation.BuildingCreationHandler(_sim_OnBuildingCompleted);
             _sim.BuildingDestroyed += new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
             _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
+            _sim.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
 		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {
@@ -80,12 +81,22 @@ namespace Yad.Engine.Client {
                         defaultBuildings[GlobalSettings.Wrapper.namesToIds[s]] = b;
                 }
             }
+            /* Sound */
+            if(CurrentPlayer.IsVisible(b))
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.PlaceStructure);
 		}
 
         void _sim_UnitDestroyed(Unit u) {
 			_selectedUnits.Remove(u);
+
             /* Play fight music */
-            AudioEngine.Instance.Music.Play(MusicType.Fight);
+            if(u.BoardObjectClass != BoardObjectClass.UnitMCV)
+                AudioEngine.Instance.Music.Play(MusicType.Fight);
+
+            /* Play sound */
+            if (CurrentPlayer.IsVisible(u))
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.StructureExplosion);
+
             this.CheckGameEndCondition();
         }
 
@@ -97,8 +108,19 @@ namespace Yad.Engine.Client {
             if (b.ObjectID.PlayerID == CurrentPlayer.Id) {
                 DecreaseBuildingCounter(b.TypeID);
             }
+
+            /* Play sound */
+            if(CurrentPlayer.IsVisible(b))
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.StructureExplosion);
+
             AudioEngine.Instance.Music.Play(MusicType.Fight);
             this.CheckGameEndCondition();
+        }
+
+        void _sim_OnCreditsUpdate(short playerNo, int cost)
+        {
+            if (playerNo == CurrentPlayer.Id)
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Credit);
         }
 		#endregion
 
@@ -256,8 +278,16 @@ namespace Yad.Engine.Client {
 				}
 			}
 			if (_selectedUnits.Count != 0) {
+
                 /* Sound */
-                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Reporting);
+                for (int i = 0; i < _selectedUnits.Count; i++)
+                {
+                    if (_selectedUnits[i].ObjectID.PlayerID == CurrentPlayer.Id)
+                    {
+                        AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Reporting);
+                        break;
+                    }
+                }
 
 				return true;
 			}
@@ -355,6 +385,7 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
+        #region Game end
         /// <summary>
         /// Checks if the game has ended - if any team has any objects left on map
         /// </summary>
@@ -395,8 +426,9 @@ namespace Yad.Engine.Client {
             if (playersCount == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null)
                 GameEnd(anyObjectOwningTeamId);
         }
+        #endregion
 
-		/*
+        /*
 		public bool checkBuildingPosition(Position pos, short buildingTypeId) {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingTypeId];
 
