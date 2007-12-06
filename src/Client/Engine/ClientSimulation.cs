@@ -434,9 +434,6 @@ namespace Yad.Engine.Client {
 
 		private void OnBuildingDestroyed(Building b) {
 			if (BuildingDestroyed != null) {
-                /* Sound */
-                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.StructureExplosion);
-
 				//TODO RS: run in different thread
 				BuildingDestroyed(b);
 			}
@@ -444,9 +441,6 @@ namespace Yad.Engine.Client {
 
 		private void OnUnitDestroyed(Unit u) {
 			if (UnitDestroyed != null) {
-                /* Sound */
-                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.SmallExplosion);
-
 				//TODO RS: run in different thread
 				UnitDestroyed(u);
 			}
@@ -454,9 +448,6 @@ namespace Yad.Engine.Client {
 
 		private void OnBuildingCompleted(Building b, int creator_id) {
 			if (BuildingCompleted != null) {
-                /* Sound */
-                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.PlaceStructure);
-
 				//TODO RS: run in different thread
 				this.BuildingCompleted(b, creator_id);
 			}
