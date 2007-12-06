@@ -46,15 +46,22 @@ namespace Yad.Engine.Client
         private float volume;
         private bool isInitialized;
 
-        public Music(bool isInitialized, FMOD.Channel channel)
-            : this(null, isInitialized, channel)
+        public Music(FMOD.Channel channel)
+            : this(null, channel, false)
         { }
 
-        public Music(FMOD.System system, bool isInitialized, FMOD.Channel channel)
+        public Music(FMOD.System system, FMOD.Channel channel)
+            : this(system, channel, true)
+        { }
+
+        public Music(FMOD.System system, FMOD.Channel channel, bool isInitialized)
         {
             this.system = system;
             this.channel = channel;
             this.isInitialized = isInitialized;
+
+            if (isInitialized && system == null)
+                isInitialized = false;
 
             musicType = MusicType.Peace;
             manualMusicEnd = false;
