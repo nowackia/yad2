@@ -186,11 +186,17 @@ namespace Yad.Engine
 
         private bool isMuted;
         private float volume;
+        private bool isInitialized;
 
-        public Sound(FMOD.System system, FMOD.Channel channel)
+        public Sound(bool isInitialized, FMOD.Channel channel)
+            : this(null, isInitialized, channel)
+        { }
+
+        public Sound(FMOD.System system, bool isInitialized, FMOD.Channel channel)
         {
             this.system = system;
             this.channel = channel;
+            this.isInitialized = isInitialized;
 
             misc = new FMOD.Sound[Enum.GetValues(typeof(MiscSoundType)).Length];
             houses = new Dictionary<short, FMOD.Sound[]>();
@@ -212,7 +218,7 @@ namespace Yad.Engine
             {
                 isMuted = false;
                 volume = (float)value / 100.0f;
-                if (channel != null)
+                if (!isInitialized || channel != null)
                     channel.setVolume(volume);
 
                 InfoLog.WriteInfo("Sound volume set to: " + volume, EPrefix.AudioEngine);
@@ -221,6 +227,9 @@ namespace Yad.Engine
 
         public void LoadSounds()
         {
+            if (!isInitialized)
+                return;
+
             FMOD.RESULT result;
             this.Volume = (int)Settings.Default.MusicDefaultVolume;
 
@@ -256,6 +265,9 @@ namespace Yad.Engine
 
         public bool PlayMisc(MiscSoundType miscSound)
         {
+            if (!isInitialized)
+                return false;
+
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], false, ref channel);
             channel.setVolume(volume);
 
@@ -264,6 +276,9 @@ namespace Yad.Engine
 
         public bool PlayHouse(short houseId, HouseSoundType houseSound)
         {
+            if (!isInitialized)
+                return false;
+
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], false, ref channel);
             channel.setVolume(volume);
 
