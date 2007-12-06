@@ -188,15 +188,22 @@ namespace Yad.Engine
         private float volume;
         private bool isInitialized;
 
-        public Sound(bool isInitialized, FMOD.Channel channel)
-            : this(null, isInitialized, channel)
+        public Sound(FMOD.Channel channel)
+            : this(null, channel, false)
         { }
 
-        public Sound(FMOD.System system, bool isInitialized, FMOD.Channel channel)
+        public Sound(FMOD.System system, FMOD.Channel channel)
+            : this(system, channel, true)
+        { }
+
+        public Sound(FMOD.System system, FMOD.Channel channel, bool isInitialized)
         {
             this.system = system;
             this.channel = channel;
             this.isInitialized = isInitialized;
+
+            if (isInitialized && system == null)
+                isInitialized = false;
 
             misc = new FMOD.Sound[Enum.GetValues(typeof(MiscSoundType)).Length];
             houses = new Dictionary<short, FMOD.Sound[]>();

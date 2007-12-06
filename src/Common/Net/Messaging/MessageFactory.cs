@@ -271,7 +271,7 @@ namespace Yad.Net.Messaging.Common {
                     }
 
                 case MessageType.Remind:
-                    return new TextMessage(MessageType.Register);
+                    return new TextMessage(MessageType.Remind);
 
                 /* Depreciated */
                 case MessageType.RemindSuccessful:
