@@ -216,11 +216,11 @@ namespace Yad.Engine.Client {
         /// <returns></returns>
         public bool CanGiveOrders() {
             foreach (Unit unit in SelectedUnits) {
-                if (unit.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
+                if (unit.ObjectID.PlayerID.Equals(CurrentPlayer.Id) == false) return false;
             }
             //if (SelectedBuilding.ObjectID.PlayerID.Equals(CurrentPlayer.Id)) return true;
             
-            return false;
+            return true;
         }
 
 		public bool Select(Position pos) {

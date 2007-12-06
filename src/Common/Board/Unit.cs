@@ -510,7 +510,7 @@ namespace Yad.Board.Common {
 			get { return this._typeID; }
 		}
 
-		public void MoveTo(Position destination) {
+		public virtual void MoveTo(Position destination) {
 			//we can override old path
 			this._currentPath = FindPath(this.Position, destination, this._map,
 										this._canCrossMountain, this._canCrossBuildings,
