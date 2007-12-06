@@ -147,6 +147,13 @@ namespace Yad.Engine.Common
             set { _power = value; }
         }
 
+        public void ClearForOfWar()
+        {
+            for (int x = 0; x < fogOfWar.GetLength(0); ++x)
+                for (int y = 0; y < fogOfWar.GetLength(1); ++y)
+                    fogOfWar[x, y] = false;
+        }
+
         public bool[,] FogOfWar
         {
             get { return fogOfWar; }
