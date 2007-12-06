@@ -44,11 +44,17 @@ namespace Yad.Engine.Client
         private bool manualMusicEnd;
         private bool isMuted;
         private float volume;
+        private bool isInitialized;
 
-        public Music(FMOD.System system, FMOD.Channel channel)
+        public Music(bool isInitialized, FMOD.Channel channel)
+            : this(null, isInitialized, channel)
+        { }
+
+        public Music(FMOD.System system, bool isInitialized, FMOD.Channel channel)
         {
             this.system = system;
             this.channel = channel;
+            this.isInitialized = isInitialized;
 
             musicType = MusicType.Peace;
             manualMusicEnd = false;
@@ -71,7 +77,7 @@ namespace Yad.Engine.Client
             {
                 isMuted = false;
                 volume = (float)value / 100.0f;
-                if(channel != null)
+                if(!isInitialized || channel != null)
                     channel.setVolume(volume);
 
                 InfoLog.WriteInfo("Music volume set to: " + volume, EPrefix.AudioEngine);
@@ -86,6 +92,9 @@ namespace Yad.Engine.Client
 
         public void LoadMusic()
         {
+            if (!isInitialized)
+                return;
+
             FMOD.RESULT result;
             music = new List<FMOD.Sound>[Enum.GetValues(typeof(MusicType)).Length];
             indices = new short[music.Length];
@@ -153,6 +162,9 @@ namespace Yad.Engine.Client
 
         private bool Play(FMOD.Sound sound)
         {
+            if (!isInitialized)
+                return false;
+
             bool isPlaying = false;
 
             if (channel != null)
@@ -178,6 +190,9 @@ namespace Yad.Engine.Client
 
         public bool Play(MusicType mt)
         {
+            if (!isInitialized)
+                return false;
+
             if (mt != musicType)
             {
                 musicType = mt;
@@ -194,6 +209,9 @@ namespace Yad.Engine.Client
 
         public bool PlayNext(MusicType mt)
         {
+            if (!isInitialized)
+                return false;
+
             List<FMOD.Sound> tracks = music[(short)mt];
             if (tracks.Count == 0)
                 return false;
@@ -212,6 +230,9 @@ namespace Yad.Engine.Client
 
         public bool PlayRandom(MusicType mt)
         {
+            if (!isInitialized)
+                return false;
+
             List<FMOD.Sound> tracks = music[(short)mt];
             if (tracks.Count == 0)
                 return false;
@@ -225,6 +246,9 @@ namespace Yad.Engine.Client
 
         public bool Stop()
         {
+            if (!isInitialized)
+                return false;
+
             manualMusicEnd = true;
             if (channel != null)
                 return FMOD.ERROR.ERRCHECK(channel.stop());

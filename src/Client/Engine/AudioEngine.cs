@@ -18,6 +18,8 @@ namespace Yad.Engine.Client
         private FMOD.Channel musicChannel;
         private FMOD.Channel soundChannel;
 
+        private bool isInitialized;
+
         private Timer timer;
 
         private Sound sound;
@@ -25,6 +27,8 @@ namespace Yad.Engine.Client
 
         public AudioEngine()
         {
+            isInitialized = false;
+
             timer = new Timer();
             timer.Interval = 100;
             timer.Tick += new EventHandler(timer_Tick);
@@ -53,10 +57,18 @@ namespace Yad.Engine.Client
 
             result = system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null);
             if (!FMOD.ERROR.ERRCHECK(result))
+            {
+                isInitialized = false;
+                music = new Music(isInitialized, musicChannel);
+                sound = new Sound(isInitialized, soundChannel);
+                InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
                 MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                return;
+            }
 
-            music = new Music(system, musicChannel);
-            sound = new Sound(system, soundChannel);
+            isInitialized = true;
+            music = new Music(system, isInitialized, musicChannel);
+            sound = new Sound(system, isInitialized, soundChannel);
 
             timer.Start();
 
@@ -74,6 +86,12 @@ namespace Yad.Engine.Client
         {
             get
             { return instance; }
+        }
+
+        public bool IsInitialized
+        {
+            get
+            { return isInitialized; }
         }
 
         public Music Music
