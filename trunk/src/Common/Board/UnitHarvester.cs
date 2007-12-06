@@ -21,7 +21,7 @@ namespace Yad.Board.Common {
         HarvestingState harvestingState = HarvestingState.harvesting;
 
         int refineryFindingCounter = 10;
-
+        int spiceFindingCounter = 100;
 		UnitHarvesterData _harvesterData;
 
         bool knowsLastKnownPosition = false;
@@ -52,6 +52,17 @@ namespace Yad.Board.Common {
 		}
 
 
+        private void MoveTo(Position loc, HarvestingState hState) {
+            base.MoveTo(loc);
+
+        }
+
+        public override void MoveTo(Position destination) {
+            base.MoveTo(destination);
+            this.harvestingState = HarvestingState.harvesting;
+        }
+        
+
 		public override void DoAI() {
             if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
                 Move();
@@ -66,7 +77,8 @@ namespace Yad.Board.Common {
                 }
                 #region seeking for spice
                 switch (state) {
-                    case UnitState.harvesting:                        
+                    case UnitState.harvesting:
+                        this.spiceFindingCounter = 100;
                         int spiceOnLocaltion = _map.Spice[Position.X, Position.Y];
                         if (spiceOnLocaltion == 0) {
                             // seek for spice
@@ -76,7 +88,7 @@ namespace Yad.Board.Common {
                                 state = UnitState.moving;
                                 knowsLastKnownPosition = true;
                                 lastKnownSpicePosition = loc;
-                                MoveTo(loc);
+                                MoveTo(loc, HarvestingState.harvesting);
                             } else {
                                 // no spice visible - stopping but still seeking for spice
                                 state = UnitState.stopped;
@@ -98,20 +110,32 @@ namespace Yad.Board.Common {
                             state = UnitState.moving;
                             knowsLastKnownPosition = true;
                             lastKnownSpicePosition = loc;
-                            MoveTo(loc);
+                            MoveTo(loc, HarvestingState.harvesting);
                             break;
                         }
                         if (this.Position.X == lastKnownSpicePosition.X &&
                                    this.Position.Y == lastKnownSpicePosition.Y) {
                             knowsLastKnownPosition = false;
+
+
                         }
                         if (knowsLastKnownPosition) {
                             state = UnitState.moving;
-                            MoveTo(lastKnownSpicePosition);
+                            MoveTo(lastKnownSpicePosition, HarvestingState.harvesting);
+                            state = UnitState.moving;
+                            break;
+                        }
+                        if (this.spiceFindingCounter-- == 0) {
+                            // przeliczyl sie.
+                            this.spiceFindingCounter = 100; // magic number! - przeniesc do ustawien
+                            this.state = UnitState.stopped;
+                            this.harvestingState = HarvestingState.returningToBase;
+                            break;
                         }
                         break;
 
                     case UnitState.moving:
+                        this.spiceFindingCounter = 100;
                         if (Move() == false) {
                             // stopped moving. 
                             state = UnitState.stopped;
@@ -122,6 +146,12 @@ namespace Yad.Board.Common {
 
             } else if (harvestingState == HarvestingState.returningToBase) {
                 #region returning to base
+
+                if (FindNearestSpice(this.Position, out loc)) {
+                    knowsLastKnownPosition = true;
+                    lastKnownSpicePosition = loc;
+                }
+
                 switch (state) {
                     case UnitState.moving:
                         // returning to base
@@ -151,7 +181,7 @@ namespace Yad.Board.Common {
                             if (FindNearestRefinery(this.Position, out loc)) {
                                 // found refinery
                                 state = UnitState.moving;
-                                MoveTo(loc);
+                                MoveTo(loc, HarvestingState.returningToBase);
                             } else {
                                 // no refinery found
                                 state = UnitState.stopped;
@@ -243,6 +273,8 @@ namespace Yad.Board.Common {
             loc = p;
             return false;
         }
+
+        
 
         private bool GetRideableField(Building refinery, out Position rideableField) {
             if (refinery.BuildingData.RideableFields.Count == 0) {
