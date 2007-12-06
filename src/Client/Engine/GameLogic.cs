@@ -53,7 +53,7 @@ namespace Yad.Engine.Client {
         private bool _isPaused = false;
 		#endregion
 
-		#region constructor
+		#region Constructor
 		public GameLogic() {
 			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
@@ -124,7 +124,7 @@ namespace Yad.Engine.Client {
         }
 		#endregion
 
-		#region message handling
+		#region Message handling
 		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
 			PlayerInfo pi = ClientPlayerInfo.Player;
 			PositionData[] aPd = e.gameInitInfo;
@@ -190,7 +190,7 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
-		#region properties
+		#region Properties
 		public List<Unit> SelectedUnits {
 			get { return _selectedUnits; }
 		}
@@ -208,7 +208,7 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
-		#region user orders
+		#region User orders
 
         /// <summary>
         /// checks if 
@@ -391,6 +391,9 @@ namespace Yad.Engine.Client {
         /// </summary>
         public void CheckGameEndCondition()
         {
+            if (CurrentPlayer.GameObjectsCount == 0)
+                CurrentPlayer.ClearForOfWar();
+
             Dictionary<short, int> teamGameObjectCount = new Dictionary<short, int>();
 
             foreach (Player player in _sim.GetPlayers())
