@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using Yad.Log.Common;
 using Yad.Engine.Common;
 using System.Drawing;
+using Yad.AI;
+using Yad.AI.General;
 
 namespace Yad.Board.Common {
 	/// <summary>
@@ -13,7 +15,7 @@ namespace Yad.Board.Common {
 	/// </summary>
 	public abstract class Unit : BoardObject {
 		//common fields for all units - except sandworm
-
+        private MapInput _mapInput;
 		protected short _damageDestroy;
 		protected String _name;
 		protected short _fireRange;
@@ -58,7 +60,8 @@ namespace Yad.Board.Common {
 		protected Map _map;
         protected Simulation _simulation;
 		bool _alreadyOnMap = false;
-		public virtual void Destroy() {
+		
+        public virtual void Destroy() {
             state = UnitState.destroyed;
 			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
             
@@ -233,6 +236,13 @@ namespace Yad.Board.Common {
             return false;
         }
 
+        private bool IsMoveable(short x, short y, Map map)
+        {
+            if (map.Units[x, y].Count == 0 && map.Buildings[x, y].Count == 0)
+                return true;
+            return false;
+        }
+
         private bool FindNearestTargetInFireRange(out BoardObject nearest) {
             int count;
             Position[] viewSpiral = RangeSpiral(this.FireRange, out count);
@@ -387,7 +397,17 @@ namespace Yad.Board.Common {
 				this._remainingTurnsInMove = this._speed;
 
 				Position newPos = _currentPath.Dequeue();
-
+                if (!IsMoveable(newPos.X, newPos.Y, this._map))
+                {
+                    _mapInput.Start = this.Position;
+                    _currentPath = AStar.Search<Position>(_mapInput);
+                    if (_currentPath == null)
+                        return false;
+                    _currentPath.Dequeue();
+                    if (_currentPath.Count == 0)
+                        return false;
+                    newPos = _currentPath.Dequeue();
+                }
 				//TODO: check newPos;
 				/*
 				if ( badPos ) {
@@ -429,6 +449,7 @@ namespace Yad.Board.Common {
 
 		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy)
 			: base(id, boc, pos) {
+
 			this._typeID = typeID;
 			this._map = map;
             this._simulation = sim;
@@ -438,6 +459,8 @@ namespace Yad.Board.Common {
             this._damageDestroy = damageDestroy;
             this.damageDestroyRange = damageDestroyRange;
             this.ammoDamageRange = ammoDamageRange;
+            this._mapInput = new MapInput(sim.Map);
+            this._mapInput.IsMoveable += new MapInput.MoveCheckDelegate(this.IsMoveable);
             
             if(ammo=="Bullet"){
                 this._ammoType = AmmoType.Bullet;
@@ -450,6 +473,8 @@ namespace Yad.Board.Common {
                 this._ammoType = AmmoType.None;
             }
 		}
+
+
 
 		public AmmoType AmmoType {
 			get { return _ammoType; }
@@ -529,15 +554,20 @@ namespace Yad.Board.Common {
 			get { return (this._remainingTurnsInMove != 0) || (this._currentPath.Count != 0); }
 		}
 
-		public static Queue<Position> FindPath(Position source, Position dest, Map map,
+		public Queue<Position> FindPath(Position source, Position dest, Map map,
 												bool canCrossMountain, bool canCrossBuildings,
 												bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
-            Queue<Position> path = Bresenham(ref source, ref dest);
+            //Queue<Position> path = Bresenham(ref source, ref dest);
 
 			//path.Enqueue(dest);
 			//end remove
 
-			return path;
+			//return path;
+                                                    this._mapInput.Start = source;
+                                                    this._mapInput.Goal = dest;
+                                                    Queue<Position> path = AStar.Search<Position>(this._mapInput);
+                                                    path.Dequeue();
+                                                    return path;
 		}
 
         

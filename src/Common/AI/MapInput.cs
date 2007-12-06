@@ -10,7 +10,9 @@ namespace Yad.AI {
     /// <summary>
     /// Class that represents AStarInput related to YAD map
     /// </summary>
-    public abstract class MapInput : AStarInput<Position> {
+    public class MapInput : AStarInput<Position> {
+
+        public delegate bool MoveCheckDelegate(short x, short y, Map map);
 
         #region Protected members
 
@@ -19,7 +21,21 @@ namespace Yad.AI {
         /// </summary>
         protected Map _map;
 
+        private event MoveCheckDelegate isMoveable;
+
         #endregion
+
+        public event MoveCheckDelegate IsMoveable
+        {
+            add
+            {
+                isMoveable += value;
+            }
+            remove
+            {
+                isMoveable -= value;
+            }
+        }
 
         #region Constructors 
 
@@ -29,6 +45,7 @@ namespace Yad.AI {
         /// <param name="map">The reference to YAD map</param>
         public MapInput(Map map) {
             this._map = map;
+            base.MaxDepth = map.Height * map.Width;
         }
 
         #endregion
@@ -46,27 +63,27 @@ namespace Yad.AI {
 
             List<Position> lp = new List<Position>();
             bool minx = x > 0, maxx = x < _map.Width - 1;
-            bool miny = y > 0, maxy = x < _map.Height - 1;
+            bool miny = y > 0, maxy = y < _map.Height - 1;
 
             short minus_x = ((short)(x - 1));
             short plus_x = ((short)(x + 1));
             short plus_y = ((short)(y + 1));
             short minus_y = ((short)(y - 1));
-            if (minx && IsMoveable(minus_x, y))
+            if (minx && isMoveable(minus_x, y, _map))
                 lp.Add(new Position(minus_x, y));
-            if (maxx && IsMoveable(plus_x, y))
+            if (maxx && isMoveable(plus_x, y, _map))
                 lp.Add(new Position(plus_x, y));
-            if (miny && IsMoveable(x, minus_y))
+            if (miny && isMoveable(x, minus_y, _map))
                 lp.Add(new Position(x, minus_y));
-            if (maxy && IsMoveable(x, plus_y))
+            if (maxy && isMoveable(x, plus_y, _map))
                 lp.Add(new Position(x, plus_y));
-            if (minx && miny && IsMoveable(minus_x, minus_y))
+            if (minx && miny && isMoveable(minus_x, minus_y, _map))
                 lp.Add(new Position(minus_x, minus_y));
-            if (minx && maxy && IsMoveable(minus_x, plus_y))
+            if (minx && maxy && isMoveable(minus_x, plus_y, _map))
                 lp.Add(new Position(minus_x, plus_y));
-            if (maxx && miny && IsMoveable(plus_x, minus_y))
+            if (maxx && miny && isMoveable(plus_x, minus_y, _map))
                 lp.Add(new Position(plus_x, minus_y));
-            if (maxx && maxy && IsMoveable(plus_x, plus_y))
+            if (maxx && maxy && isMoveable(plus_x, plus_y, _map))
                 lp.Add(new Position(plus_x, plus_y));
             return lp;
         }
@@ -96,18 +113,6 @@ namespace Yad.AI {
         public override int GetWeight(Position pos) {
             return 1;
         }
-
-        #endregion
-
-        #region Protected Methods 
-
-        /// <summary>
-        /// Function checks whether move to position (x,y) is possible
-        /// </summary>
-        /// <param name="x">x-coordinate of field to move</param>
-        /// <param name="y">y-coordinate of field to move</param>
-        /// <returns>true, if the it is possible to move onto field (x,y)</returns>
-        protected abstract bool IsMoveable(short x, short y);
 
         #endregion
     }
