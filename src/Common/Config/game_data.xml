@@ -150,11 +150,11 @@
 		<tns:UnitTankData>
 			<tns:Name>SonicTank</tns:Name>
 			<tns:Cost>300</tns:Cost>
-			<tns:FireRange>7</tns:FireRange>
+			<tns:FireRange>9</tns:FireRange>
 			<tns:FirePower>30</tns:FirePower>
 			<tns:Speed>7</tns:Speed>
 			<tns:ReloadTime>12</tns:ReloadTime>
-			<tns:AmmoType>Bullet</tns:AmmoType>
+			<tns:AmmoType>Sonic</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
 			<tns:Health>100</tns:Health>

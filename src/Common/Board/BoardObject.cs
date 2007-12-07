@@ -92,13 +92,28 @@ namespace Yad.Board.Common {
 			lenghts[0] = 1;
 			for (int i = 1; i <= range; ++i) {
 				// for each radius
-				double delta = 1.0 / range;
-				for (double alfa = 0; alfa < 2 * Math.PI; alfa += delta) {
+				double delta = 1.0 / ((2*range+1)* 4 - 4);
+                delta = Math.PI * 2.0 / ((2 * range + 1) * 4 - 4);
+                //System.Console.Out.WriteLine(Math.PI * 2.0 / delta);
+				for (double alfa = 0; alfa < 2.0 * Math.PI; alfa += delta) {
 					// alfa
-					int x = (int)(i * Math.Cos(alfa));
-					int y = (int)(i * Math.Sin(alfa));
-					Position p = new Position(x, y);
-					if (spiral.Contains(p) == false) spiral.Add(p);
+                    // dla x,y >=0 +=1;
+                    double x=0.5;
+                    double y=0.5;
+                    if (alfa <= Math.PI) {
+                        y = 0.5;
+                        
+                    }
+                    if (alfa <= Math.PI / 2 || alfa >= 3.0 * Math.PI/2.0 ) {
+                        x = 0.5;
+                    }
+					x += ( i * Math.Cos(alfa));
+					y += ( i * Math.Sin(alfa));
+                    //System.Console.Out.WriteLine("test: " + alfa + ":" + x + " " + y);
+					Position p = new Position((int)Math.Floor(x), (int)Math.Floor(y));
+                    if (spiral.Contains(p) == false) { spiral.Add(p); } else {
+                        //System.Console.Out.WriteLine("istnieje: " + alfa + ":" + p);
+                    }
 				}
 				lenghts[i] = spiral.Count;
 			}
