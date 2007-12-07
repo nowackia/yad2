@@ -69,7 +69,7 @@ namespace Yad.Board {
         }
 
         public override int GetHashCode() {
-            return (_x*10000 + _y).GetHashCode();
+            return (((int)_x)*10000 + ((int)_y));
         }
 	}
 }

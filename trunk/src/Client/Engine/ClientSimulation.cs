@@ -270,7 +270,6 @@ namespace Yad.Engine.Client {
 		}
 
 		protected override void handleBuilding(Building b) {
-			InfoLog.WriteInfo("handleBuilding: not implemented");
             Building.BuildingState bstate = b.State;
 			b.DoAI();
             if (b.BuildStatus != null) {
