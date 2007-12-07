@@ -22,9 +22,10 @@ using Yad.AI.General;
 using Yad.Config.Common;
 using Yad.Algorithms;
 
+
 namespace Tests
 {
-    public partial class TestForm : Form
+    public partial class TestForm : Form, IPositionChecker
     {
         public TestForm()
         {
@@ -78,9 +79,10 @@ namespace Tests
         }
 
         public void TestMidpoint(){
-            List<Position> list1 = Midpoint.MidpointCircle(1);
+            Position pos = UtilsAlgorithm.SurroundSearch(new Position(0, 0), 5, this);
+            /*List<Position> list1 = Midpoint.MidpointCircle(1);
             List<Position> list2 = Midpoint.MidpointCircle(2);
-            List<Position> list3 = Midpoint.MidpointCircle(3);
+            List<Position> list3 = Midpoint.MidpointCircle(3);*/
         }
 
         public void TestPriorityQueue() {
@@ -321,5 +323,13 @@ namespace Tests
             result = system.playSound(FMOD.CHANNELINDEX.FREE, sounds[1], false, ref channel);
             ERRCHECK(result);
         }
+
+        #region IPositionChecker Members
+
+        public bool CheckPosition(short x, short y) {
+            return false;
+        }
+
+        #endregion
     }
 }

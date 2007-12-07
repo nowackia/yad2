@@ -11,7 +11,7 @@ namespace Yad.Board {
 	/// </summary>
 	public struct Position {
 		private short _x;
-
+        public static Position Invalid = new Position(-1, -1);
 		public short X {
 			get { return _x; }
 			set { _x = value; }
