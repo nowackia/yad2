@@ -41,6 +41,8 @@
     <Compile Include="AI\General\AStarNode.cs" />
     <Compile Include="AI\MapInput.cs" />
     <Compile Include="AI\TrooperInput.cs" />
+    <Compile Include="Algorithms\Midpoint.cs" />
+    <Compile Include="Algorithms\SurroundSearch.cs" />
     <Compile Include="Board\AmmoType.cs" />
     <Compile Include="Board\Animation.cs" />
     <Compile Include="Board\BoardObject.cs" />

@@ -20,6 +20,7 @@ using Yad.DataStructures;
 using Yad.AI;
 using Yad.AI.General;
 using Yad.Config.Common;
+using Yad.Algorithms;
 
 namespace Tests
 {
@@ -27,6 +28,7 @@ namespace Tests
     {
         public TestForm()
         {
+            TestMidpoint();
             InitializeComponent();
             InitFMod();
             LoadSounds();
@@ -73,6 +75,12 @@ namespace Tests
             //TrooperInput ti = new TrooperInput(new Position(0, 0), new Position(5, 5), 10, map);
             //Queue<Position> path = AStar.Search<Position>(ti);
             //Console.WriteLine("OK");
+        }
+
+        public void TestMidpoint(){
+            List<Position> list1 = Midpoint.MidpointCircle(1);
+            List<Position> list2 = Midpoint.MidpointCircle(2);
+            List<Position> list3 = Midpoint.MidpointCircle(3);
         }
 
         public void TestPriorityQueue() {
