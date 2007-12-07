@@ -416,6 +416,16 @@ namespace Yad.Board.Common {
 			get { return _direction; }
 		}
 
+        public bool IsPositionRideable(short x, short y) {
+            for (int i = 0; i < BuildingData.RideableFields.Count; ++i) {
+                int fieldNo = BuildingData.RideableFields[i];
+                short fx = ((short)(fieldNo % Width));
+                short fy = ((short)(fieldNo / Height));
+                if ((Position.X + fx) == x && (Position.Y + fy) == y)
+                    return true;
+            }
+            return false;
+        }
 		public static bool CheckBuildPosition(BuildingData bd, Position pos, Map map, short playerID) {
 			//czy puste miejsce
 			if (!map.CheckSpace(pos, bd.Size.X, bd.Size.Y)) {

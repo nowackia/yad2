@@ -66,7 +66,7 @@ namespace Yad.UI.Client {
 		}
 
         public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             HideAll();
             foreach (short key in statusList.Keys) {
                 buttons[key].State = statusList[key].State;
@@ -77,32 +77,32 @@ namespace Yad.UI.Client {
             if (rewind)
                 ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
 
         }
 
         public void UpdatePercent(short type, int percent) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             buttons[type].State = StripButtonState.Percantage;
             buttons[type].Percentage = percent;
             InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
         }
         public void Update(StripButtonState buildStatus, short type) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             buttons[type].State = buildStatus;
             InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
         }
 
         public void HideButton(int id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             if (buttons[id].IsVisible) {
                 ProcessHideButton(id);
                 ResumeFlowLayout();
@@ -162,7 +162,7 @@ namespace Yad.UI.Client {
                 flowLayoutPanel1.ResumeLayout();
         }
         public void ShowRange(int[] id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             for (int i = 0; i < id.Length; ++i) {
                 InvokeShow(id[i]);
             }
@@ -175,12 +175,12 @@ namespace Yad.UI.Client {
             
             ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
            
             
         }
         public void ShowButton(int id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             InvokeShow(id);
             /*OwnerDrawPictureButton[] but = new OwnerDrawPictureButton[1];
             but[0] = buttons[id];
@@ -192,7 +192,7 @@ namespace Yad.UI.Client {
             //ShowUpper(int.MaxValue);
             
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+           // ResumeFlowLayout();
             
         }
 
@@ -375,13 +375,13 @@ namespace Yad.UI.Client {
             if (flowLayoutPanel1.InvokeRequired) {
                 scrollingPanel.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { scrollingPanel, new Size(WIDTH, (num ) * HEIGHT) });
                 flowLayoutPanel1.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { flowLayoutPanel1, new Size(WIDTH, (num ) * HEIGHT) });
-                flowLayoutPanel1.Invoke(new PerformLayoutCallBack(this.PerformLayoutHelper), new object[] { flowLayoutPanel1 });
+                //flowLayoutPanel1.Invoke(new PerformLayoutCallBack(this.PerformLayoutHelper), new object[] { flowLayoutPanel1 });
                 flowLayoutPanel1.Invoke(new RefreshCallback(this.RefreshHelper), new object[] { flowLayoutPanel1 });
             }
             else {
                 this.scrollingPanel.Size = new Size(WIDTH, (num)* HEIGHT);
                 this.flowLayoutPanel1.Size = new Size(WIDTH, (num)* HEIGHT);
-                flowLayoutPanel1.PerformLayout();
+                //flowLayoutPanel1.PerformLayout();
                 flowLayoutPanel1.Refresh();
             }
            
