@@ -29,7 +29,7 @@ namespace Tests
     {
         public TestForm()
         {
-            TestMidpoint();
+            TestAStar();
             InitializeComponent();
             InitFMod();
             LoadSounds();
@@ -62,7 +62,7 @@ namespace Tests
 
         public void TestAStar() {
             Map map = new Map();
-            map.LoadMap(Path.Combine("Resources/Maps", "mala.map"));
+            map.LoadMap(Path.Combine("Resources/Maps", "small.map"));
             Simulation sim = new ClientSimulation(map);
             Unit u = new UnitTrooper(new ObjectID(1, 1), GlobalSettings.Wrapper.Troopers[0], new Position(0, 0), map, sim);
             map.Units[0, 1].AddFirst(u);
@@ -73,9 +73,20 @@ namespace Tests
             map.Units[3, 2].AddFirst(u);
             map.Units[4, 2].AddFirst(u);
             map.Units[3, 3].AddFirst(u);
-            //TrooperInput ti = new TrooperInput(new Position(0, 0), new Position(5, 5), 10, map);
-            //Queue<Position> path = AStar.Search<Position>(ti);
-            //Console.WriteLine("OK");
+            MapInput mi = new MapInput(map);
+            mi.IsMoveable += new MapInput.MoveCheckDelegate(IsMoveable);
+            mi.Start = new Position(0, 0);
+            mi.Goal = new Position(15, 17);
+            Queue<Position> path = AStar.Search<Position>(mi);
+            if (path.Count != 0)
+                Console.WriteLine("OK");
+        }
+
+        public bool IsMoveable(short x, short y, Map map)
+        {
+            if (map.Units[x, y].Count == 0 && map.Buildings[x, y].Count == 0)
+                return true;
+            return false;
         }
 
         public void TestMidpoint(){
