@@ -37,6 +37,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationTest", "Commun
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AStarTest", "AStarTest\AStarTest.csproj", "{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +73,10 @@ Global
 		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE378904-1898-436E-96AB-94CC39FC7D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

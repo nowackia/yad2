@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using Yad.AI.General;
 using Yad.Board;
-using Yad.Board.Common;
-
-namespace Yad.AI {
-
-    /// <summary>
-    /// Class that represents AStarInput related to YAD map
-    /// </summary>
-    public class MapInput : AStarInput<Position> {
-
-        public delegate bool MoveCheckDelegate(short x, short y, Map map);
+namespace AStarTest
+{
+    public class TestInput : AStarInput<Position>
+    {
+        public delegate bool MoveCheckDelegate(short x, short y, int[,] tiles);
 
         #region Protected members
 
         /// <summary>
         /// The YAD map reference
         /// </summary>
-        protected Map _map;
+        protected int[,] tiles;
+        int width;
+        int height;
 
         private event MoveCheckDelegate isMoveable;
 
@@ -43,9 +40,12 @@ namespace Yad.AI {
         /// The basic constructor
         /// </summary>
         /// <param name="map">The reference to YAD map</param>
-        public MapInput(Map map) {
-            this._map = map;
-            base.MaxDepth = map.Height * map.Width;
+        public TestInput(int[,] tiles) {
+
+            base.MaxDepth = tiles.GetLength(0) * tiles.GetLength(1);
+            width = tiles.GetLength(0);
+            height = tiles.GetLength(1);
+            this.tiles = tiles;
         }
 
         #endregion
@@ -62,28 +62,28 @@ namespace Yad.AI {
             short y = node.Y;
 
             List<Position> lp = new List<Position>();
-            bool minx = x > 0, maxx = x < _map.Width - 1;
-            bool miny = y > 0, maxy = y < _map.Height - 1;
+            bool minx = x > 0, maxx = x < width - 1;
+            bool miny = y > 0, maxy = y < height - 1;
 
             short minus_x = ((short)(x - 1));
             short plus_x = ((short)(x + 1));
             short plus_y = ((short)(y + 1));
             short minus_y = ((short)(y - 1));
-            if (minx && isMoveable(minus_x, y, _map))
+            if (minx && isMoveable(minus_x, y, tiles))
                 lp.Add(new Position(minus_x, y));
-            if (maxx && isMoveable(plus_x, y, _map))
+            if (maxx && isMoveable(plus_x, y, tiles))
                 lp.Add(new Position(plus_x, y));
-            if (miny && isMoveable(x, minus_y, _map))
+            if (miny && isMoveable(x, minus_y, tiles))
                 lp.Add(new Position(x, minus_y));
-            if (maxy && isMoveable(x, plus_y, _map))
+            if (maxy && isMoveable(x, plus_y, tiles))
                 lp.Add(new Position(x, plus_y));
-            if (minx && miny && isMoveable(minus_x, minus_y, _map))
+            if (minx && miny && isMoveable(minus_x, minus_y, tiles))
                 lp.Add(new Position(minus_x, minus_y));
-            if (minx && maxy && isMoveable(minus_x, plus_y, _map))
+            if (minx && maxy && isMoveable(minus_x, plus_y, tiles))
                 lp.Add(new Position(minus_x, plus_y));
-            if (maxx && miny && isMoveable(plus_x, minus_y, _map))
+            if (maxx && miny && isMoveable(plus_x, minus_y, tiles))
                 lp.Add(new Position(plus_x, minus_y));
-            if (maxx && maxy && isMoveable(plus_x, plus_y, _map))
+            if (maxx && maxy && isMoveable(plus_x, plus_y, tiles))
                 lp.Add(new Position(plus_x, plus_y));
             return lp;
         }
@@ -94,8 +94,7 @@ namespace Yad.AI {
         /// <param name="node">Node which heuristic is to be counted</param>
         /// <returns>Heuristic value of the given node</returns>
         public override int H(Position node) {
-            return
-                Math.Abs(node.X - Goal.X) +
+            return Math.Abs(node.X - Goal.X) +
                 Math.Abs(node.Y - Goal.Y);
 
         }
@@ -105,7 +104,7 @@ namespace Yad.AI {
         /// </summary>
         /// <returns>Propable number of nodes to consider</returns>
         public override int EvalNodesNumber() {
-            return _map.Width * _map.Height;
+            return width * height;
         }
 
         /// <summary>
