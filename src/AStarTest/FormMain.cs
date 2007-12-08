@@ -10,7 +10,7 @@ using Yad.AI.General;
 
 namespace AStarTest
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         const int tileWidth = 20;
         const int tileHeight = 20;
@@ -25,7 +25,7 @@ namespace AStarTest
         int goals = 0;
         TestInput ti = null;
         Queue<Position> q = new Queue<Position>();
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             pictureBox1.Size = new Size(mapWidth * tileWidth, mapHeight * tileHeight);
