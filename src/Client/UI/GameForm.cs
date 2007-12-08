@@ -25,6 +25,7 @@ using Yad.Properties.Client;
 using Yad.Engine;
 using Yad.UI.Common;
 using Yad.Net.Messaging;
+using Tao.OpenGl;
 
 namespace Yad.UI.Client {
 	public partial class GameForm : UIManageable {
@@ -88,11 +89,13 @@ namespace Yad.UI.Client {
 				InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
 				//initializes GameGraphics
+				this.miniMap.InitializeContexts();
 				this.openGLView.InitializeContexts();
+				openGLView.MakeCurrent();
 
 				//First: set appropriate properties
 				InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
-				GameGraphics.InitGL(_gameLogic, this);
+				GameGraphics.InitGL(_gameLogic, this, openGLView, miniMap);
 				GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
 				InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
 				GameGraphics.InitTextures(_gameLogic.Simulation);
@@ -225,6 +228,7 @@ namespace Yad.UI.Client {
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
 			this.openGLView.Invalidate();
+			this.miniMap.Invalidate();
 		}
 
 		private void openGLView_Paint(object sender, PaintEventArgs e) {
