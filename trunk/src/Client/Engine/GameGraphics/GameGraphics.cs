@@ -33,6 +33,8 @@ namespace Yad.Engine.Client {
 		#region private members
 		static GameLogic _gameLogic;
 		static GameForm _gameForm;
+		static SimpleOpenGlControl _map;
+		static SimpleOpenGlControl _miniMap;
 
 		#region z-constants
 		/// <summary>
@@ -325,7 +327,10 @@ namespace Yad.Engine.Client {
 
 		public static void InitTextures(Simulation simulation) {
 			//Map
+			_miniMap.MakeCurrent();
 			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));
+			_map.MakeCurrent();
+			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));			
 			//Selection rectangle
 			Bitmap selectionRect = new Bitmap(Path.Combine(Settings.Default.UI, "Selection.png"));
 			Create32bTexture((int)MainTextures.SelectionRectangle, LoadBitmap(selectionRect));
@@ -471,6 +476,11 @@ namespace Yad.Engine.Client {
 			#region map
 			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
 			#endregion
+
+			_miniMap.MakeCurrent();
+			Gl.glClearColor(0, 1, 0, 1);
+			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
+			_map.MakeCurrent();
 
 			#region spice
 			DrawSpice(map);
@@ -926,14 +936,18 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		#region public methods
-		public static void InitGL(GameLogic gLogic, GameForm gForm) {
+		public static void InitGL(GameLogic gLogic, GameForm gForm, SimpleOpenGlControl map, SimpleOpenGlControl miniMap) {
+			_map = map;
+			_miniMap = miniMap;
 			_gameLogic = gLogic;
 			_gameForm = gForm;
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
 
 			//Gl.glEnable(Gl.GL_LINE_SMOOTH);
+
 			Gl.glDisable(Gl.GL_LIGHTING);
 
+			
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
