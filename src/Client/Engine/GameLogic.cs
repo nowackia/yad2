@@ -579,7 +579,7 @@ namespace Yad.Engine.Client {
 					y = r.Next(Simulation.Map.Height);
 				} while (Simulation.Map.Tiles[x,y] != TileType.Sand);
 				pos = new Position(x, y);
-				um.IdPlayer = -1;
+				//um.IdPlayer = -1;
 			}
 			um.Type = MessageType.CreateUnit;
 			um.Position = pos;
