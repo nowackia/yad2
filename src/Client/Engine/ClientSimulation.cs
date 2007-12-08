@@ -49,6 +49,7 @@ namespace Yad.Engine.Client {
 			: base(map, false) {
 
 			PlayerInfo currPI = ClientPlayerInfo.Player;
+			sandworms = new Dictionary<int, Unit>();
 
 			//Add all players
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
@@ -71,6 +72,11 @@ namespace Yad.Engine.Client {
 			Connection.Instance.SendMessage(tam);
 		}
 
+		public Dictionary<int, Unit> Sandworms {
+			get { return sandworms; }
+			set { sandworms = value; }
+		}
+
 		void ClientSimulation_onTurnEnd() {
 		}
 
@@ -87,8 +93,6 @@ namespace Yad.Engine.Client {
 				}
 				return;
 			}
-
-            //TO JEST B£¥D! jeœli nas nie staæ to nam siê nie wybuduje, ale wszystkim innym siê wybuduje!
             int playerCredits = players[bm.IdPlayer].Credits;
             int buildingCost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
             if (playerCredits < buildingCost)
@@ -206,6 +210,8 @@ namespace Yad.Engine.Client {
 				players[cum.IdPlayer].Credits -= GlobalSettings.Wrapper.mcvsMap[cum.UnitType].Cost;
 			} else if (boc == BoardObjectClass.UnitSandworm) {
 				u = new UnitSandworm(id, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType], cum.Position, this._map, this, GlobalSettings.Wrapper.sandwormsMap[cum.UnitType].__Speed);
+				Sandworms[id.ObjectId] = (UnitSandworm)u;
+				return;
 			//} else if (boc == BoardObjectClass.UnitTank) {
 			//    u = new UnitTank(id, GlobalSettings.Wrapper.tanksMap[cum.UnitType], cum.Position, this._map, this);
 			//} else if (boc == BoardObjectClass.UnitTrooper) {
@@ -525,19 +531,24 @@ namespace Yad.Engine.Client {
 		}
 
         protected override void onMessageBuildUnit(BuildUnitMessage msg) {
-            ObjectID id = new ObjectID(msg.IdPlayer, msg.CreatorID);
-            Building b = players[msg.IdPlayer].GetBuilding(id);
-            if (null == b) {
-                InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.ClientSimulation);
-                return;
-            }
-            int cost = GlobalSettings.GetUnitCost(msg.UnitType);
-            if (players[msg.IdPlayer].Credits < cost)
-                return;
-            players[msg.IdPlayer].Credits -= cost;
-            OnCreditsUpdate(msg.IdPlayer,cost);
-            b.BuildStatus = new BuildStatus(msg.CreatorID, msg.UnitType, (short)GetUnitBuildTime(msg.UnitType), BuildType.Unit);
-            b.State = Building.BuildingState.creating;
+			if (GlobalSettings.Wrapper.sandwormsMap.ContainsKey(msg.UnitType)) {
+				//sandworm
+			} else {
+				//ordynary unit creation
+				ObjectID id = new ObjectID(msg.IdPlayer, msg.CreatorID);
+				Building b = players[msg.IdPlayer].GetBuilding(id);
+				if (null == b) {
+					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.ClientSimulation);
+					return;
+				}
+				int cost = GlobalSettings.GetUnitCost(msg.UnitType);
+				if (players[msg.IdPlayer].Credits < cost)
+					return;
+				players[msg.IdPlayer].Credits -= cost;
+				OnCreditsUpdate(msg.IdPlayer, cost);
+				b.BuildStatus = new BuildStatus(msg.CreatorID, msg.UnitType, (short)GetUnitBuildTime(msg.UnitType), BuildType.Unit);
+				b.State = Building.BuildingState.creating;
+			}
         }
 
         

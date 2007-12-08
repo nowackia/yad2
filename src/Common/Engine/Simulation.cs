@@ -96,6 +96,9 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		protected Dictionary<short, Player> players;
 
+
+		protected Dictionary<int, Unit> sandworms;
+
 		protected Map _map;
 
 		//animations
@@ -189,6 +192,7 @@ namespace Yad.Engine.Common {
 					}
 
 					unitsToProcess = p.GetAllUnits();
+					unitsToProcess.AddRange(new List<Unit>(sandworms.Values));
 					while (unitsToProcess.Count != 0) {
 						Unit u = unitsToProcess[0];
 						unitsToProcess.RemoveAt(0);

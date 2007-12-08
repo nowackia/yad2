@@ -58,7 +58,7 @@ namespace Yad.Engine.Client {
 			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, ClientPlayerInfo.GameInfo.MapName));
-			
+					
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
@@ -555,7 +555,7 @@ namespace Yad.Engine.Client {
 					found = true;
 				}
 			}
-			if (found == false)
+			if (found == false && !GlobalSettings.Wrapper.sandwormsMap.ContainsKey(id))
 				return;
 			Position pos = FindFreeLocation(p, _sim.Map);
 			CreateUnitMessage um = (CreateUnitMessage)Yad.Net.Client.Utils.CreateMessageWithSenderId(MessageType.CreateUnit);
@@ -570,12 +570,20 @@ namespace Yad.Engine.Client {
 				um.UnitKind = BoardObjectClass.UnitTank;
 			else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id))
 				um.UnitKind = BoardObjectClass.UnitTrooper;
-			
-
+			else if (GlobalSettings.Wrapper.sandwormsMap.ContainsKey(id)) {
+				um.UnitKind = BoardObjectClass.UnitSandworm;
+				int x, y;
+				Random r = new Random((int)DateTime.Now.Ticks);
+				do {
+					x = r.Next(Simulation.Map.Width);
+					y = r.Next(Simulation.Map.Height);
+				} while (Simulation.Map.Tiles[x,y] != TileType.Sand);
+				pos = new Position(x, y);
+				um.IdPlayer = -1;
+			}
 			um.Type = MessageType.CreateUnit;
 			um.Position = pos;
 			Connection.Instance.SendMessage(um);
-
 		}
 
 

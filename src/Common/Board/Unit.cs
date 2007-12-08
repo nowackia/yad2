@@ -193,7 +193,7 @@ namespace Yad.Board.Common {
             }
 		}
 
-        private bool FindNearestTargetInViewRange(out BoardObject ob) {
+        protected bool FindNearestTargetInViewRange(out BoardObject ob) {
 
             int count;
             Position[] viewSpiral = RangeSpiral(this.ViewRange, out count);
@@ -258,7 +258,7 @@ namespace Yad.Board.Common {
 
       
 
-        private bool FindNearestTargetInFireRange(out BoardObject nearest) {
+        protected bool FindNearestTargetInFireRange(out BoardObject nearest) {
             int count;
             Position[] viewSpiral = RangeSpiral(this.FireRange, out count);
             Map m = this._map;
@@ -378,7 +378,7 @@ namespace Yad.Board.Common {
         /// </summary>
         /// <param name="ob"></param>
         /// <returns></returns>
-        private bool CheckRangeToShoot(BoardObject ob) {
+        protected bool CheckRangeToShoot(BoardObject ob) {
             int r = (int)(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2));
             int range = this.FireRange * this.FireRange;
             //InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
@@ -390,7 +390,7 @@ namespace Yad.Board.Common {
         /// </summary>
         /// <param name="ob"></param>
         /// <returns></returns>
-        private bool CheckIfStillExistTarget(BoardObject ob) {
+        protected bool CheckIfStillExistTarget(BoardObject ob) {
             if (attackingBuilding) {
                 Building b = (Building)ob;
                 return b.State != Building.BuildingState.destroyed;
@@ -452,7 +452,8 @@ namespace Yad.Board.Common {
 				this._lastPosition = Position;
 				this.Position = newPos;
 				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
-				_simulation.ClearFogOfWar(this);
+				if(_simulation.Players.ContainsKey(this.ObjectID.PlayerID))
+					_simulation.ClearFogOfWar(this);
 
 
 				//set new direction
