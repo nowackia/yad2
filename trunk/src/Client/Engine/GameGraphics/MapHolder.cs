@@ -213,6 +213,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			if (map[x, y] < 1)
 				return -1;
 			int result;
+			int thickThin = (map[x, y] >= 10) ? 10 : 1;
 			int width = map.GetLength(0),
 				height = map.GetLength(1);
 			if (x < 0 || y < 0 || x >= width || y >= height)
@@ -240,15 +241,15 @@ namespace Yad.Engine.GameGraphics.Client {
 			else
 				lower = map[x, y];
 			for (int i = 0; i < frameMap.Length; i++) {
-				if ((result = MatchSpice(frameMap[i], map[x, y], left, right, lower, upper)) >= 0)
+				if ((result = MatchSpice(frameMap[i], map[x, y], left, right, lower, upper, thickThin)) >= 0)
 					return result;
 			}
 			return -1;
 
 		}
 
-		private static short MatchSpice(short[] spiceFrameMap, int center, int left, int right, int lower, int upper) {
-			if ((center>0) == (spiceFrameMap[0]>0) && (left>0) == (spiceFrameMap[1]>0) && (right>0) == (spiceFrameMap[2]>0) && (upper>0) == (spiceFrameMap[3]>0) && (lower>0) == (spiceFrameMap[4]>0))
+		private static short MatchSpice(short[] spiceFrameMap, int center, int left, int right, int lower, int upper, int thickThin) {
+			if ((center>=thickThin) == (spiceFrameMap[0]>0) && (left>=thickThin) == (spiceFrameMap[1]>0) && (right>=thickThin) == (spiceFrameMap[2]>0) && (upper>=thickThin) == (spiceFrameMap[3]>0) && (lower>=thickThin) == (spiceFrameMap[4]>0))
 				return spiceFrameMap[5];
 			return -1;
 		}
