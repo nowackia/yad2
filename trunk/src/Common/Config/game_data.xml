@@ -50,7 +50,7 @@
 		        <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 		        <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 		        <tns:Health>90</tns:Health>
-			<tns:ViewRange>5</tns:ViewRange>
+			<tns:ViewRange>8</tns:ViewRange>
 			<tns:BuildSpeed>40</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
@@ -239,12 +239,14 @@
 	<tns:UnitSandwormsData>
 		<tns:UnitSandwormData>
 			<tns:Name>Sandworm</tns:Name>
-			<tns:Speed>8</tns:Speed>
-			<tns:Health>1000</tns:Health>
+			<tns:Speed>20</tns:Speed>
+			<tns:Health>10000</tns:Health>
 			<tns:FirePower>10000</tns:FirePower>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>0</tns:RotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:ViewRange>30</tns:ViewRange>
+			<tns:ReloadTime>20</tns:ReloadTime>
 		</tns:UnitSandwormData>
 	</tns:UnitSandwormsData>
 	<tns:BuildingsData>

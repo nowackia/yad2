@@ -12,29 +12,29 @@
 			<element name="Speed" type="short" />
 			<element name="ReloadTime" type="short" />
 			<element name="AmmoType" type="string" />
-      <element name="AmmoDamageRange" type="short" />
-      <element name="DamageDestroyRange" type="short" />
-      <element name="Health" type="short" />
-      <element name="ViewRange" type="short" />
-      <element name="BuildSpeed" type="short" />
-      <element name="DamageDestroy" type="short" />
-      <element name="RotationSpeed" type="short" />
-      <element name="Size" type="float" />
-    </sequence>
-  </complexType>
-  <complexType name="UnitTankData">
-    <sequence maxOccurs="1" minOccurs="1">
-      <element name="TypeID" type="short" minOccurs="0" maxOccurs="1" />
-      <element name="TypeKind" type="short" minOccurs="0" maxOccurs="1" />
-      <element name="Name" type="string" />
-      <element name="Cost" type="short" />
-      <element name="FireRange" type="short" />
-      <element name="FirePower" type="short" />
-      <element name="Speed" type="short" />
-      <element name="ReloadTime" type="short" />
-      <element name="AmmoType" type="string" />
-      <element name="AmmoDamageRange" type="short" />
-      <element name="DamageDestroyRange" type="short" />
+			<element name="AmmoDamageRange" type="short" />
+			<element name="DamageDestroyRange" type="short" />
+			<element name="Health" type="short" />
+			<element name="ViewRange" type="short" />
+			<element name="BuildSpeed" type="short" />
+			<element name="DamageDestroy" type="short" />
+			<element name="RotationSpeed" type="short" />
+			<element name="Size" type="float" />
+		</sequence>
+	</complexType>
+	<complexType name="UnitTankData">
+		<sequence maxOccurs="1" minOccurs="1">
+			<element name="TypeID" type="short" minOccurs="0" maxOccurs="1" />
+			<element name="TypeKind" type="short" minOccurs="0" maxOccurs="1" />
+			<element name="Name" type="string" />
+			<element name="Cost" type="short" />
+			<element name="FireRange" type="short" />
+			<element name="FirePower" type="short" />
+			<element name="Speed" type="short" />
+			<element name="ReloadTime" type="short" />
+			<element name="AmmoType" type="string" />
+			<element name="AmmoDamageRange" type="short" />
+			<element name="DamageDestroyRange" type="short" />
 			<element name="Health" type="short" />
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
@@ -55,7 +55,7 @@
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
 			<element name="DamageDestroy" type="short" />
-      <element name="DamageDestroyRange" type="short" />
+			<element name="DamageDestroyRange" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="Capacity" type="short" />
 			<element name="HarvestingSpeed" type="short" />
@@ -73,7 +73,7 @@
 			<element name="ViewRange" type="short" />
 			<element name="BuildSpeed" type="short" />
 			<element name="DamageDestroy" type="short" />
-      <element name="DamageDestroyRange" type="short" />
+			<element name="DamageDestroyRange" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="BuildingCanProduce" type="string" />
 			<element name="Size" type="float" />
@@ -90,6 +90,8 @@
 			<element name="DamageDestroy" type="short" />
 			<element name="RotationSpeed" type="short" />
 			<element name="Size" type="float" />
+			<element name="ViewRange" type="short" />
+			<element name="ReloadTime" type="short" />
 		</sequence>
 	</complexType>
 	<complexType name="BuildingData">
@@ -104,15 +106,14 @@
 			<element name="EnergyConsumption" type="int" />
 			<element name="TextureSpecialActionFramesCount" type="short" />
 			<element name="TextureAnimationFramesCount" type="short" />
-      <element name="IsRefinery" type="boolean" />
+			<element name="IsRefinery" type="boolean" />
 			<!--  For buildings with firing capability -->
 			<element name="IsTurret" type="boolean" />
 			<element name="FireRange" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<element name="FirePower" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<element name="ReloadTime" type="short" minOccurs="0" maxOccurs="1" default="0" />
-      <element name="AmmoType" type="string" minOccurs="0" maxOccurs="1" default="0"  />
-      <element name="AmmoDamageRange" type="short"  minOccurs="0" maxOccurs="1" default="0" />
-      
+			<element name="AmmoType" type="string" minOccurs="0" maxOccurs="1" default="0" />
+			<element name="AmmoDamageRange" type="short" minOccurs="0" maxOccurs="1" default="0" />
 			<!-- -->
 			<element name="RideableFields" type="tns:RideableFields" minOccurs="0" maxOccurs="1" />
 			<element name="UnitsCanProduce" type="tns:UnitsNames" minOccurs="0" maxOccurs="1" />

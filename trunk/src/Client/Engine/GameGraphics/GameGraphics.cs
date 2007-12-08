@@ -515,6 +515,7 @@ namespace Yad.Engine.Client {
 			foreach (Player p in players) {
 
 				List<Building> buildings = p.GetAllBuildings();
+
 				foreach (Building b in buildings) {
 					DrawBuilding(b);
 				}
@@ -528,9 +529,6 @@ namespace Yad.Engine.Client {
 						case BoardObjectClass.UnitMCV:
 							DrawMCV((UnitMCV)u);
 							break;
-						case BoardObjectClass.UnitSandworm:
-							DrawSandworm((UnitSandworm)u);
-							break;
 						case BoardObjectClass.UnitTank:
 							DrawTank((UnitTank)u);
 							break;
@@ -539,6 +537,9 @@ namespace Yad.Engine.Client {
 							break;
 					}
 				}
+			}
+			foreach(UnitSandworm s in _gameLogic.Simulation.Sandworms.Values){
+				DrawSandworm(s);
 			}
 			#endregion
 
@@ -873,8 +874,8 @@ namespace Yad.Engine.Client {
 			if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
 				return;
 			}
-			float frame = o.RemainingTurnsInMove % 5;
-			RectangleF uv = new RectangleF(0, (frame + 1.0f) * oneFifth, 1, oneFifth);
+			float frame = 0;// o.RemainingTurnsInMove % 5;
+			RectangleF uv = new RectangleF(0, 0, 1, 1);
 			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv);
 		}
 
