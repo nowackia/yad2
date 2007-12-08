@@ -761,9 +761,6 @@
     <Content Include="Resources\Audio\Music\Fight\dune_fight_09.MID">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Audio\Music\Fight\dune_fight_10.MID">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Audio\Music\Lose\dune_lose_01.MID">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
