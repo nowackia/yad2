@@ -52,18 +52,13 @@ namespace Yad.Engine {
 
         public event CreateUnitHandler CreateUnit {
             add {
-                InfoLog.WriteInfo("lock cuLock", EPrefix.LockInfo);
-                lock(cuLock)
-                    _createUnit += value;
-                InfoLog.WriteInfo("release cuLock", EPrefix.LockInfo);
+                _createUnit += value;
             }
             remove {
-                InfoLog.WriteInfo("lock cuLock", EPrefix.LockInfo);
-                lock (cuLock)
-                    _createUnit -= value;
-                InfoLog.WriteInfo("release cuLock", EPrefix.LockInfo);
+                 _createUnit -= value;
             }
         }
+
         public void InitRightStripe() {
             foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys) {
                 BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
@@ -209,11 +204,14 @@ namespace Yad.Engine {
             _rightStripe.SwitchUpdate(_stripData[id], rewind);
         }
         public int RightBuildingClick(int id, bool isUnit) {
-            StripButtonState state = _stripData[_currentObjectID][(short)id].State;
+            int current = -1;
+            lock (this.cObjLock)
+                current = _currentObjectID;
+            StripButtonState state = _stripData[current][(short)id].State;
             switch (state) {
                 case StripButtonState.Active:
                     RightBuildActiveClick(id, isUnit);
-                    return _currentObjectID;
+                    return current;
             }
             return -1;
         }
@@ -363,10 +361,10 @@ namespace Yad.Engine {
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
                         _stripData[id][typeID].Percent = percent;
-                        //InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
                         if (_currentObjectID == id)
                                 _rightStripe.UpdatePercent(typeID, percent);
-                        //InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
                     }
                 }
             }
