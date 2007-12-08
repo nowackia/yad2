@@ -94,13 +94,13 @@ namespace Yad.UI.Client {
             InfoLog.WriteInfo("Left Update percent in BuildStripe");
         }
         public void Update(StripButtonState buildStatus, short type) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             buttons[type].State = buildStatus;
             InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
         }
 
         public void HideButton(int id) {
@@ -126,7 +126,7 @@ namespace Yad.UI.Client {
         }
 
         public void HideAll() {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             
             foreach (int id in buttons.Keys) {
                 if (buttons[id].IsVisible)
@@ -139,7 +139,7 @@ namespace Yad.UI.Client {
             num = 0;*/
              
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout(); 
+            //ResumeFlowLayout(); 
             
             
         }
@@ -377,14 +377,14 @@ namespace Yad.UI.Client {
             if (flowLayoutPanel1.InvokeRequired) {
                 scrollingPanel.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { scrollingPanel, new Size(WIDTH, (num ) * HEIGHT) });
                 flowLayoutPanel1.Invoke(new UpdateControlSize(this.UpdateControlSizeHelper), new object[] { flowLayoutPanel1, new Size(WIDTH, (num ) * HEIGHT) });
-                flowLayoutPanel1.Invoke(new PerformLayoutCallBack(this.PerformLayoutHelper), new object[] { flowLayoutPanel1 });
-                flowLayoutPanel1.Invoke(new RefreshCallback(this.RefreshHelper), new object[] { flowLayoutPanel1 });
+                //flowLayoutPanel1.Invoke(new PerformLayoutCallBack(this.PerformLayoutHelper), new object[] { flowLayoutPanel1 });
+                //flowLayoutPanel1.Invoke(new RefreshCallback(this.RefreshHelper), new object[] { flowLayoutPanel1 });
             }
             else {
                 this.scrollingPanel.Size = new Size(WIDTH, (num)* HEIGHT);
                 this.flowLayoutPanel1.Size = new Size(WIDTH, (num)* HEIGHT);
-                flowLayoutPanel1.PerformLayout();
-                flowLayoutPanel1.Refresh();
+                //flowLayoutPanel1.PerformLayout();
+                //flowLayoutPanel1.Refresh();
             }
            
         }
