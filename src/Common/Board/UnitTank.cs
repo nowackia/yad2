@@ -199,5 +199,16 @@ namespace Yad.Board.Common {
                 AttackRegion(ob);
             }
         }
+
+        protected override bool IsMoveable(short x, short y, Map map)
+        {
+            if (base.IsMoveable(x, y, map))
+            {
+                if (_map.Tiles[x, y] == TileType.Mountain)
+                    return false;
+                return true;
+            }
+            return false;
+        }
 	}
 }

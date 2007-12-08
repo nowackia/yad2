@@ -9,7 +9,7 @@ namespace Yad.AI {
     /// <summary>
     /// Class that represents AStarInput for a trooper unit
     /// </summary>
-    public class TrooperInput : MapInput {
+    /*public class TrooperInput : MapInput {
 
         #region Constructors 
 
@@ -44,5 +44,5 @@ namespace Yad.AI {
         }
 
         #endregion
-    }
+    }*/
 }

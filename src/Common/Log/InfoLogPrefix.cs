@@ -51,6 +51,8 @@ namespace Yad.Log.Common
         GameMessageProccesing,
         [Description(" #DBI: ")]
         DatebaseInfo,
+        [Description(" #A*: ")]
+        AStar,
         [Description(" #LOK: ")]
         LockInfo
 

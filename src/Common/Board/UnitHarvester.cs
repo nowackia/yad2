@@ -57,9 +57,10 @@ namespace Yad.Board.Common {
 
         }
 
-        public override void MoveTo(Position destination) {
-            base.MoveTo(destination);
+        public override bool MoveTo(Position destination) {
+            bool result = base.MoveTo(destination);
             this.harvestingState = HarvestingState.harvesting;
+            return result;
         }
         
 
@@ -347,5 +348,16 @@ namespace Yad.Board.Common {
 		public override float getMaxHealth() {
 			return _harvesterData.Health;
 		}
+
+        protected override bool IsMoveable(short x, short y, Map map)
+        {
+            if (base.IsMoveable(x, y, map))
+            {
+                if (_map.Tiles[x, y] == TileType.Mountain)
+                    return false;
+                return true;
+            }
+            return false;
+        }
 	}
 }

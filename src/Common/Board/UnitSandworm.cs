@@ -30,5 +30,16 @@ namespace Yad.Board.Common {
 		public override float getMaxHealth() {
 			return _sandwormData.Health;
 		}
+
+        protected override bool IsMoveable(short x, short y, Map map)
+        {
+            if (base.IsMoveable(x, y, map))
+            {
+                if (_map.Tiles[x, y] != TileType.Sand)
+                    return false;
+                return true;
+            }
+            return false;
+        }
 	}
 }

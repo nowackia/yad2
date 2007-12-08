@@ -8,13 +8,14 @@ namespace Yad.AI.General {
 
         #region Private Methods 
 
-        private static LinkedList<V> GetPath<V>(AStarNode<V> lastNode) {
-            LinkedList<V> list = new LinkedList<V>();
+        private static Queue<V> GetPath<V>(AStarNode<V> lastNode) {
+            List<V> list = new List<V>();
             do {
-                list.AddFirst(lastNode.Value);
+                list.Add(lastNode.Value);
                 lastNode = lastNode.Parent;
             } while (lastNode != null);
-            return list;
+            list.Reverse();
+            return new Queue<V>(list);
         }
 
         #endregion
@@ -30,7 +31,7 @@ namespace Yad.AI.General {
         /// the last one is the goal position. If there is no path between start
         /// and goal then null is returned. If the maximum search treshold is reached
         /// tle last position is not the goal</returns>
-        public static LinkedList<V> Search<V>(AStarInput<V> input) {
+        public static Queue<V> Search<V>(AStarInput<V> input) {
 
             int max = input.EvalNodesNumber();
             PriorityQueue<AStarNode<V>> open = new PriorityQueue<AStarNode<V>>(max);
@@ -60,14 +61,14 @@ namespace Yad.AI.General {
                             newNode.Hvalue = oldNode.Hvalue;
                             if (openitems.ContainsKey(newNode.Value)) {
                                 open.Change(oldNode, newNode);
-                                openitems.Add(newNode.Value, newNode);
-                                allitems.Add(newNode.Value, newNode);
+                                openitems[newNode.Value] = newNode;
+                                allitems[newNode.Value] = newNode;
                                 continue;
                             }
                             else {
                                 closed.Remove(oldNode);
-                                openitems.Add(newNode.Value, newNode);
-                                allitems.Add(newNode.Value, newNode);
+                                openitems[newNode.Value] = newNode;
+                                allitems[newNode.Value] = newNode;
                                 open.Insert(newNode);
                             }
                         }
@@ -75,8 +76,8 @@ namespace Yad.AI.General {
 
                     }
                     newNode.Hvalue = input.H(newNode.Value);
-                    openitems.Add(newNode.Value, newNode);
-                    allitems.Add(newNode.Value, newNode);
+                    openitems[newNode.Value] = newNode;
+                    allitems[newNode.Value] = newNode;
                     open.Insert(newNode);
                 }
             }

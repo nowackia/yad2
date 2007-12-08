@@ -53,5 +53,10 @@ namespace Yad.Board {
             return new ObjectID(-1,-1);
             
         }
+
+        public override string ToString()
+        {
+            return "(P: " + _playerID + "; ID: " + _objectID + ")";
+        }
 	}
 }
