@@ -6,14 +6,17 @@ using System.Windows.Forms;
 using Yad.Log.Common;
 using Yad.Engine.Common;
 using System.Drawing;
+using Yad.AI;
+using Yad.AI.General;
+using Yad.Algorithms;
 
 namespace Yad.Board.Common {
 	/// <summary>
 	/// base class for all units. must implement ai.
 	/// </summary>
-	public abstract class Unit : BoardObject {
+	public abstract class Unit : BoardObject, IPositionChecker {
 		//common fields for all units - except sandworm
-
+        private MapInput _mapInput;
 		protected short _damageDestroy;
 		protected String _name;
 		protected short _fireRange;
@@ -40,6 +43,11 @@ namespace Yad.Board.Common {
 
         protected BoardObject attackedObject;
         protected bool attackingBuilding; // -- need to proper cast.
+
+        private short MaxTmpDestinationRange = 10;
+        private Position _goal;
+        private Position _tmpGoal;
+
         public enum UnitState {
             moving,
             chasing,
@@ -58,7 +66,8 @@ namespace Yad.Board.Common {
 		protected Map _map;
         protected Simulation _simulation;
 		bool _alreadyOnMap = false;
-		public virtual void Destroy() {
+		
+        public virtual void Destroy() {
             state = UnitState.destroyed;
 			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
             
@@ -233,6 +242,22 @@ namespace Yad.Board.Common {
             return false;
         }
 
+        protected virtual bool IsMoveable(short x, short y, Map map)
+        {
+            if (map.Units[x, y].Count != 0)
+                return false;
+            if (map.Buildings[x, y].Count != 0) {
+                foreach (Building b in map.Buildings[x, y]) {
+                    if (!b.IsPositionRideable(x, y))
+                        return false;
+                }
+                return true;
+            }
+            return true;
+        }
+
+      
+
         private bool FindNearestTargetInFireRange(out BoardObject nearest) {
             int count;
             Position[] viewSpiral = RangeSpiral(this.FireRange, out count);
@@ -375,7 +400,10 @@ namespace Yad.Board.Common {
                 return u.state != UnitState.destroyed;
             }
         }
-
+        private string InfoPrefix()
+        {
+            return "Unit: " + this.ObjectID.ToString() + " :";
+        }
 		public virtual bool Move() {
 			if (!this.Moving) {
 				return false;
@@ -385,9 +413,31 @@ namespace Yad.Board.Common {
 				//unit starts to move
 				//so we set a new position
 				this._remainingTurnsInMove = this._speed;
-
+                //goal reached
+                if (_currentPath.Count == 0) {
+                    if (this.Position.Equals(_goal))
+                    {
+                        InfoLog.WriteInfo(InfoPrefix() + "Reached goal: " + _goal.ToString(), EPrefix.AStar);
+                        return false;
+                    }
+                    else if (this.Position.Equals(_tmpGoal))
+                    {
+                        InfoLog.WriteInfo(InfoPrefix() + "Reached substitute goal: " + _tmpGoal.ToString(), EPrefix.AStar);
+                        if (!MoveTo(_goal))
+                            return false;
+                    }
+                }
 				Position newPos = _currentPath.Dequeue();
+                if (!IsMoveable(newPos.X, newPos.Y, this._map)) {
+                    InfoLog.WriteInfo(InfoPrefix() + "Position: " + newPos.ToString() + "is not moveable", EPrefix.AStar);
+                    if (MoveTo(_goal))
+                        newPos = _currentPath.Dequeue();
+                    else
+                        return false;
+                }
+                InfoLog.WriteInfo(InfoPrefix() + "Moving to position: " + newPos, EPrefix.AStar);
 
+                
 				//TODO: check newPos;
 				/*
 				if ( badPos ) {
@@ -429,6 +479,7 @@ namespace Yad.Board.Common {
 
 		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy)
 			: base(id, boc, pos) {
+
 			this._typeID = typeID;
 			this._map = map;
             this._simulation = sim;
@@ -438,6 +489,8 @@ namespace Yad.Board.Common {
             this._damageDestroy = damageDestroy;
             this.damageDestroyRange = damageDestroyRange;
             this.ammoDamageRange = ammoDamageRange;
+            this._mapInput = new MapInput(sim.Map);
+            this._mapInput.IsMoveable += new MapInput.MoveCheckDelegate(this.IsMoveable);
             
             if(ammo=="Bullet"){
                 this._ammoType = AmmoType.Bullet;
@@ -450,6 +503,8 @@ namespace Yad.Board.Common {
                 this._ammoType = AmmoType.None;
             }
 		}
+
+
 
 		public AmmoType AmmoType {
 			get { return _ammoType; }
@@ -510,12 +565,58 @@ namespace Yad.Board.Common {
 			get { return this._typeID; }
 		}
 
-		public virtual void MoveTo(Position destination) {
-			//we can override old path
-			this._currentPath = FindPath(this.Position, destination, this._map,
-										this._canCrossMountain, this._canCrossBuildings,
-										this._canCrossRock, this._canCrossTrooper, this._canCrossRock);
+		public virtual bool MoveTo(Position destination) {
+            InfoLog.WriteInfo(InfoPrefix() + "Counting path...", EPrefix.AStar);
+            _tmpGoal = Position.Invalid;
+            //czy cel jest zajety
+            if (!IsMoveable(destination.X, destination.Y, _map)) {
+                InfoLog.WriteInfo(InfoPrefix() + "Destination is occupied", EPrefix.AStar);
+                //cel zajety - poszukiwanie celu zastepczego
+                _tmpGoal = UtilsAlgorithm.SurroundSearch(destination, this.MaxTmpDestinationRange, this);
+                //czy znaleziono cel zastepczy
+                if (_tmpGoal.Equals(destination)) {
+                    //nie znaleziono
+                    InfoLog.WriteInfo(InfoPrefix() + "Subsittute destination not found", EPrefix.AStar);
+                    _tmpGoal = Position.Invalid;
+                    _goal = Position.Invalid;
+                    this._currentPath.Clear();
+                    return false;
+                }
+                //znaleziono cel zastpeczy szukana jest sciezka do celu zastepszego
+                this._currentPath = FindPath(this.Position, _tmpGoal, this._map,
+                            this._canCrossMountain, this._canCrossBuildings,
+                            this._canCrossRock, this._canCrossTrooper, this._canCrossRock);
+                //czy znaleziono sciezke
+                if (this._currentPath.Count == 0) {
+                    InfoLog.WriteInfo(InfoPrefix() + "Path to subsittute destination not found", EPrefix.AStar);
+                    //nie znaleziono sciezki
+                    _tmpGoal = Position.Invalid;
+                    _goal = Position.Invalid;
+                    return false;
+                }
+                //znaleziono sciezke - w _tmpGoal cel posredni w _goal bezposredni
+                InfoLog.WriteInfo(InfoPrefix() + "Counted path to substitute goal: (" + _tmpGoal.X + " , " + _tmpGoal.Y + ")", EPrefix.AStar);
+                _goal = destination;
+                state = UnitState.moving;
+                return true;
+            }
+            //cel nie jest zajety, szukana jest bezposrednia sciezka do celu
+            this._currentPath = FindPath(this.Position, destination, this._map,
+                            this._canCrossMountain, this._canCrossBuildings,
+                            this._canCrossRock, this._canCrossTrooper, this._canCrossRock);
+            if (this._currentPath.Count == 0) {
+                //nie znaleziono sciezki
+                _tmpGoal = Position.Invalid;
+                _goal = Position.Invalid;
+                InfoLog.WriteInfo(InfoPrefix() + "Path not found", EPrefix.AStar);
+                return false;
+            }
             state = UnitState.moving;
+            _goal = destination;
+            InfoLog.WriteInfo(InfoPrefix() + "Counted path to goal: (" + _goal.X + " , " + _goal.Y + ")", EPrefix.AStar);
+            return true;
+
+
 			//this._remainingTurnsInMove = this.speed;
 		}
 
@@ -529,15 +630,23 @@ namespace Yad.Board.Common {
 			get { return (this._remainingTurnsInMove != 0) || (this._currentPath.Count != 0); }
 		}
 
-		public static Queue<Position> FindPath(Position source, Position dest, Map map,
+		public Queue<Position> FindPath(Position source, Position dest, Map map,
 												bool canCrossMountain, bool canCrossBuildings,
 												bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
-            Queue<Position> path = Bresenham(ref source, ref dest);
+            //Queue<Position> path = Bresenham(ref source, ref dest);
 
 			//path.Enqueue(dest);
 			//end remove
 
-			return path;
+			//return path;
+                                                    this._mapInput.Start = source;
+                                                    this._mapInput.Goal = dest;
+                                                    Queue<Position> path = AStar.Search<Position>(this._mapInput);
+                                                    if (path == null)
+                                                        path = new Queue<Position>();
+                                                    if (path.Count != 0)
+                                                        path.Dequeue();
+                                                    return path;
 		}
 
         
@@ -608,5 +717,16 @@ namespace Yad.Board.Common {
 			get { return damageDestroyRange; }
 			set { damageDestroyRange = value; }
 		}
+
+        #region IPositionChecker Members
+
+        public bool CheckPosition(short x, short y) {
+            if (x >= 0 && y >= 0 && x < _map.Width && y < _map.Height)
+                return IsMoveable(x, y, _map);
+            return false;
+               
+        }
+
+        #endregion
     }
 }

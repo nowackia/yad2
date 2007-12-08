@@ -20,13 +20,16 @@ using Yad.DataStructures;
 using Yad.AI;
 using Yad.AI.General;
 using Yad.Config.Common;
+using Yad.Algorithms;
+
 
 namespace Tests
 {
-    public partial class TestForm : Form
+    public partial class TestForm : Form, IPositionChecker
     {
         public TestForm()
         {
+            TestAStar();
             InitializeComponent();
             InitFMod();
             LoadSounds();
@@ -59,7 +62,7 @@ namespace Tests
 
         public void TestAStar() {
             Map map = new Map();
-            map.LoadMap(Path.Combine("Resources/Maps", "mala.map"));
+            map.LoadMap(Path.Combine("Resources/Maps", "small.map"));
             Simulation sim = new ClientSimulation(map);
             Unit u = new UnitTrooper(new ObjectID(1, 1), GlobalSettings.Wrapper.Troopers[0], new Position(0, 0), map, sim);
             map.Units[0, 1].AddFirst(u);
@@ -70,10 +73,27 @@ namespace Tests
             map.Units[3, 2].AddFirst(u);
             map.Units[4, 2].AddFirst(u);
             map.Units[3, 3].AddFirst(u);
-            TrooperInput ti = new TrooperInput(new Position(0, 0), new Position(5, 5), 10, map);
-            LinkedList<Position> path = AStar.Search<Position>(ti);
-            if (path.First.Value.X == 0)
+            MapInput mi = new MapInput(map);
+            mi.IsMoveable += new MapInput.MoveCheckDelegate(IsMoveable);
+            mi.Start = new Position(0, 0);
+            mi.Goal = new Position(15, 17);
+            Queue<Position> path = AStar.Search<Position>(mi);
+            if (path.Count != 0)
                 Console.WriteLine("OK");
+        }
+
+        public bool IsMoveable(short x, short y, Map map)
+        {
+            if (map.Units[x, y].Count == 0 && map.Buildings[x, y].Count == 0)
+                return true;
+            return false;
+        }
+
+        public void TestMidpoint(){
+            Position pos = UtilsAlgorithm.SurroundSearch(new Position(0, 0), 5, this);
+            /*List<Position> list1 = Midpoint.MidpointCircle(1);
+            List<Position> list2 = Midpoint.MidpointCircle(2);
+            List<Position> list3 = Midpoint.MidpointCircle(3);*/
         }
 
         public void TestPriorityQueue() {
@@ -314,5 +334,17 @@ namespace Tests
             result = system.playSound(FMOD.CHANNELINDEX.FREE, sounds[1], false, ref channel);
             ERRCHECK(result);
         }
+
+
+
+
+        #region IPositionChecker Members
+
+        bool IPositionChecker.CheckPosition(short x, short y)
+        {
+            return false;
+        }
+
+        #endregion
     }
 }

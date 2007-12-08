@@ -66,7 +66,7 @@ namespace Yad.UI.Client {
 		}
 
         public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             HideAll();
             foreach (short key in statusList.Keys) {
                 buttons[key].State = statusList[key].State;
@@ -77,7 +77,7 @@ namespace Yad.UI.Client {
             if (rewind)
                 ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
 
         }
 
@@ -164,7 +164,7 @@ namespace Yad.UI.Client {
                 flowLayoutPanel1.ResumeLayout();
         }
         public void ShowRange(int[] id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             for (int i = 0; i < id.Length; ++i) {
                 InvokeShow(id[i]);
             }
@@ -177,12 +177,12 @@ namespace Yad.UI.Client {
             
             ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+            //ResumeFlowLayout();
            
             
         }
         public void ShowButton(int id) {
-            SuspendFlowLayout();
+            //SuspendFlowLayout();
             InvokeShow(id);
             /*OwnerDrawPictureButton[] but = new OwnerDrawPictureButton[1];
             but[0] = buttons[id];
@@ -194,7 +194,7 @@ namespace Yad.UI.Client {
             //ShowUpper(int.MaxValue);
             
             UpdateFlowLayoutPanelSize();
-            ResumeFlowLayout();
+           // ResumeFlowLayout();
             
         }
 
