@@ -420,7 +420,7 @@ namespace Yad.Board.Common {
             for (int i = 0; i < BuildingData.RideableFields.Count; ++i) {
                 int fieldNo = BuildingData.RideableFields[i];
                 short fx = ((short)(fieldNo % Width));
-                short fy = ((short)(fieldNo / Height));
+                short fy = ((short)(fieldNo / Width));
                 if ((Position.X + fx) == x && (Position.Y + fy) == y)
                     return true;
             }

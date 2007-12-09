@@ -160,8 +160,14 @@ namespace Yad.Board.Common {
                     if (FindNearestTargetInViewRange(out ob)) {
                         InfoLog.WriteInfo("Unit:AI: stop -> chace ", EPrefix.SimulationInfo);
                         state = UnitState.chasing;
-                        MoveTo(ob.Position);
-                        state = UnitState.chasing;
+                        InfoLog.WriteInfo("Starting chasing:" + ob.Position.ToString(), EPrefix.AStar);
+                        if (MoveTo(ob.Position))
+                            state = UnitState.chasing;
+                        else
+                        {
+                            InfoLog.WriteInfo("Chasing failed!", EPrefix.AStar);
+                            state = UnitState.stopped;
+                        }
                         break;
                     }
                     break;
@@ -402,7 +408,7 @@ namespace Yad.Board.Common {
         }
         private string InfoPrefix()
         {
-            return "Unit: " + this.ObjectID.ToString() + " :";
+            return this._name + " Unit: " + this.ObjectID.ToString() + " :";
         }
 		public virtual bool Move() {
 			if (!this.Moving) {
@@ -653,6 +659,7 @@ namespace Yad.Board.Common {
         
 
 		public void StopMoving() {
+            InfoLog.WriteInfo("Stopped moving: " + this.ObjectID.ToString(),EPrefix.AStar);
 			this._currentPath.Clear();
 		}
 

@@ -334,7 +334,7 @@ namespace Yad.UI.Client {
 
 		/*
 		private void createSandworm() {
-			_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
+			//_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
 		}
 		 */
 

@@ -228,7 +228,9 @@ namespace Yad.Engine.Client {
 
         private Building AddBuilding(short playerID, int creatorID, short buildingType, Position pos) {
             Player p = players[playerID];
-            ObjectID id = new ObjectID(playerID, p.GenerateObjectID());
+            int objid = p.GenerateObjectID();
+            ObjectID id = new ObjectID(playerID, objid);
+            InfoLog.WriteInfo("Adding building id: (" + playerID + "," + id + ")", EPrefix.ClientSimulation);
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingType];
             Building b = new Building(id, bd, this._map, pos, this);
             p.AddBuilding(b);
@@ -255,11 +257,11 @@ namespace Yad.Engine.Client {
                 return;
             }
             this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
-            destroyUnit(mcv);
-            OnUnitDestroyed(mcv);
             Building b = AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
             UpdatePowerManagement(b);
             OnBuildingCompleted(b, -1);
+            destroyUnit(mcv);
+            OnUnitDestroyed(mcv);
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
