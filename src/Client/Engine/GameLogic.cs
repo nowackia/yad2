@@ -51,6 +51,7 @@ namespace Yad.Engine.Client {
 		private Building _selectedBuilding = null;
 		private Dictionary<short, Building> defaultBuildings = new Dictionary<short, Building>();
         private bool _isPaused = false;
+        private string OutpostName = "Radar";
 		#endregion
 
 		#region Constructor
@@ -478,9 +479,14 @@ namespace Yad.Engine.Client {
 		}
 
 		public bool isOutpostOperating() {
-			//TODO: sprawdzić czy jest wybudowany radar i czy zużycie energii jest mniejsze od produkowanej energii
-			return true;
+            return HasOutpost() && CurrentPlayer.Power > Yad.Properties.Client.Settings.Default.PowerLowBorder;
 		}
+
+        private bool HasOutpost()
+        {
+            short type = GlobalSettings.Wrapper.namesToIds[OutpostName];
+            return hasBuilding(type);
+        }
 		#endregion
 
 		/*

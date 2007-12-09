@@ -29,6 +29,9 @@ namespace Tests
     {
         public TestForm()
         {
+            int[] table = new int[] { 1, 2, 3, 9, 8, 7 };
+            string name = table.ToString();
+            Console.Out.Write(name);
             TestAStar();
             InitializeComponent();
             InitFMod();

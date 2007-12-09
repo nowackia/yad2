@@ -66,7 +66,7 @@ namespace Yad.UI.Client {
 		}
 
         public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             HideAll();
             foreach (short key in statusList.Keys) {
                 buttons[key].State = statusList[key].State;
@@ -77,30 +77,30 @@ namespace Yad.UI.Client {
             if (rewind)
                 ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout();
+            ResumeFlowLayout();
 
         }
 
         public void UpdatePercent(short type, int percent) {
             InfoLog.WriteInfo("Enter Update percent in BuildStripe");
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             buttons[type].State = StripButtonState.Percantage;
             buttons[type].Percentage = percent;
             InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout();
+            ResumeFlowLayout();
             InfoLog.WriteInfo("Left Update percent in BuildStripe");
         }
         public void Update(StripButtonState buildStatus, short type) {
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             buttons[type].State = buildStatus;
             InvokeShow(type);
 
             //ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout();
+            ResumeFlowLayout();
         }
 
         public void HideButton(int id) {
@@ -126,7 +126,7 @@ namespace Yad.UI.Client {
         }
 
         public void HideAll() {
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             
             foreach (int id in buttons.Keys) {
                 if (buttons[id].IsVisible)
@@ -139,7 +139,7 @@ namespace Yad.UI.Client {
             num = 0;*/
              
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout(); 
+            ResumeFlowLayout(); 
             
             
         }
@@ -147,7 +147,7 @@ namespace Yad.UI.Client {
         public void SuspendFlowLayout() {
             if (flowLayoutPanel1.InvokeRequired) {
                 bool isSuspend = true;
-                flowLayoutPanel1.Invoke(new SuspendResumeCallBack(this.ResumeSuspendHelper),
+                flowLayoutPanel1.BeginInvoke(new SuspendResumeCallBack(this.ResumeSuspendHelper),
                     new object[] { flowLayoutPanel1, isSuspend });
             }
             else
@@ -157,14 +157,14 @@ namespace Yad.UI.Client {
         public void ResumeFlowLayout() {
             if (flowLayoutPanel1.InvokeRequired) {
                 bool isSuspend = false;
-                flowLayoutPanel1.Invoke(new SuspendResumeCallBack(this.ResumeSuspendHelper),
+                flowLayoutPanel1.BeginInvoke(new SuspendResumeCallBack(this.ResumeSuspendHelper),
                     new object[] { flowLayoutPanel1, isSuspend });
             }
             else
                 flowLayoutPanel1.ResumeLayout();
         }
         public void ShowRange(int[] id) {
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             for (int i = 0; i < id.Length; ++i) {
                 InvokeShow(id[i]);
             }
@@ -177,12 +177,12 @@ namespace Yad.UI.Client {
             
             ShowUpper(int.MaxValue);
             UpdateFlowLayoutPanelSize();
-            //ResumeFlowLayout();
+            ResumeFlowLayout();
            
             
         }
         public void ShowButton(int id) {
-            //SuspendFlowLayout();
+            SuspendFlowLayout();
             InvokeShow(id);
             /*OwnerDrawPictureButton[] but = new OwnerDrawPictureButton[1];
             but[0] = buttons[id];
@@ -194,7 +194,7 @@ namespace Yad.UI.Client {
             //ShowUpper(int.MaxValue);
             
             UpdateFlowLayoutPanelSize();
-           // ResumeFlowLayout();
+            ResumeFlowLayout();
             
         }
 
@@ -206,7 +206,7 @@ namespace Yad.UI.Client {
             if (!buttons[id].IsVisible) {
                 if (buttons[id].InvokeRequired) {
                     bool isHide = false;
-                    buttons[id].Invoke(new ShowHideOwnerDrawButton(ShowHideButtonHelper),
+                    buttons[id].BeginInvoke(new ShowHideOwnerDrawButton(ShowHideButtonHelper),
                         new object[] { buttons[id], isHide });
                 }
                 else {
