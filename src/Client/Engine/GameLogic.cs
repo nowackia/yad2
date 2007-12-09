@@ -476,6 +476,11 @@ namespace Yad.Engine.Client {
 		public bool hasBuilding(short id) {
 			return _buildingCounter.ContainsKey(id);
 		}
+
+		public bool isOutpostOperating() {
+			//TODO: sprawdzić czy jest wybudowany radar i czy zużycie energii jest mniejsze od produkowanej energii
+			return true;
+		}
 		#endregion
 
 		/*
@@ -544,6 +549,7 @@ namespace Yad.Engine.Client {
             Connection.Instance.SendMessage(msgMVC); 
 		}
 
+		/*
 		internal void createUnit(short id, int objectID) {
 			Position p = new Position(0,0);
 			bool found = false;
@@ -585,6 +591,7 @@ namespace Yad.Engine.Client {
 			um.Position = pos;
 			Connection.Instance.SendMessage(um);
 		}
+		 */
 
 
 		/// <summary>

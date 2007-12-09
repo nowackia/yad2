@@ -106,7 +106,7 @@ namespace Yad.UI.Client {
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
                 _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-                _buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+                //_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
                 _gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
 				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
                 _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
@@ -313,12 +313,14 @@ namespace Yad.UI.Client {
 
 		static bool yes = true;
 		private void HandleLeftButtonDown(MouseEventArgs e) {
-			//testowo
 			
-			if(yes ){
-			createSandworm();
-				yes=false;
-			}
+			//testowo
+			//if(yes ){
+			//createSandworm();
+			//	yes=false;
+			//}
+			//
+
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
 			if (this._isCreatingBuilding) {
 				_gameLogic.CreateBuilding(pos, _objectToCreateId, _objectCreatorId);
@@ -330,9 +332,11 @@ namespace Yad.UI.Client {
 			_selectionStart = _selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 		}
 
+		/*
 		private void createSandworm() {
 			_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
 		}
+		 */
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseUp");
@@ -456,12 +460,14 @@ namespace Yad.UI.Client {
 			//ShowPossibilitiesForBuilding(id);
 		}
 
+		/*
 		private void PlaceUnit(int objectID, short id) {
 			//create or let user choose where to place unit?
 			//this.isCreatingUnit = true;
 			_gameLogic.createUnit(id, objectID);
 			//_objectToCreateId = id;
 		}
+		 */
 
         private void PlaceBuilding(short id, int creatorID) {
             _objectToCreateId = id;

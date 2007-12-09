@@ -66,6 +66,10 @@ namespace Yad.Engine.Common
         /// </summary>
         /// 
         Object idLock = new Object();
+		/// <summary>
+		/// NIE UZYWAC POZA KLAS¥ SIMULATION/CLIENTSIMULATION!!!
+		/// </summary>
+		/// <returns></returns>
         public int GenerateObjectID()
         {
             return ++_objectID;
