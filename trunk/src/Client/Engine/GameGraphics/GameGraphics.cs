@@ -184,7 +184,7 @@ namespace Yad.Engine.Client {
 			minimumZoom = Math.Max(minimumZoom, 16f);
 
 			UpdateZoom();
-			UpdateClip();
+			//UpdateClip();
 		}
 
 		private static void UpdateZoom() {
@@ -212,7 +212,7 @@ namespace Yad.Engine.Client {
 			Gl.glLoadIdentity();
 		}
 
-		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
+		private static void DrawElementFromLeftBottom(float x, float y, float z, float width, float height, int texture, RectangleF uv, bool useOffset) {
 			//Gl.glPushMatrix();
 			//Gl.glTranslatef(x + moveX, y + moveY, 0);
 
@@ -226,18 +226,33 @@ namespace Yad.Engine.Client {
 			vertexData.uv[4] = uv.Right; vertexData.uv[5] = uv.Top;
 			vertexData.uv[6] = uv.Left; vertexData.uv[7] = uv.Top;
 
-			vertexData.vertex[0] = x - offset.X;
-			vertexData.vertex[1] = y - offset.Y;
+			vertexData.vertex[0] = x;
+			vertexData.vertex[1] = y;
 			vertexData.vertex[2] = z;
-			vertexData.vertex[3] = x + width - offset.X;
-			vertexData.vertex[4] = y - offset.Y;
+			vertexData.vertex[3] = x + width;
+			vertexData.vertex[4] = y;
 			vertexData.vertex[5] = z;
-			vertexData.vertex[6] = x + width - offset.X;
-			vertexData.vertex[7] = y + height - offset.Y;
+			vertexData.vertex[6] = x + width;
+			vertexData.vertex[7] = y + height;
 			vertexData.vertex[8] = z;
-			vertexData.vertex[9] = x - offset.X;
-			vertexData.vertex[10] = y + height - offset.Y;
+			vertexData.vertex[9] = x;
+			vertexData.vertex[10] = y + height;
 			vertexData.vertex[11] = z;
+
+			if (useOffset) {
+				vertexData.vertex[0] -= offset.X;
+				vertexData.vertex[1] -= offset.Y;
+				//vertexData.vertex[2] = z;
+				vertexData.vertex[3] -= offset.X;
+				vertexData.vertex[4] -= offset.Y;
+				//vertexData.vertex[5] = z;
+				vertexData.vertex[6] -= offset.X;
+				vertexData.vertex[7] -= offset.Y;
+				//vertexData.vertex[8] = z;
+				vertexData.vertex[9] -= offset.X;
+				vertexData.vertex[10] -= offset.Y;
+				//vertexData.vertex[11] = z;
+			}
 
 			if (Settings.Default.UseSafeRendering) {
 				Gl.glBegin(Gl.GL_TRIANGLE_FAN);
@@ -254,7 +269,7 @@ namespace Yad.Engine.Client {
 			Gl.glDrawElements(Gl.GL_TRIANGLE_FAN, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
 		}
 
-		private static void DrawElementFromMiddle(float x, float y, float z, float width, float height, int texture, RectangleF uv) {
+		private static void DrawElementFromMiddle(float x, float y, float z, float width, float height, int texture, RectangleF uv, bool useOffset) {
 			float w2 = width / 2.0f;
 			float h2 = height / 2.0f;
 			//Gl.glPushMatrix();
@@ -266,19 +281,33 @@ namespace Yad.Engine.Client {
 			vertexData.uv[4] = uv.Right; vertexData.uv[5] = uv.Top;
 			vertexData.uv[6] = uv.Left; vertexData.uv[7] = uv.Top;
 
-			vertexData.vertex[0] = x + 0.5f - w2 - offset.X;
-			vertexData.vertex[1] = y + 0.5f - h2 - offset.Y;
+			vertexData.vertex[0] = x + 0.5f - w2;
+			vertexData.vertex[1] = y + 0.5f - h2;
 			vertexData.vertex[2] = z;
-			vertexData.vertex[3] = x + 0.5f + w2 - offset.X;
-			vertexData.vertex[4] = y + 0.5f - h2 - offset.Y;
+			vertexData.vertex[3] = x + 0.5f + w2;
+			vertexData.vertex[4] = y + 0.5f - h2;
 			vertexData.vertex[5] = z;
-			vertexData.vertex[6] = x + 0.5f + w2 - offset.X;
-			vertexData.vertex[7] = y + 0.5f + h2 - offset.Y;
+			vertexData.vertex[6] = x + 0.5f + w2;
+			vertexData.vertex[7] = y + 0.5f + h2;
 			vertexData.vertex[8] = z;
-			vertexData.vertex[9] = x + 0.5f - w2 - offset.X;
-			vertexData.vertex[10] = y + 0.5f + h2 - offset.Y;
+			vertexData.vertex[9] = x + 0.5f - w2;
+			vertexData.vertex[10] = y + 0.5f + h2;
 			vertexData.vertex[11] = z;
 
+			if (useOffset) {
+				vertexData.vertex[0] -= offset.X;
+				vertexData.vertex[1] -= offset.Y;
+				//vertexData.vertex[2] = z;
+				vertexData.vertex[3] -= offset.X;
+				vertexData.vertex[4] -= offset.Y;
+				//vertexData.vertex[5] = z;
+				vertexData.vertex[6] -= offset.X;
+				vertexData.vertex[7] -= offset.Y;
+				//vertexData.vertex[8] = z;
+				vertexData.vertex[9] -= offset.X;
+				vertexData.vertex[10] -= offset.Y;
+				//vertexData.vertex[11] = z;
+			}
 			if (Settings.Default.UseSafeRendering) {
 				Gl.glBegin(Gl.GL_TRIANGLE_FAN);
 				int i2 = 0, i3 = 0;
@@ -329,6 +358,7 @@ namespace Yad.Engine.Client {
 			//Map
 			_miniMap.MakeCurrent();
 			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));
+
 			_map.MakeCurrent();
 			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));			
 			//Selection rectangle
@@ -466,21 +496,20 @@ namespace Yad.Engine.Client {
 
 		#region drawing
 		public static void Draw() {
-			//Gl.glClearColor(0, 0, 0, 0);
-			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-
-			Gl.glLoadIdentity();
-
 			Map map = _gameLogic.Simulation.Map;
 
-			#region map
-			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
-			#endregion
-
 			_miniMap.MakeCurrent();
-			Gl.glClearColor(0, 1, 0, 1);
-			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV);
+			DrawMinimap();
+
 			_map.MakeCurrent();
+			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+			Gl.glLoadIdentity();
+
+			
+
+			#region map
+			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV, true);
+			#endregion
 
 			#region spice
 			DrawSpice(map);
@@ -580,6 +609,133 @@ namespace Yad.Engine.Client {
 			#endregion
 		}
 
+		private static bool[,] _minimapZBuffer;
+
+		private static void DrawMinimap() {
+			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+			Gl.glLoadIdentity();
+
+			return;
+
+			Map map = _gameLogic.Simulation.Map;
+
+			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, (int)MainTextures.Map, _defaultUV, false);
+
+			//prawdopodobnie szybsze ni¿ tworzenie KOPII list jednostek i budynków i iterowanie po nich (krótsze listy ale z kopiowaniem)
+			bool[,] fow = _gameLogic.CurrentPlayer.FogOfWar;
+
+			Gl.glDisable(Gl.GL_TEXTURE_2D);
+
+			Color color;
+
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					_minimapZBuffer[x, y] = false;
+				}
+			}
+
+			color = Color.Black;
+			Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
+
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					if (fow[x, y]) {
+						DrawRectangle(x, y, _depthFogOfWar, 1, 1, false);
+						_minimapZBuffer[x, y] = true;
+					}
+				}
+			}
+
+			Building b;
+			Unit u;
+
+			for (int x = 0; x < map.Width; x++) {
+				for (int y = 0; y < map.Height; y++) {
+					if (_minimapZBuffer[x,y]) {
+						continue;
+					}
+
+					if (map.Buildings[x, y].Count > 0) {
+						b = map.Buildings[x, y].First.Value;
+						if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+							color = Color.Green;
+						} else {
+							color = Color.Red;
+						}
+						Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
+						DrawRectangle(x, y, _depthBuilding, b.Width, b.Height, false);
+						for (int i = 0; i < b.Width; i++) {
+							for (int j = 0; j < b.Height; j++) {
+								_minimapZBuffer[x + i, y + j] = true;
+							}
+						}
+					} else if (map.Units[x, y].Count > 0) {
+						u = map.Units[x, y].First.Value;
+						if (u.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+							color = Color.Green;
+						} else {
+							color = Color.Red;
+						}
+						Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
+						DrawRectangle(x, y, _depthUnit, 1, 1, false);
+						_minimapZBuffer[x, y] = true;
+					}
+				}
+			}
+
+			Gl.glEnable(Gl.GL_TEXTURE_2D);
+			Gl.glColor3f(1, 1, 1);
+		}
+
+		private static void DrawRectangle(float x, float y, float z, float width, float height, bool useOffset) {
+			vertexData.vertex[0] = x;
+			vertexData.vertex[1] = y;
+			vertexData.vertex[2] = z;
+			vertexData.vertex[3] = x + width;
+			vertexData.vertex[4] = y;
+			vertexData.vertex[5] = z;
+			vertexData.vertex[6] = x + width;
+			vertexData.vertex[7] = y + height;
+			vertexData.vertex[8] = z;
+			vertexData.vertex[9] = x;
+			vertexData.vertex[10] = y + height;
+			vertexData.vertex[11] = z;
+
+			if (useOffset) {
+				vertexData.vertex[0] -= offset.X;
+				vertexData.vertex[1] -= offset.Y;
+				//vertexData.vertex[2] = z;
+				vertexData.vertex[3] -= offset.X;
+				vertexData.vertex[4] -= offset.Y;
+				//vertexData.vertex[5] = z;
+				vertexData.vertex[6] -= offset.X;
+				vertexData.vertex[7] -= offset.Y;
+				//vertexData.vertex[8] = z;
+				vertexData.vertex[9] -= offset.X;
+				vertexData.vertex[10] -= offset.Y;
+				//vertexData.vertex[11] = z;
+			}
+
+			vertexData.uv[0] = 0; vertexData.uv[1] = 0;
+			vertexData.uv[2] = 1; vertexData.uv[3] = 0;
+			vertexData.uv[4] = 1; vertexData.uv[5] = 1;
+			vertexData.uv[6] = 0; vertexData.uv[7] = 1;
+
+			if (Settings.Default.UseSafeRendering) {
+				Gl.glBegin(Gl.GL_QUADS);
+				int i2 = 0, i3 = 0;
+				for (int i = 0; i < 4; i++) {
+					//Gl.glTexCoord2f(vertexData.uv[i2], vertexData.uv[i2 + 1]);
+					Gl.glVertex3f(vertexData.vertex[i3], vertexData.vertex[i3 + 1], vertexData.vertex[i3 + 2]);
+					i2 += 2;
+					i3 += 3;
+				}
+				Gl.glEnd();
+			} else {
+				Gl.glDrawElements(Gl.GL_QUADS, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
+			}			
+		}
+
 		private static void DrawMouseSelection() {
 			if (!_gameForm.IsSelecting) {
 				return;
@@ -603,7 +759,7 @@ namespace Yad.Engine.Client {
 					}
 					int fogIndex = MapTextureGenerator.FindFogFrame(fogOfWar, x, y);
 					RectangleF fowUV = new RectangleF(oneSixteenth * (float)fogIndex + oneSixteenth * oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, oneSixteenth - 2 * oneSixteenth * oneSixteenth, 1 - oneEight);
-					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV);
+					DrawElementFromLeftBottom(x, y, _depthFogOfWar, 1, 1, (int)MainTextures.FogOfWar, fowUV, true);
 				}
 			}
 		}
@@ -617,7 +773,7 @@ namespace Yad.Engine.Client {
 					int index = MapTextureGenerator.FindSpiceFrame(map.Spice, x, y);
 					int texture = (map.Spice[x, y] >= 10) ? (int)MainTextures.ThickSpice : (int)MainTextures.ThinSpice;
 					RectangleF spiceUV = new RectangleF(oneSixteenth * index, 0, oneSixteenth, 1);
-					DrawElementFromLeftBottom(x, y, _depthSpice, 1, 1, texture, spiceUV);
+					DrawElementFromLeftBottom(x, y, _depthSpice, 1, 1, texture, spiceUV, true);
 				}
 			}
 		}
@@ -824,7 +980,7 @@ namespace Yad.Engine.Client {
 				uv.X = 3 * oneFourth;
 			}
 
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 0.5f, 0.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv, true);
 		}
 
 		private static void DrawTank(UnitTank o) {
@@ -835,10 +991,10 @@ namespace Yad.Engine.Client {
 			Direction d = o.Direction;
 			Direction t = o.TurretDirection;
 			RectangleF uvBase = VehicleUVChooser(d);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase, true);
 
 			RectangleF uvTurret = VehicleUVChooser(t);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret, true);
 		}
 
 		private static RectangleF VehicleUVChooser(Direction d) {
@@ -876,7 +1032,7 @@ namespace Yad.Engine.Client {
 			}
 			float frame = 0;// o.RemainingTurnsInMove % 5;
 			RectangleF uv = new RectangleF(0, 0, 1, 1);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv);
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv, true);
 		}
 
 		private static void DrawMCV(UnitMCV o) {
@@ -887,7 +1043,7 @@ namespace Yad.Engine.Client {
 			Direction d = o.Direction;
 
 			RectangleF uv = VehicleUVChooser(d);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv, true);
 		}
 
 		private static void DrawHarvester(UnitHarvester o) {
@@ -897,7 +1053,7 @@ namespace Yad.Engine.Client {
 			}
 			Direction d = o.Direction;
 			RectangleF uv = VehicleUVChooser(d);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, 1.5f, 1.5f, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv, true);
 
 			//TODO: draw sand animation
 		}
@@ -916,7 +1072,7 @@ namespace Yad.Engine.Client {
 				uv = new RectangleF(0, 1.0f / y, 1.0f / x, 1.0f / y);
 			}
 
-			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv);
+			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv, true);
 		}
 
 		private static void DrawBuilding(BuildingData bd, float x, float y, float depth, short playerID) {
@@ -932,9 +1088,11 @@ namespace Yad.Engine.Client {
 				uv = new RectangleF(0, 1.0f / cy, 1.0f / cx, 1.0f / cy);
 			}
 
-			DrawElementFromLeftBottom(x, y, depth, bd.Size.X, bd.Size.Y, bd.TypeID + playerID * _offsetTexture, uv);
+			DrawElementFromLeftBottom(x, y, depth, bd.Size.X, bd.Size.Y, bd.TypeID + playerID * _offsetTexture, uv, true);
 		}
 		#endregion
+
+
 
 		#region public methods
 		public static void InitGL(GameLogic gLogic, GameForm gForm, SimpleOpenGlControl map, SimpleOpenGlControl miniMap) {
@@ -946,9 +1104,57 @@ namespace Yad.Engine.Client {
 
 			//Gl.glEnable(Gl.GL_LINE_SMOOTH);
 
+			vertexData.indices[0] = 0;
+			vertexData.indices[1] = 1;
+			vertexData.indices[2] = 2;
+			vertexData.indices[3] = 3;
+
+			initGLminimap();
+			initGLmap();
+		}
+
+		private static void initGLminimap() {
+			Map map = _gameLogic.Simulation.Map;
+
+			_miniMap.MakeCurrent();
+			_minimapZBuffer = new bool[map.Width, map.Height];
+
 			Gl.glDisable(Gl.GL_LIGHTING);
 
-			
+			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
+			//Gl.glEnable(Gl.GL_BLEND);
+			//Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
+			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
+			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
+			//Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			//Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do
+			Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
+			//Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+
+			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
+			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
+			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
+			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
+
+
+			Gl.glViewport(0, 0, _miniMap.Width, _miniMap.Height);
+
+			Gl.glMatrixMode(Gl.GL_PROJECTION);
+			Gl.glLoadIdentity();
+			Gl.glOrtho(0, map.Width, 0, map.Height, -1, 1);
+			Gl.glMatrixMode(Gl.GL_MODELVIEW);
+			Gl.glLoadIdentity();
+		}
+
+		private static void initGLmap() {
+			_map.MakeCurrent();
+			setGLparams();
+			UpdateViewport();
+		}
+
+		private static void setGLparams() {
+			Gl.glDisable(Gl.GL_LIGHTING);
+
 			Gl.glEnable(Gl.GL_TEXTURE_2D);                                      // Enable Texture Mapping
 			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
@@ -959,19 +1165,10 @@ namespace Yad.Engine.Client {
 			Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 
-			vertexData.indices[0] = 0;
-			vertexData.indices[1] = 1;
-			vertexData.indices[2] = 2;
-			vertexData.indices[3] = 3;
-
 			Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, vertexData.vertex);
 			Gl.glTexCoordPointer(2, Gl.GL_FLOAT, 0, vertexData.uv);
 			Gl.glEnable(Gl.GL_VERTEX_ARRAY);
 			Gl.glEnable(Gl.GL_TEXTURE_COORD_ARRAY);
-
-			UpdateViewport();
-
-			//MessageBoxEx.Show(this, Gl.glGetString(Gl.GL_VERSION));
 		}
 
 		public static void Zoom(int zoomDiff) {
