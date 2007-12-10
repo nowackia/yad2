@@ -105,7 +105,7 @@ namespace Yad.AI {
         /// </summary>
         /// <returns>Propable number of nodes to consider</returns>
         public override int EvalNodesNumber() {
-            return _map.Width * _map.Height;
+            return Math.Abs(base.Start.X - base.Goal.X) + Math.Abs(base.Start.Y - base.Goal.Y);
         }
 
         /// <summary>
