@@ -43,7 +43,7 @@ namespace Yad.UI.Client
         private void InitializeComponent()
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
-			this.openGLView = new Tao.Platform.Windows.SimpleOpenGlControl();
+			this.mapView = new Tao.Platform.Windows.SimpleOpenGlControl();
 			this.panelUITop_E = new System.Windows.Forms.Panel();
 			this.panelUITop_W = new System.Windows.Forms.Panel();
 			this.panelUIControl = new System.Windows.Forms.Panel();
@@ -69,29 +69,29 @@ namespace Yad.UI.Client
 			// 
 			// openGLView
 			// 
-			this.openGLView.AccumBits = ((byte)(0));
-			this.openGLView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.mapView.AccumBits = ((byte)(0));
+			this.mapView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.openGLView.AutoCheckErrors = false;
-			this.openGLView.AutoFinish = false;
-			this.openGLView.AutoMakeCurrent = false;
-			this.openGLView.AutoSwapBuffers = true;
-			this.openGLView.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-			this.openGLView.BackColor = System.Drawing.Color.Black;
-			this.openGLView.ColorBits = ((byte)(32));
-			this.openGLView.DepthBits = ((byte)(32));
-			this.openGLView.Location = new System.Drawing.Point(0, 64);
-			this.openGLView.Name = "openGLView";
-			this.openGLView.Size = new System.Drawing.Size(641, 565);
-			this.openGLView.StencilBits = ((byte)(0));
-			this.openGLView.TabIndex = 14;
-			this.openGLView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
-			this.openGLView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
-			this.openGLView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
-			this.openGLView.Resize += new System.EventHandler(this.openGLView_Resize);
-			this.openGLView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseUp);
-			this.openGLView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLView_KeyDown);
+			this.mapView.AutoCheckErrors = false;
+			this.mapView.AutoFinish = false;
+			this.mapView.AutoMakeCurrent = false;
+			this.mapView.AutoSwapBuffers = true;
+			this.mapView.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+			this.mapView.BackColor = System.Drawing.Color.Black;
+			this.mapView.ColorBits = ((byte)(32));
+			this.mapView.DepthBits = ((byte)(32));
+			this.mapView.Location = new System.Drawing.Point(0, 64);
+			this.mapView.Name = "openGLView";
+			this.mapView.Size = new System.Drawing.Size(641, 565);
+			this.mapView.StencilBits = ((byte)(0));
+			this.mapView.TabIndex = 14;
+			this.mapView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
+			this.mapView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
+			this.mapView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
+			this.mapView.Resize += new System.EventHandler(this.openGLView_Resize);
+			this.mapView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseUp);
+			this.mapView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLView_KeyDown);
 			// 
 			// panelUITop_E
 			// 
@@ -294,6 +294,8 @@ namespace Yad.UI.Client
 			this.miniMap.Size = new System.Drawing.Size(185, 202);
 			this.miniMap.StencilBits = ((byte)(0));
 			this.miniMap.TabIndex = 0;
+			this.miniMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.miniMap_MouseMove);
+			this.miniMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.miniMap_MouseDown);
 			// 
 			// GameForm
 			// 
@@ -301,7 +303,7 @@ namespace Yad.UI.Client
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(839, 629);
 			this.Controls.Add(this.miniMap);
-			this.Controls.Add(this.openGLView);
+			this.Controls.Add(this.mapView);
 			this.Controls.Add(this.panelUITop_E);
 			this.Controls.Add(this.panelUITop_W);
 			this.Controls.Add(this.panelUIControl);
@@ -342,7 +344,7 @@ namespace Yad.UI.Client
         private System.Windows.Forms.Panel panelUILine_WE1;
         private System.Windows.Forms.Panel panelUILine_WE2;
         private System.Windows.Forms.Panel panelUITop_E;
-        private Tao.Platform.Windows.SimpleOpenGlControl openGLView;
+        private Tao.Platform.Windows.SimpleOpenGlControl mapView;
         private BuildStripe leftStripe;
         private BuildStripe rightStripe;
         private Yad.Engine.Client.CreditsPictureBox creditsPictureBox;

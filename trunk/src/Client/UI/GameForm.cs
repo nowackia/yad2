@@ -38,11 +38,11 @@ namespace Yad.UI.Client {
 		Position _selectionStart;
 		Position _selectionEnd;
 		GameLogic _gameLogic;
-        bool gameFormClose;
-        /// <summary>
-        /// Dictionary of bulding id -> List of items that can be build in that building
-        /// </summary>
-        Dictionary<short, List<short>> dependDic = new Dictionary<short, List<short>>();
+		bool gameFormClose;
+		/// <summary>
+		/// Dictionary of bulding id -> List of items that can be build in that building
+		/// </summary>
+		Dictionary<short, List<short>> dependDic = new Dictionary<short, List<short>>();
 		/// <summary>
 		/// True after player clicks strip
 		/// </summary>
@@ -52,36 +52,36 @@ namespace Yad.UI.Client {
 		/// </summary>
 		private short _objectToCreateId;
 
-        /// <summary>
-        /// Id of building creator
-        /// </summary>
-        private int _objectCreatorId;
+		/// <summary>
+		/// Id of building creator
+		/// </summary>
+		private int _objectCreatorId;
 
-        private BuildManager _buildManager;
+		private BuildManager _buildManager;
 		#endregion
 
 		#region Constructor
 		public GameForm() {
 			try {
-                
+
 				InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 				InitializeComponent();
 
-                /* Play peaceful music */
-                AudioEngine.Instance.Music.PlayNext(MusicType.Peace);
+				/* Play peaceful music */
+				AudioEngine.Instance.Music.PlayNext(MusicType.Peace);
 
-                this.gameFormClose = false;
+				this.gameFormClose = false;
 				this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
-                Connection.Instance.ConnectionLost += new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
+				Connection.Instance.ConnectionLost += new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
 
 				_gameLogic = new GameLogic();
 				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingCreationHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
-                
+
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
@@ -90,13 +90,13 @@ namespace Yad.UI.Client {
 
 				//initializes GameGraphics
 				this.miniMap.InitializeContexts();
-				this.openGLView.InitializeContexts();
-				openGLView.MakeCurrent();
+				this.mapView.InitializeContexts();
+				mapView.MakeCurrent();
 
 				//First: set appropriate properties
 				InfoLog.WriteInfo("MainForm constructor: initializing GameLogic", EPrefix.GameGraphics);
-				GameGraphics.InitGL(_gameLogic, this, openGLView, miniMap);
-				GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+				GameGraphics.InitGL(_gameLogic, this, mapView, miniMap);
+				GameGraphics.SetViewSize(mapView.Width, mapView.Height);
 				InfoLog.WriteInfo("MainForm constructor: initializing Textures", EPrefix.GameGraphics);
 				GameGraphics.InitTextures(_gameLogic.Simulation);
 
@@ -105,31 +105,38 @@ namespace Yad.UI.Client {
 				GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
-                _buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-                //_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
-                _gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
+				_buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
+				//_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+				_gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
 				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
-                _gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
-                _gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
-                _gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
-                _gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
-                _gameLogic.PauseResume += new GameLogic.PauseResumeHandler(this.onPauseResume);
-                
-                
-                GameMessageHandler.Instance.Resume();
+				_gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+				_gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
+				_gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
+				_gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
+				_gameLogic.PauseResume += new GameLogic.PauseResumeHandler(this.onPauseResume);
+				GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
+
+				GameMessageHandler.Instance.Resume();
 
 			} catch (Exception e) {
 				Console.Out.WriteLine(e);
 				MessageBox.Show(e.ToString());
 			}
-        }
+		}
+
+		void Instance_GameInitialization(object sender, GameInitEventArgs e) {
+			//Jeœli nie bêdzie jednostki to siê samo nie wycentruje
+			List<Unit> units = _gameLogic.CurrentPlayer.GetAllUnits();
+			if (units.Count == 0) return;
+			GameGraphics.centerOn(units[0].Position);
+		}
 
 
-        #endregion
+		#endregion
 
 		#region Simulation events handling
 		void Simulation_onTurnEnd() {
-			this.openGLView.Invalidate();
+			this.mapView.Invalidate();
 		}
 
 		void Simulation_OnUnitCompleted(Unit u) {
@@ -141,93 +148,84 @@ namespace Yad.UI.Client {
 			//this.rightStripe.RemovePercentCounter(buildingType);
 			//TODO: add building type, update tech-tree
 			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
-                if (creatorID != -1)
-                    BuildEndStripViewUpdate(creatorID);
+				if (creatorID != -1)
+					BuildEndStripViewUpdate(creatorID);
 				AddBuildingToStripe(b.ObjectID, b.TypeID);
 			}
 		}
 
-        void ConnectionInstance_ConnectionLost(object sender, EventArgs e)
-        {
-            AudioEngine.Instance.Music.Stop();
-            GameFormClose = true;
-            if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
-            else this.Close();
-        }
+		void ConnectionInstance_ConnectionLost(object sender, EventArgs e) {
+			AudioEngine.Instance.Music.Stop();
+			GameFormClose = true;
+			if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
+			else this.Close();
+		}
 
-        void Simulation_GameEnd(int winTeamId)
-        {
-            InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
+		void Simulation_GameEnd(int winTeamId) {
+			InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
 
-            bool isWinner = false;
-            if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
-                isWinner = true;
+			bool isWinner = false;
+			if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
+				isWinner = true;
 
-            /* Playing proper music */
-            if (isWinner)
-            {
-                AudioEngine.Instance.Music.Play(MusicType.Win);
-                AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Win);
-            }
-            else
-            {
-                AudioEngine.Instance.Music.Play(MusicType.Lose);
-                AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Lose);
-            }
+			/* Playing proper music */
+			if (isWinner) {
+				AudioEngine.Instance.Music.Play(MusicType.Win);
+				AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Win);
+			} else {
+				AudioEngine.Instance.Music.Play(MusicType.Lose);
+				AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Lose);
+			}
 
-            /* Sending message to server */
-            GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
-            gameEndMessage.HasWon = isWinner;
+			/* Sending message to server */
+			GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
+			gameEndMessage.HasWon = isWinner;
 
-            /* Managing the UI */
-            MainMenuForm mainMenuForm = FormPool.GetForm(Views.MainMenuForm) as MainMenuForm;
-            if (mainMenuForm != null)
-                mainMenuForm.MenuMessageHandler.Suspend();
+			/* Managing the UI */
+			MainMenuForm mainMenuForm = FormPool.GetForm(Views.MainMenuForm) as MainMenuForm;
+			if (mainMenuForm != null)
+				mainMenuForm.MenuMessageHandler.Suspend();
 
-            Connection.Instance.MessageHandler = mainMenuForm.MenuMessageHandler;
-            Connection.Instance.SendMessage(gameEndMessage);
+			Connection.Instance.MessageHandler = mainMenuForm.MenuMessageHandler;
+			Connection.Instance.SendMessage(gameEndMessage);
 
-            MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            /* Stop playing music */
-            AudioEngine.Instance.Music.Stop();
+			MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			/* Stop playing music */
+			AudioEngine.Instance.Music.Stop();
 
-            this.GameFormClose = true;
-            if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
-            else this.Close();
+			this.GameFormClose = true;
+			if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
+			else this.Close();
 
-            OnMenuOptionChange(MenuOption.GameFormToChat);
+			OnMenuOptionChange(MenuOption.GameFormToChat);
 
-            if (mainMenuForm != null)
-                mainMenuForm.MenuMessageHandler.Resume();
+			if (mainMenuForm != null)
+				mainMenuForm.MenuMessageHandler.Resume();
 
-            _gameLogic.Simulation.AbortSimulation();
-        }
+			_gameLogic.Simulation.AbortSimulation();
+		}
 
-        void Simulation_BuildingDestroyed(Building b)
-        {
-            if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id)
-                _buildManager.RemoveBuilding(b.ObjectID, b.TypeID);
-        }
+		void Simulation_BuildingDestroyed(Building b) {
+			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id)
+				_buildManager.RemoveBuilding(b.ObjectID, b.TypeID);
+		}
 		#endregion
 
 		#region Form events
-        public bool GameFormClose
-        {
-            get
-            { return gameFormClose; }
-            set
-            { gameFormClose = value; }
-        }
+		public bool GameFormClose {
+			get { return gameFormClose; }
+			set { gameFormClose = value; }
+		}
 
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            e.Cancel = !this.gameFormClose;
+			e.Cancel = !this.gameFormClose;
 		}
 		#endregion
 
 		#region GameGraphics-related
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
-			this.openGLView.Invalidate();
+			this.mapView.Invalidate();
 			this.miniMap.Invalidate();
 		}
 
@@ -236,7 +234,7 @@ namespace Yad.UI.Client {
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
-			GameGraphics.SetViewSize(openGLView.Width, openGLView.Height);
+			GameGraphics.SetViewSize(mapView.Width, mapView.Height);
 		}
 
 
@@ -247,7 +245,7 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo(e.KeyCode.ToString());
 			if (e.KeyCode == Keys.Z) {
 				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
-				this.openGLView.Invalidate();
+				this.mapView.Invalidate();
 			} else if (e.KeyCode == Keys.Q) {
 				GameGraphics.Zoom(-1);
 			} else if (e.KeyCode == Keys.E) {
@@ -291,18 +289,36 @@ namespace Yad.UI.Client {
 		}
 
 		private void HandleRightButtonDown(MouseEventArgs e) {
-			_isCreatingUnit = false;
-            if (_isCreatingBuilding)
-                _buildManager.OnBadLocation(_objectCreatorId);
-			if (_gameLogic.CanGiveOrders()) {
-				BoardObject bo = _gameLogic.SimpleSelectAttack(GameGraphics.TranslateMousePosition(e.Location));
+			Position pos = GameGraphics.TranslateMousePosition(e.Location);
+			if (!_isCreatingBuilding && !_isCreatingUnit) {
+				BoardObject bo = boardObjectAt(pos);
 				if (bo != null) {
 					_gameLogic.AttackOrder(bo);
 				} else {
-					_gameLogic.MoveOrder(GameGraphics.TranslateMousePosition(e.Location));
+					_gameLogic.MoveOrder(pos);
 				}
-
+				return;
 			}
+
+			if (_isCreatingBuilding) {
+				_buildManager.OnBadLocation(_objectCreatorId);
+			}
+
+			_isCreatingUnit = false;
+			_isCreatingBuilding = false;
+		}
+
+		public BoardObject boardObjectAt(Position pos) {
+			LinkedList<Unit> unitsOnPos = _gameLogic.Simulation.Map.Units[pos.X, pos.Y];
+			if (unitsOnPos.Count != 0) {
+				return unitsOnPos.First.Value;
+			}
+
+			LinkedList<Building> buildingOnPos = _gameLogic.Simulation.Map.Buildings[pos.X, pos.Y];
+			if (buildingOnPos.Count != 0) {
+				return buildingOnPos.First.Value;
+			}
+			return null;
 		}
 
 		private void HandleMiddleButtonDown(MouseEventArgs e) {
@@ -313,7 +329,7 @@ namespace Yad.UI.Client {
 
 		static bool yes = true;
 		private void HandleLeftButtonDown(MouseEventArgs e) {
-			
+
 			//testowo
 			//if(yes ){
 			//createSandworm();
@@ -383,7 +399,7 @@ namespace Yad.UI.Client {
 				GameGraphics.OffsetY(dy * 0.05f); //opengl uses different coordinate system
 
 				_wasScrolled = true;
-				Cursor.Position = openGLView.PointToScreen(_mousePos);
+				Cursor.Position = mapView.PointToScreen(_mousePos);
 			}
 
 			if (e.Button == MouseButtons.Left) {
@@ -391,71 +407,71 @@ namespace Yad.UI.Client {
 					_selectionStart = GameGraphics.TranslateMousePosition(e.Location);
 					_selecting = true;
 				} else {
+					mapView.Invalidate();
 					_selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 				}
 			}
 		}
 
-        private void pictureButtonOptions_Click(object sender, EventArgs e)
-        {
-            OnMenuOptionChange(MenuOption.Options);
-        }
+		private void pictureButtonOptions_Click(object sender, EventArgs e) {
+			OnMenuOptionChange(MenuOption.Options);
+		}
 
-        private void onPauseResume(bool isPause) {
-            if (isPause)
-                OnMenuOptionChange(MenuOption.Pause);
-            else
-                OnMenuOptionChange(MenuOption.Continue);
-        }
+		private void onPauseResume(bool isPause) {
+			if (isPause)
+				OnMenuOptionChange(MenuOption.Pause);
+			else
+				OnMenuOptionChange(MenuOption.Continue);
+		}
 		#endregion
 
 		#region Stripes-related
-        void UpdateStrip(int playerID, int id, short typeID, int percent) {
-            if (playerID == _gameLogic.CurrentPlayer.Id)
-                _buildManager.UpdateStrip(id, typeID, percent);
-        }
+		void UpdateStrip(int playerID, int id, short typeID, int percent) {
+			if (playerID == _gameLogic.CurrentPlayer.Id)
+				_buildManager.UpdateStrip(id, typeID, percent);
+		}
 		void rightStripe_onUnitChosen(int id, string name) {
 			InfoLog.WriteInfo("rightStripe_onUnitChosen " + id, EPrefix.GameGraphics);
-            int playerCredits = _gameLogic.CurrentPlayer.Credits;
-            int cost = GlobalSettings.GetUnitCost((short)id);
-            if (playerCredits >= cost)
-                _buildManager.RightBuildingClick(id, true);
+			int playerCredits = _gameLogic.CurrentPlayer.Credits;
+			int cost = GlobalSettings.GetUnitCost((short)id);
+			if (playerCredits >= cost)
+				_buildManager.RightBuildingClick(id, true);
 		}
 
 
 
 		void rightStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("rightStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            int playerCredits = _gameLogic.CurrentPlayer.Credits;
-            int cost = GlobalSettings.Wrapper.buildingsMap[(short)id].Cost;
-            if (playerCredits >= cost) {
-                int creator = _buildManager.RightBuildingClick(id, false);
-                if (creator != -1)
-                    PlaceBuilding((short)id, creator);
-            }
+			int playerCredits = _gameLogic.CurrentPlayer.Credits;
+			int cost = GlobalSettings.Wrapper.buildingsMap[(short)id].Cost;
+			if (playerCredits >= cost) {
+				int creator = _buildManager.RightBuildingClick(id, false);
+				if (creator != -1)
+					PlaceBuilding((short)id, creator);
+			}
 		}
 
 		private void UpdateCredits(short idPlayer, int cost) {
-            if (idPlayer == _gameLogic.CurrentPlayer.Id) {
-                creditsPictureBox.Value -= cost;
+			if (idPlayer == _gameLogic.CurrentPlayer.Id) {
+				creditsPictureBox.Value -= cost;
 
-                //strip's update
-                foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
-                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-                foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters)
-                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-                foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs)
-                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-                foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks)
-                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-                foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers)
-                    rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
-            }
+				//strip's update
+				foreach (BuildingData b in GlobalSettings.Wrapper.Buildings)
+					rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+				foreach (UnitHarvesterData b in GlobalSettings.Wrapper.Harvesters)
+					rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+				foreach (UnitMCVData b in GlobalSettings.Wrapper.MCVs)
+					rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+				foreach (UnitTankData b in GlobalSettings.Wrapper.Tanks)
+					rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+				foreach (UnitTrooperData b in GlobalSettings.Wrapper.Troopers)
+					rightStripe.Enabled(b.TypeID, (b.Cost < creditsPictureBox.Value));
+			}
 		}
 
 		void leftStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
-            _buildManager.SwitchCurrentBuilding(id);
+			_buildManager.SwitchCurrentBuilding(id);
 			// show building on rightStripe
 			//ShowPossibilitiesForBuilding(id);
 		}
@@ -469,11 +485,11 @@ namespace Yad.UI.Client {
 		}
 		 */
 
-        private void PlaceBuilding(short id, int creatorID) {
-            _objectToCreateId = id;
-            _objectCreatorId = creatorID;
-            this._isCreatingBuilding = true;
-        }
+		private void PlaceBuilding(short id, int creatorID) {
+			_objectToCreateId = id;
+			_objectCreatorId = creatorID;
+			this._isCreatingBuilding = true;
+		}
 		private void PlaceBuilding(short id) {
 			_objectToCreateId = id;
 			this._isCreatingBuilding = true;
@@ -487,66 +503,66 @@ namespace Yad.UI.Client {
 			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);//TODO add picture name to xsd.
 		}
 		*/
-        /* RS
+		/* RS
 		public void AddBuildingToStripe(short id) {
 			String name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-            leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
+			leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
 		}*/
 
-        public void BuildEndStripViewUpdate(int creatorID) {
-            _buildManager.ReadyReset(creatorID);
-        }
-        public void AddBuildingToStripe(ObjectID objectid, short typeId) {
-            _buildManager.AddBuilding(objectid, typeId);
-            //string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-            //leftStripe.Add(id, name, name, true);
-        }
+		public void BuildEndStripViewUpdate(int creatorID) {
+			_buildManager.ReadyReset(creatorID);
+		}
+		public void AddBuildingToStripe(ObjectID objectid, short typeId) {
+			_buildManager.AddBuilding(objectid, typeId);
+			//string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+			//leftStripe.Add(id, name, name, true);
+		}
 
-        Dictionary<short, OwnerDrawPictureButton> stripLeftItems = new Dictionary<short, OwnerDrawPictureButton>();
-        /*public void CreateBuildingButtonsOnStripe() {
-            foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys){
-                List<short> dep = new List<short>();
-                string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-                //leftStripe.Add(id, name, name, true);
-                BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
-                foreach (String bname in bdata.BuildingsCanProduce) {
-                    short idb = GlobalSettings.Wrapper.namesToIds[bname];
-                    ObjectID obid = new ObjectID();
-                    obid.ObjectId = -1;
-                    rightStripe.Add(idb, obid, bname, bname, true);
-                    dep.Add(idb);
+		Dictionary<short, OwnerDrawPictureButton> stripLeftItems = new Dictionary<short, OwnerDrawPictureButton>();
+		/*public void CreateBuildingButtonsOnStripe() {
+			foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys){
+				List<short> dep = new List<short>();
+				string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+				//leftStripe.Add(id, name, name, true);
+				BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
+				foreach (String bname in bdata.BuildingsCanProduce) {
+					short idb = GlobalSettings.Wrapper.namesToIds[bname];
+					ObjectID obid = new ObjectID();
+					obid.ObjectId = -1;
+					rightStripe.Add(idb, obid, bname, bname, true);
+					dep.Add(idb);
                     
-                }
-                foreach (String uname in bdata.UnitsCanProduce) {
-                    short idu = GlobalSettings.Wrapper.namesToIds[uname];
-                    ObjectID obid = new ObjectID();
-                    obid.ObjectId = -1;
-                    rightStripe.Add(idu, obid, uname, uname, false);
-                    dep.Add(idu);
-                }
-                dependDic.Add(id, dep);
-            }
-            //leftStripe.HideAll();
-            rightStripe.HideAll();
-         
-        }*/
-        /*public void ShowPossibilitiesForBuilding(short idB) {
+				}
+				foreach (String uname in bdata.UnitsCanProduce) {
+					short idu = GlobalSettings.Wrapper.namesToIds[uname];
+					ObjectID obid = new ObjectID();
+					obid.ObjectId = -1;
+					rightStripe.Add(idu, obid, uname, uname, false);
+					dep.Add(idu);
+				}
+				dependDic.Add(id, dep);
+			}
+			//leftStripe.HideAll();
 			rightStripe.HideAll();
-            List<short> itemsToShow = new List<short>();
-
-            foreach (short id in dependDic[idB]) {
-                if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
-                    string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-                    if (CheckDependencies(name))
-                        itemsToShow.Add(id);
-                }
-                else
-                    itemsToShow.Add(id);
-                    
-            }
-            rightStripe.ShowRange(itemsToShow.ToArray());
+         
 		}*/
-        /*
+		/*public void ShowPossibilitiesForBuilding(short idB) {
+			rightStripe.HideAll();
+			List<short> itemsToShow = new List<short>();
+
+			foreach (short id in dependDic[idB]) {
+				if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
+					string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
+					if (CheckDependencies(name))
+						itemsToShow.Add(id);
+				}
+				else
+					itemsToShow.Add(id);
+                    
+			}
+			rightStripe.ShowRange(itemsToShow.ToArray());
+		}*/
+		/*
 		public void ShowPossibilitiesForBuilding(short idB) {
 			rightStripe.RemoveAll(); // flush the stripe
 
@@ -611,10 +627,44 @@ namespace Yad.UI.Client {
 			get { return _objectToCreateId; }
 		}
 
-		public Point MousePositionInOpenGL() {
-			return openGLView.PointToClient(Cursor.Position);
+		public Point getMousePositionInMapView() {
+			return mapView.PointToClient(Cursor.Position);
 		}
 
 		#endregion
+
+		private void miniMap_MouseDown(object sender, MouseEventArgs e) {
+			InfoLog.WriteInfo("miniMap MouseDown");
+
+			switch (e.Button) {
+				case MouseButtons.Left:
+					HandleMiniMapLeftButtonDown(e);
+					break;
+				case MouseButtons.Right:
+					HandleMiniMapRightButtonDown(e);
+					break;
+				case MouseButtons.XButton1:
+				case MouseButtons.XButton2:
+				case MouseButtons.None:
+				default:
+					break;
+			}
+		}
+
+		private void HandleMiniMapRightButtonDown(MouseEventArgs e) {
+			
+		}
+
+		private void HandleMiniMapLeftButtonDown(MouseEventArgs e) {
+			GameGraphics.centerOn(GameGraphics.TranslateMinimapMousePosition(e.Location));
+		}
+
+		private void miniMap_MouseMove(object sender, MouseEventArgs e) {
+			if (e.Button == MouseButtons.Left) {
+				Position p = GameGraphics.TranslateMinimapMousePosition(e.Location);
+				GameGraphics.centerOn(p);
+				Console.Out.WriteLine(e.Location + " -> " + p);
+			}
+		}
 	}
 }

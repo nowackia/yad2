@@ -244,21 +244,6 @@ namespace Yad.Engine.Client {
 			return false;
 		}
 
-        public BoardObject SimpleSelectAttack(Position pos) {
-            
-            
-            LinkedList<Unit> unitsOnPos = _sim.Map.Units[pos.X, pos.Y];
-            if (unitsOnPos.Count != 0) {
-                return unitsOnPos.First.Value;
-            }
-
-            LinkedList<Building> buildingOnPos = _sim.Map.Buildings[pos.X, pos.Y];
-            if (buildingOnPos.Count != 0) {
-                return buildingOnPos.First.Value;
-            }
-            return null;
-        }
-
 		public bool Select(Position a, Position b) {
 			_selectedUnits.Clear();
 			_selectedBuilding = null;
@@ -321,7 +306,9 @@ namespace Yad.Engine.Client {
             }
 
             foreach (Unit u in _selectedUnits) {
-                if (u.ObjectID.PlayerID != CurrentPlayer.Id) continue;
+				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
+					continue;
+				}
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);
                 am.Attacker = u.ObjectID;
                 am.Attacked = attacked.ObjectID;
@@ -338,6 +325,9 @@ namespace Yad.Engine.Client {
 				return;
 			}
 			foreach (Unit u in _selectedUnits) {
+				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
+					continue;
+				}
 				MoveMessage mm = (MoveMessage)MessageFactory.Create(MessageType.Move);
 				mm.IdUnit = u.ObjectID.ObjectId;
 				mm.Destination = newPos;
