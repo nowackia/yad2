@@ -360,7 +360,7 @@ namespace Yad.Engine.Client {
 			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));
 
 			_map.MakeCurrent();
-			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));			
+			Create32bTexture((int)MainTextures.Map, MapTextureGenerator.GenerateBitmap(simulation.Map));
 			//Selection rectangle
 			Bitmap selectionRect = new Bitmap(Path.Combine(Settings.Default.UI, "Selection.png"));
 			Create32bTexture((int)MainTextures.SelectionRectangle, LoadBitmap(selectionRect));
@@ -498,6 +498,7 @@ namespace Yad.Engine.Client {
 		public static void Draw() {
 			Map map = _gameLogic.Simulation.Map;
 
+			
 			_miniMap.MakeCurrent();
 			DrawMinimap();
 
@@ -505,7 +506,7 @@ namespace Yad.Engine.Client {
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 			Gl.glLoadIdentity();
 
-			
+
 
 			#region map
 			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV, true);
@@ -524,17 +525,16 @@ namespace Yad.Engine.Client {
 				short id = _gameForm.CreatingBuildingId;
 				BuildingData bd;
 				if (GlobalSettings.Wrapper.buildingsMap.TryGetValue(id, out bd)) {
-					Position p = TranslateMousePosition(_gameForm.MousePositionInOpenGL());
-                    if (_gameLogic.Simulation.Map.ContainsPosition(p)) {
-                        if (Building.CheckBuildPosition(bd, p, _gameLogic.Simulation.Map, _gameLogic.CurrentPlayer.Id)) {
-                            Gl.glColor4f(0, 1, 0, 0.75f);
-                        }
-                        else {
-                            Gl.glColor4f(1, 0, 0, 0.75f);
-                        }
-                        DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
-                        Gl.glColor4f(1, 1, 1, 1);
-                    }
+					Position p = TranslateMousePosition(_gameForm.getMousePositionInMapView());
+					if (_gameLogic.Simulation.Map.ContainsPosition(p)) {
+						if (Building.CheckBuildPosition(bd, p, _gameLogic.Simulation.Map, _gameLogic.CurrentPlayer.Id)) {
+							Gl.glColor4f(0, 1, 0, 0.75f);
+						} else {
+							Gl.glColor4f(1, 0, 0, 0.75f);
+						}
+						DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
+						Gl.glColor4f(1, 1, 1, 1);
+					}
 				}
 			}
 			#endregion
@@ -567,7 +567,7 @@ namespace Yad.Engine.Client {
 					}
 				}
 			}
-			foreach(UnitSandworm s in _gameLogic.Simulation.Sandworms.Values){
+			foreach (UnitSandworm s in _gameLogic.Simulation.Sandworms.Values) {
 				DrawSandworm(s);
 			}
 			#endregion
@@ -584,8 +584,8 @@ namespace Yad.Engine.Client {
 					continue;
 				}
 				Color playerColor = p.Color;
-				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true, playerColor);
-				DrawHealthBar(realPos.X, realPos.Y, _depthSelection, size, size, u.Health / u.getMaxHealth(), true);
+				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true, true, playerColor);
+				DrawHealthBar(realPos.X - oneSixteenth, realPos.Y - oneSixteenth, _depthSelection, size + oneEight, size + oneEight, u.Health / u.getMaxHealth(), true);
 			}
 
 			Building selB = _gameLogic.SelectedBuilding;
@@ -593,7 +593,7 @@ namespace Yad.Engine.Client {
 				if (NeedsDrawing(selB.Position.X, selB.Position.Y, selB.Width, selB.Height)) {
 					Player p;
 					if (_gameLogic.Simulation.Players.TryGetValue(selB.ObjectID.PlayerID, out p)) {
-						DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false, p.Color);
+						DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false, true, p.Color);
 						DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth(), false);
 					}
 				}
@@ -610,16 +610,21 @@ namespace Yad.Engine.Client {
 		}
 
 		private static bool[,] _minimapZBuffer;
+		private static PointF minimapOffset;
 
 		private static void DrawMinimap() {
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+			if (!_gameLogic.isOutpostOperating()) {
+				return;
+			}
 			Gl.glLoadIdentity();
 
-			return;
+			PointF mainOffset = offset;
+			offset = minimapOffset;
 
 			Map map = _gameLogic.Simulation.Map;
 
-			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, (int)MainTextures.Map, _defaultUV, false);
+			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, (int)MainTextures.Map, _defaultUV, true);
 
 			//prawdopodobnie szybsze ni¿ tworzenie KOPII list jednostek i budynków i iterowanie po nich (krótsze listy ale z kopiowaniem)
 			bool[,] fow = _gameLogic.CurrentPlayer.FogOfWar;
@@ -640,7 +645,7 @@ namespace Yad.Engine.Client {
 			for (int x = 0; x < map.Width; x++) {
 				for (int y = 0; y < map.Height; y++) {
 					if (fow[x, y]) {
-						DrawRectangle(x, y, _depthFogOfWar, 1, 1, false);
+						DrawRectangle(x, y, _depthFogOfWar, 1, 1, true);
 						_minimapZBuffer[x, y] = true;
 					}
 				}
@@ -651,19 +656,19 @@ namespace Yad.Engine.Client {
 
 			for (int x = 0; x < map.Width; x++) {
 				for (int y = 0; y < map.Height; y++) {
-					if (_minimapZBuffer[x,y]) {
+					if (_minimapZBuffer[x, y]) {
 						continue;
 					}
 
 					if (map.Buildings[x, y].Count > 0) {
 						b = map.Buildings[x, y].First.Value;
-						if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
-							color = Color.Green;
-						} else {
-							color = Color.Red;
+						if (b.Position.X < x || b.Position.Y < y) {
+							continue; // znaczy siê, ¿e by³ ju¿ wybudowany
 						}
+						
+						color = _gameLogic.Simulation.Players[b.ObjectID.PlayerID].Color;
 						Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
-						DrawRectangle(x, y, _depthBuilding, b.Width, b.Height, false);
+						DrawRectangle(x, y, _depthBuilding, b.Width, b.Height, true);
 						for (int i = 0; i < b.Width; i++) {
 							for (int j = 0; j < b.Height; j++) {
 								_minimapZBuffer[x + i, y + j] = true;
@@ -671,20 +676,20 @@ namespace Yad.Engine.Client {
 						}
 					} else if (map.Units[x, y].Count > 0) {
 						u = map.Units[x, y].First.Value;
-						if (u.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
-							color = Color.Green;
-						} else {
-							color = Color.Red;
-						}
+						color = _gameLogic.Simulation.Players[u.ObjectID.PlayerID].Color;
 						Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
-						DrawRectangle(x, y, _depthUnit, 1, 1, false);
+						DrawRectangle(x, y, _depthUnit, 1, 1, true);
 						_minimapZBuffer[x, y] = true;
 					}
 				}
 			}
 
+			DrawSelectionRectangle(mainOffset.X, mainOffset.Y, _depthSelection, mapClip.Width, mapClip.Height, true, true, Color.White);
+
 			Gl.glEnable(Gl.GL_TEXTURE_2D);
 			Gl.glColor3f(1, 1, 1);
+
+			offset = mainOffset;
 		}
 
 		private static void DrawRectangle(float x, float y, float z, float width, float height, bool useOffset) {
@@ -733,7 +738,7 @@ namespace Yad.Engine.Client {
 				Gl.glEnd();
 			} else {
 				Gl.glDrawElements(Gl.GL_QUADS, 4, Gl.GL_UNSIGNED_SHORT, vertexData.intPointers[2]);
-			}			
+			}
 		}
 
 		private static void DrawMouseSelection() {
@@ -746,11 +751,11 @@ namespace Yad.Engine.Client {
 			short xMax = Math.Max(start.X, end.X);
 			short yMin = Math.Min(start.Y, end.Y);
 			short yMax = Math.Max(start.Y, end.Y);
-			DrawSelectionRectangle(xMin, yMin, _depthMouseSelection, xMax - xMin + 1, yMax - yMin + 1, false, _gameLogic.CurrentPlayer.Color);
+			DrawSelectionRectangle(xMin, yMin, _depthMouseSelection, xMax - xMin + 1, yMax - yMin + 1, false, true, _gameLogic.CurrentPlayer.Color);
 		}
 
 		private static void DrawFogOfWar() {
-			Player p =_gameLogic.Simulation.Players[_gameLogic.CurrentPlayer.Id];
+			Player p = _gameLogic.Simulation.Players[_gameLogic.CurrentPlayer.Id];
 			bool[,] fogOfWar = p.FogOfWar;
 			for (int x = 0; x < fogOfWar.GetLength(0); x++) {
 				for (int y = 0; y < fogOfWar.GetLength(1); y++) {
@@ -778,44 +783,59 @@ namespace Yad.Engine.Client {
 			}
 		}
 
-		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool forUnit, Color color) {
+		private static void DrawSelectionRectangle(float x, float y, float z, float width, float height, bool fromMiddle, bool useOffset, Color color) {
 
-			if (forUnit) {
+			if (fromMiddle) {
 				float w2 = width / 2.0f;
 				float h2 = height / 2.0f;
 
 				//left bottom
-				vertexData.vertex[0] = x + 0.5f - w2 - offset.X - oneSixteenth;
-				vertexData.vertex[1] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+				vertexData.vertex[0] = x + 0.5f - w2;
+				vertexData.vertex[1] = y + 0.5f - h2;
 				vertexData.vertex[2] = z;
 
 				//right bottom
-				vertexData.vertex[3] = x + 0.5f + w2 - offset.X + oneSixteenth;
-				vertexData.vertex[4] = y + 0.5f - h2 - offset.Y - oneSixteenth;
+				vertexData.vertex[3] = x + 0.5f + w2;
+				vertexData.vertex[4] = y + 0.5f - h2;
 				vertexData.vertex[5] = z;
 
 				//right top
-				vertexData.vertex[6] = x + 0.5f + w2 - offset.X + oneSixteenth;
-				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+				vertexData.vertex[6] = x + 0.5f + w2;
+				vertexData.vertex[7] = y + 0.5f + h2;
 				vertexData.vertex[8] = z;
 
 
-				vertexData.vertex[9] = x + 0.5f - w2 - offset.X - oneSixteenth;
-				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneSixteenth;
+				vertexData.vertex[9] = x + 0.5f - w2;
+				vertexData.vertex[10] = y + 0.5f + h2;
 				vertexData.vertex[11] = z;
 			} else {
-				vertexData.vertex[0] = x - offset.X;
-				vertexData.vertex[1] = y - offset.Y;
+				vertexData.vertex[0] = x;
+				vertexData.vertex[1] = y;
 				vertexData.vertex[2] = z;
-				vertexData.vertex[3] = x + width - offset.X;
-				vertexData.vertex[4] = y - offset.Y;
+				vertexData.vertex[3] = x + width;
+				vertexData.vertex[4] = y;
 				vertexData.vertex[5] = z;
-				vertexData.vertex[6] = x + width - offset.X;
-				vertexData.vertex[7] = y + height - offset.Y;
+				vertexData.vertex[6] = x + width;
+				vertexData.vertex[7] = y + height;
 				vertexData.vertex[8] = z;
-				vertexData.vertex[9] = x - offset.X;
-				vertexData.vertex[10] = y + height - offset.Y;
+				vertexData.vertex[9] = x;
+				vertexData.vertex[10] = y + height;
 				vertexData.vertex[11] = z;
+			}
+
+			if (useOffset) {
+				vertexData.vertex[0] -= offset.X;
+				vertexData.vertex[1] -= offset.Y;
+				//vertexData.vertex[2] = z;
+				vertexData.vertex[3] -= offset.X;
+				vertexData.vertex[4] -= offset.Y;
+				//vertexData.vertex[5] = z;
+				vertexData.vertex[6] -= offset.X;
+				vertexData.vertex[7] -= offset.Y;
+				//vertexData.vertex[8] = z;
+				vertexData.vertex[9] -= offset.X;
+				vertexData.vertex[10] -= offset.Y;
+				//vertexData.vertex[11] = z;
 			}
 
 			vertexData.uv[0] = 0; vertexData.uv[1] = 0;
@@ -827,7 +847,7 @@ namespace Yad.Engine.Client {
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
 			Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);
 
-			Gl.glLineWidth(relativeZoom);
+			//Gl.glLineWidth(relativeZoom);
 
 			if (Settings.Default.UseSafeRendering) {
 				Gl.glBegin(Gl.GL_LINE_LOOP);
@@ -859,7 +879,7 @@ namespace Yad.Engine.Client {
 		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health, bool forUnit) {
 
 			float healthBarWidth = (width + oneFourth) * health;
-			float healthBarWidth2 = healthBarWidth / 2;
+			float healthBarWidth2 = healthBarWidth / 2.0f;
 			float h2 = height / 2.0f;
 
 			if (forUnit) {
@@ -1141,7 +1161,11 @@ namespace Yad.Engine.Client {
 
 			Gl.glMatrixMode(Gl.GL_PROJECTION);
 			Gl.glLoadIdentity();
-			Gl.glOrtho(0, map.Width, 0, map.Height, -1, 1);
+
+			float maxDim = Math.Max(map.Width, map.Height);
+			Gl.glOrtho(-maxDim / 2.0f, maxDim / 2.0f, -maxDim / 2.0f, maxDim / 2.0f, -1, 1);
+			minimapOffset = new PointF(map.Width / 2.0f, map.Height / 2.0f);
+
 			Gl.glMatrixMode(Gl.GL_MODELVIEW);
 			Gl.glLoadIdentity();
 		}
@@ -1216,6 +1240,35 @@ namespace Yad.Engine.Client {
 			(short)(((float)p.X) / zoom + offset.X + mapClip.X),
 			(short)(((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));
 			return pn;
+		}
+
+		public static Position TranslateMinimapMousePosition(Point p) {
+			Map m = _gameLogic.Simulation.Map;
+			float maxDim = Math.Max(m.Width, m.Height);
+			float zoom = ((float)maxDim) / (float)_miniMap.Width;
+			Position pn = new Position(
+			(short)(((float)p.X) * zoom - maxDim / 2.0f),
+			(short)(((float)(_miniMap.Height - p.Y - 1)) * zoom - maxDim / 2.0f));
+			return pn;
+
+			/*
+			float xRatio = ((float)p.X) / (float)_miniMap.Width;
+			float yRatio = 1.0f - ((float)p.Y) / (float)_miniMap.Height;
+			int x = (int)(xRatio * maxDim - (maxDim / 2.0f));
+			int y = (int)(yRatio * maxDim - (maxDim / 2.0f));
+
+			Position pn = new Position(x, y);
+			return pn;
+			 */
+		}
+
+		public static void centerOn(Position p) {
+			Map m = _gameLogic.Simulation.Map;
+			offset.X = p.X;
+			offset.Y = p.Y;
+
+			UpdateOffsetX();
+			UpdateOffsetY();
 		}
 	}
 }
