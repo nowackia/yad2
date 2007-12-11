@@ -133,11 +133,20 @@ namespace Yad.Engine {
                 return;
             InfoLog.WriteInfo("lock leftState ", EPrefix.LockInfo);
             lock (((ICollection)_leftState).SyncRoot)
+            {
+                if (!_leftState.ContainsKey(id))
+                    return;
                 _leftState[id] = RightStripState.Normal;
+            }
             InfoLog.WriteInfo("release leftState ", EPrefix.LockInfo);
             InfoLog.WriteInfo("lock stripdata ", EPrefix.LockInfo);
+            
             lock (((ICollection)_stripData).SyncRoot)
+            {
+                if (!_stripData.ContainsKey(id))
+                    return;
                 ActivateForObject(id);
+            }
             InfoLog.WriteInfo("release stripdata", EPrefix.LockInfo);
             UpdateView(id, false);
         }
