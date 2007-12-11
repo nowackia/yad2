@@ -295,6 +295,7 @@ namespace Yad.Engine.Client {
             if (_selectedUnits.Count == 0 && _selectedBuilding == null) {
                 return;
             }
+            if (attacked.ObjectID.PlayerID == CurrentPlayer.Id) return;
             if (_selectedBuilding != null) {
                 return;
                 //TODO RS: user can order building to attack?
@@ -309,6 +310,7 @@ namespace Yad.Engine.Client {
 				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
 					continue;
 				}
+                
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);
                 am.Attacker = u.ObjectID;
                 am.Attacked = attacked.ObjectID;
