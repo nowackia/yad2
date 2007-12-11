@@ -46,6 +46,7 @@ namespace Yad.Engine.Client {
 					_depthBuilding = 0.3f,
 					_depthUnit = 0.4f,
 					_depthUnitAddons = 0.5f,
+                    _depthAmmos = 0.55f,
 					_depthSelection = 0.6f,
 					_depthFogOfWar = 0.7f,
 					_depthMouseSelection = 0.8f,
@@ -352,7 +353,7 @@ namespace Yad.Engine.Client {
 
 		#region texture init
 
-		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3, ThinSpice = 4, ThickSpice = 5 }
+		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3, ThinSpice = 4, ThickSpice = 5, Rocket = 6, Bullet = 7, Sonic = 8 }
 
 		public static void InitTextures(Simulation simulation) {
 			//Map
@@ -371,6 +372,15 @@ namespace Yad.Engine.Client {
 			Create32bTexture((int)MainTextures.ThinSpice, LoadBitmap(thinSpice));
 			Bitmap thickSpice = new Bitmap(Path.Combine(Settings.Default.Terrain, "ThickSpice.png"));
 			Create32bTexture((int)MainTextures.ThickSpice, LoadBitmap(thickSpice));
+
+            Bitmap bullet = new Bitmap(Path.Combine(Settings.Default.Bullets, "Medium.png"));
+            Create32bTexture((int)MainTextures.Bullet, LoadBitmap(bullet));
+
+            Bitmap rocket = new Bitmap(Path.Combine(Settings.Default.Bullets, "Rocket.png"));
+            Create32bTexture((int)MainTextures.Rocket, LoadBitmap(rocket));
+
+            Bitmap sonic = new Bitmap(Path.Combine(Settings.Default.Bullets, "Sonic.png"));
+            Create32bTexture((int)MainTextures.Sonic, LoadBitmap(sonic));
 
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
 
@@ -567,9 +577,19 @@ namespace Yad.Engine.Client {
 					}
 				}
 			}
+
+
 			foreach (UnitSandworm s in _gameLogic.Simulation.Sandworms.Values) {
 				DrawSandworm(s);
 			}
+
+            foreach (Player p in players) {
+                List<Ammo> ammos = p.GetAllAmmos();
+                foreach (Ammo a in ammos) {
+                    DrawAmmo(a);
+                }
+
+            }
 			#endregion
 
 			#region selected objects
@@ -608,6 +628,8 @@ namespace Yad.Engine.Client {
 			DrawMouseSelection();
 			#endregion
 		}
+
+        
 
 		private static bool[,] _minimapZBuffer;
 		private static PointF minimapOffset;
@@ -1044,6 +1066,27 @@ namespace Yad.Engine.Client {
 			}
 			return uv;
 		}
+
+        private static void DrawAmmo(Ammo a) {
+            PointF realPos = new PointF(a.Position.X, a.Position.Y);//
+            RectangleF uv = new RectangleF(0, 0, 1, 1);
+            switch (a.Type) {
+                case AmmoType.None:
+                    break;
+                case AmmoType.Bullet:
+                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 0.1f, 0.1f, (int)MainTextures.Bullet, uv, true);
+                    break;
+                case AmmoType.Rocket:
+                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Rocket, uv, true);
+                    break;
+                case AmmoType.Sonic:
+                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Sonic, uv, true);
+                    break;
+                default:
+                    break;
+            }
+            
+        }
 
 		private static void DrawSandworm(UnitSandworm o) {
 			PointF realPos = CountRealPosition(o);

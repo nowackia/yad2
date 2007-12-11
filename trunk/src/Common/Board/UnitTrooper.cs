@@ -10,8 +10,9 @@ namespace Yad.Board.Common {
 		UnitTrooperData _trooperData;
 
 		public UnitTrooper(ObjectID id, UnitTrooperData ud, Position pos, Map map, Simulation sim)
-			: base(id, ud.TypeID,ud.__AmmoType, BoardObjectClass.UnitTrooper, pos, map,sim,ud.__AmmoDamageRange,ud.__DamageDestroyRange,ud.__DamageDestroy) {
-			_trooperData = ud;
+			: base(id, ud.TypeID,ud.__AmmoType, BoardObjectClass.UnitTrooper, pos, map,sim,ud.__AmmoDamageRange,ud.__DamageDestroyRange,ud.__DamageDestroy,2) {
+			//TODO RS: konfiguracja predkosci amunicji
+            _trooperData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
             this._fireRange = ud.FireRange;

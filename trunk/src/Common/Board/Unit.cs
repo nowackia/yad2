@@ -23,6 +23,7 @@ namespace Yad.Board.Common {
         protected short _firePower;
 		protected AmmoType _ammoType;
 		protected short _reloadTime;
+        protected short _ammoSpeed;
 		private short _speed;
 		protected short _maxHealth;
         protected short _currentHealth;
@@ -319,6 +320,14 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         protected void AttackRegion(BoardObject ob) {
             Position s = ob.Position;
+         
+
+            //
+            Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID,_simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
+                this.Position, ob.Position, this.AmmoType, this._ammoSpeed,
+                this._firePower, this.ammoDamageRange, _simulation);
+            this._simulation.AddAmmo(a);
+
             List<BoardObject> objectsInRange = GetObjectsInRange(s);
 
             foreach (BoardObject boardObject in objectsInRange) {
@@ -328,6 +337,7 @@ namespace Yad.Board.Common {
                     _simulation.handleAttackUnit((Unit)boardObject, this);
                 }
             }
+            this._remainingTurnsToReload = this._reloadTime;
         }
 
         private List<BoardObject> GetObjectsInRange(Position p) {
@@ -484,7 +494,7 @@ namespace Yad.Board.Common {
 			return true;
 		}
 
-		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy)
+		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy, short ammoSpeed)
 			: base(id, boc, pos) {
 
 			this._typeID = typeID;
@@ -498,7 +508,7 @@ namespace Yad.Board.Common {
             this.ammoDamageRange = ammoDamageRange;
             this._mapInput = new MapInput(sim.Map);
             this._mapInput.IsMoveable += new MapInput.MoveCheckDelegate(this.IsMoveable);
-            
+            this._ammoSpeed = ammoSpeed;
             if(ammo=="Bullet"){
                 this._ammoType = AmmoType.Bullet;
             }

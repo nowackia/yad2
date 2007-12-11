@@ -29,6 +29,7 @@ namespace Yad.Engine.Common
         //but pretty useful for a turn processing
         private List<Building> _buildings = new List<Building>();
         private List<Unit> _units = new List<Unit>();
+        private List<Ammo> _ammos = new List<Ammo>();
         private int _credits;
         private int _power;
 
@@ -75,6 +76,10 @@ namespace Yad.Engine.Common
             return ++_objectID;
         }
 
+        public void AddAmmo(Ammo a) {
+            _ammos.Add(a);
+        }
+
         public void AddUnit(Unit u)
         {
             _unitsDict.Add(u.ObjectID, u);
@@ -101,6 +106,10 @@ namespace Yad.Engine.Common
             _buildings.Remove(b);
         }
 
+        public void RemoveAmmo(Ammo a) {
+            _ammos.Remove(a);
+        }
+
         public List<Unit> GetAllUnits()
         {
             return new List<Unit>(this._units);
@@ -109,6 +118,10 @@ namespace Yad.Engine.Common
         public List<Building> GetAllBuildings()
         {
             return new List<Building>(this._buildings);
+        }
+
+        public List<Ammo> GetAllAmmos() {
+            return new List<Ammo>(this._ammos);
         }
 
         public Unit GetUnit(ObjectID id)

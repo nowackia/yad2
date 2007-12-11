@@ -175,8 +175,17 @@ namespace Yad.Engine.Common {
 				}
 
 				//process all units & building & animations
+                Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
+                while (playersEnumerator.MoveNext()) {
+                    Player p = playersEnumerator.Current.Value;
+                    List<Ammo> ammos = p.GetAllAmmos();
+                    foreach (Ammo a in ammos) {
+                        a.DoAI();
+                    }
+                }
+                
 
-				Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
+				playersEnumerator = players.GetEnumerator();
 
 
 				while (playersEnumerator.MoveNext()) {
@@ -199,6 +208,8 @@ namespace Yad.Engine.Common {
 						handleUnit(u);
 					}
 				}
+
+
 				//this.fastTurnProcessing = true;
 				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart);
 				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
@@ -280,12 +291,14 @@ namespace Yad.Engine.Common {
         /// <param name="attacked"></param>
         /// <param name="attacker"></param>
         public abstract void handleAttackBuilding(Building attacked, Unit attacker);
+        public abstract void handleAttackBuilding(Building attacked, Ammo attacker);
         public abstract void handleAttackBuilding(Building attacked, Unit attacker, short count);
 
         public abstract void handleAttackBuilding(Building attacked, Building attacker);
         public abstract void handleAttackBuilding(Building attacked, Building attacker, short count);
 
         public abstract void handleAttackUnit(Unit attacked, Building attacker);
+        public abstract void handleAttackUnit(Unit attacked, Ammo attacker);
         public abstract void handleAttackUnit(Unit attacked, Building attacker, short count);
 		#endregion
 
@@ -378,5 +391,12 @@ namespace Yad.Engine.Common {
 
        
 		#endregion
-	}
+
+        public void RemoveAmmo(Ammo ammo) {
+            this.players[ammo.ObjectID.PlayerID].RemoveAmmo(ammo);
+        }
+        public void AddAmmo(Ammo ammo) {
+            this.players[ammo.ObjectID.PlayerID].AddAmmo(ammo);
+        }
+    }
 }

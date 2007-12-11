@@ -419,6 +419,33 @@ namespace Yad.Engine.Client {
 			}
 		}
 
+        public override void handleAttackBuilding(Building attacked, Ammo attacker) {
+            if (attacked.State == Building.BuildingState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= attacker.Damage;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("destroying building ", EPrefix.SimulationInfo);
+                destroyBuilding(attacked);
+                OnBuildingDestroyed(attacked);
+            }
+        }
+
+        public override void handleAttackUnit(Unit attacked, Ammo attacker) {
+            if (attacked.State == Unit.UnitState.destroyed) {
+                // handles stack overflow;P
+                return;
+            }
+            attacked.Health -= attacker.Damage;
+            if (attacked.Health <= 0) {
+                InfoLog.WriteInfo("Destroying unit ", EPrefix.SimulationInfo);
+                destroyUnit(attacked);
+                OnUnitDestroyed(attacked);
+            }
+
+        }
+
 		public override void handleAttackUnit(Unit attacked, Building attacker, short count) {
 			if (attacked.State == Unit.UnitState.destroyed) {
 				// handles stack overflow;P
@@ -565,6 +592,6 @@ namespace Yad.Engine.Client {
                 return GlobalSettings.Wrapper.harvestersMap[type].BuildSpeed;
             return 0;
 
-        }
+        }        
     }
 }

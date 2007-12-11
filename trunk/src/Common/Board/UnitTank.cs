@@ -34,7 +34,7 @@ namespace Yad.Board.Common {
         }
 
 		public UnitTank(ObjectID id, UnitTankData ud, Position pos, Map map, Simulation sim)
-			: base(id, ud.TypeID, ud.__AmmoType, BoardObjectClass.UnitTank, pos, map, sim,ud.__AmmoDamageRange,ud.__DamageDestroyRange,ud.__DamageDestroy) {
+			: base(id, ud.TypeID, ud.__AmmoType, BoardObjectClass.UnitTank, pos, map, sim,ud.__AmmoDamageRange,ud.__DamageDestroyRange,ud.__DamageDestroy,2) {
 			_tankData = ud;
 			this.Speed = ud.Speed;
 			this._viewRange = ud.ViewRange;
