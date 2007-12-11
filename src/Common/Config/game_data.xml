@@ -42,7 +42,7 @@
 		<tns:UnitTankData>
 			<tns:Name>Trike</tns:Name>
 			<tns:Cost>180</tns:Cost>
-			<tns:FireRange>4</tns:FireRange>
+			<tns:FireRange>40</tns:FireRange>
 			<tns:FirePower>7</tns:FirePower>
 			<tns:Speed>5</tns:Speed>
 			<tns:ReloadTime>10</tns:ReloadTime>      
@@ -190,7 +190,7 @@
 			<tns:FirePower>20</tns:FirePower>
 			<tns:Speed>9</tns:Speed>
 			<tns:ReloadTime>10</tns:ReloadTime>
-			<tns:AmmoType>Bullet</tns:AmmoType>
+			<tns:AmmoType>Rocket</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 			<tns:Health>70</tns:Health>

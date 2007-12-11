@@ -128,5 +128,56 @@ namespace Yad.Board.Common {
 			return rangeSpiral;
 		}
 
+        protected int GetAlfa(double x, double y) {
+            if (x == y && x == 0)
+                return 0;// teoretically wont happen
+            double norm = x * x + y * y;
+            norm = Math.Sqrt(norm);
+            x /= norm;
+            y /= norm;
+            double al = Math.Asin(y);
+            al *= 180.0 / Math.PI;
+            if (y >= 0) {
+                //1 | 2 quater
+                if (x >= 0) {
+                    return (int)al % 360;
+                } else {
+                    return 180 - (int)al % 360;
+                }
+            } else {
+                // 3 | 4 quater
+                if (x >= 0) {
+                    return (int)(360 + al) % 360;
+                } else {
+                    return (int)(270 + al) % 360;
+                }
+            }
+
+        }
+
+        protected Direction ConvertToDirection(int number) {
+            switch (number) {
+                case 0:
+                    return Direction.East;
+                case 45:
+                    return Direction.East | Direction.North;
+                case 90:
+                    return Direction.North;
+                case 135:
+                    return Direction.North | Direction.West;
+                case 180:
+                    return Direction.West;
+                case 225:
+                    return Direction.West | Direction.South;
+                case 270:
+                    return Direction.South;
+                case 315:
+                    return Direction.South | Direction.East;
+                default:
+                    return Direction.East; // never happen.
+            }
+
+        }
+
 	}
 }
