@@ -76,7 +76,7 @@ namespace Yad.Board {
         /// for racket - blow
         /// </summary>
         private void DestinationReached() {
-            
+            return;
             switch (ammoType) {
                 case AmmoType.None:
                     break;
