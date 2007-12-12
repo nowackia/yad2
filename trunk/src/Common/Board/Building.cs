@@ -143,22 +143,26 @@ namespace Yad.Board.Common {
                     this.state = BuildingState.normal;
                 }
             }
+            if (this.State == BuildingState.normal)
+            {
+                if (this.BuildingData.FirePower == 0) return;
+                if (roundToReload > 0)
+                {
+                    // reload time - cant shoot.
+                    roundToReload--;
+                    return;
+                }
+                if (FindNearestTargetInFireRange(out attacked))
+                {
+                    /*
+                     * actions for looking for target, shooting
+                     * 
+                     */
+                    TryAttack(attacked);
+                    roundToReload = BuildingData.__ReloadTime;
 
-			if (this.BuildingData.FirePower == 0) return;
-			if (roundToReload > 0) {
-				// reload time - cant shoot.
-				roundToReload--;
-				return;
-			}
-			if (FindNearestTargetInFireRange(out attacked)) {
-				/*
-				 * actions for looking for target, shooting
-				 * 
-				 */
-				TryAttack(attacked);
-				roundToReload = BuildingData.__ReloadTime;
-
-			}
+                }
+            }
 		}
 
 		/// <summary>

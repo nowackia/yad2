@@ -616,6 +616,7 @@
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
 				<tns:Name>LightInfantry</tns:Name>
+        <tns:Name>HeavyTrooper</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:BuildingData>
 
@@ -843,7 +844,7 @@
 				</tns:TechnologyDependence>
 			</tns:TechnologyDependences>
 			<tns:UnitsCanProduce>
-				<tns:Name>HeavyTroopers</tns:Name>
+				<tns:Name>HeavyTrooper</tns:Name>
 				<tns:Name>Quad</tns:Name>
 				<tns:Name>CombatTank</tns:Name>
 				<tns:Name>Devastator</tns:Name>
