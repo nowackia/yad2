@@ -270,7 +270,6 @@
 			<tns:FirePower>10</tns:FirePower>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:RideableFields>
-				<tns:index>3</tns:index>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>
 			</tns:UnitsCanProduce>

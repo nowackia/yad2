@@ -627,7 +627,38 @@ namespace Yad.Engine.Client {
 			#region selection
 			DrawMouseSelection();
 			#endregion
-		}
+
+            //DrawSomeShit(map);
+        }
+
+        private static void DrawSomeShit(Map map) {
+            Building b;
+            Unit u;
+            Gl.glDisable(Gl.GL_TEXTURE_2D);
+            for (int x = 0; x < map.Width; x++) {
+                for (int y = 0; y < map.Height; y++) {
+                    
+
+                    if (map.Buildings[x, y].Count > 0) {
+                        b = map.Buildings[x, y].First.Value;
+
+                        Gl.glColor3f(1.0f, 1.0f, 1.0f);
+                        DrawRectangle(x, y, _depthSelection, 1, 1, true);
+                        
+                    } else if (map.Units[x, y].Count > 0) {
+                        u = map.Units[x, y].First.Value;
+                        if (map.Units[x, y].Count > 1) {
+                            Gl.glColor3f(1.0f, 0.0f, 0.0f);
+                        } else if (u.Position.Equals(new Position(x, y))) {
+                            Gl.glColor3f(1.0f, 1.0f, 0.0f);
+                        }else
+                        Gl.glColor3f(1.0f, 1.0f, 1.0f);
+                        DrawRectangle(x, y, _depthSelection, 1, 1, true);
+                    }
+                }
+            }
+            Gl.glEnable(Gl.GL_TEXTURE_2D);
+        }
 
         
 
