@@ -330,13 +330,6 @@ namespace Yad.UI.Client {
 		static bool yes = true;
 		private void HandleLeftButtonDown(MouseEventArgs e) {
 
-			//testowo
-			//if(yes ){
-			//createSandworm();
-			//	yes=false;
-			//}
-			//
-
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
 			if (this._isCreatingBuilding) {
 				_gameLogic.CreateBuilding(pos, _objectToCreateId, _objectCreatorId);
@@ -348,11 +341,7 @@ namespace Yad.UI.Client {
 			_selectionStart = _selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 		}
 
-		/*
-		private void createSandworm() {
-			//_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
-		}
-		 */
+		
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseUp");

@@ -38,6 +38,8 @@ namespace Yad.Engine.Client {
 
 		#endregion
 
+		delegate bool checkLocation(Position loop, Map map);
+
 		#region private members
 		ClientSimulation _sim;
 
@@ -64,6 +66,7 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 			_sim = new ClientSimulation(map);
+			_sim.onTurnEnd += new SimulationHandler(SandwormHandler);
 
 			//pobranie obiektu aktualnego gracza z symulacji - do obsługi w GameLogic
 			_currentPlayer = _sim.GetPlayer(ClientPlayerInfo.Player.Id);
@@ -123,6 +126,46 @@ namespace Yad.Engine.Client {
             if (playerNo == CurrentPlayer.Id)
                 AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Credit);
         }
+		#endregion
+
+		#region sandworm handling
+
+		long sandwormCounter = 0;
+
+		private void createSandworm() {
+			int i = 0;
+			foreach(UnitSandwormData s in GlobalSettings.Wrapper.Sandworms)
+			{
+				i++;
+				Position p  = getPosition(i);
+				UnitSandworm u = new UnitSandworm(new ObjectID(CurrentPlayer.Id, CurrentPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
+				_sim.Sandworms.Add(u.ObjectID.ObjectId, u);
+			}
+			//Sandworms.Add(new UnitSandworm(new ObjectID(GlobalSettings.Wrapper.Sandworms[0].TypeID
+			//_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
+		}
+
+		private Position getPosition(int i) {
+			Position p = new Position(((_sim.CurrentTurn + i*7) % 37 + 515) % _sim.Map.Width, ((_sim.CurrentTurn + i*3) % 43 + 361) % _sim.Map.Width);
+			p = FindLocation(p, _sim.Map, checkSandLocation);
+			return p;
+		}
+
+		private void SandwormHandler() {
+			if (sandwormCounter >= Yad.Properties.Client.Settings.Default.SandwormTurnsOff && _sim.Sandworms.Count == 0) {
+				createSandworm();
+				sandwormCounter = 0;
+			} else if (sandwormCounter >= Yad.Properties.Client.Settings.Default.SandwormTurnsOn && _sim.Sandworms.Count > 0) {
+				deleteSandworms();
+				sandwormCounter = 0;
+			}
+			sandwormCounter++;
+		}
+
+		private void deleteSandworms() {
+			_sim.Sandworms = new Dictionary<int, Unit>();
+		}
+
 		#endregion
 
 		#region Message handling
@@ -591,12 +634,15 @@ namespace Yad.Engine.Client {
 		}
 		 */
 
+		private Position FindFreeLocation(Position p, Map map) {
+			return FindLocation(p, map, checkFreeLocation);
+		}
 
 		/// <summary>
 		/// Finds location on which can be placed new unit
 		/// </summary>
 		/// <param name="p"></param>
-		private Position FindFreeLocation(Position p, Map map) {
+		private Position FindLocation(Position p, Map map, checkLocation c) {
 			short radius = 3;
 			int dotsCounter;
 			int dotsInSquare;
@@ -607,7 +653,7 @@ namespace Yad.Engine.Client {
 
 				dotsInSquare = radius * radius - (radius - 2) * (radius - 2);
 				for (dotsCounter = 0; dotsCounter < dotsInSquare; ) {
-					if (loop.X>=0 && loop.X<map.Width & loop.Y>=0 && loop.Y<map.Height && checkFreeLocation(loop, map))
+					if (loop.X>=0 && loop.X<map.Width & loop.Y>=0 && loop.Y<map.Height && c(loop, map))
 						return loop;
 					dotsCounter++;
 					if (dotsCounter < radius)
@@ -626,6 +672,13 @@ namespace Yad.Engine.Client {
 
 		private bool checkFreeLocation(Position loop, Map map) {
 			if (map.Tiles[loop.X, loop.Y] != TileType.Mountain && map.Buildings[loop.X, loop.Y].Count == 0 && map.Units[loop.X, loop.Y].Count == 0)
+				return true;
+			else
+				return false;
+		}
+
+		private bool checkSandLocation(Position loop, Map map) {
+			if (map.Tiles[loop.X, loop.Y] == TileType.Sand)
 				return true;
 			else
 				return false;
