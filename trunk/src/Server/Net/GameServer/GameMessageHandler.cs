@@ -32,10 +32,12 @@ namespace Yad.Net.GameServer.Server {
         /// <param name="item">Message to process</param>
         public override void ProcessItem(Message item) {
             Player p = _gameServer.GetPlayer(item.SenderId);
-            if (null == p)
+            if (null == p){
                 InfoLog.WriteError("Processing message from not connected player!", EPrefix.GameMessageProccesing);
+                return;
+            }
             else
-                InfoLog.WriteInfo(string.Format(Resources.GameProcessStringFormat, item.Type.ToString(), 
+                InfoLog.WriteInfo(string.Format(Resources.GameProcessStringFormat, item.Type.ToString(),
                     _gameServer.Name, p.Login), EPrefix.GameMessageProccesing);
             switch (item.Type) {
                 case MessageType.TurnAsk:
@@ -82,8 +84,10 @@ namespace Yad.Net.GameServer.Server {
 
         private void ProcessGameEnd(GameEndMessage item) {
             _gameServer.Simulation.SetEndGame(item.SenderId, item.HasWon);
-            if (_gameServer.Simulation.HasGameEnded())
+            if (_gameServer.Simulation.HasGameEnded()) {
+                InfoLog.Write("Game " + _gameServer.Name + " has finished.");
                 _gameServer.StopGameServer();
+            }
         }
 
        public override void OnReceivePlayerMessage(object sender, ReceiveMessageEventArgs args)
@@ -125,11 +129,17 @@ namespace Yad.Net.GameServer.Server {
             //
             p.SendMessage(dtm);
             if (minTurn != minTurnBefore) {
-                short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
-                for (int i = 0; i < stoppedWaiting.Length; ++i) {
-                    _gameServer.Simulation.IncPlayerTurn(stoppedWaiting[i]);
-                    SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
-                }
+                ResumeWaitingPlayers();
+            }
+        }
+
+        private void ResumeWaitingPlayers()
+        {
+            short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
+            for (int i = 0; i < stoppedWaiting.Length; ++i)
+            {
+                _gameServer.Simulation.IncPlayerTurn(stoppedWaiting[i]);
+                SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
             }
         }
         

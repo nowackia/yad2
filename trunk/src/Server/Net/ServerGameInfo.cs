@@ -105,10 +105,14 @@ namespace Yad.Net.Server {
                 return true;
             foreach (ServerPlayerInfo spi in _players.Values) {
                 if (spi.Id != id)
-                    if (spi.Color == color)
+                    if (AreColorsEqual(spi.Color,color))
                         return false;
             }
             return true;
+        }
+
+        private bool AreColorsEqual(Color c1, Color c2) {
+            return c1.R == c2.R && c1.G == c2.G && c1.B == c2.B;
         }
 
 
@@ -234,7 +238,7 @@ namespace Yad.Net.Server {
 
         private bool IsColorValid(Color color) {
             foreach (ServerPlayerInfo spi in _players.Values)
-                if (spi.Color == color)
+                if (AreColorsEqual(spi.Color, color))
                     return false;
             return true;
         }

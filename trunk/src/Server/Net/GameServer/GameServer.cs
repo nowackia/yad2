@@ -129,7 +129,7 @@ namespace Yad.Net.GameServer.Server {
             catch (Exception) {
                 InfoLog.WriteInfo("Game end semaphore realeased unsuccessfully", EPrefix.ServerAction);
             }
-            InfoLog.WriteInfo("Game end semaphore realeased unsuccessfully", EPrefix.ServerAction);
+            InfoLog.WriteInfo("Game end semaphore realeased successfully", EPrefix.ServerAction);
         }
         public void JoinGameServer() {
             _serverThread.Join();
@@ -155,13 +155,27 @@ namespace Yad.Net.GameServer.Server {
             numMsg.Number = player.Id;
             numMsg.IdTurn = _simulation.GetPlayerTurn(player.Id) + _simulation.Delta;
             bool areNoPlayersLeft;
+           
             lock (((ICollection)_playerCollection).SyncRoot) {
                 _playerCollection.Remove(player.Id);
                 areNoPlayersLeft = (_playerCollection.Count == 0);
             }
+
+            int minTurn = _simulation.GetMinTurn();
+            _simulation.RemovePlayer(player.Id);
+
             if (!areNoPlayersLeft) {
                 _simulation.AddMessage(numMsg);
                 _msgSender.BroadcastMessage(numMsg);
+                
+                int newMinTurn = _simulation.GetMinTurn();
+                if (minTurn != newMinTurn) {
+                    short[] stoppedWaiting = _simulation.StopWaiting();
+                    for (int i = 0; i < stoppedWaiting.Length; ++i) {
+                        _simulation.IncPlayerTurn(stoppedWaiting[i]);
+                        _msgSender.SendMessage(MessageFactory.Create(MessageType.DoTurn), stoppedWaiting[i]);
+                    }
+                }
             }
             else
                 this.StopGameServer();
@@ -179,12 +193,14 @@ namespace Yad.Net.GameServer.Server {
                     if (enter) {
                         p.OnReceiveMessage -= new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
                         p.OnReceiveMessage += new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                        p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
                     }
                     else {
                         p.OnReceiveMessage += new ReceiveMessageDelegate(server.MessageHandler.OnReceivePlayerMessage);
                         p.OnReceiveMessage -= new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
+                        p.OnConnectionLost -= new ConnectionLostDelegate(this.OnConnectionLost);
                     }
-                    p.OnConnectionLost += new ConnectionLostDelegate(this.OnConnectionLost);
+                    
                 }
             }
         }

@@ -1096,6 +1096,7 @@ namespace Yad.UI.Client
             System.Environment.Exit(0);
         }
         #endregion
+
         #region MenuMessageHandler Events
         #endregion
         #endregion

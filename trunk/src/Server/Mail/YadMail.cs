@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Yad.Mail {
+#pragma warning disable 0618
     public class YadMail {
         private const string MessageSubject = "Yet Another Dune II Password Reminder";
         private const string MessageTextFormat  = "Hello {0},/r/nYour password is: {1}";
@@ -30,3 +31,4 @@ namespace Yad.Mail {
         }
     }
 }
+#pragma warning restore 0618
