@@ -48,33 +48,35 @@ namespace Yad.Engine.Common {
 
 		#region private members
 
+		volatile bool _abort;
+
 		/// <summary>
 		/// this messages are processed by ProcessTurns
 		/// </summary>
-		List<GameMessage> currentMessages = new List<GameMessage>();
+		List<GameMessage> _currentMessages = new List<GameMessage>();
 
 		//these lists are used by ProcessTurn and are created for 1 player at a time
-		List<Building> buildingsProcessed = new List<Building>(), buildingsToProcess;
-		List<Unit> UnitsProcessed = new List<Unit>(), unitsToProcess,sandwormToProcess;
+		List<Building> _buildingsProcessed = new List<Building>(), buildingsToProcess;
+		List<Unit> _unitsProcessed = new List<Unit>(), unitsToProcess, sandwormToProcess;
 
 		/// <summary>
 		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
 		/// </summary>
-		Semaphore nextTurn = new Semaphore(1, 1);
+		Semaphore _nextTurnSemaphore = new Semaphore(1, 1);
 
 		/// <summary>
 		/// SpeedUp length in turns
 		/// When server sends MessageTurn it can state that the client needs to speed up a little bit
 		/// and ignore standard turn length
 		/// </summary>
-		int speedUpLength = 0;
+		int _speedUpLength = 0;
 
-		int currentTurn = 0;
+		int _currentTurn = 0;
 
 		/// <summary>
 		/// This thread will process messages from current turn
 		/// </summary>
-		Thread turnProcessor = null;
+		Thread _turnProcessor = null;
 
 		/* slowest player: turn x
 		 * fastest player: turn x+delta-1
@@ -82,13 +84,13 @@ namespace Yad.Engine.Common {
 		 * max turns cached: x+delta-1 + delta - x + 1 = 2 * delta
 		 * but it doesn't work so we have to add 1 :D :D :D
 		 */
-		int bufferLength = 2 * delta + 1;
+		int _bufferLength = 2 * delta + 1;
 		/// <summary>
 		/// This table holds turns' messages
 		/// </summary>
-		List<GameMessage>[] turns;
+		List<GameMessage>[] _turns;
 
-		bool fastTurnProcessing = true;
+		bool _fastTurnProcessing = true;
 
 
         private  Player simulationPlayer;
@@ -119,25 +121,25 @@ namespace Yad.Engine.Common {
 			this.players = new Dictionary<short, Player>();
             players.Add(simulationPlayer.Id, simulationPlayer);
 
-			this.fastTurnProcessing = useFastTurnProcessing;
-			turns = new List<GameMessage>[bufferLength];
-			this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
-			this.turnProcessor.IsBackground = true;
+			this._fastTurnProcessing = useFastTurnProcessing;
+			_turns = new List<GameMessage>[_bufferLength];
+			//this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
+			//this.turnProcessor.IsBackground = true;
 
-			for (int i = 0; i < bufferLength; i++) {
-				this.turns[i] = new List<GameMessage>();
+			for (int i = 0; i < _bufferLength; i++) {
+				this._turns[i] = new List<GameMessage>();
 			}
 		}
 		#endregion
 
 		#region private methods
 		private List<GameMessage> ShiftTurns() {
-			List<GameMessage> res = turns[0];
+			List<GameMessage> res = _turns[0];
 			int i;
-			for (i = 0; i < turns.Length - 1; i++) {
-				turns[i] = turns[i + 1];
+			for (i = 0; i < _turns.Length - 1; i++) {
+				_turns[i] = _turns[i + 1];
 			}
-			turns[i] = new List<GameMessage>();
+			_turns[i] = new List<GameMessage>();
 			return res;
 		}
 
@@ -147,7 +149,12 @@ namespace Yad.Engine.Common {
 			List<GameMessage>.Enumerator messagesEnum;
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
-				nextTurn.WaitOne(); //wait for MessageTurn
+				_nextTurnSemaphore.WaitOne(); //wait for MessageTurn
+				if (_abort) {
+					Thread.CurrentThread.IsBackground = true;
+					this._turnProcessor = null;
+					return;
+				}
 				InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
 
 				turnAsk = Environment.TickCount;
@@ -157,7 +164,7 @@ namespace Yad.Engine.Common {
 
 				int turnStart = Environment.TickCount;
 
-				messages = currentMessages;
+				messages = _currentMessages;
 				messagesEnum = messages.GetEnumerator();
 				while (messagesEnum.MoveNext()) {
 					GameMessage gm = messagesEnum.Current;
@@ -227,10 +234,10 @@ namespace Yad.Engine.Common {
 
 				//this.fastTurnProcessing = true;
 				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart);
-				if (!this.fastTurnProcessing) { //in server - just do turn, don't wait
+				if (!this._fastTurnProcessing) { //in server - just do turn, don't wait
 
 					if (SpeedUp) {
-						--speedUpLength;
+						--_speedUpLength;
 						remainingTime /= 3;
 					}
 					if (remainingTime > 0) {
@@ -270,7 +277,7 @@ namespace Yad.Engine.Common {
         protected void destroyUnit(Unit u) {
             u.Destroy();
             this.unitsToProcess.Remove(u);
-            this.UnitsProcessed.Remove(u);
+            this._unitsProcessed.Remove(u);
             this.players[u.ObjectID.PlayerID].RemoveUnit(u);
             this._map.Units[u.Position.X, u.Position.Y].Remove(u);
 
@@ -283,7 +290,7 @@ namespace Yad.Engine.Common {
         protected void destroyBuilding(Building b) {
             b.Destroy();
             this.buildingsToProcess.Remove(b);
-            this.buildingsProcessed.Remove(b);
+            this._buildingsProcessed.Remove(b);
             this.players[b.ObjectID.PlayerID].RemoveBuilding(b);
             for (int i = b.Position.X; i < b.BuildingData.Size.X + b.Position.X; ++i) {
                 for (int j = b.Position.Y; j < b.Position.Y + b.BuildingData.Size.Y; ++j) {
@@ -335,9 +342,9 @@ namespace Yad.Engine.Common {
 		#region public methods
 		public void AddGameMessage(GameMessage gameMessage) {
 			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
-			lock (turns.SyncRoot) {
+			lock (_turns.SyncRoot) {
 				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
-				this.turns[gameMessage.IdTurn - (this.CurrentTurn + 1)].Add(gameMessage);
+				this._turns[gameMessage.IdTurn - (this.CurrentTurn + 1)].Add(gameMessage);
 			}
 		}
 
@@ -347,13 +354,13 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		public void DoTurn() {
 			//InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
-			lock (turns.SyncRoot) {
-				currentMessages = ShiftTurns();
-				currentTurn++;
+			lock (_turns.SyncRoot) {
+				_currentMessages = ShiftTurns();
+				_currentTurn++;
 				try {
-					nextTurn.Release();
+					_nextTurnSemaphore.Release();
 				} catch (SemaphoreFullException) {
-					currentTurn--;
+					_currentTurn--;
 					MessageBoxEx.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
@@ -362,17 +369,36 @@ namespace Yad.Engine.Common {
 		}
 
 		public void StartSimulation() {
-			turnProcessor.Start();
+			if (_turnProcessor != null) {
+				throw new Exception("Simulation already started! Abort simulation first.");
+			}
+			this._turnProcessor = new Thread(new ThreadStart(ProcessTurns));
+			//this.turnProcessor.IsBackground = true;
+			_turnProcessor.Start();
 		}
 
 		public void AbortSimulation() {
-			this.turnProcessor.Abort();
+			//this.turnProcessor.Abort();
+			if (this._turnProcessor == null) {
+				throw new Exception("Simulation not started. Start simulation first.");
+			}
+
+			this._abort = true;
+			try {
+				// dla pewnoœci pozwalamy w¹tkowi przejœc do nastêpnej tury,
+				// gdy¿ mo¿e czekaæ na semaforze
+				this._nextTurnSemaphore.Release();
+			} catch (SemaphoreFullException sfe) {
+				//trudno ;p
+			}
+			//_turnProcessor.Join();
+			//this._turnProcessor = null;
 		}
 
 		public int CurrentTurn {
 			get {
-				lock (turns.SyncRoot) {
-					return currentTurn;
+				lock (_turns.SyncRoot) {
+					return _currentTurn;
 				}
 			}
 		}
@@ -382,12 +408,12 @@ namespace Yad.Engine.Common {
 		}
 
 		public bool SpeedUp {
-			get { return this.speedUpLength > 0; }
+			get { return this._speedUpLength > 0; }
 			set {
 				if (value) {
-					this.speedUpLength = delta;
+					this._speedUpLength = delta;
 				} else {
-					this.speedUpLength = 0;
+					this._speedUpLength = 0;
 				}
 			}
 		}

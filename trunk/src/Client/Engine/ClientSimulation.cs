@@ -48,7 +48,7 @@ namespace Yad.Engine.Client {
 		public ClientSimulation(Map map)
 			: base(map, false) {
 
-			PlayerInfo currPI = ClientPlayerInfo.Player;
+			//PlayerInfo currPI = ClientPlayerInfo.Player;
 			sandworms = new Dictionary<int, Unit>();
 
 			//Add all players
