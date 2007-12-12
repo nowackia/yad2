@@ -724,6 +724,7 @@ namespace Yad.Board.Common {
 
 		public UnitState State {
 			get { return state; }
+            set { state = value; }
 		}
 
 		public short AmmoDamageRange {
