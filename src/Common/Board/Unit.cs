@@ -71,7 +71,11 @@ namespace Yad.Board.Common {
         public virtual void Destroy() {
             state = UnitState.destroyed;
 			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
-            
+
+			if (_damageDestroy == 0) {
+				return;
+			}
+
             Position p = this.Position;
             int count;
             Position[] viewSpiral = RangeSpiral(this.DamageDestroyRange, out count);

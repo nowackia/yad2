@@ -40,6 +40,7 @@ namespace Yad.Engine.Client {
 		public event BuildingHandler BuildingDestroyed;
 		public event UnitHandler UnitDestroyed;
 		public event BuildingHandler BuildingStarted;
+		public event UnitHandler MCVDeployed;
 		public event UnitHandler UnitStarted;
 		public event InvalidLocationHandler InvalidLocation;
         public event UpdateStripItemHandler UpdateStripItem;
@@ -258,10 +259,14 @@ namespace Yad.Engine.Client {
             }
             this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
             Building b = AddBuilding(dmcv.McvID.PlayerID, -1, btype,  mcv.Position);
+			b.State = Building.BuildingState.normal;
             UpdatePowerManagement(b);
             OnBuildingCompleted(b, -1);
             destroyUnit(mcv);
-            OnUnitDestroyed(mcv);
+            //OnUnitDestroyed(mcv);
+			if (MCVDeployed != null) {
+				MCVDeployed(mcv);
+			}
 		}
 
 		protected override void onInvalidMove(Yad.Board.Common.Unit unit) {
