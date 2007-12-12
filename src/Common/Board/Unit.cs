@@ -422,6 +422,7 @@ namespace Yad.Board.Common {
         }
 		public virtual bool Move() {
 			if (!this.Moving) {
+                this._lastPosition = Position;
 				return false;
 			}
 
