@@ -319,24 +319,31 @@ namespace Yad.Engine {
             }
             foreach (String uname in bdata.UnitsCanProduce) {
                 short idu = GlobalSettings.Wrapper.namesToIds[uname];
-                if (CheckDependencies(uname)) {
-                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
-                    lock (((ICollection)_stripData).SyncRoot) {
-                        if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
-                            int buildSpeed = GetUnitBuildSpeed(idu);
-                            StateWrapper wrapper = new StateWrapper();
-                            if (_leftState[objectID.ObjectId] == RightStripState.Building)
-                                wrapper.State = StripButtonState.Inactive;
-                            _stripData[objectID.ObjectId].Add(idu, wrapper);
+                if (CanHouseProduceUnit(uname))
+                {
+                    if (CheckDependencies(uname))
+                    {
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        lock (((ICollection)_stripData).SyncRoot)
+                        {
+                            if (!_stripData[objectID.ObjectId].ContainsKey(idu))
+                            {
+                                int buildSpeed = GetUnitBuildSpeed(idu);
+                                StateWrapper wrapper = new StateWrapper();
+                                if (_leftState[objectID.ObjectId] == RightStripState.Building)
+                                    wrapper.State = StripButtonState.Inactive;
+                                _stripData[objectID.ObjectId].Add(idu, wrapper);
+                            }
                         }
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                     }
-                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
-                }
-                else {
-                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
-                    lock (((ICollection)_stripData).SyncRoot)
-                        RemoveBuildStatus(objectID, idu);
-                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                    else
+                    {
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        lock (((ICollection)_stripData).SyncRoot)
+                            RemoveBuildStatus(objectID, idu);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                    }
                 }
             }
         }
@@ -391,6 +398,12 @@ namespace Yad.Engine {
                 }
             }
             return true;
+        }
+
+        private bool CanHouseProduceUnit(string name)
+        {
+            UnitsNames uns = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].__UnitsCanProduce;
+            return uns.NameCollection.Contains(name);
         }
     }
 }
