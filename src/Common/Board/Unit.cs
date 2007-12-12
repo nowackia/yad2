@@ -106,6 +106,7 @@ namespace Yad.Board.Common {
             if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
             if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
                 Move();
+                return;
             }
             switch (state) {
                 case UnitState.moving:
@@ -432,14 +433,16 @@ namespace Yad.Board.Common {
 				this._remainingTurnsInMove = this._speed;
                 //goal reached
                 if (_currentPath.Count == 0) {
-                    this._lastPosition = Position;
+                    
                     if (this.Position.Equals(_goal))
                     {
+                        this._lastPosition = Position;
                         InfoLog.WriteInfo(InfoPrefix() + "Reached goal: " + _goal.ToString(), EPrefix.AStar);
                         return false;
                     }
                     else if (this.Position.Equals(_tmpGoal))
                     {
+                        this._lastPosition = Position;
                         InfoLog.WriteInfo(InfoPrefix() + "Reached substitute goal: " + _tmpGoal.ToString(), EPrefix.AStar);
                         if (!MoveTo(_goal))
                             return false;
@@ -464,11 +467,13 @@ namespace Yad.Board.Common {
 					newPos = currentPath.Dequeue();
 				}
 				*/
-
+                this._map.Units[this._lastPosition.X, this._lastPosition.Y].Remove(this);
 				this._map.Units[this.Position.X, this.Position.Y].Remove(this);
+                this._map.Units[this.Position.X, this.Position.Y].Remove(this);
 
 				this._lastPosition = Position;
 				this.Position = newPos;
+                this._map.Units[this.Position.X, this.Position.Y].Remove(this);
 				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
 				if(_simulation.Players.ContainsKey(this.ObjectID.PlayerID))
 					_simulation.ClearFogOfWar(this);

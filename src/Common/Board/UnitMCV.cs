@@ -20,6 +20,10 @@ namespace Yad.Board.Common {
 		}
 
 		public override void DoAI() {
+            if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
+                Move();
+                return;
+            }
             switch (state) {
                 case UnitState.moving:
                     BoardObject nearest;
