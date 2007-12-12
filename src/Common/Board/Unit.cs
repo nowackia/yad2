@@ -431,6 +431,7 @@ namespace Yad.Board.Common {
 				this._remainingTurnsInMove = this._speed;
                 //goal reached
                 if (_currentPath.Count == 0) {
+                    this._lastPosition = Position;
                     if (this.Position.Equals(_goal))
                     {
                         InfoLog.WriteInfo(InfoPrefix() + "Reached goal: " + _goal.ToString(), EPrefix.AStar);
