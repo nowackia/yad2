@@ -37,7 +37,11 @@ namespace Yad.Board {
         /// ai for ammo - auto aiming bullet?:P
         /// </summary>
         public void DoAI() {
-
+            if (this.path.Count == 0) {
+                DestinationReached();
+                this.sim.RemoveAmmo(this);
+                return;
+            }
             for (int i = 0; i < speed; ++i) {
                 Position next = this.path.Dequeue();
                 this.Position = next;

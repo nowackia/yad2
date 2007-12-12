@@ -36,6 +36,9 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		static int turnLength = Yad.Properties.Common.Settings.Default.TurnLength;
 
+        
+        
+
 		#endregion
 
 		#region events
@@ -52,7 +55,7 @@ namespace Yad.Engine.Common {
 
 		//these lists are used by ProcessTurn and are created for 1 player at a time
 		List<Building> buildingsProcessed = new List<Building>(), buildingsToProcess;
-		List<Unit> UnitsProcessed = new List<Unit>(), unitsToProcess;
+		List<Unit> UnitsProcessed = new List<Unit>(), unitsToProcess,sandwormToProcess;
 
 		/// <summary>
 		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
@@ -87,6 +90,9 @@ namespace Yad.Engine.Common {
 
 		bool fastTurnProcessing = true;
 
+
+        private  Player simulationPlayer;
+
 		#endregion
 
 		#region protected members
@@ -108,8 +114,10 @@ namespace Yad.Engine.Common {
 		#region constructor
 		public Simulation(Map map, bool useFastTurnProcessing) {
 			this._map = map;
+            simulationPlayer = new Player(-1, "", -1, System.Drawing.Color.Black, map);
 
 			this.players = new Dictionary<short, Player>();
+            players.Add(simulationPlayer.Id, simulationPlayer);
 
 			this.fastTurnProcessing = useFastTurnProcessing;
 			turns = new List<GameMessage>[bufferLength];
@@ -201,13 +209,20 @@ namespace Yad.Engine.Common {
 					}
 
 					unitsToProcess = p.GetAllUnits();
-					unitsToProcess.AddRange(new List<Unit>(sandworms.Values));
-					while (unitsToProcess.Count != 0) {
-						Unit u = unitsToProcess[0];
-						unitsToProcess.RemoveAt(0);
-						handleUnit(u);
-					}
+                    while (unitsToProcess.Count != 0) {
+                        Unit u = unitsToProcess[0];
+                        unitsToProcess.RemoveAt(0);
+                        handleUnit(u);
+                    }
+					
 				}
+
+                sandwormToProcess = new List<Unit>(sandworms.Values);
+                while (sandwormToProcess.Count != 0) {
+                    Unit u = sandwormToProcess[0];
+                    sandwormToProcess.RemoveAt(0);
+                    handleUnit(u);
+                }
 
 
 				//this.fastTurnProcessing = true;
@@ -388,6 +403,12 @@ namespace Yad.Engine.Common {
 		public Dictionary<short, Player> Players {
 			get { return this.players; }
 		}
+
+        public Player SimulationPlayer {
+            get {
+                return simulationPlayer;
+            }
+        }
 
        
 		#endregion

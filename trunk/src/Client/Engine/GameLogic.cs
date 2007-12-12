@@ -138,7 +138,7 @@ namespace Yad.Engine.Client {
 			{
 				i++;
 				Position p  = getPosition(i);
-				UnitSandworm u = new UnitSandworm(new ObjectID(CurrentPlayer.Id, CurrentPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
+                UnitSandworm u = new UnitSandworm(new ObjectID(Simulation.SimulationPlayer.Id, Simulation.SimulationPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
 				_sim.Sandworms.Add(u.ObjectID.ObjectId, u);
 			}
 			//Sandworms.Add(new UnitSandworm(new ObjectID(GlobalSettings.Wrapper.Sandworms[0].TypeID
@@ -157,12 +157,19 @@ namespace Yad.Engine.Client {
 				sandwormCounter = 0;
 			} else if (sandwormCounter >= Yad.Properties.Client.Settings.Default.SandwormTurnsOn && _sim.Sandworms.Count > 0) {
 				deleteSandworms();
+                
 				sandwormCounter = 0;
 			}
 			sandwormCounter++;
 		}
 
 		private void deleteSandworms() {
+            //TODO move to simulation
+
+            foreach (Unit sandworm in _sim.Sandworms.Values) {
+                sandworm.State = Unit.UnitState.destroyed;
+                _sim.Map.Units[sandworm.Position.X, sandworm.Position.Y].Remove(sandworm);
+            }
 			_sim.Sandworms = new Dictionary<int, Unit>();
 		}
 
@@ -434,6 +441,7 @@ namespace Yad.Engine.Client {
 
             foreach (Player player in _sim.GetPlayers())
             {
+                if(player.Equals(_sim.SimulationPlayer)) continue;
                 if(teamGameObjectCount.ContainsKey(player.TeamID))
                     teamGameObjectCount[player.TeamID] += player.GameObjectsCount;
                 else
@@ -456,7 +464,7 @@ namespace Yad.Engine.Client {
                     break;
             }
 
-            int playersCount = _sim.GetPlayers().Count;
+            int playersCount = _sim.GetPlayers().Count-1;
             /* Only one team left */
             if (playersCount > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null)
                 GameEnd(anyObjectOwningTeamId);
