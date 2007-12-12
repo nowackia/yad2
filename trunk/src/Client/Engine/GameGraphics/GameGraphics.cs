@@ -353,7 +353,11 @@ namespace Yad.Engine.Client {
 
 		#region texture init
 
-		enum MainTextures : int { Map = 1, SelectionRectangle = 2, FogOfWar = 3, ThinSpice = 4, ThickSpice = 5, Rocket = 6, Bullet = 7, Sonic = 8 }
+		enum MainTextures : int {
+			Map = 1,
+			SelectionRectangle = 2,
+			FogOfWar = 3,
+			ThinSpice = 4, ThickSpice = 5, Rocket = 6, Bullet = 7, Sonic = 8, Building1x1 = 9, Building2x2 = 10, Building2x3 = 11, Building3x3 = 12 }
 
 		public static void InitTextures(Simulation simulation) {
 			//Map
@@ -381,6 +385,18 @@ namespace Yad.Engine.Client {
 
             Bitmap sonic = new Bitmap(Path.Combine(Settings.Default.Bullets, "Sonic.png"));
             Create32bTexture((int)MainTextures.Sonic, LoadBitmap(sonic));
+
+			Bitmap building1x1 = new Bitmap(Path.Combine(Settings.Default.Structures, "BuildingTurret.png"));
+			Create32bTexture((int)MainTextures.Building1x1, LoadBitmap(building1x1));
+
+			Bitmap building2x2 = new Bitmap(Path.Combine(Settings.Default.Structures, "Building22.png"));
+			Create32bTexture((int)MainTextures.Building2x2, LoadBitmap(building2x2));
+
+			Bitmap building2x3 = new Bitmap(Path.Combine(Settings.Default.Structures, "Building23.png"));
+			Create32bTexture((int)MainTextures.Building2x3, LoadBitmap(building2x3));
+
+			Bitmap building3x3 = new Bitmap(Path.Combine(Settings.Default.Structures, "Building33.png"));
+			Create32bTexture((int)MainTextures.Building3x3, LoadBitmap(building3x3));
 
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
 
@@ -1156,17 +1172,43 @@ namespace Yad.Engine.Client {
 			if (!NeedsDrawing(o.Position.X, o.Position.Y, o.Width, o.Height)) {
 				return;
 			}
+
+			if (o.State == Building.BuildingState.constructing) {
+				int tex;
+				if (o.Width == 1 && o.Height == 1) {
+					tex = (int)MainTextures.Building1x1;
+				} else if (o.Width == 2 && o.Height == 2) {
+					tex = (int)MainTextures.Building2x2;
+				} else if (o.Width == 3 && o.Height == 2) {
+					tex = (int)MainTextures.Building2x3;
+				} else {
+					tex = (int)MainTextures.Building3x3;
+				}
+				DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, tex, _defaultUV, true);
+				return;
+			}
+
 			BuildingData bd = o.BuildingData;
 			float y = bd.TextureAnimationFramesCount;
 			float x = bd.TextureSpecialActionFramesCount;
 			RectangleF uv;
 			if (bd.IsTurret) {
 				uv = VehicleUVChooser(o.Direction);
-			} else {
+			} else if (bd.TypeID == _wallID) {
+				uv = WallUVChooser(o);
+			} else  {
 				uv = new RectangleF(0, 1.0f / y, 1.0f / x, 1.0f / y);
 			}
 
 			DrawElementFromLeftBottom(o.Position.X, o.Position.Y, _depthBuilding, o.Width, o.Height, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uv, true);
+		}
+
+		private static RectangleF WallUVChooser(Building o) {
+			return _defaultUV;
+		}
+
+		private static int GetWallTextureIndex(Position p, Map m) {
+			return 0;
 		}
 
 		private static void DrawBuilding(BuildingData bd, float x, float y, float depth, short playerID) {
@@ -1186,7 +1228,7 @@ namespace Yad.Engine.Client {
 		}
 		#endregion
 
-
+		static int _wallID; //needs special drawing
 
 		#region public methods
 		public static void InitGL(GameLogic gLogic, GameForm gForm, SimpleOpenGlControl map, SimpleOpenGlControl miniMap) {
@@ -1195,6 +1237,8 @@ namespace Yad.Engine.Client {
 			_gameLogic = gLogic;
 			_gameForm = gForm;
 			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+
+			_wallID = GlobalSettings.Wrapper.namesToIds["Wall"];
 
 			//Gl.glEnable(Gl.GL_LINE_SMOOTH);
 
