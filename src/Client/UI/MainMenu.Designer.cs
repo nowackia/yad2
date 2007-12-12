@@ -198,6 +198,7 @@ namespace Yad.UI.Client
             // 
             // mainMenu
             // 
+            this.mainMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.mainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mainMenu.Controls.Add(this.tableLayoutPanel1);
             this.mainMenu.Location = new System.Drawing.Point(4, 4);
@@ -286,6 +287,7 @@ namespace Yad.UI.Client
             // 
             // loginMenu
             // 
+            this.loginMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.loginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.loginMenu.Controls.Add(this.tableLayoutPanel4);
             this.loginMenu.Location = new System.Drawing.Point(4, 4);
@@ -337,6 +339,7 @@ namespace Yad.UI.Client
             // serverLabel
             // 
             this.serverLabel.AutoSize = true;
+            this.serverLabel.ForeColor = System.Drawing.Color.White;
             this.serverLabel.Location = new System.Drawing.Point(6, 32);
             this.serverLabel.Name = "serverLabel";
             this.serverLabel.Size = new System.Drawing.Size(36, 13);
@@ -359,6 +362,7 @@ namespace Yad.UI.Client
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
+            this.loginLabel.ForeColor = System.Drawing.Color.White;
             this.loginLabel.Location = new System.Drawing.Point(6, 36);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(29, 13);
@@ -387,6 +391,7 @@ namespace Yad.UI.Client
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
+            this.passwordLabel.ForeColor = System.Drawing.Color.White;
             this.passwordLabel.Location = new System.Drawing.Point(6, 62);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(52, 13);
@@ -447,6 +452,7 @@ namespace Yad.UI.Client
             // 
             // registerMenu
             // 
+            this.registerMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.registerMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.registerMenu.Controls.Add(this.tableLayoutPanel5);
             this.registerMenu.Location = new System.Drawing.Point(4, 4);
@@ -496,6 +502,7 @@ namespace Yad.UI.Client
             // loginLBRegisterMenu
             // 
             this.loginLBRegisterMenu.AutoSize = true;
+            this.loginLBRegisterMenu.ForeColor = System.Drawing.Color.White;
             this.loginLBRegisterMenu.Location = new System.Drawing.Point(6, 13);
             this.loginLBRegisterMenu.Name = "loginLBRegisterMenu";
             this.loginLBRegisterMenu.Size = new System.Drawing.Size(33, 13);
@@ -505,6 +512,7 @@ namespace Yad.UI.Client
             // emailLRegisterMenu
             // 
             this.emailLRegisterMenu.AutoSize = true;
+            this.emailLRegisterMenu.ForeColor = System.Drawing.Color.White;
             this.emailLRegisterMenu.Location = new System.Drawing.Point(7, 94);
             this.emailLRegisterMenu.Name = "emailLRegisterMenu";
             this.emailLRegisterMenu.Size = new System.Drawing.Size(32, 13);
@@ -522,6 +530,7 @@ namespace Yad.UI.Client
             // repeatPasswordLRegisterMenu
             // 
             this.repeatPasswordLRegisterMenu.AutoSize = true;
+            this.repeatPasswordLRegisterMenu.ForeColor = System.Drawing.Color.White;
             this.repeatPasswordLRegisterMenu.Location = new System.Drawing.Point(6, 64);
             this.repeatPasswordLRegisterMenu.Name = "repeatPasswordLRegisterMenu";
             this.repeatPasswordLRegisterMenu.Size = new System.Drawing.Size(91, 13);
@@ -557,6 +566,7 @@ namespace Yad.UI.Client
             // passwordLRegisterMenu
             // 
             this.passwordLRegisterMenu.AutoSize = true;
+            this.passwordLRegisterMenu.ForeColor = System.Drawing.Color.White;
             this.passwordLRegisterMenu.Location = new System.Drawing.Point(6, 39);
             this.passwordLRegisterMenu.Name = "passwordLRegisterMenu";
             this.passwordLRegisterMenu.Size = new System.Drawing.Size(53, 13);
@@ -595,6 +605,8 @@ namespace Yad.UI.Client
             // 
             // chatMenu
             // 
+            this.chatMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.chatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.chatMenu.Controls.Add(this.sendChatMenu);
             this.chatMenu.Controls.Add(this.userListChatMenu);
             this.chatMenu.Controls.Add(this.chatListChatMenu);
@@ -667,6 +679,8 @@ namespace Yad.UI.Client
             // 
             // playerInfoMenu
             // 
+            this.playerInfoMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.playerInfoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.playerInfoMenu.Controls.Add(this.playerInfoLInfoMenu);
             this.playerInfoMenu.Controls.Add(this.backInfoMenu);
             this.playerInfoMenu.Location = new System.Drawing.Point(4, 4);
@@ -680,6 +694,7 @@ namespace Yad.UI.Client
             // playerInfoLInfoMenu
             // 
             this.playerInfoLInfoMenu.AutoSize = true;
+            this.playerInfoLInfoMenu.ForeColor = System.Drawing.Color.White;
             this.playerInfoLInfoMenu.Location = new System.Drawing.Point(164, 86);
             this.playerInfoLInfoMenu.Name = "playerInfoLInfoMenu";
             this.playerInfoLInfoMenu.Size = new System.Drawing.Size(57, 13);
@@ -698,6 +713,8 @@ namespace Yad.UI.Client
             // 
             // chooseGameMenu
             // 
+            this.chooseGameMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.chooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.chooseGameMenu.Controls.Add(this.textBoxTBGameName);
             this.chooseGameMenu.Controls.Add(this.label1);
             this.chooseGameMenu.Controls.Add(this.textBoxTBGameDescription);
@@ -779,6 +796,8 @@ namespace Yad.UI.Client
             // 
             // createGameMenu
             // 
+            this.createGameMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.createGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.createGameMenu.Controls.Add(this.maxPlayerNumberNUPCreateGameMenu);
             this.createGameMenu.Controls.Add(this.maxPlayerNumberLCreateGameMenu);
             this.createGameMenu.Controls.Add(this.gameNameLCreateGameMenu);
@@ -822,6 +841,7 @@ namespace Yad.UI.Client
             // maxPlayerNumberLCreateGameMenu
             // 
             this.maxPlayerNumberLCreateGameMenu.AutoSize = true;
+            this.maxPlayerNumberLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.maxPlayerNumberLCreateGameMenu.Location = new System.Drawing.Point(269, 64);
             this.maxPlayerNumberLCreateGameMenu.Name = "maxPlayerNumberLCreateGameMenu";
             this.maxPlayerNumberLCreateGameMenu.Size = new System.Drawing.Size(99, 13);
@@ -831,6 +851,7 @@ namespace Yad.UI.Client
             // gameNameLCreateGameMenu
             // 
             this.gameNameLCreateGameMenu.AutoSize = true;
+            this.gameNameLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 113);
             this.gameNameLCreateGameMenu.Name = "gameNameLCreateGameMenu";
             this.gameNameLCreateGameMenu.Size = new System.Drawing.Size(66, 13);
@@ -848,6 +869,7 @@ namespace Yad.UI.Client
             // privateCreateGameMenu
             // 
             this.privateCreateGameMenu.AutoSize = true;
+            this.privateCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.privateCreateGameMenu.Location = new System.Drawing.Point(272, 189);
             this.privateCreateGameMenu.Name = "privateCreateGameMenu";
             this.privateCreateGameMenu.Size = new System.Drawing.Size(58, 17);
@@ -859,6 +881,7 @@ namespace Yad.UI.Client
             // 
             this.publicCreateGameMenu.AutoSize = true;
             this.publicCreateGameMenu.Checked = true;
+            this.publicCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.publicCreateGameMenu.Location = new System.Drawing.Point(272, 166);
             this.publicCreateGameMenu.Name = "publicCreateGameMenu";
             this.publicCreateGameMenu.Size = new System.Drawing.Size(54, 17);
@@ -870,6 +893,7 @@ namespace Yad.UI.Client
             // mapsLCreateGameMenu
             // 
             this.mapsLCreateGameMenu.AutoSize = true;
+            this.mapsLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.mapsLCreateGameMenu.Location = new System.Drawing.Point(43, 48);
             this.mapsLCreateGameMenu.Name = "mapsLCreateGameMenu";
             this.mapsLCreateGameMenu.Size = new System.Drawing.Size(67, 13);
@@ -906,6 +930,7 @@ namespace Yad.UI.Client
             // 
             // waitingForPlayersMenu
             // 
+            this.waitingForPlayersMenu.BackgroundImage = global::Yad.Properties.Resources.Menu;
             this.waitingForPlayersMenu.Controls.Add(this.currentDataGBWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.changeGBWaitingForPlayersMenu);
             this.waitingForPlayersMenu.Controls.Add(this.dataGridViewPlayers);
@@ -1167,6 +1192,8 @@ namespace Yad.UI.Client
             // 
             // optionsMenu
             // 
+            this.optionsMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.optionsMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.optionsMenu.Controls.Add(this.groupBox3);
             this.optionsMenu.Controls.Add(this.okOptionsMenu);
             this.optionsMenu.Controls.Add(this.cancelOptionsMenu);
@@ -1195,6 +1222,7 @@ namespace Yad.UI.Client
             // musicVolumeLOptionsMenu
             // 
             this.musicVolumeLOptionsMenu.AutoSize = true;
+            this.musicVolumeLOptionsMenu.ForeColor = System.Drawing.Color.White;
             this.musicVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 16);
             this.musicVolumeLOptionsMenu.Name = "musicVolumeLOptionsMenu";
             this.musicVolumeLOptionsMenu.Size = new System.Drawing.Size(73, 13);
@@ -1204,6 +1232,7 @@ namespace Yad.UI.Client
             // soundVolumeLOptionsMenu
             // 
             this.soundVolumeLOptionsMenu.AutoSize = true;
+            this.soundVolumeLOptionsMenu.ForeColor = System.Drawing.Color.White;
             this.soundVolumeLOptionsMenu.Location = new System.Drawing.Point(6, 40);
             this.soundVolumeLOptionsMenu.Name = "soundVolumeLOptionsMenu";
             this.soundVolumeLOptionsMenu.Size = new System.Drawing.Size(76, 13);
@@ -1227,6 +1256,7 @@ namespace Yad.UI.Client
             // muteSoundOptionsMenu
             // 
             this.muteSoundOptionsMenu.AutoSize = true;
+            this.muteSoundOptionsMenu.ForeColor = System.Drawing.Color.White;
             this.muteSoundOptionsMenu.Location = new System.Drawing.Point(180, 41);
             this.muteSoundOptionsMenu.Name = "muteSoundOptionsMenu";
             this.muteSoundOptionsMenu.Size = new System.Drawing.Size(84, 17);
@@ -1252,6 +1282,7 @@ namespace Yad.UI.Client
             // muteMusicOptionsMenu
             // 
             this.muteMusicOptionsMenu.AutoSize = true;
+            this.muteMusicOptionsMenu.ForeColor = System.Drawing.Color.White;
             this.muteMusicOptionsMenu.Location = new System.Drawing.Point(180, 15);
             this.muteMusicOptionsMenu.Name = "muteMusicOptionsMenu";
             this.muteMusicOptionsMenu.Size = new System.Drawing.Size(81, 17);
@@ -1293,6 +1324,8 @@ namespace Yad.UI.Client
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.tableLayoutPanel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -1380,6 +1413,8 @@ namespace Yad.UI.Client
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.tableLayoutPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -1451,6 +1486,7 @@ namespace Yad.UI.Client
             this.ClientSize = new System.Drawing.Size(535, 381);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "MainMenuForm";

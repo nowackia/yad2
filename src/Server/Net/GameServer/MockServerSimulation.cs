@@ -25,6 +25,16 @@ namespace Yad.Net.GameServer.Server {
             _gamePlayers.Add(id, new GamePlayer(pd));
         }
 
+        public void RemovePlayer(short id) {
+            lock (((ICollection)_gamePlayers).SyncRoot) {
+                _gamePlayers.Remove(id);
+            }
+            lock (((ICollection)_waitingList).SyncRoot) {
+                if (_waitingList.Contains(id))
+                    _waitingList.Remove(id);
+            }
+        }
+
         #region IServerSimulation Members
 
         public int GetPlayerTurn(short id) {

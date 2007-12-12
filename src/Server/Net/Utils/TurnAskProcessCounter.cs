@@ -9,7 +9,6 @@ namespace Yad.Net.Utils
     public class TurnAskProcessCounter
     {
         List<DateTime> _receivedTime;
-        int _playerID;
 
         public TurnAskProcessCounter()
         {

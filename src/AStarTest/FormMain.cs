@@ -18,7 +18,6 @@ namespace AStarTest
         const int mapHeight = 64;
         int[,] tiles = null;
         int OCCUPIED = -1;
-        int GOAL = 1;
         int EMPTY = 0;
         Position start = Position.Invalid;
         Position goal = Position.Invalid;

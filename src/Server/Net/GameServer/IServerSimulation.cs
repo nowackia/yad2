@@ -20,6 +20,7 @@ namespace Yad.Net.GameServer.Server {
         short[] StopWaiting();
         GamePlayer GetGamePlayer(short id);
         PlayerData[] GetPlayerData();
+        void RemovePlayer(short id);
         //TODO: Tu mozliwe, ze konieczne bedzie kopiowanie wiadomosci
         void AddMessage(Message msg);
     }

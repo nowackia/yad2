@@ -53,7 +53,9 @@ namespace Yad.Net.Server {
                 : base() {
 
                 _portNumber = PortNumber;
+#pragma warning disable 0618
                 _listener = new TcpListener(_portNumber);
+#pragma warning restore 0618
                 _listener.Start();
                 
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
