@@ -328,11 +328,11 @@ namespace Yad.Board.Common {
          
 
             //
-            Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID,_simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
+            /*Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID,_simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
                 this.Position, ob.Position, this.AmmoType, this._ammoSpeed,
                 this._firePower, this.ammoDamageRange, _simulation);
             InfoLog.WriteInfo(a.ObjectID.ToString() + " for ammunition ", EPrefix.GObj);
-            this._simulation.AddAmmo(a);
+            this._simulation.AddAmmo(a);*/
 
 
             List<BoardObject> objectsInRange = GetObjectsInRange(s);
