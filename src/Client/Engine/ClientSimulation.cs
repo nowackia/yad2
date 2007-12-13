@@ -87,6 +87,7 @@ namespace Yad.Engine.Client {
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidLocation != null) {
+                    InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of location", EPrefix.GObj);
 					InvalidLocation(bm.CreatorID);
                     /*int cost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
                     p.Credits += cost;
@@ -97,7 +98,10 @@ namespace Yad.Engine.Client {
             int playerCredits = players[bm.IdPlayer].Credits;
             int buildingCost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
             if (playerCredits < buildingCost)
+            {
+                InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of credits", EPrefix.GObj);
                 return;
+            }
             players[bm.IdPlayer].Credits -= buildingCost;
             if (OnCreditsUpdate != null)
                 OnCreditsUpdate(bm.IdPlayer, buildingCost);
