@@ -159,7 +159,7 @@ namespace Yad.Engine {
             lock (cObjLock) {
                 if (_currentObjectID != id) {
                     _currentObjectID = id;
-                    current = -1;
+                    current = id;
                 }
             }
             if (current != -1)
