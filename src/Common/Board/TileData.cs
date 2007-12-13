@@ -23,7 +23,10 @@ namespace Yad.Board
         public int SpiceNo
         {
             get { return _spiceNo; }
-            set { _spiceNo = value; }
+            set { _spiceNo = value;
+            if (_spiceNo < 0)
+                _spiceNo = 0;
+            }
         }
 
         public bool IsSpice
