@@ -301,8 +301,9 @@ namespace Yad.UI.Client
 
             try
             { Connection.Instance.InitConnection(serverLoginMenu.Text); }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBoxEx.Show(this, ex.Message, "Login error");
                 ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
                 return;
             }
@@ -326,8 +327,9 @@ namespace Yad.UI.Client
 
             try
             { Connection.Instance.InitConnection(serverLoginMenu.Text); }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBoxEx.Show(this, ex.Message, "Remind error");
                 ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, true);
                 return;
             }
@@ -395,12 +397,9 @@ namespace Yad.UI.Client
             InfoLog.WriteInfo("Remind Event", EPrefix.UIManager);
             MessageBoxEx.Show(this, e.reason, "Remind", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            if (e.successful)
-            {
-                Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
-                if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
-                else ManageControlState(controls, true);
-            }
+            Control[] controls = new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu };
+            if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+            else ManageControlState(controls, true);
 
             Connection.Instance.CloseConnection();
         }
@@ -479,12 +478,9 @@ namespace Yad.UI.Client
             InfoLog.WriteInfo("Register Event", EPrefix.UIManager);
             MessageBoxEx.Show(this, e.reason, "Register", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            if (e.successful)
-            {
-                Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
-                if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
-                else ManageControlState(controls, true);
-            }
+            Control[] controls = new Control[] { registerRegisterMenu, backRegisterMenu };
+            if (InvokeRequired) this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, true });
+            else ManageControlState(controls, true);
 
             Connection.Instance.CloseConnection();
         }
@@ -535,6 +531,7 @@ namespace Yad.UI.Client
             Connection.Instance.SendMessage(entryMessage);
 
             ManageControlText(textBoxTBGameName, string.Empty);
+            ManageControlText(textBoxTBGameDescription, string.Empty);
             OnMenuOptionChange(MenuOption.Game);
         }
 

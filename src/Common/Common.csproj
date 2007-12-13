@@ -145,9 +145,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Yad.Properties.Common</CustomToolNamespace>
     </None>
-    <None Include="Resources\Maps\rectangular.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Resources\Maps\Large.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

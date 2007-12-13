@@ -9,7 +9,7 @@ namespace Yad.UI.Common
 {
     public class MessageBoxEx
     {
-        static IWin32Window _owner;
+        static Control _owner;
         private static HookProc _hookProc;
         private static IntPtr _hHook;
 
@@ -220,8 +220,8 @@ namespace Yad.UI.Common
             //if (_hHook != IntPtr.Zero)
             //    throw new NotSupportedException("Multiple calls are not supported");
 
-            if (_owner != null)
-                _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            //if (_owner != null)
+            _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
         }
 
         private static IntPtr MessageBoxHookProc(int nCode, IntPtr wParam, IntPtr lParam)
@@ -257,7 +257,8 @@ namespace Yad.UI.Common
             int height = recChild.Height - recChild.Y;
 
             Rectangle recParent = new Rectangle(0, 0, 0, 0);
-            success = GetWindowRect(_owner.Handle, ref recParent);
+            if (!_owner.IsDisposed)
+                success = GetWindowRect(_owner.Handle, ref recParent);
 
             Point ptCenter = new Point(0, 0);
             ptCenter.X = recParent.X + ((recParent.Width - recParent.X) / 2);
