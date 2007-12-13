@@ -965,6 +965,7 @@ namespace Yad.UI.Client
             // 
             // currentDataGBWaitingForPlayersMenu
             // 
+            this.currentDataGBWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoColorWaitingForPlayersMenu);
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoColorLWaitingForPlayersMenu);
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoLWaitingForPlayersMenu);
@@ -1005,6 +1006,7 @@ namespace Yad.UI.Client
             // 
             // changeGBWaitingForPlayersMenu
             // 
+            this.changeGBWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
             this.changeGBWaitingForPlayersMenu.Controls.Add(this.colorLWaitingForPlayersMenu);
             this.changeGBWaitingForPlayersMenu.Controls.Add(this.changeWaitingForPlayersMenu);
             this.changeGBWaitingForPlayersMenu.Controls.Add(this.colorWaitingForPlayersMenu);
@@ -1030,12 +1032,13 @@ namespace Yad.UI.Client
             // 
             // changeWaitingForPlayersMenu
             // 
+            this.changeWaitingForPlayersMenu.BackColor = System.Drawing.SystemColors.Control;
             this.changeWaitingForPlayersMenu.Location = new System.Drawing.Point(193, 45);
             this.changeWaitingForPlayersMenu.Name = "changeWaitingForPlayersMenu";
             this.changeWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.changeWaitingForPlayersMenu.TabIndex = 5;
             this.changeWaitingForPlayersMenu.Text = "Change";
-            this.changeWaitingForPlayersMenu.UseVisualStyleBackColor = true;
+            this.changeWaitingForPlayersMenu.UseVisualStyleBackColor = false;
             this.changeWaitingForPlayersMenu.Click += new System.EventHandler(this.changeWaitingForPlayersMenu_Click);
             // 
             // colorWaitingForPlayersMenu
@@ -1162,6 +1165,7 @@ namespace Yad.UI.Client
             // descriptionLWaitingForPlayersMenu
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
+            this.descriptionLWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
             this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(296, 115);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
@@ -1180,6 +1184,7 @@ namespace Yad.UI.Client
             // playersLWaitingForPlayersMenu
             // 
             this.playersLWaitingForPlayersMenu.AutoSize = true;
+            this.playersLWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
             this.playersLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 115);
             this.playersLWaitingForPlayersMenu.Name = "playersLWaitingForPlayersMenu";
             this.playersLWaitingForPlayersMenu.Size = new System.Drawing.Size(41, 13);
