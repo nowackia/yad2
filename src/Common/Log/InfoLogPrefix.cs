@@ -54,7 +54,10 @@ namespace Yad.Log.Common
         [Description(" #A*: ")]
         AStar,
         [Description(" #LOK: ")]
-        LockInfo
+        LockInfo,
+        [Description(" #GEN: ")]
+        GObj
+        
 
         // Wartosc kontrolna - musi byc zawsze na koncu
         //_NUMBER_PREFIXES

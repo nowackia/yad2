@@ -139,6 +139,7 @@ namespace Yad.Engine.Client {
 				i++;
 				Position p  = getPosition(i);
                 UnitSandworm u = new UnitSandworm(new ObjectID(Simulation.SimulationPlayer.Id, Simulation.SimulationPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
+                InfoLog.WriteInfo(u.ObjectID.ToString + " for sandworm", EPrefix.GObj);
 				_sim.Sandworms.Add(u.ObjectID.ObjectId, u);
 			}
 			//Sandworms.Add(new UnitSandworm(new ObjectID(GlobalSettings.Wrapper.Sandworms[0].TypeID
@@ -186,14 +187,17 @@ namespace Yad.Engine.Client {
 				//_currPlayer = _sim.Players[pd.PlayerId];
 				Player p = _sim.Players[pd.PlayerId];
 				ObjectID mcvID = new ObjectID(p.Id, p.GenerateObjectID());
+                InfoLog.WriteInfo(mcvID.ToString() + " for MVC", EPrefix.GObj);
                 UnitMCV mcv = new UnitMCV(mcvID, GlobalSettings.Wrapper.MCVs[0], new Position(pd.X, _sim.Map.Height - pd.Y -1), _sim.Map, this._sim);
 				p.AddUnit(mcv);
 				_sim.ClearFogOfWar(mcv);
 
 				// vjust for fun ;p
 				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
+
                 UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), _sim.Map.Height - pd.Y - 1), this._sim.Map, this._sim);
-				p.AddUnit(u);
+                InfoLog.WriteInfo(tankID.ObjectId.ToString() + " for tank: " + u.TypeID, EPrefix.GObj);
+                p.AddUnit(u);
 				_sim.ClearFogOfWar(u);
 				// ^
 

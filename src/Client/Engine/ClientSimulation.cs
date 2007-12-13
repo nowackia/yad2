@@ -158,7 +158,7 @@ namespace Yad.Engine.Client {
 			Player p = players[playerId];
 			Unit u = null;
 			ObjectID id = new ObjectID(playerId, p.GenerateObjectID());
-
+            InfoLog.WriteInfo(id.ToString() + " dla jednostki: " + type, EPrefix.GObj);
             if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type)){
 				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[type], pos, this._map, this, GlobalSettings.Wrapper.harvestersMap[type].__Speed);
                 ((UnitHarvester)u).SpiceUnload += new SpiceUnloadDelegate(SpiceUnload);
@@ -188,6 +188,7 @@ namespace Yad.Engine.Client {
 			BoardObjectClass boc = cum.UnitKind;
 			Unit u = null;
 			ObjectID id = new ObjectID(cum.IdPlayer, p.GenerateObjectID());
+            InfoLog.WriteInfo(id.ToString() + " unit created: " + cum.Type, EPrefix.GObj);
 			if (boc == BoardObjectClass.UnitTank) {
 				if (players[cum.IdPlayer].Credits < (cost=GlobalSettings.Wrapper.tanksMap[cum.UnitType].Cost))
 					return;
@@ -231,6 +232,7 @@ namespace Yad.Engine.Client {
             Player p = players[playerID];
             int objid = p.GenerateObjectID();
             ObjectID id = new ObjectID(playerID, objid);
+            InfoLog.WriteInfo(id.ToString() + " adding building: " + buildingType, EPrefix.GObj);
             InfoLog.WriteInfo("Adding building id: (" + playerID + "," + id + ")", EPrefix.ClientSimulation);
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingType];
             Building b = new Building(id, bd, this._map, pos, this);
