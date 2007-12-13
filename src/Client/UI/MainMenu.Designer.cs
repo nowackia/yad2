@@ -211,6 +211,8 @@ namespace Yad.UI.Client
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.tableLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -222,14 +224,13 @@ namespace Yad.UI.Client
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(521, 332);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
@@ -300,6 +301,8 @@ namespace Yad.UI.Client
             // 
             // tableLayoutPanel4
             // 
+            this.tableLayoutPanel4.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.tableLayoutPanel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
@@ -320,6 +323,7 @@ namespace Yad.UI.Client
             // 
             // groupBoxServer
             // 
+            this.groupBoxServer.BackColor = System.Drawing.Color.Transparent;
             this.groupBoxServer.Controls.Add(this.serverLoginMenu);
             this.groupBoxServer.Controls.Add(this.serverLabel);
             this.groupBoxServer.Location = new System.Drawing.Point(81, 3);
@@ -348,6 +352,7 @@ namespace Yad.UI.Client
             // 
             // groupBoxLogin
             // 
+            this.groupBoxLogin.BackColor = System.Drawing.Color.Transparent;
             this.groupBoxLogin.Controls.Add(this.loginLabel);
             this.groupBoxLogin.Controls.Add(this.loginTBLoginMenu);
             this.groupBoxLogin.Controls.Add(this.passwordLoginMenu);
@@ -400,6 +405,7 @@ namespace Yad.UI.Client
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.registerLoginMenu);
             this.panel1.Controls.Add(this.loginBTLoginMenu);
             this.panel1.Controls.Add(this.remindPasswordLoginMenu);
@@ -412,42 +418,46 @@ namespace Yad.UI.Client
             // 
             // registerLoginMenu
             // 
+            this.registerLoginMenu.BackColor = System.Drawing.SystemColors.Control;
             this.registerLoginMenu.Location = new System.Drawing.Point(125, 3);
             this.registerLoginMenu.Name = "registerLoginMenu";
             this.registerLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.registerLoginMenu.TabIndex = 5;
             this.registerLoginMenu.Text = "Register";
-            this.registerLoginMenu.UseVisualStyleBackColor = true;
+            this.registerLoginMenu.UseVisualStyleBackColor = false;
             this.registerLoginMenu.Click += new System.EventHandler(this.registerLoginMenu_Click);
             // 
             // loginBTLoginMenu
             // 
+            this.loginBTLoginMenu.BackColor = System.Drawing.SystemColors.Control;
             this.loginBTLoginMenu.Location = new System.Drawing.Point(9, 3);
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
             this.loginBTLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.loginBTLoginMenu.TabIndex = 4;
             this.loginBTLoginMenu.Text = "Login";
-            this.loginBTLoginMenu.UseVisualStyleBackColor = true;
+            this.loginBTLoginMenu.UseVisualStyleBackColor = false;
             this.loginBTLoginMenu.Click += new System.EventHandler(this.loginBTLoginMenu_Click);
             // 
             // remindPasswordLoginMenu
             // 
+            this.remindPasswordLoginMenu.BackColor = System.Drawing.SystemColors.Control;
             this.remindPasswordLoginMenu.Location = new System.Drawing.Point(9, 32);
             this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
             this.remindPasswordLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.remindPasswordLoginMenu.TabIndex = 6;
             this.remindPasswordLoginMenu.Text = "Remind Password";
-            this.remindPasswordLoginMenu.UseVisualStyleBackColor = true;
+            this.remindPasswordLoginMenu.UseVisualStyleBackColor = false;
             this.remindPasswordLoginMenu.Click += new System.EventHandler(this.remindPasswordLoginMenu_Click);
             // 
             // cancelLoginMenu
             // 
+            this.cancelLoginMenu.BackColor = System.Drawing.SystemColors.Control;
             this.cancelLoginMenu.Location = new System.Drawing.Point(125, 32);
             this.cancelLoginMenu.Name = "cancelLoginMenu";
             this.cancelLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.cancelLoginMenu.TabIndex = 7;
             this.cancelLoginMenu.Text = "Cancel";
-            this.cancelLoginMenu.UseVisualStyleBackColor = true;
+            this.cancelLoginMenu.UseVisualStyleBackColor = false;
             this.cancelLoginMenu.Click += new System.EventHandler(this.cancelLoginMenu_Click);
             // 
             // registerMenu
@@ -465,6 +475,8 @@ namespace Yad.UI.Client
             // 
             // tableLayoutPanel5
             // 
+            this.tableLayoutPanel5.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
+            this.tableLayoutPanel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel5.ColumnCount = 3;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -484,6 +496,7 @@ namespace Yad.UI.Client
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.loginLBRegisterMenu);
             this.groupBox2.Controls.Add(this.emailLRegisterMenu);
             this.groupBox2.Controls.Add(this.loginTBRegisterMenu);
@@ -575,6 +588,7 @@ namespace Yad.UI.Client
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.registerRegisterMenu);
             this.panel2.Controls.Add(this.backRegisterMenu);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -585,22 +599,24 @@ namespace Yad.UI.Client
             // 
             // registerRegisterMenu
             // 
+            this.registerRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
             this.registerRegisterMenu.Location = new System.Drawing.Point(22, 3);
             this.registerRegisterMenu.Name = "registerRegisterMenu";
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.registerRegisterMenu.TabIndex = 5;
             this.registerRegisterMenu.Text = "Register";
-            this.registerRegisterMenu.UseVisualStyleBackColor = true;
+            this.registerRegisterMenu.UseVisualStyleBackColor = false;
             this.registerRegisterMenu.Click += new System.EventHandler(this.registerRegisterMenu_Click);
             // 
             // backRegisterMenu
             // 
+            this.backRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
             this.backRegisterMenu.Location = new System.Drawing.Point(103, 3);
             this.backRegisterMenu.Name = "backRegisterMenu";
             this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.backRegisterMenu.TabIndex = 6;
             this.backRegisterMenu.Text = "Back";
-            this.backRegisterMenu.UseVisualStyleBackColor = true;
+            this.backRegisterMenu.UseVisualStyleBackColor = false;
             this.backRegisterMenu.Click += new System.EventHandler(this.backRegisterMenu_Click);
             // 
             // chatMenu
