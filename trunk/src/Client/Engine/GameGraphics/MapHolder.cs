@@ -55,7 +55,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			new ETextures[]{ETextures.Rock, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, (ETextures)0}, //left, right, upper, lower
 			new ETextures[]{ETextures.Sand, ETextures.Whatever,ETextures.Whatever,ETextures.Whatever,ETextures.Whatever, (ETextures)0}
 			};
-		private static short[][] frameMap = new short[][]{new short[]{(short)0, (short)1, (short)0, (short)1, (short)0}, //left, right, upper, lower
+		private static short[][] wallFrameMap = new short[][]{new short[]{(short)0, (short)1, (short)0, (short)1, (short)0}, //left, right, upper, lower
 			new short[]{(short)0, (short)1, (short)1, (short)0, (short)1},
 			new short[]{(short)1, (short)0, (short)1, (short)0, (short)2},
 			new short[]{(short)0, (short)1,(short)1, (short)1, (short)3},
@@ -67,7 +67,7 @@ namespace Yad.Engine.GameGraphics.Client {
 			new short[]{(short)1, (short)1,(short)0, (short)0, (short)9},
 			new short[]{(short)1, (short)0, (short)0, (short)1, (short)10},
 		};
-		private static short[][] wallFrameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
+		private static short[][] frameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
 			new short[]{(short)1, (short)0, (short)0, (short)0, (short)0, (short)1},
 			new short[]{(short)1, (short)1, (short)1, (short)0, (short)0, (short)2},
 			new short[]{(short)1, (short)1,(short)0, (short)0,(short)0, (short)3},
@@ -276,7 +276,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 		public static int GetWallTextureIndex(Position p, Map m) {
 			long wallID = GlobalSettings.Wrapper.namesToIds["Wall"];
-			if (m.Buildings[p.X, p.Y].First.Value.TypeID == wallID)
+			if (m.Buildings[p.X, p.Y].First.Value.TypeID != wallID)
 				return -1;
 			int result;
 			int width = m.Width,
@@ -289,13 +289,13 @@ namespace Yad.Engine.GameGraphics.Client {
 				wallUpper = false, 
 				wallLower = false;
 
-			if (p.X > 0)
+			if (p.X > 0 && m.Buildings[p.X + 1, p.Y].Count > 0)
 				wallLeft = (m.Buildings[p.X - 1, p.Y].First.Value.TypeID == wallID);
-			if (p.X < width - 1)
+			if (p.X < width - 1 && m.Buildings[p.X + 1, p.Y].Count>0)
 				wallRight = (m.Buildings[p.X + 1, p.Y].First.Value.TypeID == wallID);
-			if (p.Y < height - 1)
+			if (p.Y < height - 1 && m.Buildings[p.X + 1, p.Y].Count > 0)
 				wallUpper = (m.Buildings[p.X, p.Y + 1].First.Value.TypeID == wallID);
-			if (p.Y > 0)
+			if (p.Y > 0 && m.Buildings[p.X + 1, p.Y].Count > 0)
 				wallLower = (m.Buildings[p.X, p.Y - 1].First.Value.TypeID == wallID);
 			for (int i = 0; i < wallFrameMap.Length; i++) {
 				if ((result = MatchWall(wallFrameMap[i], wallLeft, wallRight, wallLower, wallUpper)) >= 0)
@@ -304,7 +304,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 			//throw new MapHolderException("Bitmap frame not found");
 			InfoLog.WriteInfo("Fog Frame Not Found!", EPrefix.GameGraphics);
-			return 0;
+			return wallFrameMap[0][4];
 		}
 
 		private static int MatchWall(short[] p, bool wallLeft, bool wallRight, bool wallLower, bool wallUpper) {
