@@ -268,7 +268,7 @@ namespace Yad.UI.Client {
 		}
 
 		private void openGLView_MouseDown(object sender, MouseEventArgs e) {
-			InfoLog.WriteInfo("MouseDown");
+			InfoLog.WriteInfo("MouseDown", EPrefix.UIManager);
 
 			switch (e.Button) {
 				case MouseButtons.Left:
@@ -344,7 +344,7 @@ namespace Yad.UI.Client {
 		
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
-			InfoLog.WriteInfo("MouseUp");
+			InfoLog.WriteInfo("MouseUp", EPrefix.UIManager);
 
 			switch (e.Button) {
 				case MouseButtons.Left:
@@ -623,7 +623,7 @@ namespace Yad.UI.Client {
 		#endregion
 
 		private void miniMap_MouseDown(object sender, MouseEventArgs e) {
-			InfoLog.WriteInfo("miniMap MouseDown");
+			InfoLog.WriteInfo("miniMap MouseDown", EPrefix.UIManager);
 
 			switch (e.Button) {
 				case MouseButtons.Left:
