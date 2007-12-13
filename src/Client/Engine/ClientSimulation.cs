@@ -53,13 +53,16 @@ namespace Yad.Engine.Client {
 			sandworms = new Dictionary<int, Unit>();
 
 			//Add all players
+          
 			foreach (PlayerInfo pi in ClientPlayerInfo.GetAllPlayers()) {
 				Player p = new Player(pi.Id, pi.Name, pi.House, pi.Color, map);
 				p.TeamID = pi.TeamID;
 				p.Credits = Settings.Default.CreditsAtStart;
 				p.Power = Settings.Default.PowerAtStart;
 				players.Add(p.Id, p);
+               
 			}
+
 
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
@@ -113,12 +116,12 @@ namespace Yad.Engine.Client {
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {
-			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " UnitID:" + gm.IdUnit, EPrefix.SimulationInfo);
+			InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " UnitID:" + gm.IdUnit, EPrefix.Move);
 
 			Player p = this.players[gm.IdPlayer];
 			Unit u = p.GetUnit(ObjectID.From(gm.IdUnit, gm.IdPlayer));
 			if (u == null) {
-				InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " unit has been already destroyed", EPrefix.SimulationInfo);
+				InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " unit has been already destroyed", EPrefix.Move);
 				return;
 			}
 			u.MoveTo(gm.Destination);

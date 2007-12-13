@@ -44,6 +44,7 @@ namespace Yad.Board.Common {
 			get { return this.objectID; }
 		}
 
+
 		public Position Position {
 			get { return position; }
 			set { position = value; }
