@@ -138,8 +138,8 @@ namespace Yad.Engine.Client {
 			{
 				i++;
 				Position p  = getPosition(i);
-                //UnitSandworm u = new UnitSandworm(new ObjectID(Simulation.SimulationPlayer.Id, Simulation.SimulationPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
-				//_sim.Sandworms.Add(u.ObjectID.ObjectId, u);
+                UnitSandworm u = new UnitSandworm(new ObjectID(Simulation.SimulationPlayer.Id, Simulation.SimulationPlayer.GenerateObjectID()), s, p, _sim.Map, _sim, s.Speed);
+				_sim.Sandworms.Add(u.ObjectID.ObjectId, u);
 			}
 			//Sandworms.Add(new UnitSandworm(new ObjectID(GlobalSettings.Wrapper.Sandworms[0].TypeID
 			//_gameLogic.createUnit(GlobalSettings.Wrapper.Sandworms[0].TypeID, _gameLogic.CurrentPlayer.GenerateObjectID());
