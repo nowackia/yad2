@@ -1306,7 +1306,7 @@ namespace Yad.Engine.Client {
 			Gl.glShadeModel(Gl.GL_SMOOTH);                                      // Enable Smooth Shading
 			Gl.glClearColor(0, 0, 0, 0);                                     // Black Background
 			Gl.glClearDepth(1);                                                 // Depth Buffer Setup
-			Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
+			//Gl.glEnable(Gl.GL_DEPTH_TEST);                                      // Enables Depth Testing
 			Gl.glDepthFunc(Gl.GL_LEQUAL);                                       // The Type Of Depth Testing To Do
 			Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);

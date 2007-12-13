@@ -112,6 +112,7 @@ namespace Yad.Board.Common {
 						this._map.Buildings[x + Position.X, y + Position.Y].AddLast(this);
 					}
 				}
+				_alreadyOnMap = true;
 				return true;
 			}
 			return false;
