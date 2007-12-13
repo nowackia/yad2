@@ -76,57 +76,6 @@ namespace Yad.Engine {
             }
             _rightStripe.HideAll();
         }
-        /*
-        public void ProcessTurn() {
-            Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn start");
-            List<BuildStatus> _bsToEnd = new List<BuildStatus>();
-            lock (((ICollection)_buildList).SyncRoot) {
-                for (int i = 0; i < _buildList.Count; ++i) {
-                    BuildStatus bs = _buildList[i];
-                    if (bs.DoTurn()) {
-                        _buildList.Remove(bs);
-                        --i;
-                        _bsToEnd.Add(bs);
-                        /* OLD--> InfoLog.WriteInfo("Before OnBuildEnd");
-                        OnBuildEnd(bs);
-                        InfoLog.WriteInfo("After OnBuildEnd")
-                    }
-                    else
-                        if (bs.ObjectId == _currentObjectID) {
-                            InfoLog.WriteInfo("Before _rightStripe.Update");
-                            _rightStripe.Update(bs);
-                            InfoLog.WriteInfo("After _rightStripe.Update");
-                        }
-                }
-            }
-            //NEW
-            foreach (BuildStatus bs in _bsToEnd) {
-                InfoLog.WriteInfo("Before OnBuildEnd");
-                OnBuildEnd(bs);
-                InfoLog.WriteInfo("After OnBuildEnd");
-            }
-            Yad.Log.Common.InfoLog.WriteInfo("BuildManager ProcessTurn end");
-        }
-
-        public void OnBuildEnd(BuildStatus bstatus) {
-            if (bstatus.BuildType == BuildType.Unit) {
-                _leftState[bstatus.ObjectId] = RightStripState.Normal;
-                InfoLog.WriteInfo("Creating unit");
-                lock (cuLock) {
-                    if (_createUnit != null)
-                        _createUnit(bstatus.ObjectId, bstatus.Typeid);
-                }
-                ActivateForObject(bstatus.ObjectId);
-                if (_currentObjectID == bstatus.ObjectId)
-                    UpdateView(_currentObjectID, false);
-            }
-            if (bstatus.BuildType == BuildType.Building) {
-                bstatus.State = StripButtonState.Ready;
-                InfoLog.WriteInfo("Create Building");
-                if (_currentObjectID == bstatus.ObjectId)
-                    _rightStripe.Update(bstatus);
-
-                /* Sound */
 
         public void OnBadLocation(int id) {
             if (id == -1)
@@ -166,10 +115,16 @@ namespace Yad.Engine {
                     ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
                     UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
                 }
-                if (_currentObjectID == objectID.ObjectId) {
-                    _currentObjectID = -1;
-                    UpdateView(_currentObjectID, false);
+                bool needsRebuild = false;
+                lock (cObjLock){
+                    if (_currentObjectID == objectID.ObjectId){
+                        _currentObjectID = -1;
+                        needsRebuild = true;
+                    }
                 }
+                if (needsRebuild)
+                    UpdateView(-1, false);
+                
             }
             
         }
@@ -189,18 +144,26 @@ namespace Yad.Engine {
                 else
                     UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
             }
-            if (_currentObjectID != -1)
-                UpdateView(_currentObjectID, false);
+            int current = -1;
+            lock (cObjLock){
+                if (_currentObjectID != -1)
+                    current = _currentObjectID;
+            }
+            if (current != -1)
+                UpdateView(current, false);
         }
 
         public void SwitchCurrentBuilding(int id) {
             InfoLog.WriteInfo("lock cObjLock ", EPrefix.LockInfo);
+            int current = -1;
             lock (cObjLock) {
                 if (_currentObjectID != id) {
                     _currentObjectID = id;
-                    UpdateView(_currentObjectID, true);
+                    current = -1;
                 }
             }
+            if (current != -1)
+                UpdateView(current, true);
             InfoLog.WriteInfo("release cObjLock ", EPrefix.LockInfo);
         }
 
@@ -216,11 +179,15 @@ namespace Yad.Engine {
             int current = -1;
             lock (this.cObjLock)
                 current = _currentObjectID;
-            StripButtonState state = _stripData[current][(short)id].State;
-            switch (state) {
-                case StripButtonState.Active:
-                    RightBuildActiveClick(id, isUnit);
-                    return current;
+            if (current != -1)
+            {
+                StripButtonState state = _stripData[current][(short)id].State;
+                switch (state)
+                {
+                    case StripButtonState.Active:
+                        RightBuildActiveClick(id, isUnit);
+                        return current;
+                }
             }
             return -1;
         }
@@ -230,6 +197,8 @@ namespace Yad.Engine {
             InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
             lock (cObjLock)
                 current = _currentObjectID;
+            if (current == -1)
+                return;
             InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
             InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
             lock (((ICollection)_leftState).SyncRoot)
@@ -251,7 +220,7 @@ namespace Yad.Engine {
                 DeactivateOther((short)id);
             }
            
-            UpdateView(_currentObjectID,false);
+            UpdateView(current,false);
         }
 
         private void DeactivateOther(short typeid) {
@@ -371,14 +340,25 @@ namespace Yad.Engine {
                     if (percent == -1) {
                         _leftState[id] = RightStripState.Normal;
                         ActivateForObject(id);
-                        if (_currentObjectID == id)
+                        bool needsUpdate = false;
+                        lock(cObjLock){
+                            if (_currentObjectID == id)
+                                needsUpdate = true;
+                        }
+                        if (needsUpdate)
                             UpdateView(id, false);
                     }
                     else {
                         _stripData[id][typeID].State = StripButtonState.Percantage;
                         _stripData[id][typeID].Percent = percent;
                         InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
-                        if (_currentObjectID == id)
+                        bool needsUpdate = false;
+                        lock (cObjLock)
+                        {
+                            if (_currentObjectID == id)
+                                needsUpdate = true;
+                        }
+                        if (needsUpdate)
                                 _rightStripe.UpdatePercent(typeID, percent);
                         InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
                     }
