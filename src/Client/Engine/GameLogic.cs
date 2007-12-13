@@ -196,7 +196,7 @@ namespace Yad.Engine.Client {
 				ObjectID tankID = new ObjectID(p.Id, p.GenerateObjectID());
 
                 UnitTank u = new UnitTank(tankID, GlobalSettings.Wrapper.Tanks[0], new Position((short)((pd.X + 1) % _sim.Map.Width), _sim.Map.Height - pd.Y - 1), this._sim.Map, this._sim);
-                InfoLog.WriteInfo(tankID.ObjectId.ToString() + " for tank: " + u.TypeID, EPrefix.GObj);
+                InfoLog.WriteInfo(tankID.ToString() + " for tank: " + u.TypeID, EPrefix.GObj);
                 p.AddUnit(u);
 				_sim.ClearFogOfWar(u);
 				// ^
