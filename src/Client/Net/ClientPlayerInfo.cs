@@ -34,13 +34,15 @@ namespace Yad.Net.Client {
 			get { return enemies; }
 		}
 
-		public static List<PlayerInfo> GetAllPlayers() {
+		public static PlayerInfo[] GetAllPlayers() {
 			List<PlayerInfo> result = new List<PlayerInfo>();
 			result.Add(playerInfo);
 			foreach (PlayerInfo pi in enemies.GetPlayerInfos()) {
 				result.Add(pi);
 			}
-			return result;
+			PlayerInfo[] res = result.ToArray();
+			Array.Sort<PlayerInfo>(res);
+			return res;
 		}
 	}
 }
