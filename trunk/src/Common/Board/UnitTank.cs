@@ -91,7 +91,7 @@ namespace Yad.Board.Common {
             int delta = turretRotation - alfaTarget;
             delta += 360;
             delta %= 360;
-            InfoLog.WriteInfo("## turret rot " + turretRotationDelta + " tank rot: " + tankRotation + "# target: " +alfaTarget + "### " + delta);
+            InfoLog.WriteInfo("## turret rot " + turretRotationDelta + " tank rot: " + tankRotation + "# target: " +alfaTarget + "### " + delta, EPrefix.SimulationInfo);
             int turn = 0;
             if (delta < 360 - 23 && delta >=180) {
                 // rotate clockwise

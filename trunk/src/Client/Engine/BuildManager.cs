@@ -168,7 +168,7 @@ namespace Yad.Engine {
         }
 
         public void UpdateView(int id, bool rewind) {
-            InfoLog.WriteInfo("UpdateView");
+            InfoLog.WriteInfo("UpdateView",EPrefix.UIManager);
             if (id == -1) {
                 _rightStripe.HideAll();
                 return;
