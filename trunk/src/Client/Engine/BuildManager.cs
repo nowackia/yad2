@@ -36,7 +36,7 @@ namespace Yad.Engine {
         BuildStripe _rightStripe;
         Dictionary<int, Dictionary<short, StateWrapper>> _stripData = new Dictionary<int, Dictionary<short, StateWrapper>>();
         Dictionary<int, RightStripState> _leftState = new Dictionary<int, RightStripState>();
-        int _currentObjectID=-1;
+        int _currentObjectID= -1;
         object cObjLock = new object();
 
         object cuLock = new object();
