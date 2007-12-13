@@ -104,7 +104,6 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		protected Dictionary<short, Player> players;
 
-
 		protected Dictionary<int, Unit> sandworms;
 
 		protected Map _map;

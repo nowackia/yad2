@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Yad.Net.Common
 {
-    public class PlayerInfo
+    public class PlayerInfo : IComparable<PlayerInfo>
     {
         public const int MaxTeamNo = 8;
 
@@ -87,5 +87,19 @@ namespace Yad.Net.Common
         {
             return !(a == b);
         }
-    }
+
+		#region IComparable<PlayerInfo> Members
+
+		public int CompareTo(PlayerInfo other) {
+			if (Id < other.Id) {
+				return -1;
+			}
+			if (Id > other.Id) {
+				return 1;
+			}
+			return 0;
+		}
+
+		#endregion
+	}
 }

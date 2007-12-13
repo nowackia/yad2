@@ -401,7 +401,7 @@ namespace Yad.Engine.Client {
 			GameSettingsWrapper gameSettings = GlobalSettings.Wrapper;
 
 			#region player-color specific
-			List<PlayerInfo> players = ClientPlayerInfo.GetAllPlayers();
+			PlayerInfo[] players = ClientPlayerInfo.GetAllPlayers();
 
 			foreach (UnitTankData o in gameSettings.Tanks) {
 				String tankBasePath = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
