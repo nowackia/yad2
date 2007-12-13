@@ -1207,9 +1207,7 @@ namespace Yad.Engine.Client {
 			return _defaultUV;
 		}
 
-		private static int GetWallTextureIndex(Position p, Map m) {
-			return 0;
-		}
+
 
 		private static void DrawBuilding(BuildingData bd, float x, float y, float depth, short playerID) {
 			if (!NeedsDrawing(x, y, bd.Size.X, bd.Size.Y)) {

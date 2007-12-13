@@ -11,6 +11,8 @@ using Yad.Properties.Client;
 using Yad.UI.Client;
 using Yad.Engine.Client;
 using Yad.Log.Common;
+using Yad.Config;
+using Yad.Board;
 
 namespace Yad.Engine.GameGraphics.Client {
 	static class MapTextureGenerator {
@@ -53,7 +55,19 @@ namespace Yad.Engine.GameGraphics.Client {
 			new ETextures[]{ETextures.Rock, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, ETextures.Whatever, (ETextures)0}, //left, right, upper, lower
 			new ETextures[]{ETextures.Sand, ETextures.Whatever,ETextures.Whatever,ETextures.Whatever,ETextures.Whatever, (ETextures)0}
 			};
-		private static short[][] frameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
+		private static short[][] frameMap = new short[][]{new short[]{(short)0, (short)1, (short)0, (short)1, (short)0}, //left, right, upper, lower
+			new short[]{(short)0, (short)1, (short)1, (short)0, (short)1},
+			new short[]{(short)1, (short)0, (short)1, (short)0, (short)2},
+			new short[]{(short)0, (short)1,(short)1, (short)1, (short)3},
+			new short[]{(short)1, (short)0,(short)1,(short)1, (short)4},
+			new short[]{(short)1, (short)1,(short)0, (short)1, (short)5},
+			new short[]{(short)1, (short)1,(short)1, (short)0, (short)6},
+			new short[]{(short)0, (short)0,(short)1, (short)1, (short)7},
+			new short[]{(short)1, (short)1,(short)1, (short)1, (short)8},
+			new short[]{(short)1, (short)1,(short)0, (short)0, (short)9},
+			new short[]{(short)1, (short)0, (short)0, (short)1, (short)10},
+		};
+		private static short[][] wallFrameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
 			new short[]{(short)1, (short)0, (short)0, (short)0, (short)0, (short)1},
 			new short[]{(short)1, (short)1, (short)1, (short)0, (short)0, (short)2},
 			new short[]{(short)1, (short)1,(short)0, (short)0,(short)0, (short)3},
@@ -258,6 +272,46 @@ namespace Yad.Engine.GameGraphics.Client {
 			if (Convert.ToInt16(center) == fogFrameMap[0] && Convert.ToInt16(fogLeft) == fogFrameMap[1] && Convert.ToInt16(fogRight) == fogFrameMap[2] && Convert.ToInt16(fogUpper) == fogFrameMap[3] && Convert.ToInt16(fogLower) == fogFrameMap[4])
 				return fogFrameMap[5];
 			return -1;
+		}
+
+		public static int GetWallTextureIndex(Position p, Map m) {
+			long wallID = GlobalSettings.Wrapper.namesToIds["Wall"];
+			if (m.Buildings[p.X, p.Y].First.Value.TypeID == wallID)
+				return -1;
+			int result;
+			int width = m.Width,
+				height = m.Height;
+			if (p.X < 0 || p.Y < 0 || p.X >= width || p.Y >= height)
+				throw new MapHolderException("Incorrect map position");
+
+			bool wallLeft = false, 
+				wallRight = false, 
+				wallUpper = false, 
+				wallLower = false;
+
+			if (p.X > 0)
+				wallLeft = (m.Buildings[p.X - 1, p.Y].First.Value.TypeID == wallID);
+			if (p.X < width - 1)
+				wallRight = (m.Buildings[p.X + 1, p.Y].First.Value.TypeID == wallID);
+			if (p.Y < height - 1)
+				wallUpper = (m.Buildings[p.X, p.Y + 1].First.Value.TypeID == wallID);
+			if (p.Y > 0)
+				wallLower = (m.Buildings[p.X, p.Y - 1].First.Value.TypeID == wallID);
+			for (int i = 0; i < wallFrameMap.Length; i++) {
+				if ((result = MatchWall(wallFrameMap[i], wallLeft, wallRight, wallLower, wallUpper)) >= 0)
+					return result;
+			}
+
+			//throw new MapHolderException("Bitmap frame not found");
+			InfoLog.WriteInfo("Fog Frame Not Found!", EPrefix.GameGraphics);
+			return 0;
+		}
+
+		private static int MatchWall(short[] p, bool wallLeft, bool wallRight, bool wallLower, bool wallUpper) {
+			if ((Convert.ToBoolean(p[0]) == wallLeft) && (Convert.ToBoolean(p[1]) == wallRight) && (Convert.ToBoolean(p[2]) == wallUpper) && (Convert.ToBoolean(p[3]) == wallLower))
+				return p[4];
+			else
+				return -1;
 		}
 
 	}
