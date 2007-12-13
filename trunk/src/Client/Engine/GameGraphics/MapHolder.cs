@@ -289,13 +289,13 @@ namespace Yad.Engine.GameGraphics.Client {
 				wallUpper = false, 
 				wallLower = false;
 
-			if (p.X > 0 && m.Buildings[p.X + 1, p.Y].Count > 0)
+			if (p.X > 0 && m.Buildings[p.X - 1, p.Y].Count > 0)
 				wallLeft = (m.Buildings[p.X - 1, p.Y].First.Value.TypeID == wallID);
-			if (p.X < width - 1 && m.Buildings[p.X + 1, p.Y].Count>0)
+			if (p.X < width - 1 && m.Buildings[p.X + 1, p.Y].Count > 0)
 				wallRight = (m.Buildings[p.X + 1, p.Y].First.Value.TypeID == wallID);
-			if (p.Y < height - 1 && m.Buildings[p.X + 1, p.Y].Count > 0)
+			if (p.Y < height - 1 && m.Buildings[p.X, p.Y + 1].Count > 0)
 				wallUpper = (m.Buildings[p.X, p.Y + 1].First.Value.TypeID == wallID);
-			if (p.Y > 0 && m.Buildings[p.X + 1, p.Y].Count > 0)
+			if (p.Y > 0 && m.Buildings[p.X, p.Y - 1].Count > 0)
 				wallLower = (m.Buildings[p.X, p.Y - 1].First.Value.TypeID == wallID);
 			for (int i = 0; i < wallFrameMap.Length; i++) {
 				if ((result = MatchWall(wallFrameMap[i], wallLeft, wallRight, wallLower, wallUpper)) >= 0)
@@ -304,7 +304,7 @@ namespace Yad.Engine.GameGraphics.Client {
 
 			//throw new MapHolderException("Bitmap frame not found");
 			InfoLog.WriteInfo("Fog Frame Not Found!", EPrefix.GameGraphics);
-			return wallFrameMap[0][4];
+			return wallFrameMap[7][4];
 		}
 
 		private static int MatchWall(short[] p, bool wallLeft, bool wallRight, bool wallLower, bool wallUpper) {
