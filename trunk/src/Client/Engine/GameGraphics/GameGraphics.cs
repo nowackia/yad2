@@ -72,7 +72,7 @@ namespace Yad.Engine.Client {
 		/// <summary>
 		/// These are just stupid, very often used constants.
 		/// </summary>
-		const float half = 1.0f / 2.0f, oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f, oneSixteenth = 0.0625f;
+		const float half = 1.0f / 2.0f, oneThird = 1.0f / 3.0f, oneFourth = 0.25f, oneFifth = 0.2f, oneEight = 0.125f, oneSixteenth = 0.0625f, oneEleventh = 1.0f / 11.0f;
 		#endregion
 
 		#region drawing-related members
@@ -1116,24 +1116,30 @@ namespace Yad.Engine.Client {
 
         private static void DrawAmmo(Ammo a) {
             PointF realPos = new PointF(a.Position.X, a.Position.Y);//
-            RectangleF uv = new RectangleF(0, 0, 1, 1);
             switch (a.Type) {
                 case AmmoType.None:
                     break;
                 case AmmoType.Bullet:
-                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 0.1f, 0.1f, (int)MainTextures.Bullet, uv, true);
+                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 0.1f, 0.1f, (int)MainTextures.Bullet, _defaultUV, true);
                     break;
                 case AmmoType.Rocket:
+					RectangleF uv = AmmoUVChooser(a);
                     DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Rocket, uv, true);
                     break;
                 case AmmoType.Sonic:
-                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Sonic, uv, true);
+                    DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Sonic, _defaultUV, true);
                     break;
                 default:
                     break;
             }
             
         }
+
+		private static RectangleF AmmoUVChooser(Ammo a) {
+			RectangleF uv = VehicleUVChooser(a.Direction);
+			uv.Width = oneSixteenth;
+			return uv;
+		}
 
 		private static void DrawSandworm(UnitSandworm o) {
 			PointF realPos = CountRealPosition(o);
@@ -1204,10 +1210,10 @@ namespace Yad.Engine.Client {
 		}
 
 		private static RectangleF WallUVChooser(Building o) {
-			return _defaultUV;
+			int index = MapTextureGenerator.GetWallTextureIndex(o.Position, _gameLogic.Simulation.Map);
+			RectangleF uv = new RectangleF(index * oneEleventh, 0, oneEleventh, 1);
+			return uv;
 		}
-
-
 
 		private static void DrawBuilding(BuildingData bd, float x, float y, float depth, short playerID) {
 			if (!NeedsDrawing(x, y, bd.Size.X, bd.Size.Y)) {
