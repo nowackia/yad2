@@ -56,7 +56,11 @@ namespace Yad.Log.Common
         [Description(" #LOK: ")]
         LockInfo,
         [Description(" #GEN: ")]
-        GObj
+        GObj,
+        [Description(" #MOV: ")]
+        Move,
+        [Description(" #AI: ")]
+        AI
         
 
         // Wartosc kontrolna - musi byc zawsze na koncu

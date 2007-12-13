@@ -4,6 +4,7 @@ using System.Text;
 using Yad.Config;
 using Yad.Config.Common;
 using Yad.Engine.Common;
+using Yad.Log.Common;
 
 namespace Yad.Board.Common {
     public delegate void SpiceUnloadDelegate(short playerID, int credits);
@@ -65,8 +66,10 @@ namespace Yad.Board.Common {
         
 
 		public override void DoAI() {
+            InfoLog.WriteInfo(DoAIPrefix + " harvester DoAI", EPrefix.AI);
             if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
                 Move();
+                InfoLog.WriteInfo(DoAIPrefix + " harvester moved", EPrefix.AI);
                 return;
             }
             Position loc;
@@ -91,6 +94,7 @@ namespace Yad.Board.Common {
                                 knowsLastKnownPosition = true;
                                 lastKnownSpicePosition = loc;
                                 MoveTo(loc, HarvestingState.harvesting);
+                                InfoLog.WriteInfo(DoAIPrefix + "harvester searching for spice", EPrefix.AI);
                             } else {
                                 // no spice visible - stopping but still seeking for spice
                                 state = UnitState.stopped;
@@ -98,6 +102,7 @@ namespace Yad.Board.Common {
                             }
                         } else if( spiceOnLocaltion > 0) {
                             // collect spise
+                            
                             this.spiceCounter+=10;
                             _map.Spice[Position.X, Position.Y]--;
                         }
@@ -113,6 +118,7 @@ namespace Yad.Board.Common {
                             knowsLastKnownPosition = true;
                             lastKnownSpicePosition = loc;
                             MoveTo(loc, HarvestingState.harvesting);
+                            InfoLog.WriteInfo(DoAIPrefix + "harvester searching for spice", EPrefix.AI);
                             break;
                         }
                         if (this.Position.X == lastKnownSpicePosition.X &&
@@ -157,6 +163,7 @@ namespace Yad.Board.Common {
                 switch (state) {
                     case UnitState.moving:
                         // returning to base
+                        InfoLog.WriteInfo(DoAIPrefix + "harvester returning to base", EPrefix.AI);
                         if (Move() == false) {
                             // destination reached
                             this.state = UnitState.stopped;                            
@@ -199,6 +206,7 @@ namespace Yad.Board.Common {
 
             } else {
                 // unloading
+                InfoLog.WriteInfo(DoAIPrefix + "harvester unloading", EPrefix.AI);
                 _simulation.Players[this.ObjectID.PlayerID].Credits += spiceCounter;
                 if (spiceUnload != null)
                     spiceUnload(this.ObjectID.PlayerID, spiceCounter);
@@ -206,6 +214,7 @@ namespace Yad.Board.Common {
                 this.harvestingState = HarvestingState.harvesting;
                 this.state = UnitState.stopped;
             }
+            InfoLog.WriteInfo(DoAIPrefix + "harvester end DoAI",EPrefix.AI);
 
 
 

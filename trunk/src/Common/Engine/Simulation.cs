@@ -154,6 +154,8 @@ namespace Yad.Engine.Common {
 					this._turnProcessor = null;
 					return;
 				}
+
+                InfoLog.WriteInfo("********** TURN BEGIN **********");
 				InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
 
 				turnAsk = Environment.TickCount;
@@ -251,6 +253,7 @@ namespace Yad.Engine.Common {
 					this.onTurnEnd();
 				}
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
+                InfoLog.WriteInfo("********* TURN END *********");
 			}
 		}
 

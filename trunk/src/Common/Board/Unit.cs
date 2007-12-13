@@ -105,8 +105,13 @@ namespace Yad.Board.Common {
 		}
 
 
+        protected string DoAIPrefix{
+            get {
+            return "ID: " + this.ObjectID.ToString() + " Pos: " + this.Position.ToString() + "Type: " + this.TypeID;
+            }
+        }
         public virtual void DoAI() {
-			InfoLog.WriteInfo("Unit:DoAI()", EPrefix.SimulationInfo);
+			InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI()", EPrefix.AI);
             if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
             if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
                 Move();
@@ -121,30 +126,30 @@ namespace Yad.Board.Common {
                     //    StopMoving();
                     //} else
                         if (Move() == false) {
-                        InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
+                            InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
                     } else {
-                        InfoLog.WriteInfo("Unit:AI: move -> move ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix +  "Unit:AI: move -> move ", EPrefix.AI);
                     }
                     //TODO RS: modify to find way each time? - chasing another unit
                     break;
                 case UnitState.chasing:
                     BoardObject nearest1;
                     if (FindNearestTargetInFireRange(out nearest1)) {
-                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix +  "Unit:AI: chasing -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
                     } else 
                     if (Move() == false) {
-                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix+ "Unit:AI: chasing -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
                     } 
                     break;
                 case UnitState.orderedAttack:
                     if (Move() == false) {
-                        InfoLog.WriteInfo("Unit:AI: chasing -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix+ "Unit:AI: chasing -> stop ", EPrefix.AI);
                         if (CheckIfStillExistTarget(attackedObject) == false) {
                             state = UnitState.stopped;
                             StopMoving();
@@ -159,19 +164,19 @@ namespace Yad.Board.Common {
                 case UnitState.stopped:
                     if (FindNearestTargetInFireRange(out attackedObject)) {
                         state = UnitState.attacking;
-                        InfoLog.WriteInfo("Unit:AI: stop -> attack ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
                     }
                     BoardObject ob;
                     if (FindNearestTargetInViewRange(out ob)) {
-                        InfoLog.WriteInfo("Unit:AI: stop -> chace ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> chace ", EPrefix.AI);
                         state = UnitState.chasing;
-                        InfoLog.WriteInfo("Starting chasing:" + ob.Position.ToString(), EPrefix.AStar);
+                        InfoLog.WriteInfo(DoAIPrefix + "Starting chasing:" + ob.Position.ToString(), EPrefix.AI);
                         if (MoveTo(ob.Position))
                             state = UnitState.chasing;
                         else
                         {
-                            InfoLog.WriteInfo("Chasing failed!", EPrefix.AStar);
+                            InfoLog.WriteInfo(DoAIPrefix + "Chasing failed!", EPrefix.AI);
                             state = UnitState.stopped;
                         }
                         break;
@@ -184,18 +189,18 @@ namespace Yad.Board.Common {
                     }
                     if (attackedObject == null) {
                         //unit/ building destroyed - stop
-                        InfoLog.WriteInfo("Unit:AI: attack -> stop ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
                         break;
                     }
                     if (CheckRangeToShoot(attackedObject)) {
-                        InfoLog.WriteInfo("Unit:AI: attack -> attack ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> attack ", EPrefix.AI);
                         TryAttack(attackedObject);
                         //attack, reload etc
                     } else {
                         // out of range - chase
-                        InfoLog.WriteInfo("Unit:AI: attack -> chase ", EPrefix.SimulationInfo);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> chase ", EPrefix.AI);
                         state = UnitState.chasing;
                         MoveTo(attackedObject.Position);
                         //override state
@@ -203,6 +208,7 @@ namespace Yad.Board.Common {
                     }
                     break;
             }
+            InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI() end",EPrefix.AI);
 		}
 
         protected bool FindNearestTargetInViewRange(out BoardObject ob) {
@@ -423,7 +429,7 @@ namespace Yad.Board.Common {
                 return u.state != UnitState.destroyed;
             }
         }
-        private string InfoPrefix()
+        protected string InfoPrefix()
         {
             return this._name + " Unit: " + this.ObjectID.ToString() + " :";
         }
