@@ -86,7 +86,8 @@ namespace Yad.Net.GameServer.Server {
             _gameServer.Simulation.SetEndGame(item.SenderId, item.HasWon);
             if (_gameServer.Simulation.HasGameEnded()) {
                 InfoLog.Write("Game " + _gameServer.Name + " has finished.");
-                _gameServer.StopGameServer();
+                _gameServer.EndServerGame();
+                //_gameServer.StopGameServer();
             }
         }
 
