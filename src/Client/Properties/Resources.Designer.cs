@@ -81,6 +81,13 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Menu_VersionBox {
+            get {
+                object obj = ResourceManager.GetObject("Menu_VersionBox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Background {
             get {
                 object obj = ResourceManager.GetObject("UI_Background", resourceCulture);
