@@ -131,6 +131,13 @@ namespace Yad.Net.GameServer.Server {
             }
             InfoLog.WriteInfo("Game end semaphore realeased successfully", EPrefix.ServerAction);
         }
+
+        public void EndServerGame()
+        {
+            foreach (Player p in _playerCollection)
+                UpdatePlayerStats(p.Id);
+            StopGameServer();
+        }
         public void JoinGameServer() {
             _serverThread.Join();
         }
