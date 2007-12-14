@@ -389,7 +389,10 @@ namespace Yad.UI.Client
                 Connection.Instance.SendMessage(Utils.CreateMessageWithSenderId(MessageType.ChatEntry));
             }
             else
+            {
                 MessageBoxEx.Show(this, e.reason, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Connection.Instance.CloseConnection();
+            }
         }
 
         void menuMessageHandler_RemindRequestReply(object sender, RequestReplyEventArgs e)
