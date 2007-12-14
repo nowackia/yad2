@@ -66,6 +66,10 @@ namespace Yad.Engine.GameGraphics.Client {
 			new short[]{(short)1, (short)1,(short)1, (short)1, (short)8},
 			new short[]{(short)1, (short)1,(short)0, (short)0, (short)9},
 			new short[]{(short)1, (short)0, (short)0, (short)1, (short)10},
+			new short[]{(short)1, (short)0, (short)0, (short)0, (short)9}, //left, right, upper, lower
+			new short[]{(short)0, (short)1, (short)0, (short)0, (short)9},
+			new short[]{(short)0, (short)0, (short)1, (short)0, (short)7},
+			new short[]{(short)0, (short)0,(short)0, (short)1, (short)7},
 		};
 		private static short[][] frameMap = new short[][]{new short[]{(short)1, (short)1, (short)1, (short)1, (short)1, (short)0}, //left, right, upper, lower
 			new short[]{(short)1, (short)0, (short)0, (short)0, (short)0, (short)1},
