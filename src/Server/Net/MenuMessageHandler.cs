@@ -81,12 +81,19 @@ namespace Yad.Net.Server
             string email = null;
             string password = null;
             if (Settings.Default.DBAvail)
-                if (YadDB.Remind(login, out email, out password)) {
+            {
+                if (YadDB.Remind(login, out email, out password))
+                {
                     YadMail.SendRemindMail(login, email, password);
                     ResultMessage resMsg = Utils.CreateResultMessage(ResponseType.Remind, ResultType.Successful);
                     SendMessage(resMsg, textMessage.SenderId);
                     return;
                 }
+                else
+                    SendMessage(Utils.CreateResultMessage(ResponseType.Remind, ResultType.Unsuccesful), textMessage.SenderId);
+                    
+            }
+           
            SendMessage(Utils.CreateResultMessage(ResponseType.Remind, ResultType.Unsuccesful), textMessage.SenderId);
         }
 
