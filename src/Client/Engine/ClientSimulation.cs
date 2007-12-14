@@ -113,6 +113,7 @@ namespace Yad.Engine.Client {
             b.BuildStatus = new BuildStatus(bm.CreatorID, bm.BuildingType, b.BuildingData.BuildSpeed, BuildType.Building);
             UpdatePowerManagement(b);
             //OnBuildingCompleted(b, bm.CreatorID);
+            //194.29.178.207
 		}
 
 		protected override void onMessageMove(MoveMessage gm) {

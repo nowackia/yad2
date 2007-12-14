@@ -113,6 +113,8 @@ namespace Yad.Net.Server
                     InfoLog.WriteInfo("Player registered successfully", EPrefix.ServerProcessInfo);
                     SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Successful), msg.SenderId);
                 }
+                else
+                    SendMessage(Utils.CreateResultMessage(ResponseType.Register, ResultType.Unsuccesful), msg.SenderId);
                 InfoLog.WriteInfo("Player registered unsucessfully", EPrefix.ServerProcessInfo);
             }
             else
