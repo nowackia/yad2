@@ -86,7 +86,7 @@ namespace Yad.Engine.Client {
                 }
             }
             /* Sound */
-            if(CurrentPlayer.IsVisible(b))
+            if (CurrentPlayer.IsVisible(b))
                 AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.PlaceStructure);
 		}
 
@@ -99,7 +99,7 @@ namespace Yad.Engine.Client {
 
             /* Play sound */
             if (CurrentPlayer.IsVisible(u))
-                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.StructureExplosion);
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.SmallExplosion);
 
             this.CheckGameEndCondition();
         }
@@ -352,13 +352,14 @@ namespace Yad.Engine.Client {
             if (attacked.ObjectID.PlayerID == CurrentPlayer.Id) return;
             if (_selectedBuilding != null) {
                 return;
-                //TODO RS: user can order building to attack?
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);
                 am.Attacker = _selectedBuilding.ObjectID;
                 am.Attacked = attacked.ObjectID;
                 am.IdPlayer = _selectedBuilding.ObjectID.PlayerID;
                 Connection.Instance.SendMessage(am);
             }
+
+            bool soundPlayed = false;
 
             foreach (Unit u in _selectedUnits) {
 				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
@@ -370,16 +371,23 @@ namespace Yad.Engine.Client {
                 am.Attacked = attacked.ObjectID;
                 am.IdPlayer = u.ObjectID.PlayerID;
                 Connection.Instance.SendMessage(am);
-            }
 
-            /* Sound */
-            AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.YesSir);
+                /* Sound */
+                if (!soundPlayed)
+                {
+                    AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Affirmative);
+                    soundPlayed = true;
+                }
+            }
         }
 
 		internal void MoveOrder(Position newPos) {
 			if (_selectedUnits.Count == 0) {
 				return;
 			}
+
+            bool soundPlayed = false;
+
 			foreach (Unit u in _selectedUnits) {
 				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
 					continue;
@@ -389,10 +397,17 @@ namespace Yad.Engine.Client {
 				mm.Destination = newPos;
 				mm.IdPlayer = u.ObjectID.PlayerID;
 				Connection.Instance.SendMessage(mm);
-			}
 
-            /* Sound */
-            AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Acknowledged);
+                /* Sound */
+                if (!soundPlayed)
+                {
+                    if (u.BoardObjectClass == BoardObjectClass.UnitTrooper)
+                        AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.InfantryOut);
+                    else
+                        AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Acknowledged);
+                    soundPlayed = true;
+                }
+			}
 		}
 
 		public void CreateBuilding(Position pos, short buildingId, int creatorID) {

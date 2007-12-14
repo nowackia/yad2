@@ -1024,7 +1024,7 @@ namespace Yad.UI.Client
             if (muteSoundOptionsMenu.Checked)
                 AudioEngine.Instance.Sound.Mute();
             else
-                AudioEngine.Instance.Sound.Volume = (int)musicVolumeNMOptionsMenu.Value;
+                AudioEngine.Instance.Sound.Volume = (int)soundVolumeNMOptionsMenu.Value;
 
             if (this.lastView == Views.GameMenuForm)
                 OnMenuOptionChange(MenuOption.OkToGameMenu);

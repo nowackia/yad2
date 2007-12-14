@@ -275,8 +275,9 @@ namespace Yad.Engine
             if (!isInitialized)
                 return false;
 
-            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], false, ref channel);
+            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
             channel.setVolume(volume);
+            channel.setPaused(false);
 
             return FMOD.ERROR.ERRCHECK(result);
         }
@@ -286,8 +287,9 @@ namespace Yad.Engine
             if (!isInitialized)
                 return false;
 
-            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], false, ref channel);
+            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], true, ref channel);
             channel.setVolume(volume);
+            channel.setPaused(false);
 
             return FMOD.ERROR.ERRCHECK(result);
         }
