@@ -31,6 +31,7 @@ namespace Yad.UI.Client
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             this.tabControl = new Yad.UI.MenuTabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -214,9 +215,9 @@ namespace Yad.UI.Client
             this.tableLayoutPanel1.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.tableLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.42802F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.29559F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.27639F));
             this.tableLayoutPanel1.Controls.Add(this.newGameMainMenu, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.optionsMainMenu, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.exitMainMenu, 1, 4);
@@ -239,9 +240,14 @@ namespace Yad.UI.Client
             this.newGameMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.newGameMainMenu.Location = new System.Drawing.Point(107, 83);
+            this.newGameMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("newGameMainMenu.BackgroundImage")));
+            this.newGameMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.newGameMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newGameMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newGameMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.newGameMainMenu.Location = new System.Drawing.Point(198, 83);
             this.newGameMainMenu.Name = "newGameMainMenu";
-            this.newGameMainMenu.Size = new System.Drawing.Size(306, 23);
+            this.newGameMainMenu.Size = new System.Drawing.Size(131, 23);
             this.newGameMainMenu.TabIndex = 1;
             this.newGameMainMenu.Text = "New Game";
             this.newGameMainMenu.UseVisualStyleBackColor = true;
@@ -252,9 +258,14 @@ namespace Yad.UI.Client
             this.optionsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsMainMenu.Location = new System.Drawing.Point(107, 112);
+            this.optionsMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsMainMenu.BackgroundImage")));
+            this.optionsMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.optionsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionsMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsMainMenu.Location = new System.Drawing.Point(198, 112);
             this.optionsMainMenu.Name = "optionsMainMenu";
-            this.optionsMainMenu.Size = new System.Drawing.Size(306, 23);
+            this.optionsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.optionsMainMenu.TabIndex = 2;
             this.optionsMainMenu.Text = "Options";
             this.optionsMainMenu.UseVisualStyleBackColor = true;
@@ -265,9 +276,14 @@ namespace Yad.UI.Client
             this.exitMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitMainMenu.Location = new System.Drawing.Point(107, 170);
+            this.exitMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitMainMenu.BackgroundImage")));
+            this.exitMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.exitMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitMainMenu.Location = new System.Drawing.Point(198, 170);
             this.exitMainMenu.Name = "exitMainMenu";
-            this.exitMainMenu.Size = new System.Drawing.Size(306, 23);
+            this.exitMainMenu.Size = new System.Drawing.Size(131, 23);
             this.exitMainMenu.TabIndex = 4;
             this.exitMainMenu.Text = "Exit";
             this.exitMainMenu.UseVisualStyleBackColor = true;
@@ -278,9 +294,14 @@ namespace Yad.UI.Client
             this.creditsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.creditsMainMenu.Location = new System.Drawing.Point(107, 141);
+            this.creditsMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("creditsMainMenu.BackgroundImage")));
+            this.creditsMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.creditsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.creditsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creditsMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.creditsMainMenu.Location = new System.Drawing.Point(198, 141);
             this.creditsMainMenu.Name = "creditsMainMenu";
-            this.creditsMainMenu.Size = new System.Drawing.Size(306, 23);
+            this.creditsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.creditsMainMenu.TabIndex = 3;
             this.creditsMainMenu.Text = "Credits";
             this.creditsMainMenu.UseVisualStyleBackColor = true;

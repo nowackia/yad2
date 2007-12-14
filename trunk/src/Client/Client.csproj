@@ -1114,6 +1114,7 @@
     <Content Include="Resources\Graphics\UI\InvalidPlace.png" />
     <Content Include="Resources\Graphics\UI\Menu.png" />
     <None Include="Resources\Graphics\UI\Menu_Planet.png" />
+    <None Include="Resources\Graphics\UI\Menu_VersionBox.png" />
     <Content Include="Resources\Graphics\UI\Radar_Static.png" />
     <Content Include="Resources\Graphics\UI\Selection.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
