@@ -59,14 +59,14 @@ namespace Yad.Log.Common {
             _writer = writer;
             _infoLogPrefix = new InfoLogPrefix();
 
-            foreach (Object obj in Enum.GetValues(typeof(EPrefix)))
+            /*foreach (Object obj in Enum.GetValues(typeof(EPrefix)))
             {
                 _infoLogPrefix.AddFilter((EPrefix)obj);
             }
             _infoLogPrefix.RemoveFilter(EPrefix.GObj);
             _infoLogPrefix.RemoveFilter(EPrefix.AStar);
             _infoLogPrefix.RemoveFilter(EPrefix.Move);
-            _infoLogPrefix.RemoveFilter(EPrefix.AI);
+            _infoLogPrefix.RemoveFilter(EPrefix.AI);*/
             //
             /*_infoLogPrefix.AddFilter(EPrefix.ServerSendMessageInfo);
             _infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
