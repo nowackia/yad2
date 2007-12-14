@@ -425,6 +425,9 @@ namespace Yad.UI.Client {
 			int cost = GlobalSettings.GetUnitCost((short)id);
 			if (playerCredits >= cost)
 				_buildManager.RightBuildingClick(id, true);
+            else
+                /* Sound */
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Cannot);
 		}
 
 
@@ -438,6 +441,9 @@ namespace Yad.UI.Client {
 				if (creator != -1)
 					PlaceBuilding((short)id, creator);
 			}
+            else
+                /* Sound */
+                AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.Cannot);
 		}
 
 		private void UpdateCredits(short idPlayer, int cost) {
