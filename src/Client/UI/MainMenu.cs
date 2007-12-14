@@ -335,7 +335,7 @@ namespace Yad.UI.Client
             }
 
 			TextMessage remindMessage = (TextMessage)Utils.CreateMessageWithSenderId(MessageType.Remind);
-            remindMessage.Text = loginTBRegisterMenu.Text;
+            remindMessage.Text = loginTBLoginMenu.Text;
             Connection.Instance.SendMessage(remindMessage);
         }
 
