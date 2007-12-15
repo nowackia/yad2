@@ -1115,6 +1115,7 @@ namespace Yad.Engine.Client {
 		}
 
         private static void DrawAmmo(Ammo a) {
+            //a.LastPosition
             PointF realPos = new PointF(a.Position.X, a.Position.Y);//
             switch (a.Type) {
                 case AmmoType.None:
