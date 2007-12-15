@@ -349,7 +349,12 @@ namespace Yad.Engine.Client {
             if (_selectedUnits.Count == 0 && _selectedBuilding == null) {
                 return;
             }
-            if (attacked.ObjectID.PlayerID == CurrentPlayer.Id) return;
+            
+            // friendy fire off
+            if (attacked.ObjectID.PlayerID == CurrentPlayer.Id) {
+                MoveOrder(attacked.Position);
+                return;
+            }
             if (_selectedBuilding != null) {
                 return;
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);

@@ -17,7 +17,7 @@ namespace Yad.Board.Common {
 
         // local states
 
-        private enum HarvestingState { harvesting, returningToBase, unloading }
+        private enum HarvestingState { harvesting, returningToBase, unloading, nothing }
 
         HarvestingState harvestingState = HarvestingState.harvesting;
 
@@ -48,19 +48,28 @@ namespace Yad.Board.Common {
 
 
 
-		public override void Destroy() {
-			base.Destroy();// give damage destroy
-		}
-
-
-        private void MoveTo(Position loc, HarvestingState hState) {
-            base.MoveTo(loc);
-
+        private bool MoveTo(Position loc, HarvestingState hState) {
+            return base.MoveTo(loc);
         }
 
-        public override bool MoveTo(Position destination) {
-            bool result = base.MoveTo(destination);
-            this.harvestingState = HarvestingState.harvesting;
+        public override bool MoveTo(Position loc) {
+            bool result = base.MoveTo(loc);
+            if (_simulation.Players[this.ObjectID.PlayerID].FogOfWar[loc.X, loc.Y] == true) {
+                this.harvestingState = HarvestingState.nothing;
+            } else if (_simulation.Map.Spice[loc.X, loc.Y] > 0) {
+                this.harvestingState = HarvestingState.harvesting;
+            } else {
+                bool found = false;
+                foreach (Building b in _simulation.Map.Buildings[loc.X, loc.Y]) {
+                    if (b.BuildingData.IsRefinery && b.ObjectID.PlayerID == this.ObjectID.PlayerID) {
+                        this.harvestingState = HarvestingState.returningToBase;
+                        found = true;
+                    }
+                }
+                if (found == false) {
+                    this.harvestingState = HarvestingState.nothing;
+                }
+            }
             return result;
         }
         
@@ -93,7 +102,10 @@ namespace Yad.Board.Common {
                                 state = UnitState.moving;
                                 knowsLastKnownPosition = true;
                                 lastKnownSpicePosition = loc;
-                                MoveTo(loc, HarvestingState.harvesting);
+                                if (MoveTo(loc, HarvestingState.harvesting) == false) {
+                                    this.state = UnitState.stopped;
+                                    return;
+                                }
                                 InfoLog.WriteInfo(DoAIPrefix + "harvester searching for spice", EPrefix.AI);
                             } else {
                                 // no spice visible - stopping but still seeking for spice
@@ -117,7 +129,10 @@ namespace Yad.Board.Common {
                             state = UnitState.moving;
                             knowsLastKnownPosition = true;
                             lastKnownSpicePosition = loc;
-                            MoveTo(loc, HarvestingState.harvesting);
+                            if (MoveTo(loc, HarvestingState.harvesting) == false) {
+                                state = UnitState.stopped;
+                                return;
+                            }
                             InfoLog.WriteInfo(DoAIPrefix + "harvester searching for spice", EPrefix.AI);
                             break;
                         }
@@ -137,7 +152,7 @@ namespace Yad.Board.Common {
                             // przeliczyl sie.
                             this.spiceFindingCounter = 100; // magic number! - przeniesc do ustawien
                             this.state = UnitState.stopped;
-                            this.harvestingState = HarvestingState.returningToBase;
+                            this.harvestingState = HarvestingState.nothing;
                             break;
                         }
                         break;
@@ -202,10 +217,19 @@ namespace Yad.Board.Common {
 
                 #endregion
 
+            } else if (harvestingState == HarvestingState.nothing) {
+                #region nothing
+                switch (state) {
+                    case UnitState.moving:
+                        if (Move() == false) {
+                            state = UnitState.stopped;
+                        }
+                        break;
+                }
 
-
+                #endregion
             } else {
-                // unloading
+                #region unloading
                 InfoLog.WriteInfo(DoAIPrefix + "harvester unloading", EPrefix.AI);
                 _simulation.Players[this.ObjectID.PlayerID].Credits += spiceCounter;
                 if (spiceUnload != null)
@@ -213,6 +237,7 @@ namespace Yad.Board.Common {
                 this.spiceCounter = 0;
                 this.harvestingState = HarvestingState.harvesting;
                 this.state = UnitState.stopped;
+                #endregion
             }
             InfoLog.WriteInfo(DoAIPrefix + "harvester end DoAI",EPrefix.AI);
 

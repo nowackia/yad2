@@ -15,6 +15,20 @@ namespace Yad.Board {
         // how many moves in one turn
         private short speed;
         Queue<Position> path;
+        private Position from;
+        private Position to;
+        private Position lastPosition;
+        public Position LastPosition {
+            get { return lastPosition; }
+        }
+
+        public Position To {
+            get { return to; }
+        }
+
+        public Position From {
+            get { return from; }
+        }
 
 
 
@@ -26,10 +40,12 @@ namespace Yad.Board {
             this.damageRange = damageRange;
             this.sim = sim;
             this.speed = speed;
+            this.Position = this.lastPosition = from;
             path = BoardObject.Bresenham(ref from, ref to);
             int dir = GetAlfa(to.X - from.X, to.Y - from.Y);
             direction = ConvertToDirection(dir);
-
+            this.from = from;
+            this.to = to;
 
         }
 
@@ -42,6 +58,7 @@ namespace Yad.Board {
                 this.sim.RemoveAmmo(this);
                 return;
             }
+            this.lastPosition = Position;
             for (int i = 0; i < speed; ++i) {
                 Position next = this.path.Dequeue();
                 this.Position = next;
