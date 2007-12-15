@@ -543,6 +543,8 @@
 			<tns:FireRange>6</tns:FireRange>
 			<tns:FirePower>50</tns:FirePower>
 			<tns:ReloadTime>10</tns:ReloadTime>
+      <tns:AmmoType>Bullet</tns:AmmoType>
+      <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:RideableFields>
 			</tns:RideableFields>
 			<tns:UnitsCanProduce>

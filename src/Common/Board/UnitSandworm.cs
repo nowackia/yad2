@@ -132,10 +132,9 @@ namespace Yad.Board.Common {
 			Position[] viewSpiral = RangeSpiral(this.SandwormData.__ViewRange, out count);
 			Map m = this._map;
 			Position p = this.Position;
-			BoardObject target;
 			Position spiralPos;
 			LinkedList<Unit> units;
-			LinkedList<Building> buildings;
+			//LinkedList<Building> buildings;
 
 			for (int i = 0; i < count; ++i) {
 
