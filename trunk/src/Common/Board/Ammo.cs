@@ -76,7 +76,6 @@ namespace Yad.Board {
         /// handles move to location - give damage on each location
         /// </summary>
         private void LocationMove() {
-            return;
             switch (ammoType) {
                 case AmmoType.None:
                     break;
@@ -97,7 +96,6 @@ namespace Yad.Board {
         /// for racket - blow
         /// </summary>
         private void DestinationReached() {
-            return;
             switch (ammoType) {
                 case AmmoType.None:
                     break;

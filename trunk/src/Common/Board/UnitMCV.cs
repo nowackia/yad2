@@ -26,7 +26,7 @@ namespace Yad.Board.Common {
             }
             switch (state) {
                 case UnitState.moving:
-                    BoardObject nearest;
+                    //BoardObject nearest;
                     if (Move() == false) {
                         InfoLog.WriteInfo("MCV:AI: move -> stop ", EPrefix.SimulationInfo);
                         state = UnitState.stopped;

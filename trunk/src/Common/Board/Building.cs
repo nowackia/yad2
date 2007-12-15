@@ -23,9 +23,10 @@ namespace Yad.Board.Common {
         private BuildingData _buildingData;
 		private int _currentHealth;
 
-		private bool attackingBuilding;
+		//private bool attackingBuilding;
 		private BoardObject attacked;
 		private short roundToReload;
+        private short _ammoSpeed = 3;//TODO move to xml settings
 
 		Direction _direction;
 
@@ -171,7 +172,14 @@ namespace Yad.Board.Common {
 		/// </summary>
 		/// <param name="ob"></param>
 		protected void AttackRegion(BoardObject ob) {
-			Position s = ob.Position;
+            Position s = ob.Position;
+
+            Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID, _simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
+                this.Position, ob.Position, this.AmmoType, this._ammoSpeed,
+                this.BuildingData.FirePower, this.BuildingData.AmmoDamageRange, _simulation);
+            InfoLog.WriteInfo(a.ObjectID.ToString() + " for ammunition ", EPrefix.GObj);
+            this._simulation.AddAmmo(a);
+			/*Position s = ob.Position;
 			List<BoardObject> objectsInRange = GetObjectsInRange(s);
 
 			foreach (BoardObject boardObject in objectsInRange) {
@@ -180,7 +188,7 @@ namespace Yad.Board.Common {
 				} else {
 					_simulation.handleAttackUnit((Unit)boardObject, this);
 				}
-			}
+			}*/
 		}
 
 		private List<BoardObject> GetObjectsInRange(Position p) {
@@ -273,7 +281,7 @@ namespace Yad.Board.Common {
 
 							//TODO RS: bresenham to check if there is a way to shoot.
 							// else - continue -> move
-							attackingBuilding = false;
+							//attackingBuilding = false;
 							InfoLog.WriteInfo("Building:AI: found unit in fire range < " + this.BuildingData.FireRange, EPrefix.SimulationInfo);
 							nearest = unit;
 							return true;
@@ -284,7 +292,7 @@ namespace Yad.Board.Common {
 					foreach (Building building in buildings) {
 						// erase true;)
 						if (building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
-							attackingBuilding = true;
+							//attackingBuilding = true;
 							nearest = building;
 							InfoLog.WriteInfo("Building:AI: found building in fire range < " + this.BuildingData.FireRange, EPrefix.SimulationInfo);
 							return true;
@@ -298,32 +306,7 @@ namespace Yad.Board.Common {
 			return false;
 		}
 
-		private int GetAlfa(double x, double y) {
-			if (x == y && x == 0)
-				return 0;// teoretically wont happen
-			double norm = x * x + y * y;
-			norm = Math.Sqrt(norm);
-			x /= norm;
-			y /= norm;
-			double al = Math.Asin(y);
-			al *= 180.0 / Math.PI;
-			if (y >= 0) {
-				//1 | 2 quater
-				if (x >= 0) {
-					return (int)al % 360;
-				} else {
-					return 180 - (int)al % 360;
-				}
-			} else {
-				// 3 | 4 quater
-				if (x >= 0) {
-					return (int)(360 + al) % 360;
-				} else {
-					return (int)(270 + al) % 360;
-				}
-			}
-
-		}
+		
 
 		/// <summary>
 		/// rotate if target is out of range
@@ -388,29 +371,7 @@ namespace Yad.Board.Common {
 			}
 		}
 
-		private Direction ConvertToDirection(int number) {
-			switch (number) {
-				case 0:
-					return Direction.East;
-				case 45:
-					return Direction.East | Direction.North;
-				case 90:
-					return Direction.North;
-				case 135:
-					return Direction.North | Direction.West;
-				case 180:
-					return Direction.West;
-				case 225:
-					return Direction.West | Direction.South;
-				case 270:
-					return Direction.South;
-				case 315:
-					return Direction.South | Direction.East;
-				default:
-					return Direction.East; // never happen.
-			}
-
-		}
+		
 
 
 		public float getMaxHealth() {

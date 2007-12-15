@@ -252,7 +252,6 @@ namespace Yad.Board.Common {
 
             //veryBigSpiral = RangeSpiral(_map.Width > _map.Height ? _map.Width : _map.Height, out count);
             veryBigSpiral = RangeSpiral(this.HarvesterData.ViewRange, out count);
-            Position spiralPos;
             Position p = this.Position;
 
             ICollection<Building> buildings = this._simulation.Players[this.ObjectID.PlayerID].GetAllBuildings();

@@ -217,7 +217,6 @@ namespace Yad.Board.Common {
             Position[] viewSpiral = RangeSpiral(this.ViewRange, out count);
             Map m = this._map;
             Position p = this.Position;
-            BoardObject target;
             Position spiralPos;
             LinkedList<Unit> units;
             LinkedList<Building> buildings;
@@ -331,15 +330,13 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         protected void AttackRegion(BoardObject ob) {
             Position s = ob.Position;
-         
 
-            //
             Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID,_simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
                 this.Position, ob.Position, this.AmmoType, this._ammoSpeed,
                 this._firePower, this.ammoDamageRange, _simulation);
             InfoLog.WriteInfo(a.ObjectID.ToString() + " for ammunition ", EPrefix.GObj);
             this._simulation.AddAmmo(a);
-
+            /*
 
             List<BoardObject> objectsInRange = GetObjectsInRange(s);
 
@@ -350,6 +347,7 @@ namespace Yad.Board.Common {
                     _simulation.handleAttackUnit((Unit)boardObject, this);
                 }
             }
+             */
             this._remainingTurnsToReload = this._reloadTime;
         }
 
