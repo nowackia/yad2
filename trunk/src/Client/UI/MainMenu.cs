@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Yad.Config;
+using Yad.Config.INILoader.Common;
 using Yad.Engine.Client;
 using Yad.Engine.Common;
 using Yad.Log.Common;
@@ -50,6 +51,7 @@ namespace Yad.UI.Client
             views.Add(Views.WaitingForPlayersForm, waitingForPlayersMenu);
 
             ResetMapFileNames(listBoxLBCreateGame);
+            LoadInitializationSettings();
             #endregion
 
             #region MenuMessageHandler Settings
@@ -113,6 +115,20 @@ namespace Yad.UI.Client
                 this.Invoke(new SelectTabEventHandler(tabControl.SelectTab), new object[] { page.Name });
             else
                 tabControl.SelectTab(page.Name);
+        }
+
+        public void LoadInitializationSettings()
+        {
+            soundVolumeNMOptionsMenu.Value = InitializationSettings.Instance.SoundVolume;
+            muteSoundOptionsMenu.Checked = InitializationSettings.Instance.IsSoundMuted;
+            musicVolumeNMOptionsMenu.Value = InitializationSettings.Instance.MusicVolume;
+            muteMusicOptionsMenu.Checked = InitializationSettings.Instance.IsMusicMuted;
+
+            loginTBLoginMenu.Text = InitializationSettings.Instance.Login;
+
+            serverLoginMenu.Items.AddRange(InitializationSettings.Instance.ServerIPs);
+            if(serverLoginMenu.Items.Count > 0)
+                serverLoginMenu.SelectedItem = serverLoginMenu.Items[serverLoginMenu.Items.Count - 1];
         }
 
         public void ResetMapFileNames(ListBox listBox)
@@ -214,6 +230,12 @@ namespace Yad.UI.Client
             }
         }
 
+        public void AddComboBoxItem(ComboBox comboBox, object item)
+        {
+            if (!comboBox.Items.Contains(item))
+                comboBox.Items.Add(item);
+        }
+
         public void ManageComboBoxItems(ComboBox comboBox, Array array)
         {
             comboBox.Items.Clear();
@@ -285,17 +307,26 @@ namespace Yad.UI.Client
 
         private void registerLoginMenu_Click(object sender, EventArgs e)
         {
+            loginTBRegisterMenu.Text = string.Empty;
+            passwordTBRegisterMenu.Text = string.Empty;
+            repeatPasswordTBRegisterMenu.Text = string.Empty;
+            emailTBRegisterMenu.Text = string.Empty;
+
             OnMenuOptionChange(MenuOption.Registration);
         }
 
         private void loginBTLoginMenu_Click(object sender, EventArgs e)
         {
             CancelEventArgs cancel = new CancelEventArgs(false);
-            loginMenu_Validating(serverLoginMenu, cancel);
-            loginMenu_Validating(loginTBLoginMenu, cancel);
-            loginMenu_Validating(passwordLoginMenu, cancel);
+            loginMenuCB_Validating(serverLoginMenu, cancel);
+            loginMenuTB_Validating(loginTBLoginMenu, cancel);
+            loginMenuTB_Validating(passwordLoginMenu, cancel);
             if (cancel.Cancel)
                 return;
+
+            InitializationSettings.Instance.Login = loginTBLoginMenu.Text;
+            InitializationSettings.Instance.AddServerIP(serverLoginMenu.Text);
+            AddComboBoxItem(serverLoginMenu, serverLoginMenu.Text);
 
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
@@ -318,10 +349,14 @@ namespace Yad.UI.Client
         private void remindPasswordLoginMenu_Click(object sender, EventArgs e)
         {
             CancelEventArgs cancel = new CancelEventArgs(false);
-            loginMenu_Validating(serverLoginMenu, cancel);
-            loginMenu_Validating(loginTBLoginMenu, cancel);
+            loginMenuCB_Validating(serverLoginMenu, cancel);
+            loginMenuTB_Validating(loginTBLoginMenu, cancel);
             if (cancel.Cancel)
                 return;
+
+            InitializationSettings.Instance.Login = loginTBLoginMenu.Text;
+            InitializationSettings.Instance.AddServerIP(serverLoginMenu.Text);
+            AddComboBoxItem(serverLoginMenu, serverLoginMenu.Text);
 
             ManageControlState(new Control[] { loginBTLoginMenu, registerLoginMenu, cancelLoginMenu, remindPasswordLoginMenu }, false);
 
@@ -339,23 +374,14 @@ namespace Yad.UI.Client
             Connection.Instance.SendMessage(remindMessage);
         }
 
-        private void loginMenu_Validating(object sender, CancelEventArgs e)
+        private void loginMenuTB_Validating(object sender, CancelEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             bool validated = true;
             string errorText = string.Empty;
 
-            if (textBox == serverLoginMenu)
-            {
-                Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}\b:\d{4}\b$");
-                validated = ipAddressPattern.IsMatch(textBox.Text);
-                errorText =  "Not proper ip address and port , e.g. 127.0.0.1:1734";
-            }
-            else
-            {
-                validated = (textBox.Text.Length > 0);
-                errorText =  "Empty field";
-            }
+            validated = (textBox.Text.Length > 0);
+            errorText = "Empty field";
 
             if (!validated)
             {
@@ -364,6 +390,34 @@ namespace Yad.UI.Client
             }
             else
                 errorProvider.SetError(textBox, string.Empty);
+
+        }
+
+        private void loginMenuCB_Validating(object sender, CancelEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            bool validated = true;
+            string errorText = string.Empty;
+
+            if (comboBox == serverLoginMenu)
+            {
+                Regex ipAddressPattern = new Regex(@"^(?:(?:25[0-5]|2[0-4]\d|[01]\d\d|\d?\d)(?(?=\.?\d)\.)){4}\b:\d{4}\b$");
+                validated = ipAddressPattern.IsMatch(comboBox.Text);
+                errorText =  "Not proper ip address and port , e.g. 127.0.0.1:1734";
+            }
+            else
+            {
+                validated = (comboBox.Text.Length > 0);
+                errorText =  "Empty field";
+            }
+
+            if (!validated)
+            {
+                errorProvider.SetError(comboBox, errorText);
+                e.Cancel = true;
+            }
+            else
+                errorProvider.SetError(comboBox, string.Empty);
 
         }
         #endregion
@@ -423,6 +477,9 @@ namespace Yad.UI.Client
 
             if (passwordTBRegisterMenu.Text == repeatPasswordTBRegisterMenu.Text)
             {
+                InitializationSettings.Instance.AddServerIP(serverLoginMenu.Text);
+                AddComboBoxItem(serverLoginMenu, serverLoginMenu.Text);
+
                 ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, false);
 
                 try
@@ -1020,11 +1077,15 @@ namespace Yad.UI.Client
                 AudioEngine.Instance.Music.Mute();
             else
                 AudioEngine.Instance.Music.Volume = (int)musicVolumeNMOptionsMenu.Value;
+            InitializationSettings.Instance.IsMusicMuted = muteMusicOptionsMenu.Checked;
+            InitializationSettings.Instance.MusicVolume = (int)musicVolumeNMOptionsMenu.Value;
 
             if (muteSoundOptionsMenu.Checked)
-                AudioEngine.Instance.Sound.Mute();
+                InitializationSettings.Instance.IsSoundMuted = true;
             else
                 AudioEngine.Instance.Sound.Volume = (int)soundVolumeNMOptionsMenu.Value;
+            InitializationSettings.Instance.IsSoundMuted = muteSoundOptionsMenu.Checked;
+            InitializationSettings.Instance.SoundVolume = (int)soundVolumeNMOptionsMenu.Value;
 
             if (this.lastView == Views.GameMenuForm)
                 OnMenuOptionChange(MenuOption.OkToGameMenu);

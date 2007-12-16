@@ -64,6 +64,8 @@
     <Compile Include="Config\DataType.cs" />
     <Compile Include="Config\GameSettingsHelper.cs" />
     <Compile Include="Config\GlobalSettings.cs" />
+    <Compile Include="Config\INILoader\INIReader.cs" />
+    <Compile Include="Config\INILoader\InitializationSettings.cs" />
     <Compile Include="Config\XMLLoader\XMLLoader.cs" />
     <Compile Include="Config\XMLLoader\XMLLoaderException.cs" />
     <Compile Include="Config\Yad.Config.Common.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Net\PlayerInfo.cs" />
     <Compile Include="Net\PositionData.cs" />
     <Compile Include="Net\ThreadListProcessor.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="UI\MessageBoxEx.cs" />
     <Compile Include="Utils\FileNameAttribute.cs" />
     <Compile Include="Utils\NetUtils.cs" />

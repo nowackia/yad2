@@ -41,11 +41,8 @@
     <Setting Name="ScrollingSpeed" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.6</Value>
     </Setting>
-    <Setting Name="SoundVolume" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
-    </Setting>
-    <Setting Name="MusicVolume" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
+    <Setting Name="MusicDefaultVolume" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="AudioMusic" Type="System.String" Scope="User">
       <Value Profile="(Default)">Resources/Audio/Music</Value>
@@ -64,6 +61,12 @@
     </Setting>
     <Setting Name="KeepAliveInterval" Type="System.UInt32" Scope="Application">
       <Value Profile="(Default)">15000</Value>
+    </Setting>
+    <Setting Name="InitializationFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Config/init_data.ini</Value>
+    </Setting>
+    <Setting Name="SoundDefaultVolume" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

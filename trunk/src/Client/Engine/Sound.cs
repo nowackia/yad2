@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.ComponentModel;
 using Yad.Config;
+using Yad.Config.INILoader.Common;
 
 namespace Yad.Engine
 {
@@ -238,7 +239,10 @@ namespace Yad.Engine
                 return;
 
             FMOD.RESULT result;
-            this.Volume = (int)Settings.Default.MusicDefaultVolume;
+
+            this.Volume = InitializationSettings.Instance.SoundVolume;
+            if (InitializationSettings.Instance.IsSoundMuted)
+                this.Mute();
 
              FMOD.Sound sound = null;
 
@@ -296,8 +300,8 @@ namespace Yad.Engine
 
         public void Mute()
         {
-            isMuted = true;
             this.Volume = 0;
+            isMuted = true;
 
             InfoLog.WriteInfo("Sound muted", EPrefix.AudioEngine);
         }

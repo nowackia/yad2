@@ -148,25 +148,13 @@ namespace Yad.Properties.Common {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float SoundVolume {
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public float MusicDefaultVolume {
             get {
-                return ((float)(this["SoundVolume"]));
+                return ((float)(this["MusicDefaultVolume"]));
             }
             set {
-                this["SoundVolume"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float MusicVolume {
-            get {
-                return ((float)(this["MusicVolume"]));
-            }
-            set {
-                this["MusicVolume"] = value;
+                this["MusicDefaultVolume"] = value;
             }
         }
         
@@ -227,6 +215,27 @@ namespace Yad.Properties.Common {
         public uint KeepAliveInterval {
             get {
                 return ((uint)(this["KeepAliveInterval"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Config/init_data.ini")]
+        public string InitializationFile {
+            get {
+                return ((string)(this["InitializationFile"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public decimal SoundDefaultVolume {
+            get {
+                return ((decimal)(this["SoundDefaultVolume"]));
+            }
+            set {
+                this["SoundDefaultVolume"] = value;
             }
         }
     }

@@ -6,6 +6,7 @@ using Yad.Properties.Client;
 using Yad.Log.Common;
 using Yad.UI.Common;
 using Yad.Utilities.Common;
+using Yad.Config.INILoader.Common;
 
 namespace Yad.Engine.Client
 {
@@ -105,7 +106,10 @@ namespace Yad.Engine.Client
             FMOD.RESULT result;
             music = new List<FMOD.Sound>[Enum.GetValues(typeof(MusicType)).Length];
             indices = new short[music.Length];
-            this.Volume = (int)Settings.Default.MusicDefaultVolume;
+
+            this.Volume = InitializationSettings.Instance.MusicVolume;
+            if (InitializationSettings.Instance.IsMusicMuted)
+                this.Mute();
 
             for (int i = 0; i < music.Length; i++)
             {
@@ -265,8 +269,8 @@ namespace Yad.Engine.Client
 
         public void Mute()
         {
-            isMuted = true;
             this.Volume = 0;
+            isMuted = true;
 
             InfoLog.WriteInfo("Sound muted", EPrefix.AudioEngine);
         }
