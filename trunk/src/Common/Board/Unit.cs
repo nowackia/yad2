@@ -440,7 +440,7 @@ namespace Yad.Board.Common {
 			if (_remainingTurnsInMove == 0) {
 				//unit starts to move
 				//so we set a new position
-				this._remainingTurnsInMove = this._speed;
+				
                 //goal reached
                 if (_currentPath.Count == 0) {
                     
@@ -466,8 +466,9 @@ namespace Yad.Board.Common {
                     else
                         return false;
                 }
-                InfoLog.WriteInfo(InfoPrefix() + "Moving to position: " + newPos, EPrefix.AStar);
 
+                InfoLog.WriteInfo(InfoPrefix() + "Moving to position: " + newPos, EPrefix.AStar);
+                this._remainingTurnsInMove = this._speed;
                 
 				//TODO: check newPos;
 				/*

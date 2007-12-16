@@ -22,7 +22,7 @@ namespace Yad.Database.Server {
         const string CreateSTM = "CREATE TABLE Player (ID AUTOINCREMENT PRIMARY KEY, LOGIN nvarchar(50) UNIQUE, PASS nvarchar(50), EMAIL nvarchar(50), WINNO int DEFAULT 0, LOSSNO int DEFAULT 0)";
         const string RegisterSTM = "INSERT INTO Player (LOGIN, PASS, EMAIL) VALUES('{0}', '{1}', '{2}')";
         const string LoginSTM = "SELECT WINNO, LOSSNO FROM Player WHERE LOGIN = '{0}' AND PASS = '{1}'";
-        const string UpdateResultSTM = "UPDATE TABLE Player SET WINNO = {0}, LOSSNO = {1} WHERE LOGIN = '{2}'";
+        const string UpdateResultSTM = "UPDATE Player SET WINNO = {0}, LOSSNO = {1} WHERE LOGIN = '{2}'";
         const string RemidDataSTM = "SELECT PASS, EMAIL FROM Player WHERE LOGIN = '{0}'";
         
         private YadDB() {

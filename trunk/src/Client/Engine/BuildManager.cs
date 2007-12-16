@@ -12,6 +12,7 @@ using System.Collections;
 using Yad.Log.Common;
 using Yad.Net.Messaging;
 using Yad.Net.Messaging.Common;
+using Yad.UI.Common;
 
 namespace Yad.Engine {
     public delegate void CreateUnitHandler(int createObjectID, short typeID);
@@ -36,7 +37,7 @@ namespace Yad.Engine {
         BuildStripe _rightStripe;
         Dictionary<int, Dictionary<short, StateWrapper>> _stripData = new Dictionary<int, Dictionary<short, StateWrapper>>();
         Dictionary<int, RightStripState> _leftState = new Dictionary<int, RightStripState>();
-        int _currentObjectID= -1;
+        int _currentObjectID = -1;
         object cObjLock = new object();
 
         object cuLock = new object();
@@ -99,35 +100,56 @@ namespace Yad.Engine {
             InfoLog.WriteInfo("release stripdata", EPrefix.LockInfo);
             UpdateView(id, false);
         }
+
         private void ActivateForObject(int objectID) {
             foreach (StateWrapper sw in _stripData[objectID].Values) {
                 sw.State = StripButtonState.Active;
             }
         }
 
-        public void RemoveBuilding(ObjectID objectID, short typeID) {
-            if (_stripData.ContainsKey(objectID.ObjectId)) {
+        public void RemoveBuilding(ObjectID objectID, int creatorID, short typeID) {
+            bool contains = false;
+            lock (((ICollection)_stripData).SyncRoot)
+                contains = true;
+            if (contains) {
                 _leftStripe.Remove(objectID.ObjectId);
-                _leftState.Remove(objectID.ObjectId);
-                _stripData.Remove(objectID.ObjectId);
-                
-                foreach (int key in _stripData.Keys) {
-                    ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
-                    UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+
+                lock (((ICollection)_leftState).SyncRoot)
+                    _leftState.Remove(objectID.ObjectId);
+                lock (((ICollection)_stripData).SyncRoot) {
+                    _stripData.Remove(objectID.ObjectId);
+                    foreach (int key in _stripData.Keys) {
+                        ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
+                        UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+                    }
                 }
                 bool needsRebuild = false;
-                lock (cObjLock){
-                    if (_currentObjectID == objectID.ObjectId){
+                lock (cObjLock) {
+                    if (_currentObjectID == objectID.ObjectId) {
                         _currentObjectID = -1;
                         needsRebuild = true;
                     }
                 }
                 if (needsRebuild)
                     UpdateView(-1, false);
-                
             }
-            
+            else {
+                //building was being built
+                bool containsCreator = false;
+                lock (((ICollection)_stripData).SyncRoot)
+                    containsCreator = true;
+                if (_stripData.ContainsKey(creatorID)) {
+                    lock (((ICollection)_leftState).SyncRoot)
+                        _leftState[creatorID] = RightStripState.Normal;
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        foreach (StateWrapper sw in _stripData[creatorID].Values)
+                            sw.State = StripButtonState.Active;
+                    }
+                    UpdateView(creatorID, false);
+                }
+            }
         }
+
         public void AddBuilding(ObjectID objectID, short typeID) {
             BuildingData bs = GlobalSettings.Wrapper.buildingsMap[typeID];
             string name = GlobalSettings.Wrapper.buildingsMap[typeID].Name;
@@ -266,7 +288,7 @@ namespace Yad.Engine {
             
             foreach (String bname in bdata.BuildingsCanProduce) {
                 short idb = GlobalSettings.Wrapper.namesToIds[bname];
-                if (CheckDependencies(bname)) {
+                if (CheckBuildingDependencies(bname)) {
                     InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
                     lock (((ICollection)_stripData).SyncRoot) {
                         if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
@@ -288,32 +310,26 @@ namespace Yad.Engine {
             }
             foreach (String uname in bdata.UnitsCanProduce) {
                 short idu = GlobalSettings.Wrapper.namesToIds[uname];
-                if (CanHouseProduceUnit(uname))
-                {
-                    if (CheckDependencies(uname))
-                    {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
-                        lock (((ICollection)_stripData).SyncRoot)
-                        {
-                            if (!_stripData[objectID.ObjectId].ContainsKey(idu))
-                            {
-                                int buildSpeed = GetUnitBuildSpeed(idu);
-                                StateWrapper wrapper = new StateWrapper();
-                                if (_leftState[objectID.ObjectId] == RightStripState.Building)
-                                    wrapper.State = StripButtonState.Inactive;
-                                _stripData[objectID.ObjectId].Add(idu, wrapper);
-                            }
+                if (CheckUnitDependencies(uname)) {
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
+                            int buildSpeed = GetUnitBuildSpeed(idu);
+                            StateWrapper wrapper = new StateWrapper();
+                            if (_leftState[objectID.ObjectId] == RightStripState.Building)
+                                wrapper.State = StripButtonState.Inactive;
+                            _stripData[objectID.ObjectId].Add(idu, wrapper);
                         }
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                     }
-                    else
-                    {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
-                        lock (((ICollection)_stripData).SyncRoot)
-                            RemoveBuildStatus(objectID, idu);
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
-                    }
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
                 }
+                else {
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                    lock (((ICollection)_stripData).SyncRoot)
+                        RemoveBuildStatus(objectID, idu);
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                }
+                
             }
         }
 
@@ -367,7 +383,7 @@ namespace Yad.Engine {
             InfoLog.WriteInfo("release stripData [Update strip]", EPrefix.LockInfo);
         }
 
-        private bool CheckDependencies(string name) {
+        private bool CheckBuildingDependencies(string name) {
             TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
             foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
                 if (dep.BuildingName.Equals(name)) {
@@ -379,11 +395,34 @@ namespace Yad.Engine {
             }
             return true;
         }
-
-        private bool CanHouseProduceUnit(string name)
-        {
-            UnitsNames uns = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].__UnitsCanProduce;
-            return uns.NameCollection.Contains(name);
+        private bool CheckBuildingUnitDeps(BuildingsNames bnames) {
+            foreach (string name in bnames) {
+                short idname = GlobalSettings.Wrapper.namesToIds[name];
+                if (!_gameLogic.hasBuilding(idname))
+                    return false;
+            }
+            return true;
         }
+
+        private bool CheckUnitDependencies(string name) {
+            short id = GlobalSettings.Wrapper.namesToIds[name];
+            BuildingsNames bnames = null;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.harvestersMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.mcvsMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.tanksMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.troopersMap[id].BuildingDependency;
+            if (bnames == null)
+                throw new Exception(name + "not found in building-unit dependencies!");
+            return CheckBuildingUnitDeps(bnames);
+        }
+
+        private object Exception(string p) {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
     }
 }
