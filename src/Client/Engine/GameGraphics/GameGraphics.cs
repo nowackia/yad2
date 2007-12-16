@@ -35,6 +35,7 @@ namespace Yad.Engine.Client {
 		static GameForm _gameForm;
 		static SimpleOpenGlControl _map;
 		static SimpleOpenGlControl _miniMap;
+		static bool init = false;
 
 		#region z-constants
 		/// <summary>
@@ -44,6 +45,7 @@ namespace Yad.Engine.Client {
 					_depthSpice = 0.1f,
 					_depthSlab = 0.2f,
 					_depthBuilding = 0.3f,
+					_depthSandworm = 0.35f,
 					_depthUnit = 0.4f,
 					_depthUnitAddons = 0.5f,
                     _depthAmmos = 0.55f,
@@ -522,17 +524,16 @@ namespace Yad.Engine.Client {
 
 		#region drawing
 		public static void Draw() {
+			if (!init) return;
+
 			Map map = _gameLogic.Simulation.Map;
 
-			
 			_miniMap.MakeCurrent();
 			DrawMinimap();
 
 			_map.MakeCurrent();
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 			Gl.glLoadIdentity();
-
-
 
 			#region map
 			DrawElementFromLeftBottom(0, 0, _depthMap, map.Width, map.Height, 1, _defaultUV, true);
@@ -565,16 +566,23 @@ namespace Yad.Engine.Client {
 			}
 			#endregion
 
+			#region sandworms
+			foreach (UnitSandworm s in _gameLogic.Simulation.Sandworms.Values) {
+				DrawSandworm(s);
+			}
+			#endregion sandworms
+
 			#region players' data (units & buildings)
 			ICollection<Player> players = _gameLogic.Simulation.GetPlayers();
 			foreach (Player p in players) {
-
 				List<Building> buildings = p.GetAllBuildings();
 
 				foreach (Building b in buildings) {
 					DrawBuilding(b);
 				}
+			}
 
+			foreach (Player p in players) {
 				List<Unit> units = p.GetAllUnits();
 				foreach (Unit u in units) {
 					switch (u.BoardObjectClass) {
@@ -592,11 +600,6 @@ namespace Yad.Engine.Client {
 							break;
 					}
 				}
-			}
-
-
-			foreach (UnitSandworm s in _gameLogic.Simulation.Sandworms.Values) {
-				DrawSandworm(s);
 			}
 
             foreach (Player p in players) {
@@ -1147,9 +1150,8 @@ namespace Yad.Engine.Client {
 			if (!NeedsDrawing(realPos.X, realPos.Y, 1, 1)) {
 				return;
 			}
-			float frame = 0;// o.RemainingTurnsInMove % 5;
-			RectangleF uv = new RectangleF(0, 0, 1, 1);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + _offsetTexture, uv, true);
+			//float frame = 0;// o.RemainingTurnsInMove % 5;
+			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthSandworm, 1, 1, o.TypeID + _offsetTexture, _defaultUV, true);
 		}
 
 		private static void DrawMCV(UnitMCV o) {
@@ -1254,6 +1256,18 @@ namespace Yad.Engine.Client {
 
 			initGLminimap();
 			initGLmap();
+
+			init = true;
+		}
+
+		public static void DeinitGL() {
+			init = false;
+			/*
+			_gameLogic = null;
+			_gameForm = null;
+			_map = null;
+			_miniMap = null;
+			 */
 		}
 
 		private static void initGLminimap() {

@@ -636,7 +636,7 @@
 				<tns:Y>1</tns:Y>
 			</tns:Size>
 			<tns:EnergyConsumption>100</tns:EnergyConsumption>
-			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+			<tns:TextureSpecialActionFramesCount>11</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
       <tns:IsTurret>0</tns:IsTurret>

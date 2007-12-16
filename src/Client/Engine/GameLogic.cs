@@ -75,6 +75,33 @@ namespace Yad.Engine.Client {
             _sim.BuildingDestroyed += new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
             _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
             _sim.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
+			_sim.MCVDeployed += new ClientSimulation.UnitHandler(_sim_MCVDeployed);
+
+			this.GameEnd += new GameEndHandler(GameLogic_GameEnd);
+		}
+
+		void GameLogic_GameEnd(int winTeamId) {
+			GameMessageHandler.Instance.GameMessageReceive -= new GameMessageEventHandler(Instance_GameMessageReceive);
+			GameMessageHandler.Instance.DoTurnPermission -= new DoTurnEventHandler(Instance_DoTurnPermission);
+			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
+
+			//to pewnie jest już mniej istotne
+			_sim.onTurnEnd -= new SimulationHandler(SandwormHandler);
+			_sim.BuildingCompleted -= new ClientSimulation.BuildingCreationHandler(_sim_OnBuildingCompleted);
+			_sim.BuildingDestroyed -= new ClientSimulation.BuildingHandler(_sim_BuildingDestroyed);
+			_sim.UnitDestroyed -= new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
+			_sim.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
+			_sim.MCVDeployed -= new ClientSimulation.UnitHandler(_sim_MCVDeployed);
+		}
+
+		void _sim_MCVDeployed(Unit u) {
+			if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
+				return;
+			}
+			_selectedUnits.Remove(u);
+
+			AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, HouseSoundType.Unit);
+			AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, HouseSoundType.Deploy);
 		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {

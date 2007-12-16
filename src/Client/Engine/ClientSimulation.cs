@@ -44,6 +44,7 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitStarted;
 		public event InvalidLocationHandler InvalidLocation;
         public event UpdateStripItemHandler UpdateStripItem;
+
 		#endregion
 
 		public ClientSimulation(Map map)
@@ -65,7 +66,7 @@ namespace Yad.Engine.Client {
 
 
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
-			this.onTurnEnd += new Yad.Engine.Common.SimulationHandler(ClientSimulation_onTurnEnd);
+			this.onTurnEnd += new SimulationHandler(ClientSimulation_onTurnEnd);
 			this.OnLowPowerResources += new OnLowPowerHandler(ClientSimulation_OnLowPowerResources);
 			this.OnNoPowerResources += new OnNoPowerHandler(ClientSimulation_OnNoPowerResources);
 			this.UnitStarted += new UnitHandler(ClientSimulation_UnitStarted);
