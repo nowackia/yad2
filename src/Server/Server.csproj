@@ -46,7 +46,7 @@
     <Compile Include="Database\LoginQueryReader.cs" />
     <Compile Include="Database\RemindQueryReader.cs" />
     <Compile Include="Database\YadDB.cs" />
-    <Compile Include="Engine\ServerSimulation.cs" />
+    <Compile Include="Mail\Engine\ServerSimulation.cs" />
     <Compile Include="Mail\YadMail.cs" />
     <Compile Include="Net\GameManager.cs" />
     <Compile Include="Net\GameServer\GameEndEventArgs.cs" />

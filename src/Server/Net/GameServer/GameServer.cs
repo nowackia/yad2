@@ -134,8 +134,6 @@ namespace Yad.Net.GameServer.Server {
 
         public void EndServerGame()
         {
-            foreach (Player p in _playerCollection.Values)
-                UpdatePlayerStats(p.Id);
             StopGameServer();
         }
         public void JoinGameServer() {

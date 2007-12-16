@@ -235,8 +235,12 @@ namespace Yad.UI.Client {
 		}
 
 		void Simulation_BuildingDestroyed(Building b) {
-			if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id)
-				_buildManager.RemoveBuilding(b.ObjectID, b.TypeID);
+            if (b.ObjectID.PlayerID == _gameLogic.CurrentPlayer.Id) {
+                if (b.BuildStatus != null)
+                    _buildManager.RemoveBuilding(b.ObjectID, b.BuildStatus.ObjectId, b.TypeID);
+                else
+                    _buildManager.RemoveBuilding(b.ObjectID, -1, b.TypeID);
+            }
 		}
 		#endregion
 
