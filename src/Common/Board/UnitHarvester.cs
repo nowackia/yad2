@@ -15,6 +15,10 @@ namespace Yad.Board.Common {
         private event SpiceUnloadDelegate spiceUnload;
         int spiceCounter;
 
+		public int Spice {
+			get { return spiceCounter; }
+		}
+
         // local states
 
         private enum HarvestingState { harvesting, returningToBase, unloading, nothing }

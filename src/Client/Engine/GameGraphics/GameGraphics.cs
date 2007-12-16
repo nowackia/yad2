@@ -81,23 +81,24 @@ namespace Yad.Engine.Client {
 		/// <summary>
 		/// SimpleOpenGLControl's size
 		/// </summary>
-		static System.Drawing.Size viewport = new System.Drawing.Size();
+		static System.Drawing.Size viewport;// = new System.Drawing.Size();
 
 		/// <summary>
 		/// Map view.
 		/// </summary>
-		static ClipRectangle mapClip = new ClipRectangle();
+		static ClipRectangle mapClip;// = new ClipRectangle();
 
 		/// <summary>
 		/// Offset used for map scrolling.
 		/// </summary>
-		static PointF offset = new PointF(0, 0);
+		static PointF offset;// = new PointF(0, 0);
 
 		/// <summary>
 		/// Minimum zoom, so that there is no black area on the map.
 		/// </summary>
-		static float minimumZoom = 1;
-		static float zoom = 1.0f, zoomStep = 3.5f;
+		static float minimumZoom;// = 1;
+		static float zoom,// = 1.0f, 
+			zoomStep;// = 3.5f;
 		static float relativeZoom;
 
 		/// <summary>
@@ -547,25 +548,6 @@ namespace Yad.Engine.Client {
 			//TODO: when slabs are not buildings anymore - draw'em like fog of war
 			#endregion
 
-			#region placing building
-			if (_gameForm.IsCreatingBuilding) {
-				short id = _gameForm.CreatingBuildingId;
-				BuildingData bd;
-				if (GlobalSettings.Wrapper.buildingsMap.TryGetValue(id, out bd)) {
-					Position p = TranslateMousePosition(_gameForm.getMousePositionInMapView());
-					if (_gameLogic.Simulation.Map.ContainsPosition(p)) {
-						if (Building.CheckBuildPosition(bd, p, _gameLogic.Simulation.Map, _gameLogic.CurrentPlayer.Id)) {
-							Gl.glColor4f(0, 1, 0, 0.75f);
-						} else {
-							Gl.glColor4f(1, 0, 0, 0.75f);
-						}
-						DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
-						Gl.glColor4f(1, 1, 1, 1);
-					}
-				}
-			}
-			#endregion
-
 			#region sandworms
 			foreach (UnitSandworm s in _gameLogic.Simulation.Sandworms.Values) {
 				DrawSandworm(s);
@@ -611,6 +593,8 @@ namespace Yad.Engine.Client {
             }
 			#endregion
 
+			float percentage;
+
 			#region selected objects
 			foreach (Unit u in _gameLogic.SelectedUnits) {
 				PointF realPos = CountRealPosition(u);
@@ -624,7 +608,16 @@ namespace Yad.Engine.Client {
 				}
 				Color playerColor = p.Color;
 				DrawSelectionRectangle(realPos.X, realPos.Y, _depthSelection, size, size, true, true, playerColor);
-				DrawHealthBar(realPos.X - oneSixteenth, realPos.Y - oneSixteenth, _depthSelection, size + oneEight, size + oneEight, u.Health / u.getMaxHealth(), true);
+				percentage = ((float)u.Health) / u.getMaxHealth();
+				Gl.glColor3f(1 - percentage, percentage, 0);
+				DrawBar(realPos.X - oneSixteenth, realPos.Y - oneSixteenth, _depthSelection, size + oneEight, size + oneEight, percentage, true, oneSixteenth);
+
+				if (u.BoardObjectClass == BoardObjectClass.UnitHarvester) {
+					UnitHarvester h = u as UnitHarvester;
+					percentage = ((float)h.Spice) / (float)h.HarvesterData.Capacity;
+					Gl.glColor3f(1, 1 - percentage, 0);
+					DrawBar(realPos.X - oneSixteenth, realPos.Y - oneSixteenth, _depthSelection, size + oneEight, size + oneEight, percentage, true, oneFourth + oneEight);
+				}
 			}
 
 			Building selB = _gameLogic.SelectedBuilding;
@@ -633,7 +626,31 @@ namespace Yad.Engine.Client {
 					Player p;
 					if (_gameLogic.Simulation.Players.TryGetValue(selB.ObjectID.PlayerID, out p)) {
 						DrawSelectionRectangle(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, false, true, p.Color);
-						DrawHealthBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, selB.Health / selB.getMaxHealth(), false);
+						percentage = ((float)selB.Health) / (float)selB.getMaxHealth();
+						Gl.glColor3f(1 - percentage, percentage, 0);
+						DrawBar(selB.Position.X, selB.Position.Y, _depthSelection, selB.Width, selB.Height, percentage, false, oneSixteenth);
+					}
+				}
+			}
+
+			Gl.glColor3f(1, 1, 1);
+
+			#endregion
+
+			#region placing building
+			if (_gameForm.IsCreatingBuilding) {
+				short id = _gameForm.CreatingBuildingId;
+				BuildingData bd;
+				if (GlobalSettings.Wrapper.buildingsMap.TryGetValue(id, out bd)) {
+					Position p = TranslateMousePosition(_gameForm.getMousePositionInMapView());
+					if (_gameLogic.Simulation.Map.ContainsPosition(p)) {
+						if (Building.CheckBuildPosition(bd, p, _gameLogic.Simulation.Map, _gameLogic.CurrentPlayer.Id)) {
+							Gl.glColor4f(0, 1, 0, 0.75f);
+						} else {
+							Gl.glColor4f(1, 0, 0, 0.75f);
+						}
+						DrawBuilding(bd, p.X, p.Y, _depthPlacingBuilding, _gameLogic.CurrentPlayer.Id);
+						Gl.glColor4f(1, 1, 1, 1);
 					}
 				}
 			}
@@ -948,57 +965,58 @@ namespace Yad.Engine.Client {
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="health">Between 0 and 1</param>
-		private static void DrawHealthBar(float x, float y, float z, float width, float height, float health, bool forUnit) {
+		private static void DrawBar(float x, float y, float z, float width, float height, float percentage, bool forUnit, float offsetY) {
 
-			float healthBarWidth = (width + oneFourth) * health;
+			float healthBarWidth = (width + oneFourth) * percentage;
 			float healthBarWidth2 = healthBarWidth / 2.0f;
 			float h2 = height / 2.0f;
+			float barHeight = oneFourth;
 
 			if (forUnit) {
 				//left bottom
 				vertexData.vertex[0] = x + 0.5f - healthBarWidth2 - offset.X;
-				vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + oneEight;
+				vertexData.vertex[1] = y + 0.5f + h2 - offset.Y + offsetY;
 				vertexData.vertex[2] = z;
 
 				//right bottom
 				vertexData.vertex[3] = x + 0.5f + healthBarWidth2 - offset.X;
-				vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + oneEight;
+				vertexData.vertex[4] = y + 0.5f + h2 - offset.Y + offsetY;
 				vertexData.vertex[5] = z;
 
 				//right top
 				vertexData.vertex[6] = x + 0.5f + healthBarWidth2 - offset.X;
-				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + oneThird;
+				vertexData.vertex[7] = y + 0.5f + h2 - offset.Y + offsetY + barHeight;
 				vertexData.vertex[8] = z;
 
 				//left top
 				vertexData.vertex[9] = x + 0.5f - healthBarWidth2 - offset.X;
-				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + oneThird;
+				vertexData.vertex[10] = y + 0.5f + h2 - offset.Y + offsetY + barHeight;
 				vertexData.vertex[11] = z;
 			} else {
 				float w2 = width / 2.0f;
 
 				//left bottom
 				vertexData.vertex[0] = x + w2 - healthBarWidth2 - offset.X;
-				vertexData.vertex[1] = y + height - offset.Y + oneEight;
+				vertexData.vertex[1] = y + height - offset.Y + offsetY;
 				vertexData.vertex[2] = z;
 
 				//right bottom
 				vertexData.vertex[3] = x + w2 + healthBarWidth2 - offset.X;
-				vertexData.vertex[4] = y + height - offset.Y + oneEight;
+				vertexData.vertex[4] = y + height - offset.Y + offsetY;
 				vertexData.vertex[5] = z;
 
 				//right top
 				vertexData.vertex[6] = x + w2 + healthBarWidth2 - offset.X;
-				vertexData.vertex[7] = y + height - offset.Y + oneThird;
+				vertexData.vertex[7] = y + height - offset.Y + offsetY + barHeight;
 				vertexData.vertex[8] = z;
 
 				//left top
 				vertexData.vertex[9] = x + w2 - healthBarWidth2 - offset.X;
-				vertexData.vertex[10] = y + height - offset.Y + oneThird;
+				vertexData.vertex[10] = y + height - offset.Y + offsetY + barHeight;
 			}
 
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(1 - health, health, 0);
+			//Gl.glColor3f(1 - percentage, percentage, 0);
 
 			if (Settings.Default.UseSafeRendering) {
 				Gl.glBegin(Gl.GL_POLYGON);
@@ -1014,7 +1032,7 @@ namespace Yad.Engine.Client {
 			}
 
 			Gl.glEnable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(1, 1, 1);
+			//Gl.glColor3f(1, 1, 1);
 		}
 
 		#region Helpers
@@ -1239,6 +1257,14 @@ namespace Yad.Engine.Client {
 
 		#region public methods
 		public static void InitGL(GameLogic gLogic, GameForm gForm, SimpleOpenGlControl map, SimpleOpenGlControl miniMap) {
+			viewport = new System.Drawing.Size();
+			mapClip = new ClipRectangle();
+			offset = new PointF(0, 0);
+			minimumZoom = 1;
+			zoom = 1.0f;
+			zoomStep = 3.5f;
+			relativeZoom = 0;
+
 			_map = map;
 			_miniMap = miniMap;
 			_gameLogic = gLogic;
