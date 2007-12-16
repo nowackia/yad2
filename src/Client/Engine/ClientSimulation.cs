@@ -362,7 +362,7 @@ namespace Yad.Engine.Client {
         }
 
         private bool checkFreeLocation(Position loop, Map map) {
-            if (map.Tiles[loop.X, loop.Y] != TileType.Mountain && map.Buildings[loop.X, loop.Y].Count == 0 && map.Units[loop.X, loop.Y].Count == 0)
+			if (map.Tiles[loop.X, loop.Y] != TileType.Mountain && (map.Buildings[loop.X, loop.Y].Count == 0 || map.Buildings[loop.X, loop.Y].First.Value.TypeID == GlobalSettings.Wrapper.namesToIds["Slab1"] || map.Buildings[loop.X, loop.Y].First.Value.TypeID == GlobalSettings.Wrapper.namesToIds["Slab4"]) && map.Units[loop.X, loop.Y].Count == 0)
                 return true;
             else
                 return false;
