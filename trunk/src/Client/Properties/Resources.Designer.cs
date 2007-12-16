@@ -88,6 +88,13 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap UI_Atreides {
+            get {
+                object obj = ResourceManager.GetObject("UI_Atreides", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Background {
             get {
                 object obj = ResourceManager.GetObject("UI_Background", resourceCulture);
@@ -158,6 +165,13 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap UI_Harkonnen {
+            get {
+                object obj = ResourceManager.GetObject("UI_Harkonnen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Line_NS {
             get {
                 object obj = ResourceManager.GetObject("UI_Line_NS", resourceCulture);
@@ -182,6 +196,13 @@ namespace Yad.Properties {
         internal static System.Drawing.Bitmap UI_Options_Pressed {
             get {
                 object obj = ResourceManager.GetObject("UI_Options_Pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Ordos {
+            get {
+                object obj = ResourceManager.GetObject("UI_Ordos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

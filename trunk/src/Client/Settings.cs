@@ -1,4 +1,4 @@
-﻿namespace Client.Properties {
+﻿namespace Yad.Properties.Client {
     
     
     // This class allows you to handle specific events on the settings class:

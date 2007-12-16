@@ -99,6 +99,7 @@ namespace Yad.UI.Client
             this.createCreateGameMenu = new System.Windows.Forms.Button();
             this.waitingForPlayersMenu = new System.Windows.Forms.TabPage();
             this.currentDataGBWaitingForPlayersMenu = new System.Windows.Forms.GroupBox();
+            this.pictureBoxHouse = new System.Windows.Forms.PictureBox();
             this.infoColorWaitingForPlayersMenu = new System.Windows.Forms.Button();
             this.infoColorLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.infoLWaitingForPlayersMenu = new System.Windows.Forms.Label();
@@ -162,6 +163,7 @@ namespace Yad.UI.Client
             ((System.ComponentModel.ISupportInitialize)(this.maxPlayerNumberNUPCreateGameMenu)).BeginInit();
             this.waitingForPlayersMenu.SuspendLayout();
             this.currentDataGBWaitingForPlayersMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHouse)).BeginInit();
             this.changeGBWaitingForPlayersMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).BeginInit();
             this.optionsMenu.SuspendLayout();
@@ -904,7 +906,7 @@ namespace Yad.UI.Client
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(179, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 2;
-            this.gameNameTBCreateGameMenu.Text = "test_game_";
+            this.gameNameTBCreateGameMenu.Text = "test_game";
             // 
             // privateCreateGameMenu
             // 
@@ -990,21 +992,31 @@ namespace Yad.UI.Client
             // currentDataGBWaitingForPlayersMenu
             // 
             this.currentDataGBWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
+            this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.pictureBoxHouse);
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoColorWaitingForPlayersMenu);
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoColorLWaitingForPlayersMenu);
             this.currentDataGBWaitingForPlayersMenu.Controls.Add(this.infoLWaitingForPlayersMenu);
             this.currentDataGBWaitingForPlayersMenu.Location = new System.Drawing.Point(299, 8);
             this.currentDataGBWaitingForPlayersMenu.Name = "currentDataGBWaitingForPlayersMenu";
-            this.currentDataGBWaitingForPlayersMenu.Size = new System.Drawing.Size(209, 104);
+            this.currentDataGBWaitingForPlayersMenu.Size = new System.Drawing.Size(209, 279);
             this.currentDataGBWaitingForPlayersMenu.TabIndex = 17;
             this.currentDataGBWaitingForPlayersMenu.TabStop = false;
             this.currentDataGBWaitingForPlayersMenu.Text = "Current Data";
+            // 
+            // pictureBoxHouse
+            // 
+            this.pictureBoxHouse.Location = new System.Drawing.Point(63, 142);
+            this.pictureBoxHouse.Name = "pictureBoxHouse";
+            this.pictureBoxHouse.Size = new System.Drawing.Size(110, 120);
+            this.pictureBoxHouse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxHouse.TabIndex = 20;
+            this.pictureBoxHouse.TabStop = false;
             // 
             // infoColorWaitingForPlayersMenu
             // 
             this.infoColorWaitingForPlayersMenu.Enabled = false;
             this.infoColorWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.infoColorWaitingForPlayersMenu.Location = new System.Drawing.Point(81, 75);
+            this.infoColorWaitingForPlayersMenu.Location = new System.Drawing.Point(63, 83);
             this.infoColorWaitingForPlayersMenu.Name = "infoColorWaitingForPlayersMenu";
             this.infoColorWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
             this.infoColorWaitingForPlayersMenu.TabIndex = 19;
@@ -1013,7 +1025,7 @@ namespace Yad.UI.Client
             // infoColorLWaitingForPlayersMenu
             // 
             this.infoColorLWaitingForPlayersMenu.AutoSize = true;
-            this.infoColorLWaitingForPlayersMenu.Location = new System.Drawing.Point(6, 79);
+            this.infoColorLWaitingForPlayersMenu.Location = new System.Drawing.Point(6, 91);
             this.infoColorLWaitingForPlayersMenu.Name = "infoColorLWaitingForPlayersMenu";
             this.infoColorLWaitingForPlayersMenu.Size = new System.Drawing.Size(31, 13);
             this.infoColorLWaitingForPlayersMenu.TabIndex = 18;
@@ -1133,7 +1145,7 @@ namespace Yad.UI.Client
             this.dataGridViewPlayers.ReadOnly = true;
             this.dataGridViewPlayers.RowHeadersVisible = false;
             this.dataGridViewPlayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 147);
+            this.dataGridViewPlayers.Size = new System.Drawing.Size(278, 98);
             this.dataGridViewPlayers.TabIndex = 10;
             // 
             // ID
@@ -1190,7 +1202,7 @@ namespace Yad.UI.Client
             // 
             this.descriptionLWaitingForPlayersMenu.AutoSize = true;
             this.descriptionLWaitingForPlayersMenu.BackColor = System.Drawing.Color.Transparent;
-            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(296, 115);
+            this.descriptionLWaitingForPlayersMenu.Location = new System.Drawing.Point(12, 232);
             this.descriptionLWaitingForPlayersMenu.Name = "descriptionLWaitingForPlayersMenu";
             this.descriptionLWaitingForPlayersMenu.Size = new System.Drawing.Size(60, 13);
             this.descriptionLWaitingForPlayersMenu.TabIndex = 13;
@@ -1198,11 +1210,11 @@ namespace Yad.UI.Client
             // 
             // descriptionWaitingForPlayersMenu
             // 
-            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(299, 131);
+            this.descriptionWaitingForPlayersMenu.Location = new System.Drawing.Point(15, 248);
             this.descriptionWaitingForPlayersMenu.Multiline = true;
             this.descriptionWaitingForPlayersMenu.Name = "descriptionWaitingForPlayersMenu";
             this.descriptionWaitingForPlayersMenu.ReadOnly = true;
-            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(209, 147);
+            this.descriptionWaitingForPlayersMenu.Size = new System.Drawing.Size(278, 84);
             this.descriptionWaitingForPlayersMenu.TabIndex = 11;
             // 
             // playersLWaitingForPlayersMenu
@@ -1560,6 +1572,7 @@ namespace Yad.UI.Client
             this.waitingForPlayersMenu.PerformLayout();
             this.currentDataGBWaitingForPlayersMenu.ResumeLayout(false);
             this.currentDataGBWaitingForPlayersMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHouse)).EndInit();
             this.changeGBWaitingForPlayersMenu.ResumeLayout(false);
             this.changeGBWaitingForPlayersMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).EndInit();
@@ -1690,5 +1703,6 @@ namespace Yad.UI.Client
         private DataGridViewTextBoxColumn House;
         private DataGridViewTextBoxColumn Team;
         private ComboBox serverLoginMenu;
+        private PictureBox pictureBoxHouse;
     }
 }
