@@ -42,7 +42,7 @@ namespace Yad.UI.Client
             this.loginMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxServer = new System.Windows.Forms.GroupBox();
-            this.serverLoginMenu = new System.Windows.Forms.TextBox();
+            this.serverLoginMenu = new System.Windows.Forms.ComboBox();
             this.serverLabel = new System.Windows.Forms.Label();
             this.groupBoxLogin = new System.Windows.Forms.GroupBox();
             this.loginLabel = new System.Windows.Forms.Label();
@@ -245,7 +245,7 @@ namespace Yad.UI.Client
             this.newGameMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newGameMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newGameMainMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.newGameMainMenu.Location = new System.Drawing.Point(198, 83);
+            this.newGameMainMenu.Location = new System.Drawing.Point(197, 83);
             this.newGameMainMenu.Name = "newGameMainMenu";
             this.newGameMainMenu.Size = new System.Drawing.Size(131, 23);
             this.newGameMainMenu.TabIndex = 1;
@@ -263,7 +263,7 @@ namespace Yad.UI.Client
             this.optionsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optionsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsMainMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.optionsMainMenu.Location = new System.Drawing.Point(198, 112);
+            this.optionsMainMenu.Location = new System.Drawing.Point(197, 112);
             this.optionsMainMenu.Name = "optionsMainMenu";
             this.optionsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.optionsMainMenu.TabIndex = 2;
@@ -281,7 +281,7 @@ namespace Yad.UI.Client
             this.exitMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitMainMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.exitMainMenu.Location = new System.Drawing.Point(198, 170);
+            this.exitMainMenu.Location = new System.Drawing.Point(197, 170);
             this.exitMainMenu.Name = "exitMainMenu";
             this.exitMainMenu.Size = new System.Drawing.Size(131, 23);
             this.exitMainMenu.TabIndex = 4;
@@ -299,7 +299,7 @@ namespace Yad.UI.Client
             this.creditsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.creditsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creditsMainMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.creditsMainMenu.Location = new System.Drawing.Point(198, 141);
+            this.creditsMainMenu.Location = new System.Drawing.Point(197, 141);
             this.creditsMainMenu.Name = "creditsMainMenu";
             this.creditsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.creditsMainMenu.TabIndex = 3;
@@ -355,11 +355,15 @@ namespace Yad.UI.Client
             // 
             // serverLoginMenu
             // 
+            this.serverLoginMenu.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.serverLoginMenu.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.serverLoginMenu.FormattingEnabled = true;
             this.serverLoginMenu.Location = new System.Drawing.Point(93, 29);
+            this.serverLoginMenu.MaxDropDownItems = 5;
+            this.serverLoginMenu.MaxLength = 20;
             this.serverLoginMenu.Name = "serverLoginMenu";
-            this.serverLoginMenu.Size = new System.Drawing.Size(105, 20);
-            this.serverLoginMenu.TabIndex = 11;
-            this.serverLoginMenu.Text = "127.0.0.1:1734";
+            this.serverLoginMenu.Size = new System.Drawing.Size(142, 21);
+            this.serverLoginMenu.TabIndex = 1;
             // 
             // serverLabel
             // 
@@ -400,18 +404,17 @@ namespace Yad.UI.Client
             this.loginTBLoginMenu.Location = new System.Drawing.Point(93, 33);
             this.loginTBLoginMenu.MaxLength = 25;
             this.loginTBLoginMenu.Name = "loginTBLoginMenu";
-            this.loginTBLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.loginTBLoginMenu.Size = new System.Drawing.Size(142, 20);
             this.loginTBLoginMenu.TabIndex = 2;
-            this.loginTBLoginMenu.Text = "test_player_";
             // 
             // passwordLoginMenu
             // 
             this.passwordLoginMenu.Location = new System.Drawing.Point(93, 59);
             this.passwordLoginMenu.MaxLength = 25;
             this.passwordLoginMenu.Name = "passwordLoginMenu";
-            this.passwordLoginMenu.Size = new System.Drawing.Size(105, 20);
+            this.passwordLoginMenu.Size = new System.Drawing.Size(142, 20);
             this.passwordLoginMenu.TabIndex = 3;
-            this.passwordLoginMenu.Text = "yad2";
+            this.passwordLoginMenu.Text = "testpassword";
             this.passwordLoginMenu.UseSystemPasswordChar = true;
             // 
             // passwordLabel
@@ -1283,7 +1286,6 @@ namespace Yad.UI.Client
             // 
             // musicVolumeNMOptionsMenu
             // 
-            this.musicVolumeNMOptionsMenu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yad.Properties.Client.Settings.Default, "MusicDefaultVolume", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.musicVolumeNMOptionsMenu.Increment = new decimal(new int[] {
             5,
             0,
@@ -1293,7 +1295,6 @@ namespace Yad.UI.Client
             this.musicVolumeNMOptionsMenu.Name = "musicVolumeNMOptionsMenu";
             this.musicVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.musicVolumeNMOptionsMenu.TabIndex = 2;
-            this.musicVolumeNMOptionsMenu.Value = global::Yad.Properties.Client.Settings.Default.MusicDefaultVolume;
             // 
             // muteSoundOptionsMenu
             // 
@@ -1309,7 +1310,6 @@ namespace Yad.UI.Client
             // 
             // soundVolumeNMOptionsMenu
             // 
-            this.soundVolumeNMOptionsMenu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yad.Properties.Client.Settings.Default, "SoundDefaultVolume", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.soundVolumeNMOptionsMenu.Increment = new decimal(new int[] {
             5,
             0,
@@ -1319,7 +1319,6 @@ namespace Yad.UI.Client
             this.soundVolumeNMOptionsMenu.Name = "soundVolumeNMOptionsMenu";
             this.soundVolumeNMOptionsMenu.Size = new System.Drawing.Size(50, 20);
             this.soundVolumeNMOptionsMenu.TabIndex = 3;
-            this.soundVolumeNMOptionsMenu.Value = global::Yad.Properties.Client.Settings.Default.SoundDefaultVolume;
             // 
             // muteMusicOptionsMenu
             // 
@@ -1678,7 +1677,6 @@ namespace Yad.UI.Client
         private Label houseLWaitingForPlayersMenu;
         private Button changeWaitingForPlayersMenu;
         private ErrorProvider errorProvider;
-        private TextBox serverLoginMenu;
         private GroupBox changeGBWaitingForPlayersMenu;
         private Label colorLWaitingForPlayersMenu;
         private Button colorWaitingForPlayersMenu;
@@ -1691,5 +1689,6 @@ namespace Yad.UI.Client
         private DataGridViewTextBoxColumn PlayersName;
         private DataGridViewTextBoxColumn House;
         private DataGridViewTextBoxColumn Team;
+        private ComboBox serverLoginMenu;
     }
 }

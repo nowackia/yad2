@@ -238,7 +238,7 @@ namespace Yad.UI.Client
                 case MenuOption.Pause:
                     switchView(Views.PauseForm, false, true);
                     break;
-                
+
                 case MenuOption.GameFormToChat:
                     switchView(Views.ChatForm);
                     ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
@@ -384,9 +384,11 @@ namespace Yad.UI.Client
             switchView(viewToSwitch, hideLast, false);
         }
 
-        private void SetFormTopMost(Form fm, bool value) {
+        private void SetFormTopMost(Form fm, bool value)
+        {
             fm.TopMost = value;
         }
+
         private void switchView(Views viewToSwitch, bool hideLast, bool modal)
         {
             if (hideLast)

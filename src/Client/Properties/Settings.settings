@@ -101,12 +101,6 @@
     <Setting Name="OptionsTexture" Type="System.String" Scope="User">
       <Value Profile="(Default)">options.png</Value>
     </Setting>
-    <Setting Name="SoundDefaultVolume" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">50</Value>
-    </Setting>
-    <Setting Name="MusicDefaultVolume" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">50</Value>
-    </Setting>
     <Setting Name="Sound" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Resources/Audio/FX/</Value>
     </Setting>
