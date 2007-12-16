@@ -110,7 +110,8 @@ namespace Yad.Engine {
         public void RemoveBuilding(ObjectID objectID, int creatorID, short typeID) {
             bool contains = false;
             lock (((ICollection)_stripData).SyncRoot)
-                contains = true;
+                if (_stripData.ContainsKey(objectID.ObjectId))
+                    contains = true;
             if (contains) {
                 _leftStripe.Remove(objectID.ObjectId);
 
@@ -137,8 +138,9 @@ namespace Yad.Engine {
                 //building was being built
                 bool containsCreator = false;
                 lock (((ICollection)_stripData).SyncRoot)
+                    if (_stripData.ContainsKey(creatorID))
                     containsCreator = true;
-                if (_stripData.ContainsKey(creatorID)) {
+                if (containsCreator) {
                     lock (((ICollection)_leftState).SyncRoot)
                         _leftState[creatorID] = RightStripState.Normal;
                     lock (((ICollection)_stripData).SyncRoot) {
@@ -178,12 +180,15 @@ namespace Yad.Engine {
         public void SwitchCurrentBuilding(int id) {
             InfoLog.WriteInfo("lock cObjLock ", EPrefix.LockInfo);
             int current = -1;
+            int lastCurrent = -1;
             lock (cObjLock) {
                 if (_currentObjectID != id) {
+                    lastCurrent = _currentObjectID;
                     _currentObjectID = id;
                     current = id;
                 }
             }
+
             if (current != -1)
                 UpdateView(current, true);
             InfoLog.WriteInfo("release cObjLock ", EPrefix.LockInfo);
