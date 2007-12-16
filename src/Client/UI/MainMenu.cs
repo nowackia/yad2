@@ -16,7 +16,7 @@ using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Properties;
-using Yad.Properties.Common;
+using Yad.Properties.Client;
 using Yad.UI.Common;
 
 
@@ -228,6 +228,15 @@ namespace Yad.UI.Client
                     break;
                 }
             }
+        }
+
+        public void ManagePictureBoxHouse(PictureBox pictureBox, object objectPictureName)
+        {
+            string pictureName = objectPictureName as string;
+            try
+            { pictureBox.Image = Image.FromFile(Settings.Default.UI + "/UI_" + pictureName + ".png"); }
+            catch
+            { pictureBox.Image = null; }
         }
 
         public void AddComboBoxItem(ComboBox comboBox, object item)
@@ -938,12 +947,14 @@ namespace Yad.UI.Client
                     this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { descriptionWaitingForPlayersMenu, e.reason });
                     this.Invoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { teamCBWaitingForPlayersMenu, teamObjects, teamObjects[0] });
                     this.Invoke(new ManageComboBoxItemsEventHandlerDefaultItem(ManageComboBoxItems), new object[] { houseCBWaitingForPlayersMenu, houseObjects, new ItemValue(GlobalSettings.Instance.DefaultHouse, GlobalSettings.Instance.DefaultHouseName) });
+                    this.Invoke(new ManagePictureBoxHouseEventHandler(ManagePictureBoxHouse), new object[] { pictureBoxHouse, GlobalSettings.Instance.DefaultHouseName });
                 }
                 else
                 {
                     ManageControlText(playerInfoLInfoMenu, e.reason);
                     ManageComboBoxItems(teamCBWaitingForPlayersMenu, teamObjects);
                     ManageComboBoxItems(houseCBWaitingForPlayersMenu, houseObjects, new ItemValue(GlobalSettings.Instance.DefaultHouse, GlobalSettings.Instance.DefaultHouseName));
+                    ManagePictureBoxHouse(pictureBoxHouse, GlobalSettings.Instance.DefaultHouseName);
                 }
             }
         }
@@ -996,6 +1007,7 @@ namespace Yad.UI.Client
                         this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { houseCBWaitingForPlayersMenu, new ItemValue(e.players[i].House, string.Empty) });
                         this.Invoke(new UpdateComboBoxEventHandler(UpdateComboBox), new object[] { teamCBWaitingForPlayersMenu, e.players[i].TeamID });
                         this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { colorWaitingForPlayersMenu, e.players[i].Color });
+                        this.Invoke(new ManagePictureBoxHouseEventHandler(ManagePictureBoxHouse), new object[] { pictureBoxHouse, GlobalSettings.Instance.GetHouseName(e.players[i].House) });
                         /* Set Information */
                         this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { infoLWaitingForPlayersMenu, infoText });
                         this.Invoke(new ManageControlBackColorEventHandler(ManageControlBackColor), new object[] { infoColorWaitingForPlayersMenu, e.players[i].Color });
@@ -1008,6 +1020,7 @@ namespace Yad.UI.Client
                         UpdateComboBox(houseCBWaitingForPlayersMenu, new ItemValue(e.players[i].House, string.Empty));
                         UpdateComboBox(teamCBWaitingForPlayersMenu, e.players[i].TeamID);
                         ManageControlBackColor(colorWaitingForPlayersMenu, e.players[i].Color);
+                        ManagePictureBoxHouse(pictureBoxHouse, GlobalSettings.Instance.GetHouseName(e.players[i].House));
                         /* Set Information */
                         ManageControlText(infoLWaitingForPlayersMenu, infoText);
                         ManageControlBackColor(infoColorWaitingForPlayersMenu, e.players[i].Color);

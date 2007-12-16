@@ -71,6 +71,7 @@
     <Compile Include="FMod\fmod_dsp.cs" />
     <Compile Include="FMod\fmod_errors.cs" />
     <Compile Include="Net\ISuspender.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="UI\CreditsPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1117,6 +1118,15 @@
     <None Include="Resources\Graphics\UI\Menu_VersionBox.png" />
     <Content Include="Resources\Graphics\UI\Radar_Static.png" />
     <Content Include="Resources\Graphics\UI\Selection.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\UI\UI_Atreides.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\UI\UI_Harkonnen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\UI\UI_Ordos.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Graphics\UI\ValidPlace.png" />

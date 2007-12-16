@@ -16,6 +16,7 @@ namespace Yad.UI.Client
     public delegate void ManageControlTextEventHandler(Control control, string text);
     public delegate void ManageControlBackColorEventHandler(Control control, Color backColor);
     public delegate void ManageControlStateEventHandler(Control[] option, bool state);
+    public delegate void ManagePictureBoxHouseEventHandler(PictureBox pictureBox, object pictureData);
     public delegate void ManageComboBoxItemsEventHandler(ComboBox comboBox, Array array);
     public delegate void ManageComboBoxItemsEventHandlerDefaultItem(ComboBox comboBox, Array array, object defaultItem);
     public delegate void UpdateComboBoxEventHandler(ComboBox comboBox, object updateObject);
