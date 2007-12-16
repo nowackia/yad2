@@ -81,10 +81,21 @@ namespace Yad.UI.Client {
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
+				
+				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
+				_gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+				_gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
+				_gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
+				_gameLogic.PauseResume += new GameLogic.PauseResumeHandler(this.onPauseResume);
 
 				leftStripe.onBuildingChosen += new BuildingChosenHandler(leftStripe_onBuildingChosen);
 				rightStripe.onBuildingChosen += new BuildingChosenHandler(rightStripe_onBuildingChosen);
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
+				_buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
+				//_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
+				_gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
+				_gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
+
 
 				InfoLog.WriteInfo("MainForm constructor: initializing OpenGL", EPrefix.GameGraphics);
 
@@ -105,15 +116,7 @@ namespace Yad.UI.Client {
 				GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
-				_buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
-				//_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
-				_gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
-				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
-				_gameLogic.Simulation.BuildingDestroyed += new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
-				_gameLogic.Simulation.UpdateStripItem += new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
-				_gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
-				_gameLogic.GameEnd += new GameLogic.GameEndHandler(Simulation_GameEnd);
-				_gameLogic.PauseResume += new GameLogic.PauseResumeHandler(this.onPauseResume);
+				
 				GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
 
 				GameMessageHandler.Instance.Resume();
@@ -164,6 +167,27 @@ namespace Yad.UI.Client {
 		void Simulation_GameEnd(int winTeamId) {
 			InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
 
+			GameGraphics.GameGraphicsChanged -= new EventHandler(gg_GameGraphicsChanged);
+			mapView.Paint -= new PaintEventHandler(openGLView_Paint);
+
+			GameGraphics.DeinitGL();
+
+			_gameLogic.Simulation.AbortSimulation();
+
+			_gameLogic.Simulation.BuildingCompleted -= new ClientSimulation.BuildingCreationHandler(Simulation_OnBuildingCompleted);
+			_gameLogic.Simulation.UnitCompleted -= new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
+			_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(Simulation_onTurnEnd);
+			_gameLogic.Simulation.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(UpdateCredits);
+			_gameLogic.Simulation.InvalidLocation -= new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
+			//_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(_buildManager.ProcessTurn);
+			_gameLogic.Simulation.BuildingDestroyed -= new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
+			_gameLogic.Simulation.UpdateStripItem -= new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
+			_gameLogic.OnBadLocation -= new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
+			_gameLogic.GameEnd -= new GameLogic.GameEndHandler(Simulation_GameEnd);
+			_gameLogic.PauseResume -= new GameLogic.PauseResumeHandler(this.onPauseResume);
+			
+			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
+
 			bool isWinner = false;
 			if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
 				isWinner = true;
@@ -176,6 +200,11 @@ namespace Yad.UI.Client {
 				AudioEngine.Instance.Music.Play(MusicType.Lose);
 				AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Lose);
 			}
+
+			/*
+			 * KŒ: tu jest burdel, GameForm nie jest od przepinania handlerów, ani od zarz¹dzania okienkami w aplikacji
+			 * nie mo¿na wyœwietliæ GameForm jako okna modalnego, albo zrobiæ w nim event?
+			 */
 
 			/* Sending message to server */
 			GameEndMessage gameEndMessage = (GameEndMessage)Utils.CreateMessageWithSenderId(MessageType.EndGame);
@@ -202,7 +231,7 @@ namespace Yad.UI.Client {
 			if (mainMenuForm != null)
 				mainMenuForm.MenuMessageHandler.Resume();
 
-			_gameLogic.Simulation.AbortSimulation();
+			//_gameLogic.Simulation.AbortSimulation();
 		}
 
 		void Simulation_BuildingDestroyed(Building b) {
@@ -219,6 +248,14 @@ namespace Yad.UI.Client {
 
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			e.Cancel = !this.gameFormClose;
+
+			if (!this.gameFormClose) {
+				return;
+			}
+
+			//KŒ: nie wiem czy niezbêdne, ale tak na wszelki wypadek...
+			Connection.Instance.ConnectionLost -= new ConnectionLostEventHandler(ConnectionInstance_ConnectionLost);
+			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
 		}
 		#endregion
 
@@ -260,6 +297,8 @@ namespace Yad.UI.Client {
 				GameGraphics.OffsetY(-Settings.Default.ScrollingSpeed);
 			} else if (e.KeyCode == Keys.X) {
 				_gameLogic.DeployMCV();
+			} else if (e.KeyCode == Keys.U) {
+				AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.ComeToPappa);
 			}
 		}
 
@@ -369,9 +408,11 @@ namespace Yad.UI.Client {
 		}
 
 		private void HandleLeftButtonUp(MouseEventArgs e) {
-			_selecting = false;
-			this._selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
-			_gameLogic.Select(_selectionStart, _selectionEnd);
+			if (_selecting) {
+				_selecting = false;
+				this._selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
+				_gameLogic.Select(_selectionStart, _selectionEnd);
+			}
 		}
 
 		private void openGLView_MouseMove(object sender, MouseEventArgs e) {
