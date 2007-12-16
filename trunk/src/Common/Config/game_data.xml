@@ -18,6 +18,10 @@
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>Barracks</tns:Name>
+			</tns:BuildingDependency>
+			
 		</tns:UnitTrooperData>
 		<tns:UnitTrooperData>
 			<tns:Name>HeavyTrooper</tns:Name>
@@ -35,6 +39,9 @@
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>Barracks</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTrooperData>
 	</tns:UnitTroopersData>
 	
@@ -56,6 +63,9 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>LightFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>RaiderTrike</tns:Name>
@@ -74,6 +84,9 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>LightFactory</tns:Name>
+			</tns:BuildingDependency>			
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>Quad</tns:Name>
@@ -92,6 +105,9 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>LightFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>CombatTank</tns:Name>
@@ -110,6 +126,9 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>HeavyFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>Devastator</tns:Name>
@@ -128,6 +147,10 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>HeavyFactory</tns:Name>
+				<tns:Name>LightFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>SiegeTank</tns:Name>
@@ -146,6 +169,9 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>HeavyFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>SonicTank</tns:Name>
@@ -164,6 +190,12 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>HeavyFactory</tns:Name>
+				<tns:Name>RocketTurret</tns:Name>
+				<tns:Name>Radar</tns:Name>
+				<tns:Name>Starport</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>Deviator</tns:Name>
@@ -182,6 +214,10 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>Refinery</tns:Name>
+				<tns:Name>HeavyFactory</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
 			<tns:Name>RocketLauncher</tns:Name>
@@ -200,6 +236,11 @@
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>Refinery</tns:Name>
+				<tns:Name>HeavyFactory</tns:Name>
+				<tns:Name>Radar</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitTankData>
 	</tns:UnitTanksData>
 
@@ -217,6 +258,9 @@
 			<tns:Capacity>800</tns:Capacity>
 			<tns:HarvestingSpeed>160</tns:HarvestingSpeed>
 			<tns:Size>1.5</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>Refinery</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitHarvesterData>
 	</tns:UnitHarvestersData>
 
@@ -233,6 +277,10 @@
 			<tns:RotationSpeed>4</tns:RotationSpeed>
 			<tns:BuildingCanProduce>ConstructionYard</tns:BuildingCanProduce>
 			<tns:Size>1.5</tns:Size>
+			<tns:BuildingDependency>
+				<tns:Name>HeavyFactory</tns:Name>
+				<tns:Name>Starport</tns:Name>
+			</tns:BuildingDependency>
 		</tns:UnitMCVData>
 	</tns:UnitMCVsData>
 
