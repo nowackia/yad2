@@ -306,7 +306,6 @@ namespace Yad.Engine
 
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
             channel.setVolume(volume);
-            channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
             channel.setPaused(false);
 
             return FMOD.ERROR.ERRCHECK(result);

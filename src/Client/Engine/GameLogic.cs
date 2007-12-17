@@ -100,8 +100,7 @@ namespace Yad.Engine.Client {
 			}
 			_selectedUnits.Remove(u);
 
-			AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, HouseSoundType.Unit);
-			AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, HouseSoundType.Deploy);
+            AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, new HouseSoundType[] { HouseSoundType.Unit, HouseSoundType.Deploy } );
 		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {
