@@ -285,6 +285,9 @@ namespace Yad.Engine
         {
             lock(sequentialPlayList)
             {
+                if (sequentialPlayList.Count == 0)
+                    return FMOD.RESULT.ERR_INVALID_PARAM;
+
                 sequentialPlayList.RemoveAt(0);
 
                 if (sequentialPlayList.Count != 0)
