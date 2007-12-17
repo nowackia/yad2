@@ -30,7 +30,7 @@ namespace Yad.Engine.Client
             isInitialized = false;
 
             timer = new Timer();
-            timer.Interval = 50;
+            timer.Interval = 100;
             timer.Tick += new EventHandler(timer_Tick);
         }
 

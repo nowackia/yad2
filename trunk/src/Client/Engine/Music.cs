@@ -272,7 +272,7 @@ namespace Yad.Engine.Client
             this.Volume = 0;
             isMuted = true;
 
-            InfoLog.WriteInfo("Sound muted", EPrefix.AudioEngine);
+            InfoLog.WriteInfo("Music muted", EPrefix.AudioEngine);
         }
     }
 }

@@ -294,8 +294,8 @@ namespace Yad.Engine
                 {
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[this.houseId][(short)this.sequentialPlayList[0]], true, ref channel);
                     channel.setVolume(volume);
-                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
                     channel.setPaused(false);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
                 }
 
                 return FMOD.RESULT.OK;
@@ -352,8 +352,8 @@ namespace Yad.Engine
                 {
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSounds[0]], true, ref channel);
                     channel.setVolume(volume);
-                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
                     channel.setPaused(false);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
                 }
 
                 return true;
