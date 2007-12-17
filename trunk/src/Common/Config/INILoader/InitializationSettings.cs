@@ -12,7 +12,7 @@ namespace Yad.Config.INILoader.Common
         private IniReader ini = new IniReader(Settings.Default.InitializationFile);
 
         private int nextServerIPIndex;
-        public List<string> serverIPs;
+        private List<string> serverIPs;
 
         private InitializationSettings()
         {
