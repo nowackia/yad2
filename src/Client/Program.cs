@@ -32,6 +32,9 @@ namespace Yad.Client
             AudioEngine.Instance.Music.LoadMusic();
             AudioEngine.Instance.Sound.LoadSounds();
 
+            AudioEngine.Instance.Sound.PlayHouse(Yad.Config.GlobalSettings.Instance.DefaultHouse, new Yad.Engine.HouseSoundType[] { Yad.Engine.HouseSoundType.Approach, Yad.Engine.HouseSoundType.East });
+            AudioEngine.Instance.Sound.PlayHouse(Yad.Config.GlobalSettings.Instance.DefaultHouse, new Yad.Engine.HouseSoundType[] { Yad.Engine.HouseSoundType.Warning, Yad.Engine.HouseSoundType.West });
+
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 

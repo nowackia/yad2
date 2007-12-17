@@ -181,6 +181,10 @@ namespace Yad.Engine
     {
         private FMOD.System system = null;
         private FMOD.Channel channel = null;
+        private FMOD.CHANNEL_CALLBACK endPlayCallback;
+
+        private short houseId;
+        private List<HouseSoundType> sequentialPlayList;
 
         private FMOD.Sound[] misc;
         private Dictionary<short, FMOD.Sound[]> houses;
@@ -208,6 +212,9 @@ namespace Yad.Engine
 
             misc = new FMOD.Sound[Enum.GetValues(typeof(MiscSoundType)).Length];
             houses = new Dictionary<short, FMOD.Sound[]>();
+
+            sequentialPlayList = new List<HouseSoundType>();
+            endPlayCallback = new FMOD.CHANNEL_CALLBACK(endPlayCallbackFunction);
 
             isMuted = false;
         }
@@ -274,6 +281,24 @@ namespace Yad.Engine
             InfoLog.WriteInfo("Finished loading sounds", EPrefix.AudioEngine);
         }
 
+        private FMOD.RESULT endPlayCallbackFunction(IntPtr channelRaw, FMOD.CHANNEL_CALLBACKTYPE tipo, int comando, uint datoComando1, uint datoComando2)
+        {
+            lock(sequentialPlayList)
+            {
+                sequentialPlayList.RemoveAt(0);
+
+                if (sequentialPlayList.Count != 0)
+                {
+                    FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[this.houseId][(short)this.sequentialPlayList[0]], true, ref channel);
+                    channel.setVolume(volume);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    channel.setPaused(false);
+                }
+
+                return FMOD.RESULT.OK;
+            }
+        }
+
         public bool PlayMisc(MiscSoundType miscSound)
         {
             if (!isInitialized)
@@ -281,6 +306,7 @@ namespace Yad.Engine
 
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
             channel.setVolume(volume);
+            channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
             channel.setPaused(false);
 
             return FMOD.ERROR.ERRCHECK(result);
@@ -296,6 +322,40 @@ namespace Yad.Engine
             channel.setPaused(false);
 
             return FMOD.ERROR.ERRCHECK(result);
+        }
+
+        /// <summary>
+        /// Plays sequention of sounds. Only one sound queue is available. If called while playing, the specified sounds
+        /// are buffered to the queueu and played back as soon as the previous sound finishes playing.
+        /// </summary>
+        /// <param name="houseId">Id of house to play sound of</param>
+        /// <param name="houseSounds">Array of sound types to play</param>
+        /// <returns></returns>
+        public bool PlayHouse(short houseId, HouseSoundType[] houseSounds)
+        {
+            if (!isInitialized)
+                return false;
+
+            if (houseSounds.Length == 0)
+                return false;
+
+            lock (sequentialPlayList)
+            {
+                bool beginPlay = (sequentialPlayList.Count == 0);
+
+                this.houseId = houseId;
+                this.sequentialPlayList.AddRange(houseSounds);
+
+                if (beginPlay)
+                {
+                    FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSounds[0]], true, ref channel);
+                    channel.setVolume(volume);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    channel.setPaused(false);
+                }
+
+                return true;
+            }
         }
 
         public void Mute()
