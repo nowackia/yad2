@@ -98,11 +98,10 @@ namespace Yad.Engine.Client {
 			if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
 				return;
 			}
-            _selectedUnits.Remove(u);
-
             /* Sound */
             AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, new HouseSoundType[] { HouseSoundType.Unit, HouseSoundType.Deploy });
-		}
+
+            _selectedUnits.Remove(u);		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {
             if (b.ObjectID.PlayerID == CurrentPlayer.Id) {
