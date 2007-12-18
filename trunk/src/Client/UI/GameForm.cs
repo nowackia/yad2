@@ -512,6 +512,7 @@ namespace Yad.UI.Client {
 		void leftStripe_onBuildingChosen(int id) {
 			InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
 			_buildManager.SwitchCurrentBuilding(id);
+            this._isCreatingBuilding = false;
 			// show building on rightStripe
 			//ShowPossibilitiesForBuilding(id);
 		}

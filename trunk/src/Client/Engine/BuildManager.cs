@@ -18,7 +18,8 @@ namespace Yad.Engine {
     public delegate void CreateUnitHandler(int createObjectID, short typeID);
     enum RightStripState {
         Building,
-        Normal
+        Normal,
+        Placing
     }
 
     public class StateWrapper {
@@ -60,6 +61,9 @@ namespace Yad.Engine {
             }
         }
 
+        /// <summary>
+        /// Inicjalizuje prawy pasek wszystkimi mozliwymi opcjami budowy
+        /// </summary>
         public void InitRightStripe() {
             foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys) {
                 BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
@@ -115,13 +119,17 @@ namespace Yad.Engine {
             if (contains) {
                 _leftStripe.Remove(objectID.ObjectId);
 
-                lock (((ICollection)_leftState).SyncRoot)
-                    _leftState.Remove(objectID.ObjectId);
+                lock (((ICollection)_leftState).SyncRoot){
+                    if (_leftState.ContainsKey(objectID.ObjectId))
+                        _leftState.Remove(objectID.ObjectId);
+                }
                 lock (((ICollection)_stripData).SyncRoot) {
-                    _stripData.Remove(objectID.ObjectId);
-                    foreach (int key in _stripData.Keys) {
-                        ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
-                        UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+                    if (_stripData.ContainsKey(objectID.ObjectId)) {
+                        _stripData.Remove(objectID.ObjectId);
+                        foreach (int key in _stripData.Keys) {
+                            ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
+                            UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+                        }
                     }
                 }
                 bool needsRebuild = false;
@@ -156,17 +164,21 @@ namespace Yad.Engine {
             BuildingData bs = GlobalSettings.Wrapper.buildingsMap[typeID];
             string name = GlobalSettings.Wrapper.buildingsMap[typeID].Name;
             if (bs.BuildingsCanProduce.Count != 0 || bs.UnitsCanProduce.Count != 0) {
+              
                 _leftStripe.Add(objectID.ObjectId, name, name, true);
-                _leftState.Add(objectID.ObjectId, RightStripState.Normal);
-                _stripData.Add(objectID.ObjectId, new Dictionary<short, StateWrapper>());
+                lock (((ICollection)_leftState).SyncRoot)
+                    _leftState.Add(objectID.ObjectId, RightStripState.Normal);
+                lock (((ICollection)_stripData).SyncRoot)
+                    _stripData.Add(objectID.ObjectId, new Dictionary<short, StateWrapper>());
             }
-            
-            foreach (int key in _stripData.Keys) {
-                ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
-                if (key == objectID.ObjectId)
-                    UpdateDependencies(obj, typeID);
-                else
-                    UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+            lock (((ICollection)_stripData).SyncRoot) {
+                foreach (int key in _stripData.Keys) {
+                    ObjectID obj = new ObjectID(_gameLogic.CurrentPlayer.Id, key);
+                    if (key == objectID.ObjectId)
+                        UpdateDependencies(obj, typeID);
+                    else
+                        UpdateDependencies(obj, _gameLogic.CurrentPlayer.GetBuilding(obj).TypeID);
+                }
             }
             int current = -1;
             lock (cObjLock){
@@ -181,11 +193,29 @@ namespace Yad.Engine {
             InfoLog.WriteInfo("lock cObjLock ", EPrefix.LockInfo);
             int current = -1;
             int lastCurrent = -1;
+
             lock (cObjLock) {
                 if (_currentObjectID != id) {
                     lastCurrent = _currentObjectID;
                     _currentObjectID = id;
                     current = id;
+                }
+            }
+
+            bool updateview = false;
+            lock (((ICollection)_leftState).SyncRoot) {
+                if (_leftState.ContainsKey(lastCurrent)) {
+                    if (_leftState[lastCurrent] == RightStripState.Placing) {
+                        updateview = true;
+                        _leftState[lastCurrent] = RightStripState.Normal;
+                    }
+                }
+            }
+            if (lastCurrent != -1 && updateview) {
+                lock (((ICollection)_stripData).SyncRoot) {
+                    foreach (short key in _stripData[lastCurrent].Keys) {
+                        _stripData[lastCurrent][key].State = StripButtonState.Active;
+                    }
                 }
             }
 
@@ -229,7 +259,7 @@ namespace Yad.Engine {
             InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
             InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
             lock (((ICollection)_leftState).SyncRoot)
-                _leftState[current] = RightStripState.Building;
+                _leftState[current] = RightStripState.Placing;
             InfoLog.WriteInfo("release leftState", EPrefix.LockInfo);
             if (isUnit) {
                 DeactivateOther(-1);
@@ -359,8 +389,10 @@ namespace Yad.Engine {
             lock (((ICollection)_stripData).SyncRoot) {
                 if (_stripData.ContainsKey(id)) {
                     if (percent == -1) {
-                        _leftState[id] = RightStripState.Normal;
-                        ActivateForObject(id);
+                        lock (((ICollection)_leftState).SyncRoot)
+                            _leftState[id] = RightStripState.Normal;
+                        lock (((ICollection)_stripData).SyncRoot)
+                            ActivateForObject(id);
                         bool needsUpdate = false;
                         lock(cObjLock){
                             if (_currentObjectID == id)
@@ -370,8 +402,13 @@ namespace Yad.Engine {
                             UpdateView(id, false);
                     }
                     else {
-                        _stripData[id][typeID].State = StripButtonState.Percantage;
-                        _stripData[id][typeID].Percent = percent;
+                        lock (((ICollection)_stripData).SyncRoot) {
+                            _stripData[id][typeID].State = StripButtonState.Percantage;
+                            _stripData[id][typeID].Percent = percent;
+                        }
+                        lock (((ICollection)_leftState).SyncRoot) {
+                            _leftState[id] = RightStripState.Building;
+                        }
                         InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
                         bool needsUpdate = false;
                         lock (cObjLock)
