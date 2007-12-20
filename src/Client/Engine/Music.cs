@@ -190,11 +190,12 @@ namespace Yad.Engine.Client
                 channel = null;
             }
 
-            system.update();
-
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, sound, false, ref channel);
-            channel.setVolume(volume);
-            channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+            if (channel != null)
+            {
+                channel.setVolume(volume);
+                channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+            }
 
             return FMOD.ERROR.ERRCHECK(result);
         }
