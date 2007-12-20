@@ -95,13 +95,15 @@ namespace Yad.Engine.Client {
 			_sim.UnitDestroyed -= new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
 			_sim.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
 			_sim.MCVDeployed -= new ClientSimulation.UnitHandler(_sim_MCVDeployed);
-		}
+            _sim.ammoShoot -= new ClientSimulation.AmmoHandler(_sim_ammoShoot);
+            _sim.ammoBlow -= new ClientSimulation.AmmoHandler(_sim_ammoBlow);
+        }
 
         void _sim_ammoShoot(Ammo u) {
             MiscSoundType type;
             switch (u.Type) {
                 case AmmoType.Bullet:
-                    type = MiscSoundType.MachineGun;
+                    type = MiscSoundType.Gun;
                     break;
                 case AmmoType.Rocket:
                     type = MiscSoundType.Rocket;

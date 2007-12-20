@@ -43,7 +43,7 @@ namespace Yad.Board {
             this.Position = this.lastPosition = from;
             path = BoardObject.Bresenham(ref from, ref to);
             // jest na odwrot
-            int dir = GetAlfa(from.X - to.X, from.Y - to.Y);
+            int dir = GetAlfa(to.X - from.X, to.Y - from.Y);
             direction = ConvertToDirection(dir);
             this.from = from;
             this.to = to;
