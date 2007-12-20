@@ -431,6 +431,10 @@ namespace Yad.Board.Common {
         {
             return this._name + " Unit: " + this.ObjectID.ToString() + " :";
         }
+        public override string ToString()
+        {
+            return this.ObjectID.ToString() + " name: " + this.Name + " type: " + this.TypeID;
+        }
 		public virtual bool Move() {
 			if (!this.Moving) {
                 this._lastPosition = Position;
@@ -505,7 +509,15 @@ namespace Yad.Board.Common {
 					_direction |= Direction.South;
 				}
 			}
+            if (_map.Units[this.Position.X, this.Position.Y].Count > 1)
+            {
+                InfoLog.WriteInfo("!%!%!%!%!%!Two units on the same position !%!%!%!%!%!", EPrefix.AStar);
+                foreach (Unit u in _map.Units[this.Position.X, this.Position.Y])
+                {
+                    InfoLog.WriteInfo("Wrong unit: " + u.ToString(), EPrefix.AStar);
+                }
 
+            }
 			//move unit
 			this._remainingTurnsInMove--;
 
