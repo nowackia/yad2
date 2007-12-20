@@ -76,9 +76,12 @@ namespace Yad.Engine.Client {
             _sim.UnitDestroyed += new ClientSimulation.UnitHandler(_sim_UnitDestroyed);
             _sim.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
 			_sim.MCVDeployed += new ClientSimulation.UnitHandler(_sim_MCVDeployed);
-
-			this.GameEnd += new GameEndHandler(GameLogic_GameEnd);
+            _sim.ammoBlow += new ClientSimulation.AmmoHandler(_sim_ammoBlow);
+            _sim.ammoShoot += new ClientSimulation.AmmoHandler(_sim_ammoShoot);
+            this.GameEnd += new GameEndHandler(GameLogic_GameEnd);
 		}
+
+        
 
 		void GameLogic_GameEnd(int winTeamId) {
 			GameMessageHandler.Instance.GameMessageReceive -= new GameMessageEventHandler(Instance_GameMessageReceive);
@@ -93,6 +96,31 @@ namespace Yad.Engine.Client {
 			_sim.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(_sim_OnCreditsUpdate);
 			_sim.MCVDeployed -= new ClientSimulation.UnitHandler(_sim_MCVDeployed);
 		}
+
+        void _sim_ammoShoot(Ammo u) {
+            MiscSoundType type;
+            switch (u.Type) {
+                case AmmoType.Bullet:
+                    type = MiscSoundType.MachineGun;
+                    break;
+                case AmmoType.Rocket:
+                    type = MiscSoundType.Rocket;
+                    break;
+                case AmmoType.Sonic:
+                    type = MiscSoundType.Sonic;
+                    break;
+                default:
+                    return;
+            }
+            /* Sound */
+            AudioEngine.Instance.Sound.PlayMisc(type);
+        }
+
+        void _sim_ammoBlow(Ammo u) {
+
+            /* Sound */
+            AudioEngine.Instance.Sound.PlayMisc(MiscSoundType.MediumExplosion);
+        }
 
 		void _sim_MCVDeployed(Unit u) {
 			if (u.ObjectID.PlayerID != CurrentPlayer.Id) {

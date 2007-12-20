@@ -337,7 +337,8 @@ namespace Yad.Engine.Common {
         protected abstract void onMessageBuildUnit(BuildUnitMessage msg);
 		public abstract void ClearFogOfWar(Building b);
 		public abstract void ClearFogOfWar(Unit u);
-
+        public abstract void OnShoot(Ammo a);
+        public abstract void OnAmmoBlow(Ammo a);
 		protected abstract void onInvalidMove(Unit unit);
 		#endregion
 

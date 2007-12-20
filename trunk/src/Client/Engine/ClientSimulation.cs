@@ -26,6 +26,7 @@ namespace Yad.Engine.Client {
 		public delegate void BuildingCreationHandler(Building b, int creatorID);
         public delegate void BuildingHandler(Building b);
 		public delegate void UnitHandler(Unit u);
+        public delegate void AmmoHandler(Ammo u);
 		public delegate void OnLowPowerHandler(Player p);
 		public delegate void OnNoPowerHandler(Player p);
 		public delegate void OnCreditsHandler(short playerNo, int cost);
@@ -44,7 +45,8 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitStarted;
 		public event InvalidLocationHandler InvalidLocation;
         public event UpdateStripItemHandler UpdateStripItem;
-
+        public event AmmoHandler ammoShoot;
+        public event AmmoHandler ammoBlow;
 		#endregion
 
 		public ClientSimulation(Map map)
@@ -608,6 +610,18 @@ namespace Yad.Engine.Client {
                 return GlobalSettings.Wrapper.harvestersMap[type].BuildSpeed;
             return 0;
 
-        }        
+        }
+
+        public override void OnShoot(Ammo a) {
+            if (ammoShoot != null) {
+                ammoShoot(a);
+            }
+        }
+
+        public override void OnAmmoBlow(Ammo a) {
+            if (ammoBlow != null) {
+                ammoBlow(a);
+            }
+        }
     }
 }
