@@ -33,10 +33,10 @@ namespace Yad.Engine.Client
     public class Music
     {
         public event MusicEndEventHandler MusicEnd;
-        private FMOD.CHANNEL_CALLBACK endPlayCallback; 
+        private FMOD.CHANNEL_CALLBACK endPlayCallback;
 
-        private FMOD.System system = null;
         private FMOD.Channel channel = null;
+        private FMOD.System system = null;
 
         private List<FMOD.Sound>[] music;
         private short[] indices;
@@ -47,18 +47,17 @@ namespace Yad.Engine.Client
         private float volume;
         private bool isInitialized;
 
-        public Music(FMOD.Channel channel)
-            : this(null, channel, false)
+        public Music()
+            : this(null)
         { }
 
-        public Music(FMOD.System system, FMOD.Channel channel)
-            : this(system, channel, true)
+        public Music(FMOD.System system)
+            : this(system, true)
         { }
 
-        public Music(FMOD.System system, FMOD.Channel channel, bool isInitialized)
+        public Music(FMOD.System system, bool isInitialized)
         {
             this.system = system;
-            this.channel = channel;
             this.isInitialized = isInitialized;
 
             if (isInitialized && system == null)
@@ -85,7 +84,8 @@ namespace Yad.Engine.Client
             {
                 isMuted = false;
                 volume = (float)value / 100.0f;
-                if(!isInitialized || channel != null)
+
+                if (!isMuted && channel != null)
                     channel.setVolume(volume);
 
                 InfoLog.WriteInfo("Music volume set to: " + volume, EPrefix.AudioEngine);
