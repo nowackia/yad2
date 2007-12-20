@@ -42,11 +42,12 @@ namespace Yad.Board {
             this.speed = speed;
             this.Position = this.lastPosition = from;
             path = BoardObject.Bresenham(ref from, ref to);
-            int dir = GetAlfa(to.X - from.X, to.Y - from.Y);
+            // jest na odwrot
+            int dir = GetAlfa(from.X - to.X, from.Y - to.Y);
             direction = ConvertToDirection(dir);
             this.from = from;
             this.to = to;
-
+            this.sim.OnAmmoBlow(this);
         }
 
         /// <summary>
@@ -96,6 +97,7 @@ namespace Yad.Board {
         /// for racket - blow
         /// </summary>
         private void DestinationReached() {
+            this.sim.OnAmmoBlow(this);
             switch (ammoType) {
                 case AmmoType.None:
                     break;
