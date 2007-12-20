@@ -180,7 +180,7 @@ namespace Yad.Engine
     public class Sound
     {
         private FMOD.System system = null;
-        private FMOD.Channel channel = null;
+        //private FMOD.Channel channel = null;
         private FMOD.CHANNEL_CALLBACK endPlayCallback;
 
         private short houseId;
@@ -193,18 +193,17 @@ namespace Yad.Engine
         private float volume;
         private bool isInitialized;
 
-        public Sound(FMOD.Channel channel)
-            : this(null, channel, false)
+        public Sound()
+            : this(null, false)
         { }
 
-        public Sound(FMOD.System system, FMOD.Channel channel)
-            : this(system, channel, true)
+        public Sound(FMOD.System system)
+            : this(system, true)
         { }
 
-        public Sound(FMOD.System system, FMOD.Channel channel, bool isInitialized)
+        public Sound(FMOD.System system, bool isInitialized)
         {
             this.system = system;
-            this.channel = channel;
             this.isInitialized = isInitialized;
 
             if (isInitialized && system == null)
@@ -233,8 +232,6 @@ namespace Yad.Engine
             {
                 isMuted = false;
                 volume = (float)value / 100.0f;
-                if (!isInitialized || channel != null)
-                    channel.setVolume(volume);
 
                 InfoLog.WriteInfo("Sound volume set to: " + volume, EPrefix.AudioEngine);
             }
@@ -292,6 +289,7 @@ namespace Yad.Engine
 
                 if (sequentialPlayList.Count != 0)
                 {
+                    FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[this.houseId][(short)this.sequentialPlayList[0]], true, ref channel);
                     channel.setVolume(volume);
                     channel.setPaused(false);
@@ -307,6 +305,7 @@ namespace Yad.Engine
             if (!isInitialized)
                 return false;
 
+            FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
             channel.setVolume(volume);
             channel.setPaused(false);
@@ -319,6 +318,7 @@ namespace Yad.Engine
             if (!isInitialized)
                 return false;
 
+            FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], true, ref channel);
             channel.setVolume(volume);
             channel.setPaused(false);
@@ -350,6 +350,7 @@ namespace Yad.Engine
 
                 if (beginPlay)
                 {
+                    FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSounds[0]], true, ref channel);
                     channel.setVolume(volume);
                     channel.setPaused(false);
