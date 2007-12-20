@@ -179,6 +179,7 @@ namespace Yad.Board.Common {
                 this.BuildingData.FirePower, this.BuildingData.AmmoDamageRange, _simulation);
             InfoLog.WriteInfo(a.ObjectID.ToString() + " for ammunition ", EPrefix.GObj);
             this._simulation.AddAmmo(a);
+            this._simulation.OnShoot(a);
 			/*Position s = ob.Position;
 			List<BoardObject> objectsInRange = GetObjectsInRange(s);
 

@@ -47,7 +47,7 @@ namespace Yad.Board {
             direction = ConvertToDirection(dir);
             this.from = from;
             this.to = to;
-            this.sim.OnAmmoBlow(this);
+            
         }
 
         /// <summary>
