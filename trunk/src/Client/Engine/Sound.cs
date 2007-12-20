@@ -180,7 +180,6 @@ namespace Yad.Engine
     public class Sound
     {
         private FMOD.System system = null;
-        //private FMOD.Channel channel = null;
         private FMOD.CHANNEL_CALLBACK endPlayCallback;
 
         private short houseId;
@@ -291,9 +290,12 @@ namespace Yad.Engine
                 {
                     FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[this.houseId][(short)this.sequentialPlayList[0]], true, ref channel);
-                    channel.setVolume(volume);
-                    channel.setPaused(false);
-                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    if (channel != null)
+                    {
+                        channel.setVolume(volume);
+                        channel.setPaused(false);
+                        channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    }
                 }
 
                 return FMOD.RESULT.OK;
@@ -307,8 +309,11 @@ namespace Yad.Engine
 
             FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
-            channel.setVolume(volume);
-            channel.setPaused(false);
+            if (channel != null)
+            {
+                channel.setVolume(volume);
+                channel.setPaused(false);
+            }
 
             return FMOD.ERROR.ERRCHECK(result);
         }
@@ -320,8 +325,11 @@ namespace Yad.Engine
 
             FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], true, ref channel);
-            channel.setVolume(volume);
-            channel.setPaused(false);
+            if (channel != null)
+            {
+                channel.setVolume(volume);
+                channel.setPaused(false);
+            }
 
             return FMOD.ERROR.ERRCHECK(result);
         }
@@ -352,9 +360,12 @@ namespace Yad.Engine
                 {
                     FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSounds[0]], true, ref channel);
-                    channel.setVolume(volume);
-                    channel.setPaused(false);
-                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    if (channel != null)
+                    {
+                        channel.setVolume(volume);
+                        channel.setPaused(false);
+                        channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    }
                 }
 
                 return true;
