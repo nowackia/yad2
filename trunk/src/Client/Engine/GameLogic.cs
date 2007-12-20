@@ -377,7 +377,8 @@ namespace Yad.Engine.Client {
             }
             
             // friendy fire off
-            if (attacked.ObjectID.PlayerID == CurrentPlayer.Id) {
+            if (attacked.ObjectID.PlayerID == CurrentPlayer.Id ||
+                            _sim.Players[attacked.ObjectID.PlayerID].TeamID == CurrentPlayer.TeamID) {
                 MoveOrder(attacked.Position);
                 return;
             }
