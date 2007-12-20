@@ -47,6 +47,8 @@ namespace Yad.Engine.Client
         private float volume;
         private bool isInitialized;
 
+        private object lockObject = new object();
+
         public Music()
             : this(null)
         { }
@@ -205,13 +207,16 @@ namespace Yad.Engine.Client
             if (!isInitialized)
                 return false;
 
-            if (mt != musicType)
+            lock (lockObject)
             {
-                musicType = mt;
-                return this.PlayNext(mt);
+                if (mt != musicType)
+                {
+                    musicType = mt;
+                    return this.PlayNext(mt);
+                }
+                else
+                    return false;
             }
-            else
-                return false;
         }
 
         public bool PlayNext()
