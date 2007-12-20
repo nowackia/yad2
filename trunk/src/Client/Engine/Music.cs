@@ -191,7 +191,7 @@ namespace Yad.Engine.Client
             }
 
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, sound, false, ref channel);
-            if (channel != null)
+            if (result == FMOD.RESULT.OK && channel != null)
             {
                 channel.setVolume(volume);
                 channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);

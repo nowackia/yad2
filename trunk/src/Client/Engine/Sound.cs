@@ -290,7 +290,7 @@ namespace Yad.Engine
                 {
                     FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[this.houseId][(short)this.sequentialPlayList[0]], true, ref channel);
-                    if (channel != null)
+                    if (result == FMOD.RESULT.OK && channel != null)
                     {
                         channel.setVolume(volume);
                         channel.setPaused(false);
@@ -309,7 +309,7 @@ namespace Yad.Engine
 
             FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, misc[(short)miscSound], true, ref channel);
-            if (channel != null)
+            if (result == FMOD.RESULT.OK && channel != null)
             {
                 channel.setVolume(volume);
                 channel.setPaused(false);
@@ -325,7 +325,7 @@ namespace Yad.Engine
 
             FMOD.Channel channel = null;
             FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSound], true, ref channel);
-            if (channel != null)
+            if (result == FMOD.RESULT.OK && channel != null)
             {
                 channel.setVolume(volume);
                 channel.setPaused(false);
@@ -360,7 +360,7 @@ namespace Yad.Engine
                 {
                     FMOD.Channel channel = null;
                     FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, houses[houseId][(short)houseSounds[0]], true, ref channel);
-                    if (channel != null)
+                    if (result == FMOD.RESULT.OK && channel != null)
                     {
                         channel.setVolume(volume);
                         channel.setPaused(false);
