@@ -233,7 +233,8 @@ namespace Yad.Board.Common {
                     foreach (Unit unit in units) {
                         //TODO erase true;)
                         if (unit.Equals(this)) continue;
-                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[unit.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
                             ob = unit;
                             InfoLog.WriteInfo("Unit:AI: found unit in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
                             return true;
@@ -243,7 +244,8 @@ namespace Yad.Board.Common {
                     buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Building building in buildings) {
                         //TODO erase true;)
-                        if ( building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (building.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[building.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
                             attackingBuilding = true;
                             ob = building;
                             InfoLog.WriteInfo("Unit:AI: found building in view in range < " + this.ViewRange, EPrefix.SimulationInfo);
@@ -294,7 +296,8 @@ namespace Yad.Board.Common {
                     units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Unit unit in units) {
                         if (unit.Equals(this)) continue;
-                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[unit.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
                             // target
 
                             //TODO RS: bresenham to check if there is a way to shoot.
@@ -309,7 +312,8 @@ namespace Yad.Board.Common {
                     buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
                     foreach (Building building in buildings) {
                         // erase true;)
-                        if (building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+                        if (building.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[building.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
                             attackingBuilding = true;
                             nearest = building;
                             InfoLog.WriteInfo("Unit:AI: found building fire range < " + this.FireRange, EPrefix.SimulationInfo);
