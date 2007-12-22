@@ -1122,33 +1122,65 @@ namespace Yad.Engine.Client {
 			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret, true);
 		}
 
-		private static RectangleF VehicleUVChooser(Direction d) {
-			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
-			if (Test(d, Direction.East)) {
-				if (Test(d, Direction.North)) {
-					//uv.X *= 1;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 7.0f;
-				} else {
-					uv.X = 0;
-				}
-			} else if (Test(d, Direction.West)) {
-				if (Test(d, Direction.North)) {
-					uv.X *= 3.0f;
-				} else if (Test(d, Direction.South)) {
-					uv.X *= 5.0f;
-				} else {
-					uv.X *= 4.0f;
-				}
-			} else /* center */ {
-				if (Test(d, Direction.North)) {
-					uv.X *= 2.0f;
-				} else {
-					uv.X *= 6.0f;
-				}
-			}
-			return uv;
-		}
+
+        private static RectangleF VehicleUVChooser(Direction d) {
+            RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+            if (Test(d, Direction.East)) {
+                if (Test(d, Direction.North)) {
+                    //uv.X *= 1;
+                } else if (Test(d, Direction.South)) {
+                    uv.X *= 7.0f;
+                } else {
+                    uv.X = 0;
+                }
+            } else if (Test(d, Direction.West)) {
+                if (Test(d, Direction.North)) {
+                    uv.X *= 3.0f;
+                } else if (Test(d, Direction.South)) {
+                    uv.X *= 5.0f;
+                } else {
+                    uv.X *= 4.0f;
+                }
+            } else /* center */ {
+                if (Test(d, Direction.North)) {
+                    uv.X *= 2.0f;
+                } else {
+                    uv.X *= 6.0f;
+                }
+            }
+            return uv;
+
+
+        }
+
+        private static RectangleF AmmoUVChooser(Direction d) {
+            RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+            if (Test(d, Direction.East)) {
+                if (Test(d, Direction.North)) {
+                    //uv.X *= 1;
+                } else if (Test(d, Direction.South)) {
+                    uv.X *= 7.0f;
+                } else {
+                    uv.X = 0;
+                }
+            } else if (Test(d, Direction.West)) {
+                if (Test(d, Direction.North)) {
+                    uv.X *= 3.0f;
+                } else if (Test(d, Direction.South)) {
+                    uv.X *= 5.0f;
+                } else {
+                    uv.X *= 4.0f;
+                }
+            } else /* center */ {
+                if (Test(d, Direction.North)) {
+                    uv.X *= 2.0f;
+                } else {
+                    uv.X *= 6.0f;
+                }
+            }
+            //uv.Width = oneSixteenth;
+            return uv;
+        }
 
 		private static void DrawAmmo(Ammo a) {
 			//a.LastPosition
@@ -1160,7 +1192,7 @@ namespace Yad.Engine.Client {
 					DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 0.1f, 0.1f, (int)MainTextures.Bullet, _defaultUV, true);
 					break;
 				case AmmoType.Rocket:
-					RectangleF uv = AmmoUVChooser(a);
+					RectangleF uv = AmmoUVChooser(a.Direction);
 					DrawElementFromMiddle(realPos.X, realPos.Y, _depthAmmos, 1, 1, (int)MainTextures.Rocket, uv, true);
 					break;
 				case AmmoType.Sonic:

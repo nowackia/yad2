@@ -156,6 +156,19 @@ namespace Yad.Board.Common {
 
         }
 
+        protected Direction ConvertToNearestDirection(int number) {
+            if (number < 0) number += 360;
+            number %= 360;
+            if (number < 23) return Direction.East;
+            if (number < 68) return Direction.East | Direction.North;
+            if (number < 113) return Direction.North;
+            if (number < 158) return Direction.West | Direction.North;
+            if (number < 202) return Direction.West;
+            if (number < 248) return Direction.West | Direction.South;
+            if (number < 293) return Direction.South | Direction.East;
+            return Direction.East;
+        }
+
         protected Direction ConvertToDirection(int number) {
             switch (number) {
                 case 0:

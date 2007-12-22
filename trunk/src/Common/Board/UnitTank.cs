@@ -43,6 +43,7 @@ namespace Yad.Board.Common {
             this._firePower = ud.FirePower;
             this.MaxHealth = this.Health = ud.__Health;
             this._rotationSpeed = ud.RotationSpeed;
+            
             turretDirectionFromTankDirection =  Direction.East;
 		}
 
@@ -61,16 +62,27 @@ namespace Yad.Board.Common {
 		public override float getMaxHealth() {
 			return _tankData.Health;
 		}
-
-        protected bool RotateIfNeeded(BoardObject ob) {
+        protected new bool RotateBody(BoardObject ob, Direction weaponDelta) {
             // check first rotation
-            if (RotationSpeed!=0 && RotateIfNeededInternal(ob) == false) return false;
-            for (int i = 1; i < RotationSpeed; ++i) {
-                if (RotateIfNeededInternal(ob) == false) break;
+            bool inRange = false;
+            // check if tank can rotate turret. if can and in range, return false
+            if (this.TankData.TurretRotationSpeed!=0 && RotateIfNeededInternal(ob) == false) return false;
+            //rotated once, rotate TurretRotationSpeed times.
+            for (int i = 1; i < this.TankData.TurretRotationSpeed; ++i) {
+                if (RotateIfNeededInternal(ob) == false) {
+                    inRange = true;
+                    break;
+                }
             }
-            // rotated more than once.
-            return true;
+            // its not the end. tank can rotate with body.
+            if (base.RotateBody(ob, turretDirectionFromTankDirection)==false) {
+                inRange = true;
+            }
+
+            return !inRange;
         }
+
+        
 
         /// <summary>
         /// rotate if target is out of range
@@ -119,39 +131,17 @@ namespace Yad.Board.Common {
 
         
 
-        private int ConvertToNumber(Direction dir) {
-            switch (dir) {
-                case Direction.East:
-                    return 0;
-                case Direction.East | Direction.North:
-                    return 45;
-                case Direction.North:
-                    return 90;
-                case Direction.North | Direction.West:
-                    return 135;
-                case Direction.West:
-                    return 180;
-                case Direction.West | Direction.South:
-                    return 225;
-                case Direction.South:
-                    return 270;
-                case Direction.South | Direction.East:
-                    return 315;
-                default:
-                    return 0; // never happen.
-
-            }
-        }
+        
 
         
 
-        protected override void TryAttack(BoardObject ob) {
+        /*protected override void TryAttack(BoardObject ob) {
             // rotate turret
             if (RotateIfNeeded(ob) == true) return;
             if (_remainingTurnsToReload == 0) {
                 AttackRegion(ob);
             }
-        }
+        }*/
 
         protected override bool IsMoveable(short x, short y, Map map)
         {

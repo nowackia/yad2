@@ -61,7 +61,7 @@
 			<tns:BuildSpeed>40</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
-			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
+			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>LightFactory</tns:Name>
@@ -82,7 +82,7 @@
 			<tns:BuildSpeed>10</tns:BuildSpeed>
 			<tns:DamageDestroy>10</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
-			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
+			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>LightFactory</tns:Name>
@@ -103,7 +103,7 @@
 			<tns:BuildSpeed>20</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
-			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
+			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>LightFactory</tns:Name>

@@ -398,6 +398,8 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         protected virtual void TryAttack(BoardObject ob) {
 
+            // Direction.East - no delta
+            if (RotateBody(ob,Direction.East) == true) return;
             if (_remainingTurnsToReload == 0) {
                 AttackRegion(ob);
             }
@@ -616,6 +618,76 @@ namespace Yad.Board.Common {
 		public short TypeID {
 			get { return this._typeID; }
 		}
+
+        protected virtual bool RotateBody(BoardObject ob, Direction turretDelta) {
+            if (RotateBodyInternal(ob, turretDelta) == false) return false;
+
+            for (int i = 1; i < this.RotationSpeed; ++i) {
+                if (RotateBodyInternal(ob, turretDelta) == false)
+                    return false;
+            }
+            return true;
+        }
+
+        protected int ConvertToNumber(Direction dir) {
+            switch (dir) {
+                case Direction.East:
+                    return 0;
+                case Direction.East | Direction.North:
+                    return 45;
+                case Direction.North:
+                    return 90;
+                case Direction.North | Direction.West:
+                    return 135;
+                case Direction.West:
+                    return 180;
+                case Direction.West | Direction.South:
+                    return 225;
+                case Direction.South:
+                    return 270;
+                case Direction.South | Direction.East:
+                    return 315;
+                default:
+                    return 0; // never happen.
+
+            }
+        }
+
+        private bool RotateBodyInternal(BoardObject ob, Direction weaponDelta) {
+            int alfaTarget = GetAlfa(ob.Position.X - this.Position.X, ob.Position.Y - this.Position.Y);
+            int unitRotation = ConvertToNumber(Direction);
+            int weaponRotationDelta = ConvertToNumber(weaponDelta);
+
+            int weaponRotation = weaponRotationDelta + unitRotation;
+
+
+            weaponRotation %= 360;
+            int delta = weaponRotation - alfaTarget;
+            delta += 360;
+            delta %= 360;
+            InfoLog.WriteInfo("## weapon rot " + weaponRotationDelta + " unit rot: " + unitRotation + "# target: " + alfaTarget + "### " + delta, EPrefix.SimulationInfo);
+            int turn = 0;
+            if (delta < 360 - 23 && delta >= 180) {
+                // rotate clockwise
+                turn = 45;
+                unitRotation += turn;
+                unitRotation += 360;
+                unitRotation %= 360;
+                Direction = ConvertToDirection(unitRotation);
+                return true;
+            } else if (delta > 23 && delta < 180) {
+                // rotate counterclockwise
+                turn = -45;
+                unitRotation += turn;
+                unitRotation += 360;
+                unitRotation %= 360;
+                Direction = ConvertToDirection(unitRotation);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 		public virtual bool MoveTo(Position destination) {
             InfoLog.WriteInfo(InfoPrefix() + "Counting path...", EPrefix.AStar);
