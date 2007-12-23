@@ -150,6 +150,8 @@
 			<tns:BuildingDependency>
 				<tns:Name>HeavyFactory</tns:Name>
 				<tns:Name>LightFactory</tns:Name>
+        <tns:Name>Starport</tns:Name>
+        <tns:Name>IX</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
@@ -171,6 +173,8 @@
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>HeavyFactory</tns:Name>
+        <tns:Name>LightFactory</tns:Name>
+        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
@@ -192,9 +196,9 @@
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>HeavyFactory</tns:Name>
-				<tns:Name>RocketTurret</tns:Name>
-				<tns:Name>Radar</tns:Name>
-				<tns:Name>Starport</tns:Name>
+				<tns:Name>LightFactory</tns:Name>
+				<tns:Name>IX</tns:Name>
+        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
@@ -215,8 +219,10 @@
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>Refinery</tns:Name>
-				<tns:Name>HeavyFactory</tns:Name>
+        <tns:Name>HeavyFactory</tns:Name>
+        <tns:Name>LightFactory</tns:Name>
+        <tns:Name>IX</tns:Name>
+        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 		<tns:UnitTankData>
@@ -240,6 +246,7 @@
 				<tns:Name>Refinery</tns:Name>
 				<tns:Name>HeavyFactory</tns:Name>
 				<tns:Name>Radar</tns:Name>
+        <tns:Name>IX</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 	</tns:UnitTanksData>
@@ -279,7 +286,7 @@
 			<tns:Size>1.5</tns:Size>
 			<tns:BuildingDependency>
 				<tns:Name>HeavyFactory</tns:Name>
-				<tns:Name>Starport</tns:Name>
+				<tns:Name>Radar</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitMCVData>
 	</tns:UnitMCVsData>
