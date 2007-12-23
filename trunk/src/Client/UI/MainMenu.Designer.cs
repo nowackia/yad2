@@ -445,6 +445,11 @@ namespace Yad.UI.Client
             // registerLoginMenu
             // 
             this.registerLoginMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.registerLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("registerLoginMenu.BackgroundImage")));
+            this.registerLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.registerLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registerLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registerLoginMenu.ForeColor = System.Drawing.Color.Maroon;
             this.registerLoginMenu.Location = new System.Drawing.Point(125, 3);
             this.registerLoginMenu.Name = "registerLoginMenu";
             this.registerLoginMenu.Size = new System.Drawing.Size(110, 23);
@@ -456,6 +461,11 @@ namespace Yad.UI.Client
             // loginBTLoginMenu
             // 
             this.loginBTLoginMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.loginBTLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("loginBTLoginMenu.BackgroundImage")));
+            this.loginBTLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.loginBTLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loginBTLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginBTLoginMenu.ForeColor = System.Drawing.Color.Maroon;
             this.loginBTLoginMenu.Location = new System.Drawing.Point(9, 3);
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
             this.loginBTLoginMenu.Size = new System.Drawing.Size(110, 23);
@@ -467,6 +477,11 @@ namespace Yad.UI.Client
             // remindPasswordLoginMenu
             // 
             this.remindPasswordLoginMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.remindPasswordLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("remindPasswordLoginMenu.BackgroundImage")));
+            this.remindPasswordLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.remindPasswordLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.remindPasswordLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remindPasswordLoginMenu.ForeColor = System.Drawing.Color.Maroon;
             this.remindPasswordLoginMenu.Location = new System.Drawing.Point(9, 32);
             this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
             this.remindPasswordLoginMenu.Size = new System.Drawing.Size(110, 23);
@@ -478,6 +493,11 @@ namespace Yad.UI.Client
             // cancelLoginMenu
             // 
             this.cancelLoginMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.cancelLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelLoginMenu.BackgroundImage")));
+            this.cancelLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cancelLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelLoginMenu.ForeColor = System.Drawing.Color.Maroon;
             this.cancelLoginMenu.Location = new System.Drawing.Point(125, 32);
             this.cancelLoginMenu.Name = "cancelLoginMenu";
             this.cancelLoginMenu.Size = new System.Drawing.Size(110, 23);
@@ -626,6 +646,11 @@ namespace Yad.UI.Client
             // registerRegisterMenu
             // 
             this.registerRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.registerRegisterMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("registerRegisterMenu.BackgroundImage")));
+            this.registerRegisterMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.registerRegisterMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registerRegisterMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registerRegisterMenu.ForeColor = System.Drawing.Color.Maroon;
             this.registerRegisterMenu.Location = new System.Drawing.Point(22, 3);
             this.registerRegisterMenu.Name = "registerRegisterMenu";
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
@@ -637,6 +662,11 @@ namespace Yad.UI.Client
             // backRegisterMenu
             // 
             this.backRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.backRegisterMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backRegisterMenu.BackgroundImage")));
+            this.backRegisterMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backRegisterMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backRegisterMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backRegisterMenu.ForeColor = System.Drawing.Color.Maroon;
             this.backRegisterMenu.Location = new System.Drawing.Point(103, 3);
             this.backRegisterMenu.Name = "backRegisterMenu";
             this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
@@ -665,6 +695,11 @@ namespace Yad.UI.Client
             // 
             // sendChatMenu
             // 
+            this.sendChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sendChatMenu.BackgroundImage")));
+            this.sendChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.sendChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sendChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendChatMenu.ForeColor = System.Drawing.Color.Maroon;
             this.sendChatMenu.Location = new System.Drawing.Point(388, 252);
             this.sendChatMenu.Name = "sendChatMenu";
             this.sendChatMenu.Size = new System.Drawing.Size(116, 23);
@@ -701,6 +736,11 @@ namespace Yad.UI.Client
             // 
             // backChatMenu
             // 
+            this.backChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backChatMenu.BackgroundImage")));
+            this.backChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backChatMenu.ForeColor = System.Drawing.Color.Maroon;
             this.backChatMenu.Location = new System.Drawing.Point(388, 281);
             this.backChatMenu.Name = "backChatMenu";
             this.backChatMenu.Size = new System.Drawing.Size(116, 23);
@@ -711,6 +751,11 @@ namespace Yad.UI.Client
             // 
             // gameChatMenu
             // 
+            this.gameChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gameChatMenu.BackgroundImage")));
+            this.gameChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gameChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gameChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameChatMenu.ForeColor = System.Drawing.Color.Maroon;
             this.gameChatMenu.Location = new System.Drawing.Point(35, 17);
             this.gameChatMenu.Name = "gameChatMenu";
             this.gameChatMenu.Size = new System.Drawing.Size(75, 23);
@@ -745,6 +790,11 @@ namespace Yad.UI.Client
             // 
             // backInfoMenu
             // 
+            this.backInfoMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_VersionBox;
+            this.backInfoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backInfoMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backInfoMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backInfoMenu.ForeColor = System.Drawing.Color.Maroon;
             this.backInfoMenu.Location = new System.Drawing.Point(192, 176);
             this.backInfoMenu.Name = "backInfoMenu";
             this.backInfoMenu.Size = new System.Drawing.Size(75, 23);
@@ -799,6 +849,11 @@ namespace Yad.UI.Client
             // 
             // backChooseGameMenu
             // 
+            this.backChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backChooseGameMenu.BackgroundImage")));
+            this.backChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
             this.backChooseGameMenu.Location = new System.Drawing.Point(408, 288);
             this.backChooseGameMenu.Name = "backChooseGameMenu";
             this.backChooseGameMenu.Size = new System.Drawing.Size(75, 23);
@@ -818,6 +873,11 @@ namespace Yad.UI.Client
             // 
             // createChooseGameMenu
             // 
+            this.createChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("createChooseGameMenu.BackgroundImage")));
+            this.createChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.createChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
             this.createChooseGameMenu.Location = new System.Drawing.Point(327, 288);
             this.createChooseGameMenu.Name = "createChooseGameMenu";
             this.createChooseGameMenu.Size = new System.Drawing.Size(75, 23);
@@ -828,6 +888,11 @@ namespace Yad.UI.Client
             // 
             // joinChooseGameMenu
             // 
+            this.joinChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("joinChooseGameMenu.BackgroundImage")));
+            this.joinChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.joinChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.joinChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.joinChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
             this.joinChooseGameMenu.Location = new System.Drawing.Point(203, 259);
             this.joinChooseGameMenu.Name = "joinChooseGameMenu";
             this.joinChooseGameMenu.Size = new System.Drawing.Size(75, 23);
@@ -952,6 +1017,11 @@ namespace Yad.UI.Client
             // 
             // cancelCreateGameMenu
             // 
+            this.cancelCreateGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelCreateGameMenu.BackgroundImage")));
+            this.cancelCreateGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cancelCreateGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelCreateGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelCreateGameMenu.ForeColor = System.Drawing.Color.Maroon;
             this.cancelCreateGameMenu.Location = new System.Drawing.Point(272, 269);
             this.cancelCreateGameMenu.Name = "cancelCreateGameMenu";
             this.cancelCreateGameMenu.Size = new System.Drawing.Size(75, 23);
@@ -962,6 +1032,11 @@ namespace Yad.UI.Client
             // 
             // createCreateGameMenu
             // 
+            this.createCreateGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("createCreateGameMenu.BackgroundImage")));
+            this.createCreateGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.createCreateGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createCreateGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createCreateGameMenu.ForeColor = System.Drawing.Color.Maroon;
             this.createCreateGameMenu.Location = new System.Drawing.Point(188, 269);
             this.createCreateGameMenu.Name = "createCreateGameMenu";
             this.createCreateGameMenu.Size = new System.Drawing.Size(75, 23);
@@ -1069,6 +1144,11 @@ namespace Yad.UI.Client
             // changeWaitingForPlayersMenu
             // 
             this.changeWaitingForPlayersMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.changeWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("changeWaitingForPlayersMenu.BackgroundImage")));
+            this.changeWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.changeWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.changeWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changeWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
             this.changeWaitingForPlayersMenu.Location = new System.Drawing.Point(193, 45);
             this.changeWaitingForPlayersMenu.Name = "changeWaitingForPlayersMenu";
             this.changeWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
@@ -1229,6 +1309,11 @@ namespace Yad.UI.Client
             // 
             // startWaitingForPlayersMenu
             // 
+            this.startWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startWaitingForPlayersMenu.BackgroundImage")));
+            this.startWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.startWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
             this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(380, 293);
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
             this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
@@ -1239,6 +1324,11 @@ namespace Yad.UI.Client
             // 
             // cancelWaitingForPlayersMenu
             // 
+            this.cancelWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelWaitingForPlayersMenu.BackgroundImage")));
+            this.cancelWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cancelWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
             this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(447, 293);
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
             this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
@@ -1346,6 +1436,11 @@ namespace Yad.UI.Client
             // 
             // okOptionsMenu
             // 
+            this.okOptionsMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okOptionsMenu.BackgroundImage")));
+            this.okOptionsMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.okOptionsMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.okOptionsMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.okOptionsMenu.ForeColor = System.Drawing.Color.Maroon;
             this.okOptionsMenu.Location = new System.Drawing.Point(270, 214);
             this.okOptionsMenu.Name = "okOptionsMenu";
             this.okOptionsMenu.Size = new System.Drawing.Size(75, 23);
@@ -1356,6 +1451,11 @@ namespace Yad.UI.Client
             // 
             // cancelOptionsMenu
             // 
+            this.cancelOptionsMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelOptionsMenu.BackgroundImage")));
+            this.cancelOptionsMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cancelOptionsMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelOptionsMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelOptionsMenu.ForeColor = System.Drawing.Color.Maroon;
             this.cancelOptionsMenu.Location = new System.Drawing.Point(351, 214);
             this.cancelOptionsMenu.Name = "cancelOptionsMenu";
             this.cancelOptionsMenu.Size = new System.Drawing.Size(75, 23);
@@ -1380,9 +1480,9 @@ namespace Yad.UI.Client
             this.tableLayoutPanel3.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.tableLayoutPanel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.61996F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.06334F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.50864F));
             this.tableLayoutPanel3.Controls.Add(this.pauseGameMenu, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.exitGameMenu, 1, 4);
             this.tableLayoutPanel3.Controls.Add(this.optionsGameMenu, 1, 2);
@@ -1406,9 +1506,14 @@ namespace Yad.UI.Client
             this.pauseGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pauseGameMenu.Location = new System.Drawing.Point(107, 83);
+            this.pauseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pauseGameMenu.BackgroundImage")));
+            this.pauseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pauseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pauseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.pauseGameMenu.Location = new System.Drawing.Point(198, 83);
             this.pauseGameMenu.Name = "pauseGameMenu";
-            this.pauseGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.pauseGameMenu.Size = new System.Drawing.Size(134, 23);
             this.pauseGameMenu.TabIndex = 0;
             this.pauseGameMenu.Text = "Pause";
             this.pauseGameMenu.UseVisualStyleBackColor = true;
@@ -1419,9 +1524,14 @@ namespace Yad.UI.Client
             this.exitGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitGameMenu.Location = new System.Drawing.Point(107, 170);
+            this.exitGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitGameMenu.BackgroundImage")));
+            this.exitGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.exitGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitGameMenu.Location = new System.Drawing.Point(198, 170);
             this.exitGameMenu.Name = "exitGameMenu";
-            this.exitGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.exitGameMenu.Size = new System.Drawing.Size(134, 23);
             this.exitGameMenu.TabIndex = 3;
             this.exitGameMenu.Text = "Exit";
             this.exitGameMenu.UseVisualStyleBackColor = true;
@@ -1432,9 +1542,14 @@ namespace Yad.UI.Client
             this.optionsGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsGameMenu.Location = new System.Drawing.Point(107, 112);
+            this.optionsGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsGameMenu.BackgroundImage")));
+            this.optionsGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.optionsGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionsGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsGameMenu.Location = new System.Drawing.Point(198, 112);
             this.optionsGameMenu.Name = "optionsGameMenu";
-            this.optionsGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.optionsGameMenu.Size = new System.Drawing.Size(134, 23);
             this.optionsGameMenu.TabIndex = 1;
             this.optionsGameMenu.Text = "Options";
             this.optionsGameMenu.UseVisualStyleBackColor = true;
@@ -1445,9 +1560,14 @@ namespace Yad.UI.Client
             this.okGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.okGameMenu.Location = new System.Drawing.Point(107, 141);
+            this.okGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okGameMenu.BackgroundImage")));
+            this.okGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.okGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.okGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.okGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.okGameMenu.Location = new System.Drawing.Point(198, 141);
             this.okGameMenu.Name = "okGameMenu";
-            this.okGameMenu.Size = new System.Drawing.Size(306, 23);
+            this.okGameMenu.Size = new System.Drawing.Size(134, 23);
             this.okGameMenu.TabIndex = 2;
             this.okGameMenu.Text = "OK";
             this.okGameMenu.UseVisualStyleBackColor = true;
@@ -1469,9 +1589,9 @@ namespace Yad.UI.Client
             this.tableLayoutPanel2.BackgroundImage = global::Yad.Properties.Resources.Menu_Planet;
             this.tableLayoutPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.61996F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.06334F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.12476F));
             this.tableLayoutPanel2.Controls.Add(this.continuePauseMenu, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.exitPauseMenu, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.optionsPauseMenu, 1, 2);
@@ -1492,9 +1612,14 @@ namespace Yad.UI.Client
             this.continuePauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.continuePauseMenu.Location = new System.Drawing.Point(107, 83);
+            this.continuePauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("continuePauseMenu.BackgroundImage")));
+            this.continuePauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.continuePauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.continuePauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continuePauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.continuePauseMenu.Location = new System.Drawing.Point(199, 83);
             this.continuePauseMenu.Name = "continuePauseMenu";
-            this.continuePauseMenu.Size = new System.Drawing.Size(306, 23);
+            this.continuePauseMenu.Size = new System.Drawing.Size(135, 23);
             this.continuePauseMenu.TabIndex = 0;
             this.continuePauseMenu.Text = "Continue";
             this.continuePauseMenu.UseVisualStyleBackColor = true;
@@ -1505,9 +1630,14 @@ namespace Yad.UI.Client
             this.exitPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitPauseMenu.Location = new System.Drawing.Point(107, 141);
+            this.exitPauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitPauseMenu.BackgroundImage")));
+            this.exitPauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.exitPauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitPauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitPauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitPauseMenu.Location = new System.Drawing.Point(199, 141);
             this.exitPauseMenu.Name = "exitPauseMenu";
-            this.exitPauseMenu.Size = new System.Drawing.Size(306, 23);
+            this.exitPauseMenu.Size = new System.Drawing.Size(135, 23);
             this.exitPauseMenu.TabIndex = 2;
             this.exitPauseMenu.Text = "Exit";
             this.exitPauseMenu.UseVisualStyleBackColor = true;
@@ -1518,9 +1648,14 @@ namespace Yad.UI.Client
             this.optionsPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsPauseMenu.Location = new System.Drawing.Point(107, 112);
+            this.optionsPauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsPauseMenu.BackgroundImage")));
+            this.optionsPauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.optionsPauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsPauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionsPauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsPauseMenu.Location = new System.Drawing.Point(199, 112);
             this.optionsPauseMenu.Name = "optionsPauseMenu";
-            this.optionsPauseMenu.Size = new System.Drawing.Size(306, 23);
+            this.optionsPauseMenu.Size = new System.Drawing.Size(135, 23);
             this.optionsPauseMenu.TabIndex = 1;
             this.optionsPauseMenu.Text = "Options";
             this.optionsPauseMenu.UseVisualStyleBackColor = true;
