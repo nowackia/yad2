@@ -1708,7 +1708,10 @@ namespace FMOD
         // General post-init system functions
         public RESULT update                 ()
         {
-            return FMOD_System_Update(systemraw);
+            try
+            { return FMOD_System_Update(systemraw); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
 
         public RESULT set3DSettings          (float dopplerscale, float distancefactor, float rolloffscale)
@@ -3167,11 +3170,17 @@ namespace FMOD
 
         public RESULT stop                  ()
         {
-            return FMOD_Channel_Stop(channelraw);
+            try
+            { return FMOD_Channel_Stop(channelraw); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
         public RESULT setPaused             (bool paused)
         {
-            return FMOD_Channel_SetPaused(channelraw, (paused ? 1 : 0));
+            try
+            { return FMOD_Channel_SetPaused(channelraw, (paused ? 1 : 0)); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
         public RESULT getPaused             (ref bool paused)
         {
@@ -3186,7 +3195,10 @@ namespace FMOD
         }
         public RESULT setVolume             (float volume)
         {
-            return FMOD_Channel_SetVolume(channelraw, volume);
+            try
+            { return FMOD_Channel_SetVolume(channelraw, volume); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
         public RESULT getVolume             (ref float volume)
         {
@@ -3319,7 +3331,10 @@ namespace FMOD
 
         public RESULT setCallback           (CHANNEL_CALLBACKTYPE type, CHANNEL_CALLBACK callback, int command)
         {
-            return FMOD_Channel_SetCallback(channelraw, type, callback, command);
+            try
+            { return FMOD_Channel_SetCallback(channelraw, type, callback, command); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
 
 
@@ -3398,7 +3413,10 @@ namespace FMOD
 
         public RESULT isPlaying             (ref bool isplaying)
         {
-            return FMOD_Channel_IsPlaying(channelraw, ref isplaying);
+            try
+            { return FMOD_Channel_IsPlaying(channelraw, ref isplaying); }
+            catch
+            { return RESULT.ERR_INTERNAL; }
         }
         public RESULT isVirtual             (ref bool isvirtual)
         {

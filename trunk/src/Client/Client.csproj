@@ -1123,6 +1123,8 @@
     <Content Include="Resources\Graphics\UI\UI_Atreides.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Graphics\UI\UI_Button_Pressed.png" />
+    <None Include="Resources\Graphics\UI\UI_Button.png" />
     <Content Include="Resources\Graphics\UI\UI_Harkonnen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
