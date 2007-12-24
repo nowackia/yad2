@@ -31,14 +31,13 @@ namespace Yad.UI.Client
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             this.tabControl = new Yad.UI.MenuTabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.newGameMainMenu = new System.Windows.Forms.Button();
-            this.optionsMainMenu = new System.Windows.Forms.Button();
-            this.exitMainMenu = new System.Windows.Forms.Button();
-            this.creditsMainMenu = new System.Windows.Forms.Button();
+            this.newGameMainMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.optionsMainMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.exitMainMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.creditsMainMenu = new System.Windows.Forms.Extended.PictureButton();
             this.loginMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxServer = new System.Windows.Forms.GroupBox();
@@ -50,10 +49,10 @@ namespace Yad.UI.Client
             this.passwordLoginMenu = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.registerLoginMenu = new System.Windows.Forms.Button();
-            this.loginBTLoginMenu = new System.Windows.Forms.Button();
-            this.remindPasswordLoginMenu = new System.Windows.Forms.Button();
-            this.cancelLoginMenu = new System.Windows.Forms.Button();
+            this.registerLoginMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.loginBTLoginMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.remindPasswordLoginMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.cancelLoginMenu = new System.Windows.Forms.Extended.PictureButton();
             this.registerMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -66,26 +65,26 @@ namespace Yad.UI.Client
             this.repeatPasswordTBRegisterMenu = new System.Windows.Forms.TextBox();
             this.passwordLRegisterMenu = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.registerRegisterMenu = new System.Windows.Forms.Button();
-            this.backRegisterMenu = new System.Windows.Forms.Button();
+            this.registerRegisterMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.backRegisterMenu = new System.Windows.Forms.Extended.PictureButton();
             this.chatMenu = new System.Windows.Forms.TabPage();
-            this.sendChatMenu = new System.Windows.Forms.Button();
+            this.sendChatMenu = new System.Windows.Forms.Extended.PictureButton();
             this.userListChatMenu = new System.Windows.Forms.ListBox();
             this.chatListChatMenu = new System.Windows.Forms.ListBox();
             this.chatInputTBChatMenu = new System.Windows.Forms.TextBox();
-            this.backChatMenu = new System.Windows.Forms.Button();
-            this.gameChatMenu = new System.Windows.Forms.Button();
+            this.backChatMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.gameChatMenu = new System.Windows.Forms.Extended.PictureButton();
             this.playerInfoMenu = new System.Windows.Forms.TabPage();
             this.playerInfoLInfoMenu = new System.Windows.Forms.Label();
-            this.backInfoMenu = new System.Windows.Forms.Button();
+            this.backInfoMenu = new System.Windows.Forms.Extended.PictureButton();
             this.chooseGameMenu = new System.Windows.Forms.TabPage();
             this.textBoxTBGameName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTBGameDescription = new System.Windows.Forms.TextBox();
-            this.backChooseGameMenu = new System.Windows.Forms.Button();
+            this.backChooseGameMenu = new System.Windows.Forms.Extended.PictureButton();
             this.listOfGames = new System.Windows.Forms.ListBox();
-            this.createChooseGameMenu = new System.Windows.Forms.Button();
-            this.joinChooseGameMenu = new System.Windows.Forms.Button();
+            this.createChooseGameMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.joinChooseGameMenu = new System.Windows.Forms.Extended.PictureButton();
             this.createGameMenu = new System.Windows.Forms.TabPage();
             this.maxPlayerNumberNUPCreateGameMenu = new System.Windows.Forms.NumericUpDown();
             this.maxPlayerNumberLCreateGameMenu = new System.Windows.Forms.Label();
@@ -95,18 +94,18 @@ namespace Yad.UI.Client
             this.publicCreateGameMenu = new System.Windows.Forms.RadioButton();
             this.mapsLCreateGameMenu = new System.Windows.Forms.Label();
             this.listBoxLBCreateGame = new System.Windows.Forms.ListBox();
-            this.cancelCreateGameMenu = new System.Windows.Forms.Button();
-            this.createCreateGameMenu = new System.Windows.Forms.Button();
+            this.cancelCreateGameMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.createCreateGameMenu = new System.Windows.Forms.Extended.PictureButton();
             this.waitingForPlayersMenu = new System.Windows.Forms.TabPage();
             this.currentDataGBWaitingForPlayersMenu = new System.Windows.Forms.GroupBox();
             this.pictureBoxHouse = new System.Windows.Forms.PictureBox();
-            this.infoColorWaitingForPlayersMenu = new System.Windows.Forms.Button();
+            this.infoColorWaitingForPlayersMenu = new System.Windows.Forms.Extended.PictureButton();
             this.infoColorLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.infoLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.changeGBWaitingForPlayersMenu = new System.Windows.Forms.GroupBox();
             this.colorLWaitingForPlayersMenu = new System.Windows.Forms.Label();
-            this.changeWaitingForPlayersMenu = new System.Windows.Forms.Button();
-            this.colorWaitingForPlayersMenu = new System.Windows.Forms.Button();
+            this.changeWaitingForPlayersMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.colorWaitingForPlayersMenu = new System.Windows.Forms.Extended.PictureButton();
             this.houseLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.houseCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
             this.teamCBWaitingForPlayersMenu = new System.Windows.Forms.ComboBox();
@@ -120,8 +119,8 @@ namespace Yad.UI.Client
             this.descriptionLWaitingForPlayersMenu = new System.Windows.Forms.Label();
             this.descriptionWaitingForPlayersMenu = new System.Windows.Forms.TextBox();
             this.playersLWaitingForPlayersMenu = new System.Windows.Forms.Label();
-            this.startWaitingForPlayersMenu = new System.Windows.Forms.Button();
-            this.cancelWaitingForPlayersMenu = new System.Windows.Forms.Button();
+            this.startWaitingForPlayersMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.cancelWaitingForPlayersMenu = new System.Windows.Forms.Extended.PictureButton();
             this.optionsMenu = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.musicVolumeLOptionsMenu = new System.Windows.Forms.Label();
@@ -130,19 +129,19 @@ namespace Yad.UI.Client
             this.muteSoundOptionsMenu = new System.Windows.Forms.CheckBox();
             this.soundVolumeNMOptionsMenu = new System.Windows.Forms.NumericUpDown();
             this.muteMusicOptionsMenu = new System.Windows.Forms.CheckBox();
-            this.okOptionsMenu = new System.Windows.Forms.Button();
-            this.cancelOptionsMenu = new System.Windows.Forms.Button();
+            this.okOptionsMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.cancelOptionsMenu = new System.Windows.Forms.Extended.PictureButton();
             this.gameMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.pauseGameMenu = new System.Windows.Forms.Button();
-            this.exitGameMenu = new System.Windows.Forms.Button();
-            this.optionsGameMenu = new System.Windows.Forms.Button();
-            this.okGameMenu = new System.Windows.Forms.Button();
+            this.pauseGameMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.exitGameMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.optionsGameMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.okGameMenu = new System.Windows.Forms.Extended.PictureButton();
             this.pauseMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.continuePauseMenu = new System.Windows.Forms.Button();
-            this.exitPauseMenu = new System.Windows.Forms.Button();
-            this.optionsPauseMenu = new System.Windows.Forms.Button();
+            this.continuePauseMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.exitPauseMenu = new System.Windows.Forms.Extended.PictureButton();
+            this.optionsPauseMenu = new System.Windows.Forms.Extended.PictureButton();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -242,13 +241,16 @@ namespace Yad.UI.Client
             this.newGameMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.newGameMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("newGameMainMenu.BackgroundImage")));
+            this.newGameMainMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.newGameMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.newGameMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newGameMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newGameMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.newGameMainMenu.Image = null;
             this.newGameMainMenu.Location = new System.Drawing.Point(197, 83);
+            this.newGameMainMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.newGameMainMenu.Name = "newGameMainMenu";
+            this.newGameMainMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.newGameMainMenu.Size = new System.Drawing.Size(131, 23);
             this.newGameMainMenu.TabIndex = 1;
             this.newGameMainMenu.Text = "New Game";
@@ -260,13 +262,16 @@ namespace Yad.UI.Client
             this.optionsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsMainMenu.BackgroundImage")));
+            this.optionsMainMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.optionsMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.optionsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optionsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsMainMenu.Image = null;
             this.optionsMainMenu.Location = new System.Drawing.Point(197, 112);
+            this.optionsMainMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.optionsMainMenu.Name = "optionsMainMenu";
+            this.optionsMainMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.optionsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.optionsMainMenu.TabIndex = 2;
             this.optionsMainMenu.Text = "Options";
@@ -278,13 +283,16 @@ namespace Yad.UI.Client
             this.exitMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitMainMenu.BackgroundImage")));
+            this.exitMainMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.exitMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.exitMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitMainMenu.Image = null;
             this.exitMainMenu.Location = new System.Drawing.Point(197, 170);
+            this.exitMainMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.exitMainMenu.Name = "exitMainMenu";
+            this.exitMainMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.exitMainMenu.Size = new System.Drawing.Size(131, 23);
             this.exitMainMenu.TabIndex = 4;
             this.exitMainMenu.Text = "Exit";
@@ -296,13 +304,16 @@ namespace Yad.UI.Client
             this.creditsMainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.creditsMainMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("creditsMainMenu.BackgroundImage")));
+            this.creditsMainMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.creditsMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.creditsMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.creditsMainMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creditsMainMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.creditsMainMenu.Image = null;
             this.creditsMainMenu.Location = new System.Drawing.Point(197, 141);
+            this.creditsMainMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.creditsMainMenu.Name = "creditsMainMenu";
+            this.creditsMainMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.creditsMainMenu.Size = new System.Drawing.Size(131, 23);
             this.creditsMainMenu.TabIndex = 3;
             this.creditsMainMenu.Text = "Credits";
@@ -373,9 +384,9 @@ namespace Yad.UI.Client
             this.serverLabel.ForeColor = System.Drawing.Color.White;
             this.serverLabel.Location = new System.Drawing.Point(6, 32);
             this.serverLabel.Name = "serverLabel";
-            this.serverLabel.Size = new System.Drawing.Size(36, 13);
+            this.serverLabel.Size = new System.Drawing.Size(38, 13);
             this.serverLabel.TabIndex = 10;
-            this.serverLabel.Text = "server";
+            this.serverLabel.Text = "Server";
             // 
             // groupBoxLogin
             // 
@@ -397,9 +408,9 @@ namespace Yad.UI.Client
             this.loginLabel.ForeColor = System.Drawing.Color.White;
             this.loginLabel.Location = new System.Drawing.Point(6, 36);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(29, 13);
+            this.loginLabel.Size = new System.Drawing.Size(33, 13);
             this.loginLabel.TabIndex = 11;
-            this.loginLabel.Text = "login";
+            this.loginLabel.Text = "Login";
             // 
             // loginTBLoginMenu
             // 
@@ -425,9 +436,9 @@ namespace Yad.UI.Client
             this.passwordLabel.ForeColor = System.Drawing.Color.White;
             this.passwordLabel.Location = new System.Drawing.Point(6, 62);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(52, 13);
+            this.passwordLabel.Size = new System.Drawing.Size(53, 13);
             this.passwordLabel.TabIndex = 12;
-            this.passwordLabel.Text = "password";
+            this.passwordLabel.Text = "Password";
             // 
             // panel1
             // 
@@ -445,13 +456,16 @@ namespace Yad.UI.Client
             // registerLoginMenu
             // 
             this.registerLoginMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.registerLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("registerLoginMenu.BackgroundImage")));
+            this.registerLoginMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.registerLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.registerLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.registerLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.registerLoginMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.registerLoginMenu.Image = null;
             this.registerLoginMenu.Location = new System.Drawing.Point(125, 3);
+            this.registerLoginMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.registerLoginMenu.Name = "registerLoginMenu";
+            this.registerLoginMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.registerLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.registerLoginMenu.TabIndex = 5;
             this.registerLoginMenu.Text = "Register";
@@ -461,13 +475,16 @@ namespace Yad.UI.Client
             // loginBTLoginMenu
             // 
             this.loginBTLoginMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.loginBTLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("loginBTLoginMenu.BackgroundImage")));
+            this.loginBTLoginMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.loginBTLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.loginBTLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginBTLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginBTLoginMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.loginBTLoginMenu.Image = null;
             this.loginBTLoginMenu.Location = new System.Drawing.Point(9, 3);
+            this.loginBTLoginMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.loginBTLoginMenu.Name = "loginBTLoginMenu";
+            this.loginBTLoginMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.loginBTLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.loginBTLoginMenu.TabIndex = 4;
             this.loginBTLoginMenu.Text = "Login";
@@ -477,13 +494,16 @@ namespace Yad.UI.Client
             // remindPasswordLoginMenu
             // 
             this.remindPasswordLoginMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.remindPasswordLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("remindPasswordLoginMenu.BackgroundImage")));
+            this.remindPasswordLoginMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.remindPasswordLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.remindPasswordLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.remindPasswordLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remindPasswordLoginMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.remindPasswordLoginMenu.Image = null;
             this.remindPasswordLoginMenu.Location = new System.Drawing.Point(9, 32);
+            this.remindPasswordLoginMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.remindPasswordLoginMenu.Name = "remindPasswordLoginMenu";
+            this.remindPasswordLoginMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.remindPasswordLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.remindPasswordLoginMenu.TabIndex = 6;
             this.remindPasswordLoginMenu.Text = "Remind Password";
@@ -493,13 +513,16 @@ namespace Yad.UI.Client
             // cancelLoginMenu
             // 
             this.cancelLoginMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.cancelLoginMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelLoginMenu.BackgroundImage")));
+            this.cancelLoginMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.cancelLoginMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cancelLoginMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelLoginMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelLoginMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.cancelLoginMenu.Image = null;
             this.cancelLoginMenu.Location = new System.Drawing.Point(125, 32);
+            this.cancelLoginMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.cancelLoginMenu.Name = "cancelLoginMenu";
+            this.cancelLoginMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.cancelLoginMenu.Size = new System.Drawing.Size(110, 23);
             this.cancelLoginMenu.TabIndex = 7;
             this.cancelLoginMenu.Text = "Cancel";
@@ -646,13 +669,16 @@ namespace Yad.UI.Client
             // registerRegisterMenu
             // 
             this.registerRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.registerRegisterMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("registerRegisterMenu.BackgroundImage")));
+            this.registerRegisterMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.registerRegisterMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.registerRegisterMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.registerRegisterMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.registerRegisterMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.registerRegisterMenu.Image = null;
             this.registerRegisterMenu.Location = new System.Drawing.Point(22, 3);
+            this.registerRegisterMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.registerRegisterMenu.Name = "registerRegisterMenu";
+            this.registerRegisterMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.registerRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.registerRegisterMenu.TabIndex = 5;
             this.registerRegisterMenu.Text = "Register";
@@ -662,13 +688,16 @@ namespace Yad.UI.Client
             // backRegisterMenu
             // 
             this.backRegisterMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.backRegisterMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backRegisterMenu.BackgroundImage")));
+            this.backRegisterMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.backRegisterMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backRegisterMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backRegisterMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backRegisterMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.backRegisterMenu.Image = null;
             this.backRegisterMenu.Location = new System.Drawing.Point(103, 3);
+            this.backRegisterMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.backRegisterMenu.Name = "backRegisterMenu";
+            this.backRegisterMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.backRegisterMenu.Size = new System.Drawing.Size(75, 23);
             this.backRegisterMenu.TabIndex = 6;
             this.backRegisterMenu.Text = "Back";
@@ -695,13 +724,16 @@ namespace Yad.UI.Client
             // 
             // sendChatMenu
             // 
-            this.sendChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sendChatMenu.BackgroundImage")));
+            this.sendChatMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.sendChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.sendChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendChatMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.sendChatMenu.Image = null;
             this.sendChatMenu.Location = new System.Drawing.Point(388, 252);
+            this.sendChatMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.sendChatMenu.Name = "sendChatMenu";
+            this.sendChatMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.sendChatMenu.Size = new System.Drawing.Size(116, 23);
             this.sendChatMenu.TabIndex = 2;
             this.sendChatMenu.Text = "Send";
@@ -736,13 +768,16 @@ namespace Yad.UI.Client
             // 
             // backChatMenu
             // 
-            this.backChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backChatMenu.BackgroundImage")));
+            this.backChatMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.backChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backChatMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.backChatMenu.Image = null;
             this.backChatMenu.Location = new System.Drawing.Point(388, 281);
+            this.backChatMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.backChatMenu.Name = "backChatMenu";
+            this.backChatMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.backChatMenu.Size = new System.Drawing.Size(116, 23);
             this.backChatMenu.TabIndex = 3;
             this.backChatMenu.Text = "Back";
@@ -751,13 +786,16 @@ namespace Yad.UI.Client
             // 
             // gameChatMenu
             // 
-            this.gameChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gameChatMenu.BackgroundImage")));
+            this.gameChatMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.gameChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.gameChatMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gameChatMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameChatMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.gameChatMenu.Image = null;
             this.gameChatMenu.Location = new System.Drawing.Point(35, 17);
+            this.gameChatMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.gameChatMenu.Name = "gameChatMenu";
+            this.gameChatMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.gameChatMenu.Size = new System.Drawing.Size(75, 23);
             this.gameChatMenu.TabIndex = 0;
             this.gameChatMenu.Text = "Game";
@@ -781,6 +819,7 @@ namespace Yad.UI.Client
             // playerInfoLInfoMenu
             // 
             this.playerInfoLInfoMenu.AutoSize = true;
+            this.playerInfoLInfoMenu.BackColor = System.Drawing.Color.Transparent;
             this.playerInfoLInfoMenu.ForeColor = System.Drawing.Color.White;
             this.playerInfoLInfoMenu.Location = new System.Drawing.Point(164, 86);
             this.playerInfoLInfoMenu.Name = "playerInfoLInfoMenu";
@@ -790,13 +829,16 @@ namespace Yad.UI.Client
             // 
             // backInfoMenu
             // 
-            this.backInfoMenu.BackgroundImage = global::Yad.Properties.Resources.Menu_VersionBox;
+            this.backInfoMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.backInfoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backInfoMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backInfoMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backInfoMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.backInfoMenu.Image = null;
             this.backInfoMenu.Location = new System.Drawing.Point(192, 176);
+            this.backInfoMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.backInfoMenu.Name = "backInfoMenu";
+            this.backInfoMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.backInfoMenu.Size = new System.Drawing.Size(75, 23);
             this.backInfoMenu.TabIndex = 0;
             this.backInfoMenu.Text = "Back";
@@ -832,6 +874,8 @@ namespace Yad.UI.Client
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(281, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
@@ -849,13 +893,16 @@ namespace Yad.UI.Client
             // 
             // backChooseGameMenu
             // 
-            this.backChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backChooseGameMenu.BackgroundImage")));
+            this.backChooseGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.backChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.backChooseGameMenu.Image = null;
             this.backChooseGameMenu.Location = new System.Drawing.Point(408, 288);
+            this.backChooseGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.backChooseGameMenu.Name = "backChooseGameMenu";
+            this.backChooseGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.backChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.backChooseGameMenu.TabIndex = 3;
             this.backChooseGameMenu.Text = "Back";
@@ -873,13 +920,16 @@ namespace Yad.UI.Client
             // 
             // createChooseGameMenu
             // 
-            this.createChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("createChooseGameMenu.BackgroundImage")));
+            this.createChooseGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.createChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.createChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.createChooseGameMenu.Image = null;
             this.createChooseGameMenu.Location = new System.Drawing.Point(327, 288);
+            this.createChooseGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.createChooseGameMenu.Name = "createChooseGameMenu";
+            this.createChooseGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.createChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createChooseGameMenu.TabIndex = 2;
             this.createChooseGameMenu.Text = "Create";
@@ -888,13 +938,16 @@ namespace Yad.UI.Client
             // 
             // joinChooseGameMenu
             // 
-            this.joinChooseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("joinChooseGameMenu.BackgroundImage")));
+            this.joinChooseGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.joinChooseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.joinChooseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.joinChooseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.joinChooseGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.joinChooseGameMenu.Image = null;
             this.joinChooseGameMenu.Location = new System.Drawing.Point(203, 259);
+            this.joinChooseGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.joinChooseGameMenu.Name = "joinChooseGameMenu";
+            this.joinChooseGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.joinChooseGameMenu.Size = new System.Drawing.Size(75, 23);
             this.joinChooseGameMenu.TabIndex = 0;
             this.joinChooseGameMenu.Text = "Join";
@@ -948,6 +1001,7 @@ namespace Yad.UI.Client
             // maxPlayerNumberLCreateGameMenu
             // 
             this.maxPlayerNumberLCreateGameMenu.AutoSize = true;
+            this.maxPlayerNumberLCreateGameMenu.BackColor = System.Drawing.Color.Transparent;
             this.maxPlayerNumberLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.maxPlayerNumberLCreateGameMenu.Location = new System.Drawing.Point(269, 64);
             this.maxPlayerNumberLCreateGameMenu.Name = "maxPlayerNumberLCreateGameMenu";
@@ -958,6 +1012,7 @@ namespace Yad.UI.Client
             // gameNameLCreateGameMenu
             // 
             this.gameNameLCreateGameMenu.AutoSize = true;
+            this.gameNameLCreateGameMenu.BackColor = System.Drawing.Color.Transparent;
             this.gameNameLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.gameNameLCreateGameMenu.Location = new System.Drawing.Point(269, 113);
             this.gameNameLCreateGameMenu.Name = "gameNameLCreateGameMenu";
@@ -976,17 +1031,19 @@ namespace Yad.UI.Client
             // privateCreateGameMenu
             // 
             this.privateCreateGameMenu.AutoSize = true;
+            this.privateCreateGameMenu.BackColor = System.Drawing.Color.Transparent;
             this.privateCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.privateCreateGameMenu.Location = new System.Drawing.Point(272, 189);
             this.privateCreateGameMenu.Name = "privateCreateGameMenu";
             this.privateCreateGameMenu.Size = new System.Drawing.Size(58, 17);
             this.privateCreateGameMenu.TabIndex = 4;
             this.privateCreateGameMenu.Text = "Private";
-            this.privateCreateGameMenu.UseVisualStyleBackColor = true;
+            this.privateCreateGameMenu.UseVisualStyleBackColor = false;
             // 
             // publicCreateGameMenu
             // 
             this.publicCreateGameMenu.AutoSize = true;
+            this.publicCreateGameMenu.BackColor = System.Drawing.Color.Transparent;
             this.publicCreateGameMenu.Checked = true;
             this.publicCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.publicCreateGameMenu.Location = new System.Drawing.Point(272, 166);
@@ -995,11 +1052,12 @@ namespace Yad.UI.Client
             this.publicCreateGameMenu.TabIndex = 3;
             this.publicCreateGameMenu.TabStop = true;
             this.publicCreateGameMenu.Text = "Public";
-            this.publicCreateGameMenu.UseVisualStyleBackColor = true;
+            this.publicCreateGameMenu.UseVisualStyleBackColor = false;
             // 
             // mapsLCreateGameMenu
             // 
             this.mapsLCreateGameMenu.AutoSize = true;
+            this.mapsLCreateGameMenu.BackColor = System.Drawing.Color.Transparent;
             this.mapsLCreateGameMenu.ForeColor = System.Drawing.Color.White;
             this.mapsLCreateGameMenu.Location = new System.Drawing.Point(43, 48);
             this.mapsLCreateGameMenu.Name = "mapsLCreateGameMenu";
@@ -1017,13 +1075,16 @@ namespace Yad.UI.Client
             // 
             // cancelCreateGameMenu
             // 
-            this.cancelCreateGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelCreateGameMenu.BackgroundImage")));
+            this.cancelCreateGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.cancelCreateGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cancelCreateGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelCreateGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelCreateGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.cancelCreateGameMenu.Image = null;
             this.cancelCreateGameMenu.Location = new System.Drawing.Point(272, 269);
+            this.cancelCreateGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.cancelCreateGameMenu.Name = "cancelCreateGameMenu";
+            this.cancelCreateGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.cancelCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelCreateGameMenu.TabIndex = 6;
             this.cancelCreateGameMenu.Text = "Cancel";
@@ -1032,13 +1093,16 @@ namespace Yad.UI.Client
             // 
             // createCreateGameMenu
             // 
-            this.createCreateGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("createCreateGameMenu.BackgroundImage")));
+            this.createCreateGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.createCreateGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.createCreateGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createCreateGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createCreateGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.createCreateGameMenu.Image = null;
             this.createCreateGameMenu.Location = new System.Drawing.Point(188, 269);
+            this.createCreateGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.createCreateGameMenu.Name = "createCreateGameMenu";
+            this.createCreateGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.createCreateGameMenu.Size = new System.Drawing.Size(75, 23);
             this.createCreateGameMenu.TabIndex = 5;
             this.createCreateGameMenu.Text = "Create";
@@ -1091,6 +1155,7 @@ namespace Yad.UI.Client
             // 
             this.infoColorWaitingForPlayersMenu.Enabled = false;
             this.infoColorWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.infoColorWaitingForPlayersMenu.Image = null;
             this.infoColorWaitingForPlayersMenu.Location = new System.Drawing.Point(63, 83);
             this.infoColorWaitingForPlayersMenu.Name = "infoColorWaitingForPlayersMenu";
             this.infoColorWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
@@ -1144,13 +1209,16 @@ namespace Yad.UI.Client
             // changeWaitingForPlayersMenu
             // 
             this.changeWaitingForPlayersMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.changeWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("changeWaitingForPlayersMenu.BackgroundImage")));
+            this.changeWaitingForPlayersMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.changeWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.changeWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.changeWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.changeWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.changeWaitingForPlayersMenu.Image = null;
             this.changeWaitingForPlayersMenu.Location = new System.Drawing.Point(193, 45);
+            this.changeWaitingForPlayersMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.changeWaitingForPlayersMenu.Name = "changeWaitingForPlayersMenu";
+            this.changeWaitingForPlayersMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.changeWaitingForPlayersMenu.Size = new System.Drawing.Size(75, 23);
             this.changeWaitingForPlayersMenu.TabIndex = 5;
             this.changeWaitingForPlayersMenu.Text = "Change";
@@ -1160,6 +1228,7 @@ namespace Yad.UI.Client
             // colorWaitingForPlayersMenu
             // 
             this.colorWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.colorWaitingForPlayersMenu.Image = null;
             this.colorWaitingForPlayersMenu.Location = new System.Drawing.Point(79, 75);
             this.colorWaitingForPlayersMenu.Name = "colorWaitingForPlayersMenu";
             this.colorWaitingForPlayersMenu.Size = new System.Drawing.Size(99, 21);
@@ -1309,14 +1378,17 @@ namespace Yad.UI.Client
             // 
             // startWaitingForPlayersMenu
             // 
-            this.startWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startWaitingForPlayersMenu.BackgroundImage")));
+            this.startWaitingForPlayersMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.startWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.startWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(380, 293);
+            this.startWaitingForPlayersMenu.Image = null;
+            this.startWaitingForPlayersMenu.Location = new System.Drawing.Point(299, 293);
+            this.startWaitingForPlayersMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.startWaitingForPlayersMenu.Name = "startWaitingForPlayersMenu";
-            this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
+            this.startWaitingForPlayersMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
+            this.startWaitingForPlayersMenu.Size = new System.Drawing.Size(100, 23);
             this.startWaitingForPlayersMenu.TabIndex = 1;
             this.startWaitingForPlayersMenu.Text = "Start Game";
             this.startWaitingForPlayersMenu.UseVisualStyleBackColor = true;
@@ -1324,14 +1396,17 @@ namespace Yad.UI.Client
             // 
             // cancelWaitingForPlayersMenu
             // 
-            this.cancelWaitingForPlayersMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelWaitingForPlayersMenu.BackgroundImage")));
+            this.cancelWaitingForPlayersMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.cancelWaitingForPlayersMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cancelWaitingForPlayersMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelWaitingForPlayersMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelWaitingForPlayersMenu.ForeColor = System.Drawing.Color.Maroon;
-            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(447, 293);
+            this.cancelWaitingForPlayersMenu.Image = null;
+            this.cancelWaitingForPlayersMenu.Location = new System.Drawing.Point(408, 293);
+            this.cancelWaitingForPlayersMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.cancelWaitingForPlayersMenu.Name = "cancelWaitingForPlayersMenu";
-            this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(61, 23);
+            this.cancelWaitingForPlayersMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
+            this.cancelWaitingForPlayersMenu.Size = new System.Drawing.Size(100, 23);
             this.cancelWaitingForPlayersMenu.TabIndex = 2;
             this.cancelWaitingForPlayersMenu.Text = "Cancel";
             this.cancelWaitingForPlayersMenu.UseVisualStyleBackColor = true;
@@ -1354,6 +1429,7 @@ namespace Yad.UI.Client
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.musicVolumeLOptionsMenu);
             this.groupBox3.Controls.Add(this.soundVolumeLOptionsMenu);
             this.groupBox3.Controls.Add(this.musicVolumeNMOptionsMenu);
@@ -1436,13 +1512,16 @@ namespace Yad.UI.Client
             // 
             // okOptionsMenu
             // 
-            this.okOptionsMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okOptionsMenu.BackgroundImage")));
+            this.okOptionsMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.okOptionsMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.okOptionsMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.okOptionsMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okOptionsMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.okOptionsMenu.Image = null;
             this.okOptionsMenu.Location = new System.Drawing.Point(270, 214);
+            this.okOptionsMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.okOptionsMenu.Name = "okOptionsMenu";
+            this.okOptionsMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.okOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.okOptionsMenu.TabIndex = 7;
             this.okOptionsMenu.Text = "OK";
@@ -1451,13 +1530,16 @@ namespace Yad.UI.Client
             // 
             // cancelOptionsMenu
             // 
-            this.cancelOptionsMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cancelOptionsMenu.BackgroundImage")));
+            this.cancelOptionsMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.cancelOptionsMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cancelOptionsMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelOptionsMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelOptionsMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.cancelOptionsMenu.Image = null;
             this.cancelOptionsMenu.Location = new System.Drawing.Point(351, 214);
+            this.cancelOptionsMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.cancelOptionsMenu.Name = "cancelOptionsMenu";
+            this.cancelOptionsMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.cancelOptionsMenu.Size = new System.Drawing.Size(75, 23);
             this.cancelOptionsMenu.TabIndex = 6;
             this.cancelOptionsMenu.Text = "Cancel";
@@ -1506,13 +1588,16 @@ namespace Yad.UI.Client
             this.pauseGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pauseGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pauseGameMenu.BackgroundImage")));
+            this.pauseGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.pauseGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pauseGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pauseGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.pauseGameMenu.Image = null;
             this.pauseGameMenu.Location = new System.Drawing.Point(198, 83);
+            this.pauseGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.pauseGameMenu.Name = "pauseGameMenu";
+            this.pauseGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.pauseGameMenu.Size = new System.Drawing.Size(134, 23);
             this.pauseGameMenu.TabIndex = 0;
             this.pauseGameMenu.Text = "Pause";
@@ -1524,13 +1609,16 @@ namespace Yad.UI.Client
             this.exitGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitGameMenu.BackgroundImage")));
+            this.exitGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.exitGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.exitGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitGameMenu.Image = null;
             this.exitGameMenu.Location = new System.Drawing.Point(198, 170);
+            this.exitGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.exitGameMenu.Name = "exitGameMenu";
+            this.exitGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.exitGameMenu.Size = new System.Drawing.Size(134, 23);
             this.exitGameMenu.TabIndex = 3;
             this.exitGameMenu.Text = "Exit";
@@ -1542,13 +1630,16 @@ namespace Yad.UI.Client
             this.optionsGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsGameMenu.BackgroundImage")));
+            this.optionsGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.optionsGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.optionsGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optionsGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsGameMenu.Image = null;
             this.optionsGameMenu.Location = new System.Drawing.Point(198, 112);
+            this.optionsGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.optionsGameMenu.Name = "optionsGameMenu";
+            this.optionsGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.optionsGameMenu.Size = new System.Drawing.Size(134, 23);
             this.optionsGameMenu.TabIndex = 1;
             this.optionsGameMenu.Text = "Options";
@@ -1560,13 +1651,16 @@ namespace Yad.UI.Client
             this.okGameMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.okGameMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okGameMenu.BackgroundImage")));
+            this.okGameMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.okGameMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.okGameMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.okGameMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okGameMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.okGameMenu.Image = null;
             this.okGameMenu.Location = new System.Drawing.Point(198, 141);
+            this.okGameMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.okGameMenu.Name = "okGameMenu";
+            this.okGameMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.okGameMenu.Size = new System.Drawing.Size(134, 23);
             this.okGameMenu.TabIndex = 2;
             this.okGameMenu.Text = "OK";
@@ -1612,13 +1706,16 @@ namespace Yad.UI.Client
             this.continuePauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.continuePauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("continuePauseMenu.BackgroundImage")));
+            this.continuePauseMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.continuePauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.continuePauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.continuePauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.continuePauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.continuePauseMenu.Image = null;
             this.continuePauseMenu.Location = new System.Drawing.Point(199, 83);
+            this.continuePauseMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.continuePauseMenu.Name = "continuePauseMenu";
+            this.continuePauseMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.continuePauseMenu.Size = new System.Drawing.Size(135, 23);
             this.continuePauseMenu.TabIndex = 0;
             this.continuePauseMenu.Text = "Continue";
@@ -1630,13 +1727,16 @@ namespace Yad.UI.Client
             this.exitPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitPauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exitPauseMenu.BackgroundImage")));
+            this.exitPauseMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.exitPauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.exitPauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitPauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitPauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.exitPauseMenu.Image = null;
             this.exitPauseMenu.Location = new System.Drawing.Point(199, 141);
+            this.exitPauseMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.exitPauseMenu.Name = "exitPauseMenu";
+            this.exitPauseMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.exitPauseMenu.Size = new System.Drawing.Size(135, 23);
             this.exitPauseMenu.TabIndex = 2;
             this.exitPauseMenu.Text = "Exit";
@@ -1648,13 +1748,16 @@ namespace Yad.UI.Client
             this.optionsPauseMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.optionsPauseMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsPauseMenu.BackgroundImage")));
+            this.optionsPauseMenu.BackgroundImage = global::Yad.Properties.Resources.UI_Button;
             this.optionsPauseMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.optionsPauseMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optionsPauseMenu.Font = new System.Drawing.Font("Bell MT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsPauseMenu.ForeColor = System.Drawing.Color.Maroon;
+            this.optionsPauseMenu.Image = null;
             this.optionsPauseMenu.Location = new System.Drawing.Point(199, 112);
+            this.optionsPauseMenu.MouseOverColor = System.Drawing.Color.DarkGray;
             this.optionsPauseMenu.Name = "optionsPauseMenu";
+            this.optionsPauseMenu.PressedImage = global::Yad.Properties.Resources.UI_Button_Pressed;
             this.optionsPauseMenu.Size = new System.Drawing.Size(135, 23);
             this.optionsPauseMenu.TabIndex = 1;
             this.optionsPauseMenu.Text = "Options";
@@ -1739,21 +1842,21 @@ namespace Yad.UI.Client
         private System.Windows.Forms.TabPage optionsMenu;
         private System.Windows.Forms.TabPage gameMenu;
         private System.Windows.Forms.TabPage pauseMenu;
-        private System.Windows.Forms.Button newGameMainMenu;
-        private System.Windows.Forms.Button exitMainMenu;
-        private System.Windows.Forms.Button creditsMainMenu;
-        private System.Windows.Forms.Button optionsMainMenu;
-        private System.Windows.Forms.Button loginBTLoginMenu;
+        private System.Windows.Forms.Extended.PictureButton newGameMainMenu;
+        private System.Windows.Forms.Extended.PictureButton exitMainMenu;
+        private System.Windows.Forms.Extended.PictureButton creditsMainMenu;
+        private System.Windows.Forms.Extended.PictureButton optionsMainMenu;
+        private System.Windows.Forms.Extended.PictureButton loginBTLoginMenu;
         private System.Windows.Forms.TextBox passwordLoginMenu;
         private System.Windows.Forms.TextBox loginTBLoginMenu;
-        private System.Windows.Forms.Button cancelLoginMenu;
-        private System.Windows.Forms.Button registerLoginMenu;
+        private System.Windows.Forms.Extended.PictureButton cancelLoginMenu;
+        private System.Windows.Forms.Extended.PictureButton registerLoginMenu;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label loginLabel;
         private System.Windows.Forms.Label serverLabel;
-        private System.Windows.Forms.Button remindPasswordLoginMenu;
-        private System.Windows.Forms.Button backRegisterMenu;
-        private System.Windows.Forms.Button registerRegisterMenu;
+        private System.Windows.Forms.Extended.PictureButton remindPasswordLoginMenu;
+        private System.Windows.Forms.Extended.PictureButton backRegisterMenu;
+        private System.Windows.Forms.Extended.PictureButton registerRegisterMenu;
         private System.Windows.Forms.Label emailLRegisterMenu;
         private System.Windows.Forms.Label repeatPasswordLRegisterMenu;
         private System.Windows.Forms.Label passwordLRegisterMenu;
@@ -1762,44 +1865,44 @@ namespace Yad.UI.Client
         private System.Windows.Forms.TextBox passwordTBRegisterMenu;
         private System.Windows.Forms.TextBox repeatPasswordTBRegisterMenu;
         private System.Windows.Forms.TextBox emailTBRegisterMenu;
-        private System.Windows.Forms.Button exitPauseMenu;
-        private System.Windows.Forms.Button optionsPauseMenu;
-        private System.Windows.Forms.Button continuePauseMenu;
-        private System.Windows.Forms.Button exitGameMenu;
-        private System.Windows.Forms.Button okGameMenu;
-        private System.Windows.Forms.Button optionsGameMenu;
-        private System.Windows.Forms.Button pauseGameMenu;
+        private System.Windows.Forms.Extended.PictureButton exitPauseMenu;
+        private System.Windows.Forms.Extended.PictureButton optionsPauseMenu;
+        private System.Windows.Forms.Extended.PictureButton continuePauseMenu;
+        private System.Windows.Forms.Extended.PictureButton exitGameMenu;
+        private System.Windows.Forms.Extended.PictureButton okGameMenu;
+        private System.Windows.Forms.Extended.PictureButton optionsGameMenu;
+        private System.Windows.Forms.Extended.PictureButton pauseGameMenu;
         private System.Windows.Forms.CheckBox muteMusicOptionsMenu;
         private System.Windows.Forms.CheckBox muteSoundOptionsMenu;
         private System.Windows.Forms.Label soundVolumeLOptionsMenu;
         private System.Windows.Forms.Label musicVolumeLOptionsMenu;
         private System.Windows.Forms.NumericUpDown soundVolumeNMOptionsMenu;
         private System.Windows.Forms.NumericUpDown musicVolumeNMOptionsMenu;
-        private System.Windows.Forms.Button okOptionsMenu;
-        private System.Windows.Forms.Button cancelOptionsMenu;
-        private System.Windows.Forms.Button gameChatMenu;
-        private System.Windows.Forms.Button backChatMenu;
+        private System.Windows.Forms.Extended.PictureButton okOptionsMenu;
+        private System.Windows.Forms.Extended.PictureButton cancelOptionsMenu;
+        private System.Windows.Forms.Extended.PictureButton gameChatMenu;
+        private System.Windows.Forms.Extended.PictureButton backChatMenu;
         private System.Windows.Forms.ListBox chatListChatMenu;
         private System.Windows.Forms.TextBox chatInputTBChatMenu;
         private System.Windows.Forms.ListBox userListChatMenu;
-        private System.Windows.Forms.Button backInfoMenu;
+        private System.Windows.Forms.Extended.PictureButton backInfoMenu;
         private System.Windows.Forms.Label playerInfoLInfoMenu;
         private System.Windows.Forms.ListBox listOfGames;
-        private System.Windows.Forms.Button createChooseGameMenu;
-        private System.Windows.Forms.Button joinChooseGameMenu;
-        private System.Windows.Forms.Button backChooseGameMenu;
+        private System.Windows.Forms.Extended.PictureButton createChooseGameMenu;
+        private System.Windows.Forms.Extended.PictureButton joinChooseGameMenu;
+        private System.Windows.Forms.Extended.PictureButton backChooseGameMenu;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxTBGameDescription;
-        private System.Windows.Forms.Button cancelCreateGameMenu;
-        private System.Windows.Forms.Button createCreateGameMenu;
+        private System.Windows.Forms.Extended.PictureButton cancelCreateGameMenu;
+        private System.Windows.Forms.Extended.PictureButton createCreateGameMenu;
         private System.Windows.Forms.Label mapsLCreateGameMenu;
         private System.Windows.Forms.ListBox listBoxLBCreateGame;
         private System.Windows.Forms.RadioButton privateCreateGameMenu;
         private System.Windows.Forms.RadioButton publicCreateGameMenu;
         private System.Windows.Forms.Label gameNameLCreateGameMenu;
         private System.Windows.Forms.TextBox gameNameTBCreateGameMenu;
-        private System.Windows.Forms.Button startWaitingForPlayersMenu;
-        private System.Windows.Forms.Button cancelWaitingForPlayersMenu;
+        private System.Windows.Forms.Extended.PictureButton startWaitingForPlayersMenu;
+        private System.Windows.Forms.Extended.PictureButton cancelWaitingForPlayersMenu;
         private System.Windows.Forms.Label descriptionLWaitingForPlayersMenu;
         private System.Windows.Forms.TextBox descriptionWaitingForPlayersMenu;
         private System.Windows.Forms.Label playersLWaitingForPlayersMenu;
@@ -1814,7 +1917,7 @@ namespace Yad.UI.Client
         private Panel panel2;
         private GroupBox groupBox3;
         private GroupBox groupBoxServer;
-        private Button sendChatMenu;
+        private System.Windows.Forms.Extended.PictureButton sendChatMenu;
         private TextBox textBoxTBGameName;
         private DataGridView dataGridViewPlayers;
         private NumericUpDown maxPlayerNumberNUPCreateGameMenu;
@@ -1823,14 +1926,14 @@ namespace Yad.UI.Client
         private ComboBox houseCBWaitingForPlayersMenu;
         private Label teamLWaitingForPlayersMenu;
         private Label houseLWaitingForPlayersMenu;
-        private Button changeWaitingForPlayersMenu;
+        private System.Windows.Forms.Extended.PictureButton changeWaitingForPlayersMenu;
         private ErrorProvider errorProvider;
         private GroupBox changeGBWaitingForPlayersMenu;
         private Label colorLWaitingForPlayersMenu;
-        private Button colorWaitingForPlayersMenu;
+        private System.Windows.Forms.Extended.PictureButton colorWaitingForPlayersMenu;
         private GroupBox currentDataGBWaitingForPlayersMenu;
         private Label infoLWaitingForPlayersMenu;
-        private Button infoColorWaitingForPlayersMenu;
+        private System.Windows.Forms.Extended.PictureButton infoColorWaitingForPlayersMenu;
         private Label infoColorLWaitingForPlayersMenu;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Color;
