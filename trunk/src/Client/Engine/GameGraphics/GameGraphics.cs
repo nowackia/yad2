@@ -27,7 +27,7 @@ namespace Yad.Engine.Client {
 	static partial class GameGraphics {
 
 		#region events
-		public static event EventHandler GameGraphicsChanged;
+		//public static event EventHandler GameGraphicsChanged;
 		#endregion
 
 		#region private members
@@ -35,6 +35,7 @@ namespace Yad.Engine.Client {
 		static GameForm _gameForm;
 		static SimpleOpenGlControl _map;
 		static SimpleOpenGlControl _miniMap;
+		static int _lastTurnBeginTime;
 		static bool init = false;
 
 		#region z-constants
@@ -323,11 +324,14 @@ namespace Yad.Engine.Client {
 			}
 		}
 
+		/*
 		private static void Notify() {
 			if (GameGraphicsChanged != null) {
 				GameGraphicsChanged(null, null);
 			}
 		}
+		 */
+
 		#endregion
 
 		#region texture init
@@ -645,6 +649,8 @@ namespace Yad.Engine.Client {
 			//DrawSomeShit(map);
 
 			_map.SwapBuffers();
+
+			_lastTurnBeginTime = Environment.TickCount;
 		}
 
 		private static void DrawSomeShit(Map map) {
@@ -856,13 +862,13 @@ namespace Yad.Engine.Client {
 			if (!_gameForm.IsSelecting) {
 				return;
 			}
-			Position start = _gameForm.SelectionStart;
-			Position end = _gameForm.SelectionEnd;
-			short xMin = Math.Min(start.X, end.X);
-			short xMax = Math.Max(start.X, end.X);
-			short yMin = Math.Min(start.Y, end.Y);
-			short yMax = Math.Max(start.Y, end.Y);
-			DrawSelectionRectangle(xMin, yMin, _depthMouseSelection, xMax - xMin + 1, yMax - yMin + 1, false, true, _gameLogic.CurrentPlayer.Color);
+			PointF start = TranslateMousePositionF(_gameForm.SelectionStart);
+			PointF end = TranslateMousePositionF(_gameForm.SelectionEnd);
+			float xMin = Math.Min(start.X, end.X);
+			float xMax = Math.Max(start.X, end.X);
+			float yMin = Math.Min(start.Y, end.Y);
+			float yMax = Math.Max(start.Y, end.Y);
+			DrawSelectionRectangle(xMin, yMin, _depthMouseSelection, xMax - xMin, yMax - yMin, false, true, _gameLogic.CurrentPlayer.Color);
 		}
 
 		private static void DrawFogOfWar() {
@@ -1062,8 +1068,15 @@ namespace Yad.Engine.Client {
 			float dx = u.Position.X - u.LastPosition.X;
 			float dy = u.Position.Y - u.LastPosition.Y;
 
-			float moveProgress = (float)u.RemainingTurnsInMove / (float)u.Speed;
-			if (moveProgress >= 1) {
+			float remainingTurnsInMove = u.RemainingTurnsInMove; 
+			float ticksSinceLastTurn = Environment.TickCount - _lastTurnBeginTime;
+			float turnsSinceLastTurn = ticksSinceLastTurn / (float)Properties.Common.Settings.Default.TurnLength;
+			turnsSinceLastTurn = Math.Min(turnsSinceLastTurn, 1);
+			remainingTurnsInMove -= turnsSinceLastTurn;
+			remainingTurnsInMove = Math.Max(0, remainingTurnsInMove);
+
+			float moveProgress = remainingTurnsInMove / (float)u.Speed;
+			if (moveProgress >= 1) { //FIXME: sprawdzic jak jest liczone remainingTurnsInMove
 				moveProgress = 0;
 			}
 
@@ -1323,7 +1336,8 @@ namespace Yad.Engine.Client {
 			_miniMap = miniMap;
 			_gameLogic = gLogic;
 			_gameForm = gForm;
-			_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+			//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(GameGraphics.Notify);
+			_gameLogic.Simulation.onTurnBegin += new SimulationHandler(Simulation_onTurnBegin);
 			vertexDataArray = new VertexDataArray(4 * _gameLogic.Simulation.Map.Width * _gameLogic.Simulation.Map.Height); // * 4, bo zakadamy, ze dla kazdego pola planszy sa 4 vertexy
 
 			_wallID = GlobalSettings.Wrapper.namesToIds["Wall"];
@@ -1336,6 +1350,10 @@ namespace Yad.Engine.Client {
 			Application.Idle += new EventHandler(Application_Idle);
 
 			init = true;			
+		}
+
+		static void Simulation_onTurnBegin() {
+			_lastTurnBeginTime = Environment.TickCount;
 		}
 
 		static void Application_Idle(object sender, EventArgs e) {
@@ -1428,7 +1446,7 @@ namespace Yad.Engine.Client {
 
 			UpdateViewport();
 
-			Notify();
+			//Notify();
 		}
 
 		public static void OffsetX(float amount) {
@@ -1438,7 +1456,7 @@ namespace Yad.Engine.Client {
 
 			//InfoLog.WriteInfo("TranslatingX: " + mapClip.X, EPrefix.GameGraphics);
 
-			Notify();
+			//Notify();
 		}
 
 		public static void OffsetY(float amount) {
@@ -1447,7 +1465,7 @@ namespace Yad.Engine.Client {
 			UpdateOffsetY();
 			//InfoLog.WriteInfo("TranslatingY: " + mapClip.Y, EPrefix.GameGraphics);
 
-			Notify();
+			//Notify();
 		}
 
 		public static void SetViewSize(int width, int height) {
@@ -1463,6 +1481,13 @@ namespace Yad.Engine.Client {
 			Position pn = new Position(
 			(short)(((float)p.X) / zoom + offset.X + mapClip.X),
 			(short)(((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y));
+			return pn;
+		}
+
+		public static PointF TranslateMousePositionF(Point p) {
+			PointF pn = new PointF(
+			((float)p.X) / zoom + offset.X + mapClip.X,
+			((float)(viewport.Height - p.Y - 1)) / zoom + offset.Y + mapClip.Y);
 			return pn;
 		}
 

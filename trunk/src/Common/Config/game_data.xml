@@ -72,7 +72,7 @@
 			<tns:Cost>150</tns:Cost>
 			<tns:FireRange>4</tns:FireRange>
 			<tns:FirePower>10</tns:FirePower>
-			<tns:Speed>4</tns:Speed>
+			<tns:Speed>2</tns:Speed>
 			<tns:ReloadTime>9</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>

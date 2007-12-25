@@ -86,7 +86,7 @@ namespace Yad.UI.Client
 			this.mapView.Size = new System.Drawing.Size(641, 565);
 			this.mapView.StencilBits = ((byte)(0));
 			this.mapView.TabIndex = 14;
-			this.mapView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
+			//this.mapView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
 			this.mapView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
 			this.mapView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
 			this.mapView.Resize += new System.EventHandler(this.openGLView_Resize);

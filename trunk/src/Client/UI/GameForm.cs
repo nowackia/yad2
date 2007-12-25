@@ -35,9 +35,10 @@ namespace Yad.UI.Client {
 		bool _selecting = false;
 		bool _wasScrolled = false;
 		Point _mousePos;
-		Position _selectionStart;
-		Position _selectionEnd;
+		Point _selectionStart;
+		Point _selectionEnd;
 		GameLogic _gameLogic;
+		int _lastDrawTime;
 		bool gameFormClose;
 		/// <summary>
 		/// Dictionary of bulding id -> List of items that can be build in that building
@@ -79,7 +80,7 @@ namespace Yad.UI.Client {
 				_gameLogic = new GameLogic();
 				_gameLogic.Simulation.BuildingCompleted += new ClientSimulation.BuildingCreationHandler(Simulation_OnBuildingCompleted);
 				_gameLogic.Simulation.UnitCompleted += new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
-				_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
+				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(Simulation_onTurnEnd);
 				_gameLogic.Simulation.OnCreditsUpdate += new ClientSimulation.OnCreditsHandler(UpdateCredits);
 				
 				//_gameLogic.Simulation.onTurnEnd += new SimulationHandler(_buildManager.ProcessTurn);
@@ -113,7 +114,7 @@ namespace Yad.UI.Client {
 
 				InfoLog.WriteInfo("MainForm constructor: initializing OpenGL finished", EPrefix.GameGraphics);
 
-				GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
+				//GameGraphics.GameGraphicsChanged += new EventHandler(gg_GameGraphicsChanged);
 
 				this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 				
@@ -138,9 +139,6 @@ namespace Yad.UI.Client {
 		#endregion
 
 		#region Simulation events handling
-		void Simulation_onTurnEnd() {
-			//this.mapView.Invalidate();
-		}
 
 		void Simulation_OnUnitCompleted(Unit u) {
 			//TODO
@@ -167,8 +165,8 @@ namespace Yad.UI.Client {
 		void Simulation_GameEnd(int winTeamId) {
 			InfoLog.WriteInfo("Game End Event", EPrefix.ClientInformation);
 
-			GameGraphics.GameGraphicsChanged -= new EventHandler(gg_GameGraphicsChanged);
-			mapView.Paint -= new PaintEventHandler(openGLView_Paint);
+			//GameGraphics.GameGraphicsChanged -= new EventHandler(gg_GameGraphicsChanged);
+			//mapView.Paint -= new PaintEventHandler(openGLView_Paint);
 
 			GameGraphics.DeinitGL();
 
@@ -176,7 +174,7 @@ namespace Yad.UI.Client {
 
 			_gameLogic.Simulation.BuildingCompleted -= new ClientSimulation.BuildingCreationHandler(Simulation_OnBuildingCompleted);
 			_gameLogic.Simulation.UnitCompleted -= new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
-			_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(Simulation_onTurnEnd);
+			//_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(Simulation_onTurnEnd);
 			_gameLogic.Simulation.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(UpdateCredits);
 			_gameLogic.Simulation.InvalidLocation -= new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
 			//_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(_buildManager.ProcessTurn);
@@ -265,20 +263,9 @@ namespace Yad.UI.Client {
 
 		#region GameGraphics-related
 
-		void gg_GameGraphicsChanged(object sender, EventArgs e) {
-			//this.mapView.Invalidate();
-			//this.miniMap.Invalidate();
-		}
-
-		private void openGLView_Paint(object sender, PaintEventArgs e) {
-			GameGraphics.Draw();
-			//mapView.Invalidate();
-		}
-
 		private void openGLView_Resize(object sender, EventArgs e) {
 			GameGraphics.SetViewSize(mapView.Width, mapView.Height);
 		}
-
 
 		#endregion
 
@@ -287,7 +274,6 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo(e.KeyCode.ToString());
 			if (e.KeyCode == Keys.Z) {
 				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
-				//this.mapView.Invalidate();
 			} else if (e.KeyCode == Keys.Q) {
 				GameGraphics.Zoom(-1);
 			} else if (e.KeyCode == Keys.E) {
@@ -381,9 +367,8 @@ namespace Yad.UI.Client {
 				return;
 			}
 
-			_selecting = false;
-			_selectionStart = _selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
-			_gameLogic.Select(_selectionStart);
+			_selecting = true;
+			_selectionStart = _selectionEnd = e.Location;
 		}		
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
@@ -414,8 +399,8 @@ namespace Yad.UI.Client {
 		private void HandleLeftButtonUp(MouseEventArgs e) {
 			if (_selecting) {
 				_selecting = false;
-				this._selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
-				_gameLogic.Select(_selectionStart, _selectionEnd);
+				this._selectionEnd = e.Location;
+				_gameLogic.Select(GameGraphics.TranslateMousePosition(_selectionStart), GameGraphics.TranslateMousePosition(_selectionEnd));
 			}
 		}
 
@@ -438,11 +423,10 @@ namespace Yad.UI.Client {
 
 			if (e.Button == MouseButtons.Left) {
 				if (!_selecting) {
-					_selectionStart = GameGraphics.TranslateMousePosition(e.Location);
-					_selecting = true;
+					//_selectionStart = GameGraphics.TranslateMousePosition(e.Location);
+					//_selecting = true;
 				} else {
-					//mapView.Invalidate();
-					_selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
+					_selectionEnd = e.Location;
 				}
 			}
 		}
@@ -654,11 +638,11 @@ namespace Yad.UI.Client {
 			get { return _selecting; }
 		}
 
-		public Position SelectionStart {
+		public Point SelectionStart {
 			get { return _selectionStart; }
 		}
 
-		public Position SelectionEnd {
+		public Point SelectionEnd {
 			get { return _selectionEnd; }
 		}
 
