@@ -1087,6 +1087,31 @@ namespace Yad.Engine.Client {
 			return new PointF(x, y);
 		}
 
+		private static PointF CountRealPosition(Ammo a) {
+			int totalMoves = Math.Max(Math.Abs(a.To.X - a.From.X), Math.Abs(a.To.Y - a.From.Y));
+
+			float dx = a.To.X - a.From.X; //odleglosc miedzy miejscem wystrzelenia a miejscem docelowym
+			float dy = a.To.Y - a.From.Y;
+
+			float remainingTurnsInMove = a.RemainingMoves; //tyle ruchow pozostalo
+			float ticksSinceLastTurn = Environment.TickCount - _lastTurnBeginTime;
+			float turnsSinceLastTurn = ticksSinceLastTurn / (float)Properties.Common.Settings.Default.TurnLength;
+			turnsSinceLastTurn = Math.Min(turnsSinceLastTurn, 1); // tyle tur (we floatach) minelo od ostatniego rysowania
+			remainingTurnsInMove -= turnsSinceLastTurn * (float)a.Speed; //interpolujemy
+			remainingTurnsInMove = Math.Max(0, remainingTurnsInMove);
+
+			float moveProgress = remainingTurnsInMove / (float)totalMoves;
+			if (moveProgress >= 1) {
+				moveProgress = 0;
+			}
+
+			//InfoLog.WriteInfo(dx.ToString() + " " + dy.ToString()+ " " + moveProgress.ToString(), EPrefix.GameGraphics);
+
+			float x = ((float)a.To.X) - dx * moveProgress;
+			float y = ((float)a.To.Y) - dy * moveProgress;
+			return new PointF(x, y);
+		}
+
 		private static bool Test(Direction s, Direction t) {
 			return ((s & t) != 0);
 		}

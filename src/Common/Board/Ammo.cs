@@ -51,6 +51,14 @@ namespace Yad.Board {
             direction = ConvertToNearestDirection(dir);
         }
 
+		public short Speed {
+			get { return speed; }
+		}
+
+		public int RemainingMoves {
+			get { return path.Count; }
+		}
+
         /// <summary>
         /// ai for ammo - auto aiming bullet?:P
         /// </summary>
