@@ -294,7 +294,7 @@
 	<tns:UnitSandwormsData>
 		<tns:UnitSandwormData>
 			<tns:Name>Sandworm</tns:Name>
-			<tns:Speed>20</tns:Speed>
+			<tns:Speed>8</tns:Speed>
 			<tns:Health>10000</tns:Health>
 			<tns:FirePower>10000</tns:FirePower>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
