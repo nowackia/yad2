@@ -572,7 +572,8 @@ namespace Yad.Engine.Client {
 			float percentage;
 
 			#region selected objects
-			foreach (Unit u in _gameLogic.SelectedUnits) {
+			List<Unit> selectedUnits = new List<Unit>(_gameLogic.SelectedUnits);
+			foreach (Unit u in selectedUnits) {
 				PointF realPos = CountRealPosition(u);
 				float size = u.getSize();
 				if (!NeedsDrawing(realPos.X, realPos.Y, size, size)) {

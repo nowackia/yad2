@@ -55,7 +55,7 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		List<GameMessage> _currentMessages = new List<GameMessage>();
 
-		//these lists are used by ProcessTurn and are created for 1 player at a time
+		// these lists are used by ProcessTurn and are created for 1 player at a time
 		List<Building> _buildingsProcessed = new List<Building>(), buildingsToProcess;
 		List<Unit> _unitsProcessed = new List<Unit>(), unitsToProcess, sandwormToProcess;
 
@@ -90,10 +90,9 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		List<GameMessage>[] _turns;
 
-		bool _fastTurnProcessing = true;
+		//bool _fastTurnProcessing = false;
 
-
-        private  Player simulationPlayer;
+        private  Player _simulationPlayer;
 
 		#endregion
 
@@ -113,17 +112,15 @@ namespace Yad.Engine.Common {
 		#endregion
 
 		#region constructor
-		public Simulation(Map map, bool useFastTurnProcessing) {
+		public Simulation(Map map /*, bool useFastTurnProcessing */) {
 			this._map = map;
-            simulationPlayer = new Player(-1, "", -1, System.Drawing.Color.Black, map);
+            _simulationPlayer = new Player(-1, "", -1, System.Drawing.Color.Black, map);
 
 			this.players = new Dictionary<short, Player>();
-            players.Add(simulationPlayer.Id, simulationPlayer);
+            players.Add(_simulationPlayer.Id, _simulationPlayer);
 
-			this._fastTurnProcessing = useFastTurnProcessing;
+			//this._fastTurnProcessing = useFastTurnProcessing;
 			_turns = new List<GameMessage>[_bufferLength];
-			//this.turnProcessor = new Thread(new ThreadStart(ProcessTurns));
-			//this.turnProcessor.IsBackground = true;
 
 			for (int i = 0; i < _bufferLength; i++) {
 				this._turns[i] = new List<GameMessage>();
@@ -146,6 +143,7 @@ namespace Yad.Engine.Common {
 		private void ProcessTurns() {
 			List<GameMessage> messages;
 			List<GameMessage>.Enumerator messagesEnum;
+
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
 				_nextTurnSemaphore.WaitOne(); //wait for MessageTurn
@@ -155,8 +153,7 @@ namespace Yad.Engine.Common {
 					return;
 				}
 
-                InfoLog.WriteInfo("********** TURN BEGIN **********");
-				InfoLog.WriteInfo("Next turn", EPrefix.SimulationInfo);
+                InfoLog.WriteInfo("********** TURN BEGIN **********", EPrefix.SimulationInfo);
 
 				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
@@ -165,10 +162,7 @@ namespace Yad.Engine.Common {
 
 				int turnStart = Environment.TickCount;
 
-				messages = _currentMessages;
-				messagesEnum = messages.GetEnumerator();
-				while (messagesEnum.MoveNext()) {
-					GameMessage gm = messagesEnum.Current;
+				foreach (GameMessage gm in _currentMessages) {
 					if (gm.Type == MessageType.CreateUnit) {
 						this.onMessageCreate((CreateUnitMessage)gm);
 					} else if (gm.Type == MessageType.Build) {
@@ -191,22 +185,14 @@ namespace Yad.Engine.Common {
 				}
 
 				//process all units & building & animations
-                Dictionary<short, Player>.Enumerator playersEnumerator = players.GetEnumerator();
-                while (playersEnumerator.MoveNext()) {
-                    Player p = playersEnumerator.Current.Value;
+				foreach (Player p in players.Values) {
                     List<Ammo> ammos = p.GetAllAmmos();
                     foreach (Ammo a in ammos) {
                         a.DoAI();
                     }
                 }
                 
-
-				playersEnumerator = players.GetEnumerator();
-
-
-				while (playersEnumerator.MoveNext()) {
-					Player p = playersEnumerator.Current.Value;
-
+				foreach (Player p in players.Values) {
 					//get copy of buildings' list
 					buildingsToProcess = p.GetAllBuildings();
 					//while there are unprocessed buildings
@@ -221,8 +207,7 @@ namespace Yad.Engine.Common {
                         Unit u = unitsToProcess[0];
                         unitsToProcess.RemoveAt(0);
                         handleUnit(u);
-                    }
-					
+                    }					
 				}
 
                 sandwormToProcess = new List<Unit>(sandworms.Values);
@@ -235,7 +220,7 @@ namespace Yad.Engine.Common {
 
 				//this.fastTurnProcessing = true;
 				int remainingTime = Simulation.turnLength - (Environment.TickCount - turnStart);
-				if (!this._fastTurnProcessing) { //in server - just do turn, don't wait
+				//if (!this._fastTurnProcessing) { //in server - just do turn, don't wait
 
 					if (SpeedUp) {
 						--_speedUpLength;
@@ -244,7 +229,7 @@ namespace Yad.Engine.Common {
 					if (remainingTime > 0) {
 						Thread.Sleep(remainingTime);
 					}
-				}
+				//}
 
 				//InfoLog.WriteInfo((Environment.TickCount - turnStart).ToString(), EPrefix.SimulationInfo);
 
@@ -435,7 +420,7 @@ namespace Yad.Engine.Common {
 
         public Player SimulationPlayer {
             get {
-                return simulationPlayer;
+                return _simulationPlayer;
             }
         }
 
