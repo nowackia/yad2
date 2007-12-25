@@ -21,6 +21,7 @@ using System.Collections;
 using Yad.Net.Common;
 using Yad.Net.Client;
 using Yad.UI.Client;
+using System.Runtime.InteropServices;
 
 namespace Yad.Engine.Client {
 	static partial class GameGraphics {
@@ -642,6 +643,8 @@ namespace Yad.Engine.Client {
 			#endregion
 
 			//DrawSomeShit(map);
+
+			_map.SwapBuffers();
 		}
 
 		private static void DrawSomeShit(Map map) {
@@ -681,6 +684,7 @@ namespace Yad.Engine.Client {
 		private static void DrawMinimap() {
 			Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 			if (!_gameLogic.isOutpostOperating()) {
+				_miniMap.SwapBuffers();
 				return;
 			}
 			Gl.glLoadIdentity();
@@ -749,6 +753,8 @@ namespace Yad.Engine.Client {
 			Gl.glColor3f(1, 1, 1);
 
 			offset = mainOffset;
+
+			_miniMap.SwapBuffers();
 		}
 
 		private static void DrawMinimapFogOfWar(Map map, bool[,] fow) {
@@ -1124,64 +1130,64 @@ namespace Yad.Engine.Client {
 		}
 
 
-        private static RectangleF VehicleUVChooser(Direction d) {
-            RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
-            if (Test(d, Direction.East)) {
-                if (Test(d, Direction.North)) {
-                    //uv.X *= 1;
-                } else if (Test(d, Direction.South)) {
-                    uv.X *= 7.0f;
-                } else {
-                    uv.X = 0;
-                }
-            } else if (Test(d, Direction.West)) {
-                if (Test(d, Direction.North)) {
-                    uv.X *= 3.0f;
-                } else if (Test(d, Direction.South)) {
-                    uv.X *= 5.0f;
-                } else {
-                    uv.X *= 4.0f;
-                }
-            } else /* center */ {
-                if (Test(d, Direction.North)) {
-                    uv.X *= 2.0f;
-                } else {
-                    uv.X *= 6.0f;
-                }
-            }
-            return uv;
+		private static RectangleF VehicleUVChooser(Direction d) {
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+			if (Test(d, Direction.East)) {
+				if (Test(d, Direction.North)) {
+					//uv.X *= 1;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 7.0f;
+				} else {
+					uv.X = 0;
+				}
+			} else if (Test(d, Direction.West)) {
+				if (Test(d, Direction.North)) {
+					uv.X *= 3.0f;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 5.0f;
+				} else {
+					uv.X *= 4.0f;
+				}
+			} else /* center */ {
+				if (Test(d, Direction.North)) {
+					uv.X *= 2.0f;
+				} else {
+					uv.X *= 6.0f;
+				}
+			}
+			return uv;
 
 
-        }
+		}
 
-        private static RectangleF AmmoUVChooser(Direction d) {
-            RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
-            if (Test(d, Direction.East)) {
-                if (Test(d, Direction.North)) {
-                    //uv.X *= 1;
-                } else if (Test(d, Direction.South)) {
-                    uv.X *= 7.0f;
-                } else {
-                    uv.X = 0;
-                }
-            } else if (Test(d, Direction.West)) {
-                if (Test(d, Direction.North)) {
-                    uv.X *= 3.0f;
-                } else if (Test(d, Direction.South)) {
-                    uv.X *= 5.0f;
-                } else {
-                    uv.X *= 4.0f;
-                }
-            } else /* center */ {
-                if (Test(d, Direction.North)) {
-                    uv.X *= 2.0f;
-                } else {
-                    uv.X *= 6.0f;
-                }
-            }
-            //uv.Width = oneSixteenth;
-            return uv;
-        }
+		private static RectangleF AmmoUVChooser(Direction d) {
+			RectangleF uv = new RectangleF(oneEight, 0, oneEight, 1);
+			if (Test(d, Direction.East)) {
+				if (Test(d, Direction.North)) {
+					//uv.X *= 1;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 7.0f;
+				} else {
+					uv.X = 0;
+				}
+			} else if (Test(d, Direction.West)) {
+				if (Test(d, Direction.North)) {
+					uv.X *= 3.0f;
+				} else if (Test(d, Direction.South)) {
+					uv.X *= 5.0f;
+				} else {
+					uv.X *= 4.0f;
+				}
+			} else /* center */ {
+				if (Test(d, Direction.North)) {
+					uv.X *= 2.0f;
+				} else {
+					uv.X *= 6.0f;
+				}
+			}
+			//uv.Width = oneSixteenth;
+			return uv;
+		}
 
 		private static void DrawAmmo(Ammo a) {
 			//a.LastPosition
@@ -1327,10 +1333,21 @@ namespace Yad.Engine.Client {
 			initGLminimap();
 			initGLmap();
 
-			init = true;
+			Application.Idle += new EventHandler(Application_Idle);
+
+			init = true;			
 		}
 
+		static void Application_Idle(object sender, EventArgs e) {
+			while (NativeMethods.NativeMethods.ApplicationIsIdle) {
+				//UpdateFrame();
+				Draw();
+			}
+		}	
+		
 		public static void DeinitGL() {
+			Application.Idle -= new EventHandler(Application_Idle);
+
 			init = false;
 			/*
 			_gameLogic = null;

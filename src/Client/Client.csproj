@@ -70,6 +70,7 @@
     <Compile Include="FMod\fmod.cs" />
     <Compile Include="FMod\fmod_dsp.cs" />
     <Compile Include="FMod\fmod_errors.cs" />
+    <Compile Include="NativeMethods\NativeMethods.cs" />
     <Compile Include="Net\ISuspender.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\CreditsPictureBox.cs">

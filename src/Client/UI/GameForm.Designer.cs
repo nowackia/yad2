@@ -67,7 +67,7 @@ namespace Yad.UI.Client
 			((System.ComponentModel.ISupportInitialize)(this.creditsPictureBox)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// openGLView
+			// mapView
 			// 
 			this.mapView.AccumBits = ((byte)(0));
 			this.mapView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -76,13 +76,13 @@ namespace Yad.UI.Client
 			this.mapView.AutoCheckErrors = false;
 			this.mapView.AutoFinish = false;
 			this.mapView.AutoMakeCurrent = false;
-			this.mapView.AutoSwapBuffers = true;
+			this.mapView.AutoSwapBuffers = false;
 			this.mapView.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
 			this.mapView.BackColor = System.Drawing.Color.Black;
 			this.mapView.ColorBits = ((byte)(32));
 			this.mapView.DepthBits = ((byte)(32));
 			this.mapView.Location = new System.Drawing.Point(0, 64);
-			this.mapView.Name = "openGLView";
+			this.mapView.Name = "mapView";
 			this.mapView.Size = new System.Drawing.Size(641, 565);
 			this.mapView.StencilBits = ((byte)(0));
 			this.mapView.TabIndex = 14;
@@ -284,7 +284,7 @@ namespace Yad.UI.Client
 			this.miniMap.AutoCheckErrors = false;
 			this.miniMap.AutoFinish = false;
 			this.miniMap.AutoMakeCurrent = false;
-			this.miniMap.AutoSwapBuffers = true;
+			this.miniMap.AutoSwapBuffers = false;
 			this.miniMap.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
 			this.miniMap.BackColor = System.Drawing.Color.Black;
 			this.miniMap.ColorBits = ((byte)(32));
@@ -317,7 +317,6 @@ namespace Yad.UI.Client
 			this.Controls.Add(this.panelUILine_WE1);
 			this.Controls.Add(this.panelUILine_WE2);
 			this.Controls.Add(this.panelUILine_NS);
-			this.DoubleBuffered = true;
 			this.MinimumSize = new System.Drawing.Size(800, 600);
 			this.Name = "GameForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

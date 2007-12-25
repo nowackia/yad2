@@ -139,7 +139,7 @@ namespace Yad.UI.Client {
 
 		#region Simulation events handling
 		void Simulation_onTurnEnd() {
-			this.mapView.Invalidate();
+			//this.mapView.Invalidate();
 		}
 
 		void Simulation_OnUnitCompleted(Unit u) {
@@ -266,12 +266,13 @@ namespace Yad.UI.Client {
 		#region GameGraphics-related
 
 		void gg_GameGraphicsChanged(object sender, EventArgs e) {
-			this.mapView.Invalidate();
-			this.miniMap.Invalidate();
+			//this.mapView.Invalidate();
+			//this.miniMap.Invalidate();
 		}
 
 		private void openGLView_Paint(object sender, PaintEventArgs e) {
 			GameGraphics.Draw();
+			//mapView.Invalidate();
 		}
 
 		private void openGLView_Resize(object sender, EventArgs e) {
@@ -286,7 +287,7 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo(e.KeyCode.ToString());
 			if (e.KeyCode == Keys.Z) {
 				Settings.Default.UseSafeRendering = !Settings.Default.UseSafeRendering;
-				this.mapView.Invalidate();
+				//this.mapView.Invalidate();
 			} else if (e.KeyCode == Keys.Q) {
 				GameGraphics.Zoom(-1);
 			} else if (e.KeyCode == Keys.E) {
@@ -440,7 +441,7 @@ namespace Yad.UI.Client {
 					_selectionStart = GameGraphics.TranslateMousePosition(e.Location);
 					_selecting = true;
 				} else {
-					mapView.Invalidate();
+					//mapView.Invalidate();
 					_selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
 				}
 			}
