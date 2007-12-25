@@ -50,7 +50,7 @@ namespace Yad.Engine.Client {
 		#endregion
 
 		public ClientSimulation(Map map)
-			: base(map, false) {
+			: base(map /*, false */) {
 
 			//PlayerInfo currPI = ClientPlayerInfo.Player;
 			sandworms = new Dictionary<int, Unit>();
@@ -62,10 +62,8 @@ namespace Yad.Engine.Client {
 				p.TeamID = pi.TeamID;
 				p.Credits = Settings.Default.CreditsAtStart;
 				p.Power = Settings.Default.PowerAtStart;
-				players.Add(p.Id, p);
-               
+				players.Add(p.Id, p);               
 			}
-
 
 			this.onTurnBegin += new SimulationHandler(ClientSimulation_onTurnBegin);
 			this.onTurnEnd += new SimulationHandler(ClientSimulation_onTurnEnd);

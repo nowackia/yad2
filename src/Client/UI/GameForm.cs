@@ -380,11 +380,10 @@ namespace Yad.UI.Client {
 				return;
 			}
 
-			//this._selecting = true;
+			_selecting = false;
 			_selectionStart = _selectionEnd = GameGraphics.TranslateMousePosition(e.Location);
-		}
-
-		
+			_gameLogic.Select(_selectionStart);
+		}		
 
 		private void openGLView_MouseUp(object sender, MouseEventArgs e) {
 			InfoLog.WriteInfo("MouseUp", EPrefix.UIManager);
@@ -530,10 +529,12 @@ namespace Yad.UI.Client {
 			_objectToCreateId = id;
 			_objectCreatorId = creatorID;
 			this._isCreatingBuilding = true;
+			_selecting = false;
 		}
 		private void PlaceBuilding(short id) {
 			_objectToCreateId = id;
 			this._isCreatingBuilding = true;
+			_selecting = false;
 		}
 
 		/*
