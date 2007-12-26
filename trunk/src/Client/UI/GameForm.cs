@@ -38,7 +38,6 @@ namespace Yad.UI.Client {
 		Point _selectionStart;
 		Point _selectionEnd;
 		GameLogic _gameLogic;
-		int _lastDrawTime;
 		bool gameFormClose;
 		/// <summary>
 		/// Dictionary of bulding id -> List of items that can be build in that building
@@ -64,7 +63,7 @@ namespace Yad.UI.Client {
 		#region Constructor
 		public GameForm() {
 			try {
-
+				this.KeyPreview = true;
 				InfoLog.WriteInfo("MainForm constructor starts", EPrefix.Menu);
 
 				InitializeComponent();
@@ -679,7 +678,14 @@ namespace Yad.UI.Client {
 		}
 
 		private void HandleMiniMapRightButtonDown(MouseEventArgs e) {
-			
+			Position p = GameGraphics.TranslateMinimapMousePosition(e.Location);
+			validateMapPosition(ref p);
+			BoardObject bo = boardObjectAt(p);
+			if (bo != null) {
+				_gameLogic.AttackOrder(bo);
+			} else {
+				_gameLogic.MoveOrder(p);
+			}
 		}
 
 		private void HandleMiniMapLeftButtonDown(MouseEventArgs e) {
@@ -691,6 +697,27 @@ namespace Yad.UI.Client {
 				Position p = GameGraphics.TranslateMinimapMousePosition(e.Location);
 				GameGraphics.centerOn(p);
 				Console.Out.WriteLine(e.Location + " -> " + p);
+			}
+		}
+
+		private void validateMapPosition(ref Position pos) {
+			short maxW = (short)(_gameLogic.Simulation.Map.Width - 1);
+			short maxH = (short)(_gameLogic.Simulation.Map.Height - 1);
+			pos.X = Math.Max(pos.X, (short)0);
+			pos.X = Math.Min(pos.X, maxW);
+			pos.Y = Math.Max(pos.Y, (short)0);
+			pos.Y = Math.Min(pos.Y, maxH);
+		}
+
+		private void GameForm_KeyDown(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.D1) {
+				_gameLogic.manageGroups(0, e.Control);
+			} else if (e.KeyCode == Keys.D2) {
+				_gameLogic.manageGroups(1, e.Control);
+			} else if (e.KeyCode == Keys.D3) {
+				_gameLogic.manageGroups(2, e.Control);
+			} else if (e.KeyCode == Keys.D4) {
+				_gameLogic.manageGroups(3, e.Control);
 			}
 		}
 	}

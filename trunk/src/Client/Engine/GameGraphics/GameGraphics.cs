@@ -1519,10 +1519,11 @@ namespace Yad.Engine.Client {
 		public static Position TranslateMinimapMousePosition(Point p) {
 			Map m = _gameLogic.Simulation.Map;
 			float maxDim = Math.Max(m.Width, m.Height);
-			float zoom = ((float)maxDim) / (float)_miniMap.Width;
+			float zoomX = ((float)maxDim) / ((float)_miniMap.Width);
+			float zoomY = ((float)maxDim) / ((float)_miniMap.Height);
 			Position pn = new Position(
-			(short)(((float)p.X) * zoom - maxDim / 2.0f),
-			(short)(((float)(_miniMap.Height - p.Y - 1)) * zoom - maxDim / 2.0f));
+			(short)(((float)p.X) * zoomX + minimapOffset.X - maxDim / 2.0f), /* -maxDim / 2.0f == minimapClip.X */
+			(short)(((float)(_miniMap.Height - p.Y - 1)) * zoomY + minimapOffset.Y - maxDim / 2.0f));
 			return pn;
 
 			/*
