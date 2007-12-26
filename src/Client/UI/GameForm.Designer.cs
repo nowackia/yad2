@@ -86,7 +86,6 @@ namespace Yad.UI.Client
 			this.mapView.Size = new System.Drawing.Size(641, 565);
 			this.mapView.StencilBits = ((byte)(0));
 			this.mapView.TabIndex = 14;
-			//this.mapView.Paint += new System.Windows.Forms.PaintEventHandler(this.openGLView_Paint);
 			this.mapView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseMove);
 			this.mapView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLView_MouseDown);
 			this.mapView.Resize += new System.EventHandler(this.openGLView_Resize);
@@ -289,9 +288,9 @@ namespace Yad.UI.Client
 			this.miniMap.BackColor = System.Drawing.Color.Black;
 			this.miniMap.ColorBits = ((byte)(32));
 			this.miniMap.DepthBits = ((byte)(32));
-			this.miniMap.Location = new System.Drawing.Point(654, 428);
+			this.miniMap.Location = new System.Drawing.Point(653, 429);
 			this.miniMap.Name = "miniMap";
-			this.miniMap.Size = new System.Drawing.Size(185, 202);
+			this.miniMap.Size = new System.Drawing.Size(186, 200);
 			this.miniMap.StencilBits = ((byte)(0));
 			this.miniMap.TabIndex = 0;
 			this.miniMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.miniMap_MouseMove);
@@ -321,6 +320,7 @@ namespace Yad.UI.Client
 			this.Name = "GameForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "YAD2 Client";
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
 			this.panelUIControl.ResumeLayout(false);
 			this.panelUITop_MAIN.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.creditsPictureBox)).EndInit();

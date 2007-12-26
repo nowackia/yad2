@@ -61,7 +61,10 @@ namespace Yad.Engine.Client {
 			GameSettingsWrapper wrapper = GlobalSettings.Wrapper;
 			Map map = new Map();
 			map.LoadMap(Path.Combine(Settings.Default.Maps, ClientPlayerInfo.GameInfo.MapName));
-					
+
+			for (int i = 0; i < _definedGroups.Length; i++) {
+				_definedGroups[i] = new List<Unit>();
+			}
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
@@ -131,7 +134,9 @@ namespace Yad.Engine.Client {
             /* Sound */
             AudioEngine.Instance.Sound.PlayHouse(CurrentPlayer.House, new HouseSoundType[] { HouseSoundType.Unit, HouseSoundType.Deploy });
 
-            _selectedUnits.Remove(u);		}
+            _selectedUnits.Remove(u);
+			removeUnitFromGroups(u);
+		}
 
 		void _sim_OnBuildingCompleted(Building b, int creatorID) {
             if (b.ObjectID.PlayerID == CurrentPlayer.Id) {
@@ -148,6 +153,7 @@ namespace Yad.Engine.Client {
 
         void _sim_UnitDestroyed(Unit u) {
 			_selectedUnits.Remove(u);
+			removeUnitFromGroups(u);
 
             /* Play fight music */
             if(u.BoardObjectClass != BoardObjectClass.UnitMCV)
@@ -771,6 +777,26 @@ namespace Yad.Engine.Client {
 				return true;
 			else
 				return false;
+		}
+
+		public void manageGroups(int groupNumber, bool create) {
+			if (groupNumber < 0 || groupNumber >= _definedGroups.Length) {
+				return;
+			}
+
+			if (create) {
+				_definedGroups[groupNumber].Clear();
+				_definedGroups[groupNumber].AddRange(_selectedUnits);
+			} else {
+				_selectedUnits.Clear();
+				_selectedUnits.AddRange(_definedGroups[groupNumber]);
+			}
+		}
+
+		private void removeUnitFromGroups(Unit u) {
+			foreach (List<Unit> units in _definedGroups) {
+				units.Remove(u);
+			}
 		}
 	}
 }
