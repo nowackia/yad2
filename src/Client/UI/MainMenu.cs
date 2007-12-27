@@ -1056,6 +1056,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {   
                 /* Change message handler to GameMessageHandler */
+                PauseManager.Reset();
                 GameMessageHandler.Instance.Suspend();
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
@@ -1133,8 +1134,11 @@ namespace Yad.UI.Client
         #region Control Events
         private void pauseGameMenu_Click(object sender, EventArgs e)
         {
-            OnMenuOptionChange(MenuOption.Pause);
-            Connection.Instance.SendMessage(MessageFactory.Create(MessageType.Pause));
+            
+            if (PauseManager.TryPause()) {
+                OnMenuOptionChange(MenuOption.Pause);
+                Connection.Instance.SendMessage(MessageFactory.Create(MessageType.Pause));
+            }
         }
 
         private void optionsGameMenu_Click(object sender, EventArgs e)
