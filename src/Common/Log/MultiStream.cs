@@ -41,8 +41,12 @@ namespace Yad.Log.Common
             if (_onWriteLine != null)
                 _onWriteLine(s);
             if (_writer != null) {
-                _writer.WriteLine(s);
-                _writer.Flush();
+                try {
+                    _writer.WriteLine(s);
+                    _writer.Flush();
+                } catch (ObjectDisposedException disposed) {
+                    System.Console.Out.WriteLine("stream disposed");
+                }
             }
 
 			Console.Out.WriteLine(s);

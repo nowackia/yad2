@@ -61,8 +61,13 @@ namespace Yad.UI.Client
 
         private void Stop()
         {
+            
+            //actualForm.Close();
+            foreach (UIManageable form in FormPool.Forms) {
+                form.Shutdown();
+                form.Close();
+            }
             mainForm.Close();
-            actualForm.Close();
         }
 
         void form_optionChoosed(MenuOptionArg optionArg)
@@ -297,7 +302,9 @@ namespace Yad.UI.Client
             switch (option)
             {
                 case MenuOption.Exit:
-                    throw new NotImplementedException("System exit from " + actualView + ": " + option);
+                    Stop();
+                    break;
+                    //throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);
@@ -320,7 +327,9 @@ namespace Yad.UI.Client
             switch (option)
             {
                 case MenuOption.Exit:
-                    throw new NotImplementedException("System exit from " + actualView + ": " + option);
+                    Stop();
+                    break;
+                    //throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
                 case MenuOption.Options:
                     switchView(Views.OptionsForm);

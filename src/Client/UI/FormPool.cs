@@ -15,6 +15,17 @@ namespace Yad.UI.Client
         /// <param name="view"></param>
         /// <returns></returns>
 
+
+        public static UIManageable[] Forms {
+            get {
+                Dictionary<Views, UIManageable>.ValueCollection coll = pool.Values;
+                UIManageable [] views = new UIManageable[coll.Count];
+                pool.Values.CopyTo(views,0);
+
+                return views;
+            }
+        }
+
         static FormPool()
         {
             UIManageable form = null;

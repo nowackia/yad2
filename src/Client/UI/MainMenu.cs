@@ -1153,7 +1153,8 @@ namespace Yad.UI.Client
 
         private void exitGameMenu_Click(object sender, EventArgs e)
         {
-            System.Environment.Exit(0);
+            OnMenuOptionChange(MenuOption.Exit);
+            //System.Environment.Exit(0);
         }
         #endregion
         #region MenuMessageHandler Events
