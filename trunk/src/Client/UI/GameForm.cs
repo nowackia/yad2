@@ -247,7 +247,15 @@ namespace Yad.UI.Client {
 			set { gameFormClose = value; }
 		}
 
+        public override void Shutdown() {
+            base.Shutdown();
+            GameGraphics.DeinitGL();
+            _gameLogic.Simulation.AbortSimulation();
+            this.gameFormClose = true;
+        }
+
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            
 			e.Cancel = !this.gameFormClose;
 
 			if (!this.gameFormClose) {

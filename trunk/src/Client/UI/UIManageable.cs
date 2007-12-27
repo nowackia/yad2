@@ -20,6 +20,10 @@ namespace Yad.UI.Client {
             }
         }
 
+        public virtual void Shutdown() {
+
+        }
+
         private void InitializeComponent()
         {
             //this.SuspendLayout();
