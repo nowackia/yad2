@@ -21,6 +21,7 @@ namespace Yad.UI.Client {
         delegate void ShowHideOwnerDrawButton(OwnerDrawPictureButton button, bool isHide);
         delegate void SuspendResumeCallBack(FlowLayoutPanel flp, bool isSuspend);
         delegate void RefreshCallback(FlowLayoutPanel flp);
+        delegate void ShowHideButtons(List<int> toShow, List<int> toHide);
         delegate void RemoveAddButtonsCallBack(OwnerDrawPictureButton[] buttons, bool isRemove);
         delegate void PerformLayoutCallBack(FlowLayoutPanel flp);
 		public delegate void ChoiceHandler(string name);
@@ -66,44 +67,60 @@ namespace Yad.UI.Client {
 			scrollingPanel.Size = new Size(WIDTH, num * HEIGHT);
 		}
 
-        public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
-            
-            SuspendFlowLayout();
+        public void DeactivateAll() {
+            foreach (KeyValuePair<int, OwnerDrawPictureButton> kp in buttons) {
+                if (kp.Value.IsVisible)
+                    kp.Value.State = StripButtonState.Inactive;
+            }
+        }
 
-            List<short> shown = new List<short>();
+        public void ActivateAll() {
+            foreach (KeyValuePair<int, OwnerDrawPictureButton> kp in buttons) {
+                if (kp.Value.IsVisible)
+                    kp.Value.State = StripButtonState.Active;
+            }
+        }
+
+        public void VisibilityUpdate(Dictionary<short, StateWrapper> statusList, bool rewind) {
+            SuspendFlowLayout();
+            List<int> toShow = new List<int>();
+            List<int> toHide = new List<int>();
+            foreach (KeyValuePair<int, OwnerDrawPictureButton> kp in buttons) {
+                if (statusList.ContainsKey((short)kp.Key)) {
+                    if (!kp.Value.IsVisible)
+                        toShow.Add(kp.Key);
+                }
+                else
+                    toHide.Add(kp.Key);
+            }
+            InvokeShowHide(toShow, toHide);
+            int oldnum = num;
+            num = statusList.Keys.Count;
+            if (rewind)
+                ShowUpper(int.MaxValue);
+            if (oldnum != num)
+                UpdateFlowLayoutPanelSize();
+            ResumeFlowLayout();
+        }
+
+        public void SetState(int key, StripButtonState state) {
+            buttons[key].State = state;
+        }
+        public void SwitchUpdate(Dictionary<short, StateWrapper> statusList, bool rewind){
             foreach (short key in statusList.Keys) {
                 buttons[key].State = statusList[key].State;
                 if (statusList[key].State == StripButtonState.Percantage)
                     buttons[key].Percentage = statusList[key].Percent;
-                shown.Add(key);
             }
-            foreach (KeyValuePair<int,OwnerDrawPictureButton> kp  in buttons)
-            {
-                short key = (short)kp.Key;
-                if (shown.Contains(key))
-                {
-                    if (!kp.Value.Visible)
-                        InvokeShow(key);
-                }
-                else
-                    ProcessHideButton(key);
-            }
-           
-            if (rewind)
-                ShowUpper(int.MaxValue);
-            num = shown.Count;
-            UpdateFlowLayoutPanelSize();
-            
-            ResumeFlowLayout();
-
+            VisibilityUpdate(statusList, rewind);
         }
 
         public void UpdatePercent(short type, int percent) {
             InfoLog.WriteInfo("Enter Update percent in BuildStripe", EPrefix.Stripe);
             buttons[type].State = StripButtonState.Percantage;
             buttons[type].Percentage = percent;
-            InvokeShow(type);
-            UpdateFlowLayoutPanelSize();
+            //InvokeShow(type);
+            //UpdateFlowLayoutPanelSize();
             InfoLog.WriteInfo("Left Update percent in BuildStripe",EPrefix.Stripe);
         }
         public void Update(StripButtonState buildStatus, short type) {
@@ -138,20 +155,13 @@ namespace Yad.UI.Client {
         }
 
         public void HideAll() {
-            
+            List<int> toHide = new List<int>();
+            List<int> toShow = new List<int>();
             foreach (int id in buttons.Keys) {
                 if (buttons[id].IsVisible)
-                    ProcessHideButton(id);
+                    toHide.Add(id);
             }
-           
-            //ClearAllButtons();
-            /*foreach (OwnerDrawPictureButton button in buttons.Values)
-                button.IsVisible = false;
-            num = 0;*/
-             
-            
-            
-            
+            InvokeShowHide(toShow, toHide);
         }
 
         public void SuspendFlowLayout() {
@@ -207,6 +217,24 @@ namespace Yad.UI.Client {
             return this.buttons.ContainsKey(key);
         }
 
+        private void ShowHide(List<int> keysToShow, List<int> keysToHide) {
+            foreach (int key in keysToShow) {
+                buttons[key].Show();
+                buttons[key].IsVisible = true;
+                buttons[key].Visible = true;
+            }
+            foreach (int key in keysToHide) {
+                buttons[key].Hide();
+                buttons[key].IsVisible = false;
+                buttons[key].Visible = false;
+            }
+        }
+        private void InvokeShowHide(List<int> toShow, List<int> toHide) {
+            if (InvokeRequired)
+                this.BeginInvoke(new ShowHideButtons(ShowHide), new object[] { toShow, toHide });
+            else
+                ShowHide(toShow, toHide);
+        }
         private void InvokeShow(int id) {
             if (!buttons[id].IsVisible) {
                 if (buttons[id].InvokeRequired) {

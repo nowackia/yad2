@@ -275,6 +275,7 @@ namespace Yad.Engine.Client {
 		void Instance_DoTurnPermission(object sender, DoTurnMessage dtm) {
 			//InfoLog.WriteInfo("Turn permitted", EPrefix.SimulationInfo);
             PauseAction paction = (PauseAction)dtm.Pause;
+            InfoLog.WriteInfo("!!! PauseAction with doTurn: " + paction);
             switch (paction) {
                 case PauseAction.Resume:
                     _isPaused = false;

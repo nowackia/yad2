@@ -93,7 +93,7 @@ namespace Yad.UI.Client {
 				rightStripe.onUnitChosen += new UnitChosenHandler(rightStripe_onUnitChosen);
 				_buildManager = new BuildManager(this._gameLogic, this.leftStripe, this.rightStripe);
 				//_buildManager.CreateUnit += new CreateUnitHandler(this.PlaceUnit);
-				_gameLogic.Simulation.InvalidLocation += new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
+				_gameLogic.Simulation.InvalidBuild += new ClientSimulation.InvalidBuildHandler(_buildManager.OnBadLocation);
 				_gameLogic.OnBadLocation += new GameLogic.BadLocationHandler(_buildManager.OnBadLocation);
 
 
@@ -175,7 +175,7 @@ namespace Yad.UI.Client {
 			_gameLogic.Simulation.UnitCompleted -= new ClientSimulation.UnitHandler(Simulation_OnUnitCompleted);
 			//_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(Simulation_onTurnEnd);
 			_gameLogic.Simulation.OnCreditsUpdate -= new ClientSimulation.OnCreditsHandler(UpdateCredits);
-			_gameLogic.Simulation.InvalidLocation -= new ClientSimulation.InvalidLocationHandler(_buildManager.OnBadLocation);
+			_gameLogic.Simulation.InvalidBuild -= new ClientSimulation.InvalidBuildHandler(_buildManager.OnBadLocation);
 			//_gameLogic.Simulation.onTurnEnd -= new SimulationHandler(_buildManager.ProcessTurn);
 			_gameLogic.Simulation.BuildingDestroyed -= new ClientSimulation.BuildingHandler(Simulation_BuildingDestroyed);
 			_gameLogic.Simulation.UpdateStripItem -= new ClientSimulation.UpdateStripItemHandler(this.UpdateStrip);
@@ -435,10 +435,12 @@ namespace Yad.UI.Client {
 		}
 
 		private void onPauseResume(bool isPause) {
-			if (isPause)
-				OnMenuOptionChange(MenuOption.Pause);
-			else
-				OnMenuOptionChange(MenuOption.Continue);
+            if (isPause) {
+                OnMenuOptionChange(MenuOption.Pause);
+            }
+            else {
+                OnMenuOptionChange(MenuOption.Continue);
+            }
 		}
 		#endregion
 

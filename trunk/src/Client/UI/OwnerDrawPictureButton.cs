@@ -17,6 +17,7 @@ namespace Yad.UI {
     delegate void SetTextCallBack(string text);
     delegate void SetMouseOverEffectCallback(bool value);
     delegate void SetFontCallback(Font font);
+    delegate void ApplyStateCallback();
 	public class OwnerDrawPictureButton : PictureButton {
 		private int percentage = 50;
         private StripButtonState state = StripButtonState.Active;
@@ -39,9 +40,14 @@ namespace Yad.UI {
         }
         public StripButtonState State {
             get { return state; }
-            set { 
+            set {
+                StripButtonState oldstate = state;
                 state = value;
-                OnStateChange(state);
+                if (state != oldstate)
+                    OnStateChange(state);
+                else
+                    if (state == StripButtonState.Percantage)
+                        InvokeRefresh();
             }
         }
 
@@ -71,25 +77,48 @@ namespace Yad.UI {
         private void OnStateChange(StripButtonState state) {
             switch (state) {
                 case StripButtonState.Inactive:
-                    InvokeSetMouseOverEffect(false);
-                    InvokeSetFont(normalFont);
+                    InvokeState(new ApplyStateCallback(ApplyInactive));
                     break;
                 case StripButtonState.Ready:
-                    InvokeSetText(this.textReady);
-                    InvokeSetFont(readyFont);
+                    InvokeState(new ApplyStateCallback(ApplyReady));
                     break;
                 case StripButtonState.Active:
-                    InvokeSetMouseOverEffect(true);
-                    InvokeSetText(this.Name);
-                    InvokeSetFont(normalFont);
+                    InvokeState(new ApplyStateCallback(ApplyActive));
                     break;
                 case StripButtonState.Percantage:
-                    InvokeSetText("");
-                    InvokeSetFont(readyFont);
+                    InvokeState(new ApplyStateCallback(ApplyPercent));
                     break;
             }
-            InvokeRefresh();
         }
+        private void InvokeState(ApplyStateCallback asc) {
+            if (InvokeRequired)
+                this.BeginInvoke(asc);
+            else
+                asc();
+        }
+        public void ApplyReady() {
+            this.Text = textReady;
+            this.Font = readyFont;
+            Refresh();
+        }
+        public void ApplyActive() {
+            this.MouseOverEffect = true;
+            this.Text = this.Name;
+            this.Font = normalFont;
+            Refresh();
+        }
+        public void ApplyPercent() {
+            this.Text = "";
+            this.Font = readyFont;
+            Refresh();
+        }
+        public void ApplyInactive() {
+            this.Font = normalFont;
+            this.MouseOverEffect = true;
+            Refresh();
+        }
+       
+        
 		public int Percentage {
 			get { return percentage; }
             set { percentage = value; InvokeRefresh(); }
@@ -118,7 +147,7 @@ namespace Yad.UI {
         }
         public void InvokeRefresh() {
             if (this.InvokeRequired) {
-                this.Invoke(new ThreadStart(Refresh));
+                this.BeginInvoke(new ApplyStateCallback(Refresh));
             } else {
                 Refresh();
             }

@@ -60,15 +60,18 @@ namespace Yad.Log.Common {
             _infoLogPrefix = new InfoLogPrefix();
 
             foreach (Object obj in Enum.GetValues(typeof(EPrefix)))
-            {
                 _infoLogPrefix.AddFilter((EPrefix)obj);
-            }
-            _infoLogPrefix.RemoveFilter(EPrefix.GObj);
+            _infoLogPrefix.RemoveFilter(EPrefix.ServerSendMessageInfo);
+            //_infoLogPrefix.RemoveFilter(EPrefix.SimulationInfo);
+            //_infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
+            //_infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
+            //_infoLogPrefix.RemoveFilter(EPrefix.BMan);
+
+            /*_infoLogPrefix.RemoveFilter(EPrefix.GObj);
             _infoLogPrefix.RemoveFilter(EPrefix.AStar);
             _infoLogPrefix.RemoveFilter(EPrefix.Move);
             _infoLogPrefix.RemoveFilter(EPrefix.AI);
-            //
-            /*_infoLogPrefix.AddFilter(EPrefix.ServerSendMessageInfo);
+            _infoLogPrefix.AddFilter(EPrefix.ServerSendMessageInfo);
             _infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
             _infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
             _infoLogPrefix.AddFilter(EPrefix.SimulationInfo);
