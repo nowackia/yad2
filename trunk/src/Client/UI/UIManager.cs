@@ -28,12 +28,15 @@ namespace Yad.UI.Client
     public delegate void RemoveDataGridViewEventHandler(DataGridView gridView, object[] removeObjects);
     public delegate void UpdateDataGridViewEventHandler(DataGridView gridView, object updateObjects);
     public delegate void TopMostEventHandler(Form f, bool value);
+    public delegate bool PauseClickedHandler();
+
     public class UIManager
     {
         Views actualView;
         UIManageable actualForm;
         private MenuEventHandler menuEventHandler = null;
         MiniForm mainForm;
+
 
         public UIManager(MiniForm mainForm)
         {

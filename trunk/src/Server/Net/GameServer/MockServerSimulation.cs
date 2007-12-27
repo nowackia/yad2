@@ -58,7 +58,7 @@ namespace Yad.Net.GameServer.Server {
                     int oldno = _gamePlayers[id].TurnNo;
                     _gamePlayers[id].TurnNo++;
                     InfoLog.WriteInfo("Increased playerTurn for player: " + _gamePlayers[id].Login +
-                " from: " + oldno + " to: " + _gamePlayers[id].TurnNo);
+                " from: " + oldno + " to: " + _gamePlayers[id].TurnNo, EPrefix.GameMessageProccesing);
                 }
             }
         }

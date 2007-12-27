@@ -436,10 +436,20 @@ namespace Yad.UI.Client {
 
 		private void onPauseResume(bool isPause) {
             if (isPause) {
-                OnMenuOptionChange(MenuOption.Pause);
+                try {
+                    OnMenuOptionChange(MenuOption.Pause);
+                }
+                catch (NotImplementedException niex) {
+                    InfoLog.WriteException(niex);
+                }
             }
             else {
-                OnMenuOptionChange(MenuOption.Continue);
+                try {
+                    OnMenuOptionChange(MenuOption.Continue);
+                }
+                catch (NotImplementedException niex) {
+                    InfoLog.WriteException(niex);
+                }
             }
 		}
 		#endregion
