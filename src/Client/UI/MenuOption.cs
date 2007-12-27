@@ -1,8 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Yad.UI.Client {
+
+    public class MenuOptionArg {
+        private MenuOption option;
+        public MenuOption Option {
+            get { return option; }
+        }
+
+        public Form Sender {
+            get { return sender; }
+        }
+
+
+        Form sender;
+
+        public MenuOptionArg(MenuOption option, Form sender) {
+            this.sender = sender;
+            this.option = option;
+        }
+    }
+
     public enum MenuOption {
         MainMenu,
         Exit,

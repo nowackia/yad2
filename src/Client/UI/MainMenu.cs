@@ -277,7 +277,7 @@ namespace Yad.UI.Client
         {
             MessageBoxEx.Show(this, "Connection with server lost", "Connection lost", MessageBoxButtons.OK, MessageBoxIcon.Error);
             if(this.InvokeRequired)
-                this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.MainMenu });
+                this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg( MenuOption.MainMenu,this) });
             else
                 OnMenuOptionChange(MenuOption.MainMenu);
         }
@@ -450,7 +450,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {
                 if (InvokeRequired)
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Login });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg( MenuOption.Login,this) });
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
@@ -672,7 +672,7 @@ namespace Yad.UI.Client
                 if (InvokeRequired)
                 {
                     this.Invoke(new ManageControlTextEventHandler(ManageControlText), new object[] { playerInfoLInfoMenu, e.reason });
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.UserName });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] {new MenuOptionArg( MenuOption.UserName,this) });
                 }
                 else
                 {
@@ -782,7 +782,7 @@ namespace Yad.UI.Client
                 {
                     /* Block the possibility to change tha race and team before receiving them from server */
                     this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, false });
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Join });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg(MenuOption.Join,this) });
                 }
                 else
                 {
@@ -862,7 +862,7 @@ namespace Yad.UI.Client
                 {
                     /* Block the possibility to change tha race and team before receiving them from server */                    
                     this.Invoke(new ManageControlStateEventHandler(ManageControlState), new object[] { controls, false });
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.Create });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg(MenuOption.Create,this) });
                 }
                 else
                 {
@@ -1059,7 +1059,7 @@ namespace Yad.UI.Client
                 GameMessageHandler.Instance.Suspend();
                 Connection.Instance.MessageHandler = GameMessageHandler.Instance;
                 if (InvokeRequired)
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { MenuOption.StartGame });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg(MenuOption.StartGame,this) });
                 else
                     OnMenuOptionChange(MenuOption.StartGame);
             }

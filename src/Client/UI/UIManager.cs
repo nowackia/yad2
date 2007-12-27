@@ -12,7 +12,7 @@ namespace Yad.UI.Client
 {
     public delegate void FormShowEventHandler(Form form);
     public delegate void SelectTabEventHandler(String tabName);
-    public delegate void MenuEventHandler(MenuOption option);
+    public delegate void MenuEventHandler(MenuOptionArg option);
     public delegate void ManageControlTextEventHandler(Control control, string text);
     public delegate void ManageControlBackColorEventHandler(Control control, Color backColor);
     public delegate void ManageControlStateEventHandler(Control[] option, bool state);
@@ -65,9 +65,14 @@ namespace Yad.UI.Client
             actualForm.Close();
         }
 
-        void form_optionChoosed(MenuOption option)
+        void form_optionChoosed(MenuOptionArg optionArg)
         {
-            InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + option, EPrefix.UIManager);
+            InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + optionArg.Option, EPrefix.UIManager);
+            MenuOption option = optionArg.Option;
+            if (actualForm != optionArg.Sender) {
+                InfoLog.WriteInfo("Invalid window");
+                return;
+            }
 
             if (option == MenuOption.MainMenu)
             {
@@ -391,6 +396,7 @@ namespace Yad.UI.Client
         private void SetFormTopMost(Form fm, bool value)
         {
             fm.TopMost = value;
+            
         }
 
         private void switchView(Views viewToSwitch, bool hideLast, bool modal)
@@ -409,7 +415,7 @@ namespace Yad.UI.Client
                 actualForm.Invoke(new TopMostEventHandler(SetFormTopMost), new object[] { actualForm, modal });
             else
                 SetFormTopMost(actualForm, modal);
-
+            
             if (actualForm.Visible == false)
             {
                 if (actualForm.InvokeRequired)
