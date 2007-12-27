@@ -8,9 +8,15 @@ namespace Yad.UI.Client {
     {
         public event MenuEventHandler MenuOptionChange;
 
+        protected void OnMenuOptionChange(MenuOptionArg option) {
+            if (MenuOptionChange != null) {
+                MenuOptionChange(new MenuOptionArg(option.Option, this));
+            }
+        }
+
         protected void OnMenuOptionChange(MenuOption option) {
             if (MenuOptionChange != null) {
-                MenuOptionChange(option);
+                MenuOptionChange(new MenuOptionArg( option,this));
             }
         }
 
