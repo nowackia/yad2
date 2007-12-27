@@ -164,6 +164,7 @@
     <Compile Include="UI\OwnerDrawPictureButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\PauseManager.cs" />
     <Compile Include="UI\ResourceFactory.cs" />
     <Compile Include="UI\UIManageable.cs">
       <SubType>Form</SubType>
