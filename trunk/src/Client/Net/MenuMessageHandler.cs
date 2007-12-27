@@ -270,8 +270,10 @@ namespace Yad.Net.Client
                                     for (int i = 0; i < players.Length; i++)
                                     {
                                         if (ClientPlayerInfo.Player.Id == players[i].Id)
+                                        {
                                             ClientPlayerInfo.Player = players[i];
-                                        break;
+                                            break;
+                                        }
                                     }
                                     ClientPlayerInfo.Enemies.Modify(players);
                                     if (UpdatePlayers != null)

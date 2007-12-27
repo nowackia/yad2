@@ -153,7 +153,6 @@ namespace Yad.Net.Client
                     }
                 }
             }
-            InfoLog.WriteInfo("Receiver finished its work", EPrefix.ClientInformation);
         }
 	}
 }
