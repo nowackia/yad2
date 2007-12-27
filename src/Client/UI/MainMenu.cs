@@ -302,7 +302,12 @@ namespace Yad.UI.Client
 
         private void creditsMainMenu_Click(object sender, EventArgs e)
         {
-            MessageBoxEx.Show(this, "Pay Us :)", "Credits", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MessageBoxEx.Show(this, "Yet Another Dune II" + Environment.NewLine
+                                    + "Authors (alphabetical order):" + Environment.NewLine
+                                    + "Adam Nowacki, Rados³aw Stankiewicz, Kamil Œlesiñski, Pawe³ Rokoszny, Piotr Witos³awski" + Environment.NewLine + Environment.NewLine
+                                    + "Graphics library: Tao Framework for .NET" + Environment.NewLine
+                                    + "Sound library: FMOD Sound System, copyright © Firelight Technologies",
+                                    "Credits", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
         #endregion

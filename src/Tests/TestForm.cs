@@ -175,11 +175,6 @@ namespace Tests
         private FMOD.System system = null;
         private FMOD.Sound[] sounds = new FMOD.Sound[2];
         private FMOD.Channel channel = null;
-        private uint ms = 0;
-        private uint lenms = 0;
-        private bool playing = false;
-        private bool paused = false;
-        private int channelsplaying = 0;
 
         private void InitFMod()
         {
@@ -231,9 +226,10 @@ namespace Tests
         #endregion
 
         #region Audio
+        private MusicType mt;
+
         private void btnRandom_Click(object sender, EventArgs e)
         {
-            MusicType mt;
             if (rbFight.Checked)
             {
                 mt = Yad.Engine.Client.MusicType.Fight;
@@ -254,7 +250,6 @@ namespace Tests
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            MusicType mt;
             if (rbFight.Checked)
             {
                 mt = Yad.Engine.Client.MusicType.Fight;
