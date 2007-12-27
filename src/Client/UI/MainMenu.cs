@@ -1157,12 +1157,13 @@ namespace Yad.UI.Client
         #endregion
 
         #region Pause menu
+
         #region Control Events
+
         private void continuePauseMenu_Click(object sender, EventArgs e)
         {
             Connection.Instance.SendMessage(MessageFactory.Create(MessageType.Resume));
-            //OnMenuOptionChange(MenuOption.Continue);
-            
+            OnMenuOptionChange(MenuOption.Continue); 
         }
 
         private void optionsPauseMenu_Click(object sender, EventArgs e)

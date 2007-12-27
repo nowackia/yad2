@@ -32,7 +32,7 @@ namespace Yad.Net.Utils
                 }
             }
             TimeSpan ts = DateTime.Now - old;
-            InfoLog.WriteInfo("Processing of TurnAsk for player: " + name + " lasted: " + ts.Milliseconds + " ms ");
+            InfoLog.WriteInfo("Processing of TurnAsk for player: " + name + " lasted: " + ts.Milliseconds + " ms ",EPrefix.Performance);
         }
 
     }

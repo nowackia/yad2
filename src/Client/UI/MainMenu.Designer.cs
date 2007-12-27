@@ -1719,6 +1719,7 @@ namespace Yad.UI.Client
             this.continuePauseMenu.Text = "Continue";
             this.continuePauseMenu.UseVisualStyleBackColor = true;
             this.continuePauseMenu.Click += new System.EventHandler(this.continuePauseMenu_Click);
+
             // 
             // exitPauseMenu
             // 
