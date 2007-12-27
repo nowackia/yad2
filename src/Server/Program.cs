@@ -22,12 +22,14 @@ namespace Yad.Server
         {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
-            consoleForm consoleForm = new consoleForm();
+            ConsoleForm consoleForm = new ConsoleForm();
             OnWriteLineDelegate owd = new OnWriteLineDelegate(consoleForm.AppendText);
-            //InfoLog.Instance.OnWriteLine += owd;
+
             InfoLog.WriteStart();
-            //InfoLog.Disable();
-            Application.Run(consoleForm);
+            consoleForm.StartServer();
+            Application.Run();
+     
+
 
 
             InfoLog.WriteEnd();

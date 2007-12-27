@@ -12,7 +12,7 @@ using Yad.Log.Common;
 namespace Yad.UI.Server
 {
     delegate void SetTextCallback(string text);
-    public partial class consoleForm : Form
+    public partial class ConsoleForm : Form
     {
         #region Pola prywatne
 
@@ -28,9 +28,11 @@ namespace Yad.UI.Server
 
         #region Konstrutkory
 
-        public consoleForm()
+        public ConsoleForm()
         {
             InitializeComponent();
+            this.Hide();
+            this.Visible = false;
         }
 
         #endregion
@@ -55,6 +57,7 @@ namespace Yad.UI.Server
             _serverProcess.Stop();
             _isClosedManualy = true;
             this.Close();
+            Application.Exit();
         }
 
         private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -67,6 +70,10 @@ namespace Yad.UI.Server
 
         private void ConsoleForm_Load(object sender, EventArgs e)
         {
+            _serverProcess = new ServerMain();
+        }
+
+        public void StartServer() {
             _serverProcess = new ServerMain();
         }
 
@@ -107,6 +114,11 @@ namespace Yad.UI.Server
                 HideConsole();
             else
                 ShowConsole();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e) {
+            AboutServer aserv = new AboutServer();
+            aserv.ShowDialog();
         }
     }
 }

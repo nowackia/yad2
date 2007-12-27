@@ -69,12 +69,33 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap dune_movie {
+            get {
+                object obj = ResourceManager.GetObject("dune_movie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Processing game message {0} in game: {1} from player {2}....
         /// </summary>
         internal static string GameProcessStringFormat {
             get {
                 return ResourceManager.GetString("GameProcessStringFormat", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Menu_Planet {
+            get {
+                object obj = ResourceManager.GetObject("Menu_Planet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Menu_VersionBox {
+            get {
+                object obj = ResourceManager.GetObject("Menu_VersionBox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

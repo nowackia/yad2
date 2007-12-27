@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,26 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionStringFormat" xml:space="preserve">
-    <value>Action {0} completed.</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dune_movie" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dune_movie.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GameProcessStringFormat" xml:space="preserve">
-    <value>Processing game message {0} in game: {1} from player {2}...</value>
-  </data>
-  <data name="Menu_Planet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Menu_Planet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Menu_VersionBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Menu_VersionBox.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ProcessStringFormat" xml:space="preserve">
-    <value>Processing {0} for player {1}</value>
-  </data>
-  <data name="tray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tray.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="textBoxDescription.Text" xml:space="preserve">
+    <value>This application is a server for the game Yet Another Dune II. It was implemented and designed by Piotr Witosławski, Kamil Ślesiński, Adam Nowacki, Paweł Rokoczny and Radosław Stankiewicz. Thanks for all who helped us to implement it (or at least did not interrupt our work). Allways faithfull to the House of Atreides, Piotr Witosławsk </value>
   </data>
 </root>
