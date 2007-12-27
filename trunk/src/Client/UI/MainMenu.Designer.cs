@@ -1779,7 +1779,7 @@ namespace Yad.UI.Client
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "MainMenuForm";
-            this.Text = "MainMenu";
+            this.Text = "YAD II Menu";
             this.tabControl.ResumeLayout(false);
             this.mainMenu.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
