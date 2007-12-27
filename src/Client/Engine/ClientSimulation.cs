@@ -30,7 +30,8 @@ namespace Yad.Engine.Client {
 		public delegate void OnLowPowerHandler(Player p);
 		public delegate void OnNoPowerHandler(Player p);
 		public delegate void OnCreditsHandler(short playerNo, int cost);
-		public delegate void InvalidLocationHandler(int objectCreatorId);
+		public delegate void InvalidBuildHandler(int objectCreatorId);
+        
         public delegate void UpdateStripItemHandler(int playerID, int objectID, short typeID, int percent); 
 
 		public event OnCreditsHandler OnCreditsUpdate;
@@ -43,7 +44,7 @@ namespace Yad.Engine.Client {
 		public event BuildingHandler BuildingStarted;
 		public event UnitHandler MCVDeployed;
 		public event UnitHandler UnitStarted;
-		public event InvalidLocationHandler InvalidLocation;
+		public event InvalidBuildHandler InvalidBuild;
         public event UpdateStripItemHandler UpdateStripItem;
         public event AmmoHandler ammoShoot;
         public event AmmoHandler ammoBlow;
@@ -90,9 +91,9 @@ namespace Yad.Engine.Client {
 
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
-				if (InvalidLocation != null) {
+				if (InvalidBuild != null) {
                     InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of location", EPrefix.GObj);
-					InvalidLocation(bm.CreatorID);
+					InvalidBuild(bm.CreatorID);
                     /*int cost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
                     p.Credits += cost;
                     OnCreditsUpdate(cost);*/
@@ -104,6 +105,8 @@ namespace Yad.Engine.Client {
             if (playerCredits < buildingCost)
             {
                 InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of credits", EPrefix.GObj);
+                if (InvalidBuild != null)
+                    InvalidBuild(bm.CreatorID);
                 return;
             }
             players[bm.IdPlayer].Credits -= buildingCost;
@@ -263,8 +266,8 @@ namespace Yad.Engine.Client {
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[btype];
             if (!Building.CheckBuildPosition(bd, mcv.Position, _map, dmcv.McvID.PlayerID)) {
                 this._map.Units[mcv.Position.X, mcv.Position.Y].AddLast(mcv);
-                if (InvalidLocation != null) {
-                    InvalidLocation(-1);
+                if (InvalidBuild != null) {
+                    InvalidBuild(-1);
                 }
                 return;
             }

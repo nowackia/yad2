@@ -69,8 +69,10 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void ProcessResume(short p) {
+            InfoLog.WriteInfo("Resuming game...");
             List<short> paused = _gameServer.PauseCtrl.ResumeGame();
             if (paused != null) {
+                InfoLog.WriteInfo("Paused count: " + paused.Count);
                 foreach (short playerNo in paused) {
                     int playerTurn = _gameServer.Simulation.GetPlayerTurn(playerNo);
                     ProcessTurnChange(playerTurn, playerNo, PauseAction.Resume);
@@ -79,7 +81,10 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void ProcessPause(short id) {
-            _gameServer.PauseCtrl.SetPause(_gameServer.Simulation.GetPlayerTurn(id) + _gameServer.Simulation.Delta + 1, id);
+            InfoLog.WriteInfo("Setting pause...");
+            int turnid = _gameServer.Simulation.GetPlayerTurn(id) + _gameServer.Simulation.Delta + 1;
+            _gameServer.PauseCtrl.SetPause(turnid, id);
+            InfoLog.WriteInfo("for turn: " + turnid);
         }
 
         private void ProcessGameEnd(GameEndMessage item) {
@@ -160,6 +165,7 @@ namespace Yad.Net.GameServer.Server {
                 if (_gameServer.PauseCtrl.PauseTurn == playerTurn) {
                     DoTurnMessage dtMsg = (DoTurnMessage)MessageFactory.Create(MessageType.DoTurn);
                     dtMsg.Pause = (byte)PauseAction.Pause;
+                    InfoLog.WriteInfo("Adding player to pause queue!");
                     _gameServer.PauseCtrl.AddPausedPlayer(senderId);
                     SendMessage(dtMsg, senderId);
                     return true;

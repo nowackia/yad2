@@ -91,16 +91,16 @@ namespace Yad.Engine {
             lock (methodLock) {
                 if (id == -1)
                     return;
-                InfoLog.WriteInfo("lock leftState ", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock leftState ", EPrefix.BMan);
                 if (!_leftState.ContainsKey(id))
                     return;
                 _leftState[id] = RightStripState.Normal;
-                InfoLog.WriteInfo("release leftState ", EPrefix.LockInfo);
-                InfoLog.WriteInfo("lock stripdata ", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release leftState ", EPrefix.BMan);
+                InfoLog.WriteInfo("lock stripdata ", EPrefix.BMan);
                 if (!_stripData.ContainsKey(id))
                     return;
                 ActivateForObject(id);
-                InfoLog.WriteInfo("release stripdata", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release stripdata", EPrefix.BMan);
                 UpdateView(id, false);
             }
         }
@@ -186,7 +186,7 @@ namespace Yad.Engine {
 
         public void SwitchCurrentBuilding(int id) {
             lock (methodLock) {
-                InfoLog.WriteInfo("lock cObjLock ", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock cObjLock ", EPrefix.BMan);
                 int current = -1;
                 int lastCurrent = -1;
 
@@ -211,7 +211,7 @@ namespace Yad.Engine {
 
                 if (current != -1)
                     UpdateView(current, true);
-                InfoLog.WriteInfo("release cObjLock ", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release cObjLock ", EPrefix.BMan);
             }
         }
 
@@ -242,14 +242,14 @@ namespace Yad.Engine {
         private void RightBuildActiveClick(int id, bool isUnit) {
             lock (methodLock) {
                 int current = -1;
-                InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock cObjLock", EPrefix.BMan);
                 current = _currentObjectID;
                 if (current == -1)
                     return;
-                InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-                InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release cObjLock", EPrefix.BMan);
+                InfoLog.WriteInfo("lock leftState", EPrefix.BMan);
                 _leftState[current] = RightStripState.Placing;
-                InfoLog.WriteInfo("release leftState", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release leftState", EPrefix.BMan);
                 if (isUnit) {
                     DeactivateOther(-1);
                     BuildUnitMessage buMessage = (BuildUnitMessage)MessageFactory.Create(MessageType.BuildUnitMessage);
@@ -259,9 +259,9 @@ namespace Yad.Engine {
                     Connection.Instance.SendMessage(buMessage);
                 }
                 else {
-                    InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData", EPrefix.BMan);
                     _stripData[current][(short)id].State = StripButtonState.Ready;
-                    InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData", EPrefix.BMan);
                     DeactivateOther((short)id);
                 }
 
@@ -273,34 +273,34 @@ namespace Yad.Engine {
             lock (methodLock) {
                 Dictionary<short, StateWrapper> toDeactivate = null;
                 int current = -1;
-                InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock cObjLock", EPrefix.BMan);
                 current = _currentObjectID;
-                InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-                InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release cObjLock", EPrefix.BMan);
+                InfoLog.WriteInfo("lock stripData", EPrefix.BMan);
                 toDeactivate = _stripData[current];
                 foreach (short key in toDeactivate.Keys)
                     if (key != typeid)
                         toDeactivate[key].State = StripButtonState.Inactive;
                 _stripData[current] = toDeactivate;
-                InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release stripData", EPrefix.BMan);
             }
         }
 
         public void ReadyReset(int id) {
             lock (methodLock) {
-                InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock leftState", EPrefix.BMan);
                 _leftState[id] = RightStripState.Normal;
-                InfoLog.WriteInfo("release leftState", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release leftState", EPrefix.BMan);
                 int current = -1;
-                InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock cObjLock", EPrefix.BMan);
 
                 current = _currentObjectID;
-                InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-                InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release cObjLock", EPrefix.BMan);
+                InfoLog.WriteInfo("lock stripData", EPrefix.BMan);
                 foreach (short key in _stripData[current].Keys) {
                     _stripData[current][key].State = Yad.UI.StripButtonState.Active;
                 }
-                InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("release stripData", EPrefix.BMan);
                 UpdateView(current, false);
             }
         }
@@ -311,7 +311,7 @@ namespace Yad.Engine {
                 foreach (String bname in bdata.BuildingsCanProduce) {
                     short idb = GlobalSettings.Wrapper.namesToIds[bname];
                     if (CheckBuildingDependencies(bname)) {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
 
                         if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
                             int buildSpeed = GlobalSettings.Wrapper.buildingsMap[idb].BuildSpeed;
@@ -321,18 +321,18 @@ namespace Yad.Engine {
                             _stripData[objectID.ObjectId].Add(idb, wrapper);
                         }
 
-                        InfoLog.WriteInfo("release stripData [Udep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [Udep]", EPrefix.BMan);
                     }
                     else {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                         RemoveBuildStatus(objectID, idb);
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                     }
                 }
                 foreach (String uname in bdata.UnitsCanProduce) {
                     short idu = GlobalSettings.Wrapper.namesToIds[uname];
                     if (CheckUnitDependencies(uname)) {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
 
                         if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
                             int buildSpeed = GetUnitBuildSpeed(idu);
@@ -341,12 +341,12 @@ namespace Yad.Engine {
                                 wrapper.State = StripButtonState.Inactive;
                             _stripData[objectID.ObjectId].Add(idu, wrapper);
                         }
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                     }
                     else {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                         RemoveBuildStatus(objectID, idu);
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                     }
 
                 }
@@ -371,7 +371,7 @@ namespace Yad.Engine {
 
         public void UpdateStrip(int id, short typeID, int percent) {
             lock (methodLock) {
-                InfoLog.WriteInfo("lock stripData [Update strip]", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock stripData [Update strip]", EPrefix.BMan);
                 if (_stripData.ContainsKey(id)) {
                     if (percent == -1) {
                         lock (((ICollection)_leftState).SyncRoot)
@@ -394,18 +394,18 @@ namespace Yad.Engine {
 
                         _leftState[id] = RightStripState.Building;
 
-                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.BMan);
                         bool needsUpdate = false;
 
                         if (_currentObjectID == id)
                             needsUpdate = true;
                         if (needsUpdate)
                             _rightStripe.UpdatePercent(typeID, percent);
-                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.BMan);
                     }
                 }
             }
-            InfoLog.WriteInfo("release stripData [Update strip]", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release stripData [Update strip]", EPrefix.BMan);
         }
 
         private bool CheckBuildingDependencies(string name) {
@@ -539,27 +539,28 @@ namespace Yad.Engine {
         }
 
         public void OnBadLocation(int id) {
+            InfoLog.WriteInfo("Enter OnBadLocation");
             if (id == -1)
                 return;
-            InfoLog.WriteInfo("lock leftState ", EPrefix.LockInfo);
+            InfoLog.WriteInfo("lock leftState in OnBadLocation", EPrefix.BMan);
             lock (((ICollection)_leftState).SyncRoot)
             {
                 if (!_leftState.ContainsKey(id))
                     return;
                 _leftState[id] = RightStripState.Normal;
             }
-            InfoLog.WriteInfo("release leftState ", EPrefix.LockInfo);
-            InfoLog.WriteInfo("lock stripdata ", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release leftState in OnBadLocation", EPrefix.BMan);
             
+            InfoLog.WriteInfo("lock stripdata in OnBadLocation", EPrefix.BMan);
             lock (((ICollection)_stripData).SyncRoot)
             {
                 if (!_stripData.ContainsKey(id))
                     return;
                 ActivateForObject(id);
             }
-            InfoLog.WriteInfo("release stripdata", EPrefix.LockInfo);
-            lock (((ICollection)_stripData).SyncRoot)
-                UpdateView(id, false);
+            InfoLog.WriteInfo("release stripdata in OnBadLocation", EPrefix.BMan);
+            _rightStripe.ActivateAll();
+            InfoLog.WriteInfo("Exit OnBadLocation");
         }
 
         private void ActivateForObject(int objectID) {
@@ -646,11 +647,12 @@ namespace Yad.Engine {
             }
             if (current != -1)
                 lock (((ICollection)_stripData).SyncRoot)
-                UpdateView(current, false);
+                    _rightStripe.VisibilityUpdate(_stripData[current], true);
+                //UpdateView(current, false);
         }
 
         public void SwitchCurrentBuilding(int id) {
-            InfoLog.WriteInfo("lock cObjLock ", EPrefix.LockInfo);
+            InfoLog.WriteInfo("lock cObjLock ", EPrefix.BMan);
             int current = -1;
             int lastCurrent = -1;
 
@@ -678,15 +680,14 @@ namespace Yad.Engine {
                     }
                 }
             }
-
             if (current != -1)
                 lock (((ICollection)_stripData).SyncRoot)
-                    UpdateView(current, true);
-            InfoLog.WriteInfo("release cObjLock ", EPrefix.LockInfo);
+                    _rightStripe.SwitchUpdate(_stripData[current], true);
+            InfoLog.WriteInfo("release cObjLock ", EPrefix.BMan);
         }
 
         public void UpdateView(int id, bool rewind) {
-            InfoLog.WriteInfo("UpdateView",EPrefix.UIManager);
+            InfoLog.WriteInfo("UpdateView",EPrefix.BMan);
             if (id == -1) {
                 _rightStripe.HideAll();
                 return;
@@ -694,9 +695,12 @@ namespace Yad.Engine {
             _rightStripe.SwitchUpdate(_stripData[id], rewind);
         }
         public int RightBuildingClick(int id, bool isUnit) {
+            InfoLog.WriteInfo("Enter RightBuildingClick", EPrefix.BMan);
             int current = -1;
+            InfoLog.WriteInfo("Lock cObjLock in RightBuildingClick", EPrefix.BMan);
             lock (this.cObjLock)
                 current = _currentObjectID;
+            InfoLog.WriteInfo("Unlock cObjLock in RightBuildingClick", EPrefix.BMan);
             if (current != -1)
             {
                 StripButtonState state = _stripData[current][(short)id].State;
@@ -704,52 +708,72 @@ namespace Yad.Engine {
                 {
                     case StripButtonState.Active:
                         RightBuildActiveClick(id, isUnit);
+                        InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
                         return current;
                 }
             }
+            InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
             return -1;
         }
 
         private void RightBuildActiveClick(int id, bool isUnit) {
+            InfoLog.WriteInfo("Enter RightBuildActiveClick", EPrefix.BMan);
+            InfoLog.WriteInfo("lock cObjLock in RightBuildActiveClick", EPrefix.BMan);
+
             int current = -1;
-            InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
             lock (cObjLock)
                 current = _currentObjectID;
-            if (current == -1)
+
+            InfoLog.WriteInfo("unlock cObjLock in RightBuildActiveClick", EPrefix.BMan);
+            
+            if (current == -1) {
+                InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
                 return;
-            InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-            InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
+            }
+
+            InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
+
             lock (((ICollection)_leftState).SyncRoot)
                 _leftState[current] = RightStripState.Placing;
-            InfoLog.WriteInfo("release leftState", EPrefix.LockInfo);
+
+            InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
             if (isUnit) {
                 DeactivateOther(-1);
+                _rightStripe.DeactivateAll();
                 BuildUnitMessage buMessage = (BuildUnitMessage) MessageFactory.Create(MessageType.BuildUnitMessage);
                 buMessage.UnitType = (short)id;
                 buMessage.CreatorID = current;
                 buMessage.IdPlayer = _gameLogic.CurrentPlayer.Id;
                 Connection.Instance.SendMessage(buMessage);
+                InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
+                return;
             }
             else {
-                InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("lock stripData in RightBuildActiveClick", EPrefix.BMan);
                 lock (((ICollection)_stripData).SyncRoot)
                     _stripData[current][(short)id].State = StripButtonState.Ready;
-                InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+                InfoLog.WriteInfo("unlock stripData in RightBuildActiveClick", EPrefix.BMan);
                 DeactivateOther((short)id);
+                _rightStripe.DeactivateAll();
+                _rightStripe.SetState(id, StripButtonState.Ready);
+                return;
             }
+            InfoLog.WriteInfo("lock stripData in RightBuildActiveClick", EPrefix.BMan);
             lock (((ICollection)_stripData).SyncRoot)
                 UpdateView(current,false);
+            InfoLog.WriteInfo("unlock stripData in RightBuildActiveClick", EPrefix.BMan);
+            InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
         }
 
         private void DeactivateOther(short typeid) {
             Dictionary<short, StateWrapper> toDeactivate = null;
             int current = -1;
-            InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+            InfoLog.WriteInfo("lock cObjLock", EPrefix.BMan);
             lock (cObjLock) {
                 current = _currentObjectID;
             }
-            InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-            InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release cObjLock", EPrefix.BMan);
+            InfoLog.WriteInfo("lock stripData", EPrefix.BMan);
             lock (((ICollection)_stripData).SyncRoot) {
                 toDeactivate = _stripData[current];
                 foreach (short key in toDeactivate.Keys)
@@ -757,37 +781,38 @@ namespace Yad.Engine {
                         toDeactivate[key].State = StripButtonState.Inactive;
                 _stripData[current] = toDeactivate;
             }
-            InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release stripData", EPrefix.BMan);
         }
 
         public void ReadyReset(int id) {
-            InfoLog.WriteInfo("lock leftState", EPrefix.LockInfo);
+            InfoLog.WriteInfo("Enter ReadyReset", EPrefix.BMan);
+            InfoLog.WriteInfo("lock leftState", EPrefix.BMan);
             lock (((ICollection)_leftState).SyncRoot)
                 _leftState[id] = RightStripState.Normal;
-            InfoLog.WriteInfo("release leftState", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release leftState", EPrefix.BMan);
             int current = -1;
-            InfoLog.WriteInfo("lock cObjLock", EPrefix.LockInfo);
+            InfoLog.WriteInfo("lock cObjLock", EPrefix.BMan);
             lock (cObjLock)
                 current = _currentObjectID;
-            InfoLog.WriteInfo("release cObjLock", EPrefix.LockInfo);
-            InfoLog.WriteInfo("lock stripData", EPrefix.LockInfo);
+            InfoLog.WriteInfo("release cObjLock", EPrefix.BMan);
+            InfoLog.WriteInfo("lock stripData", EPrefix.BMan);
             lock (((ICollection)_stripData).SyncRoot) {
                 foreach (short key in _stripData[current].Keys) {
                     _stripData[current][key].State = Yad.UI.StripButtonState.Active;
                 }
             }
-            InfoLog.WriteInfo("release stripData", EPrefix.LockInfo);
-            lock (((ICollection)_stripData).SyncRoot)
-                UpdateView(current,false);
+            InfoLog.WriteInfo("release stripData", EPrefix.BMan);
+            InfoLog.WriteInfo("Leave ReadyReset", EPrefix.BMan);
+            _rightStripe.ActivateAll();
         }
 
         private void UpdateDependencies(ObjectID objectID, short typeID) {
             BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[typeID];
-
+        
             foreach (String bname in bdata.BuildingsCanProduce) {
-                short idb = GlobalSettings.Wrapper.namesToIds[bname];
-                if (CheckBuildingDependencies(bname)) {
-                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                    short idb = GlobalSettings.Wrapper.namesToIds[bname];
+                if (CheckBuildingDependencies(idb)) {
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                     lock (((ICollection)_stripData).SyncRoot) {
                         if (!_stripData[objectID.ObjectId].ContainsKey(idb)) {
                             int buildSpeed = GlobalSettings.Wrapper.buildingsMap[idb].BuildSpeed;
@@ -797,20 +822,20 @@ namespace Yad.Engine {
                             _stripData[objectID.ObjectId].Add(idb, wrapper);
                         }
                     }
-                    InfoLog.WriteInfo("release stripData [Udep]", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [Udep]", EPrefix.BMan);
                 }
                 else {
-                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                     lock (((ICollection)_stripData).SyncRoot)
                         RemoveBuildStatus(objectID, idb);
-                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                    InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                 }
             }
             foreach (String uname in bdata.UnitsCanProduce) {
-                if (CheckHouseCanBuildUnit(uname)) {
-                    short idu = GlobalSettings.Wrapper.namesToIds[uname];
-                    if (CheckUnitDependencies(uname)) {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                short idu = GlobalSettings.Wrapper.namesToIds[uname];
+                if (CheckHouseCanBuildUnit(idu)){
+                    if (CheckUnitDependencies(idu)) {
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                         lock (((ICollection)_stripData).SyncRoot) {
                             if (!_stripData[objectID.ObjectId].ContainsKey(idu)) {
                                 int buildSpeed = GetUnitBuildSpeed(idu);
@@ -820,13 +845,13 @@ namespace Yad.Engine {
                                 _stripData[objectID.ObjectId].Add(idu, wrapper);
                             }
                         }
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                     }
                     else {
-                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("lock stripData [UDep]", EPrefix.BMan);
                         lock (((ICollection)_stripData).SyncRoot)
                             RemoveBuildStatus(objectID, idu);
-                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("release stripData [UDep]", EPrefix.BMan);
                     }
                 }
 
@@ -850,58 +875,76 @@ namespace Yad.Engine {
         }
 
         public void UpdateStrip(int id, short typeID, int percent) {
-            InfoLog.WriteInfo("lock stripData [Update strip]", EPrefix.LockInfo);
+            InfoLog.WriteInfo("Enter UpdateStrip", EPrefix.BMan);
                 if (_stripData.ContainsKey(id)) {
                     if (percent == -1) {
+                        InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
                         lock (((ICollection)_leftState).SyncRoot) {
-                            if (!_leftState.ContainsKey(id))
+                            if (!_leftState.ContainsKey(id)) {
+                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
                                 return;
-                                _leftState[id] = RightStripState.Normal;
+                            }
+                            _leftState[id] = RightStripState.Normal;
                         }
+                        InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
+                        InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
                         lock (((ICollection)_stripData).SyncRoot) {
-                            if (!_stripData.ContainsKey(id))
+                            if (!_stripData.ContainsKey(id)) {
+                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
                                 return;
+                            }
                             ActivateForObject(id);
                         }
+                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
                         bool needsUpdate = false;
+                        InfoLog.WriteInfo("lock cObjLock in UpdateStrip", EPrefix.BMan);
                         lock(cObjLock){
                             if (_currentObjectID == id)
                                 needsUpdate = true;
                         }
+                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
                         if (needsUpdate)
-                            lock (((ICollection)_stripData).SyncRoot)
-                                UpdateView(id, false);
+                            _rightStripe.ActivateAll();
                     }
                     else {
+                        InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
                         lock (((ICollection)_stripData).SyncRoot) {
                             if (!_stripData.ContainsKey(id))
                                 return;
                             _stripData[id][typeID].State = StripButtonState.Percantage;
                             _stripData[id][typeID].Percent = percent;
                         }
+                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
+                        InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
                         lock (((ICollection)_leftState).SyncRoot) {
-                            if (!_leftState.ContainsKey(id))
+                            if (!_leftState.ContainsKey(id)) {
+                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
                                 return;
+                            }
                             _leftState[id] = RightStripState.Building;
                         }
-                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.LockInfo);
+                        InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
+                      
                         bool needsUpdate = false;
+                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.BMan);
                         lock (cObjLock)
                         {
                             if (_currentObjectID == id)
                                 needsUpdate = true;
                         }
+                          InfoLog.WriteInfo("unlock cObjLock [Update Strip]", EPrefix.BMan);
                         if (needsUpdate)
                                 _rightStripe.UpdatePercent(typeID, percent);
-                        InfoLog.WriteInfo("release cObjLock [Update strip]", EPrefix.LockInfo);
-                    }
+                       
+                        }
                 }
-            InfoLog.WriteInfo("release stripData [Update strip]", EPrefix.LockInfo);
+            InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
         }
-
+        /*
         private bool CheckBuildingDependencies(string name) {
             TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
             foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
+
                 if (dep.BuildingName.Equals(name)) {
                     foreach (string n in dep.RequiredBuildings) {
                         short id = GlobalSettings.Wrapper.namesToIds[n];
@@ -910,15 +953,39 @@ namespace Yad.Engine {
                 }
             }
             return true;
+        }*/
+
+        private bool CheckBuildingDependencies(short id) {
+            TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
+            foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
+                short bid = GlobalSettings.Wrapper.namesToIds[dep.BuildingName];
+                if (bid == id)
+                    foreach (string n in dep.RequiredBuildings) {
+                        short rbid = GlobalSettings.Wrapper.namesToIds[n];
+                        if (_gameLogic.hasBuilding(rbid) == false) return false;
+                    }
+            }
+            return true;
         }
+        /*
         private bool CheckHouseCanBuildUnit(string name) {
             UnitsNames un = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].__UnitsCanProduce;
             foreach (string uname in un)
                 if (uname.CompareTo(name) == 0)
                     return true;
             return false;
-        }
+        }*/
 
+        private bool CheckHouseCanBuildUnit(short id) {
+            UnitsNames un = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].__UnitsCanProduce;
+            foreach (string uname in un) {
+                short uid = GlobalSettings.Wrapper.namesToIds[uname];
+                if (id == uid)
+                    return true;
+            }
+            return false;
+        }
+        /*
         private bool CheckUnitDependencies(string name) {
             short id = GlobalSettings.Wrapper.namesToIds[name];
             BuildingsNames bnames = null;
@@ -932,6 +999,21 @@ namespace Yad.Engine {
                 bnames = GlobalSettings.Wrapper.troopersMap[id].BuildingDependency;
             if (bnames == null)
                 throw new Exception(name + "not found in building-unit dependencies!");
+            return CheckBuildingUnitDeps(bnames);
+        }*/
+
+        private bool CheckUnitDependencies(short id) {
+            BuildingsNames bnames = null;
+            if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.harvestersMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.mcvsMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.mcvsMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.tanksMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.tanksMap[id].BuildingDependency;
+            else if (GlobalSettings.Wrapper.troopersMap.ContainsKey(id))
+                bnames = GlobalSettings.Wrapper.troopersMap[id].BuildingDependency;
+            if (bnames == null)
+                throw new Exception(id + "not found in building-unit dependencies!");
             return CheckBuildingUnitDeps(bnames);
         }
 

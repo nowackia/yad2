@@ -60,7 +60,9 @@ namespace Yad.Log.Common
         [Description(" #MOV: ")]
         Move,
         [Description(" #AI: ")]
-        AI
+        AI,
+        [Description(" #BM: ")]
+        BMan
         
 
         // Wartosc kontrolna - musi byc zawsze na koncu
