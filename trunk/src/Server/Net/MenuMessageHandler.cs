@@ -299,7 +299,7 @@ namespace Yad.Net.Server
 
         private ResultType CreateGame(GameInfoMessage msg) {
             ResultType result = _server.GameManager.IsCreateGamePossible(msg.GameInfo);
-            SendMessage(Utils.CreateResultMessage(ResponseType.CreateGame, ResultType.Successful), msg.SenderId);
+            SendMessage(Utils.CreateResultMessage(ResponseType.CreateGame, result), msg.SenderId);
             if (ResultType.Successful == result) {
                 _server.GameManager.CreateGameNoError(msg.GameInfo);
                 result = _server.GameManager.IsJoinGamePossible(msg.GameInfo.Name, _server.GetPlayer(msg.SenderId));

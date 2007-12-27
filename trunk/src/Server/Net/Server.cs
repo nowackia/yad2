@@ -56,7 +56,12 @@ namespace Yad.Net.Server {
 #pragma warning disable 0618
                 _listener = new TcpListener(_portNumber);
 #pragma warning restore 0618
-                _listener.Start();
+                try {
+                    _listener.Start();
+                }
+                catch (SocketException) {
+                    MessageBox.Show("Socket that server uses is attached to different process");
+                }
                 
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);
 
