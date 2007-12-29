@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Yad.Log;
 using Yad.Log.Common;
 using Yad.Net.Common;
+using Yad.Net.Client;
 
 namespace Yad.UI.Client
 {
@@ -61,8 +62,7 @@ namespace Yad.UI.Client
 
         private void Stop()
         {
-            
-            //actualForm.Close();
+            Connection.Instance.CloseConnection();
             foreach (UIManageable form in FormPool.Forms) {
                 form.Shutdown();
                 form.Close();
