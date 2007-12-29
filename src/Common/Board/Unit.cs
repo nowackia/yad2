@@ -158,6 +158,7 @@ namespace Yad.Board.Common {
                         
                     }
                     if (CheckRangeToShoot(attackedObject) ) {
+                        StopMoving();
                         state = UnitState.stopped;
                     }
                     break;
