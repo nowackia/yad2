@@ -237,6 +237,9 @@ namespace Yad.Engine.Common {
 				if (this.onTurnEnd != null) {
 					this.onTurnEnd();
 				}
+                StringBuilder sb = new StringBuilder("");
+                foreach (Player p in players.Values)
+                    sb.Append("Player " + p.Id + " : " + p.Credits, EPrefix.Test);
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN END *********");
 			}

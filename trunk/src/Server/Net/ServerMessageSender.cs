@@ -23,8 +23,6 @@ namespace Yad.Net.Server {
                         players[i].SendMessage(msg);
 
                 }
-                InfoLog.WriteInfo("Message type: " + msg.Type + " has been broadcasted.",
-                    EPrefix.ServerSendMessageInfo);
             }
             else
                 InfoLog.WriteInfo("Message broadcast unsuccessful.", EPrefix.ServerSendMessageInfo);
