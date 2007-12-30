@@ -581,6 +581,7 @@ namespace Yad.Engine.Client {
 		}
 
         protected override void onMessageBuildUnit(BuildUnitMessage msg) {
+            InfoLog.WriteInfo("OnMessageBuildUnit: " + msg.ToString());
 			if (GlobalSettings.Wrapper.sandwormsMap.ContainsKey(msg.UnitType)) {
 				//sandworm
 			} else {
@@ -588,12 +589,14 @@ namespace Yad.Engine.Client {
 				ObjectID id = new ObjectID(msg.IdPlayer, msg.CreatorID);
 				Building b = players[msg.IdPlayer].GetBuilding(id);
 				if (null == b) {
-					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.ClientSimulation);
+					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.Test);
 					return;
 				}
 				int cost = GlobalSettings.GetUnitCost(msg.UnitType);
-				if (players[msg.IdPlayer].Credits < cost)
-					return;
+                if (players[msg.IdPlayer].Credits < cost) {
+                    InfoLog.WriteInfo("Invalid cost", EPrefix.Test);
+                    return;
+                }
 				players[msg.IdPlayer].Credits -= cost;
 				OnCreditsUpdate(msg.IdPlayer, cost);
 				b.BuildStatus = new BuildStatus(msg.CreatorID, msg.UnitType, (short)GetUnitBuildTime(msg.UnitType), BuildType.Unit);
