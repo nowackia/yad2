@@ -88,11 +88,12 @@ namespace Yad.Engine.Client {
 
 		protected override void OnMessageBuild(BuildMessage bm) {
 			//InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
-
+            InfoLog.WriteInfo("OnMessageBuild", EPrefix.BMan);
+            InfoLog.WriteInfo("BuildingType: " + bm.BuildingType + " CreatorID: " + bm.CreatorID, EPrefix.BMan);
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidBuild != null) {
-                    InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of location", EPrefix.GObj);
+                    InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of location", EPrefix.BMan);
 					InvalidBuild(bm.CreatorID);
                     /*int cost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
                     p.Credits += cost;
@@ -104,7 +105,7 @@ namespace Yad.Engine.Client {
             int buildingCost = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType].Cost;
             if (playerCredits < buildingCost)
             {
-                InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of credits", EPrefix.GObj);
+                InfoLog.WriteInfo("Buidling: " + bm.BuildingType + " was not built because of credits", EPrefix.BMan);
                 if (InvalidBuild != null)
                     InvalidBuild(bm.CreatorID);
                 return;
@@ -116,6 +117,7 @@ namespace Yad.Engine.Client {
             b.State = Building.BuildingState.constructing;
             b.BuildStatus = new BuildStatus(bm.CreatorID, bm.BuildingType, b.BuildingData.BuildSpeed, BuildType.Building);
             UpdatePowerManagement(b);
+            InfoLog.WriteInfo("OnMessageBuildEnd", EPrefix.BMan);
             //OnBuildingCompleted(b, bm.CreatorID);
             //194.29.178.207
 		}
@@ -244,8 +246,8 @@ namespace Yad.Engine.Client {
             Player p = players[playerID];
             int objid = p.GenerateObjectID();
             ObjectID id = new ObjectID(playerID, objid);
-            InfoLog.WriteInfo(id.ToString() + " adding building: " + buildingType, EPrefix.GObj);
-            InfoLog.WriteInfo("Adding building id: (" + playerID + "," + id + ")", EPrefix.ClientSimulation);
+            InfoLog.WriteInfo(id.ToString() + " adding building: " + buildingType, EPrefix.BMan);
+            InfoLog.WriteInfo("Adding building id: (" + playerID + "," + id + ")", EPrefix.BMan);
             BuildingData bd = GlobalSettings.Wrapper.buildingsMap[buildingType];
             Building b = new Building(id, bd, this._map, pos, this);
             p.AddBuilding(b);
