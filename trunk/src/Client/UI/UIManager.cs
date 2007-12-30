@@ -74,7 +74,7 @@ namespace Yad.UI.Client
         {
             InfoLog.WriteInfo("OptionChoosed - view: " + actualView + ", option: " + optionArg.Option, EPrefix.UIManager);
             MenuOption option = optionArg.Option;
-            if (actualForm != optionArg.Sender) {
+            if (actualForm != optionArg.Sender && optionArg.OverrideActualForm == false) {
                 InfoLog.WriteInfo("Invalid window");
                 return;
             }
