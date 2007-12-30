@@ -10,7 +10,7 @@ namespace Yad.UI.Client {
 
         protected void OnMenuOptionChange(MenuOptionArg option) {
             if (MenuOptionChange != null) {
-                MenuOptionChange(new MenuOptionArg(option.Option, this));
+                MenuOptionChange(new MenuOptionArg(option.Option, this,option.OverrideActualForm));
             }
         }
 
