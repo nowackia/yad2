@@ -530,6 +530,7 @@ namespace Yad.UI.Client {
 		 */
 
 		private void PlaceBuilding(short id, int creatorID) {
+            InfoLog.WriteInfo("Placing building: " + id + "creatorID: " + creatorID, EPrefix.BMan);
 			_objectToCreateId = id;
 			_objectCreatorId = creatorID;
 			this._isCreatingBuilding = true;
