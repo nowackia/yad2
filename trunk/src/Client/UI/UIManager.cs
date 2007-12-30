@@ -252,7 +252,9 @@ namespace Yad.UI.Client
                 case MenuOption.Pause:
                     switchView(Views.PauseForm, false, true);
                     break;
-
+                case MenuOption.Continue:
+                    switchView(Views.GameForm, true);
+                    break;
                 case MenuOption.GameFormToChat:
                     switchView(Views.ChatForm);
                     ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
