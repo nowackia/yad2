@@ -8,6 +8,7 @@ using Yad.Log;
 using Yad.Net.Messaging.Common;
 using Yad.Net.Common;
 using Yad.Log.Common;
+using Yad.Net.Messaging;
 
 namespace Yad.Net.Client
 {
@@ -66,6 +67,12 @@ namespace Yad.Net.Client
             try
             {
                 InfoLog.WriteInfo("Sending message : " + msg.Type, EPrefix.ClientInformation);
+                if (msg.Type == MessageType.Build) {
+                    InfoLog.WriteInfo("Sending build message: " + ((BuildMessage)msg).ToString());
+                }
+                if (msg.Type == MessageType.BuildUnitMessage) {
+                    InfoLog.WriteInfo("Sending build unit message: " + ((BuildUnitMessage)msg).ToString());
+                }
                 msg.Serialize(writeStream);
                 writeStream.Flush();
                 if (MessageSend != null)

@@ -64,7 +64,9 @@ namespace Yad.Log.Common
         [Description(" #BM: ")]
         BMan,
         [Description(" #PERF: ")]
-        Performance
+        Performance,
+        [Description(" #TST: ")]
+        Test
         
 
         // Wartosc kontrolna - musi byc zawsze na koncu

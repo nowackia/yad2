@@ -106,6 +106,12 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void ProcessGameMessage(GameMessage gameMessage) {
+            if (gameMessage.Type == MessageType.BuildUnitMessage) {
+                InfoLog.WriteInfo("Server received buildUnitMessage: " + gameMessage.ToString(), EPrefix.Test);
+            }
+            if (gameMessage.Type == MessageType.Build) {
+                InfoLog.WriteInfo("Server received buildMessage: " + gameMessage.ToString(), EPrefix.Test);
+            }
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
                 " from player: " + _gameServer.GetPlayer(gameMessage.SenderId).Login, 
                 EPrefix.GameMessageProccesing);

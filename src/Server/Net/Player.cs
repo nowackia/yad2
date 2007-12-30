@@ -10,6 +10,7 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.Log.Common;
 using Yad.Net.Utils;
+using Yad.Net.Messaging;
 
 namespace Yad.Net.Server {
     
@@ -138,8 +139,13 @@ namespace Yad.Net.Server {
                 if (!_isDisconnected) {
                     if (msg.Type == MessageType.Build) {
                         BuildMessage bm = (BuildMessage)msg;
-                        InfoLog.WriteInfo("Sending build message to player: " + this.Id, EPrefix.BMan);
-                        InfoLog.WriteInfo("Buildmessage data: " + bm.ToString());
+                        InfoLog.WriteInfo("Sending build message to player: " + this.Id, EPrefix.Test);
+                        InfoLog.WriteInfo("Buildmessage data: " + bm.ToString(), EPrefix.Test);
+                    }
+                    if (msg.Type == MessageType.BuildUnitMessage) {
+                        BuildUnitMessage bum = (BuildUnitMessage)msg;
+                        InfoLog.WriteInfo("Sending build unit message to player: " + this.Id, EPrefix.Test);
+                        InfoLog.WriteInfo("BuildUnitMessage data: " + bum.ToString(), EPrefix.Test);
                     }
                     msg.Serialize(_writeStream);
                     _writeStream.Flush();
