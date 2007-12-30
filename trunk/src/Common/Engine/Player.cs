@@ -30,6 +30,12 @@ namespace Yad.Engine.Common {
 		private List<Ammo> _ammos = new List<Ammo>();
 		private int _credits;
 		private int _power;
+        private bool _isDisconnected = false;
+
+        public bool IsDisconnected {
+            get { return _isDisconnected; }
+            set { _isDisconnected = value; }
+        }
 
 		#region constructor
 		public Player(short playerID, string playerName, short raceID, Color playerColor, Map map) {

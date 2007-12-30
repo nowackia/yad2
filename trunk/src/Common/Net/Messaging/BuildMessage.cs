@@ -44,5 +44,9 @@ namespace Yad.Net.Messaging.Common
             writer.Write(buildingType);
             position.Serialize(writer);
         }
+
+        public override string ToString() {
+            return base.ToString() + "creatorID: " + creatorID + " buildType: " + buildingType + "position: " + position;
+        }
     }
 }

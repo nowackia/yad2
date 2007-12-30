@@ -19,6 +19,7 @@ using Yad.Properties.Common;
 using Yad.Net.Common;
 using System.Drawing;
 using Yad.Net.Messaging;
+using Yad.UI.Common;
 
 namespace Yad.Engine.Client {
 	/// <summary>
@@ -68,7 +69,8 @@ namespace Yad.Engine.Client {
 			GameMessageHandler.Instance.GameMessageReceive += new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission += new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization += new GameInitEventHandler(Instance_GameInitialization);
-			_sim = new ClientSimulation(map);
+            GameMessageHandler.Instance.PlayerDisconnected += new PlayerDisconnectedHandler(Instance_PlayerDisconnected);
+            _sim = new ClientSimulation(map);
 			_sim.onTurnEnd += new SimulationHandler(SandwormHandler);
 
 			//pobranie obiektu aktualnego gracza z symulacji - do obsługi w GameLogic
@@ -84,13 +86,18 @@ namespace Yad.Engine.Client {
             this.GameEnd += new GameEndHandler(GameLogic_GameEnd);
 		}
 
+        void Instance_PlayerDisconnected(object sender, GameNumericMessage gnm) {
+            _sim.GetPlayer((short)gnm.Number).IsDisconnected = true;
+            CheckGameEndCondition();
+        }
+
         
 
 		void GameLogic_GameEnd(int winTeamId) {
 			GameMessageHandler.Instance.GameMessageReceive -= new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission -= new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
-
+            GameMessageHandler.Instance.PlayerDisconnected -= new PlayerDisconnectedHandler(Instance_PlayerDisconnected);
 			//to pewnie jest już mniej istotne
 			_sim.onTurnEnd -= new SimulationHandler(SandwormHandler);
 			_sim.BuildingCompleted -= new ClientSimulation.BuildingCreationHandler(_sim_OnBuildingCompleted);
@@ -304,6 +311,8 @@ namespace Yad.Engine.Client {
 		}
 
 		void Instance_GameMessageReceive(object sender, GameMessage gameMessage) {
+            if (gameMessage.Type == MessageType.Build)
+                InfoLog.WriteInfo("Received build message: " + ((BuildMessage)gameMessage).ToString());
 			this._sim.AddGameMessage(gameMessage);
 		}
 		#endregion
@@ -530,10 +539,16 @@ namespace Yad.Engine.Client {
             foreach (Player player in _sim.GetPlayers())
             {
                 if(player.Equals(_sim.SimulationPlayer)) continue;
-                if(teamGameObjectCount.ContainsKey(player.TeamID))
-                    teamGameObjectCount[player.TeamID] += player.GameObjectsCount;
-                else
-                    teamGameObjectCount.Add(player.TeamID, player.GameObjectsCount);
+                if (teamGameObjectCount.ContainsKey(player.TeamID)) {
+                    if (!player.IsDisconnected)
+                        teamGameObjectCount[player.TeamID] += player.GameObjectsCount;
+                }
+                else {
+                    if (!player.IsDisconnected)
+                        teamGameObjectCount.Add(player.TeamID, player.GameObjectsCount);
+                    else
+                        teamGameObjectCount.Add(player.TeamID, 0);
+                }
             }
 
             short anyObjectOwningTeamsCount = 0;
