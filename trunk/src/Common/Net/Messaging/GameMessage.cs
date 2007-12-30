@@ -31,5 +31,9 @@ namespace Yad.Net.Messaging.Common {
 			idTurn = reader.ReadInt32();
 			idPlayer = reader.ReadInt16();
 		}
+
+        public override string ToString() {
+            return base.ToString() + "idPlayer: " + idPlayer + "idTurn: " + idTurn;
+        }
 	}
 }

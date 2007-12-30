@@ -312,7 +312,9 @@ namespace Yad.Engine.Client {
 
 		void Instance_GameMessageReceive(object sender, GameMessage gameMessage) {
             if (gameMessage.Type == MessageType.Build)
-                InfoLog.WriteInfo("Received build message: " + ((BuildMessage)gameMessage).ToString());
+                InfoLog.WriteInfo("Received build message: " + ((BuildMessage)gameMessage).ToString(), EPrefix.Test);
+            if (gameMessage.Type == MessageType.BuildUnitMessage)
+                InfoLog.WriteInfo("Received build unit message: " + ((BuildUnitMessage)gameMessage).ToString(), EPrefix.Test);
 			this._sim.AddGameMessage(gameMessage);
 		}
 		#endregion

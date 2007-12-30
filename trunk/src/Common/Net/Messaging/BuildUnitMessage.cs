@@ -35,6 +35,10 @@ namespace Yad.Net.Messaging {
             writer.Write(_creatorID);
         }
 
+        public override string ToString() {
+            return base.ToString() + "UnitType: " + _type + " CreatorID: " + _creatorID;
+        }
+
 
     }
 }

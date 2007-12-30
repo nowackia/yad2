@@ -88,8 +88,8 @@ namespace Yad.Engine.Client {
 
 		protected override void OnMessageBuild(BuildMessage bm) {
 			//InfoLog.WriteInfo("MessageBuild", EPrefix.SimulationInfo);
-            InfoLog.WriteInfo("OnMessageBuild", EPrefix.BMan);
-            InfoLog.WriteInfo("BuildingType: " + bm.BuildingType + " CreatorID: " + bm.CreatorID, EPrefix.BMan);
+            InfoLog.WriteInfo("OnMessageBuild", EPrefix.Test);
+            InfoLog.WriteInfo("BuildingType: " + bm.BuildingType + " CreatorID: " + bm.CreatorID, EPrefix.Test);
 			BuildingData bd = GlobalSettings.Wrapper.buildingsMap[bm.BuildingType];
 			if (!Building.CheckBuildPosition(bd, bm.Position, _map, bm.IdPlayer)) {
 				if (InvalidBuild != null) {
@@ -196,7 +196,7 @@ namespace Yad.Engine.Client {
                 OnCreditsUpdate(idplayer,-credits);
         }
 		protected override void onMessageCreate(CreateUnitMessage cum) {
-			InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+			InfoLog.WriteInfo("MessageCreate", EPrefix.Test);
 			int cost=0;
 			Player p = players[cum.IdPlayer];
 			BoardObjectClass boc = cum.UnitKind;
