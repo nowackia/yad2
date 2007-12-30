@@ -320,6 +320,7 @@ namespace Yad.Engine.Common {
 		protected abstract void onMessageCreate(CreateUnitMessage cum);
 		protected abstract void onMessageDeployMCV(GMDeployMCV dmcv);
         protected abstract void onMessageBuildUnit(BuildUnitMessage msg);
+
 		public abstract void ClearFogOfWar(Building b);
 		public abstract void ClearFogOfWar(Unit u);
         public abstract void OnShoot(Ammo a);

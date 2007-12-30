@@ -13,6 +13,7 @@ namespace Yad.Net.Client
     public delegate void GameInitEventHandler(object sender, GameInitEventArgs e);
     public delegate void GameMessageEventHandler(object sender, GameMessage gameMessage);
     public delegate void DoTurnEventHandler(object sender, DoTurnMessage dtm);
+    public delegate void PlayerDisconnectedHandler(object sender, GameNumericMessage gnm);
 
     public class GameInitEventArgs : EventArgs
     {
@@ -45,7 +46,6 @@ namespace Yad.Net.Client
         /// Not using the EventArgs convention because of speed purposes.
         /// </summary>
         public event GameMessageEventHandler GameMessageReceive;
-
 
         private static GameMessageHandler instance = new GameMessageHandler();
 
@@ -89,6 +89,7 @@ namespace Yad.Net.Client
                 case MessageType.Attack:
                 case MessageType.DeployMCV:
                 case MessageType.BuildUnitMessage:
+                case MessageType.PlayerDisconnected:
                     if (GameMessageReceive != null)
                         GameMessageReceive(this, (GameMessage)message);
                     break;

@@ -342,6 +342,7 @@ namespace Yad.UI.Client {
 			}
 
 			_isCreatingUnit = false;
+            InfoLog.WriteInfo("_isCreatingUnit = false; in HandleRightButtonDown", EPrefix.BMan);
 			_isCreatingBuilding = false;
 		}
 
@@ -371,6 +372,7 @@ namespace Yad.UI.Client {
 			if (this._isCreatingBuilding) {
 				_gameLogic.CreateBuilding(pos, _objectToCreateId, _objectCreatorId);
 				this._isCreatingBuilding = false;
+                InfoLog.WriteInfo("_isCreatingUnit = false; in HandleLeftButtonDown", EPrefix.BMan);
 				return;
 			}
 
@@ -516,6 +518,7 @@ namespace Yad.UI.Client {
 			InfoLog.WriteInfo("leftStripe_onBuildChosen " + id, EPrefix.GameGraphics);
 			_buildManager.SwitchCurrentBuilding(id);
             this._isCreatingBuilding = false;
+            InfoLog.WriteInfo("_isCreatingUnit = false; in leftStripe_onBuildingChosen", EPrefix.BMan);
 			// show building on rightStripe
 			//ShowPossibilitiesForBuilding(id);
 		}
