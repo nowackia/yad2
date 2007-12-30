@@ -7,11 +7,11 @@ namespace Yad.UI.Client {
 
     public class MenuOptionArg {
         private MenuOption option;
-        private bool overrideActualFrom = false ;
+        private bool overrideFrom = false ;
 
         public bool OverrideActualForm {
-            get { return overrideActualFrom; }
-            set { overrideActualFrom = value; }
+            get { return overrideFrom; }
+            set { overrideFrom = value; }
         }
 
         public MenuOption Option {
@@ -31,7 +31,7 @@ namespace Yad.UI.Client {
         }
 
         public MenuOptionArg(MenuOption option, Form sender, bool overrideActualForm):this(option,sender) {
-            this.overrideActualFrom = overrideActualFrom;
+            this.overrideFrom = overrideActualForm;
         }
     }
 
