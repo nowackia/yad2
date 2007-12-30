@@ -136,6 +136,11 @@ namespace Yad.Net.Server {
         public void SendMessage(Message msg) {
             try {
                 if (!_isDisconnected) {
+                    if (msg.Type == MessageType.Build) {
+                        BuildMessage bm = (BuildMessage)msg;
+                        InfoLog.WriteInfo("Sending build message to player: " + this.Id, EPrefix.BMan);
+                        InfoLog.WriteInfo("Buildmessage data: " + bm.ToString());
+                    }
                     msg.Serialize(_writeStream);
                     _writeStream.Flush();
                     if (msg.Type == MessageType.DoTurn)
