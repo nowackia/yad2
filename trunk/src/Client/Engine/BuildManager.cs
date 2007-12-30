@@ -539,7 +539,7 @@ namespace Yad.Engine {
         }
 
         public void OnBadLocation(int id) {
-            InfoLog.WriteInfo("Enter OnBadLocation");
+            InfoLog.WriteInfo("Enter OnBadLocation",EPrefix.BMan);
             if (id == -1)
                 return;
             InfoLog.WriteInfo("lock leftState in OnBadLocation", EPrefix.BMan);
@@ -560,7 +560,7 @@ namespace Yad.Engine {
             }
             InfoLog.WriteInfo("release stripdata in OnBadLocation", EPrefix.BMan);
             _rightStripe.ActivateAll();
-            InfoLog.WriteInfo("Exit OnBadLocation");
+            InfoLog.WriteInfo("Exit OnBadLocation",EPrefix.BMan);
         }
 
         private void ActivateForObject(int objectID) {
@@ -657,12 +657,11 @@ namespace Yad.Engine {
             int lastCurrent = -1;
 
             lock (cObjLock) {
-                if (_currentObjectID != id) {
-                    lastCurrent = _currentObjectID;
-                    _currentObjectID = id;
-                    current = id;
-                }
+                lastCurrent = _currentObjectID;
+                 _currentObjectID = id;
+                 current = id;
             }
+
 
             bool updateview = false;
             lock (((ICollection)_leftState).SyncRoot) {
