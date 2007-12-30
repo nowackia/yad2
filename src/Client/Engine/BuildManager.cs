@@ -653,12 +653,15 @@ namespace Yad.Engine {
 
         public void SwitchCurrentBuilding(int id) {
             InfoLog.WriteInfo("lock cObjLock ", EPrefix.BMan);
+            if (id == -1)
+                InfoLog.WriteInfo("ID == -1 w SwitchCurrentBuilding!", EPrefix.BMan);
             int current = -1;
             int lastCurrent = -1;
 
             lock (cObjLock) {
                 lastCurrent = _currentObjectID;
-                 _currentObjectID = id;
+                if (id != -1)
+                    _currentObjectID = id;
                  current = id;
             }
 
@@ -694,7 +697,7 @@ namespace Yad.Engine {
             _rightStripe.SwitchUpdate(_stripData[id], rewind);
         }
         public int RightBuildingClick(int id, bool isUnit) {
-            InfoLog.WriteInfo("Enter RightBuildingClick", EPrefix.BMan);
+            InfoLog.WriteInfo("Enter RightBuildingClick" + id, EPrefix.BMan);
             int current = -1;
             InfoLog.WriteInfo("Lock cObjLock in RightBuildingClick", EPrefix.BMan);
             lock (this.cObjLock)
@@ -703,6 +706,7 @@ namespace Yad.Engine {
             if (current != -1)
             {
                 StripButtonState state = _stripData[current][(short)id].State;
+                InfoLog.WriteInfo("State: " + state + " " + Enum.GetName(typeof(StripButtonState), state), EPrefix.BMan);
                 switch (state)
                 {
                     case StripButtonState.Active:
