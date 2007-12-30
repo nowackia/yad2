@@ -135,6 +135,7 @@
     <None Include="Resources\dune_movie.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="server.cd" />
     <None Include="Resources\Menu_VersionBox.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
