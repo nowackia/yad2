@@ -153,7 +153,7 @@ namespace Yad.Engine.Common {
 					return;
 				}
 
-                InfoLog.WriteInfo("********** TURN BEGIN **********", EPrefix.SimulationInfo);
+                InfoLog.WriteInfo("********** TURN " + this.CurrentTurn + " BEGIN **********", EPrefix.Test);
 
 				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
@@ -242,7 +242,7 @@ namespace Yad.Engine.Common {
                     sb.Append("Player " + p.Id + " : " + p.Credits);
                 InfoLog.WriteInfo(sb.ToString(), EPrefix.Test);
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
-                InfoLog.WriteInfo("********* TURN END *********");
+                InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 			}
 		}
 
@@ -337,7 +337,10 @@ namespace Yad.Engine.Common {
 			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
 			lock (_turns.SyncRoot) {
 				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
-				this._turns[gameMessage.IdTurn - (this.CurrentTurn + 1)].Add(gameMessage);
+                int turno = gameMessage.IdTurn - (this.CurrentTurn + 1);
+                if (gameMessage.Type == MessageType.BuildUnitMessage || gameMessage.Type == MessageType.Build)
+                    InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "]", EPrefix.Test);
+                this._turns[turno].Add(gameMessage);
 			}
 		}
 
