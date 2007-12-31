@@ -1100,7 +1100,7 @@ namespace Yad.UI.Client
             InitializationSettings.Instance.MusicVolume = (int)musicVolumeNMOptionsMenu.Value;
 
             if (muteSoundOptionsMenu.Checked)
-                InitializationSettings.Instance.IsSoundMuted = true;
+                AudioEngine.Instance.Sound.Mute();
             else
                 AudioEngine.Instance.Sound.Volume = (int)soundVolumeNMOptionsMenu.Value;
             InitializationSettings.Instance.IsSoundMuted = muteSoundOptionsMenu.Checked;
