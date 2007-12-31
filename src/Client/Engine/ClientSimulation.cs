@@ -167,12 +167,12 @@ namespace Yad.Engine.Client {
 		}
 
         private void CreateUnit(short playerId, short type, Position pos) {
-            InfoLog.WriteInfo("MessageCreate", EPrefix.SimulationInfo);
+            InfoLog.WriteInfo("CreateUnit", EPrefix.Test);
 			int cost=0;
 			Player p = players[playerId];
 			Unit u = null;
 			ObjectID id = new ObjectID(playerId, p.GenerateObjectID());
-            InfoLog.WriteInfo(id.ToString() + " dla jednostki: " + type, EPrefix.GObj);
+            InfoLog.WriteInfo(id.ToString() + " dla jednostki: " + type, EPrefix.Test);
             if (GlobalSettings.Wrapper.harvestersMap.ContainsKey(type)){
 				u = new UnitHarvester(id, GlobalSettings.Wrapper.harvestersMap[type], pos, this._map, this, GlobalSettings.Wrapper.harvestersMap[type].__Speed);
                 ((UnitHarvester)u).SpiceUnload += new SpiceUnloadDelegate(SpiceUnload);
