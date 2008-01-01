@@ -131,6 +131,7 @@ namespace Yad.Engine.Client {
 				InfoLog.WriteInfo("MessageMove: PlayerID:" + gm.IdPlayer + " unit has been already destroyed", EPrefix.Move);
 				return;
 			}
+            u.OrderedAttack = false;
 			u.MoveTo(gm.Destination);
 		}
 
@@ -154,7 +155,7 @@ namespace Yad.Engine.Client {
 					return;
 				}
 			}
-
+            attacker.OrderedAttack = true;
 			attacker.OrderAttack(b, isBuilding);
 		}
 
