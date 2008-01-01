@@ -215,7 +215,7 @@ namespace Yad.Board.Common {
                     }*/
                     break;
                 case UnitState.attacking:
-                    if (CheckIfStillExistTarget(attackedObject) == false) {
+                    if (attackedObject!=null && CheckIfStillExistTarget(attackedObject) == false) {
                         // unit destroyed, find another one.
                         FindNearestTargetInFireRange(out attackedObject);
                         orderedAttack = false;
