@@ -4,43 +4,41 @@
 	<tns:UnitTroopersData>
 		<tns:UnitTrooperData>
 			<tns:Name>LightInfantry</tns:Name>
-			<tns:Cost>75</tns:Cost>
+			<tns:Cost>40</tns:Cost>
 			<tns:FireRange>2</tns:FireRange>
 			<tns:FirePower>1</tns:FirePower>
-			<tns:Speed>10</tns:Speed>
-			<tns:ReloadTime>8</tns:ReloadTime>
+			<tns:Speed>12</tns:Speed>
+			<tns:ReloadTime>5</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
-      			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
-			<tns:Health>50</tns:Health>
-			<tns:ViewRange>3</tns:ViewRange>
+      <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+			<tns:Health>10</tns:Health>
+			<tns:ViewRange>2</tns:ViewRange>
 			<tns:BuildSpeed>30</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>Barracks</tns:Name>
 			</tns:BuildingDependency>
 			
 		</tns:UnitTrooperData>
 		<tns:UnitTrooperData>
 			<tns:Name>HeavyTrooper</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:FireRange>4</tns:FireRange>
-			<tns:FirePower>5</tns:FirePower>
-			<tns:Speed>11</tns:Speed>
+			<tns:Cost>80</tns:Cost>
+			<tns:FireRange>3</tns:FireRange>
+			<tns:FirePower>2</tns:FirePower>
+			<tns:Speed>13</tns:Speed>
 			<tns:ReloadTime>8</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
-			<tns:Health>75</tns:Health>
-			<tns:ViewRange>4</tns:ViewRange>
+			<tns:Health>15</tns:Health>
+			<tns:ViewRange>3</tns:ViewRange>
 			<tns:BuildSpeed>20</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>1</tns:RotationSpeed>
 			<tns:Size>0.5</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>Barracks</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTrooperData>
 	</tns:UnitTroopersData>
@@ -48,188 +46,180 @@
 	<tns:UnitTanksData>
 		<tns:UnitTankData>
 			<tns:Name>Trike</tns:Name>
-			<tns:Cost>180</tns:Cost>
-			<tns:FireRange>10</tns:FireRange>
-			<tns:FirePower>7</tns:FirePower>
-			<tns:Speed>5</tns:Speed>
+			<tns:Cost>100</tns:Cost>
+			<tns:FireRange>3</tns:FireRange>
+			<tns:FirePower>3</tns:FirePower>
+			<tns:Speed>6</tns:Speed>
 			<tns:ReloadTime>10</tns:ReloadTime>      
-		        <tns:AmmoType>Bullet</tns:AmmoType>			
-		        <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
-		        <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
-		        <tns:Health>90</tns:Health>
-			<tns:ViewRange>8</tns:ViewRange>
+		  <tns:AmmoType>Bullet</tns:AmmoType>			
+		  <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+		  <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+		  <tns:Health>20</tns:Health>
+			<tns:ViewRange>3</tns:ViewRange>
 			<tns:BuildSpeed>40</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>LightFactory</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>RaiderTrike</tns:Name>
-			<tns:Cost>150</tns:Cost>
-			<tns:FireRange>4</tns:FireRange>
-			<tns:FirePower>10</tns:FirePower>
-			<tns:Speed>2</tns:Speed>
+			<tns:Cost>90</tns:Cost>
+			<tns:FireRange>3</tns:FireRange>
+			<tns:FirePower>3</tns:FirePower>
+			<tns:Speed>4</tns:Speed>
 			<tns:ReloadTime>9</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
-			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
-			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>80</tns:Health>
+			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+			<tns:Health>18</tns:Health>
 			<tns:ViewRange>4</tns:ViewRange>
-			<tns:BuildSpeed>10</tns:BuildSpeed>
-			<tns:DamageDestroy>10</tns:DamageDestroy>
-			<tns:RotationSpeed>2</tns:RotationSpeed>
-			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
-			<tns:Size>1</tns:Size>
-			<tns:BuildingDependency>
-				<tns:Name>LightFactory</tns:Name>
-			</tns:BuildingDependency>			
-		</tns:UnitTankData>
-		<tns:UnitTankData>
-			<tns:Name>Quad</tns:Name>
-			<tns:Cost>150</tns:Cost>
-			<tns:FireRange>4</tns:FireRange>
-			<tns:FirePower>10</tns:FirePower>
-			<tns:Speed>10</tns:Speed>
-			<tns:ReloadTime>3</tns:ReloadTime>
-			<tns:AmmoType>Bullet</tns:AmmoType>
-			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
-			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
-			<tns:ViewRange>5</tns:ViewRange>
-			<tns:BuildSpeed>20</tns:BuildSpeed>
+			<tns:BuildSpeed>30</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>LightFactory</tns:Name>
+			</tns:BuildingDependency>			
+		</tns:UnitTankData>
+    
+		<tns:UnitTankData>
+			<tns:Name>Quad</tns:Name>
+			<tns:Cost>120</tns:Cost>
+			<tns:FireRange>3</tns:FireRange>
+			<tns:FirePower>4</tns:FirePower>
+			<tns:Speed>8</tns:Speed>
+			<tns:ReloadTime>8</tns:ReloadTime>
+			<tns:AmmoType>Bullet</tns:AmmoType>
+			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
+			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+			<tns:Health>30</tns:Health>
+			<tns:ViewRange>3</tns:ViewRange>
+			<tns:BuildSpeed>44</tns:BuildSpeed>
+			<tns:DamageDestroy>0</tns:DamageDestroy>
+			<tns:RotationSpeed>2</tns:RotationSpeed>
+			<tns:TurretRotationSpeed>0</tns:TurretRotationSpeed>
+			<tns:Size>1</tns:Size>
+			<tns:BuildingDependency>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>CombatTank</tns:Name>
-			<tns:Cost>300</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
-			<tns:FirePower>20</tns:FirePower>
-			<tns:Speed>7</tns:Speed>
-			<tns:ReloadTime>15</tns:ReloadTime>
+			<tns:Cost>180</tns:Cost>
+			<tns:FireRange>4</tns:FireRange>
+			<tns:FirePower>6</tns:FirePower>
+			<tns:Speed>9</tns:Speed>
+			<tns:ReloadTime>9</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
-			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
+			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
-			<tns:ViewRange>5</tns:ViewRange>
+			<tns:Health>50</tns:Health>
+			<tns:ViewRange>4</tns:ViewRange>
 			<tns:BuildSpeed>50</tns:BuildSpeed>
 			<tns:DamageDestroy>2</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>HeavyFactory</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>Devastator</tns:Name>
-			<tns:Cost>600</tns:Cost>
+			<tns:Cost>300</tns:Cost>
 			<tns:FireRange>4</tns:FireRange>
-			<tns:FirePower>30</tns:FirePower>
-			<tns:Speed>12</tns:Speed>
-			<tns:ReloadTime>30</tns:ReloadTime>
+			<tns:FirePower>15</tns:FirePower>
+			<tns:Speed>14</tns:Speed>
+			<tns:ReloadTime>15</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>1</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>200</tns:Health>
-			<tns:ViewRange>3</tns:ViewRange>
-			<tns:BuildSpeed>100</tns:BuildSpeed>
+			<tns:Health>100</tns:Health>
+			<tns:ViewRange>4</tns:ViewRange>
+			<tns:BuildSpeed>80</tns:BuildSpeed>
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>HeavyFactory</tns:Name>
-				<tns:Name>LightFactory</tns:Name>
-        <tns:Name>Starport</tns:Name>
         <tns:Name>IX</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>SiegeTank</tns:Name>
-			<tns:Cost>500</tns:Cost>
+			<tns:Cost>250</tns:Cost>
 			<tns:FireRange>4</tns:FireRange>
-			<tns:FirePower>20</tns:FirePower>
-			<tns:Speed>10</tns:Speed>
-			<tns:ReloadTime>10</tns:ReloadTime>
+			<tns:FirePower>10</tns:FirePower>
+			<tns:Speed>12</tns:Speed>
+			<tns:ReloadTime>12</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
-			<tns:Health>150</tns:Health>
+			<tns:Health>80</tns:Health>
 			<tns:ViewRange>4</tns:ViewRange>
-			<tns:BuildSpeed>50</tns:BuildSpeed>
+			<tns:BuildSpeed>60</tns:BuildSpeed>
 			<tns:DamageDestroy>3</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>HeavyFactory</tns:Name>
-        <tns:Name>LightFactory</tns:Name>
-        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>SonicTank</tns:Name>
 			<tns:Cost>300</tns:Cost>
-			<tns:FireRange>9</tns:FireRange>
-			<tns:FirePower>30</tns:FirePower>
+			<tns:FireRange>7</tns:FireRange>
+			<tns:FirePower>10</tns:FirePower>
 			<tns:Speed>7</tns:Speed>
 			<tns:ReloadTime>12</tns:ReloadTime>
 			<tns:AmmoType>Sonic</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>1</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
+			<tns:Health>50</tns:Health>
 			<tns:ViewRange>8</tns:ViewRange>
 			<tns:BuildSpeed>40</tns:BuildSpeed>
-			<tns:DamageDestroy>5</tns:DamageDestroy>
+			<tns:DamageDestroy>1</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>HeavyFactory</tns:Name>
-				<tns:Name>LightFactory</tns:Name>
 				<tns:Name>IX</tns:Name>
-        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>Deviator</tns:Name>
-			<tns:Cost>400</tns:Cost>
-			<tns:FireRange>5</tns:FireRange>
-			<tns:FirePower>15</tns:FirePower>
+			<tns:Cost>250</tns:Cost>
+			<tns:FireRange>6</tns:FireRange>
+			<tns:FirePower>8</tns:FirePower>
 			<tns:Speed>8</tns:Speed>
 			<tns:ReloadTime>12</tns:ReloadTime>
 			<tns:AmmoType>Bullet</tns:AmmoType>
 			<tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
-			<tns:Health>100</tns:Health>
-			<tns:ViewRange>5</tns:ViewRange>
-			<tns:BuildSpeed>30</tns:BuildSpeed>
+			<tns:Health>60</tns:Health>
+			<tns:ViewRange>7</tns:ViewRange>
+			<tns:BuildSpeed>40</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-        <tns:Name>HeavyFactory</tns:Name>
-        <tns:Name>LightFactory</tns:Name>
         <tns:Name>IX</tns:Name>
-        <tns:Name>Starport</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
+    
 		<tns:UnitTankData>
 			<tns:Name>RocketLauncher</tns:Name>
-			<tns:Cost>100</tns:Cost>
+			<tns:Cost>200</tns:Cost>
 			<tns:FireRange>6</tns:FireRange>
-			<tns:FirePower>20</tns:FirePower>
+			<tns:FirePower>7</tns:FirePower>
 			<tns:Speed>9</tns:Speed>
 			<tns:ReloadTime>10</tns:ReloadTime>
 			<tns:AmmoType>Rocket</tns:AmmoType>
@@ -237,16 +227,13 @@
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 			<tns:Health>70</tns:Health>
 			<tns:ViewRange>6</tns:ViewRange>
-			<tns:BuildSpeed>40</tns:BuildSpeed>
+			<tns:BuildSpeed>50</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
 			<tns:Size>1</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>Refinery</tns:Name>
-				<tns:Name>HeavyFactory</tns:Name>
 				<tns:Name>Radar</tns:Name>
-        <tns:Name>IX</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
 	</tns:UnitTanksData>
@@ -260,13 +247,13 @@
 			<tns:ViewRange>5</tns:ViewRange>
 			<tns:BuildSpeed>30</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
-		        <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+		  <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:Capacity>800</tns:Capacity>
 			<tns:HarvestingSpeed>160</tns:HarvestingSpeed>
 			<tns:Size>1.5</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>Refinery</tns:Name>
+			<tns:Name>Refinery</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitHarvesterData>
 	</tns:UnitHarvestersData>
@@ -275,18 +262,16 @@
 		<tns:UnitMCVData>
 			<tns:Name>MCV</tns:Name>
 			<tns:Cost>400</tns:Cost>
-			<tns:Speed>12</tns:Speed>
-			<tns:Health>200</tns:Health>
+			<tns:Speed>13</tns:Speed>
+			<tns:Health>180</tns:Health>
 			<tns:ViewRange>3</tns:ViewRange>
 			<tns:BuildSpeed>45</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
-		        <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
+		  <tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 			<tns:RotationSpeed>4</tns:RotationSpeed>
 			<tns:BuildingCanProduce>ConstructionYard</tns:BuildingCanProduce>
 			<tns:Size>1.5</tns:Size>
 			<tns:BuildingDependency>
-				<tns:Name>HeavyFactory</tns:Name>
-				<tns:Name>Radar</tns:Name>
 			</tns:BuildingDependency>
 		</tns:UnitMCVData>
 	</tns:UnitMCVsData>
@@ -294,12 +279,12 @@
 	<tns:UnitSandwormsData>
 		<tns:UnitSandwormData>
 			<tns:Name>Sandworm</tns:Name>
-			<tns:Speed>8</tns:Speed>
-			<tns:Health>10000</tns:Health>
+			<tns:Speed>9</tns:Speed>
+			<tns:Health>1000</tns:Health>
 			<tns:FirePower>10000</tns:FirePower>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>0</tns:RotationSpeed>
-			<tns:Size>1</tns:Size>
+			<tns:Size>1.5</tns:Size>
 			<tns:ViewRange>30</tns:ViewRange>
 			<tns:ReloadTime>20</tns:ReloadTime>
 		</tns:UnitSandwormData>
@@ -308,21 +293,21 @@
 
 		<tns:BuildingData>
 			<tns:Name>ConstructionYard</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:Health>1000</tns:Health>
-			<tns:ViewRange>10</tns:ViewRange>
+			<tns:Cost>0</tns:Cost>
+			<tns:Health>500</tns:Health>
+			<tns:ViewRange>3</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>2</tns:X>
 				<tns:Y>2</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>-100</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
-		        <tns:IsRefinery>false</tns:IsRefinery>
+		  <tns:IsRefinery>false</tns:IsRefinery>
 			<tns:IsTurret>0</tns:IsTurret>
 			<tns:FireRange>1</tns:FireRange>
-			<tns:FirePower>10</tns:FirePower>
+			<tns:FirePower>2</tns:FirePower>
 			<tns:ReloadTime>3</tns:ReloadTime>
 			<tns:RideableFields>
 			</tns:RideableFields>
@@ -331,18 +316,18 @@
 			<tns:BuildingsCanProduce>
 				<tns:Name>Slab1</tns:Name>
 				<tns:Name>Slab4</tns:Name>
+        <tns:Name>Wall</tns:Name>
 				<tns:Name>WindTrap</tns:Name>
-			        <tns:Name>Refinery</tns:Name>
-			        <tns:Name>HeavyFactory</tns:Name>
-			        <tns:Name>LightFactory</tns:Name>
-			        <tns:Name>Silo</tns:Name>
-			        <tns:Name>Wall</tns:Name>
-			        <tns:Name>IX</tns:Name>
-			        <tns:Name>GunTurret</tns:Name>
-			        <tns:Name>RocketTurret</tns:Name>
-			        <tns:Name>Radar</tns:Name>
-			        <tns:Name>Starport</tns:Name>
-			        <tns:Name>Barracks</tns:Name>
+			  <tns:Name>Refinery</tns:Name>
+        <tns:Name>Silo</tns:Name>
+        <tns:Name>Radar</tns:Name>
+        <tns:Name>Barracks</tns:Name>
+        <tns:Name>LightFactory</tns:Name>
+        <tns:Name>HeavyFactory</tns:Name>
+        <tns:Name>Starport</tns:Name>
+        <tns:Name>IX</tns:Name>
+        <tns:Name>GunTurret</tns:Name>
+        <tns:Name>RocketTurret</tns:Name>
 			</tns:BuildingsCanProduce>
 		</tns:BuildingData>
 
@@ -350,7 +335,7 @@
 			<tns:Name>Slab1</tns:Name>
 			<tns:Cost>15</tns:Cost>
 			<tns:Health>50</tns:Health>
-			<tns:ViewRange>10</tns:ViewRange>
+			<tns:ViewRange>0</tns:ViewRange>
 			<tns:BuildSpeed>5</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>1</tns:X>
@@ -370,9 +355,9 @@
 
 		<tns:BuildingData>
 			<tns:Name>Slab4</tns:Name>
-			<tns:Cost>60</tns:Cost>
-			<tns:Health>200</tns:Health>
-			<tns:ViewRange>2</tns:ViewRange>
+			<tns:Cost>40</tns:Cost>
+			<tns:Health>220</tns:Health>
+			<tns:ViewRange>0</tns:ViewRange>
 			<tns:BuildSpeed>20</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>2</tns:X>
@@ -381,8 +366,8 @@
 			<tns:EnergyConsumption>0</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
-		        <tns:IsRefinery>false</tns:IsRefinery>
-		        <tns:IsTurret>0</tns:IsTurret>
+		  <tns:IsRefinery>false</tns:IsRefinery>
+		  <tns:IsTurret>0</tns:IsTurret>
 			<tns:RideableFields>
 				<tns:index>0</tns:index>
 				<tns:index>1</tns:index>
@@ -395,17 +380,17 @@
 
     <tns:BuildingData>
       <tns:Name>WindTrap</tns:Name>
-      <tns:Cost>255</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>100</tns:Cost>
+      <tns:Health>200</tns:Health>
+      <tns:ViewRange>1</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
       <tns:EnergyConsumption>-100</tns:EnergyConsumption>
-		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
-		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+		  <tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
+		  <tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
       <tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
@@ -416,17 +401,17 @@
 
     <tns:BuildingData>
       <tns:Name>Refinery</tns:Name>
-      <tns:Cost>1500</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>300</tns:Cost>
+      <tns:Health>300</tns:Health>
+      <tns:ViewRange>2</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>3</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
-		<tns:TextureSpecialActionFramesCount>4</tns:TextureSpecialActionFramesCount>
-		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
+      <tns:EnergyConsumption>30</tns:EnergyConsumption>
+		  <tns:TextureSpecialActionFramesCount>4</tns:TextureSpecialActionFramesCount>
+		  <tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>true</tns:IsRefinery>
       <tns:IsTurret>0</tns:IsTurret>
       <tns:RideableFields>
@@ -440,15 +425,15 @@
 
     <tns:BuildingData>
       <tns:Name>Starport</tns:Name>
-      <tns:Cost>1500</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>600</tns:Cost>
+      <tns:Health>300</tns:Health>
+      <tns:ViewRange>1</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>3</tns:X>
         <tns:Y>3</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>50</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -465,8 +450,8 @@
 
     <tns:BuildingData>
       <tns:Name>IX</tns:Name>
-      <tns:Cost>1300</tns:Cost>
-      <tns:Health>1000</tns:Health>
+      <tns:Cost>800</tns:Cost>
+      <tns:Health>500</tns:Health>
       <tns:ViewRange>10</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
@@ -486,15 +471,15 @@
 
     <tns:BuildingData>
       <tns:Name>Silo</tns:Name>
-      <tns:Cost>300</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>150</tns:Cost>
+      <tns:Health>200</tns:Health>
+      <tns:ViewRange>1</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>10</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -507,15 +492,15 @@
 
     <tns:BuildingData>
       <tns:Name>LightFactory</tns:Name>
-      <tns:Cost>700</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>350</tns:Cost>
+      <tns:Health>300</tns:Health>
+      <tns:ViewRange>1</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>30</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -531,15 +516,15 @@
 
     <tns:BuildingData>
       <tns:Name>HeavyFactory</tns:Name>
-      <tns:Cost>1300</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>600</tns:Cost>
+      <tns:Health>400</tns:Health>
+      <tns:ViewRange>1</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>3</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>60</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -547,28 +532,28 @@
       <tns:RideableFields>
       </tns:RideableFields>
       <tns:UnitsCanProduce>
-		  <tns:Name>CombatTank</tns:Name>
-		  <tns:Name>Deviator</tns:Name>
-		  <tns:Name>Devastator</tns:Name>
-		  <tns:Name>RocketLauncher</tns:Name>
-		  <tns:Name>MCV</tns:Name>
-		  <tns:Name>Harvester</tns:Name>
-		  <tns:Name>SiegeTank</tns:Name>
-		  <tns:Name>SonicTank</tns:Name>
+        <tns:Name>Harvester</tns:Name>
+        <tns:Name>CombatTank</tns:Name>
+        <tns:Name>SiegeTank</tns:Name>
+        <tns:Name>RocketLauncher</tns:Name>
+        <tns:Name>MCV</tns:Name>
+        <tns:Name>Deviator</tns:Name>
+        <tns:Name>Devastator</tns:Name>
+  		  <tns:Name>SonicTank</tns:Name>
       </tns:UnitsCanProduce>
     </tns:BuildingData>
 
     <tns:BuildingData>
       <tns:Name>Radar</tns:Name>
-      <tns:Cost>1500</tns:Cost>
-      <tns:Health>1000</tns:Health>
-      <tns:ViewRange>10</tns:ViewRange>
+      <tns:Cost>400</tns:Cost>
+      <tns:Health>300</tns:Health>
+      <tns:ViewRange>5</tns:ViewRange>
       <tns:BuildSpeed>25</tns:BuildSpeed>
       <tns:Size>
         <tns:X>2</tns:X>
         <tns:Y>2</tns:Y>
       </tns:Size>
-      <tns:EnergyConsumption>100</tns:EnergyConsumption>
+      <tns:EnergyConsumption>40</tns:EnergyConsumption>
 		<tns:TextureSpecialActionFramesCount>4</tns:TextureSpecialActionFramesCount>
 		<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -581,22 +566,22 @@
 
 		<tns:BuildingData>
 			<tns:Name>GunTurret</tns:Name>
-			<tns:Cost>500</tns:Cost>
-			<tns:Health>500</tns:Health>
-			<tns:ViewRange>8</tns:ViewRange>
+			<tns:Cost>450</tns:Cost>
+			<tns:Health>80</tns:Health>
+			<tns:ViewRange>6</tns:ViewRange>
 			<tns:BuildSpeed>75</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>1</tns:X>
 				<tns:Y>1</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>60</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
       <tns:IsTurret>1</tns:IsTurret>
-			<tns:FireRange>6</tns:FireRange>
-			<tns:FirePower>50</tns:FirePower>
-			<tns:ReloadTime>10</tns:ReloadTime>
+			<tns:FireRange>5</tns:FireRange>
+			<tns:FirePower>8</tns:FirePower>
+			<tns:ReloadTime>9</tns:ReloadTime>
       <tns:AmmoType>Bullet</tns:AmmoType>
       <tns:AmmoDamageRange>0</tns:AmmoDamageRange>
 			<tns:RideableFields>
@@ -608,20 +593,20 @@
 		<tns:BuildingData>
 			<tns:Name>RocketTurret</tns:Name>
 			<tns:Cost>700</tns:Cost>
-			<tns:Health>600</tns:Health>
-			<tns:ViewRange>8</tns:ViewRange>
+			<tns:Health>100</tns:Health>
+			<tns:ViewRange>7</tns:ViewRange>
 			<tns:BuildSpeed>55</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>1</tns:X>
 				<tns:Y>1</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>70</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
       <tns:IsTurret>1</tns:IsTurret>
-      <tns:FireRange>8</tns:FireRange>
-      <tns:FirePower>100</tns:FirePower>
+      <tns:FireRange>7</tns:FireRange>
+      <tns:FirePower>12</tns:FirePower>
       <tns:ReloadTime>25</tns:ReloadTime>
       <tns:AmmoType>Rocket</tns:AmmoType>
       <tns:AmmoDamageRange>1</tns:AmmoDamageRange>
@@ -633,15 +618,15 @@
 
 		<tns:BuildingData>
 			<tns:Name>Wall</tns:Name>
-			<tns:Cost>100</tns:Cost>
-			<tns:Health>1750</tns:Health>
-			<tns:ViewRange>10</tns:ViewRange>
+			<tns:Cost>50</tns:Cost>
+			<tns:Health>800</tns:Health>
+			<tns:ViewRange>0</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>1</tns:X>
 				<tns:Y>1</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>0</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>11</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>1</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -654,15 +639,15 @@
 
 		<tns:BuildingData>
 			<tns:Name>Barracks</tns:Name>
-			<tns:Cost>225</tns:Cost>
-			<tns:Health>1000</tns:Health>
-			<tns:ViewRange>10</tns:ViewRange>
+			<tns:Cost>200</tns:Cost>
+			<tns:Health>200</tns:Health>
+			<tns:ViewRange>2</tns:ViewRange>
 			<tns:BuildSpeed>25</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>2</tns:X>
 				<tns:Y>2</tns:Y>
 			</tns:Size>
-			<tns:EnergyConsumption>100</tns:EnergyConsumption>
+			<tns:EnergyConsumption>30</tns:EnergyConsumption>
 			<tns:TextureSpecialActionFramesCount>1</tns:TextureSpecialActionFramesCount>
 			<tns:TextureAnimationFramesCount>2</tns:TextureAnimationFramesCount>
       <tns:IsRefinery>false</tns:IsRefinery>
@@ -683,9 +668,7 @@
 			<tns:TypeID>0</tns:TypeID>
 			<tns:Name>Atreides</tns:Name>
 			<tns:TechnologyDependences>
-       
 				<tns:TechnologyDependence>
-          
 					<tns:BuildingName>Slab1</tns:BuildingName>
 					<tns:RequiredBuildings>
 						<tns:Name>ConstructionYard</tns:Name>
@@ -723,7 +706,8 @@
 				<tns:TechnologyDependence>
 					<tns:BuildingName>IX</tns:BuildingName>
 					<tns:RequiredBuildings>
-						<tns:Name>Starport</tns:Name>
+            <tns:Name>Barracks</tns:Name>
+            <tns:Name>HeavyFactory</tns:Name>
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
 
@@ -745,7 +729,6 @@
 					<tns:BuildingName>HeavyFactory</tns:BuildingName>
 					<tns:RequiredBuildings>
 						<tns:Name>LightFactory</tns:Name>
-						<tns:Name>Radar</tns:Name>
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
 
@@ -766,6 +749,7 @@
 				<tns:TechnologyDependence>
 					<tns:BuildingName>RocketTurret</tns:BuildingName>
 					<tns:RequiredBuildings>
+            <tns:Name>HeavyFactory</tns:Name>
 						<tns:Name>Radar</tns:Name>
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
@@ -773,7 +757,6 @@
 				<tns:TechnologyDependence>
 					<tns:BuildingName>Wall</tns:BuildingName>
 					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
 					</tns:RequiredBuildings>
 				</tns:TechnologyDependence>
 
@@ -787,10 +770,11 @@
 			<tns:UnitsCanProduce>
 				<tns:Name>LightInfantry</tns:Name>
 				<tns:Name>Trike</tns:Name>
+        <tns:Name>Quad</tns:Name>
 				<tns:Name>CombatTank</tns:Name>
-				<tns:Name>LightInfantry</tns:Name>
 				<tns:Name>SonicTank</tns:Name>
 				<tns:Name>RocketLauncher</tns:Name>
+        <tns:Name>SiegeTank</tns:Name>
 				<tns:Name>MCV</tns:Name>
 				<tns:Name>Harvester</tns:Name>
 			</tns:UnitsCanProduce>
@@ -798,108 +782,111 @@
 		<tns:RaceData>
 			<tns:TypeID>1</tns:TypeID>
 			<tns:Name>Harkonnen</tns:Name>
-			<tns:TechnologyDependences>
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Slab1</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+      <tns:TechnologyDependences>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Slab1</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Slab4</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Slab4</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>WindTrap</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>WindTrap</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Refinery</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>WindTrap</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Refinery</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>WindTrap</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Starport</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Starport</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>IX</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Starport</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>IX</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Barracks</tns:Name>
+            <tns:Name>HeavyFactory</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Silo</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Silo</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>LightFactory</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>LightFactory</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>HeavyFactory</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>LightFactory</tns:Name>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>HeavyFactory</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>LightFactory</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Radar</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>WindTrap</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Radar</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>WindTrap</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>GunTurret</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>GunTurret</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>RocketTurret</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>RocketTurret</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>HeavyFactory</tns:Name>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Wall</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Wall</tns:BuildingName>
+          <tns:RequiredBuildings>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Barracks</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
-			</tns:TechnologyDependences>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Barracks</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
+      </tns:TechnologyDependences>
+      
 			<tns:UnitsCanProduce>
+        <tns:Name>LightTrooper</tns:Name>
 				<tns:Name>HeavyTrooper</tns:Name>
+        <tns:Name>Trike</tns:Name>
 				<tns:Name>Quad</tns:Name>
 				<tns:Name>CombatTank</tns:Name>
 				<tns:Name>Devastator</tns:Name>
@@ -909,118 +896,116 @@
 				<tns:Name>Harvester</tns:Name>
 			</tns:UnitsCanProduce>
 		</tns:RaceData>
+    
 		<tns:RaceData>
 			<tns:TypeID>2</tns:TypeID>
 			<tns:Name>Ordos</tns:Name>
-			<tns:TechnologyDependences>
+      <tns:TechnologyDependences>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Slab1</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Slab4</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-					<tns:BuildingName>Slab1</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>WindTrap</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>ConstructionYard</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Slab4</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Refinery</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>WindTrap</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>WindTrap</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>ConstructionYard</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Starport</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Refinery</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>WindTrap</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>IX</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Barracks</tns:Name>
+            <tns:Name>HeavyFactory</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Starport</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Silo</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>IX</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Starport</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>LightFactory</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Refinery</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Silo</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>HeavyFactory</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>LightFactory</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>LightFactory</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Refinery</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Radar</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>WindTrap</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>HeavyFactory</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>LightFactory</tns:Name>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>GunTurret</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Radar</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>WindTrap</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>RocketTurret</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>HeavyFactory</tns:Name>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>GunTurret</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Wall</tns:BuildingName>
+          <tns:RequiredBuildings>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
 
-				<tns:TechnologyDependence>
-					<tns:BuildingName>RocketTurret</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
-
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Wall</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
-
-				<tns:TechnologyDependence>
-					<tns:BuildingName>Barracks</tns:BuildingName>
-					<tns:RequiredBuildings>
-						<tns:Name>Radar</tns:Name>
-					</tns:RequiredBuildings>
-				</tns:TechnologyDependence>
-			</tns:TechnologyDependences>
-			<tns:UnitsCanProduce>
-				<tns:Name>LightInfantry</tns:Name>
-				<tns:Name>Trike</tns:Name>
+        <tns:TechnologyDependence>
+          <tns:BuildingName>Barracks</tns:BuildingName>
+          <tns:RequiredBuildings>
+            <tns:Name>Radar</tns:Name>
+          </tns:RequiredBuildings>
+        </tns:TechnologyDependence>
+      </tns:TechnologyDependences>
+      
+      <tns:UnitsCanProduce>
+        <tns:Name>LightInfantry</tns:Name>
 				<tns:Name>RaiderTrike</tns:Name>
 				<tns:Name>CombatTank</tns:Name>
 				<tns:Name>SiegeTank</tns:Name>
-				<tns:Name>SonicTank</tns:Name>
 				<tns:Name>Deviator</tns:Name>
 				<tns:Name>MCV</tns:Name>
 				<tns:Name>Harvester</tns:Name>
