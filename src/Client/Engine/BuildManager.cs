@@ -734,12 +734,7 @@ namespace Yad.Engine {
                 return;
             }
 
-            InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
-
-            lock (((ICollection)_leftState).SyncRoot)
-                _leftState[current] = RightStripState.Placing;
-
-            InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
+            
             if (isUnit) {
                 DeactivateOther(-1);
                 _rightStripe.DeactivateAll();
@@ -752,6 +747,13 @@ namespace Yad.Engine {
                 return;
             }
             else {
+                InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
+
+                lock (((ICollection)_leftState).SyncRoot)
+                    _leftState[current] = RightStripState.Placing;
+
+                InfoLog.WriteInfo("lock leftState in RightBuildActiveClick", EPrefix.BMan);
+
                 InfoLog.WriteInfo("lock stripData in RightBuildActiveClick", EPrefix.BMan);
                 lock (((ICollection)_stripData).SyncRoot)
                     _stripData[current][(short)id].State = StripButtonState.Ready;

@@ -24,6 +24,7 @@ namespace Yad.UI.Client {
         delegate void ShowHideButtons(List<int> toShow, List<int> toHide);
         delegate void RemoveAddButtonsCallBack(OwnerDrawPictureButton[] buttons, bool isRemove);
         delegate void PerformLayoutCallBack(FlowLayoutPanel flp);
+        delegate void SetScrollingLocation(Point pt);
 		public delegate void ChoiceHandler(string name);
 		public event ChoiceHandler OnChoice;
 
@@ -272,10 +273,15 @@ namespace Yad.UI.Client {
 			int y = top;
 			y += howMany;
 			loc.Offset(0, y * HEIGHT);
-			scrollingPanel.Location = loc;
+            if (scrollingPanel.InvokeRequired)
+                scrollingPanel.BeginInvoke(new SetScrollingLocation(SetScrollLoc), new object[] { loc });
+            else
+                scrollingPanel.Location = loc;
 			delta -= howMany;
 		}
-
+        private void SetScrollLoc(Point pt) {
+            scrollingPanel.Location = pt;
+        }
 		private void ShowLower(int howMany) {
 			if (howMany <= 0) return;
 			int delta2 = num - viewable - delta;
