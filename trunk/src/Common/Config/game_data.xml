@@ -144,7 +144,7 @@
 			<tns:DamageDestroy>5</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
-			<tns:Size>1</tns:Size>
+			<tns:Size>1.5</tns:Size>
 			<tns:BuildingDependency>
         <tns:Name>IX</tns:Name>
 			</tns:BuildingDependency>
@@ -166,7 +166,7 @@
 			<tns:DamageDestroy>3</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
-			<tns:Size>1</tns:Size>
+			<tns:Size>1.5</tns:Size>
 			<tns:BuildingDependency>
 			</tns:BuildingDependency>
 		</tns:UnitTankData>
