@@ -168,7 +168,7 @@ namespace Yad.Board.Common {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
                     }
-                    BoardObject ob;
+                    /*BoardObject ob;
                     if (FindNearestTargetInViewRange(out ob)) {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> chace ", EPrefix.AI);
                         state = UnitState.chasing;
@@ -181,7 +181,7 @@ namespace Yad.Board.Common {
                             state = UnitState.stopped;
                         }
                         break;
-                    }
+                    }*/
                     break;
                 case UnitState.attacking:
                     if (CheckIfStillExistTarget(attackedObject) == false) {

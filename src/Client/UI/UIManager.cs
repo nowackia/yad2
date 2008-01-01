@@ -8,12 +8,15 @@ using Yad.Log;
 using Yad.Log.Common;
 using Yad.Net.Common;
 using Yad.Net.Client;
+using Yad.UI.Common;
 
 namespace Yad.UI.Client
 {
     public delegate void FormShowEventHandler(Form form);
     public delegate void SelectTabEventHandler(String tabName);
     public delegate void MenuEventHandler(MenuOptionArg option);
+
+    public delegate DialogResult MessageBoxEventHandler(String msg, String cap, MessageBoxButtons buttons, MessageBoxIcon icons);
     public delegate void ManageControlTextEventHandler(Control control, string text);
     public delegate void ManageControlBackColorEventHandler(Control control, Color backColor);
     public delegate void ManageControlStateEventHandler(Control[] option, bool state);
@@ -35,6 +38,7 @@ namespace Yad.UI.Client
     {
         Views actualView;
         UIManageable actualForm;
+        private MessageBoxEventHandler messageBoxEventHandler = null;
         private MenuEventHandler menuEventHandler = null;
         MiniForm mainForm;
 
@@ -44,6 +48,7 @@ namespace Yad.UI.Client
             actualView = Views.MainMenuForm;
             this.mainForm = mainForm;
             menuEventHandler = new MenuEventHandler(form_optionChoosed);
+            messageBoxEventHandler = new MessageBoxEventHandler(ShowMessageBox);
         }
 
         public void Start()
@@ -68,6 +73,11 @@ namespace Yad.UI.Client
                 form.Close();
             }
             mainForm.Close();
+        }
+
+
+        public DialogResult ShowMessageBox(String msg, String caption, MessageBoxButtons buttons, MessageBoxIcon icons) {
+            return MessageBoxEx.Show(actualForm, msg, caption,buttons, icons);
         }
 
         void form_optionChoosed(MenuOptionArg optionArg)
@@ -421,6 +431,7 @@ namespace Yad.UI.Client
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
+           
 
             if (actualForm.InvokeRequired)
                 actualForm.Invoke(new TopMostEventHandler(SetFormTopMost), new object[] { actualForm, modal });
