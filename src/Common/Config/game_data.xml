@@ -884,7 +884,7 @@
       </tns:TechnologyDependences>
       
 			<tns:UnitsCanProduce>
-        <tns:Name>LightTrooper</tns:Name>
+        <tns:Name>LightInfantry</tns:Name>
 				<tns:Name>HeavyTrooper</tns:Name>
         <tns:Name>Trike</tns:Name>
 				<tns:Name>Quad</tns:Name>
