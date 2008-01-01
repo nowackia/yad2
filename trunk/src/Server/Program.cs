@@ -27,10 +27,8 @@ namespace Yad.Server
 
             InfoLog.WriteStart();
             consoleForm.StartServer();
+
             Application.Run();
-     
-
-
 
             InfoLog.WriteEnd();
             InfoLog.Close();

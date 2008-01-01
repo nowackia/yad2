@@ -343,6 +343,9 @@ namespace Yad.MapEditor
                 BinaryFormatter bf = new BinaryFormatter();
                 startPoints = (List<Point>)bf.Deserialize(fs);
                 map = (MapData)bf.Deserialize(fs);
+                for (int x = 0; x < map.Width; ++x)
+                    for (int y = 0; y < map.Height; ++y)
+                        map[x][y].SpiceNo = Math.Abs(map[x][y].SpiceNo);
                 width = map.Width;
                 height = map.Height;
                 InitUI();
