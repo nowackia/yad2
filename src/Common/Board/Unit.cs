@@ -49,6 +49,8 @@ namespace Yad.Board.Common {
         private Position _goal;
         private Position _tmpGoal;
 
+        private bool orderedAttack = false;
+
         public enum UnitState {
             moving,
             chasing,
@@ -134,7 +136,7 @@ namespace Yad.Board.Common {
                     }
                     //TODO RS: modify to find way each time? - chasing another unit
                     break;
-                case UnitState.chasing:
+                /*case UnitState.chasing:
                     BoardObject nearest1;
                     if (FindNearestTargetInFireRange(out nearest1)) {
                         InfoLog.WriteInfo(DoAIPrefix +  "Unit:AI: chasing -> stop ", EPrefix.AI);
@@ -146,23 +148,47 @@ namespace Yad.Board.Common {
                         state = UnitState.stopped;
                         StopMoving();
                     } 
-                    break;
+                    break;*/
                 case UnitState.orderedAttack:
                     if (Move() == false) {
-                        InfoLog.WriteInfo(DoAIPrefix+ "Unit:AI: chasing -> stop ", EPrefix.AI);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: chasing -> stop ", EPrefix.AI);
                         if (CheckIfStillExistTarget(attackedObject) == false) {
                             state = UnitState.stopped;
                             StopMoving();
+                            orderedAttack = false;
                             break;
+                        } else {
+
+                            if (CheckRangeToShoot(attackedObject)) {
+                                StopMoving();
+                                orderedAttack = false;
+                                state = UnitState.stopped;
+                            } else {
+                                // try to continue moveattack
+                                if (MoveTo(attackedObject.Position) == false) {
+                                    state = UnitState.stopped;
+                                    StopMoving();
+                                    orderedAttack = false;
+                                }
+                                state = UnitState.orderedAttack;
+                            }
                         }
-                        
-                    }
-                    if (CheckRangeToShoot(attackedObject) ) {
-                        StopMoving();
-                        state = UnitState.stopped;
+
+                    } else {
+                        if (CheckRangeToShoot(attackedObject)) {
+                            StopMoving();
+                            orderedAttack = false;
+                            state = UnitState.stopped;
+                        }
                     }
                     break;
                 case UnitState.stopped:
+
+                    if (orderedAttack && CheckIfStillExistTarget(attackedObject)) {
+                        state = UnitState.attacking;
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
+                        break;
+                    }
                     if (FindNearestTargetInFireRange(out attackedObject)) {
                         state = UnitState.attacking;
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
@@ -187,12 +213,14 @@ namespace Yad.Board.Common {
                     if (CheckIfStillExistTarget(attackedObject) == false) {
                         // unit destroyed, find another one.
                         FindNearestTargetInFireRange(out attackedObject);
+                        orderedAttack = false;
                     }
                     if (attackedObject == null) {
                         //unit/ building destroyed - stop
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
+                        orderedAttack = false;
                         break;
                     }
                     if (CheckRangeToShoot(attackedObject)) {
@@ -200,12 +228,18 @@ namespace Yad.Board.Common {
                         TryAttack(attackedObject);
                         //attack, reload etc
                     } else {
-                        // out of range - chase
-                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> chase ", EPrefix.AI);
-                        state = UnitState.chasing;
+                        // out of range - stop
+                        if(orderedAttack == false){
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> stop ", EPrefix.AI);
+                        state = UnitState.stopped;
+
+                        }else{
+                            InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> orderedAttack ", EPrefix.AI);
+                        state = UnitState.orderedAttack;
                         MoveTo(attackedObject.Position);
                         //override state
-                        state = UnitState.chasing;
+                        state = UnitState.orderedAttack; 
+                        }
                     }
                     break;
             }
@@ -414,7 +448,7 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         /// <returns></returns>
         protected bool CheckRangeToShoot(BoardObject ob) {
-            int r = (int)(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2));
+            int r = (int)Math.Floor(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2));
             int range = this.FireRange * this.FireRange;
             //InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
             return r <= range;
@@ -824,9 +858,17 @@ namespace Yad.Board.Common {
         /// <param name="objectID"></param>
         public void OrderAttack(BoardObject boardObject,bool isBuilding) {
             attackedObject = boardObject;
-            MoveTo(boardObject.Position);
-            state = UnitState.orderedAttack;
+            orderedAttack = true;
+            if (CheckRangeToShoot(boardObject) == false) {
+                MoveTo(boardObject.Position);
+                state = UnitState.orderedAttack;
+            } else {
+                // will shoot the nearest.
+                state = UnitState.stopped;
+                StopMoving();
+            }
             this.attackingBuilding = isBuilding;
+
             InfoLog.WriteInfo("Unit:AI: attacking!!!! ", EPrefix.SimulationInfo);
         }
 
