@@ -266,18 +266,26 @@ namespace Yad.Board.Common {
 			Position spiralPos;
 			LinkedList<Unit> units;
 			LinkedList<Building> buildings;
+
+            int r;
+            int range = this.BuildingData.FireRange * this.BuildingData.FireRange;
+
 			for (int i = 0; i < count; ++i) {
 
 				spiralPos = viewSpiral[i];
+
 				if (p.X + spiralPos.X >= 0
 					&& p.X + spiralPos.X < m.Width
 					&& p.Y + spiralPos.Y >= 0
 					&& p.Y + spiralPos.Y < m.Height) {
-
-					units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
+                    // ostroznosci nigdy za wiele
+                    r = (int)Math.Floor(Math.Pow(p.X + spiralPos.X - this.Position.X, 2) + Math.Pow(p.Y + spiralPos.Y - this.Position.Y, 2));
+                    if (r > range) continue;
+                    units = m.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
 					foreach (Unit unit in units) {
 						if (unit.Equals(this)) continue;
-						if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+						if (unit.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[unit.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
 							// target
 
 							//TODO RS: bresenham to check if there is a way to shoot.
@@ -292,7 +300,8 @@ namespace Yad.Board.Common {
 					buildings = m.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
 					foreach (Building building in buildings) {
 						// erase true;)
-						if (building.ObjectID.PlayerID != this.ObjectID.PlayerID) {
+						if (building.ObjectID.PlayerID != this.ObjectID.PlayerID &&
+                            _simulation.Players[building.ObjectID.PlayerID].TeamID != _simulation.Players[this.ObjectID.PlayerID].TeamID) {
 							//attackingBuilding = true;
 							nearest = building;
 							InfoLog.WriteInfo("Building:AI: found building in fire range < " + this.BuildingData.FireRange, EPrefix.SimulationInfo);
