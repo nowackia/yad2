@@ -590,11 +590,15 @@ namespace Yad.Engine.Client {
 				Building b = players[msg.IdPlayer].GetBuilding(id);
 				if (null == b) {
 					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.Test);
+                    if (InvalidBuild != null)
+                        InvalidBuild(msg.CreatorID);
 					return;
 				}
 				int cost = GlobalSettings.GetUnitCost(msg.UnitType);
                 if (players[msg.IdPlayer].Credits < cost) {
                     InfoLog.WriteInfo("Invalid cost", EPrefix.Test);
+                    if (InvalidBuild != null)
+                        InvalidBuild(msg.CreatorID);
                     return;
                 }
 				players[msg.IdPlayer].Credits -= cost;
