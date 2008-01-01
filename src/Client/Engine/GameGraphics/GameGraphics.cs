@@ -391,17 +391,19 @@ namespace Yad.Engine.Client {
 				String tankBasePath = Path.Combine(Settings.Default.Units, o.Name + "Base.png");
 				Bitmap tankBaseSource = new Bitmap(tankBasePath);
 
+				String tankTurretPath = Path.Combine(Settings.Default.Units, o.Name + ".png");
+				Bitmap tankTurretSource = new Bitmap(tankTurretPath);
+
 				foreach (PlayerInfo p in players) {
 					Bitmap tankBaseColoured = GameGraphics.convertColour(p.Color, tankBaseSource);
 					Bitmap tankBaseColouredCorrected = LoadBitmap(tankBaseColoured);
 					Create32bTexture(o.TypeID + p.Id * _offsetTexture, tankBaseColouredCorrected);
-				}
-				//lets assume that turrets are non-coloured ;p
-				String tankTurretPath = Path.Combine(Settings.Default.Units, o.Name + ".png");
-				Bitmap tankTurretSource = new Bitmap(tankTurretPath);
-				Bitmap tankTurretTexture = LoadBitmap(tankTurretSource);
-				Create32bTexture(o.TypeID + _offsetTurret, tankTurretTexture);
 
+
+					Bitmap tankTurretColoured = GameGraphics.convertColour(p.Color, tankTurretSource);
+					Bitmap tankTurretTexture = LoadBitmap(tankTurretColoured);
+					Create32bTexture(o.TypeID + p.Id * _offsetTurret, tankTurretTexture);
+				}
 			}
 
 			foreach (UnitTrooperData o in gameSettings.Troopers) {
@@ -1161,10 +1163,10 @@ namespace Yad.Engine.Client {
 			Direction d = o.Direction;
 			Direction t = o.TurretDirection;
 			RectangleF uvBase = VehicleUVChooser(d);
-			DrawElementFromLeftBottom(realPos.X, realPos.Y, _depthUnit, 1, 1, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase, true);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnit, o.TankData.Size, o.TankData.Size, o.TypeID + o.ObjectID.PlayerID * _offsetTexture, uvBase, true);
 
 			RectangleF uvTurret = VehicleUVChooser(t);
-			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, 1, 1, o.TypeID + _offsetTurret, uvTurret, true);
+			DrawElementFromMiddle(realPos.X, realPos.Y, _depthUnitAddons, o.TankData.Size, o.TankData.Size, o.TypeID + o.ObjectID.PlayerID * _offsetTurret, uvTurret, true);
 		}
 
 
