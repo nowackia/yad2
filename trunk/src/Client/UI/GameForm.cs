@@ -214,8 +214,8 @@ namespace Yad.UI.Client {
 
 			Connection.Instance.MessageHandler = mainMenuForm.MenuMessageHandler;
 			Connection.Instance.SendMessage(gameEndMessage);
-
-			MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.OnMessageBoxShow("Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			//MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			/* Stop playing music */
 			AudioEngine.Instance.Music.Stop();
 
