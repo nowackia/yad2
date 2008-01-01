@@ -339,7 +339,7 @@ namespace Yad.Engine.Common {
 				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
                 int turno = gameMessage.IdTurn - (this.CurrentTurn + 1);
                 if (gameMessage.Type == MessageType.BuildUnitMessage || gameMessage.Type == MessageType.Build)
-                    InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "]", EPrefix.Test);
+                    InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "], actual turn: " + this.CurrentTurn, EPrefix.Test);
                 this._turns[turno].Add(gameMessage);
 			}
 		}
