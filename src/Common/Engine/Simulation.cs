@@ -155,6 +155,8 @@ namespace Yad.Engine.Common {
 
                 InfoLog.WriteInfo("********** TURN " + this.CurrentTurn + " BEGIN **********", EPrefix.Test);
 
+				messages = _currentMessages;
+
 				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
 					onTurnBegin();
@@ -162,7 +164,7 @@ namespace Yad.Engine.Common {
 
 				int turnStart = Environment.TickCount;
 
-				foreach (GameMessage gm in _currentMessages) {
+				foreach (GameMessage gm in messages) {
 					if (gm.Type == MessageType.CreateUnit) {
 						this.onMessageCreate((CreateUnitMessage)gm);
 					} else if (gm.Type == MessageType.Build) {
@@ -338,8 +340,12 @@ namespace Yad.Engine.Common {
 			lock (_turns.SyncRoot) {
 				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
                 int turno = gameMessage.IdTurn - (this.CurrentTurn + 1);
-                if (gameMessage.Type == MessageType.BuildUnitMessage || gameMessage.Type == MessageType.Build)
-                    InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "], actual turn: " + this.CurrentTurn, EPrefix.Test);
+				if (turno < 0 || turno >= _bufferLength) {
+					MessageBox.Show("Error! turno = " + turno.ToString());
+				}
+				if (gameMessage.Type == MessageType.BuildUnitMessage || gameMessage.Type == MessageType.Build) {
+					InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "], actual turn: " + this.CurrentTurn, EPrefix.Test);
+				}
                 this._turns[turno].Add(gameMessage);
 			}
 		}
