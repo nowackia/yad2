@@ -50,6 +50,11 @@ namespace Yad.Board.Common {
         private Position _tmpGoal;
 
         private bool orderedAttack = false;
+        public bool OrderedAttack {
+            get { return orderedAttack; }
+            set { orderedAttack = true; }
+        }
+
 
         public enum UnitState {
             moving,
@@ -184,7 +189,7 @@ namespace Yad.Board.Common {
                     break;
                 case UnitState.stopped:
 
-                    if (orderedAttack && CheckIfStillExistTarget(attackedObject)) {
+                    if (attackedObject!=null && orderedAttack && CheckIfStillExistTarget(attackedObject)) {
                         state = UnitState.attacking;
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
@@ -728,6 +733,8 @@ namespace Yad.Board.Common {
         }
 
 		public virtual bool MoveTo(Position destination) {
+
+            
             InfoLog.WriteInfo(InfoPrefix() + "Counting path...", EPrefix.AStar);
             _tmpGoal = Position.Invalid;
             //czy cel jest zajety
