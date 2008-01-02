@@ -180,10 +180,17 @@ namespace Yad.Board.Common {
                         }
 
                     } else {
-                        if (CheckRangeToShoot(attackedObject)) {
+                        if (CheckIfStillExistTarget(attackedObject) == false) {
                             StopMoving();
                             orderedAttack = false;
                             state = UnitState.stopped;
+                            break;
+                        }
+                        if (CheckRangeToShoot(attackedObject)) {
+                            StopMoving();
+                            orderedAttack = true;
+                            state = UnitState.stopped;
+                            break;
                         }
                     }
                     break;
@@ -465,6 +472,7 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         /// <returns></returns>
         protected bool CheckIfStillExistTarget(BoardObject ob) {
+            if (ob == null) return false;
             if (attackingBuilding) {
                 Building b = (Building)ob;
                 return b.State != Building.BuildingState.destroyed;
