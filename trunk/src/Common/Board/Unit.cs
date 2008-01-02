@@ -11,36 +11,36 @@ using Yad.AI.General;
 using Yad.Algorithms;
 
 namespace Yad.Board.Common {
-	/// <summary>
-	/// base class for all units. must implement ai.
-	/// </summary>
-	public abstract class Unit : BoardObject, IPositionChecker {
-		//common fields for all units - except sandworm
+    /// <summary>
+    /// base class for all units. must implement ai.
+    /// </summary>
+    public abstract class Unit : BoardObject, IPositionChecker {
+        //common fields for all units - except sandworm
         private MapInput _mapInput;
-		protected short _damageDestroy;
-		protected String _name;
-		protected short _fireRange;
+        protected short _damageDestroy;
+        protected String _name;
+        protected short _fireRange;
         protected short _firePower;
-		protected AmmoType _ammoType;
-		protected short _reloadTime;
+        protected AmmoType _ammoType;
+        protected short _reloadTime;
         protected short _ammoSpeed;
-		private short _speed;
-		protected short _maxHealth;
+        private short _speed;
+        protected short _maxHealth;
         protected short _currentHealth;
-		protected short _viewRange;
-		protected short _rotationSpeed;
-		protected Direction _direction;
+        protected short _viewRange;
+        protected short _rotationSpeed;
+        protected Direction _direction;
 
-		//used for moving
-		protected bool _canCrossMountain = false, _canCrossBuildings = false, _canCrossRock = true, _canCrossTrooper = false, _canCrossTank = false;
+        //used for moving
+        protected bool _canCrossMountain = false, _canCrossBuildings = false, _canCrossRock = true, _canCrossTrooper = false, _canCrossTank = false;
 
-		protected short _remainingTurnsInMove = 0;
+        protected short _remainingTurnsInMove = 0;
         protected short _remainingTurnsToReload = 0;
-		protected Position _lastPosition; //used while moving to remember last pos
-		protected Queue<Position> _currentPath;
-		//BoardObject.Position - current position, while moving unit is always at this coordinates
+        protected Position _lastPosition; //used while moving to remember last pos
+        protected Queue<Position> _currentPath;
+        //BoardObject.Position - current position, while moving unit is always at this coordinates
 
-		protected short _typeID;
+        protected short _typeID;
 
         protected BoardObject attackedObject;
         protected bool attackingBuilding; // -- need to proper cast.
@@ -70,18 +70,18 @@ namespace Yad.Board.Common {
         private short damageDestroyRange = 0;
 
         protected UnitState state = UnitState.stopped;
-		//map-related
-		protected Map _map;
+        //map-related
+        protected Map _map;
         protected Simulation _simulation;
-		bool _alreadyOnMap = false;
-		
+        bool _alreadyOnMap = false;
+
         public virtual void Destroy() {
             state = UnitState.destroyed;
-			InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
+            InfoLog.WriteInfo("Unit:Destroy() Not implemented", EPrefix.SimulationInfo);
 
-			if (_damageDestroy == 0) {
-				return;
-			}
+            if (_damageDestroy == 0) {
+                return;
+            }
 
             Position p = this.Position;
             int count;
@@ -95,10 +95,10 @@ namespace Yad.Board.Common {
                     && p.Y + spiralPos.Y < _map.Height) {
 
                     ICollection<Unit> units = _map.Units[p.X + spiralPos.X, p.Y + spiralPos.Y];
-                    Unit [] unitsArr = new Unit[units.Count];
+                    Unit[] unitsArr = new Unit[units.Count];
                     units.CopyTo(unitsArr, 0);
                     foreach (Unit unit in unitsArr) {
-                        _simulation.handleAttackUnit(unit, this,this._damageDestroy);
+                        _simulation.handleAttackUnit(unit, this, this._damageDestroy);
                     }
 
                     ICollection<Building> buildings = _map.Buildings[p.X + spiralPos.X, p.Y + spiralPos.Y];
@@ -109,16 +109,16 @@ namespace Yad.Board.Common {
                     }
                 }
             }
-		}
+        }
 
 
-        protected string DoAIPrefix{
+        protected string DoAIPrefix {
             get {
-            return "ID: " + this.ObjectID.ToString() + " Pos: " + this.Position.ToString() + "Type: " + this.TypeID;
+                return "ID: " + this.ObjectID.ToString() + " Pos: " + this.Position.ToString() + "Type: " + this.TypeID;
             }
         }
         public virtual void DoAI() {
-			InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI()", EPrefix.AI);
+            InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI()", EPrefix.AI);
             if (_remainingTurnsToReload > 0) --_remainingTurnsToReload;
             if (_remainingTurnsInMove > 0 && Moving && state == UnitState.stopped) {
                 Move();
@@ -132,12 +132,12 @@ namespace Yad.Board.Common {
                     //    state = UnitState.stopped;
                     //    StopMoving();
                     //} else
-                        if (Move() == false) {
-                            InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> stop ", EPrefix.AI);
+                    if (Move() == false) {
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
                         StopMoving();
                     } else {
-                        InfoLog.WriteInfo(DoAIPrefix +  "Unit:AI: move -> move ", EPrefix.AI);
+                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> move ", EPrefix.AI);
                     }
                     //TODO RS: modify to find way each time? - chasing another unit
                     break;
@@ -175,6 +175,7 @@ namespace Yad.Board.Common {
                                     state = UnitState.stopped;
                                     StopMoving();
                                     orderedAttack = true;
+                                    break;
                                 }
                                 state = UnitState.orderedAttack;
                             }
@@ -188,6 +189,7 @@ namespace Yad.Board.Common {
                             state = UnitState.stopped;
                             break;
                         }
+                        //exists
                         if (CheckRangeToShoot(attackedObject)) {
                             // target in range
                             StopMoving();
@@ -205,6 +207,7 @@ namespace Yad.Board.Common {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
                     }
+                    orderedAttack = false;
                     if (FindNearestTargetInFireRange(out attackedObject)) {
                         state = UnitState.attacking;
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
@@ -245,22 +248,28 @@ namespace Yad.Board.Common {
                         //attack, reload etc
                     } else {
                         // out of range - stop
-                        if(orderedAttack == false){
-                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> stop ", EPrefix.AI);
-                        state = UnitState.stopped;
+                        if (orderedAttack == false) {
+                            InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> stop ", EPrefix.AI);
+                            state = UnitState.stopped;
 
-                        }else{
+                        } else {
                             InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: attack -> orderedAttack ", EPrefix.AI);
-                        state = UnitState.orderedAttack;
-                        MoveTo(attackedObject.Position);
-                        //override state
-                        state = UnitState.orderedAttack; 
+
+                            if (MoveTo(attackedObject.Position)) {
+                                //override state
+                                state = UnitState.orderedAttack;
+
+                            } else {
+                                orderedAttack = false;
+                                state = UnitState.stopped;
+                                break;
+                            }
                         }
                     }
                     break;
             }
-            InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI() end",EPrefix.AI);
-		}
+            InfoLog.WriteInfo(DoAIPrefix + " unit:DoAI() end", EPrefix.AI);
+        }
 
         protected bool FindNearestTargetInViewRange(out BoardObject ob) {
 
@@ -271,11 +280,11 @@ namespace Yad.Board.Common {
             Position spiralPos;
             LinkedList<Unit> units;
             LinkedList<Building> buildings;
-           
+
             for (int i = 0; i < count; ++i) {
 
                 spiralPos = viewSpiral[i];
-                if (p.X + spiralPos.X >= 0 
+                if (p.X + spiralPos.X >= 0
                     && p.X + spiralPos.X < m.Width
                     && p.Y + spiralPos.Y >= 0
                     && p.Y + spiralPos.Y < m.Height) {
@@ -303,7 +312,7 @@ namespace Yad.Board.Common {
                             return true;
                         }
                     }
-                    
+
                 }
             }
 
@@ -312,8 +321,7 @@ namespace Yad.Board.Common {
             return false;
         }
 
-        protected virtual bool IsMoveable(short x, short y, Map map)
-        {
+        protected virtual bool IsMoveable(short x, short y, Map map) {
             if (map.Units[x, y].Count != 0)
                 return false;
             if (map.Buildings[x, y].Count != 0) {
@@ -326,7 +334,7 @@ namespace Yad.Board.Common {
             return true;
         }
 
-      
+
 
         protected bool FindNearestTargetInFireRange(out BoardObject nearest) {
             int count;
@@ -386,7 +394,7 @@ namespace Yad.Board.Common {
         protected void AttackRegion(BoardObject ob) {
             Position s = ob.Position;
 
-            Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID,_simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
+            Ammo a = new Ammo(new ObjectID(this.ObjectID.PlayerID, _simulation.Players[this.ObjectID.PlayerID].GenerateObjectID()),
                 this.Position, ob.Position, this.AmmoType, this._ammoSpeed,
                 this._firePower, this.ammoDamageRange, _simulation);
             InfoLog.WriteInfo(a.ObjectID.ToString() + " for ammunition ", EPrefix.GObj);
@@ -415,19 +423,19 @@ namespace Yad.Board.Common {
                     // object in same position as target
                     positions.Add(p);
                     break;
-                    
+
                 case AmmoType.Rocket:
                     // objects in radius from target
                     int max;
                     Position[] tab = Unit.RangeSpiral(this.damageDestroyRange, out max);
-                    for (int i = 0; i < max;++i ) {
+                    for (int i = 0; i < max; ++i) {
                         positions.Add(tab[i]);
                     }
                     break;
                 case AmmoType.Sonic:
                     // objects from attacker to target
                     Position tmp = this.Position;
-                    Queue<Position> path = Unit.Bresenham(ref tmp,ref p);
+                    Queue<Position> path = Unit.Bresenham(ref tmp, ref p);
                     positions.AddRange(path);
                     break;
             }
@@ -450,7 +458,7 @@ namespace Yad.Board.Common {
         protected virtual void TryAttack(BoardObject ob) {
 
             // Direction.East - no delta
-            if (RotateBody(ob,Direction.East) == true) return;
+            if (RotateBody(ob, Direction.East) == true) return;
             if (_remainingTurnsToReload == 0) {
                 AttackRegion(ob);
             }
@@ -464,7 +472,7 @@ namespace Yad.Board.Common {
         /// <param name="ob"></param>
         /// <returns></returns>
         protected bool CheckRangeToShoot(BoardObject ob) {
-            int r = (int)Math.Floor(Math.Pow(ob.Position.X-this.Position.X,2) + Math.Pow(ob.Position.Y-this.Position.Y,2));
+            int r = (int)Math.Floor(Math.Pow(ob.Position.X - this.Position.X, 2) + Math.Pow(ob.Position.Y - this.Position.Y, 2));
             int range = this.FireRange * this.FireRange;
             //InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
             return r <= range;
@@ -486,45 +494,40 @@ namespace Yad.Board.Common {
                 return u.state != UnitState.destroyed;
             }
         }
-        protected string InfoPrefix()
-        {
+        protected string InfoPrefix() {
             return this._name + " Unit: " + this.ObjectID.ToString() + " :";
         }
-        public override string ToString()
-        {
+        public override string ToString() {
             return this.ObjectID.ToString() + " name: " + this.Name + " type: " + this.TypeID;
         }
-		public virtual bool Move() {
-			if (!this.Moving) {
+        public virtual bool Move() {
+            if (!this.Moving) {
                 if (this._lastPosition.X != Position.X && this._lastPosition.Y != Position.Y)
                     this._map.Units[this._lastPosition.X, this._lastPosition.Y].Remove(this);
                 this._lastPosition = Position;
                 _remainingTurnsInMove = 0;
-				return false;
-			}
+                return false;
+            }
 
-			if (_remainingTurnsInMove == 0) {
-				//unit starts to move
-				//so we set a new position
-				
+            if (_remainingTurnsInMove == 0) {
+                //unit starts to move
+                //so we set a new position
+
                 //goal reached
                 if (_currentPath.Count == 0) {
-                    
-                    if (this.Position.Equals(_goal))
-                    {
+
+                    if (this.Position.Equals(_goal)) {
                         this._lastPosition = Position;
                         InfoLog.WriteInfo(InfoPrefix() + "Reached goal: " + _goal.ToString(), EPrefix.AStar);
                         return false;
-                    }
-                    else if (this.Position.Equals(_tmpGoal))
-                    {
+                    } else if (this.Position.Equals(_tmpGoal)) {
                         this._lastPosition = Position;
                         InfoLog.WriteInfo(InfoPrefix() + "Reached substitute goal: " + _tmpGoal.ToString(), EPrefix.AStar);
                         if (!MoveTo(_goal))
                             return false;
                     }
                 }
-				Position newPos = _currentPath.Dequeue();
+                Position newPos = _currentPath.Dequeue();
                 if (!IsMoveable(newPos.X, newPos.Y, this._map)) {
                     InfoLog.WriteInfo(InfoPrefix() + "Position: " + newPos.ToString() + "is not moveable", EPrefix.AStar);
                     if (MoveTo(_goal))
@@ -535,107 +538,104 @@ namespace Yad.Board.Common {
 
                 InfoLog.WriteInfo(InfoPrefix() + "Moving to position: " + newPos, EPrefix.AStar);
                 this._remainingTurnsInMove = this._speed;
-                
-				//TODO: check newPos;
-				/*
-				if ( badPos ) {
-					this.currentPath = Unit.FindPath(this.Position, newPos, this.map, canCrossMountain, canCrossBuildings, canCrossRock, canCrossTrooper, canCrossTank);
-					if (currentPath.Count == 0
-					newPos = currentPath.Dequeue();
-				}
-				*/
+
+                //TODO: check newPos;
+                /*
+                if ( badPos ) {
+                    this.currentPath = Unit.FindPath(this.Position, newPos, this.map, canCrossMountain, canCrossBuildings, canCrossRock, canCrossTrooper, canCrossTank);
+                    if (currentPath.Count == 0
+                    newPos = currentPath.Dequeue();
+                }
+                */
                 this._map.Units[this._lastPosition.X, this._lastPosition.Y].Remove(this);
-				this._map.Units[this.Position.X, this.Position.Y].Remove(this);
+                this._map.Units[this.Position.X, this.Position.Y].Remove(this);
                 this._map.Units[this.Position.X, this.Position.Y].Remove(this);
 
-				this._lastPosition = Position;
-				this.Position = newPos;
+                this._lastPosition = Position;
+                this.Position = newPos;
                 this._map.Units[this.Position.X, this.Position.Y].Remove(this);
-				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
-				if(_simulation.Players.ContainsKey(this.ObjectID.PlayerID))
-					_simulation.ClearFogOfWar(this);
+                this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+                if (_simulation.Players.ContainsKey(this.ObjectID.PlayerID))
+                    _simulation.ClearFogOfWar(this);
 
 
-				//set new direction
-				short dx = (short)(newPos.X - _lastPosition.X);
-				short dy = (short)(newPos.Y - _lastPosition.Y);
-				this._direction = Direction.None;
-				if (dx > 0) {
-					_direction |= Direction.East;
-				} else if (dx < 0) {
-					_direction |= Direction.West;
-				}
-				if (dy > 0) {
-					_direction |= Direction.North;
-				} else if (dy < 0) {
-					_direction |= Direction.South;
-				}
-			}
+                //set new direction
+                short dx = (short)(newPos.X - _lastPosition.X);
+                short dy = (short)(newPos.Y - _lastPosition.Y);
+                this._direction = Direction.None;
+                if (dx > 0) {
+                    _direction |= Direction.East;
+                } else if (dx < 0) {
+                    _direction |= Direction.West;
+                }
+                if (dy > 0) {
+                    _direction |= Direction.North;
+                } else if (dy < 0) {
+                    _direction |= Direction.South;
+                }
+            }
 
-            if (_map.Units[this.Position.X, this.Position.Y].Count > 1)
-            {
+            if (_map.Units[this.Position.X, this.Position.Y].Count > 1) {
                 InfoLog.WriteInfo("!%!%!%!%!%!Two units on the same position !%!%!%!%!%!", EPrefix.AStar);
-                foreach (Unit u in _map.Units[this.Position.X, this.Position.Y])
-                {
+                foreach (Unit u in _map.Units[this.Position.X, this.Position.Y]) {
                     InfoLog.WriteInfo("Wrong unit: " + u.ToString(), EPrefix.AStar);
                 }
             }
-			//move unit
-			this._remainingTurnsInMove--;
+            //move unit
+            this._remainingTurnsInMove--;
 
-			return true;
-		}
+            return true;
+        }
 
-		public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy, short ammoSpeed)
-			: base(id, boc, pos) {
+        public Unit(ObjectID id, short typeID, String ammo, BoardObjectClass boc, Position pos, Map map, Simulation sim, short ammoDamageRange, short damageDestroyRange, short damageDestroy, short ammoSpeed)
+            : base(id, boc, pos) {
 
-			this._typeID = typeID;
-			this._map = map;
+            this._typeID = typeID;
+            this._map = map;
             this._simulation = sim;
-			this._lastPosition = pos;
-			this._direction = Direction.North;
-			this._currentPath = new Queue<Position>();
+            this._lastPosition = pos;
+            this._direction = Direction.North;
+            this._currentPath = new Queue<Position>();
             this._damageDestroy = damageDestroy;
             this.damageDestroyRange = damageDestroyRange;
             this.ammoDamageRange = ammoDamageRange;
             this._mapInput = new MapInput(sim.Map);
             this._mapInput.IsMoveable += new MapInput.MoveCheckDelegate(this.IsMoveable);
             this._ammoSpeed = ammoSpeed;
-            if(ammo=="Bullet"){
+            if (ammo == "Bullet") {
                 this._ammoType = AmmoType.Bullet;
-            }
-            else if(ammo=="Rocket"){
+            } else if (ammo == "Rocket") {
                 this._ammoType = AmmoType.Rocket;
-            } else if (ammo=="Sonic") {
+            } else if (ammo == "Sonic") {
                 this._ammoType = AmmoType.Sonic;
             } else {
                 this._ammoType = AmmoType.None;
             }
-		}
+        }
 
 
 
-		public AmmoType AmmoType {
-			get { return _ammoType; }
-		}
+        public AmmoType AmmoType {
+            get { return _ammoType; }
+        }
 
-		public int FireRange {
-			get { return _fireRange; }
-		}
+        public int FireRange {
+            get { return _fireRange; }
+        }
 
         public short FirePower {
             get { return _firePower; }
         }
 
-		public int ReloadTime {
-			get { return _reloadTime; }
-		}
+        public int ReloadTime {
+            get { return _reloadTime; }
+        }
 
-		public short Health {
-			get { return _currentHealth; }
+        public short Health {
+            get { return _currentHealth; }
             set { _currentHealth = value; }
 
-		}
+        }
 
         public short MaxHealth {
             get { return _maxHealth; }
@@ -643,36 +643,36 @@ namespace Yad.Board.Common {
 
         }
 
-		public int ViewRange {
-			get { return _viewRange; }
-		}
+        public int ViewRange {
+            get { return _viewRange; }
+        }
 
-		public int RotationSpeed {
-			get { return _rotationSpeed; }
-		}
+        public int RotationSpeed {
+            get { return _rotationSpeed; }
+        }
 
-		public String Name {
-			get { return _name; }
-		}
+        public String Name {
+            get { return _name; }
+        }
 
-		public int DamageDestroy {
-			get { return _damageDestroy; }
-		}
+        public int DamageDestroy {
+            get { return _damageDestroy; }
+        }
 
-		public Position DestinationPoint {
-			get {
-				if (this._currentPath.Count == 0) {
-					return this.Position;
-				}
+        public Position DestinationPoint {
+            get {
+                if (this._currentPath.Count == 0) {
+                    return this.Position;
+                }
 
-				return this._currentPath.ToArray()[_currentPath.Count - 1];
-			}
-			//set { destinationPoint = value; }
-		}
+                return this._currentPath.ToArray()[_currentPath.Count - 1];
+            }
+            //set { destinationPoint = value; }
+        }
 
-		public short TypeID {
-			get { return this._typeID; }
-		}
+        public short TypeID {
+            get { return this._typeID; }
+        }
 
         protected virtual bool RotateBody(BoardObject ob, Direction turretDelta) {
             if (RotateBodyInternal(ob, turretDelta) == false) return false;
@@ -744,9 +744,9 @@ namespace Yad.Board.Common {
             }
         }
 
-		public virtual bool MoveTo(Position destination) {
+        public virtual bool MoveTo(Position destination) {
 
-            
+
             InfoLog.WriteInfo(InfoPrefix() + "Counting path...", EPrefix.AStar);
             _tmpGoal = Position.Invalid;
             //czy cel jest zajety
@@ -798,84 +798,84 @@ namespace Yad.Board.Common {
             return true;
 
 
-			//this._remainingTurnsInMove = this.speed;
-		}
+            //this._remainingTurnsInMove = this.speed;
+        }
 
-		/// <summary>
-		/// Indicates whether the unit is moving:
-		/// - still have a move to finish
-		/// or
-		/// - have destination queued
-		/// </summary>
-		public bool Moving {
-			get { return (this._remainingTurnsInMove != 0) || (this._currentPath.Count != 0); }
-		}
+        /// <summary>
+        /// Indicates whether the unit is moving:
+        /// - still have a move to finish
+        /// or
+        /// - have destination queued
+        /// </summary>
+        public bool Moving {
+            get { return (this._remainingTurnsInMove != 0) || (this._currentPath.Count != 0); }
+        }
 
-		public Queue<Position> FindPath(Position source, Position dest, Map map,
+        public Queue<Position> FindPath(Position source, Position dest, Map map,
 												bool canCrossMountain, bool canCrossBuildings,
-												bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
+                                                bool canCrossRock, bool canCrossTrooper, bool canCrossTank) {
             //Queue<Position> path = Bresenham(ref source, ref dest);
 
-			//path.Enqueue(dest);
-			//end remove
+            //path.Enqueue(dest);
+            //end remove
 
-			//return path;
-                                                    this._mapInput.Start = source;
-                                                    this._mapInput.Goal = dest;
-                                                    Queue<Position> path = AStar.Search<Position>(this._mapInput);
-                                                    if (path == null)
-                                                        path = new Queue<Position>();
-                                                    if (path.Count != 0)
-                                                        path.Dequeue();
-                                                    return path;
-		}
+            //return path;
+            this._mapInput.Start = source;
+            this._mapInput.Goal = dest;
+            Queue<Position> path = AStar.Search<Position>(this._mapInput);
+            if (path == null)
+                path = new Queue<Position>();
+            if (path.Count != 0)
+                path.Dequeue();
+            return path;
+        }
 
-        
 
-		public void StopMoving() {
-            InfoLog.WriteInfo("Stopped moving: " + this.ObjectID.ToString(),EPrefix.AStar);
-			this._currentPath.Clear();
-		}
 
-		public short Speed {
-			get { return this._speed; }
-			set {
-				if (value == 0) {
-					throw new ArgumentOutOfRangeException("Speed must be greater than 0");
-				}
-				this._speed = value;
-			}
-		}
+        public void StopMoving() {
+            InfoLog.WriteInfo("Stopped moving: " + this.ObjectID.ToString(), EPrefix.AStar);
+            this._currentPath.Clear();
+        }
 
-		public Position LastPosition {
-			get { return this._lastPosition; }
-		}
+        public short Speed {
+            get { return this._speed; }
+            set {
+                if (value == 0) {
+                    throw new ArgumentOutOfRangeException("Speed must be greater than 0");
+                }
+                this._speed = value;
+            }
+        }
 
-		public int RemainingTurnsInMove {
-			get { return this._remainingTurnsInMove; }
-		}
+        public Position LastPosition {
+            get { return this._lastPosition; }
+        }
 
-		public Direction Direction {
-			get { return _direction; }
-			set { _direction = value; }
-		}
+        public int RemainingTurnsInMove {
+            get { return this._remainingTurnsInMove; }
+        }
 
-		public bool PlaceOnMap() {
-			if (!_alreadyOnMap) {
-				this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
-				//ClearFogOfWar();
-				
-				_alreadyOnMap = true;
-				return true;
-			}
-			return false;
-		}
+        public Direction Direction {
+            get { return _direction; }
+            set { _direction = value; }
+        }
+
+        public bool PlaceOnMap() {
+            if (!_alreadyOnMap) {
+                this._map.Units[this.Position.X, this.Position.Y].AddFirst(this);
+                //ClearFogOfWar();
+
+                _alreadyOnMap = true;
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Sets object to attack (building or unit) by this unit.
         /// </summary>
         /// <param name="objectID"></param>
-        public void OrderAttack(BoardObject boardObject,bool isBuilding) {
+        public void OrderAttack(BoardObject boardObject, bool isBuilding) {
             attackedObject = boardObject;
             orderedAttack = true;
             if (CheckRangeToShoot(boardObject) == false) {
@@ -891,23 +891,23 @@ namespace Yad.Board.Common {
             InfoLog.WriteInfo("Unit:AI: attacking!!!! ", EPrefix.SimulationInfo);
         }
 
-		public abstract float getSize();
-		public abstract float getMaxHealth();
+        public abstract float getSize();
+        public abstract float getMaxHealth();
 
-		public UnitState State {
-			get { return state; }
+        public UnitState State {
+            get { return state; }
             set { state = value; }
-		}
+        }
 
-		public short AmmoDamageRange {
-			get { return ammoDamageRange; }
-			set { ammoDamageRange = value; }
-		}
+        public short AmmoDamageRange {
+            get { return ammoDamageRange; }
+            set { ammoDamageRange = value; }
+        }
 
-		public short DamageDestroyRange {
-			get { return damageDestroyRange; }
-			set { damageDestroyRange = value; }
-		}
+        public short DamageDestroyRange {
+            get { return damageDestroyRange; }
+            set { damageDestroyRange = value; }
+        }
 
         #region IPositionChecker Members
 
@@ -915,7 +915,7 @@ namespace Yad.Board.Common {
             if (x >= 0 && y >= 0 && x < _map.Width && y < _map.Height)
                 return IsMoveable(x, y, _map);
             return false;
-               
+
         }
 
         #endregion
