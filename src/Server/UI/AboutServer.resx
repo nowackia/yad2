@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBoxDescription.Text" xml:space="preserve">
-    <value>This application is a server for the game Yet Another Dune II. It was implemented and designed by Piotr Witosławski, Kamil Ślesiński, Adam Nowacki, Paweł Rokoczny and Radosław Stankiewicz. Thanks for all who helped us to implement it (or at least did not interrupt our work). Allways faithfull to the House of Atreides, Piotr Witosławsk </value>
+    <value>This application is a server for the game Yet Another Dune II. It was implemented and designed by Piotr Witosławski, Kamil Ślesiński, Adam Nowacki, Paweł Rokoczny and Radosław Stankiewicz. Thanks for all who helped us to implement it (or at least did not interrupt our work). Allways faithfull to the House of Atreides, Piotr Witosławski </value>
   </data>
 </root>

@@ -177,7 +177,14 @@ namespace Yad.Net.Server
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat Text", msg.SenderId), EPrefix.ServerProcessInfo);
             _server.Chat.AddTextMessage(msg);
         }
-
+        private bool IsPlayerAlreadyLogged(string login) {
+            IEnumerator<KeyValuePair<short, Player>> e = _server.GetPlayers();
+            while (e.MoveNext()) {
+                if (e.Current.Value.Login.CompareTo(login) == 0)
+                    return true;
+            }
+            return false;
+        }
         private void ProcessLogin(LoginMessage msg) {
 
             //Pobranie gracza z listy niezalogowanych
@@ -187,7 +194,7 @@ namespace Yad.Net.Server
             if (null == player || player.State != MenuState.Unlogged)
                 return;
 
-            if (Login(msg.SenderId, msg.Login, msg.Password) || !Settings.Default.DBAvail) {
+            if ((Login(msg.SenderId, msg.Login, msg.Password) || !Settings.Default.DBAvail) && !IsPlayerAlreadyLogged(msg.Login)) {
                 MenuState state = PlayerStateMachine.Transform(player.State, MenuAction.Login);
                 if (state == MenuState.Invalid) {
                     SendMessage(Utils.CreateResultMessage(ResponseType.Login, ResultType.Unsuccesful), player.Id);

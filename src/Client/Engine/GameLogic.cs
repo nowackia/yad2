@@ -32,7 +32,6 @@ namespace Yad.Engine.Client {
         public delegate void GameEndHandler(int winTeamId);
         public delegate void PauseResumeHandler(bool isPause);
 
-		public event NewUnitDelegate OnNewUnit;
 		public event BadLocationHandler OnBadLocation;
         public event GameEndHandler GameEnd;
         public event PauseResumeHandler PauseResume;
@@ -53,7 +52,6 @@ namespace Yad.Engine.Client {
 		private List<Unit>[] _definedGroups = new List<Unit>[4];
 		private Building _selectedBuilding = null;
 		private Dictionary<short, Building> defaultBuildings = new Dictionary<short, Building>();
-        private bool _isPaused = false;
         private string OutpostName = "Radar";
 		#endregion
 
@@ -284,7 +282,7 @@ namespace Yad.Engine.Client {
             PauseAction paction = (PauseAction)dtm.Pause;
             switch (paction) {
                 case PauseAction.Resume:
-                    _isPaused = false;
+                    //_isPaused = false;
                     if (dtm.SpeedUp) {
                         _sim.SpeedUp = true;
                         InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
@@ -301,7 +299,7 @@ namespace Yad.Engine.Client {
                     _sim.DoTurn();
                     break;
                 case PauseAction.Pause:
-                    this._isPaused = true;
+                    //this._isPaused = true;
                     if (PauseResume != null)
                         PauseResume(true);
                     break;
