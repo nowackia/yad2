@@ -188,15 +188,17 @@ namespace Yad.Engine.Client
             if (isPlaying && channel != null)
             {
                 manualMusicEnd = true;
+                channel.setMute(true);
                 channel.stop();
                 channel = null;
             }
 
-            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, sound, false, ref channel);
+            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, sound, true, ref channel);
             if (result == FMOD.RESULT.OK && channel != null)
             {
                 channel.setVolume(volume);
                 channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                channel.setPaused(false);
             }
 
             return FMOD.ERROR.ERRCHECK(result);
@@ -229,15 +231,18 @@ namespace Yad.Engine.Client
             if (!isInitialized)
                 return false;
 
-            List<FMOD.Sound> tracks = music[(short)mt];
-            if (tracks.Count == 0)
-                return false;
+            lock (lockObject)
+            {
+                List<FMOD.Sound> tracks = music[(short)mt];
+                if (tracks.Count == 0)
+                    return false;
 
-            musicType = mt;
+                musicType = mt;
 
-            short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
+                short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
 
-            return this.Play(tracks[index]);
+                return this.Play(tracks[index]);
+            }
         }
 
         public bool PlayRandom()
