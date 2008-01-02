@@ -197,16 +197,21 @@ namespace Yad.Engine.Client
                     channel = null;
                 }
 
-                FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
-                if (result == FMOD.RESULT.OK && channel != null)
+                try
                 {
-                    channel.setVolume(volume);
-                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
-                    InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
-                    channel.setPaused(false);
-                }
+                    FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
+                    if (result == FMOD.RESULT.OK && channel != null)
+                    {
+                        channel.setVolume(volume);
+                        channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                        InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
+                        channel.setPaused(false);
+                    }
 
-                return FMOD.ERROR.ERRCHECK(result);
+                    return FMOD.ERROR.ERRCHECK(result);
+                }
+                catch
+                { return false; }
             }
         }
 
