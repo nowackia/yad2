@@ -36,7 +36,7 @@ namespace Yad.Net.Messaging {
         }
 
         public override string ToString() {
-            return base.ToString() + "UnitType: " + _type + " CreatorID: " + _creatorID;
+            return base.ToString() + "BuildUnitMessage: UnitType: " + _type + " CreatorID: " + _creatorID;
         }
 
 

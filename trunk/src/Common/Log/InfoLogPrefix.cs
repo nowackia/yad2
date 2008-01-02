@@ -66,7 +66,7 @@ namespace Yad.Log.Common
         [Description(" #PERF: ")]
         Performance,
         [Description(" #TST: ")]
-        Test
+        Test,
         
 
         // Wartosc kontrolna - musi byc zawsze na koncu

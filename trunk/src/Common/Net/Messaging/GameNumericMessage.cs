@@ -25,5 +25,9 @@ namespace Yad.Net.Messaging.Common {
             _number = reader.ReadInt32();
         }
 
+        public override string ToString() {
+            return base.ToString() + "GameNumericMessage: _number: " + _number;
+        }
+
     }
 }

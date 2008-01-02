@@ -40,5 +40,9 @@ namespace Yad.Net.Messaging
 			_speedUp = reader.ReadBoolean();
             _pause = reader.ReadByte();
 		}
+
+        public override string ToString() {
+            return base.ToString() + "DoTurnMessage: _speedUp: " + _speedUp + " _pause: " + _pause;
+        }
     }
 }
