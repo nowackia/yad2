@@ -41,7 +41,6 @@ namespace Yad.Engine.Client {
 		public event UnitHandler UnitCompleted;
 		public event BuildingHandler BuildingDestroyed;
 		public event UnitHandler UnitDestroyed;
-		public event BuildingHandler BuildingStarted;
 		public event UnitHandler MCVDeployed;
 		public event UnitHandler UnitStarted;
 		public event InvalidBuildHandler InvalidBuild;
