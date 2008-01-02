@@ -163,17 +163,18 @@ namespace Yad.Board.Common {
                             orderedAttack = false;
                             break;
                         } else {
-
+                            //exists
                             if (CheckRangeToShoot(attackedObject)) {
+                                // in range
                                 StopMoving();
-                                orderedAttack = false;
+                                orderedAttack = true;
                                 state = UnitState.stopped;
                             } else {
-                                // try to continue moveattack
+                                // exists, out of range try to continue moveattack
                                 if (MoveTo(attackedObject.Position) == false) {
                                     state = UnitState.stopped;
                                     StopMoving();
-                                    orderedAttack = false;
+                                    orderedAttack = true;
                                 }
                                 state = UnitState.orderedAttack;
                             }
@@ -181,12 +182,14 @@ namespace Yad.Board.Common {
 
                     } else {
                         if (CheckIfStillExistTarget(attackedObject) == false) {
+                            // target destroyed
                             StopMoving();
                             orderedAttack = false;
                             state = UnitState.stopped;
                             break;
                         }
                         if (CheckRangeToShoot(attackedObject)) {
+                            // target in range
                             StopMoving();
                             orderedAttack = true;
                             state = UnitState.stopped;
@@ -196,7 +199,7 @@ namespace Yad.Board.Common {
                     break;
                 case UnitState.stopped:
 
-                    if (attackedObject!=null && orderedAttack && CheckIfStillExistTarget(attackedObject)) {
+                    if (orderedAttack && CheckIfStillExistTarget(attackedObject)) {
                         state = UnitState.attacking;
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
