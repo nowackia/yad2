@@ -438,9 +438,9 @@ namespace Yad.Engine.Client {
             }
 
             bool soundPlayed = false;
-
-            foreach (Unit u in _selectedUnits) {
-				if (u.ObjectID.PlayerID != CurrentPlayer.Id) {
+            List<Unit> selectedUnits = new List<Unit>(_selectedUnits);
+            foreach (Unit u in selectedUnits) {
+				if (u.ObjectID.PlayerID != CurrentPlayer.Id && u.State != Unit.UnitState.destroyed) {
 					continue;
 				}
                 
