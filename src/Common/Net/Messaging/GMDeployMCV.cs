@@ -27,5 +27,10 @@ namespace Yad.Net.Messaging {
             base.Serialize(writer);
             mcvID.Serialize(writer);
         }
+
+        public override string ToString() {
+            return base.ToString() + " GMDeployMCV: mcvID: " + mcvID.ToString();  
+        }
+
 	}
 }

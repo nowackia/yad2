@@ -36,5 +36,9 @@ namespace Yad.Net.Messaging.Common
             writer.Write(objectID);
             writer.Write(playerID);
         }
+
+        public override string ToString() {
+            return base.ToString() + " DestroyMessage: objectID: " + objectID + " playerID: " + playerID;
+        }
     }
 }

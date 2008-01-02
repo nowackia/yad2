@@ -39,5 +39,9 @@ namespace Yad.Net.Messaging.Common
             writer.Write(idUnit);
             position.Serialize(writer);
         }
+
+        public override string ToString() {
+            return base.ToString() + " HarvestMessage: position: " + position + " idUnit: " + idUnit;
+        }
     }
 }

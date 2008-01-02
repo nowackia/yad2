@@ -64,5 +64,10 @@ namespace Yad.Net.Messaging.Common
             writer.Write((short)unitKind);
             position.Serialize(writer);
         }
+
+        public override string ToString() {
+            return base.ToString() + " CreateUnitMessage: unitID: " + unitID + 
+                " unitType: " + unitType + " unitKind: " + unitKind;
+        }
     }
 }

@@ -35,5 +35,10 @@ namespace Yad.Net.Messaging.Common
 			_attackingObject.Serialize(writer);
 			_attackedObject.Serialize(writer);
         }
+
+        public override string ToString() {
+            return base.ToString() + "AttackMessage: _attackingObject: " + 
+                _attackingObject + " _attackedObject: " + _attackedObject;
+        }
     }
 }

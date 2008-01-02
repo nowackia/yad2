@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+#pragma warning disable 0618
 namespace Yad.Net.Messaging.Common {
     public class MessageFactory {
         public static Message Create(MessageType msgType) {
@@ -303,3 +303,4 @@ namespace Yad.Net.Messaging.Common {
         }
     }
 }
+#pragma warning restore 0618

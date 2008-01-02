@@ -46,7 +46,8 @@ namespace Yad.Net.Messaging.Common
         }
 
         public override string ToString() {
-            return base.ToString() + "creatorID: " + creatorID + " buildType: " + buildingType + "position: " + position;
+            return base.ToString() + "BuildMessage :creatorID: " + 
+                creatorID + " buildType: " + buildingType + "position: " + position;
         }
     }
 }
