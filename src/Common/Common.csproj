@@ -72,6 +72,8 @@
     <Compile Include="DataStructures\PriorityQueue.cs" />
     <Compile Include="Engine\BuildStatus.cs" />
     <Compile Include="Engine\Player.cs" />
+    <Compile Include="Log\InfoLog2.cs" />
+    <Compile Include="Log\InfoLog3.cs" />
     <Compile Include="Net\IPlayerID.cs" />
     <Compile Include="Net\CreateGameResult.cs" />
     <Compile Include="Net\GameInfo.cs" />
