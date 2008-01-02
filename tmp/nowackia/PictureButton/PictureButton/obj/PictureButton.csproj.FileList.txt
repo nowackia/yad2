@@ -1,7 +1,0 @@
-bin\Debug\PictureButton.dll
-bin\Debug\PictureButton.pdb
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\PictureButton.dll
-obj\Debug\PictureButton.pdb
-..\..\Yad2\src\official\YAD2\Client\obj\Debug\PictureButton.dll
-..\..\Yad2\src\official\YAD2\Client\obj\Debug\PictureButton.pdb
