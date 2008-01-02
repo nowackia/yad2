@@ -588,14 +588,14 @@ namespace Yad.Engine.Client {
 				ObjectID id = new ObjectID(msg.IdPlayer, msg.CreatorID);
 				Building b = players[msg.IdPlayer].GetBuilding(id);
 				if (null == b) {
-					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.Test);
+					InfoLog.WriteInfo("Invalid onMessageBuildUnit", EPrefix.BMan);
                     if (InvalidBuild != null)
                         InvalidBuild(msg.CreatorID);
 					return;
 				}
 				int cost = GlobalSettings.GetUnitCost(msg.UnitType);
                 if (players[msg.IdPlayer].Credits < cost) {
-                    InfoLog.WriteInfo("Invalid cost", EPrefix.Test);
+                    InfoLog.WriteInfo("Invalid cost", EPrefix.BMan);
                     if (InvalidBuild != null)
                         InvalidBuild(msg.CreatorID);
                     return;

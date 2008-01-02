@@ -246,8 +246,8 @@ namespace Yad.Engine.Common {
 				}
                 StringBuilder sb = new StringBuilder("");
                 foreach (Player p in players.Values)
-                    sb.Append("Player " + p.Id + " : " + p.Credits);
-                InfoLog.WriteInfo(sb.ToString(), EPrefix.Test);
+                    sb.Append(" Player " + p.Id + " : " + p.Credits);
+                InfoLog.WriteInfo(sb.ToString(), EPrefix.BMan);
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 			}
