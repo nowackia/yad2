@@ -1153,6 +1153,8 @@ namespace Yad.UI.Client
 
         private void exitGameMenu_Click(object sender, EventArgs e)
         {
+            GameForm gf = FormPool.GetForm(Views.GameForm) as GameForm;
+            gf.ForceGameEnd();
             OnMenuOptionChange(MenuOption.Exit);
             //System.Environment.Exit(0);
         }
@@ -1178,7 +1180,9 @@ namespace Yad.UI.Client
 
         private void exitPauseMenu_Click(object sender, EventArgs e)
         {
-            System.Environment.Exit(0);
+            GameForm gf = FormPool.GetForm(Views.GameForm) as GameForm;
+            gf.ForceGameEnd();
+            OnMenuOptionChange(MenuOption.Exit);
         }
         #endregion
 
