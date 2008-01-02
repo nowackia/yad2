@@ -72,6 +72,9 @@ namespace Yad.Net.Client
         public void ProcessMessage(Message message)
         {
             handlerSuspender.WaitOne();
+
+			InfoLog3.WriteInfo(message.ToString());
+
             switch (message.Type)
             {
                 case MessageType.GameInit:
