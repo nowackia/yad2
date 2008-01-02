@@ -200,6 +200,7 @@ namespace Yad.Board.Common {
                 case UnitState.stopped:
 
                     if (orderedAttack && CheckIfStillExistTarget(attackedObject)) {
+                        //ordered attack -> stopped -> attacking 
                         state = UnitState.attacking;
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
@@ -225,7 +226,7 @@ namespace Yad.Board.Common {
                     }*/
                     break;
                 case UnitState.attacking:
-                    if (attackedObject!=null && CheckIfStillExistTarget(attackedObject) == false) {
+                    if (CheckIfStillExistTarget(attackedObject) == false) {
                         // unit destroyed, find another one.
                         FindNearestTargetInFireRange(out attackedObject);
                         orderedAttack = false;
