@@ -200,7 +200,6 @@ namespace Yad.Board.Common {
                     }
                     break;
                 case UnitState.stopped:
-
                     if (orderedAttack && CheckIfStillExistTarget(attackedObject)) {
                         //ordered attack -> stopped -> attacking 
                         state = UnitState.attacking;
@@ -213,20 +212,6 @@ namespace Yad.Board.Common {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> attack ", EPrefix.AI);
                         break;
                     }
-                    /*BoardObject ob;
-                    if (FindNearestTargetInViewRange(out ob)) {
-                        InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: stop -> chace ", EPrefix.AI);
-                        state = UnitState.chasing;
-                        InfoLog.WriteInfo(DoAIPrefix + "Starting chasing:" + ob.Position.ToString(), EPrefix.AI);
-                        if (MoveTo(ob.Position))
-                            state = UnitState.chasing;
-                        else
-                        {
-                            InfoLog.WriteInfo(DoAIPrefix + "Chasing failed!", EPrefix.AI);
-                            state = UnitState.stopped;
-                        }
-                        break;
-                    }*/
                     break;
                 case UnitState.attacking:
                     if (CheckIfStillExistTarget(attackedObject) == false) {
@@ -258,7 +243,6 @@ namespace Yad.Board.Common {
                             if (MoveTo(attackedObject.Position)) {
                                 //override state
                                 state = UnitState.orderedAttack;
-
                             } else {
                                 orderedAttack = false;
                                 state = UnitState.stopped;
@@ -474,7 +458,7 @@ namespace Yad.Board.Common {
         protected bool CheckRangeToShoot(BoardObject ob) {
             int r = (int)Math.Floor(Math.Pow(ob.Position.X - this.Position.X, 2) + Math.Pow(ob.Position.Y - this.Position.Y, 2));
             int range = this.FireRange * this.FireRange;
-            //InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?< " + range, EPrefix.SimulationInfo);
+            InfoLog.WriteInfo("Unit:AI: in range:" + r + " ?<= " + range, EPrefix.SimulationInfo);
             return r <= range;
         }
 
@@ -882,7 +866,7 @@ namespace Yad.Board.Common {
                 MoveTo(boardObject.Position);
                 state = UnitState.orderedAttack;
             } else {
-                // will shoot the nearest.
+                // will shoot ordered.
                 state = UnitState.stopped;
                 StopMoving();
             }
