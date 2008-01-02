@@ -221,7 +221,9 @@ namespace Yad.UI.Common
             //    throw new NotSupportedException("Multiple calls are not supported");
 
             //if (_owner != null)
+#pragma warning disable 0618
             _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+#pragma warning restore 0618
         }
 
         private static IntPtr MessageBoxHookProc(int nCode, IntPtr wParam, IntPtr lParam)

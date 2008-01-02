@@ -983,7 +983,7 @@ namespace Yad.UI.Client
             0,
             0});
             this.maxPlayerNumberNUPCreateGameMenu.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -1719,7 +1719,6 @@ namespace Yad.UI.Client
             this.continuePauseMenu.Text = "Continue";
             this.continuePauseMenu.UseVisualStyleBackColor = true;
             this.continuePauseMenu.Click += new System.EventHandler(this.continuePauseMenu_Click);
-
             // 
             // exitPauseMenu
             // 

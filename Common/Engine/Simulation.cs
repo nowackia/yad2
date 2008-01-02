@@ -142,7 +142,6 @@ namespace Yad.Engine.Common {
 		int turnAsk;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
-			List<GameMessage>.Enumerator messagesEnum;
 
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
