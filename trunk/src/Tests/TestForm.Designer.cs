@@ -100,7 +100,6 @@ namespace Tests {
             this.btnNext.TabIndex = 1;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnRandom
             // 
@@ -110,7 +109,6 @@ namespace Tests {
             this.btnRandom.TabIndex = 0;
             this.btnRandom.Text = "Random";
             this.btnRandom.UseVisualStyleBackColor = true;
-            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // btnTestDict
             // 

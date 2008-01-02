@@ -225,51 +225,6 @@ namespace Tests
         }
         #endregion
 
-        #region Audio
-        private MusicType mt;
-
-        private void btnRandom_Click(object sender, EventArgs e)
-        {
-            if (rbFight.Checked)
-            {
-                mt = Yad.Engine.Client.MusicType.Fight;
-            }
-            else if (rbLose.Checked)
-            {
-                mt = MusicType.Lose;
-            }
-            else if (rbPeace.Checked)
-            {
-                mt = MusicType.Peace;
-            }
-            else
-            {
-                mt = MusicType.Win;
-            }
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            if (rbFight.Checked)
-            {
-                mt = Yad.Engine.Client.MusicType.Fight;
-            }
-            else if (rbLose.Checked)
-            {
-                mt = MusicType.Lose;
-            }
-            else if (rbPeace.Checked)
-            {
-                mt = MusicType.Peace;
-            }
-            else
-            {
-                mt = MusicType.Win;
-            }
-        }
-
-        #endregion
-
         #region Dictionary & enums
         public void testDictionary()
         {

@@ -373,7 +373,7 @@ namespace Yad.UI.Client {
 				_gameLogic.CreateBuilding(pos, _objectToCreateId, _objectCreatorId);
 				this._isCreatingBuilding = false;
                 InfoLog.WriteInfo("_isCreatingUnit = false; in HandleLeftButtonDown", EPrefix.BMan);
-				return;
+                return;
 			}
 
 			_selecting = true;
