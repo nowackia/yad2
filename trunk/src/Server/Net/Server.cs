@@ -60,7 +60,8 @@ namespace Yad.Net.Server {
                     _listener.Start();
                 }
                 catch (SocketException) {
-                    MessageBox.Show("Socket that server uses is attached to different process");
+                    MessageBox.Show("Port that server uses is used by different process");
+                    _serverEnd = true;
                 }
                 
                 InfoLog.WriteInfo("Server listnening started successfully", EPrefix.ServerInformation);

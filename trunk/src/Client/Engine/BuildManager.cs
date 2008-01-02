@@ -652,6 +652,7 @@ namespace Yad.Engine {
         }
 
         public void SwitchCurrentBuilding(int id) {
+            InfoLog.WriteInfo("Enter SwitchCurrentBuilding: " + id, EPrefix.BMan);
             InfoLog.WriteInfo("lock cObjLock ", EPrefix.BMan);
             if (id == -1)
                 InfoLog.WriteInfo("ID == -1 w SwitchCurrentBuilding!", EPrefix.BMan);
@@ -686,6 +687,7 @@ namespace Yad.Engine {
                 lock (((ICollection)_stripData).SyncRoot)
                     _rightStripe.SwitchUpdate(_stripData[current], true);
             InfoLog.WriteInfo("release cObjLock ", EPrefix.BMan);
+            InfoLog.WriteInfo("Leave SwitchCurrentBuilding: " + id, EPrefix.BMan);
         }
 
         public void UpdateView(int id, bool rewind) {
@@ -743,7 +745,8 @@ namespace Yad.Engine {
                 buMessage.CreatorID = current;
                 buMessage.IdPlayer = _gameLogic.CurrentPlayer.Id;
                 Connection.Instance.SendMessage(buMessage);
-                InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
+                InfoLog.WriteInfo("Current: " + current, EPrefix.BMan);
+                InfoLog.WriteInfo("Exit RightBuildingActiveClick", EPrefix.BMan);
                 return;
             }
             else {
@@ -763,11 +766,11 @@ namespace Yad.Engine {
                 _rightStripe.SetState(id, StripButtonState.Ready);
                 return;
             }
-            InfoLog.WriteInfo("lock stripData in RightBuildActiveClick", EPrefix.BMan);
+            /*InfoLog.WriteInfo("lock stripData in RightBuildActiveClick", EPrefix.BMan);
             lock (((ICollection)_stripData).SyncRoot)
                 UpdateView(current,false);
             InfoLog.WriteInfo("unlock stripData in RightBuildActiveClick", EPrefix.BMan);
-            InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);
+            InfoLog.WriteInfo("Exit RightBuildingClick", EPrefix.BMan);*/
         }
 
         private void DeactivateOther(short typeid) {
@@ -881,69 +884,71 @@ namespace Yad.Engine {
 
         public void UpdateStrip(int id, short typeID, int percent) {
             InfoLog.WriteInfo("Enter UpdateStrip", EPrefix.BMan);
-                if (_stripData.ContainsKey(id)) {
-                    if (percent == -1) {
-                        InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
-                        lock (((ICollection)_leftState).SyncRoot) {
-                            if (!_leftState.ContainsKey(id)) {
-                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
-                                return;
-                            }
-                            _leftState[id] = RightStripState.Normal;
+            if (_stripData.ContainsKey(id)) {
+                if (percent == -1) {
+                    InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
+                    lock (((ICollection)_leftState).SyncRoot) {
+                        if (!_leftState.ContainsKey(id)) {
+                            InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
+                            return;
                         }
-                        InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
-                        InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
-                        lock (((ICollection)_stripData).SyncRoot) {
-                            if (!_stripData.ContainsKey(id)) {
-                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
-                                return;
-                            }
-                            ActivateForObject(id);
-                        }
-                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
-                        bool needsUpdate = false;
-                        InfoLog.WriteInfo("lock cObjLock in UpdateStrip", EPrefix.BMan);
-                        lock(cObjLock){
-                            if (_currentObjectID == id)
-                                needsUpdate = true;
-                        }
-                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
-                        if (needsUpdate)
-                            _rightStripe.ActivateAll();
+                        _leftState[id] = RightStripState.Normal;
                     }
-                    else {
-                        InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
-                        lock (((ICollection)_stripData).SyncRoot) {
-                            if (!_stripData.ContainsKey(id))
-                                return;
-                            _stripData[id][typeID].State = StripButtonState.Percantage;
-                            _stripData[id][typeID].Percent = percent;
+                    InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
+                    InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        if (!_stripData.ContainsKey(id)) {
+                            InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
+                            return;
                         }
-                        InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
-                        InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
-                        lock (((ICollection)_leftState).SyncRoot) {
-                            if (!_leftState.ContainsKey(id)) {
-                                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
-                                return;
-                            }
-                            _leftState[id] = RightStripState.Building;
-                        }
-                        InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
-                      
-                        bool needsUpdate = false;
-                        InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.BMan);
-                        lock (cObjLock)
-                        {
-                            if (_currentObjectID == id)
-                                needsUpdate = true;
-                        }
-                          InfoLog.WriteInfo("unlock cObjLock [Update Strip]", EPrefix.BMan);
-                        if (needsUpdate)
-                                _rightStripe.UpdatePercent(typeID, percent);
-                       
-                        }
+                        ActivateForObject(id);
+                    }
+                    InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
+                    bool needsUpdate = false;
+                    InfoLog.WriteInfo("lock cObjLock in UpdateStrip", EPrefix.BMan);
+                    lock (cObjLock) {
+                        if (_currentObjectID == id)
+                            needsUpdate = true;
+                    }
+                    InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
+                    if (needsUpdate)
+                        _rightStripe.ActivateAll();
                 }
-            InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
+                else {
+                    InfoLog.WriteInfo("lock stripdata in UpdateStrip", EPrefix.BMan);
+                    lock (((ICollection)_stripData).SyncRoot) {
+                        if (!_stripData.ContainsKey(id))
+                            return;
+                        _stripData[id][typeID].State = StripButtonState.Percantage;
+                        _stripData[id][typeID].Percent = percent;
+                    }
+                    InfoLog.WriteInfo("unlock stripdata in UpdateStrip", EPrefix.BMan);
+                    InfoLog.WriteInfo("lock leftState in UpdateStrip", EPrefix.BMan);
+                    lock (((ICollection)_leftState).SyncRoot) {
+                        if (!_leftState.ContainsKey(id)) {
+                            InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
+                            return;
+                        }
+                        _leftState[id] = RightStripState.Building;
+                    }
+                    InfoLog.WriteInfo("unlock leftState in UpdateStrip", EPrefix.BMan);
+
+                    bool needsUpdate = false;
+                    InfoLog.WriteInfo("lock cObjLock [Update Strip]", EPrefix.BMan);
+                    lock (cObjLock) {
+                        if (_currentObjectID == id)
+                            needsUpdate = true;
+                    }
+                    InfoLog.WriteInfo("unlock cObjLock [Update Strip]", EPrefix.BMan);
+                    if (needsUpdate) {
+                        InfoLog.WriteInfo("CurrentID: " + id, EPrefix.BMan);
+                        _rightStripe.DeactivateAll();
+                        _rightStripe.SetState(typeID, StripButtonState.Percantage);
+                        _rightStripe.UpdatePercent(typeID, percent);
+                    }
+                }
+                InfoLog.WriteInfo("Leave UpdateStrip", EPrefix.BMan);
+            }
         }
         /*
         private bool CheckBuildingDependencies(string name) {

@@ -38,6 +38,20 @@ namespace Yad.UI {
             get { return isVisible; }
             set { isVisible = value; }
         }
+
+        public void SetStateWithoutInvoke(StripButtonState state) {
+            StripButtonState oldstate = state;
+            this.state = state;
+            if (this.state != oldstate) {
+                OnStateChangeWithoutInvoke(state);
+            }
+            else
+                if (state == StripButtonState.Percantage)
+                    Refresh();
+            
+                
+        }
+
         public StripButtonState State {
             get { return state; }
             set {
@@ -90,6 +104,23 @@ namespace Yad.UI {
                     break;
             }
         }
+        private void OnStateChangeWithoutInvoke(StripButtonState state) {
+            switch (state) {
+                case StripButtonState.Inactive:
+                    ApplyInactive();
+                    break;
+                case StripButtonState.Active:
+                    ApplyActive();
+                    break;
+                case StripButtonState.Ready:
+                    ApplyReady();
+                    break;
+                case StripButtonState.Percantage:
+                    ApplyPercent();
+                    break;
+            }
+            Refresh();
+        }
         private void InvokeState(ApplyStateCallback asc) {
             if (InvokeRequired)
                 this.BeginInvoke(asc);
@@ -123,6 +154,10 @@ namespace Yad.UI {
 			get { return percentage; }
             set { percentage = value; InvokeRefresh(); }
 		}
+
+        public void SetPercentage(int percent) {
+            this.Percentage = percent;
+        }
 
 
         private void InvokeSetText(string text) {

@@ -37,7 +37,6 @@ namespace Yad.Net.Server
         {
             InfoLog.Instance.OnWriteLine = null;
             _server.Stop();
-            //_serverThread.Interrupt();
             _serverThread.Join();
         }
 
@@ -50,6 +49,7 @@ namespace Yad.Net.Server
             InfoLog.WriteInfo("Server loop starts...", EPrefix.Initialization);
             ServerProcess();
             InfoLog.WriteInfo("Server loop ends...", EPrefix.Finalization);
+            Application.Exit();
         }
 
         private void ServerProcess()

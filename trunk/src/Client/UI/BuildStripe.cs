@@ -25,8 +25,9 @@ namespace Yad.UI.Client {
         delegate void RemoveAddButtonsCallBack(OwnerDrawPictureButton[] buttons, bool isRemove);
         delegate void PerformLayoutCallBack(FlowLayoutPanel flp);
         delegate void SetScrollingLocation(Point pt);
+        delegate void SwitchDelegate(Dictionary<short, StateWrapper> statusList, bool rewind);
 		public delegate void ChoiceHandler(string name);
-		public event ChoiceHandler OnChoice;
+
 
 		public event BuildingChosenHandler onBuildingChosen;
 		public event UnitChosenHandler onUnitChosen;
@@ -114,6 +115,43 @@ namespace Yad.UI.Client {
                     buttons[key].Percentage = statusList[key].Percent;
             }
             VisibilityUpdate(statusList, rewind);
+        }
+
+        public void SwitchUpdateGroup(Dictionary<short, StateWrapper> statusList, bool rewind) {
+            if (this.InvokeRequired)
+                this.BeginInvoke(new SwitchDelegate(Switch), new object[] { statusList, rewind });
+            else
+                Switch(statusList, rewind);
+        }
+
+        public void Switch(Dictionary<short, StateWrapper> statusList, bool rewind) {
+            foreach (short key in statusList.Keys) {
+                buttons[key].SetStateWithoutInvoke(statusList[key].State);
+                if (statusList[key].State == StripButtonState.Percantage)
+                    buttons[key].SetPercentage(statusList[key].Percent);
+            }
+            this.SuspendFlowLayout();
+            List<int> toShow = new List<int>();
+            List<int> toHide = new List<int>();
+            foreach (KeyValuePair<int, OwnerDrawPictureButton> kp in buttons) {
+                if (statusList.ContainsKey((short)kp.Key)) {
+                    if (!kp.Value.IsVisible)
+                        toShow.Add(kp.Key);
+                }
+                else
+                    toHide.Add(kp.Key);
+            }
+            ShowHide(toShow, toHide);
+            int oldnum = num;
+            num = statusList.Keys.Count;
+            if (rewind)
+                ShowUpperWithoutInvoke(int.MaxValue);
+            if (oldnum != num) {
+                this.scrollingPanel.Size = new Size(WIDTH, (num) * HEIGHT);
+                this.flowLayoutPanel1.Size = new Size(WIDTH, (num) * HEIGHT);
+            }
+                
+            this.ResumeFlowLayout();
         }
 
         public void UpdatePercent(short type, int percent) {
@@ -264,7 +302,17 @@ namespace Yad.UI.Client {
 
 			Refresh();
 		}
-
+        private void ShowUpperWithoutInvoke(int howMany) {
+            if (howMany <= 0) return;
+            if (howMany > delta) howMany = delta;
+            if (delta == 0) return;
+            Point loc = scrollingPanel.Location;
+            int y = top;
+            y += howMany;
+            loc.Offset(0, y * HEIGHT);
+            scrollingPanel.Location = loc;
+            delta -= howMany;
+        }
 		private void ShowUpper(int howMany) {
 			if (howMany <= 0) return;
 			if (howMany > delta) howMany = delta;
@@ -300,7 +348,7 @@ namespace Yad.UI.Client {
 
 		#endregion
 
-		public void Enabled(short id, bool isEnabled) {
+		public new void Enabled(short id, bool isEnabled) {
 			//budynki o podanym id wyszarza, jeœli isEnabled jest false
 			//odszarza, jeœli isEnabled jest true
 		}
@@ -614,5 +662,11 @@ namespace Yad.UI.Client {
 
 		#endregion
 
+
+        #region IManageableStripe Members
+#pragma warning disable 0067
+        public event BuildStripe.ChoiceHandler OnChoice;
+#pragma warning restore 0067
+        #endregion
     }
 }

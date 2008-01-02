@@ -20,10 +20,10 @@ namespace Yad.Database.Server {
         const string CreateStringFormat = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Jet OLEDB:Engine Type=5";
         const string ConnectionStringFormat = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
         const string CreateSTM = "CREATE TABLE Player (ID AUTOINCREMENT PRIMARY KEY, LOGIN nvarchar(50) UNIQUE, PASS nvarchar(50), EMAIL nvarchar(50), WINNO int DEFAULT 0, LOSSNO int DEFAULT 0)";
-        const string RegisterSTM = "INSERT INTO Player (LOGIN, PASS, EMAIL) VALUES('{0}', '{1}', '{2}')";
-        const string LoginSTM = "SELECT WINNO, LOSSNO FROM Player WHERE LOGIN = '{0}' AND PASS = '{1}'";
-        const string UpdateResultSTM = "UPDATE Player SET WINNO = {0}, LOSSNO = {1} WHERE LOGIN = '{2}'";
-        const string RemidDataSTM = "SELECT PASS, EMAIL FROM Player WHERE LOGIN = '{0}'";
+        const string RegisterSTM = "INSERT INTO Player (LOGIN, PASS, EMAIL) VALUES(@login, @pass, @email)";
+        const string LoginSTM = "SELECT WINNO, LOSSNO FROM Player WHERE LOGIN = @login AND PASS = @pass";
+        const string UpdateResultSTM = "UPDATE Player SET WINNO = @winno, LOSSNO = @lossno WHERE LOGIN = @login";
+        const string RemidDataSTM = "SELECT PASS, EMAIL FROM Player WHERE LOGIN = @login";
         
         private YadDB() {
         }
@@ -39,14 +39,22 @@ namespace Yad.Database.Server {
         }
 
         public static bool Register(string name, string password, string mail) {
-            string registerString = string.Format(RegisterSTM, new object[] { name, password, mail});
-            OleDbCommand ocmd = new OleDbCommand(registerString);
+
+            OleDbCommand ocmd = new OleDbCommand(RegisterSTM);
+            ocmd.Parameters.Add("@login", OleDbType.VarWChar, 50);
+            ocmd.Parameters.Add("@pass", OleDbType.VarWChar, 50);
+            ocmd.Parameters.Add("@email", OleDbType.VarWChar, 50);
+            ocmd.Parameters["@login"].Value = name;
+            ocmd.Parameters["@pass"].Value = password;
+            ocmd.Parameters["@email"].Value = mail;
+
             return ExecuteCommand(ocmd);
         }
 
         public static bool Remind(string name,  out string email, out string password){
-            string query = string.Format(RemidDataSTM, name);
-            OleDbCommand ocmd = new OleDbCommand(query);
+            OleDbCommand ocmd = new OleDbCommand(RemidDataSTM);
+            ocmd.Parameters.Add("@login", OleDbType.VarWChar, 50);
+            ocmd.Parameters["@login"].Value = name;
             RemindQueryReader rqr = new RemindQueryReader();
             ExecuteQuery(ocmd, rqr);
             email = null;
@@ -60,8 +68,13 @@ namespace Yad.Database.Server {
 
         }
         public static bool Login(string name, string password, ref ushort winno, ref ushort lossno) {
-            string query = string.Format(LoginSTM, name, password);
-            OleDbCommand ocmd = new OleDbCommand(query);
+            OleDbCommand ocmd = new OleDbCommand(LoginSTM);
+
+            ocmd.Parameters.Add("@login", OleDbType.VarWChar, 50);
+            ocmd.Parameters.Add("@pass", OleDbType.VarWChar, 50);
+            ocmd.Parameters["@login"].Value = name;
+            ocmd.Parameters["@pass"].Value = password;
+
             using (LoginQueryReader lqr = new LoginQueryReader()) {
                 ExecuteQuery(ocmd, lqr);
                 winno = lqr.Winno;
@@ -73,8 +86,14 @@ namespace Yad.Database.Server {
         }
 
         public static bool UpdatePlayerStats(string name, int winno, int lossno) {
-            string query = string.Format(UpdateResultSTM, winno, lossno, name);
-            OleDbCommand ocmd = new OleDbCommand(query);
+            
+            OleDbCommand ocmd = new OleDbCommand(UpdateResultSTM);
+            ocmd.Parameters.Add("@winno", OleDbType.Integer);
+            ocmd.Parameters.Add("@lossno", OleDbType.Integer);
+            ocmd.Parameters.Add("@login", OleDbType.VarWChar, 50);
+            ocmd.Parameters["@winno"].Value = winno;
+            ocmd.Parameters["@lossno"].Value = lossno;
+            ocmd.Parameters["@login"].Value = name;
             return ExecuteCommand(ocmd);
         }
         private static bool CreateFile() {
