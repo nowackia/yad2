@@ -265,9 +265,9 @@ namespace Yad.Board.Common {
             double minRange = double.MaxValue;
             foreach (Building b in buildings) {
                 if (b.BuildingData.IsRefinery == true) {
-                    double tmp = Math.Sqrt(Math.Pow(b.Position.X - this.Position.X, 2) + Math.Pow(b.Position.Y - this.Position.Y,2));
+                    double tmp = Math.Pow(b.Position.X - this.Position.X, 2) + Math.Pow(b.Position.Y - this.Position.Y,2);
                     if (tmp < minRange) {
-                        tmp = minRange;
+                        minRange = tmp;
                         min = b;
                     }
                 }
