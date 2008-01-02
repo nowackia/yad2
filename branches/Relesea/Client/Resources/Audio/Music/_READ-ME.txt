@@ -1,0 +1,1 @@
+Pliki dŸwiêkowe (ich kategorie: Fight/Peace/itp) bêd¹ rozró¿niane poprzez katalogi, a nie nazwy plików. Dziêki takiemu rozwi¹zaniu wczytywanie ich bêdzie znacznie prostsze - np. wszystkie utwory które bêdê odgrywane w stanie "Peace" l¹duj¹ w katalogu "Peace" i stamt¹d aplikacja wczytuje wszystkie pliki i wrzuca do kolejki odtwarzania.
