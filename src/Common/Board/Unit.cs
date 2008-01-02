@@ -52,10 +52,10 @@ namespace Yad.Board.Common {
         private bool orderedAttack = false;
         public bool OrderedAttack {
             get { return orderedAttack; }
-            set { orderedAttack = true; }
+            set { orderedAttack = value; }
         }
 
-
+        
         public enum UnitState {
             moving,
             chasing,
@@ -126,12 +126,6 @@ namespace Yad.Board.Common {
             }
             switch (state) {
                 case UnitState.moving:
-                    //BoardObject nearest;
-                    //if (FindNearestTargetInFireRange(out nearest)) {
-                    //    InfoLog.WriteInfo("Unit:AI: move -> stop ", EPrefix.SimulationInfo);
-                    //    state = UnitState.stopped;
-                    //    StopMoving();
-                    //} else
                     if (Move() == false) {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> stop ", EPrefix.AI);
                         state = UnitState.stopped;
@@ -139,21 +133,7 @@ namespace Yad.Board.Common {
                     } else {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: move -> move ", EPrefix.AI);
                     }
-                    //TODO RS: modify to find way each time? - chasing another unit
                     break;
-                /*case UnitState.chasing:
-                    BoardObject nearest1;
-                    if (FindNearestTargetInFireRange(out nearest1)) {
-                        InfoLog.WriteInfo(DoAIPrefix +  "Unit:AI: chasing -> stop ", EPrefix.AI);
-                        state = UnitState.stopped;
-                        StopMoving();
-                    } else 
-                    if (Move() == false) {
-                        InfoLog.WriteInfo(DoAIPrefix+ "Unit:AI: chasing -> stop ", EPrefix.AI);
-                        state = UnitState.stopped;
-                        StopMoving();
-                    } 
-                    break;*/
                 case UnitState.orderedAttack:
                     if (Move() == false) {
                         InfoLog.WriteInfo(DoAIPrefix + "Unit:AI: chasing -> stop ", EPrefix.AI);
@@ -167,17 +147,14 @@ namespace Yad.Board.Common {
                             if (CheckRangeToShoot(attackedObject)) {
                                 // in range
                                 StopMoving();
-                                orderedAttack = true;
                                 state = UnitState.stopped;
                             } else {
                                 // exists, out of range try to continue moveattack
                                 if (MoveTo(attackedObject.Position) == false) {
                                     state = UnitState.stopped;
                                     StopMoving();
-                                    orderedAttack = true;
                                     break;
                                 }
-                                state = UnitState.orderedAttack;
                             }
                         }
 
@@ -193,7 +170,6 @@ namespace Yad.Board.Common {
                         if (CheckRangeToShoot(attackedObject)) {
                             // target in range
                             StopMoving();
-                            orderedAttack = true;
                             state = UnitState.stopped;
                             break;
                         }
