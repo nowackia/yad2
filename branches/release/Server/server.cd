@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="Yad.Database.Server.YadDB" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Database\YadDB.cs</FileName>
+      <HashCode>AIBAggAAAAABACAAAAQAAEAAgBABAAAAAAASAQDQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Mail.YadMail" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Mail\YadMail.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAgAAAAAAAAAgAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.Server.BaseServer" Collapsed="true">
+    <Position X="3.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\BaseServer.cs</FileName>
+      <HashCode>AAAAECBAAAAQAAAAABEABAAAAQBAAAAAEAgAAAAAgIA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_msgHandler" />
+      <Field Name="_msgSender" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_playerCollection" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Yad.Net.Server.Chat" Collapsed="true">
+    <Position X="4.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\Chat.cs</FileName>
+      <HashCode>AAAQAAAAIAAAAAAAAAIAAAAAAAgAAAAAAAQAAAECEAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.Server.GameManager" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\GameManager.cs</FileName>
+      <HashCode>AAFAAEEACIAACAAcQDwCUAQkAFAAFAAAESgAAAABAMU=</HashCode>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_games" />
+      <Field Name="_gameServerList" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Yad.Net.Server.GameRoom" Collapsed="true">
+    <Position X="3.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\GameRoom.cs</FileName>
+      <HashCode>AAAQAAEAAAAAAAAEADAAgAAAABggIAgAAAgAAAECAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.Server.MenuMessageHandler" Collapsed="true">
+    <Position X="7.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Net\MenuMessageHandler.cs</FileName>
+      <HashCode>AAgQIAQAQEBEAAQAQwACAAAABAgAAEAAEgEQAABAAAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.Server.MessageHandler" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>Net\MessageHandler.cs</FileName>
+      <HashCode>AAAAAAEAAAAAAAAAACAAAAIAAAAAAAAAAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.Server.Player" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\Player.cs</FileName>
+      <HashCode>AEAKAwABBCAABAAAECBCmIIEACAIACQAIAAwBAAhAQA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Yad.Net.Server.Server" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\Server.cs</FileName>
+      <HashCode>AAAAAAApCCACQAAAAAUCAABAEAACQAgAIBIAAABhAAk=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_chat" />
+      <Field Name="_gameManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Yad.Net.Server.ServerGameInfo" Collapsed="true">
+    <Position X="2.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\ServerGameInfo.cs</FileName>
+      <HashCode>AQgQAAACQohAABhAABBAAEQAABgAABBAAAhAgAECEAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameInfo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Yad.Net.Server.ServerMessageSender" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Net\ServerMessageSender.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAIAAACAAAAAABQAAgAAAAAAAAEAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Yad.Net.GameServer.Server.GameMessageHandler" Collapsed="true">
+    <Position X="10" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Net\GameServer\GameMessageHandler.cs</FileName>
+      <HashCode>AAAAAEAAIAAAAAAAEQABAAAABAAABEgIAAQACAAQCAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yad.Net.GameServer.Server.GameServer" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\GameServer\GameServer.cs</FileName>
+      <HashCode>AIBAABAAQCBAAAAAASECAAQWCIACIEABKAAARACQQAI=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_simulation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Yad.Net.GameServer.Server.MockServerSimulation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Net\GameServer\MockServerSimulation.cs</FileName>
+      <HashCode>QAEAABAAAAAEAAAAABBAABIAAAAABASEKAgEAAACAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Yad.Net.Common.GameInfo" Collapsed="true">
+    <Position X="2.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="Yad.Net.GameServer.Server.IServerSimulation" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Net\GameServer\IServerSimulation.cs</FileName>
+      <HashCode>QAEAABAAAAAAAAAAABBAABAAAAAABASEKAgAAAACAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+</ClassDiagram>
