@@ -44,7 +44,7 @@ namespace Yad.Log.Common
                 try {
                     _writer.WriteLine(s);
                     _writer.Flush();
-                } catch (ObjectDisposedException disposed) {
+                } catch (ObjectDisposedException ) {
                     System.Console.Out.WriteLine("stream disposed");
                 }
             }

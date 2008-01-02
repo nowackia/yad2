@@ -390,7 +390,7 @@ namespace Yad.Engine.Common {
 				// dla pewnoœci pozwalamy w¹tkowi przejœc do nastêpnej tury,
 				// gdy¿ mo¿e czekaæ na semaforze
 				this._nextTurnSemaphore.Release();
-			} catch (SemaphoreFullException sfe) {
+			} catch (SemaphoreFullException) {
 				//trudno ;p
 			}
 			//_turnProcessor.Join();

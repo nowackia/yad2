@@ -24,7 +24,6 @@ namespace Yad.UI {
                     throw new NotImplementedException("brak pliku animacji dla " + name + ": " + ex.Message);
                 }
             }
-            return null;
         }
 
         
@@ -41,7 +40,6 @@ namespace Yad.UI {
                     throw new NotImplementedException("brak pliku grafiki dla " + name + ": " + ex.Message);
                 }
             }
-            return null;
         }
 
         private static Image TryGetImage(String path) {

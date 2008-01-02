@@ -169,7 +169,6 @@ namespace Yad.Engine.Client {
 
         private void CreateUnit(short playerId, short type, Position pos) {
             InfoLog.WriteInfo("CreateUnit", EPrefix.Test);
-			int cost=0;
 			Player p = players[playerId];
 			Unit u = null;
 			ObjectID id = new ObjectID(playerId, p.GenerateObjectID());
