@@ -47,7 +47,7 @@ namespace Yad.Engine.Client
         private float volume;
         private bool isInitialized;
 
-        private object lockObject = new object();
+        private object musicLockObject = new object();
 
         public Music()
             : this(null)
@@ -127,7 +127,7 @@ namespace Yad.Engine.Client
             {
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
-                if(!FMOD.ERROR.ERRCHECK(result))
+                if (!FMOD.ERROR.ERRCHECK(result))
                     InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Fight].Add(sound);
             }
@@ -137,7 +137,7 @@ namespace Yad.Engine.Client
             {
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
-                if(!FMOD.ERROR.ERRCHECK(result))
+                if (!FMOD.ERROR.ERRCHECK(result))
                     InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Lose].Add(sound);
             }
@@ -147,7 +147,7 @@ namespace Yad.Engine.Client
             {
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
-                if(!FMOD.ERROR.ERRCHECK(result))
+                if (!FMOD.ERROR.ERRCHECK(result))
                     InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Peace].Add(sound);
             }
@@ -157,7 +157,7 @@ namespace Yad.Engine.Client
             {
                 sound = new FMOD.Sound();
                 result = system.createSound(fileInfo.FullName, FMOD.MODE.SOFTWARE | FMOD.MODE.CREATESTREAM, ref sound);
-                if(!FMOD.ERROR.ERRCHECK(result))
+                if (!FMOD.ERROR.ERRCHECK(result))
                     InfoLog.WriteError(fileInfo.Name + ": " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
                 music[(short)MusicType.Win].Add(sound);
             }
@@ -178,30 +178,36 @@ namespace Yad.Engine.Client
             if (!isInitialized)
                 return false;
 
-            bool isPlaying = false;
-
-            if (channel != null)
-                channel.isPlaying(ref isPlaying);
-            else
-                isPlaying = false;
-
-            if (isPlaying && channel != null)
+            lock (musicLockObject)
             {
-                manualMusicEnd = true;
-                channel.setMute(true);
-                channel.stop();
-                channel = null;
-            }
+                bool isPlaying = false;
 
-            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.FREE, sound, true, ref channel);
-            if (result == FMOD.RESULT.OK && channel != null)
-            {
-                channel.setVolume(volume);
-                channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
-                channel.setPaused(false);
-            }
+                if (channel != null)
+                    channel.isPlaying(ref isPlaying);
+                else
+                    isPlaying = false;
 
-            return FMOD.ERROR.ERRCHECK(result);
+                if (isPlaying && channel != null)
+                    manualMusicEnd = true;
+
+                if (channel != null)
+                {
+                    channel.setVolume(0.0f);
+                    channel.stop();
+                    channel = null;
+                }
+
+                FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
+                if (result == FMOD.RESULT.OK && channel != null)
+                {
+                    channel.setVolume(volume);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
+                    channel.setPaused(false);
+                }
+
+                return FMOD.ERROR.ERRCHECK(result);
+            }
         }
 
         public bool Play(MusicType mt)
@@ -209,16 +215,13 @@ namespace Yad.Engine.Client
             if (!isInitialized)
                 return false;
 
-            lock (lockObject)
+            if (mt != musicType)
             {
-                if (mt != musicType)
-                {
-                    musicType = mt;
-                    return this.PlayNext(mt);
-                }
-                else
-                    return false;
+                musicType = mt;
+                return this.PlayNext(mt);
             }
+            else
+                return false;
         }
 
         public bool PlayNext()
@@ -231,18 +234,15 @@ namespace Yad.Engine.Client
             if (!isInitialized)
                 return false;
 
-            lock (lockObject)
-            {
-                List<FMOD.Sound> tracks = music[(short)mt];
-                if (tracks.Count == 0)
-                    return false;
+            List<FMOD.Sound> tracks = music[(short)mt];
+            if (tracks.Count == 0)
+                return false;
 
-                musicType = mt;
+            musicType = mt;
 
-                short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
+            short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
 
-                return this.Play(tracks[index]);
-            }
+            return this.Play(tracks[index]);
         }
 
         public bool PlayRandom()

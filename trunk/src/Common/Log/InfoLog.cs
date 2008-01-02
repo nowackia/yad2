@@ -66,6 +66,7 @@ namespace Yad.Log.Common {
             //_infoLogPrefix.AddFilter(EPrefix.MessageReceivedInfo);
             //_infoLogPrefix.AddFilter(EPrefix.GameMessageProccesing);
             _infoLogPrefix.RemoveFilter(EPrefix.BMan);
+            //_infoLogPrefix.RemoveFilter(EPrefix.AudioEngine);
 
             /*_infoLogPrefix.RemoveFilter(EPrefix.GObj);
             _infoLogPrefix.RemoveFilter(EPrefix.AStar);
