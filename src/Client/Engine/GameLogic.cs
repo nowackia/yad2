@@ -531,6 +531,7 @@ namespace Yad.Engine.Client {
         /// </summary>
         public void CheckGameEndCondition()
         {
+            InfoLog.WriteInfo("Enter CheckGameEndCondition", EPrefix.BMan);
             if (CurrentPlayer.GameObjectsCount == 0)
                 CurrentPlayer.ClearForOfWar();
 
@@ -569,12 +570,17 @@ namespace Yad.Engine.Client {
 
             int playersCount = _sim.GetPlayers().Count-1;
             /* Only one team left */
-            if (playersCount > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null)
+            if (playersCount > 1 && anyObjectOwningTeamsCount == 1 && GameEnd != null) {
+                InfoLog.WriteInfo("GameEnd!!!", EPrefix.BMan);
                 GameEnd(anyObjectOwningTeamId);
+            }
 
             /* No teams left */
-            if (playersCount == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null)
+            if (playersCount == 1 && anyObjectOwningTeamsCount == 0 && GameEnd != null) {
+                InfoLog.WriteInfo("GameEnd!!!", EPrefix.BMan);
                 GameEnd(anyObjectOwningTeamId);
+            }
+            InfoLog.WriteInfo("End CheckGameEndCondition");
         }
         #endregion
 
