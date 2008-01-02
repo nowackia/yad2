@@ -433,6 +433,8 @@ namespace Yad.UI.Client
             //reset handler
             actualForm.MenuOptionChange -= menuEventHandler;
             actualForm.MenuOptionChange += menuEventHandler;
+            actualForm.MessageBoxShow -= messageBoxEventHandler;
+            actualForm.MessageBoxShow += messageBoxEventHandler;
            
 
             if (actualForm.InvokeRequired)
