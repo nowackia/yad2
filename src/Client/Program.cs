@@ -23,7 +23,8 @@ namespace Yad.Client
         static void Main()
         {
             InfoLog.WriteStart();
-
+			InfoLog2.WriteStart();
+			InfoLog3.WriteStart();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -43,8 +44,12 @@ namespace Yad.Client
             Connection.Instance.CloseConnection();
 
 
-            InfoLog.WriteEnd();
-            InfoLog.Close();
+			InfoLog.WriteEnd();
+			InfoLog.Close();
+			InfoLog2.WriteEnd();
+			InfoLog2.Close();
+			InfoLog3.WriteEnd();
+			InfoLog3.Close();
         }
     }
 }

@@ -157,6 +157,8 @@ namespace Yad.Engine.Common {
 
 				messages = _currentMessages;
 
+				InfoLog2.WriteInfo("Turn: " + CurrentTurn.ToString());
+
 				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
 					onTurnBegin();
@@ -165,6 +167,9 @@ namespace Yad.Engine.Common {
 				int turnStart = Environment.TickCount;
 
 				foreach (GameMessage gm in messages) {
+
+					InfoLog2.WriteInfo(gm.ToString());
+
 					if (gm.Type == MessageType.CreateUnit) {
 						this.onMessageCreate((CreateUnitMessage)gm);
 					} else if (gm.Type == MessageType.Build) {
