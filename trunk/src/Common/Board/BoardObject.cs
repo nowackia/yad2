@@ -20,7 +20,7 @@ namespace Yad.Board.Common {
 		/// <summary>
 		/// This will be null for Server.
 		/// </summary>
-		Animation animation;
+		//Animation animation;
 
 		/// <summary>
 		/// Default constructor

@@ -8,7 +8,7 @@ using Yad.Log.Common;
 
 namespace Yad.Board.Common {
 	public class UnitTank : Unit {
-		private Animation turretAnimation;
+		//private Animation turretAnimation;
 		UnitTankData _tankData;
         // delta direction to tank direction
         Direction turretDirectionFromTankDirection;
@@ -47,9 +47,7 @@ namespace Yad.Board.Common {
             turretDirectionFromTankDirection =  Direction.East;
 		}
 
-		public Animation TurretAnimation {
-			get { return turretAnimation; }
-		}
+		
 
 		public UnitTankData TankData {
 			get { return _tankData; }

@@ -429,11 +429,12 @@ namespace Yad.Engine.Client {
             }
             if (_selectedBuilding != null) {
                 return;
+                /*
                 AttackMessage am = (AttackMessage)MessageFactory.Create(MessageType.Attack);
                 am.Attacker = _selectedBuilding.ObjectID;
                 am.Attacked = attacked.ObjectID;
                 am.IdPlayer = _selectedBuilding.ObjectID.PlayerID;
-                Connection.Instance.SendMessage(am);
+                Connection.Instance.SendMessage(am);*/
             }
 
             bool soundPlayed = false;
