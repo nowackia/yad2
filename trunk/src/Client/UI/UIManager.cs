@@ -72,7 +72,8 @@ namespace Yad.UI.Client
             Connection.Instance.CloseConnection();
             foreach (UIManageable form in FormPool.Forms) {
                 form.Shutdown();
-                form.Close();
+                if(form.IsDisposed==false)
+                    form.Close();
             }
             mainForm.Close();
         }

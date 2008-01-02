@@ -250,7 +250,7 @@ namespace Yad.UI.Client {
         public override void Shutdown() {
             base.Shutdown();
             GameGraphics.DeinitGL();
-            _gameLogic.Simulation.AbortSimulation();
+            
             this.gameFormClose = true;
         }
 
@@ -744,5 +744,9 @@ namespace Yad.UI.Client {
 				_gameLogic.manageGroups(3, e.Control);
 			}
 		}
+
+        public void ForceGameEnd() {
+            Simulation_GameEnd(-1);
+        }
 	}
 }
