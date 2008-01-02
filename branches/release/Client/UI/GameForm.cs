@@ -365,7 +365,6 @@ namespace Yad.UI.Client {
 			Cursor.Hide();
 		}
 
-		static bool yes = true;
 		private void HandleLeftButtonDown(MouseEventArgs e) {
 
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);

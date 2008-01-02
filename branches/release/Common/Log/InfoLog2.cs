@@ -110,7 +110,8 @@ namespace Yad.Log.Common {
         }
 
         private void WriteIns(string s) {
-            _writer.WriteLine(s);
+            if(_isEnabled)
+                _writer.WriteLine(s);
         }
 
         private void WriteSingleExceptionIns(Exception ex) {

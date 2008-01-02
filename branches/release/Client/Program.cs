@@ -22,6 +22,10 @@ namespace Yad.Client
         [STAThread]
         static void Main()
         {
+            InfoLog.Disable();
+            InfoLog2.Disable();
+            InfoLog3.Disable();
+
             InfoLog.WriteStart();
 			InfoLog2.WriteStart();
 			InfoLog3.WriteStart();
