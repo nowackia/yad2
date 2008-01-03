@@ -43,7 +43,6 @@ namespace Yad.Client
 
             Connection.Instance.CloseConnection();
 
-
 			InfoLog.WriteEnd();
 			InfoLog.Close();
 			

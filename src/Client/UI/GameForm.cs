@@ -186,14 +186,17 @@ namespace Yad.UI.Client {
 			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
 
 			bool isWinner = false;
+            string endGameInformation = string.Empty;
 			if (winTeamId == _gameLogic.CurrentPlayer.TeamID)
 				isWinner = true;
 
 			/* Playing proper music */
 			if (isWinner) {
+                endGameInformation = "Congratulations, you won!";
 				AudioEngine.Instance.Music.Play(MusicType.Win);
 				AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Win);
 			} else {
+                endGameInformation = "Unfortunately you lost!";
 				AudioEngine.Instance.Music.Play(MusicType.Lose);
 				AudioEngine.Instance.Sound.PlayHouse(_gameLogic.CurrentPlayer.House, HouseSoundType.Lose);
 			}
@@ -214,8 +217,7 @@ namespace Yad.UI.Client {
 
 			Connection.Instance.MessageHandler = mainMenuForm.MenuMessageHandler;
 			Connection.Instance.SendMessage(gameEndMessage);
-            this.OnMessageBoxShow("Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//MessageBoxEx.Show(this, "Game result: " + isWinner, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.OnMessageBoxShow(endGameInformation, "Game End", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			/* Stop playing music */
 			AudioEngine.Instance.Music.Stop();
 
