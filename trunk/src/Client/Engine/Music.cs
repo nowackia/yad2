@@ -50,7 +50,7 @@ namespace Yad.Engine.Client
         private object musicLockObject = new object();
 
         public Music()
-            : this(null)
+            : this(null, false)
         { }
 
         public Music(FMOD.System system)
