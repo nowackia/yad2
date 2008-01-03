@@ -30,6 +30,7 @@ namespace Yad.Net.Messaging.Common
         BuildUnitMessage,
         Pause,
         Resume,
+        GameLeave,
         #endregion
 
         #region Chat

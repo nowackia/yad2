@@ -11,6 +11,7 @@ using Yad.Net.Client;
 using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.UI.Client;
+using Yad.Log;
 
 namespace Yad.Client
 {
@@ -22,10 +23,13 @@ namespace Yad.Client
         [STAThread]
         static void Main()
         {
-            InfoLog.WriteStart();
-			InfoLog2.WriteStart();
-			InfoLog3.WriteStart();
+            InfoLog.Instance.InitializeLogFile(LogFiles.ProcessMsgLog);
+            InfoLog.Instance.InitializeLogFile(LogFiles.IncomingMsgLog);
+            InfoLog.Instance.InitializeLogFile(LogFiles.BuildManagerLog);
 
+            InfoLog.Instance.AddRedirection(EPrefix.BMan, LogFiles.BuildManagerLog);
+            InfoLog.WriteStart();
+			
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -46,10 +50,7 @@ namespace Yad.Client
 
 			InfoLog.WriteEnd();
 			InfoLog.Close();
-			InfoLog2.WriteEnd();
-			InfoLog2.Close();
-			InfoLog3.WriteEnd();
-			InfoLog3.Close();
+			
         }
     }
 }

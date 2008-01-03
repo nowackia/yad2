@@ -15,6 +15,7 @@ using Yad.Utilities.Common;
 using Yad.UI.Common;
 using Yad.Net.Messaging;
 using Yad.Net.Common;
+using Yad.Log;
 
 namespace Yad.Engine.Common {
 
@@ -142,7 +143,6 @@ namespace Yad.Engine.Common {
 		int turnAsk;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
-			List<GameMessage>.Enumerator messagesEnum;
 
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
@@ -157,7 +157,7 @@ namespace Yad.Engine.Common {
 
 				messages = _currentMessages;
 
-				InfoLog2.WriteInfo("Turn: " + CurrentTurn.ToString());
+				InfoLog.WriteInfo("Turn: " + CurrentTurn.ToString(), LogFiles.ProcessMsgLog);
 
 				turnAsk = Environment.TickCount;
 				if (onTurnBegin != null) {
@@ -168,7 +168,7 @@ namespace Yad.Engine.Common {
 
 				foreach (GameMessage gm in messages) {
 
-					InfoLog2.WriteInfo(gm.ToString());
+					InfoLog.WriteInfo(gm.ToString(), LogFiles.ProcessMsgLog);
 
 					if (gm.Type == MessageType.CreateUnit) {
 						this.onMessageCreate((CreateUnitMessage)gm);

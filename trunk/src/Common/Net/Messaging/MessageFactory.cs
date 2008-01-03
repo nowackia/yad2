@@ -69,6 +69,8 @@ namespace Yad.Net.Messaging.Common {
                 
                 case MessageType.Resume:
                     return new Message(MessageType.Resume);
+                case MessageType.GameLeave:
+                    return new Message(MessageType.GameLeave);
 
                 #endregion
 
