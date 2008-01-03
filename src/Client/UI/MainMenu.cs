@@ -498,9 +498,9 @@ namespace Yad.UI.Client
 
                 try
                 { Connection.Instance.InitConnection(serverLoginMenu.Text); }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBoxEx.Show(this, ex.Message, "Login error");
+                    MessageBox.Show(this, ex.Message, "Login error");
                     ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
                     return;
                 }
