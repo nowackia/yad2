@@ -382,5 +382,14 @@ namespace Yad.Properties.Client {
                 this["SandwormTurnsOff"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AudioEngineAvail {
+            get {
+                return ((bool)(this["AudioEngineAvail"]));
+            }
+        }
     }
 }

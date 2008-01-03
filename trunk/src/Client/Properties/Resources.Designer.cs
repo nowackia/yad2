@@ -172,6 +172,13 @@ namespace Yad.Properties {
             }
         }
         
+        internal static System.Drawing.Icon UI_DuneIcon {
+            get {
+                object obj = ResourceManager.GetObject("UI_DuneIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap UI_Line_NS {
             get {
                 object obj = ResourceManager.GetObject("UI_Line_NS", resourceCulture);

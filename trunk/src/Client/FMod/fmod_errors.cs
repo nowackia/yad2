@@ -80,6 +80,7 @@ namespace FMOD
                 case FMOD.RESULT.ERR_NET_URL: return "The specified URL couldn't be resolved. ";
                 case FMOD.RESULT.ERR_NET_WOULD_BLOCK: return "Operation on a non-blocking socket could not complete immediately. ";
                 case FMOD.RESULT.ERR_NOTREADY: return "Operation could not be performed because specified sound is not ready. ";
+                case FMOD.RESULT.ERR_OFF_MANUALLY: return "Library turned off manually. ";
                 case FMOD.RESULT.ERR_OUTPUT_ALLOCATED: return "Error initializing output device, but more specifically, the output device is already in use and cannot be reused. ";
                 case FMOD.RESULT.ERR_OUTPUT_CREATEBUFFER: return "Error creating hardware sound buffer. ";
                 case FMOD.RESULT.ERR_OUTPUT_DRIVERCALL: return "A call to a standard soundcard driver failed, which could possibly mean a bug in the driver or resources were missing or exhausted. ";
