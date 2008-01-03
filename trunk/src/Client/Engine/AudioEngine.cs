@@ -45,13 +45,13 @@ namespace Yad.Engine.Client
             /* Create a System object and initialize. */
             result = FMOD.Factory.System_Create(ref system);
             if (!FMOD.ERROR.ERRCHECK(result))
-                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
 
             result = system.getVersion(ref version);
             if (!FMOD.ERROR.ERRCHECK(result))
-                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
             if (version < FMOD.VERSION.number)
-                MessageBoxEx.Show("Error!  You are using an old version of FMOD " + version.ToString("X") + ".  This program requires " + FMOD.VERSION.number.ToString("X") + ".");
+                MessageBox.Show("Error!  You are using an old version of FMOD " + version.ToString("X") + ".  This program requires " + FMOD.VERSION.number.ToString("X") + ".");
 
             result = system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null);
             if (!FMOD.ERROR.ERRCHECK(result))
@@ -60,7 +60,7 @@ namespace Yad.Engine.Client
                 music = new Music();
                 sound = new Sound();
                 InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
-                MessageBoxEx.Show(FMOD.ERROR.String(result), "FMOD Error");
+                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
                 return;
             }
 
