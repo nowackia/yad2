@@ -258,7 +258,7 @@ namespace Yad.UI.Common
             int height = recChild.Height - recChild.Y;
 
             Rectangle recParent = new Rectangle(0, 0, 0, 0);
-            if (!_owner.IsDisposed)
+            if (_owner != null && !_owner.IsDisposed)
                 success = GetWindowRect(_owner.Handle, ref recParent);
 
             Point ptCenter = new Point(0, 0);

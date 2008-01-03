@@ -80,7 +80,7 @@ namespace Yad.UI.Client
 
 
         public DialogResult ShowMessageBox(String msg, String caption, MessageBoxButtons buttons, MessageBoxIcon icons) {
-            return MessageBox.Show(actualForm, msg, caption,buttons, icons);
+            return MessageBoxEx.Show(actualForm, msg, caption,buttons, icons);
         }
 
         void form_optionChoosed(MenuOptionArg optionArg)
