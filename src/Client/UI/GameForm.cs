@@ -365,7 +365,6 @@ namespace Yad.UI.Client {
 			Cursor.Hide();
 		}
 
-		static bool yes = true;
 		private void HandleLeftButtonDown(MouseEventArgs e) {
 
 			Position pos = GameGraphics.TranslateMousePosition(e.Location);
@@ -464,7 +463,7 @@ namespace Yad.UI.Client {
 		}
 		#endregion
 
-		#region Stripes-related
+
 		void UpdateStrip(int playerID, int id, short typeID, int percent) {
 			if (playerID == _gameLogic.CurrentPlayer.Id)
 				_buildManager.UpdateStrip(id, typeID, percent);
@@ -523,14 +522,6 @@ namespace Yad.UI.Client {
 			//ShowPossibilitiesForBuilding(id);
 		}
 
-		/*
-		private void PlaceUnit(int objectID, short id) {
-			//create or let user choose where to place unit?
-			//this.isCreatingUnit = true;
-			_gameLogic.createUnit(id, objectID);
-			//_objectToCreateId = id;
-		}
-		 */
 
 		private void PlaceBuilding(short id, int creatorID) {
             InfoLog.WriteInfo("Placing building: " + id + "creatorID: " + creatorID, EPrefix.BMan);
@@ -545,116 +536,14 @@ namespace Yad.UI.Client {
 			_selecting = false;
 		}
 
-		/*
-		internal void addUnitCreationPossibility(string name, short key) {
-
-			short id = gameLogic.GameSettingsWrapper.namesToIds[name];
-			//stripesManager.BuildingClickedOnMap(id); //remove -- this method will be used when smb. clicks on a building -> units on menu
-			rightStripe.Add(id, name, Path.Combine(Settings.Default.Pictures, name + ".png"), false);//TODO add picture name to xsd.
-		}
-		*/
-		/* RS
-		public void AddBuildingToStripe(short id) {
-			String name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-			leftStripe.Add(id, name, name, true); //TODO add picture name to xsd.
-		}*/
 
 		public void BuildEndStripViewUpdate(int creatorID) {
 			_buildManager.ReadyReset(creatorID);
 		}
 		public void AddBuildingToStripe(ObjectID objectid, short typeId) {
 			_buildManager.AddBuilding(objectid, typeId);
-			//string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-			//leftStripe.Add(id, name, name, true);
 		}
 
-		Dictionary<short, OwnerDrawPictureButton> stripLeftItems = new Dictionary<short, OwnerDrawPictureButton>();
-		/*public void CreateBuildingButtonsOnStripe() {
-			foreach (short id in GlobalSettings.Wrapper.buildingsMap.Keys){
-				List<short> dep = new List<short>();
-				string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-				//leftStripe.Add(id, name, name, true);
-				BuildingData bdata = GlobalSettings.Wrapper.buildingsMap[id];
-				foreach (String bname in bdata.BuildingsCanProduce) {
-					short idb = GlobalSettings.Wrapper.namesToIds[bname];
-					ObjectID obid = new ObjectID();
-					obid.ObjectId = -1;
-					rightStripe.Add(idb, obid, bname, bname, true);
-					dep.Add(idb);
-                    
-				}
-				foreach (String uname in bdata.UnitsCanProduce) {
-					short idu = GlobalSettings.Wrapper.namesToIds[uname];
-					ObjectID obid = new ObjectID();
-					obid.ObjectId = -1;
-					rightStripe.Add(idu, obid, uname, uname, false);
-					dep.Add(idu);
-				}
-				dependDic.Add(id, dep);
-			}
-			//leftStripe.HideAll();
-			rightStripe.HideAll();
-         
-		}*/
-		/*public void ShowPossibilitiesForBuilding(short idB) {
-			rightStripe.HideAll();
-			List<short> itemsToShow = new List<short>();
-
-			foreach (short id in dependDic[idB]) {
-				if (GlobalSettings.Wrapper.buildingsMap.ContainsKey(id)) {
-					string name = GlobalSettings.Wrapper.buildingsMap[id].Name;
-					if (CheckDependencies(name))
-						itemsToShow.Add(id);
-				}
-				else
-					itemsToShow.Add(id);
-                    
-			}
-			rightStripe.ShowRange(itemsToShow.ToArray());
-		}*/
-		/*
-		public void ShowPossibilitiesForBuilding(short idB) {
-			rightStripe.RemoveAll(); // flush the stripe
-
-			//simulation.GameSettingsWrapper.
-			if (leftStripe.Ids.Contains(idB)) {
-				BuildingData data = GlobalSettings.Wrapper.buildingsMap[idB];
-				foreach (String name in data.BuildingsCanProduce) {
-					short id = GlobalSettings.Wrapper.namesToIds[name];
-					InfoLog.WriteInfo(name, EPrefix.ClientInformation);
-					if (rightStripe.Ids.Contains(id)) continue;
-					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-					if (CheckDependencies(name)) {
-						rightStripe.Add(id, name, name, true);
-					}
-				}
-				foreach (String name in data.UnitsCanProduce) {
-					short id = GlobalSettings.Wrapper.namesToIds[name];
-					if (rightStripe.Ids.Contains(id)) continue;
-
-					//TODO: use dictionary<short id, Bitmap picture>, initialize in GameSettingsWrapper contructor
-					rightStripe.Add(id, name, name, false);
-				}
-			}
-		}*/
-
-		private bool CheckDependencies(string name) {
-			TechnologyDependences deps = GlobalSettings.Wrapper.racesMap[_gameLogic.CurrentPlayer.House].TechnologyDependences;
-			foreach (TechnologyDependence dep in deps.TechnologyDependenceCollection) {
-				if (dep.BuildingName.Equals(name)) {
-					foreach (string n in dep.RequiredBuildings) {
-						short id = GlobalSettings.Wrapper.namesToIds[n];
-						if (_gameLogic.hasBuilding(id) == false) return false;
-					}
-				}
-			}
-			return true;
-		}
-
-		internal bool IsStripContainingBuilding(short ids) {
-			return leftStripe.Ids.Contains(ids);
-		}
-		#endregion
 
 		#region Public methods
 		public bool IsSelecting {

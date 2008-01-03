@@ -7,6 +7,7 @@ using Yad.Net.Common;
 using Yad.Net.Messaging.Common;
 using Yad.UI.Client;
 using Yad.Net.Messaging;
+using Yad.Log;
 
 namespace Yad.Net.Client
 {
@@ -73,7 +74,7 @@ namespace Yad.Net.Client
         {
             handlerSuspender.WaitOne();
 
-			InfoLog3.WriteInfo(message.ToString());
+			InfoLog.WriteInfo(message.ToString(), LogFiles.IncomingMsgLog);
 
             switch (message.Type)
             {

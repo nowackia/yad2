@@ -159,6 +159,9 @@ namespace Yad.Net.Server {
                         RemoveGameJoin(player.Id);
                         RemoveLogged(player.Id);
                         break;
+                    case MenuState.Game:
+                        RemoveLogged(player.Id);
+                        break;
                 }
 
             }

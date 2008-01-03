@@ -79,7 +79,6 @@ namespace Yad.Net.GameServer.Server {
 
             MessageHandler = new GameMessageHandler(this);
             MessageHandler.SetSender(_msgSender);
-
             
             InfoLog.WriteInfo("Game server for game: " + sgInfo.Name + "created successfully", EPrefix.ServerInformation);
         }
@@ -154,11 +153,11 @@ namespace Yad.Net.GameServer.Server {
 
         public void OnConnectionLost(object sender, ConnectionLostEventArgs clea) {
             Player player = sender as Player;
-            //todo: opcjonalnie wywalic
             UpdatePlayerStats(player.Id);
             GameNumericMessage numMsg = (GameNumericMessage)MessageFactory.Create(MessageType.PlayerDisconnected);
             numMsg.Number = player.Id;
-            numMsg.IdTurn = _simulation.GetPlayerTurn(player.Id) + _simulation.Delta;
+            int minTurn = _simulation.GetMinTurn();
+            numMsg.IdTurn = minTurn + _simulation.Delta + 1;
             bool areNoPlayersLeft;
            
             lock (((ICollection)_playerCollection).SyncRoot) {
@@ -166,8 +165,8 @@ namespace Yad.Net.GameServer.Server {
                 areNoPlayersLeft = (_playerCollection.Count == 0);
             }
 
-            int minTurn = _simulation.GetMinTurn();
             _simulation.RemovePlayer(player.Id);
+            player.OnConnectionLost -= new ConnectionLostDelegate(OnConnectionLost);
 
             if (!areNoPlayersLeft) {
                 _simulation.AddMessage(numMsg);

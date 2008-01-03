@@ -61,10 +61,17 @@ namespace Yad.Net.GameServer.Server {
                 case MessageType.EndGame:
                     ProcessGameEnd((GameEndMessage)item);
                     break;
+                case MessageType.GameLeave:
+                    ProcessGameLeave(item);
+                    break;
                 default:
                     InfoLog.WriteInfo("Unknown message to process: " + item.Type, EPrefix.GameMessageProccesing);
                     break;
             }
+        }
+
+        private void ProcessGameLeave(Message item) {
+            _gameServer.OnConnectionLost(_gameServer.GetPlayer(item.SenderId), new ConnectionLostEventArgs());
         }
 
         private void ProcessResume(short p) {
