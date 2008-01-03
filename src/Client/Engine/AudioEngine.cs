@@ -37,53 +37,45 @@ namespace Yad.Engine.Client
             system.update();
         }
 
+        private bool InitErrorCheck(FMOD.RESULT result)
+        {
+            bool isInitialized = FMOD.ERROR.ERRCHECK(result);
+            if (!isInitialized)
+            {
+                isInitialized = false;
+                music = new Music();
+                sound = new Sound();
+                InfoLog.WriteInfo("No audio: " + FMOD.ERROR.String(result), EPrefix.AudioEngine);
+                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
+            }
+            return isInitialized;
+        }
+
         public void Init()
         {
+            if (!Settings.Default.AudioEngineAvail)
+            {
+                InitErrorCheck(FMOD.RESULT.ERR_OFF_MANUALLY);
+                return;
+            }
+
             uint version = 0;
-            FMOD.RESULT result;
 
-            /* Create a System object and initialize. */
-            result = FMOD.Factory.System_Create(ref system);
-            if (!FMOD.ERROR.ERRCHECK(result))
-            {
-                isInitialized = false;
-                music = new Music();
-                sound = new Sound();
-                InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
-                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
+            /* Create a System object and initialize */
+            if(!InitErrorCheck(FMOD.Factory.System_Create(ref system)))
                 return;
-            }
 
-            result = system.getVersion(ref version);
-            if (!FMOD.ERROR.ERRCHECK(result))
-            {
-                isInitialized = false;
-                music = new Music();
-                sound = new Sound();
-                InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
-                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
+            if(!InitErrorCheck(system.getVersion(ref version)))
                 return;
-            }
+
             if (version < FMOD.VERSION.number)
             {
-                isInitialized = false;
-                music = new Music();
-                sound = new Sound();
-                InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
-                MessageBox.Show("Error!  You are using an old version of FMOD " + version.ToString("X") + ".  This program requires " + FMOD.VERSION.number.ToString("X") + ".");
+                InitErrorCheck(FMOD.RESULT.ERR_VERSION);
                 return;
             }
 
-            result = system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null);
-            if (!FMOD.ERROR.ERRCHECK(result))
-            {
-                isInitialized = false;
-                music = new Music();
-                sound = new Sound();
-                InfoLog.WriteInfo("No audio", EPrefix.AudioEngine);
-                MessageBox.Show(FMOD.ERROR.String(result), "FMOD Error");
+            if(!InitErrorCheck(system.init(32, FMOD.INITFLAG.NORMAL, (IntPtr)null)))
                 return;
-            }
 
             isInitialized = true;
             music = new Music(system);

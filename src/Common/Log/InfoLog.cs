@@ -39,7 +39,7 @@ namespace Yad.Log.Common {
 
         #endregion
 
-        #region Konstruktory
+        #region Constructors
 
         private InfoLog() {
             _globalInfoLogPrefix = new InfoLogPrefix();

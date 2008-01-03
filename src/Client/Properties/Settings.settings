@@ -113,5 +113,8 @@
     <Setting Name="SandwormTurnsOff" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1500</Value>
     </Setting>
+    <Setting Name="AudioEngineAvail" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

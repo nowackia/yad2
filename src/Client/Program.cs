@@ -33,10 +33,6 @@ namespace Yad.Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            AudioEngine.Instance.Init();
-            AudioEngine.Instance.Music.LoadMusic();
-            AudioEngine.Instance.Sound.LoadSounds();
-
 			MiniForm miniForm = new MiniForm();
             miniForm.Hide();
 

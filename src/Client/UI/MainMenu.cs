@@ -500,7 +500,7 @@ namespace Yad.UI.Client
                 { Connection.Instance.InitConnection(serverLoginMenu.Text); }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, ex.Message, "Login error");
+                    MessageBox.Show(this, ex.Message, "Register error");
                     ManageControlState(new Control[] { registerRegisterMenu, backRegisterMenu }, true);
                     return;
                 }

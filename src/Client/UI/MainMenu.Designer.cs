@@ -31,6 +31,7 @@ namespace Yad.UI.Client
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             this.tabControl = new Yad.UI.MenuTabControl();
             this.mainMenu = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -425,7 +426,6 @@ namespace Yad.UI.Client
             this.passwordLoginMenu.Name = "passwordLoginMenu";
             this.passwordLoginMenu.Size = new System.Drawing.Size(162, 20);
             this.passwordLoginMenu.TabIndex = 3;
-            this.passwordLoginMenu.Text = "testpassword";
             this.passwordLoginMenu.UseSystemPasswordChar = true;
             // 
             // passwordLabel
@@ -1719,7 +1719,6 @@ namespace Yad.UI.Client
             this.continuePauseMenu.Text = "Continue";
             this.continuePauseMenu.UseVisualStyleBackColor = true;
             this.continuePauseMenu.Click += new System.EventHandler(this.continuePauseMenu_Click);
-
             // 
             // exitPauseMenu
             // 
@@ -1778,6 +1777,7 @@ namespace Yad.UI.Client
             this.Controls.Add(this.tabControl);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainMenuForm";
             this.Text = "YAD II Menu";

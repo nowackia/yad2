@@ -131,6 +131,7 @@ namespace FMOD
         ERR_NET_URL,               /* The specified URL couldn't be resolved. */
         ERR_NET_WOULD_BLOCK,       /* Operation on a non-blocking socket could not complete immediately. */
         ERR_NOTREADY,              /* Operation could not be performed because specified sound is not ready. */
+        ERR_OFF_MANUALLY,          /* Fmod turned off manually */
         ERR_OUTPUT_ALLOCATED,      /* Error initializing output device, but more specifically, the output device is already in use and cannot be reused. */
         ERR_OUTPUT_CREATEBUFFER,   /* Error creating hardware sound buffer. */
         ERR_OUTPUT_DRIVERCALL,     /* A call to a standard soundcard driver failed, which could possibly mean a bug in the driver or resources were missing or exhausted. */
