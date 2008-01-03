@@ -215,14 +215,15 @@ namespace Yad.UI.Common
             _hHook = IntPtr.Zero;
         }
 
+        #pragma warning disable 0618
         private static void Initialize()
         {
-            //if (_hHook != IntPtr.Zero)
-            //    throw new NotSupportedException("Multiple calls are not supported");
-
-            //if (_owner != null)
+            /*if (_hHook != IntPtr.Zero)
+                throw new NotSupportedException("Multiple calls are not supported");
+            if (_owner != null)*/
             _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
         }
+        #pragma warning restore 0618
 
         private static IntPtr MessageBoxHookProc(int nCode, IntPtr wParam, IntPtr lParam)
         {

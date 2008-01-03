@@ -32,7 +32,11 @@ namespace Yad.UI.Client
         {
             InitializeComponent();
 
-            #region Appearance Initialization
+            #region Initialization
+            AudioEngine.Instance.Init();
+            AudioEngine.Instance.Music.LoadMusic();
+            AudioEngine.Instance.Sound.LoadSounds();
+
             this.tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.MinimumSize = this.MaximumSize = this.Size = new Size(Width, 373);
             #endregion
