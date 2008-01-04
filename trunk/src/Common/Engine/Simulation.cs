@@ -15,6 +15,8 @@ using Yad.Utilities.Common;
 using Yad.UI.Common;
 using Yad.Net.Messaging;
 using Yad.Net.Common;
+
+using System.IO;
 using Yad.Log;
 
 namespace Yad.Engine.Common {
@@ -143,6 +145,8 @@ namespace Yad.Engine.Common {
 		int turnAsk;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
+            FileStream fs = new FileStream("FullSimulationLog.txt", FileAccess.Write);
+            StreamWriter writer = new StreamWriter(fs);
 
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
@@ -250,8 +254,36 @@ namespace Yad.Engine.Common {
                 InfoLog.WriteInfo(sb.ToString(), EPrefix.BMan);
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
+
+                recordFullSimulationState(writer);
 			}
+            writer.Close();
+            fs.Close();
 		}
+
+        private void recordFullSimulationState(StreamWriter writer)
+        {
+            writer.WriteLine();
+            writer.WriteLine("Turn: " + this.CurrentTurn);
+            foreach(Player player in this.Players)
+            {
+                writer.WriteLine("Player: " + player.Id.ToString() + " - " + player.Name + ". Team id: " + player.TeamID);
+                writer.WriteLine("Player credits: " + player.Credits.ToString());
+                writer.WriteLine("Player power: " + player.Power.ToString());
+                writer.WriteLine("Player colour: " + player.Color.ToString());
+                writer.WriteLine("Player units info: ");
+                writer.WriteLine("Player units count: " + player.GetAllUnits().Count);
+                foreach (Unit unit in player.GetAllUnits())
+                {
+                    unit.write(writer);
+                }
+
+            }
+
+            writer.Flush();
+        }
+
+
 
 		/// <summary>
 		/// Handles unit - animation, movement, etc. If you need to destroy another unit or building

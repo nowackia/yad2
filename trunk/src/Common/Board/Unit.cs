@@ -879,5 +879,15 @@ namespace Yad.Board.Common {
         }
 
         #endregion
+
+        public void write(System.IO.StreamWriter writer)
+        {
+            writer.WriteLine("Trooper: ");
+            writer.WriteLine("ObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID);
+            writer.WriteLine("Position: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString());
+            writer.WriteLine("State: " + this.State.ToString());
+            writer.WriteLine("Health: " + this._currentHealth.ToString());
+            writer.WriteLine("Direction: " + this._direction.ToString());
+        }
     }
 }
