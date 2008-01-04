@@ -143,11 +143,11 @@ namespace Yad.Engine.Common {
 		}
 
 		int turnAsk;
+        FileStream fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
+        StreamWriter writer = new StreamWriter(fs);
 		private void ProcessTurns() {
 			List<GameMessage> messages;
-            FileStream fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
-            StreamWriter writer = new StreamWriter(fs);
-
+            int turn;
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
 				_nextTurnSemaphore.WaitOne(); //wait for MessageTurn
@@ -156,7 +156,7 @@ namespace Yad.Engine.Common {
 					this._turnProcessor = null;
 					return;
 				}
-
+                int turn = this.CurrentTurn;
                 InfoLog.WriteInfo("********** TURN " + this.CurrentTurn + " BEGIN **********", EPrefix.Test);
 
 				messages = _currentMessages;
@@ -255,16 +255,16 @@ namespace Yad.Engine.Common {
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 
-                recordFullSimulationState(writer);
+                recordFullSimulationState(turn, writer);
 			}
            // writer.Close();
            // fs.Close();
 		}
 
-        private void recordFullSimulationState(StreamWriter writer)
+        private void recordFullSimulationState(int turn, StreamWriter writer)
         {
             writer.WriteLine();
-            writer.WriteLine("Turn: " + this.CurrentTurn);
+            writer.WriteLine("Turn: " + turn);
             foreach(Player player in this.Players.Values)
             {
                 writer.WriteLine("Player: " + player.Id.ToString() + " - " + player.Name + ". Team id: " + player.TeamID);
@@ -273,10 +273,13 @@ namespace Yad.Engine.Common {
                 writer.WriteLine("Player colour: " + player.Color.ToString());
                 writer.WriteLine("Player units info: ");
                 writer.WriteLine("Player units count: " + player.GetAllUnits().Count);
-                foreach (Unit unit in player.GetAllUnits())
-                {
+                foreach (Unit unit in player.GetAllUnits()){
                     unit.write(writer);
                 }
+                foreach (Building b in player.GetAllBuildings()){
+                    b.write(writer);
+                }
+
 
             }
 
