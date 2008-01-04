@@ -149,7 +149,6 @@ namespace Yad.Engine.Common {
         StreamWriter writer = null;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
-            int turn;
 			while (true) {
 				InfoLog.WriteInfo("Waiting for new turn", EPrefix.SimulationInfo);
 				_nextTurnSemaphore.WaitOne(); //wait for MessageTurn
