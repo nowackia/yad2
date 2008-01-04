@@ -70,7 +70,8 @@ namespace Yad.UI.Server
 
         private void ConsoleForm_Load(object sender, EventArgs e)
         {
-            _serverProcess = new ServerMain();
+            //przy uruchomieniu konsoli zmienic!!!
+            //_serverProcess = new ServerMain();
         }
 
         public void StartServer() {
@@ -94,6 +95,7 @@ namespace Yad.UI.Server
                 ShowConsole();
         }
 
+        
         private void ShowConsole()
         {
             this.Show();
@@ -101,6 +103,7 @@ namespace Yad.UI.Server
             contextMenuStrip.Items[0].Text = "Hide console";
         }
 
+        
         private void HideConsole()
         {
             this.Hide();
@@ -108,13 +111,14 @@ namespace Yad.UI.Server
             contextMenuStrip.Items[0].Text = "Show console";
         }
 
+        /*
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
             if (this.Visible)
                 HideConsole();
             else
                 ShowConsole();
-        }
+        }*/
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e) {
             AboutServer aserv = new AboutServer();
