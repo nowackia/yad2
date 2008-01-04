@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -17,6 +18,8 @@ namespace Yad.Engine.Client
         private FMOD.System system;
 
         private bool isInitialized;
+
+        private ISynchronizeInvoke invoker;
 
         private Timer timer;
 
@@ -51,7 +54,7 @@ namespace Yad.Engine.Client
             return isInitialized;
         }
 
-        public void Init()
+        public void Init(ISynchronizeInvoke newInvoker)
         {
             if (!Settings.Default.AudioEngineAvail)
             {
@@ -78,8 +81,9 @@ namespace Yad.Engine.Client
                 return;
 
             isInitialized = true;
-            music = new Music(system);
-            sound = new Sound(system);
+            invoker = newInvoker;
+            music = new Music(system, invoker);
+            sound = new Sound(system, invoker);
 
             timer.Start();
 
@@ -97,6 +101,12 @@ namespace Yad.Engine.Client
         {
             get
             { return instance; }
+        }
+
+        public ISynchronizeInvoke Invoker
+        {
+            get { return invoker; }
+            set { invoker = value; }
         }
 
         public bool IsInitialized

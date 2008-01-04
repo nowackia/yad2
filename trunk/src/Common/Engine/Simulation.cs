@@ -400,7 +400,7 @@ namespace Yad.Engine.Common {
 					_nextTurnSemaphore.Release();
 				} catch (SemaphoreFullException) {
 					_currentTurn--;
-					MessageBoxEx.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
+					MessageBox.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
 			int ms = (Environment.TickCount - turnAsk);

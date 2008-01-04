@@ -130,13 +130,16 @@
   <data name="Menu_Planet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Menu_Planet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Menu_VersionBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Menu_VersionBox.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ProcessStringFormat" xml:space="preserve">
     <value>Processing {0} for player {1}</value>
   </data>
   <data name="tray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tray.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI_Button.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_Button_Pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI_Button_Pressed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

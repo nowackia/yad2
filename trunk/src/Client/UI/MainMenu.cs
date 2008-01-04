@@ -33,7 +33,7 @@ namespace Yad.UI.Client
             InitializeComponent();
 
             #region Initialization
-            AudioEngine.Instance.Init();
+            AudioEngine.Instance.Init(this);
             AudioEngine.Instance.Music.LoadMusic();
             AudioEngine.Instance.Sound.LoadSounds();
 
@@ -637,7 +637,6 @@ namespace Yad.UI.Client
                 this.Invoke(new ManageListBoxEventHandler(ManageListBox), new object[] { userListChatMenu, e.chatUsers, false });
             else
                 ManageListBox(userListChatMenu, e.chatUsers, false);
-
         }
 
         void menuMessageHandler_DeleteChatUsers(object sender, ChatEventArgs e)

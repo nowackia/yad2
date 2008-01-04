@@ -92,13 +92,6 @@ namespace Yad.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Menu_VersionBox {
-            get {
-                object obj = ResourceManager.GetObject("Menu_VersionBox", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Processing {0} for player {1}.
         /// </summary>
@@ -112,6 +105,20 @@ namespace Yad.Properties {
             get {
                 object obj = ResourceManager.GetObject("tray", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Button {
+            get {
+                object obj = ResourceManager.GetObject("UI_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UI_Button_Pressed {
+            get {
+                object obj = ResourceManager.GetObject("UI_Button_Pressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
