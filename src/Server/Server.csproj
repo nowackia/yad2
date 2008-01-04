@@ -33,6 +33,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Interop.ADOX.dll</HintPath>
     </Reference>
+    <Reference Include="PictureButton, Version=1.0.2892.20801, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\PictureButton.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -135,7 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="server.cd" />
-    <None Include="Resources\Menu_VersionBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\UI_Button.png" />
+    <Content Include="Resources\UI_Button_Pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

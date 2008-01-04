@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using Yad.Properties.Client;
@@ -19,6 +20,7 @@ namespace Yad.Engine.Client
     }
 
     public delegate void MusicEndEventHandler(object sender, MusicEndEventArgs e);
+    public delegate bool PlayMusicEventHandler(FMOD.Sound sound);
 
     public class MusicEndEventArgs : EventArgs
     {
@@ -45,21 +47,21 @@ namespace Yad.Engine.Client
         private bool manualMusicEnd;
         private bool isMuted;
         private float volume;
+        private ISynchronizeInvoke invoker;
         private bool isInitialized;
 
-        private object musicLockObject = new object();
-
         public Music()
-            : this(null, false)
+            : this(null, null, false)
         { }
 
-        public Music(FMOD.System system)
-            : this(system, true)
+        public Music(FMOD.System system, ISynchronizeInvoke invoker)
+            : this(system, invoker, true)
         { }
 
-        public Music(FMOD.System system, bool isInitialized)
+        public Music(FMOD.System system, ISynchronizeInvoke invoker, bool isInitialized)
         {
             this.system = system;
+            this.invoker = invoker;
             this.isInitialized = isInitialized;
 
             if (isInitialized && system == null)
@@ -175,44 +177,47 @@ namespace Yad.Engine.Client
 
         private bool Play(FMOD.Sound sound)
         {
+            if (invoker != null)
+            {
+                if (invoker.InvokeRequired)
+                    return (bool)invoker.Invoke(new PlayMusicEventHandler(PlayThreadSafe), new object[] { sound });
+                else
+                    return PlayThreadSafe(sound);
+            }
+            else
+                return false;
+        }
+
+        private bool PlayThreadSafe(FMOD.Sound sound)
+        {
             if (!isInitialized)
                 return false;
 
-            lock (musicLockObject)
+            bool isPlaying = false;
+
+            if (channel != null)
+                channel.isPlaying(ref isPlaying);
+            else
+                isPlaying = false;
+
+            if (isPlaying && channel != null)
             {
-                bool isPlaying = false;
-
-                if (channel != null)
-                    channel.isPlaying(ref isPlaying);
-                else
-                    isPlaying = false;
-
-                if (isPlaying && channel != null)
-                    manualMusicEnd = true;
-
-                if (channel != null)
-                {
-                    channel.setVolume(0.0f);
-                    channel.stop();
-                    channel = null;
-                }
-
-                try
-                {
-                    FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
-                    if (result == FMOD.RESULT.OK && channel != null)
-                    {
-                        channel.setVolume(volume);
-                        channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
-                        InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
-                        channel.setPaused(false);
-                    }
-
-                    return FMOD.ERROR.ERRCHECK(result);
-                }
-                catch
-                { return false; }
+                manualMusicEnd = true;
+                channel.setMute(true);
+                channel.stop();
+                channel = null;
             }
+
+            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
+            if (result == FMOD.RESULT.OK && channel != null)
+            {
+                channel.setVolume(volume);
+                channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
+                channel.setPaused(false);
+            }
+
+            return FMOD.ERROR.ERRCHECK(result);
         }
 
         public bool Play(MusicType mt)
