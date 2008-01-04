@@ -26,10 +26,17 @@ namespace CustomTests {
             System.Console.Out.WriteLine("#2");
             p = BoardObject.RangeSpiral(2, out limit);
             foreach (Position pos in p) {
-                System.Console.Out.WriteLine(pos.X + " " + pos.Y);
+                //System.Console.Out.WriteLine(pos.X + " " + pos.Y);
             }
             if (limit != 21) {
                 throw new TestException(limit + " - zly limit");
+            }
+            int c;
+            p = BoardObject.RangeSpiral(30, out c);
+
+            System.Console.Out.WriteLine("############## " + c);
+            if (c != 2895) {
+                System.Console.Out.WriteLine("Dzwon do radzia");
             }
 
 
