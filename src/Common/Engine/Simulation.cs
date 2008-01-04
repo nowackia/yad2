@@ -272,11 +272,14 @@ namespace Yad.Engine.Common {
                 writer.WriteLine("Player credits: " + player.Credits.ToString());
                 writer.WriteLine("Player power: " + player.Power.ToString());
                 writer.WriteLine("Player colour: " + player.Color.ToString());
+                writer.WriteLine();
                 writer.WriteLine("Player units info: ");
                 writer.WriteLine("Player units count: " + player.GetAllUnits().Count);
                 foreach (Unit unit in player.GetAllUnits()){
                     unit.write(writer);
                 }
+                writer.WriteLine();
+                writer.WriteLine("Player buildings info: ");
                 foreach (Building b in player.GetAllBuildings()){
                     b.write(writer);
                 }
