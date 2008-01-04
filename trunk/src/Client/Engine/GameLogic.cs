@@ -238,7 +238,8 @@ namespace Yad.Engine.Client {
                 sandworm.State = Unit.UnitState.destroyed;
                 _sim.Map.Units[sandworm.Position.X, sandworm.Position.Y].Remove(sandworm);
             }
-			_sim.Sandworms = new Dictionary<int, Unit>();
+			//_sim.Sandworms = new Dictionary<int, Unit>();
+			_sim.Sandworms.Clear();
 		}
 
 		#endregion
