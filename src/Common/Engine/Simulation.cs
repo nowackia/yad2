@@ -128,6 +128,8 @@ namespace Yad.Engine.Common {
 			for (int i = 0; i < _bufferLength; i++) {
 				this._turns[i] = new List<GameMessage>();
 			}
+            fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
+            writer = new StreamWriter(fs);
 		}
 		#endregion
 
@@ -143,8 +145,8 @@ namespace Yad.Engine.Common {
 		}
 
 		int turnAsk;
-        FileStream fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
-        StreamWriter writer = new StreamWriter(fs);
+        FileStream fs = null;
+        StreamWriter writer = null;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
             int turn;
@@ -156,7 +158,7 @@ namespace Yad.Engine.Common {
 					this._turnProcessor = null;
 					return;
 				}
-                int turn = this.CurrentTurn;
+                int cur_turn = this.CurrentTurn;
                 InfoLog.WriteInfo("********** TURN " + this.CurrentTurn + " BEGIN **********", EPrefix.Test);
 
 				messages = _currentMessages;
@@ -255,7 +257,7 @@ namespace Yad.Engine.Common {
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 
-                recordFullSimulationState(turn, writer);
+                recordFullSimulationState(cur_turn, writer);
 			}
            // writer.Close();
            // fs.Close();
