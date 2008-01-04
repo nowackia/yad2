@@ -145,7 +145,7 @@ namespace Yad.Engine.Common {
 		int turnAsk;
 		private void ProcessTurns() {
 			List<GameMessage> messages;
-            FileStream fs = new FileStream("FullSimulationLog.txt", FileAccess.Write);
+            FileStream fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
             StreamWriter writer = new StreamWriter(fs);
 
 			while (true) {
@@ -257,15 +257,15 @@ namespace Yad.Engine.Common {
 
                 recordFullSimulationState(writer);
 			}
-            writer.Close();
-            fs.Close();
+           // writer.Close();
+           // fs.Close();
 		}
 
         private void recordFullSimulationState(StreamWriter writer)
         {
             writer.WriteLine();
             writer.WriteLine("Turn: " + this.CurrentTurn);
-            foreach(Player player in this.Players)
+            foreach(Player player in this.Players.Values)
             {
                 writer.WriteLine("Player: " + player.Id.ToString() + " - " + player.Name + ". Team id: " + player.TeamID);
                 writer.WriteLine("Player credits: " + player.Credits.ToString());
