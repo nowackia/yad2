@@ -49,6 +49,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AStarTest", "AStarTest\ASta
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncGuard", "SyncGuard\SyncGuard.csproj", "{28B4E781-560D-4BE9-A24B-20E047B8821B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +93,10 @@ Global
 		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F6BD57B-9AEA-4FDE-9CC9-5E5FD7FD9638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B4E781-560D-4BE9-A24B-20E047B8821B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B4E781-560D-4BE9-A24B-20E047B8821B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B4E781-560D-4BE9-A24B-20E047B8821B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B4E781-560D-4BE9-A24B-20E047B8821B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
