@@ -1,8 +1,0 @@
-bin\Debug\SyncGuard.exe
-bin\Debug\SyncGuard.pdb
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\SyncGuard.SyncGuard.resources
-obj\Debug\SyncGuard.Properties.Resources.resources
-obj\Debug\SyncGuard.csproj.GenerateResource.Cache
-obj\Debug\SyncGuard.exe
-obj\Debug\SyncGuard.pdb
