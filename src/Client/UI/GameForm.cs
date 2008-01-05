@@ -251,7 +251,7 @@ namespace Yad.UI.Client {
 
         public override void Shutdown() {
             base.Shutdown();
-            GameGraphics.DeinitGL();
+            //GameGraphics.DeinitGL();
             
             this.gameFormClose = true;
         }
