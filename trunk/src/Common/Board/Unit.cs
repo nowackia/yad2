@@ -882,7 +882,7 @@ namespace Yad.Board.Common {
 
         public void write(System.IO.StreamWriter writer)
         {
-            writer.WriteLine("Trooper: ");
+            writer.WriteLine("Unit: " + this._name);
             writer.WriteLine("ObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID);
             writer.WriteLine("Position: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString());
             writer.WriteLine("State: " + this.State.ToString());
