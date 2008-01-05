@@ -171,11 +171,11 @@ namespace Yad.Engine.Client
         {
             lock (syncMusicCallback)
             {
-                InfoLog.WriteInfo(DateTime.Now.ToString() + " | Before Fire music end event", EPrefix.AudioEngine);
+                InfoLog.WriteInfo(DateTime.Now.ToString() + " [ Before Fire music end event", EPrefix.AudioEngine);
                 if (MusicEnd != null && !manualMusicEnd)
                 {
                     MusicEnd(this, new MusicEndEventArgs(musicType));
-                    InfoLog.WriteInfo(DateTime.Now.ToString() + " | After Fire music end event", EPrefix.AudioEngine);
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + " [ After Fire music end event", EPrefix.AudioEngine);
                 }
                 return FMOD.RESULT.OK;
             }
@@ -226,12 +226,12 @@ namespace Yad.Engine.Client
                 {
                     channel.setVolume(volume);
                     channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
-                    InfoLog.WriteInfo(DateTime.Now.ToString() + " | Before Play music begin", EPrefix.AudioEngine);
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + "   | Before Play music begin", EPrefix.AudioEngine);
                     channel.setPaused(false);
                 }
             }
 
-            InfoLog.WriteInfo(DateTime.Now.ToString() + " | After Play music begin, result: " + result, EPrefix.AudioEngine);
+            InfoLog.WriteInfo(DateTime.Now.ToString() + "   | After Play music begin, result: " + result, EPrefix.AudioEngine);
 
             return FMOD.ERROR.ERRCHECK(result);
         }
@@ -268,7 +268,7 @@ namespace Yad.Engine.Client
 
             short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
 
-            InfoLog.WriteInfo(DateTime.Now.ToString() + " | Changed track to: " + index + ", Music Type: " + mt.ToString(), EPrefix.AudioEngine);
+            InfoLog.WriteInfo(DateTime.Now.ToString() + "  - Changed track to: " + index + ", Music Type: " + mt.ToString(), EPrefix.AudioEngine);
 
             return this.Play(tracks[index]);
         }
