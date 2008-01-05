@@ -169,53 +169,69 @@ namespace Yad.Engine.Client
 
         private FMOD.RESULT endPlayCallbackFunction(IntPtr channelRaw, FMOD.CHANNEL_CALLBACKTYPE tipo, int comando, uint datoComando1, uint datoComando2)
         {
-            if (MusicEnd != null && !manualMusicEnd)
-                MusicEnd(this, new MusicEndEventArgs(musicType));
-            manualMusicEnd = false;
-            return FMOD.RESULT.OK;
+            lock (syncMusicCallback)
+            {
+                InfoLog.WriteInfo(DateTime.Now.ToString() + " | Before Fire music end event", EPrefix.AudioEngine);
+                if (MusicEnd != null && !manualMusicEnd)
+                {
+                    MusicEnd(this, new MusicEndEventArgs(musicType));
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + " | After Fire music end event", EPrefix.AudioEngine);
+                }
+                return FMOD.RESULT.OK;
+            }
         }
 
         private bool Play(FMOD.Sound sound)
         {
+            if (!isInitialized)
+                return false;
+
             if (invoker != null)
             {
                 if (invoker.InvokeRequired)
-                    return (bool)invoker.Invoke(new PlayMusicEventHandler(PlayThreadSafe), new object[] { sound });
+                    return (bool)invoker.Invoke(new PlayMusicEventHandler(PlayMusicCallback), new object[] { sound });
                 else
-                    return PlayThreadSafe(sound);
+                    return PlayMusicCallback(sound);
             }
             else
                 return false;
         }
 
-        private bool PlayThreadSafe(FMOD.Sound sound)
+        private object syncMusicCallback = new object();
+
+        private bool PlayMusicCallback(FMOD.Sound sound)
         {
-            if (!isInitialized)
-                return false;
+            FMOD.RESULT result;
 
-            bool isPlaying = false;
-
-            if (channel != null)
-                channel.isPlaying(ref isPlaying);
-            else
-                isPlaying = false;
-
-            if (isPlaying && channel != null)
+            lock (syncMusicCallback)
             {
-                manualMusicEnd = true;
-                channel.setMute(true);
-                channel.stop();
-                channel = null;
+                bool isPlaying = false;
+                manualMusicEnd = false;
+
+                if (channel != null)
+                    channel.isPlaying(ref isPlaying);
+                else
+                    isPlaying = false;
+
+                if (isPlaying && channel != null)
+                {
+                    manualMusicEnd = true;
+                    channel.setMute(true);
+                    channel.stop();
+                    channel = null;
+                }
+
+                result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
+                if (result == FMOD.RESULT.OK && channel != null)
+                {
+                    channel.setVolume(volume);
+                    channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + " | Before Play music begin", EPrefix.AudioEngine);
+                    channel.setPaused(false);
+                }
             }
 
-            FMOD.RESULT result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
-            if (result == FMOD.RESULT.OK && channel != null)
-            {
-                channel.setVolume(volume);
-                channel.setCallback(FMOD.CHANNEL_CALLBACKTYPE.END, endPlayCallback, 0);
-                InfoLog.WriteInfo("Changed music to: " + sound.ToString() + " Result: " + result, EPrefix.AudioEngine);
-                channel.setPaused(false);
-            }
+            InfoLog.WriteInfo(DateTime.Now.ToString() + " | After Play music begin, result: " + result, EPrefix.AudioEngine);
 
             return FMOD.ERROR.ERRCHECK(result);
         }
@@ -251,6 +267,8 @@ namespace Yad.Engine.Client
             musicType = mt;
 
             short index = indices[(short)mt] = (short)((indices[(short)mt] + 1) % tracks.Count);
+
+            InfoLog.WriteInfo(DateTime.Now.ToString() + " | Changed track to: " + index + ", Music Type: " + mt.ToString(), EPrefix.AudioEngine);
 
             return this.Play(tracks[index]);
         }
