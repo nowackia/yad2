@@ -12,6 +12,8 @@ namespace Yad.Log {
         [Description("IncomingMsgLog.txt")]
         IncomingMsgLog,
         [Description("ProcessMsgLog.txt")]
-        ProcessMsgLog
+        ProcessMsgLog,
+        [Description("AudioEngineLog.txt")]
+        AudioEngineLog
     }
 }

@@ -295,9 +295,9 @@ namespace Yad.Engine
                     if (sequentialPlayList.Count != 0)
                     {
                         if (invoker.InvokeRequired)
-                            invoker.Invoke(new PlaySoundEventHandler(Play), new object[] { houses[this.houseId][(short)this.sequentialPlayList[0]] });
+                            invoker.Invoke(new PlaySoundEventHandler(PlaySoundCallback), new object[] { houses[this.houseId][(short)this.sequentialPlayList[0]] });
                         else
-                            PlayCallback(houses[this.houseId][(short)this.sequentialPlayList[0]]);
+                            PlaySoundCallback(houses[this.houseId][(short)this.sequentialPlayList[0]]);
                     }
                 }
                 catch
@@ -307,7 +307,7 @@ namespace Yad.Engine
             }
         }
 
-        private bool Play(FMOD.Sound sound)
+        private bool PlaySound(FMOD.Sound sound)
         {
             try
             {
@@ -325,7 +325,7 @@ namespace Yad.Engine
             { return false; }
         }
 
-        private bool PlayCallback(FMOD.Sound sound)
+        private bool PlaySoundCallback(FMOD.Sound sound)
         {
             try
             {
@@ -350,9 +350,9 @@ namespace Yad.Engine
                 return false;
 
             if (invoker.InvokeRequired)
-                return (bool)invoker.Invoke(new PlaySoundEventHandler(Play), new object[] { misc[(short)miscSound] });
+                return (bool)invoker.Invoke(new PlaySoundEventHandler(PlaySound), new object[] { misc[(short)miscSound] });
             else
-                return Play(misc[(short)miscSound]);
+                return PlaySound(misc[(short)miscSound]);
         }
 
         public bool PlayHouse(short houseId, HouseSoundType houseSound)
@@ -361,9 +361,9 @@ namespace Yad.Engine
                 return false;
 
             if (invoker.InvokeRequired)
-                return (bool)invoker.Invoke(new PlaySoundEventHandler(Play), new object[] { houses[houseId][(short)houseSound] });
+                return (bool)invoker.Invoke(new PlaySoundEventHandler(PlaySound), new object[] { houses[houseId][(short)houseSound] });
             else
-                return Play(houses[houseId][(short)houseSound]);
+                return PlaySound(houses[houseId][(short)houseSound]);
 
         }
 
@@ -392,9 +392,9 @@ namespace Yad.Engine
                 if (beginPlay)
                 {
                     if (invoker.InvokeRequired)
-                        return (bool)invoker.Invoke(new PlaySoundEventHandler(PlayCallback), new object[] { houses[houseId][(short)houseSounds[0]] });
+                        return (bool)invoker.Invoke(new PlaySoundEventHandler(PlaySoundCallback), new object[] { houses[houseId][(short)houseSounds[0]] });
                     else
-                        return PlayCallback(houses[houseId][(short)houseSounds[0]]);
+                        return PlaySoundCallback(houses[houseId][(short)houseSounds[0]]);
                 }
 
                 return true;
