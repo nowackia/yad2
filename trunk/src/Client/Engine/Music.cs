@@ -175,7 +175,7 @@ namespace Yad.Engine.Client
                 if (MusicEnd != null && !manualMusicEnd)
                 {
                     MusicEnd(this, new MusicEndEventArgs(musicType));
-                    InfoLog.WriteInfo(DateTime.Now.ToString() + " [ After Fire music end event", EPrefix.AudioEngine);
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + " ] After Fire music end event", EPrefix.AudioEngine);
                 }
                 return FMOD.RESULT.OK;
             }
