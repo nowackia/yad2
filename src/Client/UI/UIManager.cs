@@ -268,7 +268,7 @@ namespace Yad.UI.Client
                 case MenuOption.Continue:
                     switchView(Views.GameForm, true);
                     break;
-                case MenuOption.GameFormToChat:
+                case MenuOption.Exit:
                     switchView(Views.ChatForm);
                     ((MainMenuForm)(actualForm)).LastView = Views.MainMenuForm;
                     break;
