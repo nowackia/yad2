@@ -632,5 +632,9 @@ namespace Yad.Engine.Client {
                 ammoBlow(a);
             }
         }
-    }
+
+		protected override void onMessagePlayerDisconnected(GameNumericMessage gameNumericMessage) {
+			players[(short)gameNumericMessage.Number].IsDisconnected = true;
+		}
+	}
 }

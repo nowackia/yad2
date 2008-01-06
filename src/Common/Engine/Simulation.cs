@@ -37,9 +37,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// Turn length in miliseconds
 		/// </summary>
-		static int turnLength = Yad.Properties.Common.Settings.Default.TurnLength;
-
-        
+		static int turnLength = Yad.Properties.Common.Settings.Default.TurnLength;   
         
 
 		#endregion
@@ -189,8 +187,10 @@ namespace Yad.Engine.Common {
 						this.onMessageHarvest((HarvestMessage)gm);
 					} else if (gm.Type == MessageType.DeployMCV) {
 						this.onMessageDeployMCV((GMDeployMCV)gm);
-                    } else if (gm.Type == MessageType.BuildUnitMessage){
+                    } else if (gm.Type == MessageType.BuildUnitMessage) {
                         this.onMessageBuildUnit((BuildUnitMessage)gm);
+					} else if (gm.Type == MessageType.PlayerDisconnected) {
+						this.onMessagePlayerDisconnected((GameNumericMessage)gm);
 					} else {
 						throw new NotImplementedException("This message type is not supported! Refer to Simulation.cs");
 					}
@@ -261,6 +261,8 @@ namespace Yad.Engine.Common {
            // writer.Close();
            // fs.Close();
 		}
+
+		protected abstract void onMessagePlayerDisconnected(GameNumericMessage gameNumericMessage);
 
         private void recordFullSimulationState(int turn, StreamWriter writer)
         {

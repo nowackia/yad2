@@ -95,13 +95,14 @@ namespace Yad.Net.Client
                 case MessageType.Attack:
                 case MessageType.DeployMCV:
                 case MessageType.BuildUnitMessage:
+				case MessageType.PlayerDisconnected:
                     if (GameMessageReceive != null)
                         GameMessageReceive(this, (GameMessage)message);
                     break;
-                case MessageType.PlayerDisconnected:
-                    if (PlayerDisconnected != null)
-                        PlayerDisconnected(this, (GameNumericMessage)message);
-                    break;
+                //case MessageType.PlayerDisconnected:
+                //    if (PlayerDisconnected != null)
+                //        PlayerDisconnected(this, (GameNumericMessage)message);
+                //    break;
                 case MessageType.DoTurn:
                     if (DoTurnPermission != null)
                         DoTurnPermission(this, (DoTurnMessage)message);
