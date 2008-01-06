@@ -211,7 +211,7 @@ namespace Yad.UI.Client {
 			gameEndMessage.HasWon = isWinner;
 
 			/* Managing the UI */
-			MainMenuForm mainMenuForm = FormPool.GetForm(Views.MainMenuForm) as MainMenuForm;
+			MainMenuForm mainMenuForm = FormPool.GetForm(Views.ChatForm) as MainMenuForm;
 			if (mainMenuForm != null)
 				mainMenuForm.MenuMessageHandler.Suspend();
 
@@ -225,7 +225,8 @@ namespace Yad.UI.Client {
 			if (this.InvokeRequired) this.Invoke(new MethodInvoker(this.Close));
 			else this.Close();
 
-			OnMenuOptionChange(MenuOption.GameFormToChat);
+            // dosyc nieladne, bo to moze byc przejscie i z pause i z gamemenu (bo moga byc nad gameform)
+			OnMenuOptionChange(new MenuOptionArg( MenuOption.Exit,this,true));
 
 			if (mainMenuForm != null)
 				mainMenuForm.MenuMessageHandler.Resume();
