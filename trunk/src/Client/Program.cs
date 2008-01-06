@@ -27,8 +27,10 @@ namespace Yad.Client
             InfoLog.Instance.InitializeLogFile(LogFiles.IncomingMsgLog);
             InfoLog.Instance.InitializeLogFile(LogFiles.BuildManagerLog);
             InfoLog.Instance.InitializeLogFile(LogFiles.AudioEngineLog);
+            InfoLog.Instance.InitializeLogFile(LogFiles.Astar);
 
             InfoLog.Instance.AddRedirection(EPrefix.BMan, LogFiles.BuildManagerLog);
+            InfoLog.Instance.AddRedirection(EPrefix.AStar, LogFiles.Astar);
             InfoLog.Instance.AddRedirection(EPrefix.AudioEngine, LogFiles.AudioEngineLog);
             InfoLog.WriteStart();
 			

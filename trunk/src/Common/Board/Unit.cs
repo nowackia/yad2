@@ -739,6 +739,7 @@ namespace Yad.Board.Common {
                 InfoLog.WriteInfo(InfoPrefix() + "Counted path to substitute goal: (" + _tmpGoal.X + " , " + _tmpGoal.Y + ")", EPrefix.AStar);
                 _goal = destination;
                 state = UnitState.moving;
+                printCurrentPath();
                 return true;
             }
             //cel nie jest zajety, szukana jest bezposrednia sciezka do celu
@@ -755,10 +756,19 @@ namespace Yad.Board.Common {
             state = UnitState.moving;
             _goal = destination;
             InfoLog.WriteInfo(InfoPrefix() + "Counted path to goal: (" + _goal.X + " , " + _goal.Y + ")", EPrefix.AStar);
+            printCurrentPath();
             return true;
 
 
             //this._remainingTurnsInMove = this.speed;
+        }
+        private void printCurrentPath() {
+            Position[] path_toPrint = _currentPath.ToArray();
+            StringBuilder sb = new StringBuilder("Path: ");
+            for (int i = 0; i < path_toPrint.Length; ++i)
+                sb.Append(" (" + path_toPrint[i].X + "," + path_toPrint[i].Y + ")");
+            InfoLog.WriteInfo(sb.ToString(), EPrefix.AStar);
+                
         }
 
         /// <summary>

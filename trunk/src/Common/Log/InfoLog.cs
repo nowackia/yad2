@@ -179,7 +179,7 @@ namespace Yad.Log.Common {
 
         private void WriteInfoIns(string s, LogFile lf) {
             if (_isEnabled) {
-                lf.Write("#I:# " + DateTime.Now.ToString() + "  " + s);
+                lf.Write(s);
             }
         }
       
