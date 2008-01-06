@@ -99,7 +99,7 @@ namespace Yad.AI.General {
         #region IComparable<AStarNode<V>> Members
 
         public int CompareTo(AStarNode<V> other) {
-            return TotalValue - other.TotalValue;
+            return this.TotalValue - other.TotalValue;
         }
 
         #endregion
