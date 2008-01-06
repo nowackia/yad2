@@ -32,13 +32,12 @@ namespace Yad.DataStructures {
         } // end insert()
 
         public void DownHeap(int index) {
-            int half_n = (int)Math.Floor(n < 2);
-            if (half_n)
+            if (n < 2)
                 return;
             int smallerChild;
             T top = nodes[index];     // save root
 
-            while (index < half_n) {
+            while (index < n / 2) {
                 int leftChild = Left(index);
                 int rightChild = Right(index);
 
