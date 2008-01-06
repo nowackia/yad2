@@ -82,16 +82,17 @@ namespace Yad.Engine.Client {
             _sim.ammoBlow += new ClientSimulation.AmmoHandler(_sim_ammoBlow);
             _sim.ammoShoot += new ClientSimulation.AmmoHandler(_sim_ammoShoot);
             this.GameEnd += new GameEndHandler(GameLogic_GameEnd);
+			_sim.onTurnEnd += new SimulationHandler(CheckGameEndCondition);
 		}
 
         void Instance_PlayerDisconnected(object sender, GameNumericMessage gnm) {
-            _sim.GetPlayer((short)gnm.Number).IsDisconnected = true;
-            CheckGameEndCondition();
-        }
-
-        
+            //_sim.GetPlayer((short)gnm.Number).IsDisconnected = true;
+            //CheckGameEndCondition();
+        }        
 
 		void GameLogic_GameEnd(int winTeamId) {
+			this.GameEnd -= new GameEndHandler(GameLogic_GameEnd);
+
 			GameMessageHandler.Instance.GameMessageReceive -= new GameMessageEventHandler(Instance_GameMessageReceive);
 			GameMessageHandler.Instance.DoTurnPermission -= new DoTurnEventHandler(Instance_DoTurnPermission);
 			GameMessageHandler.Instance.GameInitialization -= new GameInitEventHandler(Instance_GameInitialization);
@@ -105,6 +106,7 @@ namespace Yad.Engine.Client {
 			_sim.MCVDeployed -= new ClientSimulation.UnitHandler(_sim_MCVDeployed);
             _sim.ammoShoot -= new ClientSimulation.AmmoHandler(_sim_ammoShoot);
             _sim.ammoBlow -= new ClientSimulation.AmmoHandler(_sim_ammoBlow);
+			_sim.onTurnEnd -= new SimulationHandler(CheckGameEndCondition);
         }
 
         void _sim_ammoShoot(Ammo u) {
