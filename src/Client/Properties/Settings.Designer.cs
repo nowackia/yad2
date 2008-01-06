@@ -361,7 +361,7 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
         public int SandwormTurnsOn {
             get {
                 return ((int)(this["SandwormTurnsOn"]));
@@ -373,7 +373,7 @@ namespace Yad.Properties.Client {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int SandwormTurnsOff {
             get {
                 return ((int)(this["SandwormTurnsOff"]));
