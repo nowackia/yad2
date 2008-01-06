@@ -108,10 +108,10 @@
       <Value Profile="(Default)">Resources/Audio/FX/Misc/</Value>
     </Setting>
     <Setting Name="SandwormTurnsOn" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="SandwormTurnsOff" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">500</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="AudioEngineAvail" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
