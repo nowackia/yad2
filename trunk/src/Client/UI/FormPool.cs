@@ -80,6 +80,7 @@ namespace Yad.UI.Client
                 case Views.PauseForm:
                 case Views.GameMenuForm:
                     form = new MainMenuForm();
+                    form.Hide();
                     InitMainMenu(form);
                     break;
 

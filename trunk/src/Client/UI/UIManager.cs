@@ -317,7 +317,7 @@ namespace Yad.UI.Client
             switch (option)
             {
                 case MenuOption.Exit:
-                    Stop();
+                    switchView(Views.ChatForm);
                     break;
                     //throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
@@ -342,7 +342,8 @@ namespace Yad.UI.Client
             switch (option)
             {
                 case MenuOption.Exit:
-                    Stop();
+                    //Stop();
+                    switchView(Views.ChatForm);
                     break;
                     //throw new NotImplementedException("System exit from " + actualView + ": " + option);
 
