@@ -544,14 +544,10 @@ namespace Yad.Engine.Client {
             {
                 if(player.Equals(_sim.SimulationPlayer)) continue;
                 if (teamGameObjectCount.ContainsKey(player.TeamID)) {
-                    if (!player.IsDisconnected)
                         teamGameObjectCount[player.TeamID] += player.GameObjectsCount;
                 }
                 else {
-                    if (!player.IsDisconnected)
                         teamGameObjectCount.Add(player.TeamID, player.GameObjectsCount);
-                    else
-                        teamGameObjectCount.Add(player.TeamID, 0);
                 }
             }
 

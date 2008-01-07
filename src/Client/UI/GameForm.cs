@@ -152,6 +152,7 @@ namespace Yad.UI.Client {
 					BuildEndStripViewUpdate(creatorID);
 				AddBuildingToStripe(b.ObjectID, b.TypeID);
 			}
+      
 		}
 
 		void ConnectionInstance_ConnectionLost(object sender, EventArgs e) {
