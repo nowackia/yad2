@@ -171,12 +171,13 @@ namespace Yad.Engine.Client
         {
             lock (syncMusicCallback)
             {
-                InfoLog.WriteInfo(DateTime.Now.ToString() + " [ Before Fire music end event", EPrefix.AudioEngine);
+                InfoLog.WriteInfo(DateTime.Now.ToString() + " [ Before Fire music end event, Manual music end: " + manualMusicEnd, EPrefix.AudioEngine);
                 if (MusicEnd != null && !manualMusicEnd)
                 {
                     MusicEnd(this, new MusicEndEventArgs(musicType));
                     InfoLog.WriteInfo(DateTime.Now.ToString() + " ] After Fire music end event", EPrefix.AudioEngine);
                 }
+                manualMusicEnd = false;
                 return FMOD.RESULT.OK;
             }
         }
@@ -216,10 +217,13 @@ namespace Yad.Engine.Client
                 if (isPlaying && channel != null)
                 {
                     manualMusicEnd = true;
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + "   | Music is playing, Manual music end: " + manualMusicEnd, EPrefix.AudioEngine);
                     channel.setMute(true);
                     channel.stop();
                     channel = null;
                 }
+                else
+                    InfoLog.WriteInfo(DateTime.Now.ToString() + "   | Music is not playing, Manual music end: " + manualMusicEnd, EPrefix.AudioEngine);
 
                 result = system.playSound(FMOD.CHANNELINDEX.REUSE, sound, true, ref channel);
                 if (result == FMOD.RESULT.OK && channel != null)
