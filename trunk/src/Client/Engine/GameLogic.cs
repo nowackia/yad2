@@ -216,7 +216,7 @@ namespace Yad.Engine.Client {
 		}
 
 		private Position getPosition(int i) {
-			Position p = new Position(((_sim.CurrentTurn + i*7) % 37 + 515) % _sim.Map.Width, ((_sim.CurrentTurn + i*3) % 43 + 361) % _sim.Map.Width);
+			Position p = new Position(((_sim.CurrentTurn + i*31) % 537 + 9515) % _sim.Map.Width, ((_sim.CurrentTurn + i*17) % 743 + 9361) % _sim.Map.Width);
 			p = FindLocation(p, _sim.Map, checkSandLocation);
 			return p;
 		}
