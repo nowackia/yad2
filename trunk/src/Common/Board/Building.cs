@@ -491,13 +491,12 @@ namespace Yad.Board.Common {
 			return false;
 		}
 
-        internal void write(System.IO.StreamWriter writer)
-        {
-            writer.WriteLine("Building: " + this.BuildingData.__Name);
-            writer.WriteLine("ObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID);
-            writer.WriteLine("Position: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString());
-            writer.WriteLine("State: " + this.State.ToString());
-            writer.WriteLine("Health: " + this._currentHealth.ToString());
+        public override string ToString() {
+            return "Building: " + this.BuildingData.Name  + 
+				"\r\nObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID + 
+				"\r\nPosition: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString() + 
+				"\r\nState: " + this.State.ToString() + 
+				"\r\nHealth: " + this._currentHealth.ToString();
         }
     }
 }

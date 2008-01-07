@@ -457,10 +457,8 @@ namespace Yad.Board.Common {
         protected string InfoPrefix() {
             return this._name + " Unit: " + this.ObjectID.ToString() + " :";
         }
-        public override string ToString() {
-            return this.ObjectID.ToString() + " name: " + this.Name + " type: " + this.TypeID;
-        }
-        public virtual bool Move() {
+
+		public virtual bool Move() {
             if (!this.Moving) {
                 if (this._lastPosition.X != Position.X && this._lastPosition.Y != Position.Y)
                     this._map.Units[this._lastPosition.X, this._lastPosition.Y].Remove(this);
@@ -890,14 +888,12 @@ namespace Yad.Board.Common {
 
         #endregion
 
-        public void write(System.IO.StreamWriter writer)
-        {
-            writer.WriteLine("Unit: " + this._name);
-            writer.WriteLine("ObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID);
-            writer.WriteLine("Position: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString());
-            writer.WriteLine("State: " + this.State.ToString());
-            writer.WriteLine("Health: " + this._currentHealth.ToString());
-            writer.WriteLine("Direction: " + this._direction.ToString());
+        public override string ToString() {
+            return "Unit: " + this._name +
+					"\r\nObjectId:" + this.ObjectID.ObjectId.ToString() + ", playerId:" + this.ObjectID.PlayerID +
+					"\r\nPosition: " + this.Position.X.ToString() + ", " + this.Position.Y.ToString() +
+					"\r\nState: " + this.State.ToString() + "\r\nHealth: " + this._currentHealth.ToString() +
+					"\r\nDirection: " + this._direction.ToString();
         }
     }
 }
