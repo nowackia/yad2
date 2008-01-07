@@ -217,7 +217,7 @@
     
 		<tns:UnitTankData>
 			<tns:Name>RocketLauncher</tns:Name>
-			<tns:Cost>200</tns:Cost>
+			<tns:Cost>600</tns:Cost>
 			<tns:FireRange>6</tns:FireRange>
 			<tns:FirePower>7</tns:FirePower>
 			<tns:Speed>9</tns:Speed>
@@ -227,7 +227,7 @@
 			<tns:DamageDestroyRange>0</tns:DamageDestroyRange>
 			<tns:Health>70</tns:Health>
 			<tns:ViewRange>6</tns:ViewRange>
-			<tns:BuildSpeed>50</tns:BuildSpeed>
+			<tns:BuildSpeed>60</tns:BuildSpeed>
 			<tns:DamageDestroy>0</tns:DamageDestroy>
 			<tns:RotationSpeed>2</tns:RotationSpeed>
 			<tns:TurretRotationSpeed>1</tns:TurretRotationSpeed>
@@ -592,10 +592,10 @@
 
 		<tns:BuildingData>
 			<tns:Name>RocketTurret</tns:Name>
-			<tns:Cost>700</tns:Cost>
+			<tns:Cost>750</tns:Cost>
 			<tns:Health>100</tns:Health>
 			<tns:ViewRange>7</tns:ViewRange>
-			<tns:BuildSpeed>55</tns:BuildSpeed>
+			<tns:BuildSpeed>80</tns:BuildSpeed>
 			<tns:Size>
 				<tns:X>1</tns:X>
 				<tns:Y>1</tns:Y>

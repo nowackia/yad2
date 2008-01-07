@@ -126,8 +126,6 @@ namespace Yad.Engine.Common {
 			for (int i = 0; i < _bufferLength; i++) {
 				this._turns[i] = new List<GameMessage>();
 			}
-            fs = new FileStream("FullSimulationLog.txt", FileMode.Create);
-            writer = new StreamWriter(fs);
 		}
 		#endregion
 
@@ -143,8 +141,7 @@ namespace Yad.Engine.Common {
 		}
 
 		int turnAsk;
-        FileStream fs = null;
-        StreamWriter writer = null;
+
 		private void ProcessTurns() {
 			List<GameMessage> messages;
 			while (true) {
@@ -256,7 +253,7 @@ namespace Yad.Engine.Common {
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 
-                recordFullSimulationState(cur_turn, writer);
+                recordFullSimulationState(cur_turn);
 			}
            // writer.Close();
            // fs.Close();
@@ -264,35 +261,28 @@ namespace Yad.Engine.Common {
 
 		protected abstract void onMessagePlayerDisconnected(GameNumericMessage gameNumericMessage);
 
-        private void recordFullSimulationState(int turn, StreamWriter writer)
+        private void recordFullSimulationState(int turn)
         {
-            writer.WriteLine();
-            writer.WriteLine("Turn: " + turn);
+			InfoLog.Write("\r\nTurn: " + turn, LogFiles.FullSimulationLog);
+
             foreach(Player player in this.Players.Values)
             {
-                writer.WriteLine("Player: " + player.Id.ToString() + " - " + player.Name + ". Team id: " + player.TeamID);
-                writer.WriteLine("Player credits: " + player.Credits.ToString());
-                writer.WriteLine("Player power: " + player.Power.ToString());
-                writer.WriteLine("Player colour: " + player.Color.ToString());
-                writer.WriteLine();
-                writer.WriteLine("Player units info: ");
-                writer.WriteLine("Player units count: " + player.GetAllUnits().Count);
-                foreach (Unit unit in player.GetAllUnits()){
-                    unit.write(writer);
+				InfoLog.Write("Player: " + player.Id.ToString() + " - " + player.Name + ". Team id: " + player.TeamID, LogFiles.FullSimulationLog);
+				InfoLog.Write("Player credits: " + player.Credits.ToString(), LogFiles.FullSimulationLog);
+				InfoLog.Write("Player power: " + player.Power.ToString(), LogFiles.FullSimulationLog);
+				InfoLog.Write("Player colour: " + player.Color.ToString(), LogFiles.FullSimulationLog);
+				InfoLog.Write("\r\n", LogFiles.FullSimulationLog);
+				InfoLog.Write("Player units info: ", LogFiles.FullSimulationLog);
+				InfoLog.Write("Player units count: " + player.GetAllUnits().Count, LogFiles.FullSimulationLog);
+                foreach (Unit unit in player.GetAllUnits()) {
+					InfoLog.Write(unit.ToString(), LogFiles.FullSimulationLog);
                 }
-                writer.WriteLine();
-                writer.WriteLine("Player buildings info: ");
+				InfoLog.Write("\r\nPlayer buildings info: ");
                 foreach (Building b in player.GetAllBuildings()){
-                    b.write(writer);
+					InfoLog.Write(b.ToString(), LogFiles.FullSimulationLog);
                 }
-
-
-            }
-
-            writer.Flush();
+			}
         }
-
-
 
 		/// <summary>
 		/// Handles unit - animation, movement, etc. If you need to destroy another unit or building
