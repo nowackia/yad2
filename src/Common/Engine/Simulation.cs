@@ -282,7 +282,7 @@ namespace Yad.Engine.Common {
 					InfoLog.Write(b.ToString(), LogFiles.FullSimulationLog);
                 }
 			}
-            foreach (UnitSandworm sandworm in sandworms) {
+            foreach (UnitSandworm sandworm in sandworms.Values) {
                 InfoLog.Write(sandworm.ToString(), LogFiles.FullSimulationLog);
             }
         }
