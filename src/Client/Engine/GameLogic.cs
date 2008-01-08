@@ -275,9 +275,8 @@ namespace Yad.Engine.Client {
 			}
 
 			this._sim.StartSimulation();
-			/*
-			sim.DoTurn();
-			 */
+
+			this._sim.DoTurn();
 		}
 
 		void Instance_DoTurnPermission(object sender, DoTurnMessage dtm) {
