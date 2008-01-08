@@ -63,7 +63,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
 		/// </summary>
-		Semaphore _nextTurnSemaphore = new Semaphore(1, 1);
+		Semaphore _nextTurnSemaphore = new Semaphore(0, 1);
 
 		/// <summary>
 		/// SpeedUp length in turns
@@ -72,7 +72,8 @@ namespace Yad.Engine.Common {
 		/// </summary>
 		int _speedUpLength = 0;
 
-		int _currentTurn = 0;
+		int _currentTurn = -1;
+		int _turnForMessages = 0;
 
 		/// <summary>
 		/// This thread will process messages from current turn
@@ -152,8 +153,8 @@ namespace Yad.Engine.Common {
 					this._turnProcessor = null;
 					return;
 				}
-                int cur_turn = this.CurrentTurn;
-                InfoLog.WriteInfo("********** TURN " + this.CurrentTurn + " BEGIN **********", EPrefix.Test);
+
+				_currentTurn++;
 
 				messages = _currentMessages;
 
@@ -253,7 +254,7 @@ namespace Yad.Engine.Common {
 				InfoLog.WriteInfo("OnTurnEnd end", EPrefix.SimulationInfo);
                 InfoLog.WriteInfo("********* TURN " + this.CurrentTurn + " END *********", EPrefix.Test);
 
-                recordFullSimulationState(cur_turn);
+                recordFullSimulationState(_currentTurn);
 			}
            // writer.Close();
            // fs.Close();
@@ -378,14 +379,14 @@ namespace Yad.Engine.Common {
 			InfoLog.WriteInfo("Waiting to add message", EPrefix.SimulationInfo);
 			lock (_turns.SyncRoot) {
 				InfoLog.WriteInfo("Adding message: " + gameMessage.Type.ToString(), EPrefix.SimulationInfo);
-                int turno = gameMessage.IdTurn - (this.CurrentTurn + 1);
-				if (turno < 0 || turno >= _bufferLength) {
-					MessageBox.Show("Error! turno = " + turno.ToString());
+                int messageTurnNumber = gameMessage.IdTurn - _turnForMessages;
+				if (messageTurnNumber < 0 || messageTurnNumber >= _bufferLength) {
+					MessageBox.Show("Error! turno = " + messageTurnNumber.ToString());
 				}
 				if (gameMessage.Type == MessageType.BuildUnitMessage || gameMessage.Type == MessageType.Build) {
-					InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + turno + "], actual turn: " + this.CurrentTurn, EPrefix.Test);
+					InfoLog.WriteInfo("Adding Build \\BuildUnitMessage to _turn[" + messageTurnNumber + "], actual turn: " + this.CurrentTurn, EPrefix.Test);
 				}
-                this._turns[turno].Add(gameMessage);
+                this._turns[messageTurnNumber].Add(gameMessage);
 			}
 		}
 
@@ -397,11 +398,11 @@ namespace Yad.Engine.Common {
 			//InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
 			lock (_turns.SyncRoot) {
 				_currentMessages = ShiftTurns();
-				_currentTurn++;
+				_turnForMessages++;
 				try {
 					_nextTurnSemaphore.Release();
 				} catch (SemaphoreFullException) {
-					_currentTurn--;
+					_turnForMessages--;
 					MessageBox.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
