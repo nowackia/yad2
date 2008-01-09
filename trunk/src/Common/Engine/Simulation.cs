@@ -166,9 +166,10 @@ namespace Yad.Engine.Common {
 					return;
 				}
 
-				_currentTurn++;
-
-				messages = _currentMessages.Dequeue();
+				lock (_turns.SyncRoot) {
+					_currentTurn++;
+					messages = _currentMessages.Dequeue();
+				}
 
 				InfoLog.WriteInfo("Turn: " + CurrentTurn.ToString(), LogFiles.ProcessMsgLog);
 
@@ -499,5 +500,11 @@ namespace Yad.Engine.Common {
         public void AddAmmo(Ammo ammo) {
             this.players[ammo.ObjectID.PlayerID].AddAmmo(ammo);
         }
+
+		protected int getBufferedTurns() {
+			lock (_turns.SyncRoot) {
+				return _currentMessages.Count;
+			}
+		}
     }
 }

@@ -74,7 +74,11 @@ namespace Yad.Engine.Client {
 		}
 
 		void ClientSimulation_onTurnBegin() {
-			Connection.Instance.SendMessage(tam);
+			int bufferedTurns = this.getBufferedTurns();
+			if (bufferedTurns == 0) { //u¿ywaæ tego jeœli nie dzia³a <= 2
+			//if (bufferedTurns <= 2) {
+				Connection.Instance.SendMessage(tam);
+			}
 		}
 
 		public Dictionary<int, Unit> Sandworms {
