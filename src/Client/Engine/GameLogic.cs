@@ -291,14 +291,14 @@ namespace Yad.Engine.Client {
                     }
                     if (PauseResume != null)
                         PauseResume(false);
-                    _sim.DoTurn(1);
+                    _sim.DoTurn(dtm.TurnsToGo);
                     break;
                 case PauseAction.None:
                     if (dtm.SpeedUp) {
                         _sim.SpeedUp = true;
                         InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
                     }
-                    _sim.DoTurn(1);
+                    _sim.DoTurn(dtm.TurnsToGo);
                     break;
                 case PauseAction.Pause:
                     //this._isPaused = true;
