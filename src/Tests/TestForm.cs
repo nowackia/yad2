@@ -141,7 +141,7 @@ namespace Tests
                 if (rnd.Next(4) == 0)
                 {
                     s.WaitOne();
-                    sim.DoTurn();
+                    sim.DoTurn(1);
                 }
 
                 msgCount++;

@@ -276,7 +276,7 @@ namespace Yad.Engine.Client {
 
 			this._sim.StartSimulation();
 
-			this._sim.DoTurn();
+			this._sim.DoTurn(1);
 		}
 
 		void Instance_DoTurnPermission(object sender, DoTurnMessage dtm) {
@@ -291,14 +291,14 @@ namespace Yad.Engine.Client {
                     }
                     if (PauseResume != null)
                         PauseResume(false);
-                    _sim.DoTurn();
+                    _sim.DoTurn(1);
                     break;
                 case PauseAction.None:
                     if (dtm.SpeedUp) {
                         _sim.SpeedUp = true;
                         InfoLog.WriteInfo("Speeding Up", EPrefix.GameLogic);
                     }
-                    _sim.DoTurn();
+                    _sim.DoTurn(1);
                     break;
                 case PauseAction.Pause:
                     //this._isPaused = true;

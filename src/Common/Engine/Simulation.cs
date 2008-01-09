@@ -54,7 +54,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// this messages are processed by ProcessTurns
 		/// </summary>
-		List<GameMessage> _currentMessages = new List<GameMessage>();
+		Queue<List<GameMessage>> _currentMessages = new Queue<List<GameMessage>>();
 
 		// these lists are used by ProcessTurn and are created for 1 player at a time
 		List<Building> _buildingsProcessed = new List<Building>(), buildingsToProcess;
@@ -131,7 +131,8 @@ namespace Yad.Engine.Common {
 		#endregion
 
 		#region private methods
-		private List<GameMessage> ShiftTurns() {
+		private void ShiftTurns(int count) {
+			/*
 			List<GameMessage> res = _turns[0];
 			int i;
 			for (i = 0; i < _turns.Length - 1; i++) {
@@ -139,6 +140,17 @@ namespace Yad.Engine.Common {
 			}
 			_turns[i] = new List<GameMessage>();
 			return res;
+			 */
+			int i;
+			for (i = 0; i < count; i++) {
+				_currentMessages.Enqueue(_turns[i]);
+			}
+			for (; i < _turns.Length; i++) {
+				_turns[i - count] = _turns[i];
+			}
+			for (i = 0; i < count; i++) {
+				_turns[_turns.Length - 1 - i] = new List<GameMessage>();
+			}
 		}
 
 		int turnAsk;
@@ -156,7 +168,7 @@ namespace Yad.Engine.Common {
 
 				_currentTurn++;
 
-				messages = _currentMessages;
+				messages = _currentMessages.Dequeue();
 
 				InfoLog.WriteInfo("Turn: " + CurrentTurn.ToString(), LogFiles.ProcessMsgLog);
 
@@ -394,15 +406,15 @@ namespace Yad.Engine.Common {
 		/// This function should be called ONLY after ProcessTurns completes one turn
 		/// and sends a message to the server asking for a next turn
 		/// </summary>
-		public void DoTurn() {
+		public void DoTurn(int turnCount) {
 			//InfoLog.WriteInfo("queue new turn", EPrefix.SimulationInfo);
 			lock (_turns.SyncRoot) {
-				_currentMessages = ShiftTurns();
-				_turnForMessages++;
+				ShiftTurns(turnCount);
+				_turnForMessages += turnCount;
 				try {
-					_nextTurnSemaphore.Release();
+					_nextTurnSemaphore.Release(turnCount);
 				} catch (SemaphoreFullException) {
-					_turnForMessages--;
+					_turnForMessages -= turnCount;
 					MessageBox.Show("DoTurn called to early! Previous turn not yet completed! This can lead to certain problems.");
 				}
 			}
