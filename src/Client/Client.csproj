@@ -5,7 +5,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{01ADEA85-EE2D-4BBF-BE0F-1AEF327DBC54}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Yad</RootNamespace>
     <AssemblyName>Client</AssemblyName>
