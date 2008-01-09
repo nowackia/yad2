@@ -9,6 +9,7 @@ using System.Drawing;
 using Yad.AI;
 using Yad.AI.General;
 using Yad.Algorithms;
+using System.Collections;
 
 namespace Yad.Board.Common {
     /// <summary>
@@ -788,6 +789,10 @@ namespace Yad.Board.Common {
             //end remove
 
             //return path;
+            if (source.X == dest.X && source.Y == dest.Y) {
+                return new Queue<Position>();
+            }
+
             this._mapInput.Start = source;
             this._mapInput.Goal = dest;
             Queue<Position> path = AStar.Search<Position>(this._mapInput);
