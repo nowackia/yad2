@@ -23,6 +23,7 @@ namespace Yad.Client
         [STAThread]
         static void Main()
         {
+            InfoLog.Disable();
             InfoLog.Instance.InitializeLogFile(LogFiles.ProcessMsgLog);
             InfoLog.Instance.InitializeLogFile(LogFiles.IncomingMsgLog);
             InfoLog.Instance.InitializeLogFile(LogFiles.BuildManagerLog);
