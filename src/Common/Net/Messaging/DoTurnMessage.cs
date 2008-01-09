@@ -52,7 +52,7 @@ namespace Yad.Net.Messaging
 		}
 
         public override string ToString() {
-            return base.ToString() + "DoTurnMessage: _speedUp: " + _speedUp + " _pause: " + _pause;
+            return base.ToString() + "DoTurnMessage: _speedUp: " + _speedUp + " _pause: " + _pause + "_turnsToGo: " + _turnsToGo ;
         }
     }
 }
