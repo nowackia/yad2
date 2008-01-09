@@ -63,7 +63,7 @@ namespace Yad.Engine.Common {
 		/// <summary>
 		/// This is blocking ProcessTurns from processing another turn. Released by DoTurn().
 		/// </summary>
-		Semaphore _nextTurnSemaphore = new Semaphore(0, 1);
+		Semaphore _nextTurnSemaphore = new Semaphore(0, 666);
 
 		/// <summary>
 		/// SpeedUp length in turns
