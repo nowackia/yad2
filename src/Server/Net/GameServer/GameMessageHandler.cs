@@ -122,7 +122,7 @@ namespace Yad.Net.GameServer.Server {
             InfoLog.WriteInfo("Processing message: " + gameMessage.Type + 
                 " from player: " + _gameServer.GetPlayer(gameMessage.SenderId).Login, 
                 EPrefix.GameMessageProccesing);
-			gameMessage.IdTurn = _gameServer.Simulation.GetMaxTurn() + 1;
+			gameMessage.IdTurn = this._gameServer.Simulation.GetPlayerTurn(gameMessage.SenderId) + _gameServer.Simulation.Delta + 1;
             _gameServer.Simulation.AddMessage(gameMessage);
             this.SendMessage(gameMessage, -1);
         }
@@ -196,26 +196,17 @@ namespace Yad.Net.GameServer.Server {
         private void IncreaseTurn(short id, PauseAction pauseAction) {
             InfoLog.WriteInfo("Increasing turn for player: " + id, EPrefix.GameMessageProccesing);
             int minTurnBefore = _gameServer.Simulation.GetMinTurn();
-            int maxTurn = _gameServer.Simulation.GetMaxTurn();
-            int actualTurn = _gameServer.Simulation.GetPlayerTurn(id);
-            int delta = 1;
-            
-            if (actualTurn < maxTurn) 
-                delta = maxTurn - actualTurn;
-            _gameServer.Simulation.IncPlayerTurn(id, delta);
-
-            int minTurnAfter = _gameServer.Simulation.GetMinTurn();
-
+            _gameServer.Simulation.IncPlayerTurn(id);
+            int minTurn = _gameServer.Simulation.GetMinTurn();
 			// if this is slowest player then tell him to speed up
 			DoTurnMessage dtm = (DoTurnMessage)MessageFactory.Create(MessageType.DoTurn);
-          
             dtm.Pause = (byte)pauseAction;
-            dtm.TurnsToGo = (short)delta;
-			if (minTurnBefore != minTurnAfter) 
+			if (minTurn != minTurnBefore) {
 				dtm.SpeedUp = true;
+			}
 			//
             SendMessage(dtm, id);
-            if (minTurnAfter != minTurnBefore) {
+            if (minTurn != minTurnBefore) {
                 InfoLog.WriteInfo("Waking waiting players", EPrefix.GameMessageProccesing);
                 short[] stoppedWaiting = _gameServer.Simulation.StopWaiting();
                 InfoLog.WriteInfo("Players to wake: " + stoppedWaiting.ToString(), EPrefix.GameMessageProccesing);

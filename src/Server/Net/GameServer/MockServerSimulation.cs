@@ -53,7 +53,14 @@ namespace Yad.Net.GameServer.Server {
         }
 
         public void IncPlayerTurn(short id) {
-            IncPlayerTurn(id, 1);
+            lock (((ICollection)_gamePlayers).SyncRoot) {
+                if (_gamePlayers.ContainsKey(id)) {
+                    int oldno = _gamePlayers[id].TurnNo;
+                    _gamePlayers[id].TurnNo++;
+                    InfoLog.WriteInfo("Increased playerTurn for player: " + _gamePlayers[id].Login +
+                " from: " + oldno + " to: " + _gamePlayers[id].TurnNo, EPrefix.GameMessageProccesing);
+                }
+            }
         }
 
         public bool IsPlayerWaiting(short id) {
@@ -149,32 +156,6 @@ namespace Yad.Net.GameServer.Server {
                     arrPd[index++] = (PlayerData)gp.Clone();
             }
             return arrPd;
-        }
-
-        #endregion
-
-        #region IServerSimulation Members
-
-
-        public int GetMaxTurn() {
-            int max = int.MinValue;
-            lock (((ICollection)_gamePlayers).SyncRoot) {
-                foreach (GamePlayer gp in _gamePlayers.Values) {
-                    max = Math.Max(max, gp.TurnNo);
-                }
-            }
-            return max;
-        }
-
-        public void IncPlayerTurn(short id, int howMuch) {
-            lock (((ICollection)_gamePlayers).SyncRoot) {
-                if (_gamePlayers.ContainsKey(id)) {
-                    int oldno = _gamePlayers[id].TurnNo;
-                    _gamePlayers[id].TurnNo += howMuch;
-                    InfoLog.WriteInfo("Increased playerTurn for player: " + _gamePlayers[id].Login +
-                " from: " + oldno + " to: " + _gamePlayers[id].TurnNo, EPrefix.GameMessageProccesing);
-                }
-            }
         }
 
         #endregion

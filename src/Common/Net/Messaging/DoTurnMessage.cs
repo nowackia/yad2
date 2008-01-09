@@ -14,9 +14,6 @@ namespace Yad.Net.Messaging
     {
 		bool _speedUp = false;
         byte _pause = (byte)PauseAction.None;
-        short _turnsToGo = 1;
-
-        
 
         public DoTurnMessage()
             : base(MessageType.DoTurn)
@@ -27,11 +24,6 @@ namespace Yad.Net.Messaging
 			set { _speedUp = value; }
 		}
 
-        public short TurnsToGo {
-            get { return _turnsToGo; }
-            set { _turnsToGo = value; }
-        }
-
         public byte Pause {
             get { return _pause; }
             set { _pause = value; }
@@ -41,18 +33,16 @@ namespace Yad.Net.Messaging
 			base.Serialize(writer);
 			writer.Write(_speedUp);
             writer.Write(_pause);
-            writer.Write(_turnsToGo);
 		}
 
 		public override void Deserialize(System.IO.BinaryReader reader) {
 			base.Deserialize(reader);
 			_speedUp = reader.ReadBoolean();
             _pause = reader.ReadByte();
-            _turnsToGo = reader.ReadInt16();
 		}
 
         public override string ToString() {
-            return base.ToString() + "DoTurnMessage: _speedUp: " + _speedUp + " _pause: " + _pause + "_turnsToGo: " + _turnsToGo ;
+            return base.ToString() + "DoTurnMessage: _speedUp: " + _speedUp + " _pause: " + _pause;
         }
     }
 }

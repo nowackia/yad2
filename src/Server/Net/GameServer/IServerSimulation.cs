@@ -11,9 +11,7 @@ namespace Yad.Net.GameServer.Server {
         }
         int  GetPlayerTurn(short id);
         int  GetMinTurn();
-        int GetMaxTurn();
         void IncPlayerTurn(short id);
-        void IncPlayerTurn(short id, int howMuch);
         void AddPlayer(short id, PlayerData pd);
         bool IsPlayerWaiting(short id);
         void SetWaiting(short id);
