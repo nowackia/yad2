@@ -177,6 +177,7 @@ namespace Yad.Net.Server
             InfoLog.WriteInfo(string.Format(ProcessStringFormat, "Chat Text", msg.SenderId), EPrefix.ServerProcessInfo);
             _server.Chat.AddTextMessage(msg);
         }
+
         private bool IsPlayerAlreadyLogged(string login) {
             IEnumerator<KeyValuePair<short, Player>> e = _server.GetPlayers();
             while (e.MoveNext()) {

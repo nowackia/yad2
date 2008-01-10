@@ -20,6 +20,7 @@ namespace Yad.Server
         [STAThread]
         static void Main()
         {
+            InfoLog.Disable();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
             ConsoleForm consoleForm = new ConsoleForm();
