@@ -130,9 +130,17 @@ namespace Yad.Net.Server {
                 _gameServerList.Add(gs);
             }
             gs.OnGameEnd += new GameEndDelegate(OnGameServerEnd);
+            gs.OnPlayerLeave +=new PlayerGameLeaveDelegate(OnPlayerGameLeave);
             gs.StartGameServer();
         }
 
+        private void OnPlayerGameLeave(object sender, EventArgs ea)
+        {
+            Player p = sender as Player;
+            p.State = PlayerStateMachine.Transform(p.State, MenuAction.GameEnd);
+            _server.Chat.AddPlayer(p);
+            p.OnReceiveMessage += new ReceiveMessageDelegate(_server.MessageHandler.OnReceivePlayerMessage);
+        }
         private void OnGameServerEnd(object sender, GameEndEventArgs args)
         {
             Serv.GameServer gs = sender as Serv.GameServer;

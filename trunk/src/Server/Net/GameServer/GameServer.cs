@@ -18,13 +18,14 @@ using System.Windows.Forms;
 namespace Yad.Net.GameServer.Server {
 
     public delegate void GameEndDelegate(object sender, GameEndEventArgs geea);
-
+    public delegate void PlayerGameLeaveDelegate(object sender, EventArgs ea);
     class GameServer : BaseServer {
 
         #region Private members
 
         private ServerGameInfo _serverGameInfo;
         private event GameEndDelegate _onGameEnd;
+        private event PlayerGameLeaveDelegate _onPlayerLeave;
         private object _gameEndEventLock = new object();
         private IServerSimulation _simulation;
         private Semaphore _gameEndSemaphore = new Semaphore(0, 1);
@@ -36,6 +37,7 @@ namespace Yad.Net.GameServer.Server {
 
         #region Properties 
 
+
         public IServerSimulation Simulation {
             get { return _simulation; }
             set { _simulation = value; }
@@ -45,6 +47,10 @@ namespace Yad.Net.GameServer.Server {
             get { return _pauseCtrl; }
         }
 
+        public event PlayerGameLeaveDelegate OnPlayerLeave {
+            add { _onPlayerLeave += value; }
+            remove { _onPlayerLeave -= value; }
+        }
         public event GameEndDelegate OnGameEnd {
             add    { _onGameEnd += value; }
             remove { _onGameEnd -= value; }
@@ -150,7 +156,16 @@ namespace Yad.Net.GameServer.Server {
             StopMessageProcessing();
             InfoLog.WriteInfo("Game server for game: " + _serverGameInfo.Name + "stopped successfully", EPrefix.ServerInformation);
         }
+        public void PlayerLeave(Player player)
+        {
+            
+            OnConnectionLost(player, new ConnectionLostEventArgs());
+            player.OnReceiveMessage -= new ReceiveMessageDelegate(this.MessageHandler.OnReceivePlayerMessage);
 
+            if (_onPlayerLeave != null)
+                _onPlayerLeave(player, new EventArgs());
+            
+        }
         public void OnConnectionLost(object sender, ConnectionLostEventArgs clea) {
             Player player = sender as Player;
             UpdatePlayerStats(player.Id);
@@ -167,6 +182,7 @@ namespace Yad.Net.GameServer.Server {
 
             _simulation.RemovePlayer(player.Id);
             player.OnConnectionLost -= new ConnectionLostDelegate(OnConnectionLost);
+
 
             if (!areNoPlayersLeft) {
                 _simulation.AddMessage(numMsg);

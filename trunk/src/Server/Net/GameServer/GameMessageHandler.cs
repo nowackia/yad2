@@ -71,7 +71,8 @@ namespace Yad.Net.GameServer.Server {
         }
 
         private void ProcessGameLeave(Message item) {
-            _gameServer.OnConnectionLost(_gameServer.GetPlayer(item.SenderId), new ConnectionLostEventArgs());
+            _gameServer.PlayerLeave(_gameServer.GetPlayer(item.SenderId));
+            //_gameServer.OnConnectionLost(_gameServer.GetPlayer(item.SenderId), new ConnectionLostEventArgs());
         }
 
         private void ProcessResume(short p) {
