@@ -17,4 +17,18 @@ bledy - bardziej czepialstwo
 -pliki svn w instalce to lekka przesada
 
 
+niezgodnosci z analiza
+
+-jak oddalic widok?
+
+
+Rozdzia³y:
+
+
+
+#Przeciwnicy:
+	-nie ma nic o salolotach wroga
+	-w dokumentacji nie ma nic powiedziane o tym ze zolnierze moga naprawiac 	 instalacje
+#Cechy interfejsu u¿ytkownika - rozszerzone o opcje gry
+
 ##################
