@@ -14,4 +14,7 @@ bledy - bardziej czepialstwo
 -jak oddalic widok?
 -zderzenie z lotniskowcem nastepuje na wysokosci plyty, a nie w faktycznym miejscu uderzenia
 -dlaczego samolot wybucha przy wodowaniu
+-pliki svn w instalce to lekka przesada
+
+
 ##################
