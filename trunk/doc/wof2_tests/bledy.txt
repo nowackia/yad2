@@ -1,0 +1,17 @@
+latwiej sie merge robi.
+
+
+
+##################
+Radek
+- na pierwszy rzut oka gra dziala super
+
+bledy - bardziej czepialstwo
+
+-gra dzia³a nie na wszystkich wersjach dx 9.0c
+-wywalilem aplikacje gdy po raz pierwszy kliknalem next przy wyborze rozdzielczosci
+-w dokumentacji nie ma nic powiedziane o tym ze zolnierze moga naprawiac instalacje
+-jak oddalic widok?
+-zderzenie z lotniskowcem nastepuje na wysokosci plyty, a nie w faktycznym miejscu uderzenia
+-dlaczego samolot wybucha przy wodowaniu
+##################
