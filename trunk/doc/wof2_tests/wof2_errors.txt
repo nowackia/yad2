@@ -11,24 +11,21 @@ bledy - bardziej czepialstwo
 -gra dzia³a nie na wszystkich wersjach dx 9.0c
 -wywalilem aplikacje gdy po raz pierwszy kliknalem next przy wyborze rozdzielczosci
 -w dokumentacji nie ma nic powiedziane o tym ze zolnierze moga naprawiac instalacje
--jak oddalic widok?
+
 -zderzenie z lotniskowcem nastepuje na wysokosci plyty, a nie w faktycznym miejscu uderzenia
 -dlaczego samolot wybucha przy wodowaniu
 -pliki svn w instalce to lekka przesada
 
 
-niezgodnosci z analiza
-
--jak oddalic widok?
-
-
 Rozdzia³y:
 
-
+#Zasady gry:
+- Widok bêdzie mo¿na oddalaæ/przybli¿aæ - rêcznie?
 
 #Przeciwnicy:
-	-nie ma nic o salolotach wroga
+	-nie ma nic o samolotach wroga
 	-w dokumentacji nie ma nic powiedziane o tym ze zolnierze moga naprawiac 	 instalacje
-#Cechy interfejsu u¿ytkownika - rozszerzone o opcje gry
+#Cechy interfejsu u¿ytkownika 
+	- rozszerzone o opcje gry
 
 ##################
