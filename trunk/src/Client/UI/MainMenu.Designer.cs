@@ -865,6 +865,7 @@ namespace Yad.UI.Client
             // textBoxTBGameName
             // 
             this.textBoxTBGameName.Location = new System.Drawing.Point(42, 259);
+            this.textBoxTBGameName.MaxLength = 20;
             this.textBoxTBGameName.Name = "textBoxTBGameName";
             this.textBoxTBGameName.Size = new System.Drawing.Size(155, 20);
             this.textBoxTBGameName.TabIndex = 1;
@@ -1021,6 +1022,7 @@ namespace Yad.UI.Client
             // gameNameTBCreateGameMenu
             // 
             this.gameNameTBCreateGameMenu.Location = new System.Drawing.Point(272, 129);
+            this.gameNameTBCreateGameMenu.MaxLength = 20;
             this.gameNameTBCreateGameMenu.Name = "gameNameTBCreateGameMenu";
             this.gameNameTBCreateGameMenu.Size = new System.Drawing.Size(179, 20);
             this.gameNameTBCreateGameMenu.TabIndex = 2;
