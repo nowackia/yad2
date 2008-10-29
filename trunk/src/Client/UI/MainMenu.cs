@@ -454,7 +454,7 @@ namespace Yad.UI.Client
             if (e.successful)
             {
                 if (InvokeRequired)
-                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg( MenuOption.Login,this) });
+                    this.Invoke(new MenuEventHandler(OnMenuOptionChange), new object[] { new MenuOptionArg( MenuOption.Login, this) });
                 else
                     OnMenuOptionChange(MenuOption.Login);
 
